@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "skills": {
+    "campaign-sending": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "c4cf31db83ec7dd7d4c501b0b86ef2215c4f798bd6b8c8df1644716957de67d6"
+    },
+    "context-building": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "8acb8c5e1c8a6ae38db92e48dc196d8a854db6c7e3199967ce533a487a671a78"
+    },
+    "email-generation": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "bfe598601b95676c07567be6a3442ae7d185ad87f847d2779e9a394ea81573b2"
+    },
+    "email-prompt-building": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "d8b7d16ba9cf3487cdb1adfd3d4f1c4789f8aab39dd641fa2372511af9e28979"
+    },
+    "email-response-simulation": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "e4820eae75fb9c3f6f45a28128b4b9143c94724d308d58bbbff57e7b9f5f5a08"
+    },
+    "email-search": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "8e73f76a684be4a8fffa643af2e5174def13e09c80467cb3c68eaf49fb12cf09"
+    },
+    "enrichment-design": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "3df2459fcbee3dfc44108c06b7ffade0f65402dc8afd104acbd5cd129828b615"
+    },
+    "hypothesis-building": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "47541cbf410d7f213f11cf752dd98b7c840bb5e93b652eb6516a5c95f8bbcf45"
+    },
+    "list-building": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "0896bc900c79c9c58b3f6197f34bc6b6712d2981e56f7bf13eca1d33918d107c"
+    },
+    "list-enrichment": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "a4031b6bdfd9110d254c6aeeb03b78f7e1be75f53a290d8e7f35ceecfc9ebf82"
+    },
+    "list-segmentation": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "c1a5ef7f6c1c6a1fd07298b495464ed2199a2294f9795fdca45305a4a1a1df42"
+    },
+    "market-research": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "9119369715ef54d805ffb1455f87521e4140796242f31fedcac4f1f20da65c40"
+    },
+    "people-search": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "d3a60885acd4babac09092f04e21f430406286298ac07b74358be812503d8cc3"
+    },
+    "table-creation": {
+      "source": "extruct-ai/gtm-skills",
+      "sourceType": "github",
+      "computedHash": "9ae07eae4ea5a9912c56495e504dd29600ae30c771c201da401435a7e759d46c"
+    }
+  }
+}
