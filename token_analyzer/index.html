@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEPTAI Token Distribution — Base</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d0f14;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+  }
+
+  #app { display: flex; height: 100vh; width: 100vw; }
+
+  /* ── Sidebar ── */
+  #sidebar {
+    width: 320px;
+    flex-shrink: 0;
+    background: #111318;
+    border-right: 1px solid #1e2230;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #sidebar-header {
+    padding: 18px 16px 12px;
+    border-bottom: 1px solid #1e2230;
+  }
+
+  #sidebar-header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: 0.02em;
+  }
+
+  #sidebar-header .subtitle {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 3px;
+  }
+
+  #summary-stats {
+    padding: 14px 16px;
+    border-bottom: 1px solid #1e2230;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-box {
+    background: #161922;
+    border: 1px solid #1e2230;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .stat-box .label {
+    font-size: 10px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .stat-box .value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-top: 2px;
+  }
+
+  .stat-box .sub {
+    font-size: 10px;
+    color: #94a3b8;
+    margin-top: 1px;
+  }
+
+  /* Concentration bar */
+  #concentration {
+    padding: 14px 16px;
+    border-bottom: 1px solid #1e2230;
+  }
+
+  #concentration h3 {
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+
+  .conc-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  .conc-label { width: 48px; color: #94a3b8; }
+
+  .conc-bar-bg {
+    flex: 1;
+    height: 6px;
+    background: #1e2230;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .conc-bar { height: 100%; border-radius: 3px; }
+
+  .conc-pct { width: 42px; text-align: right; color: #e2e8f0; font-weight: 600; }
+
+  /* Controls */
+  #controls {
+    padding: 12px 16px;
+    border-bottom: 1px solid #1e2230;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 5px 10px;
+    border: 1px solid #1e2230;
+    border-radius: 5px;
+    background: #161922;
+    color: #94a3b8;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn:hover, .btn.active {
+    background: #1e2230;
+    color: #e2e8f0;
+    border-color: #334155;
+  }
+
+  /* Holder list */
+  #holder-list-wrap {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+
+  #holder-list-wrap::-webkit-scrollbar { width: 4px; }
+  #holder-list-wrap::-webkit-scrollbar-track { background: #111318; }
+  #holder-list-wrap::-webkit-scrollbar-thumb { background: #1e2230; border-radius: 2px; }
+
+  .holder-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: background 0.1s;
+    border-left: 3px solid transparent;
+  }
+
+  .holder-item:hover { background: #161922; }
+  .holder-item.selected { background: #161922; border-left-color: #3b82f6; }
+
+  .holder-rank {
+    width: 24px;
+    font-size: 10px;
+    color: #475569;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .holder-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .holder-addr {
+    flex: 1;
+    font-size: 11px;
+    font-family: monospace;
+    color: #94a3b8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .holder-pct {
+    font-size: 11px;
+    font-weight: 600;
+    color: #e2e8f0;
+    flex-shrink: 0;
+    width: 44px;
+    text-align: right;
+  }
+
+  /* ── Main canvas ── */
+  #main {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #graph-svg {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+  }
+
+  #graph-svg:active { cursor: grabbing; }
+
+  /* ── Tooltip / detail panel ── */
+  #detail-panel {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 280px;
+    background: #111318;
+    border: 1px solid #1e2230;
+    border-radius: 10px;
+    padding: 16px;
+    display: none;
+    z-index: 10;
+  }
+
+  #detail-panel.visible { display: block; }
+
+  #detail-panel .dp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  #detail-panel .dp-rank { font-size: 11px; color: #64748b; }
+  #detail-panel .dp-addr {
+    font-size: 11px;
+    font-family: monospace;
+    color: #60a5fa;
+    word-break: break-all;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  #detail-close {
+    cursor: pointer;
+    color: #475569;
+    font-size: 16px;
+    line-height: 1;
+    padding: 2px 4px;
+  }
+
+  #detail-close:hover { color: #94a3b8; }
+
+  .dp-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #1a1e2a;
+    font-size: 12px;
+  }
+
+  .dp-row:last-child { border-bottom: none; }
+  .dp-row .dp-label { color: #64748b; }
+  .dp-row .dp-val { color: #e2e8f0; font-weight: 600; font-family: monospace; }
+
+  /* Legend */
+  #legend {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: #111318;
+    border: 1px solid #1e2230;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: #64748b;
+  }
+
+  #legend .legend-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px; color: #475569; }
+
+  .legend-item { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
+  .legend-item:last-child { margin-bottom: 0; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* Search */
+  #search-wrap {
+    padding: 10px 16px;
+    border-bottom: 1px solid #1e2230;
+  }
+
+  #search-input {
+    width: 100%;
+    background: #161922;
+    border: 1px solid #1e2230;
+    border-radius: 6px;
+    color: #e2e8f0;
+    padding: 6px 10px;
+    font-size: 12px;
+    outline: none;
+  }
+
+  #search-input:focus { border-color: #334155; }
+  #search-input::placeholder { color: #334155; }
+
+  /* Loading */
+  #loading {
+    position: fixed;
+    inset: 0;
+    background: #0d0f14;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid #1e2230;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <span style="color:#64748b;font-size:13px;">Loading PEPTAI distribution…</span>
+</div>
+
+<div id="app" style="opacity:0;transition:opacity 0.3s;">
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <h1>PEPTAI Distribution</h1>
+      <div class="subtitle">Base · <span id="token-addr"></span></div>
+    </div>
+
+    <div id="summary-stats">
+      <div class="stat-box">
+        <div class="label">Total Holders</div>
+        <div class="value" id="stat-holders">—</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Total Transfers</div>
+        <div class="value" id="stat-transfers">—</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Top 3 Control</div>
+        <div class="value" id="stat-top3">—</div>
+        <div class="sub">of supply</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Top 10 Control</div>
+        <div class="value" id="stat-top10">—</div>
+        <div class="sub">of supply</div>
+      </div>
+    </div>
+
+    <div id="concentration">
+      <h3>Concentration</h3>
+      <div class="conc-row">
+        <span class="conc-label">Top 3</span>
+        <div class="conc-bar-bg"><div class="conc-bar" id="bar-top3" style="background:#ef4444;"></div></div>
+        <span class="conc-pct" id="pct-top3">—</span>
+      </div>
+      <div class="conc-row">
+        <span class="conc-label">Top 10</span>
+        <div class="conc-bar-bg"><div class="conc-bar" id="bar-top10" style="background:#f97316;"></div></div>
+        <span class="conc-pct" id="pct-top10">—</span>
+      </div>
+      <div class="conc-row">
+        <span class="conc-label">Top 50</span>
+        <div class="conc-bar-bg"><div class="conc-bar" id="bar-top50" style="background:#eab308;"></div></div>
+        <span class="conc-pct" id="pct-top50">—</span>
+      </div>
+      <div class="conc-row">
+        <span class="conc-label">Rest</span>
+        <div class="conc-bar-bg"><div class="conc-bar" id="bar-rest" style="background:#22c55e;"></div></div>
+        <span class="conc-pct" id="pct-rest">—</span>
+      </div>
+    </div>
+
+    <div id="search-wrap">
+      <input id="search-input" type="text" placeholder="Search address…">
+    </div>
+
+    <div id="controls">
+      <button class="btn active" id="btn-size-pct">Size: % held</button>
+      <button class="btn" id="btn-show-edges">Edges: ON</button>
+      <button class="btn" id="btn-cluster">Color: Cluster</button>
+    </div>
+
+    <div id="holder-list-wrap">
+      <div id="holder-list"></div>
+    </div>
+  </div>
+
+  <!-- Graph -->
+  <div id="main">
+    <svg id="graph-svg"></svg>
+
+    <div id="detail-panel">
+      <div class="dp-header">
+        <div>
+          <div class="dp-rank" id="dp-rank"></div>
+          <div class="dp-addr" id="dp-addr" onclick="copyAddr()"></div>
+        </div>
+        <span id="detail-close" onclick="closeDetail()">✕</span>
+      </div>
+      <div id="dp-rows"></div>
+    </div>
+
+    <div id="legend">
+      <div class="legend-title">Cluster</div>
+      <div id="legend-items"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOKEN = "0x54F16Bd3996169914c84dBb2A16635100cF48A0a";
+const BASESCAN = "https://basescan.org/address/";
+
+// ── Colour palette for clusters ──────────────────────────────────────────────
+const PALETTE = [
+  "#3b82f6","#8b5cf6","#ec4899","#f97316","#eab308",
+  "#22c55e","#06b6d4","#f43f5e","#a855f7","#14b8a6",
+];
+const SOLO_COLOR = "#334155";
+
+let showEdges = true;
+let colorMode = "cluster"; // "cluster" | "rank"
+let selectedNode = null;
+let allData = null;
+
+// ── Load data ────────────────────────────────────────────────────────────────
+fetch("data/processed.json")
+  .then(r => r.json())
+  .then(data => {
+    allData = data;
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("app").style.opacity = "1";
+    populateSidebar(data);
+    renderGraph(data);
+  })
+  .catch(err => {
+    document.getElementById("loading").innerHTML =
+      `<span style="color:#ef4444">Error loading data: ${err.message}<br>Run process_data.py first.</span>`;
+  });
+
+// ── Sidebar ──────────────────────────────────────────────────────────────────
+function populateSidebar(data) {
+  const s = data.summary;
+  document.getElementById("token-addr").textContent = TOKEN.slice(0,10) + "…";
+  document.getElementById("stat-holders").textContent = s.total_holders.toLocaleString();
+  document.getElementById("stat-transfers").textContent = s.total_transfers.toLocaleString();
+  document.getElementById("stat-top3").textContent = s.top3_pct + "%";
+  document.getElementById("stat-top10").textContent = s.top10_pct + "%";
+
+  const restPct = Math.max(0, 100 - s.top50_pct);
+
+  for (const [id, val, pctId] of [
+    ["bar-top3", s.top3_pct, "pct-top3"],
+    ["bar-top10", s.top10_pct, "pct-top10"],
+    ["bar-top50", s.top50_pct, "pct-top50"],
+    ["bar-rest", restPct, "pct-rest"],
+  ]) {
+    document.getElementById(id).style.width = val + "%";
+    document.getElementById(pctId).textContent = val.toFixed(1) + "%";
+  }
+
+  renderHolderList(data.nodes, "");
+}
+
+function renderHolderList(nodes, filter) {
+  const list = document.getElementById("holder-list");
+  list.innerHTML = "";
+  const filtered = filter
+    ? nodes.filter(n => n.id.includes(filter.toLowerCase()))
+    : nodes;
+
+  filtered.slice(0, 200).forEach(n => {
+    const item = document.createElement("div");
+    item.className = "holder-item" + (selectedNode === n.id ? " selected" : "");
+    item.dataset.id = n.id;
+
+    const clusterColor = getClusterColor(n);
+
+    item.innerHTML = `
+      <span class="holder-rank">${n.rank}</span>
+      <span class="holder-dot" style="background:${clusterColor}"></span>
+      <span class="holder-addr">${n.id}</span>
+      <span class="holder-pct">${n.percent?.toFixed(2)}%</span>
+    `;
+    item.addEventListener("click", () => selectNode(n.id));
+    list.appendChild(item);
+  });
+}
+
+document.getElementById("search-input").addEventListener("input", e => {
+  if (!allData) return;
+  renderHolderList(allData.nodes, e.target.value.trim());
+});
+
+// ── D3 Graph ─────────────────────────────────────────────────────────────────
+let simulation, svg, g, nodeEl, linkEl, nodeMap;
+
+function getClusterColor(n) {
+  if (n.cluster_id === undefined || n.cluster_id < 0) return SOLO_COLOR;
+  return PALETTE[n.cluster_id % PALETTE.length];
+}
+
+function getRankColor(n) {
+  const t = (n.rank - 1) / Math.max(allData.nodes.length - 1, 1);
+  return d3.interpolateRdYlGn(1 - t);
+}
+
+function nodeColor(n) {
+  return colorMode === "cluster" ? getClusterColor(n) : getRankColor(n);
+}
+
+function renderGraph(data) {
+  const nodes = data.nodes.map(d => ({...d}));
+  const edges = data.edges;
+  nodeMap = new Map(nodes.map(n => [n.id, n]));
+
+  const links = edges.filter(e => nodeMap.has(e.source) && nodeMap.has(e.target))
+    .map(e => ({...e, _source: e.source, _target: e.target}));
+
+  const w = document.getElementById("main").offsetWidth;
+  const h = document.getElementById("main").offsetHeight;
+
+  svg = d3.select("#graph-svg")
+    .attr("viewBox", [0, 0, w, h]);
+
+  g = svg.append("g");
+
+  // Zoom/pan
+  svg.call(d3.zoom()
+    .scaleExtent([0.1, 8])
+    .on("zoom", e => g.attr("transform", e.transform)));
+
+  // Radius scale (square root so area ∝ balance)
+  const maxPct = d3.max(nodes, n => n.percent);
+  const rScale = d3.scaleSqrt().domain([0, maxPct]).range([3, 70]);
+
+  // Force simulation
+  simulation = d3.forceSimulation(nodes)
+    .force("charge", d3.forceManyBody().strength(d => -rScale(d.percent) * 4))
+    .force("link", d3.forceLink(links).id(d => d.id).distance(d => {
+      const r1 = rScale(nodeMap.get(d._source)?.percent || 0);
+      const r2 = rScale(nodeMap.get(d._target)?.percent || 0);
+      return r1 + r2 + 20;
+    }).strength(0.3))
+    .force("center", d3.forceCenter(w / 2, h / 2).strength(0.05))
+    .force("collision", d3.forceCollide(d => rScale(d.percent) + 3).strength(0.8))
+    .alphaDecay(0.03);
+
+  // Links
+  linkEl = g.append("g").attr("class", "links")
+    .selectAll("line")
+    .data(links)
+    .join("line")
+    .attr("stroke", "#1e2230")
+    .attr("stroke-width", d => Math.min(Math.log(d.tx_count + 1) * 0.8, 4))
+    .attr("stroke-opacity", 0.6)
+    .style("display", showEdges ? null : "none");
+
+  // Node groups
+  nodeEl = g.append("g").attr("class", "nodes")
+    .selectAll("g")
+    .data(nodes)
+    .join("g")
+    .attr("class", "node-g")
+    .style("cursor", "pointer")
+    .call(d3.drag()
+      .on("start", (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+      .on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; })
+      .on("end", (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
+    )
+    .on("click", (e, d) => { e.stopPropagation(); selectNode(d.id); });
+
+  nodeEl.append("circle")
+    .attr("r", d => rScale(d.percent))
+    .attr("fill", d => nodeColor(d))
+    .attr("fill-opacity", 0.85)
+    .attr("stroke", d => d3.color(nodeColor(d)).brighter(0.5))
+    .attr("stroke-width", 1.5);
+
+  // Labels (only for large nodes)
+  nodeEl.append("text")
+    .text(d => d.rank <= 15 ? d.label : "")
+    .attr("text-anchor", "middle")
+    .attr("dy", "0.35em")
+    .attr("font-size", d => Math.max(8, Math.min(rScale(d.percent) * 0.35, 11)))
+    .attr("fill", "#e2e8f0")
+    .attr("pointer-events", "none")
+    .style("user-select", "none");
+
+  // Pct label inside large bubbles
+  nodeEl.append("text")
+    .text(d => d.percent > 2 ? d.percent.toFixed(1) + "%" : "")
+    .attr("text-anchor", "middle")
+    .attr("dy", d => d.rank <= 15 ? "1.5em" : "0.35em")
+    .attr("font-size", d => Math.max(8, Math.min(rScale(d.percent) * 0.3, 10)))
+    .attr("fill", "#94a3b8")
+    .attr("pointer-events", "none")
+    .style("user-select", "none");
+
+  simulation.on("tick", () => {
+    linkEl
+      .attr("x1", d => d.source.x)
+      .attr("y1", d => d.source.y)
+      .attr("x2", d => d.target.x)
+      .attr("y2", d => d.target.y);
+
+    nodeEl.attr("transform", d => `translate(${d.x},${d.y})`);
+  });
+
+  // Deselect on bg click
+  svg.on("click", () => {
+    selectedNode = null;
+    highlightNodes(null);
+    closeDetail();
+    renderHolderList(allData.nodes, document.getElementById("search-input").value);
+  });
+
+  renderLegend(nodes);
+}
+
+function highlightNodes(focusId) {
+  if (!nodeEl) return;
+
+  if (!focusId) {
+    nodeEl.select("circle").attr("fill-opacity", 0.85).attr("stroke-width", 1.5);
+    linkEl.attr("stroke-opacity", 0.6).attr("stroke", "#1e2230");
+    return;
+  }
+
+  const neighbors = new Set([focusId]);
+  allData.edges.forEach(e => {
+    if (e.source === focusId || e._source === focusId) neighbors.add(e.target ?? e._target);
+    if (e.target === focusId || e._target === focusId) neighbors.add(e.source ?? e._source);
+  });
+
+  nodeEl.select("circle")
+    .attr("fill-opacity", d => neighbors.has(d.id) ? 0.95 : 0.15)
+    .attr("stroke-width", d => d.id === focusId ? 3 : 1.5);
+
+  linkEl
+    .attr("stroke-opacity", d => {
+      const s = d._source || (d.source && d.source.id);
+      const t = d._target || (d.target && d.target.id);
+      return (s === focusId || t === focusId) ? 0.9 : 0.05;
+    })
+    .attr("stroke", d => {
+      const s = d._source || (d.source && d.source.id);
+      const t = d._target || (d.target && d.target.id);
+      return (s === focusId || t === focusId) ? "#3b82f6" : "#1e2230";
+    });
+}
+
+function selectNode(id) {
+  selectedNode = id;
+  const node = allData.nodes.find(n => n.id === id);
+  if (!node) return;
+
+  highlightNodes(id);
+  showDetail(node);
+
+  // Update list selection
+  document.querySelectorAll(".holder-item").forEach(el => {
+    el.classList.toggle("selected", el.dataset.id === id);
+  });
+}
+
+function showDetail(node) {
+  const panel = document.getElementById("detail-panel");
+  document.getElementById("dp-rank").textContent = `Rank #${node.rank}`;
+  document.getElementById("dp-addr").textContent = node.id;
+  document.getElementById("dp-addr").dataset.addr = node.id;
+
+  const ts_first = node.first_ts_approx ? new Date(node.first_ts_approx * 1000).toLocaleDateString() : "—";
+  const ts_last = node.last_ts_approx ? new Date(node.last_ts_approx * 1000).toLocaleDateString() : "—";
+
+  const rows = [
+    ["Balance", `${(node.balance || 0).toLocaleString()} PEPTAI`],
+    ["% of Supply", `${(node.percent || 0).toFixed(4)}%`],
+    ["Cluster", node.cluster_id >= 0 ? `#${node.cluster_id}` : "Solo"],
+    ["Sent (txs)", `${(node.sent_count || 0).toLocaleString()}`],
+    ["Sent (vol)", `${(node.sent_volume || 0).toLocaleString()}`],
+    ["Received (txs)", `${(node.recv_count || 0).toLocaleString()}`],
+    ["Received (vol)", `${(node.recv_volume || 0).toLocaleString()}`],
+    ["Counterparties", `${(node.unique_counterparties || 0).toLocaleString()}`],
+    ["First activity", ts_first],
+    ["Last activity", ts_last],
+  ];
+
+  document.getElementById("dp-rows").innerHTML = rows
+    .map(([l, v]) => `<div class="dp-row"><span class="dp-label">${l}</span><span class="dp-val">${v}</span></div>`)
+    .join("");
+
+  panel.classList.add("visible");
+}
+
+function closeDetail() {
+  document.getElementById("detail-panel").classList.remove("visible");
+  selectedNode = null;
+  highlightNodes(null);
+}
+
+function copyAddr() {
+  const addr = document.getElementById("dp-addr").dataset.addr;
+  if (!addr) return;
+  navigator.clipboard.writeText(addr).catch(() => {});
+  window.open(BASESCAN + addr, "_blank");
+}
+
+function renderLegend(nodes) {
+  const clusterIds = [...new Set(nodes.filter(n => n.cluster_id >= 0).map(n => n.cluster_id))].sort((a,b) => a-b);
+  const legendEl = document.getElementById("legend-items");
+
+  const clusterSizes = {};
+  nodes.forEach(n => {
+    if (n.cluster_id >= 0) clusterSizes[n.cluster_id] = (clusterSizes[n.cluster_id] || 0) + 1;
+  });
+
+  legendEl.innerHTML = clusterIds.slice(0, 8).map(cid => `
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${PALETTE[cid % PALETTE.length]}"></span>
+      <span>Cluster ${cid} (${clusterSizes[cid]} wallets)</span>
+    </div>
+  `).join("") + `
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${SOLO_COLOR}"></span>
+      <span>Unconnected</span>
+    </div>
+  `;
+}
+
+// ── Control buttons ──────────────────────────────────────────────────────────
+document.getElementById("btn-show-edges").addEventListener("click", function() {
+  showEdges = !showEdges;
+  this.textContent = `Edges: ${showEdges ? "ON" : "OFF"}`;
+  this.classList.toggle("active", showEdges);
+  if (linkEl) linkEl.style("display", showEdges ? null : "none");
+});
+
+document.getElementById("btn-cluster").addEventListener("click", function() {
+  colorMode = colorMode === "cluster" ? "rank" : "cluster";
+  this.textContent = `Color: ${colorMode === "cluster" ? "Cluster" : "Rank"}`;
+  if (nodeEl) {
+    nodeEl.select("circle")
+      .attr("fill", d => nodeColor(d))
+      .attr("stroke", d => d3.color(nodeColor(d)).brighter(0.5));
+  }
+});
+
+document.getElementById("btn-size-pct").addEventListener("click", function() {
+  // Reheat simulation
+  if (simulation) simulation.alphaTarget(0.3).restart();
+  setTimeout(() => simulation?.alphaTarget(0), 2000);
+});
+</script>
+</body>
+</html>
