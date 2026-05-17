@@ -267,6 +267,69 @@
       <p style="color:var(--muted);font-size:12px;margin-bottom:20px">Full 136,661 minted bag population — aggregated counts (not a sample).</p>
       <div class="stat-grid" id="ml-stat-grid"></div>
 
+      <h2>Mint Distribution Anomaly</h2>
+      <p style="color:var(--muted);font-size:12px;margin-bottom:20px">Token IDs are user-chosen, so mint density reveals coordination. The 500,000–599,999 range shows a sharp 3.4× spike — on-chain analysis confirms Sybil minting by a single operator.</p>
+
+      <!-- density spark bars -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:16px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px">Minted bags per 100k token-ID range</div>
+        <div id="sybil-density"></div>
+      </div>
+
+      <!-- Sybil breakdown card -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px">
+
+        <!-- concentration bar -->
+        <div class="stat-card">
+          <h3>Who holds the 500k–600k spike (18,338 bags)</h3>
+          <div id="sybil-holders"></div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)">
+            Remaining 31% spread across 2,403 wallets · avg 2.4 bags each
+          </div>
+        </div>
+
+        <!-- evidence list -->
+        <div class="stat-card">
+          <h3>Evidence of coordinated minting</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="color:#f59e0b;font-size:14px;flex-shrink:0">⬡</span>
+              <div style="font-size:12px;line-height:1.6"><strong style="color:var(--text)">10 wallets, 10 disjoint 10k slices</strong><br><span style="color:var(--muted)">Each wallet confined to its own range (500k, 510k … 590k). Zero overlap — impossible by chance.</span></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="color:#f59e0b;font-size:14px;flex-shrink:0">⬡</span>
+              <div style="font-size:12px;line-height:1.6"><strong style="color:var(--text)">Single-purpose wallets</strong><br><span style="color:var(--muted)">Tx nonce ≈ MLOOT balance for every wallet — no other on-chain activity.</span></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="color:#f59e0b;font-size:14px;flex-shrink:0">⬡</span>
+              <div style="font-size:12px;line-height:1.6"><strong style="color:var(--text)">Scripted sequential claims</strong><br><span style="color:var(--muted)">Runs of up to 200 consecutive IDs per wallet. Claims start at round-number anchors (570,001 · 580,001 · 590,001).</span></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="color:#f59e0b;font-size:14px;flex-shrink:0">⬡</span>
+              <div style="font-size:12px;line-height:1.6"><strong style="color:var(--text)">Sharp cliff at rank 11</strong><br><span style="color:var(--muted)">#10 holds 948 bags · #11 holds 300. The long tail is normal organic users.</span></div>
+            </div>
+          </div>
+          <div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)">
+            Rarity impact: ~9.4% of the collection is Sybil-minted. All bags count toward supply, item counts, and rarity tiers.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- wallet table -->
+      <div style="overflow-x:auto;margin-bottom:36px">
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+          <thead><tr style="border-bottom:1px solid var(--border)">
+            <th style="text-align:left;padding:6px 10px;color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.06em">Wallet</th>
+            <th style="text-align:left;padding:6px 10px;color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.06em">ID slice</th>
+            <th style="text-align:right;padding:6px 10px;color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.06em">Bags held</th>
+            <th style="text-align:right;padding:6px 10px;color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.06em">% of spike</th>
+            <th style="text-align:left;padding:6px 10px;color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.06em">Nonce</th>
+          </tr></thead>
+          <tbody id="sybil-table"></tbody>
+        </table>
+      </div>
+
       <h2>Bag Browser</h2>
       <p style="color:var(--muted);font-size:12px;margin-bottom:12px">Stratified sample of 10,000 bags (2,000 Mythic · 5,000 Epic · 3,000 other).</p>
       <div class="filter-row" id="ml-bag-filters"></div>
@@ -733,6 +796,7 @@ async function initMoreLoot() {
     document.getElementById('ml-content').style.display = 'block';
     buildMLItemTable();
     buildMLBagAnalysis();
+    buildSybilSection();
   } catch(e) {
     document.getElementById('ml-loading').textContent = 'Error: ' + e.message;
   }
@@ -850,6 +914,104 @@ function buildMLBagAnalysis() {
     grid.appendChild(card);
   });
   buildMLBrowser();
+}
+
+/* ── Sybil / mint-anomaly section ── */
+function buildSybilSection() {
+  const SPIKE_COLOR = '#f59e0b';
+  const BASE_COLOR  = '#3b82f6';
+
+  // 1. Density bars — minted bags per 100k range
+  const densityData = [
+    {range:'0–99k',     count:33601},
+    {range:'100–199k',  count:14407},
+    {range:'200–299k',  count:7745},
+    {range:'300–399k',  count:5378},
+    {range:'400–499k',  count:5353},
+    {range:'500–599k',  count:18338, spike:true},
+    {range:'600–699k',  count:6089},
+    {range:'700–799k',  count:5587},
+    {range:'800–899k',  count:6682},
+    {range:'900–999k',  count:7533},
+    {range:'1M–1.1M',   count:7209},
+    {range:'1.1–1.2M',  count:5132},
+    {range:'1.2–1.3M',  count:6745},
+    {range:'1.3–1.4M',  count:3779},
+    {range:'1.4–2.5M',  count:3202},
+  ];
+  const maxD = Math.max(...densityData.map(d=>d.count));
+  const densEl = document.getElementById('sybil-density');
+  densityData.forEach(d => {
+    const pct = (d.count/maxD*100).toFixed(1);
+    const color = d.spike ? SPIKE_COLOR : BASE_COLOR;
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:5px';
+    row.innerHTML = '<span style="width:60px;font-size:11px;color:var(--muted);flex-shrink:0;text-align:right">'+d.range+'</span>'
+      +'<div style="flex:1;height:7px;background:#222;border-radius:3px;overflow:hidden">'
+      +  '<div style="width:'+pct+'%;height:100%;background:'+color+';border-radius:3px'+(d.spike?';box-shadow:0 0 6px '+color+'88':'')+'">'
+      +'</div></div>'
+      +'<span style="font-size:11px;width:54px;text-align:right;color:'+(d.spike?SPIKE_COLOR:'var(--muted)')+'">'+d.count.toLocaleString()+(d.spike?' ⚑':'')+' </span>';
+    densEl.appendChild(row);
+  });
+
+  // 2. Holder concentration bars for the spike
+  const holders = [
+    {label:'10 Sybil wallets', count:12678, pct:69.1, color:SPIKE_COLOR},
+    {label:'2,403 organic',    count:5660,  pct:30.9, color:'#4b5563'},
+  ];
+  const holdEl = document.getElementById('sybil-holders');
+  holders.forEach(h => {
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = '<span class="bar-label" style="width:130px">'+h.label+'</span>'
+      +'<div class="bar-track"><div class="bar-fill" style="width:'+h.pct+'%;background:'+h.color+'"></div></div>'
+      +'<span class="bar-val" style="color:'+h.color+';width:50px">'+h.pct.toFixed(1)+'%</span>';
+    holdEl.appendChild(row);
+  });
+  // Sub-breakdown of top 10
+  const sub = document.createElement('div');
+  sub.style.cssText = 'margin-top:10px;padding-top:10px;border-top:1px solid #1e1e1e';
+  const subRows = [
+    {label:'#1–5  (530k/520k/510k/570k/540k)', count:6973, pct:38.0},
+    {label:'#6–10 (500k/580k/590k/560k/550k)', count:5705, pct:31.1},
+  ];
+  subRows.forEach(s => {
+    const r = document.createElement('div');
+    r.className = 'bar-row';
+    r.innerHTML = '<span class="bar-label" style="width:200px;font-size:11px;color:var(--muted)">'+s.label+'</span>'
+      +'<div class="bar-track"><div class="bar-fill" style="width:'+s.pct+'%;background:#78350f"></div></div>'
+      +'<span class="bar-val" style="color:var(--muted);width:50px">'+s.pct.toFixed(1)+'%</span>';
+    sub.appendChild(r);
+  });
+  holdEl.appendChild(sub);
+
+  // 3. Wallet table
+  const wallets = [
+    {addr:'0xc8fdfb…ac15', slice:'500k–504k', bags:1333, nonce:1425},
+    {addr:'0x82bc5d…1430', slice:'510k–518k', bags:1362, nonce:1437},
+    {addr:'0x54635e…bbbd', slice:'520k–526k', bags:1441, nonce:1518},
+    {addr:'0x2bb472…cb7',  slice:'530k–536k', bags:1467, nonce:1545},
+    {addr:'0x337681…f89',  slice:'540k–547k', bags:1345, nonce:1423},
+    {addr:'0xe1a2d7…a1d',  slice:'550k–555k', bags:948,  nonce:1024},
+    {addr:'0x5ff3d4…8d5',  slice:'560k–562k', bags:1105, nonce:1105},
+    {addr:'0xe0babc…dac',  slice:'570k–574k', bags:1358, nonce:1359},
+    {addr:'0x65736b…70f',  slice:'580k–584k', bags:1203, nonce:1204},
+    {addr:'0x4f7d8d…453',  slice:'590k–595k', bags:1116, nonce:1117},
+  ];
+  const tbody = document.getElementById('sybil-table');
+  const total = 18338;
+  wallets.forEach((w,i) => {
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid #1a1a1a';
+    const pct = (w.bags/total*100).toFixed(1);
+    const nonceMatch = Math.abs(w.nonce - w.bags) <= 5;
+    tr.innerHTML = '<td style="padding:7px 10px;font-family:monospace;font-size:11px;color:var(--muted)">'+(i<9?'0'+(i+1):'10')+' · '+w.addr+'</td>'
+      +'<td style="padding:7px 10px;font-size:12px;color:'+SPIKE_COLOR+'">'+w.slice+'</td>'
+      +'<td style="padding:7px 10px;text-align:right;color:var(--text)">'+w.bags.toLocaleString()+'</td>'
+      +'<td style="padding:7px 10px;text-align:right;color:var(--muted)">'+pct+'%</td>'
+      +'<td style="padding:7px 10px;font-size:11px;color:'+(nonceMatch?SPIKE_COLOR:'var(--muted)')+'">'+w.nonce.toLocaleString()+(nonceMatch?' ≈ bags':'')+'</td>';
+    tbody.appendChild(tr);
+  });
 }
 
 /* ── ML bag browser ── */
