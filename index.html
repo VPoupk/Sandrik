@@ -298,11 +298,53 @@
       </div>
 
       <!-- Supply curve timeline -->
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:28px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:20px">
         <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px">Max claimable token-ID over time</div>
         <div id="supply-timeline"></div>
         <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.6">
           Of 2,511,701 currently claimable IDs, only <strong style="color:var(--text)">136,661 have been minted (5.4%)</strong>. Anyone can claim an unminted ID right now for the cost of gas alone — no fee to the contract, no fee to the deployer.
+        </div>
+      </div>
+
+      <!-- Owner-brick deep dive -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:28px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px">Can the owner stop minting?</div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <span style="font-size:22px;font-weight:600;color:#22c55e">No</span>
+          <span style="font-size:12px;color:var(--muted);line-height:1.5">The owner has no on-chain power to disable, pause, or alter <code style="font-size:11px">claim()</code>. Ownership is essentially decorative.</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:14px">
+          <div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text);margin-bottom:8px">What the owner can do</div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;color:var(--muted)">
+              <div><code style="font-size:11px">transferOwnership(address)</code> — hand the role to another address</div>
+              <div><code style="font-size:11px">renounceOwnership()</code> — burn the role permanently</div>
+              <div style="color:#6b7280;font-style:italic">That's the entire owner-callable surface.</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text);margin-bottom:8px">Why <code style="font-size:11px">claim()</code> can't be touched</div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;color:var(--muted)">
+              <div><span style="color:#22c55e">✓</span> No <code style="font-size:11px">onlyOwner</code> modifier on the mint path</div>
+              <div><span style="color:#22c55e">✓</span> No <code style="font-size:11px">whenNotPaused</code> guard — no pause state exists</div>
+              <div><span style="color:#22c55e">✓</span> Eligibility formula is a bytecode constant, not a storage read</div>
+              <div><span style="color:#22c55e">✓</span> Even renouncing or transferring to a dead address doesn't affect <code style="font-size:11px">claim()</code></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#0a0a0a;border:1px solid var(--border);border-left:3px solid #f59e0b;border-radius:3px;padding:12px 14px;font-size:11px;line-height:1.7;color:var(--muted)">
+          <strong style="color:var(--text)">Caveats on "absolute" certainty.</strong> This conclusion comes from bytecode inspection and selector mapping — not a formal proof. Three residual considerations:
+          <ul style="margin:8px 0 0 18px;padding:0;color:var(--muted)">
+            <li>The <code style="font-size:11px">nonReentrant</code> modifier reads a storage slot (<code style="font-size:11px">_status</code>). No function exists to set it externally, but a hypothetical exploit that left it stuck in the "entered" state would brick <code style="font-size:11px">claim()</code>. None has been found in 4.7 years of live use.</li>
+            <li>A future Ethereum hard fork could in principle change how <code style="font-size:11px">block.number</code> behaves and affect the eligibility formula — outside both the owner's and the deployer's control.</li>
+            <li>L1-level censorship (majority-validator collusion to drop <code style="font-size:11px">claim()</code> calls) would stop mints without "bricking" the contract itself. This affects all contracts equally, not specifically More Loot.</li>
+          </ul>
+          <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);color:#e2e2e2">
+            <strong>Bottom line:</strong> the owner specifically cannot brick it. Beyond that, the only paths to a permanent halt require a chain-wide failure or a protocol-level change — not an action available to any single party.
+          </div>
         </div>
       </div>
 
