@@ -1,22 +1,28 @@
 # Loot (for Adventurers) — Complete Item & Rarity Analysis
+## On-Chain Verified
 
 **Collection:** 8,000 NFTs on Ethereum  
 **Contract:** `0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7`  
-**Total item slots across collection:** 64,000 (8 slots × 8,000 bags)
+**Verification method:** `tokenURI()` called directly for all 8,000 tokens via public Ethereum RPC (`ethereum.publicnode.com`). SVG metadata decoded and items extracted. Zero fetch errors.  
+**Total item slots verified:** 64,000 (8 slots × 8,000 bags, each summing to exactly 8,000)
+
+> **Note on original estimates:** The first pass of this document used third-party sources (dhof-loot, loot-rarity). The on-chain scrape corrected two significant errors: (1) ~25 armor items previously listed as Common are actually Uncommon; (2) suffixed weapon/armor combos are Rare (avg 10x), not Epic as estimated.
 
 ---
 
 ## How Items Are Generated
 
-Each bag is produced by a `pluck()` function seeded from `keccak256(slotName + tokenId)`. From that single random number, five values are derived:
+Each bag is produced by a `pluck()` function seeded from `keccak256(slotName + tokenId)`. From that single 256-bit hash, all item properties are derived:
 
-| Derived Value | Formula | Range |
+| Derived value | Formula | Range |
 |---|---|---|
 | Base item | `rand % items.length` | 0 → N−1 |
 | Greatness | `rand % 21` | 0 → 20 |
 | Suffix | `rand % 16` | 0 → 15 |
 | Name prefix | `rand % 68` | 0 → 67 |
 | Name suffix | `rand % 18` | 0 → 17 |
+
+Because all five values come from the same `rand`, item selection and modifier selection are **correlated** — not independent. This causes certain item+suffix pairings to never appear across the 8,000 bags even though they are theoretically possible (see Mythic notes below).
 
 ### Item Format Rules
 
@@ -27,241 +33,233 @@ Each bag is produced by a `pluck()` function seeded from `keccak256(slotName + t
 | 19 | `"Prefix NameSuffix" Item of Suffix` | 1/21 ≈ **4.8%** |
 | 20 | `"Prefix NameSuffix" Item of Suffix +1` | 1/21 ≈ **4.8%** |
 
-Named items (greatness 19–20) always also carry a suffix from the greatness > 14 branch.
+Named items (greatness 19–20) always also carry a suffix — they are a strict superset of the suffixed format.
 
 ---
 
 ## Rarity Tiers
 
-Rarity is determined by how many times a **complete item string** (including all modifiers) appears across all 8,000 bags.
+| Tier | Name | Occurrence count |
+|---|---|---|
+| 1 | **Common** | ≥ 375 |
+| 2 | **Uncommon** | 75 – 374 |
+| 3 | **Rare** | 11 – 74 |
+| 4 | **Epic** | 2 – 10 |
+| 5 | **Mythic** | exactly 1 |
 
-| Tier | Name | Occurrence Count | Share of All Items |
-|---|---|---|---|
-| 1 | **Common** | ≥ 375 | ~47% |
-| 2 | **Uncommon** | 75 – 374 | ~13% |
-| 3 | **Rare** | 11 – 74 | ~12% |
-| 4 | **Epic** | 2 – 10 | ~10% |
-| 5 | **Legendary** | 2 – 9 (named items) | ~10% |
-| 6 | **Mythic** | exactly 1 | ~8% |
+### Global distribution (verified)
 
----
-
-## Complete Item Catalog
-
-### Slot 1 — Weapon (18 base items)
-
-Each weapon is drawn for ~444 of the 8,000 bags.
-
-| # | Item | Plain Occurrences* | Tier |
-|---|---|---|---|
-| 1 | Warhammer | ~317 | Uncommon |
-| 2 | Quarterstaff | ~317 | Uncommon |
-| 3 | Maul | ~317 | Uncommon |
-| 4 | Mace | ~317 | Uncommon |
-| 5 | Club | ~317 | Uncommon |
-| 6 | Katana | ~317 | Uncommon |
-| 7 | Falchion | ~317 | Uncommon |
-| 8 | Scimitar | ~317 | Uncommon |
-| 9 | Long Sword | ~317 | Uncommon |
-| 10 | Short Sword | ~317 | Uncommon |
-| 11 | Ghost Wand | ~317 | Uncommon |
-| 12 | Grave Wand | ~317 | Uncommon |
-| 13 | Bone Wand | ~317 | Uncommon |
-| 14 | Wand | ~317 | Uncommon |
-| 15 | Grimoire | ~317 | Uncommon |
-| 16 | Chronicle | ~317 | Uncommon |
-| 17 | Tome | ~317 | Uncommon |
-| 18 | Book | ~317 | Uncommon |
-
-*Plain = no suffix, no name (greatness 0–14). Actual counts vary due to on-chain pseudo-randomness.
-
-**Suffixed weapons** (e.g. `Katana of Power`): ~5 occurrences each → **Epic**  
-**Named weapons** (e.g. `"Kraken Bane" Katana of Power`): 0–2 occurrences each → **Legendary / Mythic**  
-**Named +1 weapons**: 0–1 occurrences each → **Mythic**
+| Tier | Unique item strings | % of unique |
+|---|---|---|
+| Common | 56 | 0.8% |
+| Uncommon | 45 | 0.6% |
+| Rare | 335 | 4.6% |
+| Epic | 1,446 | 19.9% |
+| Mythic | 5,377 | 74.1% |
+| **Total** | **7,259** | |
 
 ---
 
-### Slot 2 — Chest Armor (15 base items)
+## Slot 1 — Weapon (18 base items)
+*All 18 plain weapons are Uncommon (below the 375 Common threshold).*
 
-Each chest piece drawn for ~533 of the 8,000 bags.
+| Item | On-Chain Count | Tier |
+|---|---|---|
+| Grave Wand | 355 | Uncommon |
+| Quarterstaff | 352 | Uncommon |
+| Falchion | 345 | Uncommon |
+| Katana | 338 | Uncommon |
+| Tome | 337 | Uncommon |
+| Scimitar | 336 | Uncommon |
+| Maul | 329 | Uncommon |
+| Grimoire | 325 | Uncommon |
+| Short Sword | 325 | Uncommon |
+| Chronicle | 323 | Uncommon |
+| Book | 317 | Uncommon |
+| Long Sword | 311 | Uncommon |
+| Wand | 304 | Uncommon |
+| Mace | 304 | Uncommon |
+| Bone Wand | 303 | Uncommon |
+| Ghost Wand | 291 | Uncommon |
+| Warhammer | 287 | Uncommon |
+| Club | 284 | Uncommon |
 
-| # | Item | Plain Occurrences* | Tier |
-|---|---|---|---|
-| 1 | Divine Robe | ~381 | Common |
-| 2 | Silk Robe | ~381 | Common |
-| 3 | Linen Robe | ~381 | Common |
-| 4 | Robe | ~381 | Common |
-| 5 | Shirt | ~381 | Common |
-| 6 | Demon Husk | ~381 | Common |
-| 7 | Dragonskin Armor | ~381 | Common |
-| 8 | Studded Leather Armor | ~381 | Common |
-| 9 | Hard Leather Armor | ~381 | Common |
-| 10 | Leather Armor | ~381 | Common |
-| 11 | Holy Chestplate | ~381 | Common |
-| 12 | Ornate Chestplate | ~381 | Common |
-| 13 | Plate Mail | ~381 | Common |
-| 14 | Chain Mail | ~381 | Common |
-| 15 | Ring Mail | ~381 | Common |
-
-**Suffixed chest** (e.g. `Divine Robe of Power`): ~6 occurrences each → **Epic**  
-**Named chest** (e.g. `"Dragon Roar" Divine Robe of Power`): 0–1 → **Mythic**
-
----
-
-### Slot 3 — Head Armor (15 base items)
-
-| # | Item | Plain Occurrences* | Tier |
-|---|---|---|---|
-| 1 | Ancient Helm | ~381 | Common |
-| 2 | Ornate Helm | ~381 | Common |
-| 3 | Great Helm | ~381 | Common |
-| 4 | Full Helm | ~381 | Common |
-| 5 | Helm | ~381 | Common |
-| 6 | Demon Crown | ~381 | Common |
-| 7 | Dragon's Crown | ~381 | Common |
-| 8 | War Cap | ~381 | Common |
-| 9 | Leather Cap | ~381 | Common |
-| 10 | Cap | ~381 | Common |
-| 11 | Crown | ~381 | Common |
-| 12 | Divine Hood | ~381 | Common |
-| 13 | Silk Hood | ~381 | Common |
-| 14 | Linen Hood | ~381 | Common |
-| 15 | Hood | ~381 | Common |
-
-**Suffixed head** (e.g. `Ancient Helm of Giants`): ~6 occurrences each → **Epic**  
-**Named head**: 0–1 → **Mythic**
+**Suffixed weapons** (144 unique strings): range 3–23 occurrences, avg 10.5 → mostly **Rare**, some **Epic**  
+**Named weapons** (623 unique strings): mostly 1–4 occurrences → **Epic / Mythic**  
+*Top named weapon: `"Demon Peak" Grimoire of Enlightenment +1` — 4 occurrences*
 
 ---
 
-### Slot 4 — Waist Armor (15 base items)
+## Slot 2 — Chest Armor (15 base items)
+*11 Common, 4 Uncommon.*
 
-| # | Item | Plain Occurrences* | Tier |
-|---|---|---|---|
-| 1 | Ornate Belt | ~381 | Common |
-| 2 | War Belt | ~381 | Common |
-| 3 | Plated Belt | ~381 | Common |
-| 4 | Mesh Belt | ~381 | Common |
-| 5 | Heavy Belt | ~381 | Common |
-| 6 | Demonhide Belt | ~381 | Common |
-| 7 | Dragonskin Belt | ~381 | Common |
-| 8 | Studded Leather Belt | ~381 | Common |
-| 9 | Hard Leather Belt | ~381 | Common |
-| 10 | Leather Belt | ~381 | Common |
-| 11 | Brightsilk Sash | ~381 | Common |
-| 12 | Silk Sash | ~381 | Common |
-| 13 | Wool Sash | ~381 | Common |
-| 14 | Linen Sash | ~381 | Common |
-| 15 | Sash | ~381 | Common |
+| Item | On-Chain Count | Tier |
+|---|---|---|
+| Linen Robe | 401 | Common |
+| Studded Leather Armor | 397 | Common |
+| Divine Robe | 396 | Common |
+| Chain Mail | 396 | Common |
+| Robe | 390 | Common |
+| Plate Mail | 390 | Common |
+| Leather Armor | 389 | Common |
+| Ornate Chestplate | 387 | Common |
+| Demon Husk | 384 | Common |
+| Shirt | 381 | Common |
+| Hard Leather Armor | 381 | Common |
+| Silk Robe | 370 | **Uncommon** |
+| Holy Chestplate | 370 | **Uncommon** |
+| Ring Mail | 368 | **Uncommon** |
+| Dragonskin Armor | 360 | **Uncommon** |
 
-**Suffixed waist**: ~6 occurrences each → **Epic**  
-**Named waist**: 0–1 → **Mythic**
-
----
-
-### Slot 5 — Foot Armor (15 base items)
-
-| # | Item | Plain Occurrences* | Tier |
-|---|---|---|---|
-| 1 | Holy Greaves | ~381 | Common |
-| 2 | Ornate Greaves | ~381 | Common |
-| 3 | Greaves | ~381 | Common |
-| 4 | Chain Boots | ~381 | Common |
-| 5 | Heavy Boots | ~381 | Common |
-| 6 | Demonhide Boots | ~381 | Common |
-| 7 | Dragonskin Boots | ~381 | Common |
-| 8 | Studded Leather Boots | ~381 | Common |
-| 9 | Hard Leather Boots | ~381 | Common |
-| 10 | Leather Boots | ~381 | Common |
-| 11 | Divine Slippers | ~381 | Common |
-| 12 | Silk Slippers | ~381 | Common |
-| 13 | Wool Shoes | ~381 | Common |
-| 14 | Linen Shoes | ~381 | Common |
-| 15 | Shoes | ~381 | Common |
-
-**Suffixed foot**: ~6 occurrences each → **Epic**  
-**Named foot**: 0–1 → **Mythic**
+**Suffixed chest** (240 unique strings): range 1–17 occurrences, avg 6.2 → **Epic** (2–10) most common, some **Rare** (11–17), some **Mythic** (1)  
+*Top suffixed: `Robe of Anger` — 17 occurrences*  
+**Named chest** (726 unique strings): 1–3 occurrences → **Epic / Mythic**
 
 ---
 
-### Slot 6 — Hand Armor (15 base items)
+## Slot 3 — Head Armor (15 base items)
+*9 Common, 6 Uncommon.*
 
-| # | Item | Plain Occurrences* | Tier |
-|---|---|---|---|
-| 1 | Holy Gauntlets | ~381 | Common |
-| 2 | Ornate Gauntlets | ~381 | Common |
-| 3 | Gauntlets | ~381 | Common |
-| 4 | Chain Gloves | ~381 | Common |
-| 5 | Heavy Gloves | ~381 | Common |
-| 6 | Demon's Hands | ~381 | Common |
-| 7 | Dragonskin Gloves | ~381 | Common |
-| 8 | Studded Leather Gloves | ~381 | Common |
-| 9 | Hard Leather Gloves | ~381 | Common |
-| 10 | Leather Gloves | ~381 | Common |
-| 11 | Divine Gloves | ~381 | Common |
-| 12 | Silk Gloves | ~381 | Common |
-| 13 | Wool Gloves | ~381 | Common |
-| 14 | Linen Gloves | ~381 | Common |
-| 15 | Gloves | ~381 | Common |
+| Item | On-Chain Count | Tier |
+|---|---|---|
+| Hood | 412 | Common |
+| Ornate Helm | 398 | Common |
+| Great Helm | 398 | Common |
+| Helm | 392 | Common |
+| Divine Hood | 392 | Common |
+| Linen Hood | 391 | Common |
+| Crown | 388 | Common |
+| Cap | 383 | Common |
+| Ancient Helm | 376 | Common |
+| Demon Crown | 368 | **Uncommon** |
+| Leather Cap | 368 | **Uncommon** |
+| Dragon's Crown | 360 | **Uncommon** |
+| War Cap | 360 | **Uncommon** |
+| Full Helm | 359 | **Uncommon** |
+| Silk Hood | 350 | **Uncommon** |
 
-**Suffixed hand**: ~6 occurrences each → **Epic**  
-**Named hand**: 0–1 → **Mythic**
-
----
-
-### Slot 7 — Necklaces (3 base items)
-
-Each necklace drawn for ~2,667 of the 8,000 bags — the most common slot.
-
-| # | Item | Plain Occurrences* | Tier |
-|---|---|---|---|
-| 1 | Necklace | ~1,905 | Common |
-| 2 | Amulet | ~1,905 | Common |
-| 3 | Pendant | ~1,905 | Common |
-
-Actual observed counts (from dhof-loot data):
-
-| Item | Observed Count |
-|---|---|
-| Pendant | 1,957 |
-| Necklace | 1,921 |
-| Amulet | 1,811 |
-
-**Suffixed necklaces** (e.g. `Amulet of Power`): ~32 occurrences each → **Rare**  
-**Named necklaces**: 0–3 occurrences → **Legendary / Mythic**
+**Suffixed head** (240 unique strings): range 1–19 occurrences, avg 6.3  
+*Top suffixed: `Cap of the Fox` — 19 occurrences*  
+**Named head** (772 unique strings): 1–2 occurrences → **Epic / Mythic**
 
 ---
 
-### Slot 8 — Rings (5 base items)
+## Slot 4 — Waist Armor (15 base items)
+*10 Common, 5 Uncommon.*
 
-Each ring drawn for ~1,600 of the 8,000 bags.
+| Item | On-Chain Count | Tier |
+|---|---|---|
+| War Belt | 418 | Common |
+| Heavy Belt | 413 | Common |
+| Wool Sash | 402 | Common |
+| Silk Sash | 394 | Common |
+| Linen Sash | 387 | Common |
+| Plated Belt | 384 | Common |
+| Ornate Belt | 384 | Common |
+| Dragonskin Belt | 383 | Common |
+| Brightsilk Sash | 378 | Common |
+| Leather Belt | 375 | Common |
+| Demonhide Belt | 374 | **Uncommon** |
+| Studded Leather Belt | 373 | **Uncommon** |
+| Sash | 367 | **Uncommon** |
+| Hard Leather Belt | 355 | **Uncommon** |
+| Mesh Belt | 352 | **Uncommon** |
 
-| # | Item | Plain Occurrences* | Tier |
-|---|---|---|---|
-| 1 | Gold Ring | ~1,143 | Common |
-| 2 | Silver Ring | ~1,143 | Common |
-| 3 | Bronze Ring | ~1,143 | Common |
-| 4 | Platinum Ring | ~1,143 | Common |
-| 5 | Titanium Ring | ~1,143 | Common |
+**Suffixed waist** (238 unique strings): range 1–16 occurrences, avg 6.4  
+*Top suffixed: `Wool Sash of Giants` / `Leather Belt of Reflection` — 16 occurrences each*  
+**Named waist** (725 unique strings): 1–3 occurrences → **Epic / Mythic**
 
-Actual observed counts (from dhof-loot data):
+---
 
-| Item | Observed Count |
-|---|---|
-| Titanium Ring | 1,112 |
-| Gold Ring | 1,093 |
-| Silver Ring | 1,178 |
-| Platinum Ring | 1,163 |
-| Bronze Ring | 1,166 |
+## Slot 5 — Foot Armor (15 base items)
+*8 Common, 7 Uncommon.*
 
-**Suffixed rings** (e.g. `Gold Ring of Power`): ~19 occurrences each → **Rare**  
-**Named rings**: 0–2 occurrences → **Legendary / Mythic**
+| Item | On-Chain Count | Tier |
+|---|---|---|
+| Chain Boots | 419 | Common |
+| Linen Shoes | 409 | Common |
+| Divine Slippers | 401 | Common |
+| Wool Shoes | 394 | Common |
+| Greaves | 392 | Common |
+| Studded Leather Boots | 389 | Common |
+| Leather Boots | 385 | Common |
+| Shoes | 385 | Common |
+| Holy Greaves | 372 | **Uncommon** |
+| Dragonskin Boots | 370 | **Uncommon** |
+| Demonhide Boots | 368 | **Uncommon** |
+| Ornate Greaves | 367 | **Uncommon** |
+| Silk Slippers | 363 | **Uncommon** |
+| Hard Leather Boots | 357 | **Uncommon** |
+| Heavy Boots | 357 | **Uncommon** |
+
+**Suffixed foot** (240 unique strings): range 1–17 occurrences, avg 6.4  
+*Top suffixed: `Dragonskin Boots of Fury` / `Dragonskin Boots of Detection` — 17 occurrences each*  
+**Named foot** (723 unique strings): 1–2 occurrences → **Epic / Mythic**
+
+---
+
+## Slot 6 — Hand Armor (15 base items)
+*10 Common, 5 Uncommon.*
+
+| Item | On-Chain Count | Tier |
+|---|---|---|
+| Studded Leather Gloves | 418 | Common |
+| Silk Gloves | 400 | Common |
+| Heavy Gloves | 399 | Common |
+| Linen Gloves | 399 | Common |
+| Dragonskin Gloves | 394 | Common |
+| Chain Gloves | 389 | Common |
+| Holy Gauntlets | 384 | Common |
+| Divine Gloves | 382 | Common |
+| Wool Gloves | 382 | Common |
+| Gauntlets | 375 | Common |
+| Leather Gloves | 369 | **Uncommon** |
+| Ornate Gauntlets | 369 | **Uncommon** |
+| Gloves | 366 | **Uncommon** |
+| Demon's Hands | 366 | **Uncommon** |
+| Hard Leather Gloves | 366 | **Uncommon** |
+
+**Suffixed hand** (239 unique strings): range 1–18 occurrences, avg 6.1  
+*Top suffixed: `Holy Gauntlets of Giants` — 18 occurrences*  
+**Named hand** (747 unique strings): 1–2 occurrences → **Epic / Mythic**
+
+---
+
+## Slot 7 — Necklaces (3 base items)
+*All 3 are Common — the most common slot in the collection.*
+
+| Item | On-Chain Count | Tier |
+|---|---|---|
+| Pendant | 1,957 | Common |
+| Necklace | 1,921 | Common |
+| Amulet | 1,811 | Common |
+
+**Suffixed necklaces** (48 unique strings): range 18–63 occurrences, avg 32.8 → **Rare**  
+*Top suffixed: `Necklace of Fury` — 63 occurrences*  
+**Named necklaces** (628 unique strings): 1–3 occurrences → **Epic / Mythic**
+
+---
+
+## Slot 8 — Rings (5 base items)
+*All 5 are Common.*
+
+| Item | On-Chain Count | Tier |
+|---|---|---|
+| Silver Ring | 1,178 | Common |
+| Bronze Ring | 1,166 | Common |
+| Platinum Ring | 1,163 | Common |
+| Titanium Ring | 1,112 | Common |
+| Gold Ring | 1,093 | Common |
+
+**Suffixed rings** (80 unique strings): range 9–32 occurrences, avg 19.0 → mostly **Rare**, some **Epic**  
+*Top suffixed: `Titanium Ring of Power` — 32 occurrences*  
+**Named rings** (745 unique strings): 1–2 occurrences → **Epic / Mythic**
 
 ---
 
 ## Modifier Lists
 
 ### Suffixes (16 total)
-Applied when greatness 15–20. Each suffix has equal 1/16 probability per suffixed draw.
 
 | # | Suffix |
 |---|---|
@@ -283,7 +281,6 @@ Applied when greatness 15–20. Each suffix has equal 1/16 probability per suffi
 | 16 | of the Twins |
 
 ### Name Prefixes (68 total)
-Applied when greatness 19–20. Becomes the first word of the quoted item name.
 
 | # | Prefix | # | Prefix | # | Prefix | # | Prefix |
 |---|---|---|---|---|---|---|---|
@@ -306,7 +303,6 @@ Applied when greatness 19–20. Becomes the first word of the quoted item name.
 | 17 | Death | 34 | Horror | 51 | Plague | 68 | Shimmering |
 
 ### Name Suffixes (18 total)
-Applied when greatness 19–20. Becomes the second word of the quoted item name.
 
 | # | Name Suffix | # | Name Suffix |
 |---|---|---|---|
@@ -322,60 +318,71 @@ Applied when greatness 19–20. Becomes the second word of the quoted item name.
 
 ---
 
-## Rarity Summary by Item Format
+## Rarity by Item Format (Verified)
 
-| Format | Example | Approx. Occurrences | Tier |
+| Format | Example | Actual Occurrences | Tier |
 |---|---|---|---|
-| Plain necklace | `Amulet` | ~1,900 | Common |
-| Plain ring | `Gold Ring` | ~1,100 | Common |
-| Plain armor (15-item slots) | `Divine Robe` | ~381 | Common |
-| Plain weapon | `Katana` | ~317 | **Uncommon** |
-| Suffixed necklace | `Amulet of Power` | ~32 | **Rare** |
-| Suffixed ring | `Gold Ring of Power` | ~19 | **Rare** |
-| Suffixed armor | `Divine Robe of Power` | ~6 | **Epic** |
-| Suffixed weapon | `Katana of Power` | ~5 | **Epic** |
-| Named necklace | `"Kraken Bane" Amulet of Power` | 0–2 | **Legendary/Mythic** |
-| Named ring | `"Kraken Bane" Gold Ring of Power` | 0–1 | **Mythic** |
-| Named armor | `"Kraken Bane" Divine Robe of Power` | 0–1 | **Mythic** |
-| Named weapon | `"Kraken Bane" Katana of Power` | 0–1 | **Mythic** |
-| Named +1 (any slot) | `"Kraken Bane" Katana of Power +1` | 0–1 | **Mythic** |
+| Plain necklace | `Pendant` | 1,811–1,957 | Common |
+| Plain ring | `Silver Ring` | 1,093–1,178 | Common |
+| Plain armor (Common items) | `Linen Robe` | 375–419 | Common |
+| Plain armor (Uncommon items) | `Silk Robe` | 350–374 | **Uncommon** |
+| Plain weapon (all 18) | `Katana` | 284–355 | **Uncommon** |
+| Suffixed necklace | `Necklace of Fury` | 18–63 | **Rare** |
+| Suffixed ring | `Titanium Ring of Power` | 9–32 | **Rare / Epic** |
+| Suffixed weapon | `Falchion of Fury` | 3–23 | **Rare / Epic** |
+| Suffixed armor | `Robe of Anger` | 1–19 | **Rare / Epic / Mythic** |
+| Named (any slot) | `"Havoc Sun" Amulet of Reflection` | 1–4 | **Epic / Mythic** |
+| Named +1 (any slot) | `"Grim Moon" Book of Skill +1` | 1–3 | **Epic / Mythic** |
 
 ---
 
-## Theoretical Item Space
+## Key Verified Facts
 
-| Category | Count |
+- **7,259 distinct item strings** exist across all 8,000 bags.
+- **5,377 items are Mythic** (appear exactly once) — 74.1% of all unique strings.
+- **All 18 weapons are Uncommon** without exception (range 284–355 plain occurrences).
+- **~25 armor items are Uncommon**, not Common — despite being in 15-item slots, their plain counts fall below 375 due to on-chain pseudo-random variance.
+- **Necklaces are the most common slot** — only 3 base items, each appearing 1,811–1,957 times plain.
+- **Suffixed weapon combos are Rare on average** (avg 10.5x per unique combo), not Epic as initially estimated. The single-`rand` derivation means roughly half of the theoretical 288 weapon+suffix combinations never occur across the 8,000 bags; the half that do occur are consequently overrepresented.
+- **Suffixed armor combos** average ~6x each — mostly Epic (2–10), some Rare (11+), some Mythic (1).
+- **Named items max out at 4 occurrences** anywhere in the collection (`"Demon Peak" Grimoire of Enlightenment +1`).
+- **All 8,000 × 8 = 64,000 slot counts verified to sum correctly per slot.**
+
+---
+
+## Corrections vs Third-Party Estimates
+
+| Claim | Original estimate | On-chain verified |
+|---|---|---|
+| Armor items with 15-item pools | All Common (~381) | ~Half Common, ~Half Uncommon |
+| Suffixed weapon occurrences | ~5 each (Epic) | avg 10.5, range 3–23 (Rare/Epic) |
+| Suffixed armor occurrences | ~6 each (Epic) | avg 6.2, range 1–19 (Mythic/Epic/Rare) |
+| Suffixed ring occurrences | ~19 each (Rare) | avg 19, range 9–32 (mostly Rare) ✓ |
+| Suffixed necklace occurrences | ~32 each (Rare) | avg 32.8, range 18–63 (Rare) ✓ |
+| Total unique item strings | >1,000,000 theoretical | 7,259 actually present |
+| Mythic items | ~5,377 | exactly 5,377 ✓ |
+
+---
+
+## Output Files
+
+All raw data from the on-chain scrape is saved in `output/`:
+
+| File | Contents |
 |---|---|
-| Total base items | 101 (18+15+15+15+15+15+3+5) |
-| Suffixes | 16 |
-| Name prefixes | 68 |
-| Name suffixes | 18 |
-| Possible unique named+suffixed combos (per slot) | up to N × 16 × 68 × 18 = N × 19,584 |
-| **Total theoretical unique item strings** | **>1,000,000** |
-| **Actual distinct strings in 8,000 bags** | **~64,000** |
+| `output/tokens.json` | Every token ID → its 8 item strings |
+| `output/occurrences.json` | Every unique item string → occurrence count |
+| `output/slot_occurrences.json` | Per-slot breakdown of every item → occurrence count |
+| `output/rarity.json` | Every item string → `{occurrences, tier}` |
 
-The vast majority of named item combinations are **theoretically possible but never appear** in the 8,000 bag collection — those are effectively unmintable within original Loot.
-
----
-
-## Key Rarity Facts
-
-- **Rarest bag ever observed:** Token #3043 — highest concentration of rare traits in the collection.
-- **Mythic items make up ~8.4%** of all item slots (~5,377 items), each appearing exactly once.
-- **Necklaces are structurally the most common** slot (only 3 base items) — plain necklaces appear ~1,900 times each.
-- **Weapons are structurally the rarest** plain items — all 18 weapons are Uncommon (~317 plain occurrences each, below the 375 Common threshold).
-- **"+1" items are among the rarest possible** — only greatness-20 draws (4.8% of all draws), and then also require a specific named combination to repeat.
-- **"Divine Robe of the Fox"** is a documented example of a Mythic item — appears exactly once across all 8,000 bags.
-- **Short Sword** (plain) appears ~325 times — confirmed below the 375 threshold (Uncommon).
+Scraper source: `scripts/scrape_loot.py`
 
 ---
 
 ## Sources
 
-- [lootproject.com](https://www.lootproject.com) — Official project site
-- [bpierre/loot-rarity — GitHub](https://github.com/bpierre/loot-rarity) — Rarity tier library and thresholds
-- [Anish-Agnihotri/dhof-loot — GitHub](https://github.com/Anish-Agnihotri/dhof-loot) — Full collection stats and occurrence data
-- [dhof's original Loot contract — GitHub Gist](https://gist.github.com/JofArnold/1227316f9a094a9b9bc17274e557a6a7) — Canonical item arrays
-- [Loot contract on Etherscan](https://etherscan.io/address/0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7) — On-chain source of truth
-- [DappRadar — Ultimate Guide to Loot NFTs](https://dappradar.com/blog/the-ultimate-guide-to-loot-nfts)
-- [How to value your Loot NFTs — Substack](https://ayzd.substack.com/p/how-to-value-your-loot-for-adventurers)
+- [Loot contract on Ethereum](https://etherscan.io/address/0xff9c1b15b16263c61d017ee9f65c50e4ae0113d7) — on-chain source of truth, queried directly
+- [bpierre/loot-rarity](https://github.com/bpierre/loot-rarity) — rarity tier thresholds
+- [Anish-Agnihotri/dhof-loot](https://github.com/Anish-Agnihotri/dhof-loot) — third-party reference (cross-checked)
+- [dhof's original Loot contract gist](https://gist.github.com/JofArnold/1227316f9a094a9b9bc17274e557a6a7) — item arrays (confirmed matching on-chain data)
+- [lootproject.com](https://www.lootproject.com) — official project site
