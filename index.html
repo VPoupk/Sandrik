@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loot Analysis</title>
+<style>
+  :root {
+    --bg:        #0c0c0c;
+    --surface:   #141414;
+    --border:    #2a2a2a;
+    --text:      #e2e2e2;
+    --muted:     #666;
+    --common:    #6b7280;
+    --uncommon:  #22c55e;
+    --rare:      #3b82f6;
+    --epic:      #a855f7;
+    --mythic:    #f59e0b;
+    --tab-h:     44px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; font-size: 13px; }
+
+  /* ── Tabs ───────────────────────────────────────── */
+  #tab-bar {
+    display: flex; gap: 2px; background: #000;
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px; position: sticky; top: 0; z-index: 100;
+  }
+  .tab-btn {
+    height: var(--tab-h); padding: 0 20px; background: none; border: none;
+    color: var(--muted); cursor: pointer; font: inherit; font-size: 13px;
+    letter-spacing: .05em; text-transform: uppercase; border-bottom: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--text); border-bottom-color: var(--mythic); }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* ── Layout ─────────────────────────────────────── */
+  .page { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
+  h1 { font-size: 22px; font-weight: normal; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); margin-bottom: 32px; font-size: 12px; }
+  h2 { font-size: 14px; font-weight: normal; letter-spacing: .1em; text-transform: uppercase;
+       color: var(--muted); margin: 36px 0 14px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+
+  /* ── Tier pill ──────────────────────────────────── */
+  .tier { display: inline-block; padding: 1px 7px; border-radius: 3px; font-size: 11px;
+          font-weight: bold; letter-spacing: .04em; text-transform: uppercase; }
+  .t-Common   { background: #1a1a1a; color: var(--common);   border: 1px solid var(--common); }
+  .t-Uncommon { background: #0d1f14; color: var(--uncommon); border: 1px solid var(--uncommon); }
+  .t-Rare     { background: #0d1627; color: var(--rare);     border: 1px solid var(--rare); }
+  .t-Epic     { background: #1a0d2a; color: var(--epic);     border: 1px solid var(--epic); }
+  .t-Mythic   { background: #1f1508; color: var(--mythic);   border: 1px solid var(--mythic); }
+
+  /* ── Slot filter bar ────────────────────────────── */
+  .slot-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .slot-btn {
+    padding: 5px 14px; background: var(--surface); border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer; font: inherit; font-size: 12px;
+    letter-spacing: .05em; text-transform: uppercase; border-radius: 3px; transition: .15s;
+  }
+  .slot-btn:hover { color: var(--text); border-color: #555; }
+  .slot-btn.active { color: var(--text); border-color: var(--mythic); background: #1f1508; }
+
+  /* ── Item table ─────────────────────────────────── */
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    text-align: left; padding: 8px 10px; font-size: 11px; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border);
+    position: sticky; top: var(--tab-h); background: var(--bg); white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid #1a1a1a; transition: background .1s; }
+  tbody tr:hover { background: var(--surface); }
+  td { padding: 6px 10px; vertical-align: middle; }
+  td.item-name { font-size: 13px; }
+  td.count { color: var(--muted); text-align: right; width: 70px; }
+  td.tier-cell { width: 100px; }
+
+  /* ── Mythic toggle ──────────────────────────────── */
+  .tier-group-header {
+    padding: 8px 10px; cursor: pointer; user-select: none;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--border); background: var(--surface);
+  }
+  .tier-group-header:hover { background: #1a1a1a; }
+  .tier-group-header .arrow { font-size: 10px; color: var(--muted); transition: transform .2s; }
+  .tier-group-header.collapsed .arrow { transform: rotate(-90deg); }
+  .tier-group-body.hidden { display: none; }
+  .tier-count { color: var(--muted); font-size: 11px; margin-left: auto; }
+
+  /* ── Search ─────────────────────────────────────── */
+  .search-row { display: flex; gap: 10px; margin-bottom: 14px; align-items: center; }
+  .search-input {
+    flex: 1; max-width: 360px; padding: 7px 12px; background: var(--surface);
+    border: 1px solid var(--border); color: var(--text); font: inherit; font-size: 12px;
+    border-radius: 3px; outline: none;
+  }
+  .search-input:focus { border-color: #555; }
+  .search-input::placeholder { color: var(--muted); }
+  .result-count { color: var(--muted); font-size: 12px; }
+
+  /* ── Bag analysis ───────────────────────────────── */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 16px; }
+  .stat-card h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 12px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .bar-label { width: 110px; font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+  .bar-fill  { height: 100%; border-radius: 3px; }
+  .bar-val   { font-size: 11px; color: var(--muted); width: 40px; text-align: right; flex-shrink: 0; }
+
+  /* ── Bag browser ────────────────────────────────── */
+  .filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; align-items: center; }
+  select.filter-sel {
+    padding: 5px 10px; background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); font: inherit; font-size: 12px; border-radius: 3px; outline: none;
+    cursor: pointer;
+  }
+  select.filter-sel:focus { border-color: #555; }
+  .bag-table-wrap { overflow-x: auto; max-height: 600px; overflow-y: auto; }
+  .bag-table-wrap table thead th { top: 0; }
+  td.bag-id { color: var(--muted); width: 60px; }
+  td.bag-item { font-size: 12px; padding: 4px 8px; }
+  .bag-row { cursor: pointer; }
+  .bag-row.expanded { background: var(--surface); }
+  .bag-detail { background: #0e0e0e; }
+  .bag-detail td { padding: 0; }
+  .bag-detail-inner {
+    padding: 10px 14px; display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 4px 16px;
+  }
+  .bag-slot { display: flex; gap: 8px; align-items: baseline; }
+  .bag-slot-label { color: var(--muted); font-size: 11px; width: 54px; flex-shrink: 0; text-transform: uppercase; }
+  .bag-slot-item  { font-size: 12px; }
+  .show-more-btn {
+    display: block; margin: 12px auto 0; padding: 6px 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer; font: inherit; font-size: 12px;
+    border-radius: 3px; transition: .15s;
+  }
+  .show-more-btn:hover { color: var(--text); border-color: #555; }
+
+  /* ── Other tabs placeholder ──────────────────────── */
+  .coming-soon {
+    display: flex; align-items: center; justify-content: center;
+    height: 300px; color: var(--muted); font-size: 13px; letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  /* ── Loading ────────────────────────────────────── */
+  #loading { text-align: center; padding: 80px; color: var(--muted); letter-spacing: .1em; }
+  .dot-anim::after { content: ''; animation: dots 1.2s steps(3,end) infinite; }
+  @keyframes dots { 0%{content:''} 33%{content:'.'} 66%{content:'..'} 100%{content:'...'} }
+</style>
+</head>
+<body>
+
+<div id="tab-bar">
+  <button class="tab-btn active" data-tab="loot">Loot</button>
+  <button class="tab-btn" data-tab="tab2">—</button>
+  <button class="tab-btn" data-tab="tab3">—</button>
+</div>
+
+<div id="loot" class="tab-pane active">
+  <div class="page">
+    <h1>Loot for Adventurers</h1>
+    <p class="subtitle">8,000 bags · 64,000 items · 7,259 unique item strings · verified on-chain</p>
+    <div id="loading"><span class="dot-anim">Loading data</span></div>
+    <div id="loot-content" style="display:none">
+
+      <!-- ══ SECTION 1: ITEM TABLE ══ -->
+      <h2>Item Table</h2>
+      <p style="color:var(--muted);font-size:12px;margin-bottom:16px">
+        Every unique item string that appears in the collection — from Common base items to one-of-a-kind Mythic named pieces.
+        Mythic section is collapsed by default (5,377 items).
+      </p>
+
+      <div class="search-row">
+        <input class="search-input" id="item-search" type="text" placeholder="Search items…">
+        <span class="result-count" id="item-result-count"></span>
+      </div>
+      <div class="slot-bar" id="slot-bar"></div>
+
+      <div class="tbl-wrap">
+        <table id="item-table">
+          <thead>
+            <tr>
+              <th style="width:42px">#</th>
+              <th>Item</th>
+              <th style="width:100px">Tier</th>
+              <th style="width:80px;text-align:right">Count</th>
+            </tr>
+          </thead>
+          <tbody id="item-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- ══ SECTION 2: BAG ANALYSIS ══ -->
+      <h2>Bag Analysis</h2>
+      <p style="color:var(--muted);font-size:12px;margin-bottom:20px">
+        All 8,000 bags grouped by four independent axes: modifier depth, weapon archetype, suffix coverage, and order alignment.
+      </p>
+
+      <div class="stat-grid" id="stat-grid"></div>
+
+      <h2>Bag Browser</h2>
+      <div class="filter-row" id="bag-filters"></div>
+      <div id="bag-result-info" style="color:var(--muted);font-size:12px;margin-bottom:10px"></div>
+      <div class="bag-table-wrap">
+        <table id="bag-table">
+          <thead>
+            <tr>
+              <th style="width:55px">Bag #</th>
+              <th style="width:90px">Modifier</th>
+              <th style="width:80px">Weapon</th>
+              <th style="width:90px">Coverage</th>
+              <th style="width:105px">Order Align</th>
+              <th style="width:90px">Peak Tier</th>
+              <th>Notable items</th>
+            </tr>
+          </thead>
+          <tbody id="bag-tbody"></tbody>
+        </table>
+      </div>
+      <button class="show-more-btn" id="bag-more-btn">Show more</button>
+
+    </div><!-- /loot-content -->
+  </div>
+</div>
+
+<div id="tab2" class="tab-pane">
+  <div class="page"><div class="coming-soon">Coming soon</div></div>
+</div>
+<div id="tab3" class="tab-pane">
+  <div class="page"><div class="coming-soon">Coming soon</div></div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════
+   CONSTANTS
+═══════════════════════════════════════════════════ */
+const SLOTS = ['Weapon','Chest','Head','Waist','Foot','Hand','Neck','Ring'];
+const SLOT_KEYS = ['weapon','chest','head','waist','foot','hand','neck','ring'];
+
+const TIER_ORDER = ['Mythic','Epic','Rare','Uncommon','Common'];
+const TIER_COLOR = {
+  Common:'var(--common)', Uncommon:'var(--uncommon)',
+  Rare:'var(--rare)', Epic:'var(--epic)', Mythic:'var(--mythic)'
+};
+const TIER_RANK = {Common:1,Uncommon:2,Rare:3,Epic:4,Mythic:5};
+
+const MOD_COLORS = {
+  'Pure':'#6b7280','Suffixed':'#3b82f6','Named':'#a855f7','Named +1':'#f59e0b'
+};
+const WPN_COLORS = {Sword:'#ef4444',Blunt:'#f97316',Scholar:'#22c55e',Wand:'#38bdf8'};
+const COV_COLORS = {'0':'#374151','1–2':'#3b82f6','3–4':'#8b5cf6','5–6':'#f59e0b','7–8':'#ef4444'};
+const ORD_COLORS = {'Plain':'#374151','Unaligned':'#4b5563','2 Aligned':'#3b82f6','3 Aligned':'#a855f7','4+ Aligned':'#f59e0b'};
+const MAX_TIER_COLOR = t => TIER_COLOR[t] || '#666';
+
+/* ════════════════════════════════════════════════════
+   TAB SWITCHING
+═══════════════════════════════════════════════════ */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ════════════════════════════════════════════════════
+   LOAD DATA
+═══════════════════════════════════════════════════ */
+let DATA = null;
+
+fetch('output/page_data.json')
+  .then(r => r.json())
+  .then(d => {
+    DATA = d;
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('loot-content').style.display = 'block';
+    buildItemTable();
+    buildBagAnalysis();
+  })
+  .catch(e => {
+    document.getElementById('loading').textContent = 'Error loading data. Serve this file over HTTP.';
+  });
+
+/* ════════════════════════════════════════════════════
+   ITEM TABLE
+═══════════════════════════════════════════════════ */
+let currentSlot = 'All';
+let searchQuery = '';
+
+function buildItemTable() {
+  // Slot bar
+  const bar = document.getElementById('slot-bar');
+  ['All', ...SLOTS].forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'slot-btn' + (s === 'All' ? ' active' : '');
+    b.textContent = s;
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.slot-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      currentSlot = s;
+      renderItemTable();
+    });
+    bar.appendChild(b);
+  });
+
+  // Search
+  document.getElementById('item-search').addEventListener('input', e => {
+    searchQuery = e.target.value.toLowerCase();
+    renderItemTable();
+  });
+
+  renderItemTable();
+}
+
+function getFilteredItems() {
+  let rows = [];
+  const slotList = currentSlot === 'All' ? SLOTS : [currentSlot];
+  slotList.forEach(slot => {
+    const slotKey = SLOT_KEYS[SLOTS.indexOf(slot)];
+    (DATA.slotTable[slot] || []).forEach(r => {
+      rows.push({...r, slot});
+    });
+  });
+  if (searchQuery) rows = rows.filter(r => r.item.toLowerCase().includes(searchQuery));
+  return rows;
+}
+
+function renderItemTable() {
+  const rows = getFilteredItems();
+  const tbody = document.getElementById('item-tbody');
+  tbody.innerHTML = '';
+
+  // Group by tier
+  const byTier = {};
+  TIER_ORDER.forEach(t => byTier[t] = []);
+  rows.forEach(r => (byTier[r.tier] || (byTier['Common'] = [])).push(r));
+
+  let rowNum = 0;
+  let total = 0;
+  TIER_ORDER.forEach(tier => {
+    const items = byTier[tier];
+    if (!items.length) return;
+    total += items.length;
+
+    // Group header row
+    const hdr = document.createElement('tr');
+    hdr.innerHTML = `<td colspan="4" class="tier-group-header ${tier === 'Mythic' && !searchQuery ? 'collapsed' : ''}">
+      <span class="arrow">▼</span>
+      <span class="tier t-${tier}">${tier}</span>
+      <span class="tier-count">${items.length.toLocaleString()} items</span>
+    </td>`;
+    const hdrTd = hdr.querySelector('td');
+    tbody.appendChild(hdr);
+
+    // Body group
+    const bodyGroup = document.createElement('tbody');
+    bodyGroup.className = 'tier-group-body' + (tier === 'Mythic' && !searchQuery ? ' hidden' : '');
+
+    items.forEach(r => {
+      rowNum++;
+      const tr = document.createElement('tr');
+      const slotLabel = currentSlot === 'All' ? ` <span style="color:var(--muted);font-size:11px">[${r.slot}]</span>` : '';
+      tr.innerHTML = `
+        <td class="count">${rowNum}</td>
+        <td class="item-name">${escHtml(r.item)}${slotLabel}</td>
+        <td class="tier-cell"><span class="tier t-${r.tier}">${r.tier}</span></td>
+        <td class="count">${r.count.toLocaleString()}</td>`;
+      bodyGroup.appendChild(tr);
+    });
+    tbody.appendChild(bodyGroup);
+
+    // Toggle
+    hdrTd.addEventListener('click', () => {
+      hdrTd.classList.toggle('collapsed');
+      bodyGroup.classList.toggle('hidden');
+    });
+  });
+
+  document.getElementById('item-result-count').textContent =
+    `${total.toLocaleString()} items${searchQuery ? ' matching' : ''}`;
+}
+
+/* ════════════════════════════════════════════════════
+   BAG ANALYSIS — STAT CARDS
+═══════════════════════════════════════════════════ */
+function buildBagAnalysis() {
+  const bags = DATA.bags;
+
+  const modCnt    = countBy(bags, b => b.modClass);
+  const wpnCnt    = countBy(bags, b => b.weaponClass);
+  const covCnt    = countBy(bags, b => b.sufCoverage);
+  const ordCnt    = countBy(bags, b => b.orderGroup);
+  const tierCnt   = countBy(bags, b => b.maxTier);
+
+  const sections = [
+    {
+      title: 'Modifier Depth',
+      desc: 'Whether items carry suffixes, names, or +1 enchantments',
+      data: [
+        {label:'Named +1', val:modCnt['Named +1']||0, color:MOD_COLORS['Named +1']},
+        {label:'Named',    val:modCnt['Named']||0,    color:MOD_COLORS['Named']},
+        {label:'Suffixed', val:modCnt['Suffixed']||0, color:MOD_COLORS['Suffixed']},
+        {label:'Pure',     val:modCnt['Pure']||0,     color:MOD_COLORS['Pure']},
+      ]
+    },
+    {
+      title: 'Weapon Archetype',
+      desc: 'Combat style implied by the weapon in slot 1',
+      data: [
+        {label:'Sword',   val:wpnCnt['Sword']||0,   color:WPN_COLORS['Sword']},
+        {label:'Blunt',   val:wpnCnt['Blunt']||0,   color:WPN_COLORS['Blunt']},
+        {label:'Scholar', val:wpnCnt['Scholar']||0, color:WPN_COLORS['Scholar']},
+        {label:'Wand',    val:wpnCnt['Wand']||0,    color:WPN_COLORS['Wand']},
+      ]
+    },
+    {
+      title: 'Suffix Coverage',
+      desc: 'How many of the 8 slots carry a suffix',
+      data: [
+        {label:'7–8 slots', val:covCnt['7–8']||0, color:COV_COLORS['7–8']},
+        {label:'5–6 slots', val:covCnt['5–6']||0, color:COV_COLORS['5–6']},
+        {label:'3–4 slots', val:covCnt['3–4']||0, color:COV_COLORS['3–4']},
+        {label:'1–2 slots', val:covCnt['1–2']||0, color:COV_COLORS['1–2']},
+        {label:'0 (plain)', val:covCnt['0']||0,   color:COV_COLORS['0']},
+      ]
+    },
+    {
+      title: 'Order Alignment',
+      desc: 'Bags where multiple items share the same suffix ("of X")',
+      data: [
+        {label:'4+ Aligned', val:ordCnt['4+ Aligned']||0, color:ORD_COLORS['4+ Aligned']},
+        {label:'3 Aligned',  val:ordCnt['3 Aligned']||0,  color:ORD_COLORS['3 Aligned']},
+        {label:'2 Aligned',  val:ordCnt['2 Aligned']||0,  color:ORD_COLORS['2 Aligned']},
+        {label:'Unaligned',  val:ordCnt['Unaligned']||0,  color:ORD_COLORS['Unaligned']},
+        {label:'Plain',      val:ordCnt['Plain']||0,      color:ORD_COLORS['Plain']},
+      ]
+    },
+    {
+      title: 'Peak Tier',
+      desc: 'Highest rarity tier present in the bag',
+      data: [
+        {label:'Mythic',   val:tierCnt['Mythic']||0,   color:TIER_COLOR['Mythic']},
+        {label:'Epic',     val:tierCnt['Epic']||0,     color:TIER_COLOR['Epic']},
+        {label:'Rare',     val:tierCnt['Rare']||0,     color:TIER_COLOR['Rare']},
+        {label:'Uncommon', val:tierCnt['Uncommon']||0, color:TIER_COLOR['Uncommon']},
+        {label:'Common',   val:tierCnt['Common']||0,   color:TIER_COLOR['Common']},
+      ]
+    },
+  ];
+
+  const grid = document.getElementById('stat-grid');
+  sections.forEach(sec => {
+    const maxVal = Math.max(...sec.data.map(d => d.val));
+    const card = document.createElement('div');
+    card.className = 'stat-card';
+    card.innerHTML = `<h3>${sec.title}</h3>
+      <p style="color:var(--muted);font-size:11px;margin-bottom:12px">${sec.desc}</p>`;
+    sec.data.forEach(d => {
+      const pct = maxVal > 0 ? (d.val / maxVal * 100).toFixed(1) : 0;
+      const pctOfTotal = (d.val / 8000 * 100).toFixed(1);
+      const row = document.createElement('div');
+      row.className = 'bar-row';
+      row.innerHTML = `
+        <span class="bar-label" title="${d.label}">${d.label}</span>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${pct}%;background:${d.color}"></div>
+        </div>
+        <span class="bar-val" style="color:${d.color}">${pctOfTotal}%</span>`;
+      card.appendChild(row);
+    });
+    grid.appendChild(card);
+  });
+
+  buildBagBrowser();
+}
+
+/* ════════════════════════════════════════════════════
+   BAG BROWSER
+═══════════════════════════════════════════════════ */
+let bagFilterState = {modClass:'All', weaponClass:'All', sufCoverage:'All', orderGroup:'All', maxTier:'All'};
+let bagPage = 50;
+let expandedBag = null;
+
+function buildBagBrowser() {
+  const filtersEl = document.getElementById('bag-filters');
+  const filterDefs = [
+    {key:'modClass',    label:'Modifier',  opts:['All','Pure','Suffixed','Named','Named +1']},
+    {key:'weaponClass', label:'Weapon',    opts:['All','Sword','Blunt','Scholar','Wand']},
+    {key:'sufCoverage', label:'Coverage',  opts:['All','0','1–2','3–4','5–6','7–8']},
+    {key:'orderGroup',  label:'Order',     opts:['All','Plain','Unaligned','2 Aligned','3 Aligned','4+ Aligned']},
+    {key:'maxTier',     label:'Peak tier', opts:['All','Common','Uncommon','Rare','Epic','Mythic']},
+  ];
+
+  filterDefs.forEach(f => {
+    const sel = document.createElement('select');
+    sel.className = 'filter-sel';
+    f.opts.forEach(o => {
+      const opt = document.createElement('option');
+      opt.value = o; opt.textContent = o === 'All' ? `${f.label}: All` : o;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener('change', () => {
+      bagFilterState[f.key] = sel.value;
+      bagPage = 50;
+      expandedBag = null;
+      renderBagTable();
+    });
+    filtersEl.appendChild(sel);
+  });
+
+  // Reset
+  const reset = document.createElement('button');
+  reset.className = 'slot-btn';
+  reset.textContent = 'Reset filters';
+  reset.addEventListener('click', () => {
+    bagFilterState = {modClass:'All',weaponClass:'All',sufCoverage:'All',orderGroup:'All',maxTier:'All'};
+    filtersEl.querySelectorAll('select').forEach((s, i) => s.selectedIndex = 0);
+    bagPage = 50;
+    expandedBag = null;
+    renderBagTable();
+  });
+  filtersEl.appendChild(reset);
+
+  document.getElementById('bag-more-btn').addEventListener('click', () => {
+    bagPage += 50;
+    renderBagTable(true);
+  });
+
+  renderBagTable();
+}
+
+function getFilteredBags() {
+  return DATA.bags.filter(b => {
+    const f = bagFilterState;
+    return (f.modClass    === 'All' || b.modClass    === f.modClass) &&
+           (f.weaponClass === 'All' || b.weaponClass === f.weaponClass) &&
+           (f.sufCoverage === 'All' || b.sufCoverage === f.sufCoverage) &&
+           (f.orderGroup  === 'All' || b.orderGroup  === f.orderGroup) &&
+           (f.maxTier     === 'All' || b.maxTier     === f.maxTier);
+  });
+}
+
+const SLOT_SHORT = ['Weapon','Chest','Head','Waist','Foot','Hand','Neck','Ring'];
+
+function renderBagTable(append = false) {
+  const bags = getFilteredBags();
+  const visible = bags.slice(0, bagPage);
+  const tbody = document.getElementById('bag-tbody');
+
+  if (!append) tbody.innerHTML = '';
+
+  const start = append ? bagPage - 50 : 0;
+  visible.slice(start).forEach(b => {
+    // Summary row
+    const tr = document.createElement('tr');
+    tr.className = 'bag-row';
+    tr.dataset.id = b.id;
+
+    // Notable items = highest tier items
+    const notable = b.items
+      .map((item, i) => ({item, tier: b.tiers[i], slot: SLOT_SHORT[i]}))
+      .filter(x => TIER_RANK[x.tier] >= 3)
+      .sort((a,z) => TIER_RANK[z.tier] - TIER_RANK[a.tier])
+      .slice(0, 2);
+    const notableHtml = notable.length
+      ? notable.map(n => `<span style="color:${TIER_COLOR[n.tier]}">${escHtml(n.item)}</span>`).join('<span style="color:var(--muted)"> · </span>')
+      : '<span style="color:var(--muted)">—</span>';
+
+    const orderLabel = b.dominantOrder && b.maxOrderCount >= 2
+      ? `${b.orderGroup} <span style="color:var(--muted)">(${b.dominantOrder})</span>`
+      : b.orderGroup;
+
+    tr.innerHTML = `
+      <td class="bag-id">#${b.id}</td>
+      <td><span class="tier" style="color:${MOD_COLORS[b.modClass]||'#888'};border-color:${MOD_COLORS[b.modClass]||'#888'};background:#0a0a0a">${b.modClass}</span></td>
+      <td><span style="color:${WPN_COLORS[b.weaponClass]||'#888'}">${b.weaponClass}</span></td>
+      <td style="color:${COV_COLORS[b.sufCoverage]||'#888'}">${b.sufCoverage} slots</td>
+      <td>${orderLabel}</td>
+      <td><span class="tier t-${b.maxTier}">${b.maxTier}</span></td>
+      <td class="bag-item">${notableHtml}</td>`;
+
+    tr.addEventListener('click', () => toggleBagDetail(b, tr));
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('bag-result-info').textContent =
+    `Showing ${Math.min(bagPage, bags.length).toLocaleString()} of ${bags.length.toLocaleString()} bags`;
+
+  document.getElementById('bag-more-btn').style.display =
+    bagPage >= bags.length ? 'none' : 'block';
+}
+
+function toggleBagDetail(b, tr) {
+  // Remove existing detail rows
+  document.querySelectorAll('.bag-detail').forEach(el => el.remove());
+  document.querySelectorAll('.bag-row').forEach(el => el.classList.remove('expanded'));
+
+  if (expandedBag === b.id) { expandedBag = null; return; }
+  expandedBag = b.id;
+  tr.classList.add('expanded');
+
+  const detail = document.createElement('tr');
+  detail.className = 'bag-detail';
+  const inner = document.createElement('td');
+  inner.colSpan = 7;
+
+  const grid = document.createElement('div');
+  grid.className = 'bag-detail-inner';
+
+  b.items.forEach((item, i) => {
+    const t = b.tiers[i];
+    const slotDiv = document.createElement('div');
+    slotDiv.className = 'bag-slot';
+    slotDiv.innerHTML = `
+      <span class="bag-slot-label">${SLOT_SHORT[i]}</span>
+      <span class="bag-slot-item" style="color:${TIER_COLOR[t]||'#e2e2e2'}">${escHtml(item)}</span>`;
+    grid.appendChild(slotDiv);
+  });
+
+  inner.appendChild(grid);
+  detail.appendChild(inner);
+  tr.insertAdjacentElement('afterend', detail);
+}
+
+/* ════════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════ */
+function countBy(arr, fn) {
+  const r = {};
+  arr.forEach(x => { const k = fn(x); r[k] = (r[k]||0)+1; });
+  return r;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
