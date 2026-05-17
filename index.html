@@ -161,7 +161,7 @@
 <div id="tab-bar">
   <button class="tab-btn active" data-tab="loot">Loot</button>
   <button class="tab-btn" data-tab="moreloot">More Loot</button>
-  <button class="tab-btn" data-tab="tab3">—</button>
+  <button class="tab-btn" data-tab="tab3">AGLD</button>
 </div>
 
 <div id="loot" class="tab-pane active">
@@ -457,7 +457,190 @@
   </div>
 </div>
 <div id="tab3" class="tab-pane">
-  <div class="page"><div class="coming-soon">Coming soon</div></div>
+  <div class="page" id="agld-page">
+
+    <h1>Adventure Gold <span style="color:var(--mythic)">AGLD</span></h1>
+    <p class="subtitle">92,830,001 supply · 15,821 holders · DAO-governed · verified on-chain</p>
+
+    <!-- intro -->
+    <div style="background:#111;border:1px solid #2a2a2a;border-left:3px solid var(--mythic);padding:12px 16px;margin-bottom:28px;font-size:12px;line-height:1.7">
+      <strong style="color:var(--text)">What is Adventure Gold?</strong><br>
+      <span style="color:var(--muted)">Launched <strong style="color:var(--text)">Sep 2, 2021</strong> by <strong style="color:var(--text)">Will Papper</strong> (Syndicate DAO co-founder) as the native currency of the Loot ecosystem.
+      Each of the 8,000 Loot bags could claim <strong style="color:var(--text)">10,000 AGLD</strong> for free (gas only). 7,734 bags claimed, setting initial supply at 77.34M.
+      AGLD is now the governance token for <strong style="color:var(--text)">Adventure Layer</strong> — the Loot-native L2 network — and can only be minted further via DAO vote.</span>
+    </div>
+
+    <h2>Supply &amp; Mint Schedule</h2>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:20px">Contract at <code style="font-size:11px">0x32353a6c…9a20</code> — immutable bytecode, non-upgradable, non-proxied.</p>
+
+    <!-- 3 stat cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:20px">
+      <div class="stat-card">
+        <h3>Current supply</h3>
+        <div style="font-size:28px;font-weight:700;color:var(--mythic);letter-spacing:-.5px;margin-bottom:6px">92,830,001</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.7">
+          <div style="display:flex;justify-content:space-between"><span>Original airdrop (7,734 claims)</span><span style="color:var(--text)">77,340,000</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Residual claims 2022–2025</span><span style="color:var(--text)">~10,001</span></div>
+          <div style="display:flex;justify-content:space-between;margin-top:4px;padding-top:4px;border-top:1px solid var(--border)"><span>AGIP-9/10 daoMint (Feb 2025)</span><span style="color:#f59e0b">+15,500,000</span></div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <h3>Soft cap (DAO commitment)</h3>
+        <div style="font-size:28px;font-weight:700;color:var(--text);letter-spacing:-.5px;margin-bottom:6px">96,000,000</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.7">
+          <div>96.7% of soft cap already in circulation</div>
+          <div style="margin-top:4px;padding-top:4px;border-top:1px solid var(--border);color:#f59e0b">⚠ No hard cap exists in the contract — the soft cap is a social/governance commitment only</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <h3>Mint mechanism</h3>
+        <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;font-family:monospace">daoMint(uint256)</div>
+        <div style="display:flex;flex-direction:column;gap:5px;font-size:11px;color:var(--muted)">
+          <div><span style="color:#22c55e">✓</span> Selector <code style="font-size:10px">0x62759f6c</code> — confirmed via 4byte.directory</div>
+          <div><span style="color:#22c55e">✓</span> Used exactly once in contract lifetime</div>
+          <div><span style="color:#22c55e">✓</span> Routes through 7-day OZ Timelock before execution</div>
+          <div><span style="color:#f59e0b">⚠</span> No on-chain cap — amount is caller-specified</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- supply timeline chart -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:20px">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px">Supply history &amp; halving schedule</div>
+      <div id="agld-supply-chart"></div>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.7">
+        AGIP-9/10 established a <strong style="color:var(--text)">halving-based inflation schedule</strong> starting 2026. The 2025 inflation (+15.5M) was minted as a single lump sum.
+        Future issuance requires a new DAO vote and 7-day timelock each time. Soft cap of 96M leaves ~3.17M still mintable under the current framework.
+      </div>
+    </div>
+
+    <h2>Governance &amp; Control Structure</h2>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:20px">Verified from on-chain OwnershipTransferred events and contract storage reads.</p>
+
+    <!-- ownership timeline -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:20px">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:16px">Ownership history</div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid var(--border)">
+          <div style="flex-shrink:0;width:90px;font-size:10px;color:var(--muted);padding-top:2px">Sep 4, 2021<br>block 13,142,655</div>
+          <div style="width:3px;background:#22c55e;border-radius:3px;flex-shrink:0;margin-top:2px;min-height:40px"></div>
+          <div><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px">Deploy &amp; initial transfer</div><div style="font-size:11px;color:var(--muted)">Deployer EOA <code style="font-size:10px">0x712e85…3818</code> (Will Papper — 3 total txs, now dormant) minted initial supply and immediately transferred ownership to a founding multisig.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)">
+          <div style="flex-shrink:0;width:90px;font-size:10px;color:var(--muted);padding-top:2px">Sep 2021 –<br>Jan 2025</div>
+          <div style="width:3px;background:#3b82f6;border-radius:3px;flex-shrink:0;margin-top:2px;min-height:40px"></div>
+          <div><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px">Founding multisig control</div><div style="font-size:11px;color:var(--muted)">Gnosis Safe v1.1.1 at <code style="font-size:10px">0xcd814c…4ed1</code> — <strong style="color:var(--text)">11 signers, 3-of-11 threshold</strong>. Held ownership for 40 months. One signer (<code style="font-size:10px">0xf73fe1…a407</code>) received the first ever AGLD claim in block 13,142,784 — presumed Will Papper's operational wallet.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)">
+          <div style="flex-shrink:0;width:90px;font-size:10px;color:var(--muted);padding-top:2px">Jan 6, 2025<br>block 21,542,317</div>
+          <div style="width:3px;background:#f59e0b;border-radius:3px;flex-shrink:0;margin-top:2px;min-height:40px"></div>
+          <div><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px">Migration to on-chain DAO governance</div><div style="font-size:11px;color:var(--muted)">Founding multisig transferred ownership to an <strong style="color:var(--text)">OpenZeppelin TimelockController</strong> (<code style="font-size:10px">0xed4f98…7ef9</code>) with a <strong style="color:var(--text)">7-day mandatory delay</strong>. Timelock is itself governed by the <strong style="color:var(--text)">Adventure Gold Governor</strong> contract (<code style="font-size:10px">0x7ae22b…9dfe</code>). This is the moment single-party control ended — 30 days before the first inflation mint.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding-top:16px">
+          <div style="flex-shrink:0;width:90px;font-size:10px;color:var(--muted);padding-top:2px">Jan 2025 –<br>present</div>
+          <div style="width:3px;background:#a855f7;border-radius:3px;flex-shrink:0;margin-top:2px;min-height:40px"></div>
+          <div><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px">Full DAO control (current)</div><div style="font-size:11px;color:var(--muted)">Any mint requires: ① DAO proposal in the Governor → ② token-weighted community vote → ③ 7-day Timelock queue → ④ permissionless execution. No single individual or multisig can bypass this flow. Ownership has not been renounced or transferred since Jan 2025.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <h2>The Feb 2025 Inflation Event (AGIP-9/10)</h2>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:20px">15,500,000 AGLD minted in a single transaction. Full on-chain trace.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+      <div class="stat-card">
+        <h3>What was minted &amp; why</h3>
+        <div style="display:flex;flex-direction:column;gap:7px;font-size:11px;color:var(--muted)">
+          <div><span style="color:var(--text);font-weight:600">AGIP-9 &amp; AGIP-10</span> — two Adventure Gold Improvement Proposals establishing a halving-based annual inflation schedule to fund the Adventure Layer L2 ecosystem.</div>
+          <div style="display:flex;justify-content:space-between;padding-top:6px;border-top:1px solid var(--border)"><span>Amount</span><span style="color:#f59e0b;font-weight:600">15,500,000 AGLD</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Supply dilution</span><span style="color:var(--text)">+20.0%</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Mint tx (block 21,777,773)</span><span style="color:var(--text)">Feb 5, 2025 04:01 UTC</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Distribution tx (block 21,900,197)</span><span style="color:var(--text)">Feb 22, 2025 06:50 UTC</span></div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <h3>Distribution (17 days after mint)</h3>
+        <div style="display:flex;flex-direction:column;gap:5px;font-size:11px;margin-top:2px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="color:var(--muted)">Safe A → EOA → dispersed</span>
+            <span style="color:var(--text)">4,000,000</span>
+          </div>
+          <div style="height:3px;background:linear-gradient(90deg,#f59e0b 25.8%,var(--border) 0);border-radius:2px;margin-bottom:2px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="color:var(--muted)">Safe B → EOA → dispersed</span>
+            <span style="color:var(--text)">4,000,000</span>
+          </div>
+          <div style="height:3px;background:linear-gradient(90deg,#f59e0b 25.8%,var(--border) 0);border-radius:2px;margin-bottom:2px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="color:var(--muted)">Safe C → EOA → dispersed</span>
+            <span style="color:var(--text)">4,000,000</span>
+          </div>
+          <div style="height:3px;background:linear-gradient(90deg,#f59e0b 25.8%,var(--border) 0);border-radius:2px;margin-bottom:2px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="color:var(--muted)">Safe D → EOA → dispersed</span>
+            <span style="color:var(--text)">3,500,000</span>
+          </div>
+          <div style="height:3px;background:linear-gradient(90deg,#f59e0b 22.6%,var(--border) 0);border-radius:2px;margin-bottom:2px"></div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px;padding-top:4px;border-top:1px solid var(--border)">Each Safe (Gnosis v1.3) → fresh EOA (nonce ≤10) → further dispersed across ~50–100 wallets in 100k–1.5M chunks. Final destinations did not include labeled exchange hot wallets, consistent with OTC / ecosystem distribution.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Holder Distribution</h2>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:20px">Full Transfer-event sweep · 302,799 events · 15,821 current holders · data as of block 25,117,157.</p>
+
+    <!-- concentration bar -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:16px">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px">Supply concentration by top-N holders</div>
+      <div id="agld-concentration-chart"></div>
+    </div>
+
+    <!-- wallet bracket + top holders side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+      <div class="stat-card">
+        <h3>Wallet balance brackets</h3>
+        <div id="agld-brackets"></div>
+      </div>
+      <div class="stat-card">
+        <h3>Top 12 holders</h3>
+        <div id="agld-top-holders"></div>
+      </div>
+    </div>
+
+    <h2>Risk Factors</h2>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:20px">Factual, neutral assessment based on on-chain contract analysis and verified governance data.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:28px">
+      <div class="stat-card">
+        <h3 style="color:#f59e0b">Supply risks</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:11px;color:var(--muted);margin-top:4px">
+          <div><strong style="color:var(--text)">No hard cap on-chain.</strong> The 96M soft cap is enforced only by DAO social consensus. A future governance vote could exceed it.</div>
+          <div><strong style="color:var(--text)">daoMint has no per-call limit.</strong> Any integer can be passed as the amount argument — 1 token or 1 billion.</div>
+          <div><strong style="color:var(--text)">No burn function.</strong> Supply is one-directional; dilution cannot be offset on-chain.</div>
+          <div><strong style="color:var(--text)">Halving schedule is off-chain.</strong> The 2026+ halving commitment is documented in governance communications, not in the contract bytecode.</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <h3 style="color:#3b82f6">Governance risks</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:11px;color:var(--muted);margin-top:4px">
+          <div><strong style="color:var(--text)">Extreme concentration.</strong> Top 1 address holds 41.5% of supply — enough to dominate any quorum-based vote. Top 5 addresses control 70%.</div>
+          <div><strong style="color:var(--text)">Exchange holdings.</strong> Binance cold/hot wallets hold ~16.5% combined. Exchange-held tokens rarely participate in governance.</div>
+          <div><strong style="color:var(--text)">7-day timelock is the only delay.</strong> There is no veto period, no emergency pause, and no supermajority requirement beyond what the Governor implements.</div>
+          <div><strong style="color:var(--text)">No permit (EIP-2612).</strong> Every approval requires a separate on-chain transaction — a UX friction point for governance participation.</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <h3 style="color:#22c55e">Structural protections</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:11px;color:var(--muted);margin-top:4px">
+          <div><span style="color:#22c55e">✓</span> <strong style="color:var(--text)">Immutable contract.</strong> Code cannot be upgraded or redeployed to change token behavior.</div>
+          <div><span style="color:#22c55e">✓</span> <strong style="color:var(--text)">7-day mandatory delay.</strong> All governance actions — including mints — are subject to a 7-day on-chain timelock before execution. Time to react.</div>
+          <div><span style="color:#22c55e">✓</span> <strong style="color:var(--text)">Single-party control removed.</strong> The founding multisig explicitly handed control to on-chain governance before executing the first inflation event.</div>
+          <div><span style="color:#22c55e">✓</span> <strong style="color:var(--text)">Full on-chain transparency.</strong> Every mint is publicly traceable to a specific Governor proposal ID and Timelock execution.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
@@ -908,6 +1091,7 @@ async function initMoreLoot() {
 
 document.querySelectorAll('.tab-btn').forEach(btn => {
   if (btn.dataset.tab === 'moreloot') btn.addEventListener('click', initMoreLoot);
+  if (btn.dataset.tab === 'tab3') btn.addEventListener('click', initAGLD);
 });
 
 /* ── ML item table ── */
@@ -1233,6 +1417,157 @@ function renderMLBags(append) {
   const note=ML_DATA.meta.sampleBags<ML_DATA.meta.totalBags?' (from '+ML_DATA.meta.sampleBags.toLocaleString()+'-bag sample)':'';
   document.getElementById('ml-bag-result-info').textContent='Showing '+Math.min(mlBagPage,bags.length).toLocaleString()+' of '+bags.length.toLocaleString()+' bags'+note;
   document.getElementById('ml-bag-more-btn').style.display=mlBagPage>=bags.length?'none':'block';
+}
+
+/* ════════════════════════════════════════════════════
+   AGLD TAB
+═══════════════════════════════════════════════════ */
+let agldInited = false;
+function initAGLD() {
+  if (agldInited) return;
+  agldInited = true;
+  buildAGLDSupplyChart();
+  buildAGLDConcentration();
+  buildAGLDBrackets();
+  buildAGLDTopHolders();
+}
+
+function buildAGLDSupplyChart() {
+  const el = document.getElementById('agld-supply-chart');
+  if (!el) return;
+  // Historical + projected supply data points
+  const points = [
+    { label: 'Sep 2021\n(launch)', value: 77.34, color: '#6b7280', note: 'Airdrop claims open' },
+    { label: 'End 2022', value: 76.95, color: '#6b7280', note: '' },
+    { label: 'End 2023', value: 77.27, color: '#6b7280', note: '' },
+    { label: 'End 2024', value: 77.31, color: '#6b7280', note: '' },
+    { label: 'Feb 2025\n(AGIP-9/10)', value: 92.83, color: '#f59e0b', note: '+15.5M daoMint' },
+    { label: '2026\n(projected)', value: 95.08, color: '#a855f7', note: '~+2.25M (halving)' },
+    { label: '2027\n(soft cap)', value: 96.00, color: '#3b82f6', note: '~+0.92M (halving)' },
+  ];
+  const max = 96;
+  const svgH = 100, svgW = 600, padL = 50, padR = 20, padT = 14, padB = 28;
+  const w = svgW - padL - padR;
+  const h = svgH - padT - padB;
+  const x = (i) => padL + i * (w / (points.length - 1));
+  const y = (v) => padT + h - (v / max) * h;
+  // Build polyline path
+  const linePts = points.map((p, i) => `${x(i)},${y(p.value)}`).join(' ');
+  const areaPts = `${x(0)},${y(0)} ${linePts} ${x(points.length-1)},${y(0)}`;
+
+  let svg = `<svg viewBox="0 0 ${svgW} ${svgH+20}" style="width:100%;overflow:visible;font-size:9px;font-family:monospace">
+  <defs>
+    <linearGradient id="agld-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- horizontal gridlines -->
+  ${[60,70,80,90,96].map(v => `
+  <line x1="${padL}" y1="${y(v)}" x2="${svgW-padR}" y2="${y(v)}" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="${padL-4}" y="${y(v)+3}" text-anchor="end" fill="#6b7280">${v}M</text>`).join('')}
+  <!-- soft cap line -->
+  <line x1="${padL}" y1="${y(96)}" x2="${svgW-padR}" y2="${y(96)}" stroke="#3b82f6" stroke-dasharray="4 3" stroke-width="1"/>
+  <text x="${svgW-padR+3}" y="${y(96)+3}" fill="#3b82f6" font-size="8">96M cap</text>
+  <!-- area fill -->
+  <polygon points="${areaPts}" fill="url(#agld-grad)"/>
+  <!-- line -->
+  <polyline points="${linePts}" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- dots + labels -->
+  ${points.map((p, i) => {
+    const cx = x(i), cy = y(p.value);
+    const proj = i >= 5;
+    const dot = proj
+      ? `<circle cx="${cx}" cy="${cy}" r="4" fill="none" stroke="${p.color}" stroke-width="1.5" stroke-dasharray="2 2"/>`
+      : `<circle cx="${cx}" cy="${cy}" r="4" fill="${p.color}" stroke="#141414" stroke-width="1.5"/>`;
+    const lbl = p.label.split('\n').map((line, li) =>
+      `<tspan x="${cx}" dy="${li===0 ? 0 : 10}">${line}</tspan>`).join('');
+    const noteEl = p.note ? `<text x="${cx}" y="${cy-12}" text-anchor="middle" fill="${p.color}" font-size="8">${p.note}</text>` : '';
+    return `${dot}${noteEl}<text x="${cx}" y="${svgH+8}" text-anchor="middle" fill="#6b7280">${lbl}</text>`;
+  }).join('')}
+  </svg>`;
+  el.innerHTML = svg;
+}
+
+function buildAGLDConcentration() {
+  const el = document.getElementById('agld-concentration-chart');
+  if (!el) return;
+  const tiers = [
+    { label: 'Top 1',  pct: 44.10, note: '~39.5M — single unknown EOA (likely exchange)' },
+    { label: 'Top 5',  pct: 70.01, note: 'adds Binance cold (14.2%) + 3 others' },
+    { label: 'Top 10', pct: 80.64, note: '' },
+    { label: 'Top 20', pct: 89.23, note: '' },
+    { label: 'Top 50', pct: 95.16, note: '' },
+    { label: 'Top 100',pct: 97.24, note: '' },
+    { label: 'Top 500',pct: 99.18, note: '' },
+    { label: 'All 15,821', pct: 100, note: '' },
+  ];
+  el.innerHTML = tiers.map(t => `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <div style="width:65px;font-size:11px;color:var(--muted);flex-shrink:0;text-align:right">${t.label}</div>
+      <div style="flex:1;position:relative;height:18px;background:var(--bg);border:1px solid var(--border);border-radius:2px;overflow:hidden">
+        <div style="position:absolute;left:0;top:0;height:100%;width:${t.pct}%;background:${t.pct>90?'#f59e0b':t.pct>70?'#a855f7':'#3b82f6'};opacity:.7;transition:width .4s"></div>
+        <div style="position:absolute;right:6px;top:0;line-height:18px;font-size:10px;color:var(--text);font-family:monospace">${t.pct.toFixed(2)}%</div>
+      </div>
+      ${t.note ? `<div style="font-size:10px;color:var(--muted);width:220px;flex-shrink:0">${t.note}</div>` : '<div style="width:220px"></div>'}
+    </div>`).join('');
+}
+
+function buildAGLDBrackets() {
+  const el = document.getElementById('agld-brackets');
+  if (!el) return;
+  const brackets = [
+    { range: '0–1', wallets: 9088, agld: 811, pct: 0.00 },
+    { range: '1–10', wallets: 1227, agld: 6187, pct: 0.01 },
+    { range: '10–100', wallets: 3208, agld: 119056, pct: 0.12 },
+    { range: '100–1,000', wallets: 1812, agld: 665257, pct: 0.70 },
+    { range: '1K–10K', wallets: 345, agld: 1241616, pct: 1.30 },
+    { range: '10K–100K', wallets: 98, agld: 3208853, pct: 3.37 },
+    { range: '100K–1M', wallets: 31, agld: 10741250, pct: 11.26 },
+    { range: '1M+', wallets: 12, agld: 79372292, pct: 83.24 },
+  ];
+  el.innerHTML = `<div style="display:flex;flex-direction:column;gap:5px;margin-top:4px">` +
+    brackets.map(b => `
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px">
+        <span style="color:var(--muted)">${b.range} AGLD &nbsp;·&nbsp; ${b.wallets.toLocaleString()} wallets</span>
+        <span style="color:var(--text)">${b.pct.toFixed(2)}%</span>
+      </div>
+      <div style="height:4px;background:var(--bg);border-radius:2px;overflow:hidden">
+        <div style="height:100%;width:${Math.max(b.pct,0.15)}%;background:${b.pct>50?'#f59e0b':b.pct>10?'#a855f7':b.pct>3?'#3b82f6':b.pct>0.5?'#22c55e':'#6b7280'}"></div>
+      </div>
+    </div>`).join('') + `</div>`;
+}
+
+function buildAGLDTopHolders() {
+  const el = document.getElementById('agld-top-holders');
+  if (!el) return;
+  const holders = [
+    { addr: '0xbd4810…4a72', bal: 39548370, pct: 41.5, label: 'Unknown EOA (likely exchange)' },
+    { addr: '0xf977814…acec', bal: 13534776, pct: 14.2, label: 'Binance cold wallet 8' },
+    { addr: '0x91d40e…debe', bal: 5283046, pct: 5.5, label: '' },
+    { addr: '0x32142b…c237', bal: 3348648, pct: 3.5, label: '' },
+    { addr: '0xf42aac…f173', bal: 2545538, pct: 2.7, label: '' },
+    { addr: '0x4511d1…6f3', bal: 2380488, pct: 2.5, label: '' },
+    { addr: '0x450638…123e', bal: 2380000, pct: 2.5, label: 'AGLD claim aggregator' },
+    { addr: '0x28c6c0…d60', bal: 2177652, pct: 2.3, label: 'Binance hot wallet 14' },
+    { addr: '0x4a4aaa…068d', bal: 1682980, pct: 1.8, label: '' },
+    { addr: '0x4ea636…9d1', bal: 1510000, pct: 1.6, label: 'Bybit' },
+    { addr: '0x15da75…0d7', bal: 1333390, pct: 1.4, label: '' },
+    { addr: '0xa9d1e0…e43', bal: 1147399, pct: 1.2, label: 'Coinbase 9' },
+  ];
+  const maxBal = holders[0].bal;
+  el.innerHTML = `<div style="display:flex;flex-direction:column;gap:5px;margin-top:4px">` +
+    holders.map((h, i) => `
+    <div title="${h.addr}${h.label ? ' — ' + h.label : ''}">
+      <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px">
+        <span style="color:var(--muted)">#${i+1} ${h.label || h.addr}</span>
+        <span style="color:var(--text)">${h.pct.toFixed(1)}%</span>
+      </div>
+      <div style="height:4px;background:var(--bg);border-radius:2px;overflow:hidden">
+        <div style="height:100%;width:${(h.bal/maxBal*100).toFixed(1)}%;background:${i===0?'#f59e0b':i<2?'#a855f7':i<5?'#3b82f6':'#6b7280'}"></div>
+      </div>
+    </div>`).join('') + `</div>`;
 }
 
 </script>
