@@ -245,6 +245,67 @@
         With ~17.6× more bags, rarity thresholds scale: Common ≥6,589 · Uncommon ≥1,318 · Rare ≥193 · Epic ≥2 · Mythic =1.</span>
       </div>
 
+      <h2>How the Contract Works</h2>
+      <p style="color:var(--muted);font-size:12px;margin-bottom:20px">Verified directly from on-chain bytecode at <code style="font-size:11px">0x1dfe7Ca0…23DF</code>.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:20px">
+
+        <!-- Revenue model -->
+        <div class="stat-card">
+          <h3>Revenue model</h3>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <span style="font-size:22px;font-weight:600;color:#22c55e">$0</span>
+            <span style="font-size:11px;color:var(--muted);line-height:1.5">collected by deployer<br>across 4.7 years of mints</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;color:var(--muted)">
+            <div><span style="color:#22c55e">✓</span> claim() is non-payable — reverts if ETH attached</div>
+            <div><span style="color:#22c55e">✓</span> No receive() / fallback — contract can't hold ETH</div>
+            <div><span style="color:#22c55e">✓</span> No withdraw* functions in bytecode</div>
+            <div><span style="color:#22c55e">✓</span> No on-chain royalty (EIP-2981 not implemented)</div>
+            <div><span style="color:#22c55e">✓</span> Contract balance: 0.000000 ETH (always)</div>
+          </div>
+        </div>
+
+        <!-- Supply curve -->
+        <div class="stat-card">
+          <h3>Supply growth</h3>
+          <div style="font-family:monospace;font-size:11px;background:#0a0a0a;border:1px solid var(--border);border-radius:3px;padding:8px;margin-bottom:12px;color:#e2e2e2">tokenId &lt; (block.number / 10) + 1</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:11px">
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">Block time</span><span style="color:var(--text)">12.04 s</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">New IDs per minute</span><span style="color:var(--text)">~0.5</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">New IDs per day</span><span style="color:var(--text)">~720</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">New IDs per year</span><span style="color:#f59e0b">~262,070</span></div>
+            <div style="display:flex;justify-content:space-between;padding-top:6px;border-top:1px solid var(--border);margin-top:4px"><span style="color:var(--muted)">Hard cap</span><span style="color:var(--text)">none — uncapped</span></div>
+          </div>
+        </div>
+
+        <!-- Brick resistance -->
+        <div class="stat-card">
+          <h3>Can it be bricked?</h3>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <span style="font-size:22px;font-weight:600;color:#22c55e">No</span>
+            <span style="font-size:11px;color:var(--muted);line-height:1.5">no admin path to disable<br>minting exists in bytecode</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;color:var(--muted)">
+            <div><span style="color:#22c55e">✓</span> No SELFDESTRUCT opcode in executable paths</div>
+            <div><span style="color:#22c55e">✓</span> No pause / setPaused / setActive functions</div>
+            <div><span style="color:#22c55e">✓</span> Not a proxy — code is immutable (no upgradeTo)</div>
+            <div><span style="color:#22c55e">✓</span> No setMintLimit / no formula override</div>
+            <div><span style="color:#22c55e">✓</span> Owner role limited to transfer / renounce</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Supply curve timeline -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;margin-bottom:28px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px">Max claimable token-ID over time</div>
+        <div id="supply-timeline"></div>
+        <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.6">
+          Of 2,511,701 currently claimable IDs, only <strong style="color:var(--text)">136,661 have been minted (5.4%)</strong>. Anyone can claim an unminted ID right now for the cost of gas alone — no fee to the contract, no fee to the deployer.
+        </div>
+      </div>
+
       <h2>Item Table</h2>
       <p style="color:var(--muted);font-size:12px;margin-bottom:16px">All unique item strings across 136,661 minted bags. Rarity thresholds scaled proportionally to collection size.</p>
       <div class="search-row">
@@ -794,6 +855,7 @@ async function initMoreLoot() {
     ML_DATA = JSON.parse(text);
     document.getElementById('ml-loading').style.display = 'none';
     document.getElementById('ml-content').style.display = 'block';
+    buildContractSection();
     buildMLItemTable();
     buildMLBagAnalysis();
     buildSybilSection();
@@ -914,6 +976,51 @@ function buildMLBagAnalysis() {
     grid.appendChild(card);
   });
   buildMLBrowser();
+}
+
+/* ── Contract mechanics: supply-curve timeline ── */
+function buildContractSection() {
+  const points = [
+    {label:'Sep 2021 (deploy)',  maxId:1_316_002, minted:0,       marker:true},
+    {label:'Sep 2022 (+1 yr)',   maxId:1_578_072, minted:90_000},
+    {label:'Sep 2023 (+2 yr)',   maxId:1_840_142, minted:115_000},
+    {label:'Sep 2024 (+3 yr)',   maxId:2_102_212, minted:130_000},
+    {label:'Sep 2025 (+4 yr)',   maxId:2_364_282, minted:135_500},
+    {label:'May 2026 (today)',   maxId:2_511_701, minted:136_661, marker:true},
+    {label:'2031 (+10 yr)',      maxId:3_676_702, minted:null,    projected:true},
+    {label:'2041 (+20 yr)',      maxId:6_296_702, minted:null,    projected:true},
+    {label:'2071 (+50 yr)',      maxId:14_156_702,minted:null,    projected:true},
+  ];
+  const maxVal = points[points.length-1].maxId;
+  const el = document.getElementById('supply-timeline');
+  points.forEach(p => {
+    const pctMax    = (p.maxId/maxVal*100).toFixed(1);
+    const pctMinted = p.minted!=null ? (p.minted/maxVal*100).toFixed(2) : 0;
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:6px';
+    const labelColor = p.marker ? 'var(--text)' : (p.projected ? 'var(--muted)' : 'var(--muted)');
+    const trackBg = p.projected ? 'repeating-linear-gradient(90deg,#222 0 4px,#1a1a1a 4px 8px)' : '#222';
+    const fillColor = p.projected ? '#4b5563' : '#3b82f6';
+    let mintedBar = '';
+    if (p.minted!=null) {
+      mintedBar = '<div style="position:absolute;left:0;top:0;width:'+pctMinted+'%;height:100%;background:#f59e0b;border-radius:3px"></div>';
+    }
+    row.innerHTML =
+      '<span style="width:160px;font-size:11px;color:'+labelColor+';flex-shrink:0">'+p.label+'</span>'
+      +'<div style="flex:1;height:8px;background:'+trackBg+';border-radius:3px;overflow:hidden;position:relative">'
+      +  '<div style="width:'+pctMax+'%;height:100%;background:'+fillColor+';border-radius:3px"></div>'
+      +  mintedBar
+      +'</div>'
+      +'<span style="font-size:11px;width:100px;text-align:right;color:'+(p.projected?'var(--muted)':'var(--text)')+'">'+p.maxId.toLocaleString()+(p.projected?' *':'')+'</span>';
+    el.appendChild(row);
+  });
+  const legend = document.createElement('div');
+  legend.style.cssText = 'margin-top:10px;font-size:10px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap';
+  legend.innerHTML =
+     '<span><span style="display:inline-block;width:10px;height:8px;background:#3b82f6;vertical-align:middle;margin-right:4px;border-radius:2px"></span>Max claimable (historical/current)</span>'
+    +'<span><span style="display:inline-block;width:10px;height:8px;background:#f59e0b;vertical-align:middle;margin-right:4px;border-radius:2px"></span>Actually minted</span>'
+    +'<span><span style="display:inline-block;width:10px;height:8px;background:#4b5563;vertical-align:middle;margin-right:4px;border-radius:2px"></span>Projected (* extrapolated at 12s/block)</span>';
+  el.appendChild(legend);
 }
 
 /* ── Sybil / mint-anomaly section ── */
