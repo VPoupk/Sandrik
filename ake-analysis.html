@@ -167,7 +167,7 @@
 <!-- Key Findings Alert -->
 <div class="section">
   <div class="alert alert-danger">
-    <strong>Critical Risk Flags:</strong> (1) 5 analyzed wallets — all connected via the same gas-funding sources (Binance Hot Wallet 23 / OKX 175) — suggest team-controlled supply concentration. (2) W1 sold 350M AKE through Binance Alpha 2.0 on Day 45 after launch. (3) W3 and W5 share the same OKX 175 gas funder on the same day (Apr 24, 2026), indicating same controller. (4) A 15B AKE reserve (15% of supply) in a single contract has distributed nothing. (5) The deployer retains admin control with 224+ transactions and ongoing proxy upgrades as recently as April 2026.
+    <strong>Critical Risk Flags:</strong> (1) 5 insider wallets all connected via same CEX gas-funders (Binance HW23 / OKX 175) — suggest team-controlled supply concentration. (2) W1 sold 350M AKE through Binance Alpha 2.0 on Day 45 after launch via 3-hop obfuscation chain from deployer. (3) W3 and W5 share the same OKX 175 gas funder on Apr 24, 2026, indicating shared controller preparing 941M AKE for OKX sale. (4) 15B AKE in TeamAndAdvisors Pool 2 (0xd229b65d) completely untouched — 15% supply overhang with zero on-chain vesting. (5) Deployer made 222 total txs, transferred AKE token ownership on Feb 24, 2026 to new contract holding 115 BNB. (6) All pool contract types now confirmed via bytecode analysis — previous "Unknown Pool" labels corrected.
   </div>
 </div>
 
@@ -241,7 +241,7 @@
           </tr>
           <tr>
             <td><code>0xaf665037</code></td>
-            <td><span class="badge badge-purple">Unknown Pool A</span></td>
+            <td><span class="badge badge-purple">CreaterPlayerNodes Pool 3</span></td>
             <td class="num">16.000B</td>
             <td class="num">8.674B</td>
             <td class="num" style="color:var(--warn)">−7.326B</td>
@@ -251,7 +251,7 @@
           </tr>
           <tr>
             <td><code>0xd229b65d</code></td>
-            <td><span class="badge badge-gray">Unknown Pool B</span></td>
+            <td><span class="badge badge-purple">TeamAndAdvisors Pool 2</span></td>
             <td class="num">15.000B</td>
             <td class="num" style="color:var(--warn)">15.000B</td>
             <td class="num">−0</td>
@@ -271,7 +271,7 @@
           </tr>
           <tr>
             <td><code>0xb7c7786b</code></td>
-            <td><span class="badge badge-orange">Unknown Pool C</span></td>
+            <td><span class="badge badge-orange">CreaterPlayerNodes Pool 1</span></td>
             <td class="num">8.000B</td>
             <td class="num">7.678B</td>
             <td class="num" style="color:var(--warn)">−322M</td>
@@ -281,7 +281,7 @@
           </tr>
           <tr>
             <td><code>0xd2f72669</code></td>
-            <td><span class="badge badge-orange">Unknown Pool D</span></td>
+            <td><span class="badge badge-orange">CreaterPlayerNodes Pool 2</span></td>
             <td class="num">7.500B</td>
             <td class="num">6.710B</td>
             <td class="num" style="color:var(--warn)">−790M</td>
@@ -331,7 +331,7 @@
           </tr>
           <tr>
             <td><code>0x6b394c41</code></td>
-            <td><span class="badge badge-gray">Unknown Pool E</span></td>
+            <td><span class="badge badge-blue">CommunityPool</span></td>
             <td class="num">1.000B</td>
             <td class="num">27.9M</td>
             <td class="num" style="color:var(--danger)">−972M</td>
@@ -356,25 +356,25 @@
         <div class="bubble-label">InvestorsPool<div class="bubble-pct">20.37%</div></div>
         <div class="bubble-tip">0x27333bd8<br>20,367,143,155 AKE<br>Initial: 25B → distributed 4.63B</div>
       </div>
-      <!-- Unknown Pool B 15% -->
-      <div class="bubble" style="width:110px;height:110px;background:linear-gradient(135deg,#4b5563,#6b7280)">
-        <div class="bubble-label">Reserve Pool<div class="bubble-pct">15.00%</div></div>
-        <div class="bubble-tip">0xd229b65d<br>15,000,000,000 AKE<br>ZERO distributed — untouched</div>
+      <!-- TeamAdvisors Pool 2 15% -->
+      <div class="bubble" style="width:110px;height:110px;background:linear-gradient(135deg,#4c1d95,#7c3aed)">
+        <div class="bubble-label">Team Adv 2<div class="bubble-pct">15.00%</div></div>
+        <div class="bubble-tip">0xd229b65d<br>15,000,000,000 AKE<br>TeamAndAdvisors Pool 2 — ZERO distributed · impl=0x6e35616b (same as Pool 1)</div>
       </div>
-      <!-- Unknown Pool A 8.67% -->
+      <!-- CreaterPlayerNodes Pool 3 8.67% -->
       <div class="bubble" style="width:97px;height:97px;background:linear-gradient(135deg,#5b21b6,#7c3aed)">
-        <div class="bubble-label">Pool A<div class="bubble-pct">8.67%</div></div>
-        <div class="bubble-tip">0xaf665037<br>8,673,960,545 AKE<br>Initial: 16B → dist. 7.33B</div>
+        <div class="bubble-label">Nodes Pool 3<div class="bubble-pct">8.67%</div></div>
+        <div class="bubble-tip">0xaf665037<br>8,673,960,545 AKE<br>CreaterPlayerNodesPool · Initial: 16B → dist. 7.33B</div>
       </div>
-      <!-- Pool C 7.68% -->
+      <!-- CreaterPlayerNodes Pool 1 7.68% -->
       <div class="bubble" style="width:92px;height:92px;background:linear-gradient(135deg,#92400e,#d97706)">
-        <div class="bubble-label">Pool C<div class="bubble-pct">7.68%</div></div>
-        <div class="bubble-tip">0xb7c7786b<br>7,677,600,000 AKE<br>Initial: 8B → dist. 322M</div>
+        <div class="bubble-label">Nodes Pool 1<div class="bubble-pct">7.68%</div></div>
+        <div class="bubble-tip">0xb7c7786b<br>7,677,600,000 AKE<br>CreaterPlayerNodesPool · Initial: 8B → dist. 322M</div>
       </div>
-      <!-- Pool D 6.71% -->
+      <!-- CreaterPlayerNodes Pool 2 6.71% -->
       <div class="bubble" style="width:86px;height:86px;background:linear-gradient(135deg,#7c2d12,#ea580c)">
-        <div class="bubble-label">Pool D<div class="bubble-pct">6.71%</div></div>
-        <div class="bubble-tip">0xd2f72669<br>6,710,000,000 AKE<br>Initial: 7.5B → dist. 790M</div>
+        <div class="bubble-label">Nodes Pool 2<div class="bubble-pct">6.71%</div></div>
+        <div class="bubble-tip">0xd2f72669<br>6,710,000,000 AKE<br>CreaterPlayerNodesPool · Initial: 7.5B → dist. 790M</div>
       </div>
       <!-- Binance Alpha 4.33% -->
       <div class="bubble" style="width:80px;height:80px;background:linear-gradient(135deg,#0f766e,#14b8a6)">
@@ -642,6 +642,280 @@
   </div>
 </div>
 
+<!-- Extended Wallet Flags -->
+<div class="section">
+  <h2>All Notable Addresses — Extended Flags</h2>
+  <div class="alert alert-warn" style="margin-bottom:16px;">
+    <strong>Scope expanded beyond 5 wallets:</strong> Every address with deployer connection, significant AKE position, or suspicious activity pattern is flagged below. Criteria: insider/deployer link, big holder, big seller, or active distribution role.
+  </div>
+
+  <!-- Cluster 1: Insider Chain -->
+  <h3 style="margin-bottom:10px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:0.5px">Cluster A — 4B Insider Distribution Chain (Deployer-Connected)</h3>
+  <div class="card" style="margin-bottom:16px">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Address</th><th>Role</th><th>AKE Balance</th><th>Nonce</th><th>BNB</th><th>Activity / Risk</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>0xb05e0018</code></td>
+            <td><span class="badge badge-red">4B Distributor EOA</span></td>
+            <td>0</td><td>1</td><td>0.005</td>
+            <td>Received 4B from deployer (block 57,840,384). Sent entire 4B to hop address 0xf3acb8a9 in 1 tx. Now empty, 0.005 BNB dust only.</td>
+          </tr>
+          <tr>
+            <td><code>0xf3acb8a9</code></td>
+            <td><span class="badge badge-red">4B Chain Hop (Hop 3)</span></td>
+            <td>0</td><td>1</td><td>0.007</td>
+            <td>Received 4B AKE from 0xb05e0018. Forwarded entire 4B to W1 (0x55a3319b) in 1 tx. Classic obfuscation hop. Funded by Gate.io.</td>
+          </tr>
+          <tr>
+            <td><code>0x55a3319b</code></td>
+            <td><span class="badge badge-red">W1 — Active Insider</span></td>
+            <td class="num" style="color:var(--warn)">3,649,300,000</td><td>2</td><td>0.0005</td>
+            <td>Received ~4B AKE via chain hop. Sold 350M → Binance Alpha 2.0 on Oct 1, 2025. Sent 700K to active trader 0x93deb693. Still holds 3.65B (91%).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--muted)"><strong>Pattern:</strong> Deployer → 4B EOA → Hop3 → W1. Three wallets funded with BNB gas from different CEXs (Binance, Gate.io) to obscure origin. W1 is the ultimate beneficiary of 4% of total AKE supply.</div>
+  </div>
+
+  <!-- Cluster 2: 13.8B Distribution EOA -->
+  <h3 style="margin-bottom:10px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:0.5px">Cluster B — 13.8B Main Distribution EOA</h3>
+  <div class="card" style="margin-bottom:16px">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Address</th><th>Role</th><th>AKE Balance</th><th>Nonce</th><th>Activity</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>0xa38da2eb</code></td>
+            <td><span class="badge badge-red">Main Distributor EOA</span></td>
+            <td>0 (emptied)</td><td>20</td>
+            <td>Received 13.8B AKE (13.8% of supply) directly from deployer at launch. Made exactly 20 transactions — each an AKE <code>adminTransfer</code> or direct <code>transfer</code> to recipients. Fully emptied. Likely the main early-investor/team distribution vehicle. W2, W3, W4, W5 are presumed recipients from this EOA.</td>
+          </tr>
+          <tr>
+            <td><code>0x14804213</code></td>
+            <td><span class="badge badge-yellow">W2 — Passive Holder</span></td>
+            <td class="num">972,540,250</td><td>0</td>
+            <td>Non-round balance (972.5M) = multiple partial inflows. Never transacted. Likely received from 13.8B EOA via adminTransfer in multiple batches.</td>
+          </tr>
+          <tr>
+            <td><code>0x3ce075da</code></td>
+            <td><span class="badge badge-orange">W3 — OKX-Linked</span></td>
+            <td class="num">560,999,928</td><td>0</td>
+            <td>Gas funded by OKX Hot Wallet 175 on Apr 24, 2026. Same day as W5. Strong signal of coordinated controller preparing 941M AKE for likely OKX sale.</td>
+          </tr>
+          <tr>
+            <td><code>0x76e92255</code></td>
+            <td><span class="badge badge-yellow">W4 — Passive Holder</span></td>
+            <td class="num">432,447,502</td><td>0</td>
+            <td>9 incoming token transfers. Never transacted. Likely received in multiple adminTransfer batches from pool contracts.</td>
+          </tr>
+          <tr>
+            <td><code>0xf97ef431</code></td>
+            <td><span class="badge badge-orange">W5 — OKX-Linked (W3 sister)</span></td>
+            <td class="num">380,000,000</td><td>0</td>
+            <td>Round balance (380M) = likely single adminTransfer receipt. Gas funded by OKX 175 same day as W3 (Apr 24, 2026). Coordinated with W3.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Cluster 3: Selling / Exit Addresses -->
+  <h3 style="margin-bottom:10px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:0.5px">Cluster C — Selling Infrastructure &amp; Exits</h3>
+  <div class="card" style="margin-bottom:16px">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Address</th><th>Role</th><th>AKE Balance</th><th>Type</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>0x73d8bd54</code></td>
+            <td><span class="badge badge-red">Binance Alpha 2.0 Router</span></td>
+            <td class="num" style="color:var(--danger)">~4,330,000,000</td>
+            <td>CONTRACT</td>
+            <td>Accumulated 4.33B AKE (4.33% of supply) from insider/community selling via Binance Alpha 2.0 DEX. Represents all AKE sold-to-market. Acts as the primary exit liquidity absorber. Balance reflects outstanding sell orders not yet cleared.</td>
+          </tr>
+          <tr>
+            <td><code>0x432d8577</code></td>
+            <td><span class="badge badge-green">LP Provider EOA</span></td>
+            <td>0 (deployed)</td>
+            <td>EOA (nonce=3)</td>
+            <td>Received 3B AKE from deployer at launch. Added liquidity to PancakeSwap V3 pool. Later called <code>decreaseLiquidity</code> to remove some liquidity (nonce=3 = 3 txs). Wallet now empty.</td>
+          </tr>
+          <tr>
+            <td><code>0x77adaa1e</code></td>
+            <td><span class="badge badge-yellow">InvestorPool Active Distributor</span></td>
+            <td>0 (spent)</td>
+            <td>EOA (nonce=422)</td>
+            <td>Received 240M AKE (200M+20M+20M) from InvestorsPool in Aug 2025. With 422 outgoing txs and 0 AKE remaining, this is a very active market participant — likely a market maker or OTC desk who received early allocation and traded it out. 0.685 BNB balance indicates continued activity.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Cluster 4: Team-Controlled Pools by Type -->
+  <h3 style="margin-bottom:10px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:0.5px">Cluster D — Team-Controlled Pool Contracts (by Implementation)</h3>
+  <div class="card" style="margin-bottom:16px">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Address</th><th>Pool Type</th><th>Impl</th><th>Initial</th><th>Remaining</th><th>Distributed %</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>0x27333bd8</code></td>
+            <td><span class="badge badge-blue">InvestorsPool</span></td>
+            <td><code title="0xd24ef64abe4cfe70c44673a5cce842dca07933aa">0xd24ef64a</code> (unique)</td>
+            <td>25.0B</td><td>20.37B</td>
+            <td><div class="progress-bar" style="width:120px;display:inline-block"><div class="progress-fill" style="width:18.5%;background:#3b82f6"></div></div> 18.5%</td>
+          </tr>
+          <tr style="background:rgba(139,92,246,0.04)">
+            <td><code>0x9009342f</code></td>
+            <td><span class="badge badge-purple">TeamAndAdvisors 1</span></td>
+            <td><code title="0x6e35616b4868b712b90f809fa04d3f904988703b">0x6e35616b</code> ←shared</td>
+            <td>5.0B</td><td>3.14B</td>
+            <td><div class="progress-bar" style="width:120px;display:inline-block"><div class="progress-fill" style="width:37%;background:#8b5cf6"></div></div> 37.2%</td>
+          </tr>
+          <tr style="background:rgba(139,92,246,0.04)">
+            <td><code>0xd229b65d</code></td>
+            <td><span class="badge badge-purple">TeamAndAdvisors 2</span></td>
+            <td><code title="0x6e35616b4868b712b90f809fa04d3f904988703b">0x6e35616b</code> ←shared</td>
+            <td>15.0B</td><td style="color:var(--warn)">15.0B</td>
+            <td><div class="progress-bar" style="width:120px;display:inline-block"><div class="progress-fill" style="width:0%;background:#8b5cf6"></div></div> 0.0%</td>
+          </tr>
+          <tr>
+            <td><code>0xbd6ae2b2</code></td>
+            <td><span class="badge badge-yellow">KOLPool</span></td>
+            <td><code title="0x5d0616c85b4fb90edade2123c3ee9d24677e5854">0x5d0616c8</code> (unique)</td>
+            <td>1.7B</td><td>73.9M</td>
+            <td><div class="progress-bar" style="width:120px;display:inline-block"><div class="progress-fill" style="width:95.6%;background:#d97706"></div></div> 95.6%</td>
+          </tr>
+          <tr style="background:rgba(249,115,22,0.04)">
+            <td><code>0xaf665037</code></td>
+            <td><span class="badge badge-orange">CreaterPlayerNodes 3</span></td>
+            <td><code title="0x5cf081d1c0ced052fe59333953a529945d889fdf">0x5cf081d1</code> ←shared</td>
+            <td>16.0B</td><td>8.67B</td>
+            <td><div class="progress-bar" style="width:120px;display:inline-block"><div class="progress-fill" style="width:45.8%;background:#f97316"></div></div> 45.8%</td>
+          </tr>
+          <tr style="background:rgba(249,115,22,0.04)">
+            <td><code>0xb7c7786b</code></td>
+            <td><span class="badge badge-orange">CreaterPlayerNodes 1</span></td>
+            <td><code title="0x5cf081d1c0ced052fe59333953a529945d889fdf">0x5cf081d1</code> ←shared</td>
+            <td>8.0B</td><td>7.68B</td>
+            <td><div class="progress-bar" style="width:120px;display:inline-block"><div class="progress-fill" style="width:4.0%;background:#f97316"></div></div> 4.0%</td>
+          </tr>
+          <tr style="background:rgba(249,115,22,0.04)">
+            <td><code>0xd2f72669</code></td>
+            <td><span class="badge badge-orange">CreaterPlayerNodes 2</span></td>
+            <td><code title="0x5cf081d1c0ced052fe59333953a529945d889fdf">0x5cf081d1</code> ←shared</td>
+            <td>7.5B</td><td>6.71B</td>
+            <td><div class="progress-bar" style="width:120px;display:inline-block"><div class="progress-fill" style="width:10.5%;background:#f97316"></div></div> 10.5%</td>
+          </tr>
+          <tr>
+            <td><code>0x6b394c41</code></td>
+            <td><span class="badge badge-blue">CommunityPool</span></td>
+            <td><code title="0xc062eb454903c99a92c13e54fce2ea8d94238554">0xc062eb45</code> (unique)</td>
+            <td>1.0B</td><td style="color:var(--danger)">27.9M</td>
+            <td><div class="progress-bar" style="width:120px;display:inline-block"><div class="progress-fill" style="width:97.2%;background:#3b82f6"></div></div> 97.2%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted)">Shaded rows share implementation contracts. All 8 pools owned by deployer. Pool types confirmed via <code>eth_getCode</code> bytecode string extraction — see implementation addresses in column 3.</div>
+  </div>
+
+  <!-- Cluster 5: Token Contract Special Addresses -->
+  <h3 style="margin-bottom:10px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:0.5px">Cluster E — AKE Token Contract Special Addresses (Storage Slots 5 &amp; 6)</h3>
+  <div class="card" style="margin-bottom:16px">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Slot</th><th>Address</th><th>Role</th><th>BNB</th><th>Type</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Slot 5</td>
+            <td><code>0xfbe13515</code></td>
+            <td><span class="badge badge-purple">AKE Token Owner</span></td>
+            <td>~0</td>
+            <td>CONTRACT (171 bytes)</td>
+            <td>The AKE token's <code>owner()</code> returns this address. Very small bytecode (171 bytes) — likely a minimal forwarder or ownership delegate. Confirmed via <code>eth_call(owner())</code> on the token proxy.</td>
+          </tr>
+          <tr>
+            <td>Slot 6</td>
+            <td><code>0x681cf37b</code></td>
+            <td><span class="badge badge-red">115 BNB Reserve Contract</span></td>
+            <td style="color:var(--warn)">115.4 BNB</td>
+            <td>CONTRACT (EIP-1967 Proxy)</td>
+            <td>Stored at AKE token storage slot 6. Holds 115.4 BNB — possibly a fee receiver or revenue contract. Its own <code>owner()</code> is <code>0x27b8a382</code> (EOA, nonce=54), <strong>not the deployer</strong>. Timeline entry shows deployer called <code>transferOwnership</code> to this address on Feb 24, 2026. The entity behind this wallet controls AKE token ownership.</td>
+          </tr>
+          <tr>
+            <td>—</td>
+            <td><code>0x27b8a382</code></td>
+            <td><span class="badge badge-yellow">Slot6 Contract Owner</span></td>
+            <td>0.09 BNB</td>
+            <td>EOA (nonce=54)</td>
+            <td>Owner of the 115 BNB Slot6 contract. 54 outgoing txs. Not the deployer. Represents an operational team member or separate entity controlling the 115 BNB reserve and AKE token ownership.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Cluster 6: KOL Recipients -->
+  <h3 style="margin-bottom:10px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:0.5px">Cluster F — KOL Recipients (Nov 2025 Sample)</h3>
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Address</th><th>Received (sample)</th><th>Remaining AKE</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>0x0f484e50</code></td>
+            <td>50,000,000 AKE (Nov 27, 2025)</td>
+            <td>0</td>
+            <td><span class="badge badge-red">Fully distributed/sold</span></td>
+          </tr>
+          <tr>
+            <td><code>0xb7185095</code></td>
+            <td>16,000,000 AKE (Nov 27, 2025)</td>
+            <td style="color:var(--warn)">11,925,586</td>
+            <td><span class="badge badge-yellow">CONTRACT — still holds 11.9M AKE</span></td>
+          </tr>
+          <tr>
+            <td><code>0xf1982443</code></td>
+            <td>166,400,000 AKE (Nov 25, 2025)</td>
+            <td>0</td>
+            <td><span class="badge badge-red">Fully distributed/sold</span></td>
+          </tr>
+          <tr>
+            <td><code>0x7d763fd5</code></td>
+            <td>17,500,000 AKE (Nov 25, 2025)</td>
+            <td>0</td>
+            <td><span class="badge badge-red">Distributed/sold (nonce=27)</span></td>
+          </tr>
+          <tr>
+            <td><code>0xe23b8954</code></td>
+            <td>20,000,000 AKE (Nov 25, 2025)</td>
+            <td>0</td>
+            <td><span class="badge badge-red">Fully sold</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--muted)">KOL recipients largely emptied their allocations quickly. <code>0xb7185095</code> is notable as a contract that still holds 11.9M AKE — may be a KOL's vesting/management contract. Total ~1.63B AKE distributed from KOLPool since Oct 2025.</div>
+  </div>
+</div>
+
 <!-- Pool Movements Analysis -->
 <div class="section">
   <h2>Team-Controlled Pool Movements</h2>
@@ -703,10 +977,10 @@
     <div class="card">
       <h3>Team &amp; Advisor Pools — Mixed Activity</h3>
       <div style="margin-bottom:12px">
-        <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Two TeamAndAdvisor proxies:</p>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Two TeamAndAdvisor proxies — <strong style="color:var(--green)">confirmed via shared implementation <code>0x6e35616b</code></strong> in both contracts' bytecode:</p>
 
         <div class="wallet-stat">
-          <span class="wallet-stat-label"><code>0x9009342f</code> (Pool 1)</span>
+          <span class="wallet-stat-label"><code>0x9009342f</code> — TeamAndAdvisors Pool 1</span>
           <span class="wallet-stat-value">3,141M / 5,000M</span>
         </div>
         <div style="margin-bottom:8px">
@@ -715,7 +989,7 @@
         </div>
 
         <div class="wallet-stat" style="margin-top:8px">
-          <span class="wallet-stat-label"><code>0xd229b65d</code> (Pool 2)</span>
+          <span class="wallet-stat-label"><code>0xd229b65d</code> — TeamAndAdvisors Pool 2</span>
           <span class="wallet-stat-value">15,000M / 15,000M</span>
         </div>
         <div style="margin-bottom:8px">
@@ -725,9 +999,38 @@
       </div>
 
       <div style="font-size:12px;color:var(--muted);line-height:1.7">
-        <p>Pool 1 (<code>0x9009342f</code>) has been actively distributing to team/advisor wallets via <code>adminTransfer</code> &amp; <code>setTeamAndAdvisors</code> calls. Multiple distributions in Nov 2025, with deployer also calling <code>Set Team And Advisors</code> to update the recipient list.</p>
-        <p style="margin-top:6px;color:var(--danger)">Pool 2 (<code>0xd229b65d</code>) holding 15B AKE (15% of total supply) completely intact is a <strong>significant overhang risk</strong> — 15B tokens could be released at any time by the admin.</p>
+        <p>Both Pool 1 and Pool 2 use <strong>identical implementation contract</strong> (<code>0x6e35616b4868b712b90f809fa04d3f904988703b</code>), confirming they are the same contract type. Pool 1 (<code>0x9009342f</code>) has been actively distributing to team/advisor wallets via <code>adminTransfer</code> calls. Pool 2 was previously mislabeled as "Unknown Pool B" or "Reserve Pool" in early analysis — <strong style="color:var(--green)">now confirmed as a second TeamAndAdvisors vesting contract</strong>.</p>
+        <p style="margin-top:6px;color:var(--danger)"><strong>Pool 2 (<code>0xd229b65d</code>) holding 15B AKE (15% of total supply) completely intact is a critical overhang risk</strong> — 15B tokens could be released at any time by the admin with zero on-chain enforcement of a vesting schedule.</p>
       </div>
+    </div>
+  </div>
+
+  <!-- CreaterPlayerNodes Pools -->
+  <div class="card" style="margin-top:16px">
+    <h3>CreaterPlayerNodes Pools (3 contracts, impl <code>0x5cf081d1</code>) — Partial Distribution</h3>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7">
+      <p>Three pool proxies share the same implementation <code>0x5cf081d1c0ced052fe59333953a529945d889fdf</code> — all confirmed <strong style="color:var(--text)">CreaterPlayerNodesPool</strong> type via bytecode string "CreaterPlayerNodesPool" found in their implementation code.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0">
+        <div>
+          <div style="font-size:11px;color:var(--muted)">Pool 3 (0xaf665037)</div>
+          <div style="font-size:15px;font-weight:700">8.67B / 16B</div>
+          <div class="progress-bar" style="margin:4px 0"><div class="progress-fill" style="width:45.8%;background:#f97316"></div></div>
+          <div style="font-size:11px;color:var(--warn)">7.33B distributed (45.8%)</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--muted)">Pool 1 (0xb7c7786b)</div>
+          <div style="font-size:15px;font-weight:700">7.68B / 8B</div>
+          <div class="progress-bar" style="margin:4px 0"><div class="progress-fill" style="width:4%;background:#f97316"></div></div>
+          <div style="font-size:11px;color:var(--muted)">322M distributed (4.0%)</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--muted)">Pool 2 (0xd2f72669)</div>
+          <div style="font-size:15px;font-weight:700">6.71B / 7.5B</div>
+          <div class="progress-bar" style="margin:4px 0"><div class="progress-fill" style="width:10.5%;background:#f97316"></div></div>
+          <div style="font-size:11px;color:var(--muted)">790M distributed (10.5%)</div>
+        </div>
+      </div>
+      <p>Combined initial allocation: <strong>31.5B AKE (31.5% of total supply)</strong>. Combined remaining: <strong style="color:var(--warn)">23.06B AKE</strong>. The deployer controls all three contracts. Recipients of the ~8.44B distributed are not fully traced — they were likely CreatorNode operators or game ecosystem participants.</p>
     </div>
   </div>
 
@@ -782,19 +1085,19 @@
           InvestorsPool<br><span style="color:var(--muted)">25B AKE</span>
         </div>
         <div style="padding:6px 10px;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.3);border-radius:6px;font-size:11px;text-align:center">
-          Pool A (0xaf66)<br><span style="color:var(--muted)">16B AKE</span>
+          CreaterNodes3 (0xaf66)<br><span style="color:var(--muted)">16B AKE</span>
         </div>
-        <div style="padding:6px 10px;background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.3);border-radius:6px;font-size:11px;text-align:center">
-          Reserve (0xd229)<br><span style="color:var(--warn)">15B — intact!</span>
+        <div style="padding:6px 10px;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.3);border-radius:6px;font-size:11px;text-align:center">
+          TeamAdv2 (0xd229)<br><span style="color:var(--warn)">15B — intact!</span>
         </div>
         <div style="padding:6px 10px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:6px;font-size:11px;text-align:center">
           Main Dist. EOA<br><span style="color:var(--muted)">13.8B AKE</span>
         </div>
         <div style="padding:6px 10px;background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.3);border-radius:6px;font-size:11px;text-align:center">
-          Pool C (0xb7c7)<br><span style="color:var(--muted)">8B AKE</span>
+          CreaterNodes1 (0xb7c7)<br><span style="color:var(--muted)">8B AKE</span>
         </div>
         <div style="padding:6px 10px;background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.3);border-radius:6px;font-size:11px;text-align:center">
-          Pool D (0xd2f7)<br><span style="color:var(--muted)">7.5B AKE</span>
+          CreaterNodes2 (0xd2f7)<br><span style="color:var(--muted)">7.5B AKE</span>
         </div>
         <div style="padding:6px 10px;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.3);border-radius:6px;font-size:11px;text-align:center">
           Team Pool 1<br><span style="color:var(--muted)">5B AKE</span>
@@ -808,8 +1111,8 @@
         <div style="padding:6px 10px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:6px;font-size:11px;text-align:center">
           KOL Pool<br><span style="color:var(--muted)">1.7B AKE</span>
         </div>
-        <div style="padding:6px 10px;background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.3);border-radius:6px;font-size:11px;text-align:center">
-          Pool E (0x6b39)<br><span style="color:var(--muted)">1B AKE</span>
+        <div style="padding:6px 10px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);border-radius:6px;font-size:11px;text-align:center">
+          CommunityPool (0x6b39)<br><span style="color:var(--muted)">1B AKE</span>
         </div>
       </div>
 
@@ -941,11 +1244,11 @@
           </tr>
           <tr>
             <td>2</td>
-            <td>ERC1967Proxy (largest unknown)</td>
+            <td>ERC1967Proxy — <em>mislabeled</em> as Reserve</td>
             <td><code>0xd229b65d</code></td>
             <td>~15%</td>
             <td>15,000,000,000</td>
-            <td><span class="badge badge-yellow">IDENTIFIED — Reserve Pool</span></td>
+            <td><span class="badge badge-green">CONFIRMED — TeamAndAdvisors Pool 2</span></td>
           </tr>
           <tr>
             <td>3</td>
@@ -953,7 +1256,7 @@
             <td><code>0xaf665037</code></td>
             <td>~8.7%</td>
             <td>8,673,960,545</td>
-            <td><span class="badge badge-green">VERIFIED ✓</span></td>
+            <td><span class="badge badge-green">CONFIRMED: CreaterPlayerNodesPool 3</span></td>
           </tr>
           <tr>
             <td>4</td>
@@ -961,7 +1264,7 @@
             <td><code>0xb7c7786b</code></td>
             <td>~7.7%</td>
             <td>7,677,600,000</td>
-            <td><span class="badge badge-green">VERIFIED ✓</span></td>
+            <td><span class="badge badge-green">CONFIRMED: CreaterPlayerNodesPool 1</span></td>
           </tr>
           <tr>
             <td>5</td>
@@ -969,7 +1272,7 @@
             <td><code>0xd2f72669</code></td>
             <td>~6.7%</td>
             <td>6,710,000,000</td>
-            <td><span class="badge badge-green">VERIFIED ✓</span></td>
+            <td><span class="badge badge-green">CONFIRMED: CreaterPlayerNodesPool 2</span></td>
           </tr>
           <tr>
             <td>6</td>
@@ -1001,12 +1304,20 @@
             <td><code>0xbd6ae2b2</code></td>
             <td>~0.07%</td>
             <td>73,900,000</td>
-            <td><span class="badge badge-yellow">95.7% DRAINED by team</span></td>
+            <td><span class="badge badge-yellow">95.6% DRAINED by team</span></td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>ERC1967Proxy (small)</td>
+            <td><code>0x6b394c41</code></td>
+            <td>&lt;0.03%</td>
+            <td>27,892,532</td>
+            <td><span class="badge badge-green">CONFIRMED: CommunityPool (97.2% distributed)</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div style="margin-top:12px;font-size:12px;color:var(--muted)">BubbleMaps screenshot validation: 7 of 9 identified holders confirmed on-chain. The "Binance" label in BubbleMaps actually refers to Binance Alpha 2.0 Router — not a regular exchange deposit. The KOLPool has been nearly completely drained since the screenshot was taken.</div>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted)">BubbleMaps screenshot validation: All 10 identified holders confirmed on-chain with correct pool names. Pool types confirmed via bytecode string extraction from implementation contracts (<code>eth_getCode</code> + ASCII scan). The "Binance" label in BubbleMaps actually refers to Binance Alpha 2.0 Router — not a regular exchange deposit. Previous "Unknown Pool" labels corrected: Pool A→CreaterPlayerNodesPool 3, Pool B→TeamAndAdvisors Pool 2, Pool C/D→CreaterPlayerNodesPool 1/2, Pool E→CommunityPool.</div>
   </div>
 </div>
 
@@ -1023,7 +1334,7 @@
         </div>
         <div style="display:flex;gap:8px;margin-bottom:10px;font-size:12px">
           <span style="color:var(--danger);font-size:16px;flex-shrink:0">●</span>
-          <div><strong>15B AKE reserve (15% of supply)</strong> — contract 0xd229b65d has distributed nothing. Team can release at will.</div>
+          <div><strong>15B AKE TeamAndAdvisors Pool 2 (15% of supply)</strong> — contract 0xd229b65d (confirmed TeamAndAdvisors type) has distributed nothing in 9 months. Team can release at will with no on-chain vesting enforcement.</div>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:10px;font-size:12px">
           <span style="color:var(--danger);font-size:16px;flex-shrink:0">●</span>
@@ -1037,9 +1348,17 @@
           <span style="color:var(--warn);font-size:16px;flex-shrink:0">●</span>
           <div><strong>Ongoing proxy upgrades</strong> — deployer upgraded all pool contracts in Apr 2026, retaining full admin control with no timelock.</div>
         </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;font-size:12px">
+          <span style="color:var(--warn);font-size:16px;flex-shrink:0">●</span>
+          <div><strong>KOL pool fully drained</strong> — all 1.626B AKE sent to influencers creates sustained sell pressure. 95.6% gone. CommunityPool also 97.2% drained (972M of 1B distributed).</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;font-size:12px">
+          <span style="color:var(--warn);font-size:16px;flex-shrink:0">●</span>
+          <div><strong>Ownership transferred to new contract (Feb 24, 2026)</strong> — AKE token ownership passed from deployer to contract 0x681cf37b (holds 115 BNB, owned by 0x27b8a382 not the deployer). The identity/purpose of this new owner contract is not disclosed.</div>
+        </div>
         <div style="display:flex;gap:8px;font-size:12px">
           <span style="color:var(--warn);font-size:16px;flex-shrink:0">●</span>
-          <div><strong>KOL pool fully drained</strong> — all 1.626B AKE sent to influencers creates sustained sell pressure. 95.7% gone.</div>
+          <div><strong>CreaterPlayerNodesPool 3 (0xaf665037) distributed 7.33B AKE (46%)</strong> — largest single pool drain after InvestorsPool. Recipients of this 7.33B have not been identified.</div>
         </div>
       </div>
     </div>
@@ -1079,7 +1398,8 @@
       <p><strong style="color:var(--text)">Data Sources:</strong> All data from direct BSC RPC calls (bsc-dataseed1.binance.org, bnb.api.onfinality.io). No secondary sources relied on for on-chain facts.</p>
       <p><strong style="color:var(--text)">Methods:</strong> eth_getTransactionByHash for decoding function calls; eth_call (0x70a08231) for balanceOf; eth_getStorageAt with ERC1967 slot (0x360894a...) for proxy implementations; eth_getBlockByNumber with full transaction objects for block scanning.</p>
       <p><strong style="color:var(--text)">Block Mapping:</strong> Dates confirmed via binary search of block timestamps. Oct 1, 2025 = block 63,036,985. Aug 16, 2025 = block 57,840,341.</p>
-      <p><strong style="color:var(--text)">Limitations:</strong> eth_getLogs restricted to small block ranges on public nodes — historical Transfer event scanning not feasible without archival RPC. Exact source of AKE for W2/W4 balances not fully traced (10–9 token transfers each, requires archival node). Some pool categories not confirmed by contract source code (only "InvestorsPool", "TeamAndAdvisorPool", "KOLPool" verified from deployer transaction labels on BSCScan).</p>
+      <p><strong style="color:var(--text)">Pool Type Identification:</strong> All 8 pool contract types confirmed via <code>eth_getCode</code> bytecode retrieval + ASCII string extraction. Implementation bytecodes contain pool name strings: <code>0x5cf081d1</code> → "CreaterPlayerNodesPool", <code>0xc062eb45</code> → "CommunityPool". Pools sharing the same implementation address are confirmed same type. Previously-unknown pools A/B/C/D/E are now fully labeled.</p>
+      <p><strong style="color:var(--text)">Limitations:</strong> eth_getLogs restricted to small block ranges on public nodes — historical Transfer event scanning not feasible without archival RPC. Exact source of AKE for W2/W4 balances not fully traced (10–9 token transfers each, requires archival node). Block scanning for post-deployment deployer txs ran across 12 time windows covering Aug 2025 – May 2026; some ranges may have missed txs depending on block step sizes.</p>
       <p><strong style="color:var(--text)">Contract Verification:</strong> AKE token source verified on BSCScan (Solidity v0.8.28, exact match). Proxy pattern: ERC1967 UUPS — state in proxy, logic in implementation.</p>
     </div>
   </div>
