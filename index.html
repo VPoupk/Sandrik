@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sandrik Fashion Studio</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: linear-gradient(135deg, #fce4ec, #e1f5fe);
+    color: #333;
+    min-height: 100vh;
+  }
+  h1 { text-align: center; margin: 12px 0; color: #6a1b9a; }
+  h2 { margin: 6px 0; color: #4a148c; font-size: 1.1em; }
+
+  /* Gender screen */
+  #gender-screen {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, #f8bbd0, #ce93d8);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 50;
+  }
+  #gender-screen h1 { font-size: 2.4em; }
+  .gender-options { display: flex; gap: 40px; margin-top: 20px; }
+  .gender-card {
+    background: #fff; border-radius: 18px;
+    padding: 24px; width: 200px; cursor: pointer;
+    text-align: center; transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 6px 18px rgba(0,0,0,.15);
+  }
+  .gender-card:hover { transform: translateY(-6px); box-shadow: 0 10px 22px rgba(0,0,0,.22); }
+  .gender-card svg { width: 140px; height: 200px; }
+  .gender-card h2 { color: #6a1b9a; }
+
+  /* Main layout */
+  #game { display: none; padding: 12px; max-width: 1200px; margin: 0 auto; }
+  .layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+  .character-panel {
+    background: #fff; border-radius: 14px; padding: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    display: flex; flex-direction: column; align-items: center;
+    position: sticky; top: 12px; height: fit-content;
+  }
+  .character-panel svg {
+    width: 280px; height: 460px;
+    background: linear-gradient(180deg, #e3f2fd, #f3e5f5);
+    border-radius: 10px;
+  }
+  .controls-panel {
+    background: #fff; border-radius: 14px; padding: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  }
+
+  /* Tabs */
+  .tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+  .tab {
+    padding: 6px 10px; background: #ede7f6; border: none;
+    border-radius: 8px; cursor: pointer; font-size: 0.85em;
+    color: #4a148c; font-weight: 600;
+  }
+  .tab.active { background: #7b1fa2; color: #fff; }
+  .tab:hover { background: #b39ddb; }
+
+  /* Category content */
+  .category { display: none; }
+  .category.active { display: block; }
+  .variants {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .variant-btn {
+    padding: 8px 6px; background: #f3e5f5;
+    border: 2px solid transparent;
+    border-radius: 8px; cursor: pointer; font-size: 0.8em;
+    text-align: center;
+  }
+  .variant-btn:hover { background: #e1bee7; }
+  .variant-btn.selected { border-color: #7b1fa2; background: #ce93d8; color: #fff; }
+
+  .color-section h3 { margin: 8px 0 4px; font-size: 0.9em; color: #6a1b9a; }
+  .color-chart {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 4px;
+  }
+  .color-swatch {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    transition: transform .15s;
+  }
+  .color-swatch:hover { transform: scale(1.15); }
+  .color-swatch.selected {
+    border-color: #000;
+    transform: scale(1.15);
+  }
+
+  .actions {
+    display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;
+  }
+  .btn {
+    padding: 8px 14px; border-radius: 8px; border: none;
+    cursor: pointer; font-weight: 600; font-size: 0.9em;
+  }
+  .btn-primary { background: #7b1fa2; color: #fff; }
+  .btn-primary:hover { background: #6a1b9a; }
+  .btn-secondary { background: #e1bee7; color: #4a148c; }
+  .btn-secondary:hover { background: #ce93d8; }
+  .btn-danger { background: #ef9a9a; color: #b71c1c; }
+  .btn-danger:hover { background: #e57373; color: #fff; }
+
+  .current-info {
+    background: #f3e5f5; padding: 8px; border-radius: 8px;
+    margin-bottom: 8px; font-size: 0.85em; color: #4a148c;
+  }
+</style>
+</head>
+<body>
+
+<!-- Gender selection -->
+<div id="gender-screen">
+  <h1>Sandrik Fashion Studio</h1>
+  <p style="font-size:1.1em;color:#4a148c;">Choose your character to start styling!</p>
+  <div class="gender-options">
+    <div class="gender-card" onclick="startGame('male')">
+      <svg viewBox="0 0 100 160">
+        <circle cx="50" cy="25" r="18" fill="#f5d3a8"/>
+        <rect x="35" y="42" width="30" height="55" fill="#5e81ac" rx="4"/>
+        <rect x="38" y="95" width="10" height="50" fill="#2e3440"/>
+        <rect x="52" y="95" width="10" height="50" fill="#2e3440"/>
+        <path d="M 32 18 Q 50 5 68 18 L 68 28 L 32 28 Z" fill="#3e2723"/>
+      </svg>
+      <h2>Male</h2>
+    </div>
+    <div class="gender-card" onclick="startGame('female')">
+      <svg viewBox="0 0 100 160">
+        <circle cx="50" cy="25" r="18" fill="#f5d3a8"/>
+        <path d="M 30 20 Q 50 0 70 20 L 75 55 L 25 55 Z" fill="#6d4c41"/>
+        <path d="M 35 42 L 65 42 L 70 95 L 30 95 Z" fill="#e91e63"/>
+        <path d="M 30 95 L 70 95 L 75 130 L 25 130 Z" fill="#c2185b"/>
+        <rect x="38" y="130" width="8" height="20" fill="#f5d3a8"/>
+        <rect x="54" y="130" width="8" height="20" fill="#f5d3a8"/>
+      </svg>
+      <h2>Female</h2>
+    </div>
+  </div>
+</div>
+
+<!-- Main game -->
+<div id="game">
+  <h1>Sandrik Fashion Studio</h1>
+  <div class="layout">
+    <div class="character-panel">
+      <svg id="character" viewBox="0 0 280 460"></svg>
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="resetOutfit()">Reset to Default</button>
+        <button class="btn btn-danger" onclick="changeGender()">Change Gender</button>
+      </div>
+    </div>
+
+    <div class="controls-panel">
+      <div class="current-info" id="current-info">Select a category to start styling.</div>
+      <div class="tabs" id="tabs"></div>
+      <div id="categories"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   COLOR CHART
+   ============================================================ */
+const COLOR_CHART = [
+  // Reds
+  "#b71c1c", "#e53935", "#ef5350", "#ff8a80", "#ffcdd2",
+  // Pinks
+  "#880e4f", "#d81b60", "#ec407a", "#f48fb1", "#fce4ec",
+  // Purples
+  "#4a148c", "#7b1fa2", "#ab47bc", "#ce93d8", "#e1bee7",
+  // Blues
+  "#0d47a1", "#1e88e5", "#42a5f5", "#90caf9", "#bbdefb",
+  // Cyans/Teals
+  "#006064", "#00acc1", "#26c6da", "#80deea", "#b2ebf2",
+  // Greens
+  "#1b5e20", "#43a047", "#66bb6a", "#a5d6a7", "#c8e6c9",
+  // Yellows
+  "#f57f17", "#fdd835", "#ffee58", "#fff59d", "#fff9c4",
+  // Oranges
+  "#e65100", "#fb8c00", "#ffa726", "#ffcc80", "#ffe0b2",
+  // Browns
+  "#3e2723", "#5d4037", "#8d6e63", "#a1887f", "#d7ccc8",
+  // Neutrals
+  "#000000", "#424242", "#9e9e9e", "#e0e0e0", "#ffffff",
+];
+
+/* ============================================================
+   CLOTHING CATEGORIES + VARIANTS
+   Each variant defines an SVG path renderer keyed by gender.
+   ============================================================ */
+
+// Helper coordinate constants for the body
+// Body layout (280x460 viewBox):
+// Head center: (140, 80) radius 35
+// Torso: x=95-185, y=120-260
+// Legs: each ~30 wide, from y=260 to y=400
+// Feet: y=400-430
+
+const CATEGORIES = {
+  hat: {
+    label: "Hats",
+    defaultColor: "#3e2723",
+    variants: {
+      none: { label: "None", render: () => "" },
+      beanie: {
+        label: "Beanie",
+        render: (c) => `<path d="M 100 70 Q 140 25 180 70 L 180 85 L 100 85 Z" fill="${c}"/>
+                       <rect x="98" y="82" width="84" height="8" fill="${c}" stroke="#000" stroke-opacity="0.2"/>`
+      },
+      cap: {
+        label: "Cap",
+        render: (c) => `<path d="M 105 70 Q 140 40 175 70 L 175 80 L 105 80 Z" fill="${c}"/>
+                       <ellipse cx="160" cy="82" rx="40" ry="6" fill="${c}"/>`
+      },
+      tophat: {
+        label: "Top Hat",
+        render: (c) => `<rect x="115" y="20" width="50" height="55" fill="${c}"/>
+                       <ellipse cx="140" cy="75" rx="40" ry="6" fill="${c}"/>
+                       <rect x="115" y="60" width="50" height="5" fill="#000" fill-opacity="0.4"/>`
+      },
+      sunhat: {
+        label: "Sun Hat",
+        render: (c) => `<ellipse cx="140" cy="68" rx="60" ry="10" fill="${c}"/>
+                       <path d="M 115 30 Q 140 15 165 30 L 165 70 L 115 70 Z" fill="${c}"/>`
+      },
+      bow: {
+        label: "Bow",
+        female: true,
+        render: (c) => `<path d="M 125 35 Q 110 25 110 45 Q 125 50 140 45 Q 155 50 170 45 Q 170 25 155 35 Z" fill="${c}"/>
+                        <circle cx="140" cy="42" r="5" fill="${c}" stroke="#000" stroke-opacity="0.3"/>`
+      },
+      crown: {
+        label: "Crown",
+        render: (c) => `<path d="M 110 60 L 115 35 L 130 50 L 140 30 L 150 50 L 165 35 L 170 60 Z" fill="${c}" stroke="#000" stroke-opacity="0.3"/>`
+      },
+    }
+  },
+
+  glasses: {
+    label: "Glasses",
+    defaultColor: "#000000",
+    variants: {
+      none: { label: "None", render: () => "" },
+      round: {
+        label: "Round",
+        render: (c) => `<circle cx="125" cy="85" r="9" fill="none" stroke="${c}" stroke-width="2.5"/>
+                       <circle cx="155" cy="85" r="9" fill="none" stroke="${c}" stroke-width="2.5"/>
+                       <line x1="134" y1="85" x2="146" y2="85" stroke="${c}" stroke-width="2"/>`
+      },
+      square: {
+        label: "Square",
+        render: (c) => `<rect x="115" y="78" width="20" height="14" fill="none" stroke="${c}" stroke-width="2.5"/>
+                       <rect x="145" y="78" width="20" height="14" fill="none" stroke="${c}" stroke-width="2.5"/>
+                       <line x1="135" y1="85" x2="145" y2="85" stroke="${c}" stroke-width="2"/>`
+      },
+      sunglasses: {
+        label: "Sunglasses",
+        render: (c) => `<rect x="113" y="77" width="22" height="14" fill="${c}" rx="6"/>
+                       <rect x="145" y="77" width="22" height="14" fill="${c}" rx="6"/>
+                       <line x1="135" y1="84" x2="145" y2="84" stroke="${c}" stroke-width="2"/>`
+      },
+      cateye: {
+        label: "Cat Eye",
+        render: (c) => `<path d="M 115 90 Q 110 75 135 78 Q 135 90 125 92 Z" fill="none" stroke="${c}" stroke-width="2.5"/>
+                       <path d="M 165 90 Q 170 75 145 78 Q 145 90 155 92 Z" fill="none" stroke="${c}" stroke-width="2.5"/>`
+      },
+    }
+  },
+
+  mask: {
+    label: "Masks",
+    defaultColor: "#90caf9",
+    variants: {
+      none: { label: "None", render: () => "" },
+      surgical: {
+        label: "Surgical",
+        render: (c) => `<path d="M 110 90 Q 140 115 170 90 L 170 105 Q 140 120 110 105 Z" fill="${c}" stroke="#000" stroke-opacity="0.2"/>`
+      },
+      bandana: {
+        label: "Bandana",
+        render: (c) => `<path d="M 105 90 Q 140 120 175 90 L 175 112 L 105 112 Z" fill="${c}"/>
+                       <line x1="115" y1="100" x2="165" y2="100" stroke="#000" stroke-opacity="0.2"/>`
+      },
+      ninja: {
+        label: "Ninja",
+        render: (c) => `<rect x="105" y="80" width="70" height="15" fill="${c}"/>
+                       <rect x="105" y="95" width="70" height="20" fill="${c}"/>`
+      },
+    }
+  },
+
+  necklace: {
+    label: "Necklaces",
+    defaultColor: "#ffc107",
+    variants: {
+      none: { label: "None", render: () => "" },
+      chain: {
+        label: "Chain",
+        render: (c) => `<path d="M 120 125 Q 140 145 160 125" fill="none" stroke="${c}" stroke-width="2"/>`
+      },
+      pendant: {
+        label: "Pendant",
+        render: (c) => `<path d="M 118 125 Q 140 148 162 125" fill="none" stroke="${c}" stroke-width="2"/>
+                       <circle cx="140" cy="150" r="5" fill="${c}" stroke="#000" stroke-opacity="0.3"/>`
+      },
+      pearls: {
+        label: "Pearls",
+        render: (c) => `<g fill="${c}">
+                       <circle cx="118" cy="128" r="2.5"/>
+                       <circle cx="125" cy="135" r="2.5"/>
+                       <circle cx="133" cy="140" r="2.5"/>
+                       <circle cx="140" cy="142" r="2.5"/>
+                       <circle cx="147" cy="140" r="2.5"/>
+                       <circle cx="155" cy="135" r="2.5"/>
+                       <circle cx="162" cy="128" r="2.5"/>
+                       </g>`
+      },
+      choker: {
+        label: "Choker",
+        render: (c) => `<rect x="115" y="118" width="50" height="5" fill="${c}" rx="2"/>`
+      },
+    }
+  },
+
+  top: {
+    label: "Tops",
+    defaultColor: "#1e88e5",
+    variants: {
+      tshirt: {
+        label: "T-Shirt",
+        render: (c, g) => `
+          <path d="M 95 125 L 75 145 L 85 165 L 100 155 L 100 245 L 180 245 L 180 155 L 195 165 L 205 145 L 185 125 Q 165 135 140 135 Q 115 135 95 125 Z" fill="${c}"/>
+        `
+      },
+      longsleeve: {
+        label: "Long Sleeve",
+        render: (c, g) => `
+          <path d="M 95 125 L 70 145 L 65 240 L 90 245 L 100 160 L 100 245 L 180 245 L 180 160 L 190 245 L 215 240 L 210 145 L 185 125 Q 165 135 140 135 Q 115 135 95 125 Z" fill="${c}"/>
+        `
+      },
+      tank: {
+        label: "Tank Top",
+        render: (c, g) => `
+          <path d="M 110 130 L 100 155 L 100 245 L 180 245 L 180 155 L 170 130 Q 160 138 140 138 Q 120 138 110 130 Z" fill="${c}"/>
+        `
+      },
+      jumper: {
+        label: "Jumper",
+        render: (c, g) => `
+          <path d="M 92 122 L 65 148 L 60 245 L 90 248 L 100 165 L 100 250 L 180 250 L 180 165 L 190 248 L 220 245 L 215 148 L 188 122 Q 165 135 140 135 Q 115 135 92 122 Z" fill="${c}"/>
+          <rect x="100" y="240" width="80" height="14" fill="${c}" stroke="#000" stroke-opacity="0.2"/>
+        `
+      },
+      sweater: {
+        label: "Sweater",
+        render: (c, g) => `
+          <path d="M 90 120 L 62 150 L 58 248 L 92 250 L 100 168 L 100 252 L 180 252 L 180 168 L 188 250 L 222 248 L 218 150 L 190 120 Q 165 135 140 135 Q 115 135 90 120 Z" fill="${c}"/>
+          <line x1="100" y1="180" x2="180" y2="180" stroke="#000" stroke-opacity="0.15" stroke-width="2"/>
+          <line x1="100" y1="200" x2="180" y2="200" stroke="#000" stroke-opacity="0.15" stroke-width="2"/>
+          <line x1="100" y1="220" x2="180" y2="220" stroke="#000" stroke-opacity="0.15" stroke-width="2"/>
+        `
+      },
+      hoodie: {
+        label: "Hoodie",
+        render: (c, g) => `
+          <path d="M 92 122 L 65 148 L 60 245 L 90 248 L 100 165 L 100 250 L 180 250 L 180 165 L 190 248 L 220 245 L 215 148 L 188 122 Q 165 135 140 135 Q 115 135 92 122 Z" fill="${c}"/>
+          <path d="M 105 70 Q 140 50 175 70 L 180 110 L 100 110 Z" fill="${c}" fill-opacity="0.8"/>
+          <line x1="135" y1="150" x2="135" y2="240" stroke="#000" stroke-opacity="0.2"/>
+          <line x1="145" y1="150" x2="145" y2="240" stroke="#000" stroke-opacity="0.2"/>
+        `
+      },
+      none: { label: "None", render: () => "" },
+    }
+  },
+
+  bottom: {
+    label: "Bottoms",
+    defaultColor: "#1565c0",
+    variants: {
+      jeans: {
+        label: "Jeans",
+        render: (c, g) => `
+          <path d="M 100 245 L 100 400 L 135 400 L 138 270 L 142 270 L 145 400 L 180 400 L 180 245 Z" fill="${c}"/>
+          <line x1="140" y1="245" x2="140" y2="395" stroke="#000" stroke-opacity="0.3"/>
+          <rect x="100" y="245" width="80" height="8" fill="${c}" stroke="#000" stroke-opacity="0.3"/>
+        `
+      },
+      skinnyJeans: {
+        label: "Skinny Jeans",
+        render: (c, g) => `
+          <path d="M 105 245 L 110 400 L 135 400 L 138 270 L 142 270 L 145 400 L 170 400 L 175 245 Z" fill="${c}"/>
+          <line x1="140" y1="245" x2="140" y2="395" stroke="#000" stroke-opacity="0.3"/>
+        `
+      },
+      rippedJeans: {
+        label: "Ripped Jeans",
+        render: (c, g) => `
+          <path d="M 100 245 L 100 400 L 135 400 L 138 270 L 142 270 L 145 400 L 180 400 L 180 245 Z" fill="${c}"/>
+          <ellipse cx="118" cy="310" rx="6" ry="3" fill="#f5d3a8"/>
+          <ellipse cx="162" cy="340" rx="6" ry="3" fill="#f5d3a8"/>
+          <line x1="140" y1="245" x2="140" y2="395" stroke="#000" stroke-opacity="0.3"/>
+        `
+      },
+      trousers: {
+        label: "Trousers",
+        render: (c, g) => `
+          <path d="M 100 245 L 105 405 L 138 405 L 138 270 L 142 270 L 142 405 L 175 405 L 180 245 Z" fill="${c}"/>
+          <line x1="140" y1="245" x2="140" y2="400" stroke="#000" stroke-opacity="0.2"/>
+        `
+      },
+      shorts: {
+        label: "Shorts",
+        render: (c, g) => `
+          <path d="M 100 245 L 100 320 L 135 320 L 138 270 L 142 270 L 145 320 L 180 320 L 180 245 Z" fill="${c}"/>
+        `
+      },
+      skirt: {
+        label: "Skirt",
+        female: true,
+        render: (c, g) => `
+          <path d="M 100 245 L 80 340 L 200 340 L 180 245 Z" fill="${c}"/>
+        `
+      },
+      longSkirt: {
+        label: "Long Skirt",
+        female: true,
+        render: (c, g) => `
+          <path d="M 100 245 L 70 400 L 210 400 L 180 245 Z" fill="${c}"/>
+        `
+      },
+      leggings: {
+        label: "Leggings",
+        render: (c, g) => `
+          <path d="M 108 245 L 115 400 L 137 400 L 138 270 L 142 270 L 143 400 L 165 400 L 172 245 Z" fill="${c}"/>
+        `
+      },
+      tights: {
+        label: "Tights",
+        render: (c, g) => `
+          <path d="M 112 245 L 120 400 L 137 400 L 138 270 L 142 270 L 143 400 L 160 400 L 168 245 Z" fill="${c}" fill-opacity="0.85"/>
+        `
+      },
+      none: { label: "None", render: () => "" },
+    }
+  },
+
+  socks: {
+    label: "Socks",
+    defaultColor: "#ffffff",
+    variants: {
+      none: { label: "None", render: () => "" },
+      ankle: {
+        label: "Ankle",
+        render: (c) => `<rect x="110" y="395" width="25" height="12" fill="${c}" rx="2"/>
+                       <rect x="145" y="395" width="25" height="12" fill="${c}" rx="2"/>`
+      },
+      crew: {
+        label: "Crew",
+        render: (c) => `<rect x="110" y="375" width="25" height="32" fill="${c}" rx="2"/>
+                       <rect x="145" y="375" width="25" height="32" fill="${c}" rx="2"/>`
+      },
+      knee: {
+        label: "Knee High",
+        render: (c) => `<rect x="110" y="320" width="25" height="87" fill="${c}" rx="2"/>
+                       <rect x="145" y="320" width="25" height="87" fill="${c}" rx="2"/>`
+      },
+      striped: {
+        label: "Striped",
+        render: (c) => `<rect x="110" y="375" width="25" height="32" fill="${c}" rx="2"/>
+                       <rect x="145" y="375" width="25" height="32" fill="${c}" rx="2"/>
+                       <line x1="110" y1="383" x2="135" y2="383" stroke="#fff" stroke-width="2"/>
+                       <line x1="110" y1="393" x2="135" y2="393" stroke="#fff" stroke-width="2"/>
+                       <line x1="145" y1="383" x2="170" y2="383" stroke="#fff" stroke-width="2"/>
+                       <line x1="145" y1="393" x2="170" y2="393" stroke="#fff" stroke-width="2"/>`
+      },
+      fuzzy: {
+        label: "Fuzzy",
+        render: (c) => `<rect x="108" y="375" width="29" height="32" fill="${c}" rx="6"/>
+                       <rect x="143" y="375" width="29" height="32" fill="${c}" rx="6"/>`
+      },
+    }
+  },
+
+  shoes: {
+    label: "Shoes",
+    defaultColor: "#3e2723",
+    variants: {
+      sneakers: {
+        label: "Sneakers",
+        render: (c) => `<path d="M 105 405 L 105 425 L 140 430 L 140 405 Z" fill="${c}"/>
+                       <path d="M 140 405 L 140 430 L 175 425 L 175 405 Z" fill="${c}"/>
+                       <line x1="105" y1="420" x2="140" y2="425" stroke="#fff" stroke-width="2"/>
+                       <line x1="140" y1="425" x2="175" y2="420" stroke="#fff" stroke-width="2"/>`
+      },
+      boots: {
+        label: "Boots",
+        render: (c) => `<path d="M 105 390 L 105 425 L 140 430 L 140 390 Z" fill="${c}"/>
+                       <path d="M 140 390 L 140 430 L 175 425 L 175 390 Z" fill="${c}"/>`
+      },
+      heels: {
+        label: "Heels",
+        female: true,
+        render: (c) => `<path d="M 110 405 L 105 425 L 140 425 L 140 405 Z" fill="${c}"/>
+                       <path d="M 140 405 L 140 425 L 175 425 L 170 405 Z" fill="${c}"/>
+                       <rect x="130" y="425" width="6" height="10" fill="${c}"/>
+                       <rect x="144" y="425" width="6" height="10" fill="${c}"/>`
+      },
+      flats: {
+        label: "Flats",
+        render: (c) => `<ellipse cx="120" cy="418" rx="20" ry="10" fill="${c}"/>
+                       <ellipse cx="160" cy="418" rx="20" ry="10" fill="${c}"/>`
+      },
+      sandals: {
+        label: "Sandals",
+        render: (c) => `<rect x="108" y="418" width="32" height="6" fill="${c}"/>
+                       <rect x="140" y="418" width="32" height="6" fill="${c}"/>
+                       <line x1="123" y1="418" x2="123" y2="408" stroke="${c}" stroke-width="2"/>
+                       <line x1="155" y1="418" x2="155" y2="408" stroke="${c}" stroke-width="2"/>`
+      },
+      hightops: {
+        label: "High-Tops",
+        render: (c) => `<path d="M 105 395 L 105 425 L 140 430 L 140 395 Z" fill="${c}"/>
+                       <path d="M 140 395 L 140 430 L 175 425 L 175 395 Z" fill="${c}"/>
+                       <line x1="110" y1="410" x2="135" y2="412" stroke="#fff" stroke-width="1.5"/>
+                       <line x1="145" y1="412" x2="170" y2="410" stroke="#fff" stroke-width="1.5"/>`
+      },
+      none: { label: "Barefoot", render: () => "" },
+    }
+  },
+
+  bracelet: {
+    label: "Bracelets",
+    defaultColor: "#ffc107",
+    variants: {
+      none: { label: "None", render: () => "" },
+      bangle: {
+        label: "Bangle",
+        render: (c) => `<ellipse cx="82" cy="230" rx="8" ry="3" fill="none" stroke="${c}" stroke-width="3"/>
+                       <ellipse cx="198" cy="230" rx="8" ry="3" fill="none" stroke="${c}" stroke-width="3"/>`
+      },
+      beaded: {
+        label: "Beaded",
+        render: (c) => `<g fill="${c}">
+                       <circle cx="76" cy="230" r="2.5"/>
+                       <circle cx="82" cy="232" r="2.5"/>
+                       <circle cx="88" cy="230" r="2.5"/>
+                       <circle cx="192" cy="230" r="2.5"/>
+                       <circle cx="198" cy="232" r="2.5"/>
+                       <circle cx="204" cy="230" r="2.5"/>
+                       </g>`
+      },
+      watch: {
+        label: "Watch",
+        render: (c) => `<rect x="78" y="227" width="10" height="8" fill="${c}" stroke="#000" stroke-opacity="0.3"/>
+                       <rect x="194" y="227" width="10" height="8" fill="${c}" stroke="#000" stroke-opacity="0.3"/>`
+      },
+    }
+  },
+
+  skin: {
+    label: "Skin Tone",
+    defaultColor: "#f5d3a8",
+    variants: {
+      base: { label: "Skin", render: () => "" }
+    }
+  },
+
+  hair: {
+    label: "Hair",
+    defaultColor: "#3e2723",
+    variants: {
+      short: {
+        label: "Short",
+        render: (c, g) => `<path d="M 105 80 Q 140 30 175 80 L 175 90 L 105 90 Z" fill="${c}"/>`
+      },
+      long: {
+        label: "Long",
+        render: (c, g) => `<path d="M 100 75 Q 140 25 180 75 L 185 200 L 95 200 Z" fill="${c}"/>
+                          <ellipse cx="140" cy="80" rx="38" ry="35" fill="${c}"/>`
+      },
+      ponytail: {
+        label: "Ponytail",
+        render: (c, g) => `<path d="M 105 80 Q 140 30 175 80 L 175 90 L 105 90 Z" fill="${c}"/>
+                          <path d="M 175 80 Q 195 100 195 150 L 180 150 Q 180 110 170 90 Z" fill="${c}"/>`
+      },
+      curly: {
+        label: "Curly",
+        render: (c, g) => `<circle cx="115" cy="65" r="15" fill="${c}"/>
+                          <circle cx="140" cy="55" r="18" fill="${c}"/>
+                          <circle cx="165" cy="65" r="15" fill="${c}"/>
+                          <circle cx="105" cy="80" r="12" fill="${c}"/>
+                          <circle cx="175" cy="80" r="12" fill="${c}"/>`
+      },
+      bald: { label: "Bald", render: () => "" },
+    }
+  },
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+
+let state = {
+  gender: null,
+  selections: {},
+  activeCategory: "top",
+};
+
+function getDefaults(gender) {
+  return {
+    skin: { variant: "base", color: "#f5d3a8" },
+    hair: { variant: gender === "female" ? "long" : "short", color: "#3e2723" },
+    hat: { variant: "none", color: "#3e2723" },
+    glasses: { variant: "none", color: "#000000" },
+    mask: { variant: "none", color: "#90caf9" },
+    necklace: { variant: "none", color: "#ffc107" },
+    top: { variant: "tshirt", color: gender === "female" ? "#e91e63" : "#1e88e5" },
+    bottom: { variant: gender === "female" ? "skirt" : "jeans", color: gender === "female" ? "#7b1fa2" : "#1565c0" },
+    socks: { variant: "ankle", color: "#ffffff" },
+    shoes: { variant: gender === "female" ? "flats" : "sneakers", color: "#3e2723" },
+    bracelet: { variant: "none", color: "#ffc107" },
+  };
+}
+
+/* ============================================================
+   START / RESET
+   ============================================================ */
+
+function startGame(gender) {
+  state.gender = gender;
+  state.selections = getDefaults(gender);
+  state.activeCategory = "top";
+  document.getElementById("gender-screen").style.display = "none";
+  document.getElementById("game").style.display = "block";
+  buildTabs();
+  buildCategories();
+  render();
+}
+
+function resetOutfit() {
+  state.selections = getDefaults(state.gender);
+  buildCategories();
+  render();
+}
+
+function changeGender() {
+  if (confirm("Change gender? This will reset your outfit.")) {
+    document.getElementById("game").style.display = "none";
+    document.getElementById("gender-screen").style.display = "flex";
+  }
+}
+
+/* ============================================================
+   UI BUILDERS
+   ============================================================ */
+
+function buildTabs() {
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = "";
+  Object.keys(CATEGORIES).forEach((key) => {
+    const btn = document.createElement("button");
+    btn.className = "tab" + (key === state.activeCategory ? " active" : "");
+    btn.textContent = CATEGORIES[key].label;
+    btn.onclick = () => {
+      state.activeCategory = key;
+      buildTabs();
+      buildCategories();
+    };
+    tabs.appendChild(btn);
+  });
+}
+
+function buildCategories() {
+  const container = document.getElementById("categories");
+  container.innerHTML = "";
+  const key = state.activeCategory;
+  const cat = CATEGORIES[key];
+  const sel = state.selections[key];
+
+  const div = document.createElement("div");
+  div.className = "category active";
+
+  // Variants
+  const variantsTitle = document.createElement("h2");
+  variantsTitle.textContent = cat.label + " styles";
+  div.appendChild(variantsTitle);
+
+  const variantGrid = document.createElement("div");
+  variantGrid.className = "variants";
+  Object.entries(cat.variants).forEach(([vKey, v]) => {
+    // Hide gender-restricted variants
+    if (v.female && state.gender !== "female") return;
+    if (v.male && state.gender !== "male") return;
+    const b = document.createElement("button");
+    b.className = "variant-btn" + (sel.variant === vKey ? " selected" : "");
+    b.textContent = v.label;
+    b.onclick = () => {
+      state.selections[key].variant = vKey;
+      buildCategories();
+      render();
+    };
+    variantGrid.appendChild(b);
+  });
+  div.appendChild(variantGrid);
+
+  // Colors
+  if (key !== "skin" || true) {
+    const colorTitle = document.createElement("h3");
+    colorTitle.textContent = "Color chart";
+    div.appendChild(colorTitle);
+
+    const chart = document.createElement("div");
+    chart.className = "color-chart";
+    COLOR_CHART.forEach((color) => {
+      const s = document.createElement("div");
+      s.className = "color-swatch" + (sel.color === color ? " selected" : "");
+      s.style.background = color;
+      s.title = color;
+      s.onclick = () => {
+        state.selections[key].color = color;
+        buildCategories();
+        render();
+      };
+      chart.appendChild(s);
+    });
+    div.appendChild(chart);
+  }
+
+  container.appendChild(div);
+
+  document.getElementById("current-info").innerHTML =
+    `<b>${cat.label}:</b> ${cat.variants[sel.variant].label} · <span style="display:inline-block;width:14px;height:14px;background:${sel.color};border:1px solid #000;vertical-align:middle;border-radius:3px;"></span> ${sel.color}`;
+}
+
+/* ============================================================
+   CHARACTER RENDER
+   ============================================================ */
+
+function render() {
+  const svg = document.getElementById("character");
+  const g = state.gender;
+  const sel = state.selections;
+
+  // Base body
+  const skinColor = sel.skin.color;
+
+  // Body shape depends on gender (slight difference)
+  const bodyShape = g === "female"
+    ? `<path d="M 110 130 Q 100 180 105 245 L 175 245 Q 180 180 170 130 Q 160 138 140 138 Q 120 138 110 130 Z" fill="${skinColor}"/>`
+    : `<path d="M 105 130 Q 95 180 100 245 L 180 245 Q 185 180 175 130 Q 160 138 140 138 Q 120 138 105 130 Z" fill="${skinColor}"/>`;
+
+  // Arms
+  const arms = `
+    <rect x="76" y="135" width="14" height="100" fill="${skinColor}" rx="6"/>
+    <rect x="190" y="135" width="14" height="100" fill="${skinColor}" rx="6"/>
+    <circle cx="83" cy="235" r="7" fill="${skinColor}"/>
+    <circle cx="197" cy="235" r="7" fill="${skinColor}"/>
+  `;
+
+  // Legs
+  const legs = `
+    <rect x="110" y="245" width="25" height="160" fill="${skinColor}"/>
+    <rect x="145" y="245" width="25" height="160" fill="${skinColor}"/>
+  `;
+
+  // Head + face
+  const head = `
+    <circle cx="140" cy="80" r="35" fill="${skinColor}"/>
+    <circle cx="125" cy="80" r="3" fill="#333"/>
+    <circle cx="155" cy="80" r="3" fill="#333"/>
+    <path d="M 130 95 Q 140 102 150 95" stroke="#a04040" stroke-width="2" fill="none"/>
+  `;
+
+  // Layered render order: body parts -> hair -> bottoms -> socks -> shoes -> top -> accessories
+  const layers = [
+    head,
+    arms,
+    legs,
+    bodyShape,
+    renderLayer("hair"),
+    renderLayer("bottom"),
+    renderLayer("socks"),
+    renderLayer("shoes"),
+    renderLayer("top"),
+    renderLayer("necklace"),
+    renderLayer("bracelet"),
+    renderLayer("hat"),
+    renderLayer("mask"),
+    renderLayer("glasses"),
+  ];
+
+  svg.innerHTML = layers.join("\n");
+}
+
+function renderLayer(key) {
+  const sel = state.selections[key];
+  if (!sel) return "";
+  const variant = CATEGORIES[key].variants[sel.variant];
+  if (!variant) return "";
+  return variant.render(sel.color, state.gender);
+}
+</script>
+</body>
+</html>
