@@ -189,7 +189,7 @@
     <div class="flow-row"><span class="flow-from">0xf3acb8a9</span><span class="flow-arrow">→</span><span class="flow-to">W1 0x55a3319b</span><span class="flow-amount">4.00B</span></div>
     <div class="flow-row"><span class="flow-from">W1</span><span class="flow-arrow">→</span><span class="flow-to">0x73d8bd54… exit sink</span><span class="flow-amount" style="color:var(--danger)">350.0M (sold)</span></div>
     <div class="flow-row"><span class="flow-from">W1</span><span class="flow-arrow">→</span><span class="flow-to">0x93deb693 (trader, 2,630 txns)</span><span class="flow-amount">0.7M</span></div>
-    <p style="margin-top:8px">W1's only two transfers (Oct 1 2025) sent <strong>350M AKE straight into the 0x73d8bd54… exit sink</strong> (the 4.34B-AKE aggregator where sells land) plus 0.7M to an active trader. Multi-hop, CEX-funded gas, hold-then-sell — consistent with an insider quietly liquidating part of an allocation.</p>
+    <p style="margin-top:8px">W1's only two transfers (Oct 1 2025) sent <strong>350M AKE straight into the verified Binance Alpha cloud wallet</strong> (<code>0x73d8bd54…</code>) plus 0.7M to an active trader. At that day's CoinGecko price ($0.001232) the deposit is worth <strong>≈ $431K</strong> — the single largest identifiable sale into the venue. Multi-hop, CEX-funded gas, hold-then-sell — consistent with an insider quietly liquidating part of an allocation. <span style="color:var(--muted)">[full proceeds analysis on the Official Pool Outflows page]</span></p>
     </div></div></div>
 <div class="section"><h2>Chain C — 3B → the owner contract <span class="badge badge-orange">medium</span></h2>
     <div class="card"><div style="font-size:12.5px;color:var(--muted);line-height:1.8">
@@ -210,7 +210,7 @@
     <div style="font-size:12px;color:var(--muted);line-height:1.8;column-count:2;column-gap:24px">
     <p><strong style="color:var(--text)">Source:</strong> ERC-20 Transfer event logs (topic0 <code>0xddf252ad…</code>) from the AKE contract, filtered by sender address, pulled from an archival BSC node (onFinality). Balances/nonces/bytecode cross-checked on Binance public dataseed nodes.</p>
     <p><strong style="color:var(--text)">"Received without buying":</strong> every row originates from a pool contract or a deployer-funded EOA — i.e. tokens granted by the team, not purchased on a market.</p>
-    <p><strong style="color:var(--text)">"Sold %":</strong> (total received − current balance) ÷ total received. ≥90% is treated as "sold/forwarded". This counts forwards-to-another-wallet the same as a market sale; both mean the original recipient no longer holds.</p>
+    <p><strong style="color:var(--text)">Two "sold" measures:</strong> (1) <em>Offload %</em> = (received − current balance) ÷ received — counts any tokens that left the wallet, including forwards. (2) <em>Confirmed exchange deposit</em> (the proceeds section) = only transfers whose destination is a verified venue (Binance Alpha cloud wallet or the PancakeSwap V3 pool). The first shows a wallet emptied; the second proves tokens actually reached a sell venue. Proceeds use that stricter measure.</p>
     <p><strong style="color:var(--text)">Coverage:</strong> Insider chains are reconstructed from complete Transfer-event logs for each EOA in the chain (these wallets have few transactions, so coverage is complete).</p>
     <p><strong style="color:var(--text)">Block↔date:</strong> 0.571 s/block, anchored to deploy block 57,840,377 (Aug 16 2025). Dates ±~1 day.</p>
     </div></div></div>
