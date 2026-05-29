@@ -174,7 +174,7 @@
 <!-- Key Findings Alert -->
 <div class="section">
   <div class="alert alert-danger">
-    <strong>Critical Risk Flags:</strong> (1) 5 insider wallets all connected via same CEX gas-funders (Binance HW23 / OKX 175) — suggest team-controlled supply concentration. (2) W1 sold 350M AKE through Binance Alpha 2.0 on Day 45 after launch via 3-hop obfuscation chain from deployer. (3) W3 and W5 share the same OKX 175 gas funder on Apr 24, 2026, indicating shared controller preparing 941M AKE for OKX sale. (4) 15B AKE in TeamAndAdvisors Pool 2 (0xd229b65d) completely untouched — 15% supply overhang with zero on-chain vesting. (5) Deployer made 222 total txs, transferred AKE token ownership on Feb 24, 2026 to new contract holding 115 BNB. (6) All pool contract types now confirmed via bytecode analysis — previous "Unknown Pool" labels corrected.
+    <strong>Critical Risk Flags:</strong> (1) 5 insider wallets all connected via same CEX gas-funders (Binance HW23 / OKX 175) — suggest team-controlled supply concentration. (2) W1 deposited 350M AKE into the Binance Alpha airdrop distribution platform on Day 45 after launch via 3-hop obfuscation chain — Binance Alpha is NOT a spot exchange (no AKE/USD market on Binance); this is an airdrop allocation platform. (3) W3 and W5 share the same OKX 175 gas funder on Apr 24, 2026, indicating shared controller preparing 941M AKE for OKX sale. (4) 15B AKE in TeamAndAdvisors Pool 2 (0xd229b65d) completely untouched — 15% supply overhang with zero on-chain vesting. (5) Deployer made 222 total txs, transferred AKE token ownership on Feb 24, 2026 to new contract holding 115 BNB. (6) All pool contract types now confirmed via bytecode analysis — previous "Unknown Pool" labels corrected.
   </div>
 </div>
 
@@ -385,8 +385,8 @@
       </div>
       <!-- Binance Alpha 4.33% -->
       <div class="bubble" style="width:80px;height:80px;background:linear-gradient(135deg,#0f766e,#14b8a6)">
-        <div class="bubble-label">Binance<br>Alpha 2.0<div class="bubble-pct">4.33%</div></div>
-        <div class="bubble-tip">0x73d8bd54<br>4,331,189,399 AKE<br>Binance Alpha 2.0 Router (selling)</div>
+        <div class="bubble-label">Binance<br>Alpha (airdrop)<div class="bubble-pct">4.33%</div></div>
+        <div class="bubble-tip">0x73d8bd54<br>4,331,189,399 AKE<br>Binance Alpha airdrop platform (NOT a spot sell venue)</div>
       </div>
       <!-- TeamAdv1 3.14% -->
       <div class="bubble" style="width:73px;height:73px;background:linear-gradient(135deg,#4c1d95,#8b5cf6)">
@@ -396,7 +396,7 @@
       <!-- W1 3.65% -->
       <div class="bubble" style="width:72px;height:72px;background:linear-gradient(135deg,#991b1b,#ef4444)">
         <div class="bubble-label">W1<div class="bubble-pct">3.65%</div></div>
-        <div class="bubble-tip">0x55a3319b<br>3,649,300,000 AKE<br>Team insider — sold 350M to Binance Alpha</div>
+        <div class="bubble-tip">0x55a3319b<br>3,649,300,000 AKE<br>Insider-linked — 350M deposited to Binance Alpha airdrop platform</div>
       </div>
       <!-- AkeStaking 0.13% -->
       <div class="bubble" style="width:54px;height:54px;background:linear-gradient(135deg,#065f46,#10b981)">
@@ -438,7 +438,7 @@
   <h2>5-Wallet Deep Dive</h2>
 
   <div class="alert alert-warn" style="margin-bottom:16px;">
-    <strong>Key pattern:</strong> All 5 wallets are passive — none have interacted with DEXs, bridges, or DeFi protocols. W2, W3, W4, W5 have nonce=0 (never sent a transaction). W1 is the only active insider: received gas from Binance Hot Wallet, sent 350M AKE to Binance Alpha, and 700K to an active trader. W3 &amp; W5 share the same gas funder (OKX 175), same date — strong evidence of shared control.
+    <strong>Key pattern:</strong> All 5 wallets are passive — none have interacted with DEXs, bridges, or DeFi protocols. W2, W3, W4, W5 have nonce=0 (never sent a transaction). W1 is the only active insider: received gas from Binance Hot Wallet, sent 350M AKE to the Binance Alpha <em>airdrop distribution platform</em> (not a spot exchange — Binance has no AKE spot pair), and 700K to an active trader. W3 &amp; W5 share the same gas funder (OKX 175), same date — strong evidence of shared control.
   </div>
 
   <div class="grid-2" style="margin-bottom:16px;">
@@ -472,7 +472,7 @@
         </div>
         <div class="wallet-stat">
           <span class="wallet-stat-label">AKE Sold (Oct 1, 2025)</span>
-          <span class="wallet-stat-value" style="color:var(--danger)">−350,000,000 → Binance Alpha 2.0</span>
+          <span class="wallet-stat-value" style="color:var(--highlight)">−350,000,000 → Binance Alpha airdrop platform (not spot CEX)</span>
         </div>
         <div class="wallet-stat">
           <span class="wallet-stat-label">AKE Sent to Trader (Oct 1, 2025)</span>
@@ -487,7 +487,7 @@
           <span class="wallet-stat-value" style="color:var(--muted)">Multi-hop chain from deployer (via EOA intermediaries)</span>
         </div>
         <div style="margin-top:10px;font-size:11px;color:var(--muted)">
-          <span class="flag"> Risk:</span> Received 4B AKE through obfuscation chain, used Binance to fund gas, dumped 350M through Binance Alpha 2.0 on Day 45 after launch.
+          <span class="flag"> Note:</span> Received 4B AKE through obfuscation chain, used Binance to fund gas, sent 350M to Binance Alpha airdrop platform on Day 45 after launch. Binance has no AKE spot market; destination is an airdrop distribution contract, not a sell venue.
         </div>
       </div>
     </div>
@@ -681,7 +681,7 @@
             <td><code>0x55a3319b</code></td>
             <td><span class="badge badge-red">W1 — Active Insider</span></td>
             <td class="num" style="color:var(--warn)">3,649,300,000</td><td>2</td><td>0.0005</td>
-            <td>Received ~4B AKE via chain hop. Sold 350M → Binance Alpha 2.0 on Oct 1, 2025. Sent 700K to active trader 0x93deb693. Still holds 3.65B (91%).</td>
+            <td>Received ~4B AKE via chain hop. Deposited 350M → Binance Alpha airdrop platform on Oct 1, 2025 (Binance has no AKE spot pair). Sent 700K to active trader 0x93deb693. Still holds 3.65B (91%).</td>
           </tr>
         </tbody>
       </table>
@@ -744,10 +744,10 @@
         <tbody>
           <tr>
             <td><code>0x73d8bd54</code></td>
-            <td><span class="badge badge-red">Binance Alpha 2.0 Router</span></td>
+            <td><span class="badge badge-gray">Binance Alpha (airdrop platform)</span></td>
             <td class="num" style="color:var(--danger)">~4,330,000,000</td>
             <td>CONTRACT</td>
-            <td>Accumulated 4.33B AKE (4.33% of supply) from insider/community selling via Binance Alpha 2.0 DEX. Represents all AKE sold-to-market. Acts as the primary exit liquidity absorber. Balance reflects outstanding sell orders not yet cleared.</td>
+            <td>Accumulated 4.33B AKE (4.33% of supply). <strong>Binance Alpha is an airdrop distribution platform, not a spot exchange</strong> — Binance has no AKE/USD trading pair. The 4.34B AKE here represents airdrop allocation delivered to Binance Alpha users, not market sell pressure. Real sell-pressure exchanges (Gate.io, KuCoin, Kraken, MEXC) are separately identified.</td>
           </tr>
           <tr>
             <td><code>0x432d8577</code></td>
@@ -1146,7 +1146,7 @@
           KOL recipients<br><span style="color:var(--muted);font-size:10px">1.63B distributed</span>
         </div>
         <div style="padding:6px 10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:6px;font-size:11px;text-align:center">
-          Binance Alpha 2.0<br><span style="color:var(--muted);font-size:10px">4.33B AKE (selling)</span>
+          Binance Alpha<br><span style="color:var(--muted);font-size:10px">4.33B AKE (airdrop allocation)</span>
         </div>
         <div style="padding:6px 10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:6px;font-size:11px;text-align:center">
           PancakeSwap V3<br><span style="color:var(--muted);font-size:10px">initial liquidity</span>
@@ -1186,7 +1186,7 @@
       <div class="timeline-item">
         <div class="timeline-dot" style="background:#ef4444;border-color:#ef4444"></div>
         <div class="timeline-date">Oct 1, 2025 — 4:58/5:21 UTC</div>
-        <div class="timeline-text"><strong style="color:var(--danger)">W1 sells:</strong> Sends 350M AKE to Binance Alpha 2.0 Router + 700K to trader. Gas funded by Binance Hot Wallet 23 at 4:58 UTC.</div>
+        <div class="timeline-text"><strong style="color:var(--highlight)">W1 deposits:</strong> Sends 350M AKE to Binance Alpha airdrop platform (NOT a spot exchange — no Binance AKE pair) + 700K to active trader. Gas funded by Binance Hot Wallet 23 at 4:58 UTC.</div>
         <div class="timeline-sub">Deployer also calls adminTransfer on TeamAdv Pool 1 (0x9009342f) at 15:22 UTC same day.</div>
       </div>
       <div class="timeline-item">
@@ -1283,8 +1283,8 @@
           </tr>
           <tr>
             <td>6</td>
-            <td>Binance</td>
-            <td><code>0x73d8bd54</code> (Binance Alpha 2.0)</td>
+            <td>Binance Alpha (airdrop platform)</td>
+            <td><code>0x73d8bd54</code> (Binance Alpha — NOT spot CEX)</td>
             <td>~4.3%</td>
             <td>4,331,189,399</td>
             <td><span class="badge badge-yellow">IDENTIFIED — Alpha 2.0 Router</span></td>
@@ -1303,7 +1303,7 @@
             <td><code>0x55a3319b</code></td>
             <td>~3.6%</td>
             <td>3,649,300,000</td>
-            <td><span class="badge badge-red">INSIDER — selling via Binance Alpha</span></td>
+            <td><span class="badge badge-orange">INSIDER-LINKED — 350M deposited to Binance Alpha airdrop platform (not spot sale)</span></td>
           </tr>
           <tr>
             <td>9</td>
@@ -1324,7 +1324,7 @@
         </tbody>
       </table>
     </div>
-    <div style="margin-top:12px;font-size:12px;color:var(--muted)">BubbleMaps screenshot validation: All 10 identified holders confirmed on-chain with correct pool names. Pool types confirmed via bytecode string extraction from implementation contracts (<code>eth_getCode</code> + ASCII scan). The "Binance" label in BubbleMaps actually refers to Binance Alpha 2.0 Router — not a regular exchange deposit. Previous "Unknown Pool" labels corrected: Pool A→CreaterPlayerNodesPool 3, Pool B→TeamAndAdvisors Pool 2, Pool C/D→CreaterPlayerNodesPool 1/2, Pool E→CommunityPool.</div>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted)">BubbleMaps screenshot validation: All 10 identified holders confirmed on-chain with correct pool names. Pool types confirmed via bytecode string extraction from implementation contracts (<code>eth_getCode</code> + ASCII scan). The "Binance Alpha" label in BubbleMaps refers to an airdrop distribution platform contract — Binance does NOT list AKE on spot markets. Confirmed sell-pressure venues per BubbleMaps: Gate.io, KuCoin, Kraken, MEXC, PancakeSwap V3. Previous "Unknown Pool" labels corrected: Pool A→CreaterPlayerNodesPool 3, Pool B→TeamAndAdvisors Pool 2, Pool C/D→CreaterPlayerNodesPool 1/2, Pool E→CommunityPool.</div>
   </div>
 </div>
 
@@ -1345,7 +1345,7 @@
         </div>
         <div style="display:flex;gap:8px;margin-bottom:10px;font-size:12px">
           <span style="color:var(--danger);font-size:16px;flex-shrink:0">●</span>
-          <div><strong>W1 insider selling</strong> — received 4B AKE via obfuscation chain (3 hops), sold 350M to Binance Alpha 45 days after launch.</div>
+          <div><strong>W1 insider-linked transfer</strong> — received 4B AKE via obfuscation chain (3 hops), deposited 350M to Binance Alpha airdrop platform 45 days after launch (Binance has no AKE spot market; not a confirmed exchange sale).</div>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:10px;font-size:12px">
           <span style="color:var(--danger);font-size:16px;flex-shrink:0">●</span>
