@@ -208,8 +208,8 @@ small { font-size:10px; }
     </div>
     <div class="stat-box">
       <div class="stat-box-label">Still in Pools</div>
-      <div class="stat-box-value">~62.9B</div>
-      <div class="stat-box-sub">62.9% locked in contracts</div>
+      <div class="stat-box-value">~61.7B</div>
+      <div class="stat-box-sub">61.7% remaining in 8 pool contracts</div>
     </div>
     <div class="stat-box">
       <div class="stat-box-label">KOL Pool Drain</div>
@@ -490,7 +490,7 @@ small { font-size:10px; }
       <div>
         <div class="stat-box-label">Pool 1 — <a href="https://bscscan.com/address/0x9009342f6d3b2f685fc9f5fe4dc9d3e30ed0e248" target="_blank"><code>0x9009342f</code></a></div>
         <div class="stat-box-value" style="font-size:14px">5.0B AKE (5%)</div>
-        <div class="stat-box-sub" style="color:var(--warn)">1,859M distributed (37.2%) — single lump transfer → 1 wallet</div>
+        <div class="stat-box-sub" style="color:var(--warn)">1,859M distributed (37.2%) — lump grants pattern (recipients not yet traced)</div>
         <div class="stat-box-sub">3,141M remaining in pool</div>
       </div>
       <div>
@@ -530,9 +530,9 @@ small { font-size:10px; }
         </tr>
         <tr>
           <td style="font-size:11px;color:var(--muted);padding-left:24px">↳ Recipient wallet(s)</td>
-          <td style="font-size:11px;color:var(--muted)">1 wallet (single adminTransfer)</td>
-          <td class="num" style="color:var(--muted)">1,859M received</td>
-          <td class="num" style="color:var(--muted)">Not traced (archival RPC)</td>
+          <td style="font-size:11px;color:var(--muted)">Recipient(s) not yet captured (pending scan)</td>
+          <td class="num" style="color:var(--muted)">1,859M total distributed</td>
+          <td class="num" style="color:var(--muted)">Not traced</td>
           <td class="num" style="color:var(--muted)">Unknown</td>
           <td class="num" style="color:var(--muted)">—</td>
           <td><span class="badge badge-gray">not traced</span></td>
@@ -564,14 +564,14 @@ small { font-size:10px; }
       <div>
         <div class="stat-box-label">Pool 1 (CN1) — <a href="https://bscscan.com/address/0xb7c7786b6ca1130584f005e9c86554114b7fad62" target="_blank"><code>0xb7c7786b</code></a></div>
         <div class="stat-box-value" style="font-size:16px">8.0B AKE initial</div>
-        <div class="stat-box-sub" style="color:var(--warn)">322M distributed (4.0%) to <strong>1 wallet</strong></div>
-        <div class="stat-box-sub">Single tx: Sep 5, 2025 · Remaining: 7.678B</div>
+        <div class="stat-box-sub" style="color:var(--warn)">322M distributed (4.0%) · scan: 1 capture (Sep 5, 2025)</div>
+        <div class="stat-box-sub">166.4M to 0xbc9f8145 captured · remaining 156M outside scan window · 7.678B in pool</div>
       </div>
       <div>
         <div class="stat-box-label">Pool 2 (CN2) — <a href="https://bscscan.com/address/0xd2f72669e560c7ecd3c681612963990ef6f1981b" target="_blank"><code>0xd2f72669</code></a></div>
         <div class="stat-box-value" style="font-size:16px">7.5B AKE initial</div>
-        <div class="stat-box-sub" style="color:var(--warn)">790M distributed (10.5%) to <strong>1 wallet</strong></div>
-        <div class="stat-box-sub">Single tx: Sep 5, 2025 · Remaining: 6.710B</div>
+        <div class="stat-box-sub" style="color:var(--warn)">790M distributed (10.5%) · scan: 1 capture (Sep 5, 2025)</div>
+        <div class="stat-box-sub">156.0M to 0x46ea9170 captured · remaining 634M outside scan window · 6.710B in pool</div>
       </div>
     </div>
     <p style="font-size:12px;color:var(--muted);margin-top:12px">All 3 pools share implementation <code>0x5cf081d1</code> (bytecode "CreaterPlayerNodesPool"). Combined initial: 31.5B AKE (31.5%). Combined remaining: 23.06B. Combined distributed: ~8.44B.</p>
