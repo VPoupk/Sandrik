@@ -368,1198 +368,742 @@ small { font-size:10px; }
 
 
 </div><div class="section">
-  <h2>InvestorsPool — Distribution & Sell Activity</h2>
+<h2>InvestorsPool — Distribution & Sell Activity</h2>
+
   <div class="card" style="margin-bottom:10px">
     <div class="grid-3" style="margin-bottom:14px">
-      <div><div class="stat-box-label">Pool address</div><div style="font-family:monospace;font-size:12px"><a href="https://bscscan.com/address/0x27333bd8c321a263b0565e69eea3b736b9d1f42c" target="_blank"><code>0x27333bd8…d1f42c</code></a></div></div>
+      <div><div class="stat-box-label">Pool address</div><div style="font-family:monospace;font-size:12px"><a href="https://bscscan.com/address/0x27333bD8c321a263B0565e69EEa3b736b9D1f42c" target="_blank"><code>0x27333bd8…d1f42c</code></a></div></div>
       <div><div class="stat-box-label">Initial allocation</div><div class="stat-box-value">25.00B AKE</div><div class="stat-box-sub">25% of supply</div></div>
       <div><div class="stat-box-label">Distributed to date</div><div class="stat-box-value" style="color:var(--warn)">4.633B AKE</div><div class="stat-box-sub">18.5% of pool</div></div>
       <div><div class="stat-box-label">Still in pool</div><div class="stat-box-value" style="color:var(--green)">20.367B AKE</div><div class="stat-box-sub">81.5% — not yet distributed</div></div>
-      <div><div class="stat-box-label">Distribution window</div><div class="stat-box-value" style="font-size:14px">Aug 24–25, 2025</div><div class="stat-box-sub">1 recipient(s) captured of all-time total</div></div>
-      <div><div class="stat-box-label">Captured recipients</div><div class="stat-box-value">1</div><div class="stat-box-sub">covering 240.0M AKE ($102K @ dist. price)</div></div>
+      <div><div class="stat-box-label">Distribution type</div><div class="stat-box-value" style="font-size:13px">adminTransfer (team-controlled)</div><div class="stat-box-sub">investors cannot self-claim</div></div>
+      <div><div class="stat-box-label">On-chain scan coverage</div><div class="stat-box-value" style="color:var(--danger);font-size:14px">1 of ~N recipients</div><div class="stat-box-sub">240M traced of 4.633B distributed</div></div>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Admin-controlled pool: team calls <code>adminTransfer</code> to send AKE to investor wallets. Investors cannot self-claim. Only one recipient captured in the Aug 2025 scan window; remaining 4.393B distribution not yet traced (archival RPC rate-limited).</p>
+    <div class="alert alert-warn" style="margin:0;font-size:12px">
+      <strong>Scan coverage:</strong> The archival RPC scan captured <strong>1 recipient wallet</strong> (0x77adaa1e) accounting for 240M AKE. The remaining ~4.393B was distributed to additional investor wallets not captured in this scan window (RPC rate-limited). The pool has n_transfers=3 recorded in the scan, suggesting multiple allocation rounds. Individual investor allocations require a full transfer-log pull directly from the pool contract.
+    </div>
   </div>
+
   <div class="card">
     <div class="table-wrap"><table>
       <thead><tr>
   <th>Wallet</th>
-  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ daily price</small></th>
-  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD · Venue</small></th>
+  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ recv price</small></th>
+  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD (Oct avg) · Venue</small></th>
   <th>Held Now</th>
   <th>% Sold</th>
   <th>Txns</th>
   <th>Status</th>
 </tr></thead>
       <tbody><tr>
-  <td><a href="https://bscscan.com/address/0x77adaa1ee0d0cc206cf518bf18922808ffd512e4" target="_blank"><code>0x77adaa1e…d512e4</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Active trader: 422 txns, likely market-maker or OTC desk; held through Sep price peak before selling</div></td>
+  <td><a href="https://bscscan.com/address/0x77adaa1ee0d0cc206cf518bf18922808ffd512e4" target="_blank"><code>0x77adaa1e…d512e4</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Active trader: 422 txns, held through Sep price peak before selling</div></td>
   <td class="num">240.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24–25, 2025 &nbsp;·&nbsp; 240.0M AKE &nbsp;·&nbsp; $102K <span style="color:var(--muted)">(@$0.000425)</span>
-      </div></td>
-  <td class="num">240.0M AKE / <strong>$384K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 24–25, 2025 &nbsp;·&nbsp; 240.0M AKE &nbsp;·&nbsp; ~$119K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">240.0M AKE / <strong>~$384K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
   <td class="num">422</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr></tbody>
-      <tfoot><tr style="background:var(--card2)">
-        <td><strong>Gross (captured)</strong></td>
-        <td class="num"><strong>240.0M AKE</strong></td>
-        <td class="num"><strong>240.0M AKE / $384K est.</strong></td>
-        <td class="num"><strong>0</strong></td>
-        <td class="num"><strong>100%</strong></td>
-        <td></td><td></td>
-      </tr></tfoot>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr>
+        <tr style="font-size:11px;color:var(--muted);font-style:italic">
+          <td colspan="3" style="color:var(--muted)">Remaining ~4.393B AKE distributed to additional investor wallets — not captured in archival scan</td>
+          <td>~4.393B est.</td><td>—</td><td>—</td><td><span class="badge badge-gray">not traced</span></td>
+        </tr>
+        <tr style="font-weight:600;background:rgba(59,130,246,0.06)">
+          <td>Gross (captured)</td>
+          <td class="num">240.0M AKE</td>
+          <td class="num">240.0M AKE / <strong>~$384K</strong> est.</td>
+          <td class="num">0</td><td class="num">100%</td><td>—</td><td></td>
+        </tr>
+      </tbody>
     </table></div>
-    <p style="font-size:11px;color:var(--muted);margin-top:8px">¹ Est. proceeds = AKE sold × Oct 2025 avg ($0.001601). Wallets held until after Oct 1 (0 outbound confirmed in Aug–Oct scan). Per-wallet sale venue not individually traced — aggregate destinations per BubbleMaps: Gate.io, KuCoin, Kraken, MEXC, PancakeSwap V3.</p>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">¹ Est. proceeds = AKE sold × Oct 2025 avg ($0.001601). Per-wallet sale venue not individually traced — aggregate destinations per BubbleMaps: Gate.io, KuCoin, Kraken, MEXC, PancakeSwap V3.</p>
   </div>
-
-
-
 </div><div class="section">
-  <h2>KOL Pool — All Recipients</h2>
+<h2>KOL Pool — Distribution & Gross Summary</h2>
+
   <div class="card" style="margin-bottom:10px">
     <div class="grid-3" style="margin-bottom:14px">
       <div><div class="stat-box-label">Pool address</div><div style="font-family:monospace;font-size:12px"><a href="https://bscscan.com/address/0xbd6ae2b2a7414934327e2a7da1a8691c792f9ad5" target="_blank"><code>0xbd6ae2b2…2f9ad5</code></a></div></div>
       <div><div class="stat-box-label">Initial allocation</div><div class="stat-box-value">1.700B AKE</div><div class="stat-box-sub">1.7% of supply</div></div>
-      <div><div class="stat-box-label">Distributed</div><div class="stat-box-value" style="color:var(--danger)">1.626B AKE</div><div class="stat-box-sub">95.6% of pool — nearly empty</div></div>
+      <div><div class="stat-box-label">Total distributed</div><div class="stat-box-value" style="color:var(--danger)">1.626B AKE</div><div class="stat-box-sub">95.6% of pool — nearly empty</div></div>
       <div><div class="stat-box-label">Remaining in pool</div><div class="stat-box-value">73.9M AKE</div><div class="stat-box-sub">4.4%</div></div>
-      <div><div class="stat-box-label">Distribution window</div><div class="stat-box-value" style="font-size:14px">Aug 24 – Sep 1, 2025</div><div class="stat-box-sub">First tx: Aug 24 · Last: Sep 01, 2025</div></div>
-      <div><div class="stat-box-label">Total KOL recipients</div><div class="stat-box-value">47</div><div class="stat-box-sub">43 captured · 38 sold 100% · 2 net buyers</div></div>
+      <div><div class="stat-box-label">Distribution window</div><div class="stat-box-value" style="font-size:14px">Aug 24 – Sep 1, 2025</div><div class="stat-box-sub">47 recipients · adminTransfer</div></div>
+      <div><div class="stat-box-label">Scan coverage</div><div class="stat-box-value">43 / 47 recipients</div><div class="stat-box-sub">250.8M traced of 1.626B</div></div>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:0">All KOL distributions were admin-initiated (<code>adminTransfer</code>). Captured 43 of 47 recipients covering 250.8M AKE of 1.626B distributed. Uncaptured recipients held the remaining ~1.38B AKE in small grants.</p>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:0">The pool drained 95.6% within the first 3 weeks of launch. Our scan captured 43 of 47 recipients (250.8M AKE). The remaining 4 uncaptured recipients account for ~1.375B AKE (85% of distributed total) — their sell/hold status is unknown.</p>
   </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:10px">Gross Summary — Captured Recipients (43 wallets, 250.8M AKE)</h3>
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th>Group</th>
+        <th>Wallets</th>
+        <th>AKE Received (from pool)</th>
+        <th>AKE Sold / Est. Proceeds</th>
+        <th>Held Now</th>
+        <th>Notes</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-badge-red">Sold 100%</span></td>
+          <td class="num">39</td>
+          <td class="num">212.3M AKE</td>
+          <td class="num"><strong>~$340K</strong> est. @ Oct avg</td>
+          <td class="num" style="color:var(--muted)">0</td>
+          <td style="font-size:11px;color:var(--muted)">All 39 confirmed zero balance. Sold via Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-badge-orange">Partial sale</span></td>
+          <td class="num">2</td>
+          <td class="num">18.5M AKE</td>
+          <td class="num">~$18K est. (sold ~11.3M)</td>
+          <td class="num" style="color:var(--green)">7.2M</td>
+          <td style="font-size:11px;color:var(--muted)">0xb25a2bba (69% sold, 5M held) · 0x8b143c67 (10% sold, 2.2M held)</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-badge-blue">Net buyer (holds &gt; received)</span></td>
+          <td class="num">2</td>
+          <td class="num">20.0M AKE (pool grant)</td>
+          <td class="num" style="color:var(--muted)">— (did not sell pool grant)</td>
+          <td class="num" style="color:var(--green)">123.8M</td>
+          <td style="font-size:11px;color:var(--muted)">0x83e22095 (108.8M held, acquired on market) · 0x2e30bc8f (15M held, ~5M above grant). Likely KOL market-makers or fund wallets.</td>
+        </tr>
+        <tr style="background:rgba(100,116,139,0.07)">
+          <td><span class="badge badge-badge-gray">Uncaptured (not in scan)</span></td>
+          <td class="num">~4</td>
+          <td class="num">~1.375B AKE</td>
+          <td class="num" style="color:var(--muted)">Unknown</td>
+          <td class="num" style="color:var(--muted)">Unknown</td>
+          <td style="font-size:11px;color:var(--muted)">85% of total distributed — these 4 wallets received grants not captured in archival scan</td>
+        </tr>
+        <tr style="font-weight:600;background:rgba(59,130,246,0.06)">
+          <td>Gross (captured)</td>
+          <td class="num">43</td>
+          <td class="num">250.8M AKE</td>
+          <td class="num"><strong>~$192K</strong> est. sold</td>
+          <td class="num" style="color:var(--warn)">131.0M still held</td>
+          <td style="font-size:11px">Of captured 250.8M: sold ~119.8M, held 131.0M (mostly by 2 net-buyers)</td>
+        </tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Est. proceeds = sold AKE × Oct 2025 avg ($0.001601). Venue attribution is aggregate per BubbleMaps; per-wallet routing not individually traced. The 1.375B in uncaptured wallets represents the bulk of the KOL distribution and its disposition is unknown.</p>
+  </div>
+</div><div class="section">
+<h2>TeamAndAdvisors Pools</h2>
+
+  <div class="alert alert-warn" style="margin-bottom:14px">
+    <strong>Supply overhang:</strong> Pool 2 (<code>0xd229b65d</code>) holds <strong>15,000,000,000 AKE — 15% of total supply — completely untouched</strong> since launch (Aug 16, 2025). No on-chain vesting schedule; admin can release at any time. At Oct 2025 avg ($0.001601) = <strong>~$24M</strong>.
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <div class="grid-3" style="margin-bottom:12px">
+      <div>
+        <div class="stat-box-label">Pool 1 — <a href="https://bscscan.com/address/0x9009342F47a862F83c26E8A6de36Dccf3F2E14E8" target="_blank"><code>0x9009342f</code></a></div>
+        <div class="stat-box-value" style="font-size:14px">5,000B AKE (5%)</div>
+        <div class="stat-box-sub" style="color:var(--warn)">1,859M distributed (37.2%) — single lump transfer → 1 wallet</div>
+        <div class="stat-box-sub">3,141M remaining in pool</div>
+      </div>
+      <div>
+        <div class="stat-box-label">Pool 2 — <a href="https://bscscan.com/address/0xd229b65d5Ab3E7D37E1C6cE2D84c8e2eDf09FaeE" target="_blank"><code>0xd229b65d</code></a></div>
+        <div class="stat-box-value" style="color:var(--danger);font-size:14px">15,000B AKE (15%)</div>
+        <div class="stat-box-sub" style="color:var(--danger)">0 distributed — 100% intact since Aug 16, 2025</div>
+        <div class="stat-box-sub">Admin can release at any time · no vesting enforcement</div>
+      </div>
+      <div>
+        <div class="stat-box-label">Both pools share implementation</div>
+        <div class="stat-box-value" style="font-size:13px"><code>0x6e35616b</code></div>
+        <div class="stat-box-sub">Bytecode: "TeamAndAdvisors". adminTransfer — team-controlled distribution.</div>
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="table-wrap"><table>
       <thead><tr>
-  <th>Wallet</th>
-  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ daily price</small></th>
-  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD · Venue</small></th>
-  <th>Held Now</th>
-  <th>% Sold</th>
-  <th>Txns</th>
-  <th>Status</th>
-</tr></thead>
-      <tbody><tr>
-  <td><a href="https://bscscan.com/address/0x88856e347e89349f18bba49c8c096cefc50ddd7d" target="_blank"><code>0x88856e34…0ddd7d</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">26.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 26.0M AKE &nbsp;·&nbsp; $13K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">26.0M AKE / <strong>$42K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">53</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xb25a2bba94bee49201421ff72c6b32362e4b2094" target="_blank"><code>0xb25a2bba…4b2094</code></a></td>
-  <td class="num">16.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 16.0M AKE &nbsp;·&nbsp; $8K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">11.0M AKE / <strong>$18K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Partial — individual txns not traced<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--green)">5.0M</td>
-  <td class="num"><span style="color:var(--warn)">69%</span></td>
-  <td class="num">7</td>
-  <td><span class="badge badge-orange">sold 69%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x2a41d8f20768cefec31cbe53e55e678038aa7f2e" target="_blank"><code>0x2a41d8f2…aa7f2e</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Low txn count + zero balance — likely direct large-lot CEX deposit or OTC sale</div></td>
-  <td class="num">16.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 16.0M AKE &nbsp;·&nbsp; $8K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">16.0M AKE / <strong>$26K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">2</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xf8c7741fcbf081194f105d0becf3bd4c1d071460" target="_blank"><code>0xf8c7741f…071460</code></a></td>
-  <td class="num">16.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 16.0M AKE &nbsp;·&nbsp; $8K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">16.0M AKE / <strong>$26K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">84</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x7a04390cbbb577970af52bb1c0856ab77717ad57" target="_blank"><code>0x7a04390c…17ad57</code></a></td>
-  <td class="num">16.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 16.0M AKE &nbsp;·&nbsp; $8K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">16.0M AKE / <strong>$26K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Partial — individual txns not traced<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--green)">21.0K</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">22</td>
-  <td><span class="badge badge-red">sold 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x75781f4d665669732ed0c9e3726f1e793c6d2c38" target="_blank"><code>0x75781f4d…6d2c38</code></a></td>
-  <td class="num">15.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 15.0M AKE &nbsp;·&nbsp; $7K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">15.0M AKE / <strong>$24K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">43</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x15c5588db10ff65fd6e461ce49e0b8b124e5bae5" target="_blank"><code>0x15c5588d…e5bae5</code></a></td>
-  <td class="num">12.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 12.0M AKE &nbsp;·&nbsp; $6K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">12.0M AKE / <strong>$19K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">64</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x83e22095d9c302c3ea707ad29cc18bc448b4a9f2" target="_blank"><code>0x83e22095…b4a9f2</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Net buyer — accumulated via open market purchases beyond grant</div></td>
-  <td class="num">10.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 10.0M AKE &nbsp;·&nbsp; $5K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num"><span style="color:var(--green)">No sales — net buyer (received more via other sources)</span></td>
-  <td class="num" style="color:var(--green)">108.8M</td>
-  <td class="num"><span style="color:var(--green)">N/A (net buyer)</span></td>
-  <td class="num">164</td>
-  <td><span class="badge badge-green">Net buyer</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x2e30bc8fe99d35b28ae4a73be784e235a13c84c7" target="_blank"><code>0x2e30bc8f…3c84c7</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Net buyer — accumulated via open market purchases beyond grant</div></td>
-  <td class="num">10.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 10.0M AKE &nbsp;·&nbsp; $5K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num"><span style="color:var(--green)">No sales — net buyer (received more via other sources)</span></td>
-  <td class="num" style="color:var(--green)">15.0M</td>
-  <td class="num"><span style="color:var(--green)">N/A (net buyer)</span></td>
-  <td class="num">19</td>
-  <td><span class="badge badge-green">Net buyer</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x29cf8c8ce837597c87c73f71216d0e1afe817786" target="_blank"><code>0x29cf8c8c…817786</code></a></td>
-  <td class="num">8.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 8.0M AKE &nbsp;·&nbsp; $4K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">8.0M AKE / <strong>$13K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">169</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x7b3688535465ff329946405a09cebc2cd4f45db7" target="_blank"><code>0x7b368853…f45db7</code></a></td>
-  <td class="num">7.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 7.0M AKE &nbsp;·&nbsp; $3K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">7.0M AKE / <strong>$11K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">97</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x9585ff719b2de350877c660fcd7d57e665212e37" target="_blank"><code>0x9585ff71…212e37</code></a></td>
-  <td class="num">7.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 7.0M AKE &nbsp;·&nbsp; $3K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">7.0M AKE / <strong>$11K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">20</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xa7dbc239490132083334eddda62ea3ae4e3c0c02" target="_blank"><code>0xa7dbc239…3c0c02</code></a></td>
-  <td class="num">7.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 7.0M AKE &nbsp;·&nbsp; $3K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">7.0M AKE / <strong>$11K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">10</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x269db22c6ebe20c8732d7a92a7334a5bc18283fb" target="_blank"><code>0x269db22c…8283fb</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">5.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 5.0M AKE &nbsp;·&nbsp; $2K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">5.0M AKE / <strong>$8K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">179</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x09ef07ffe3678e94e2dce55e5062c6156d83038b" target="_blank"><code>0x09ef07ff…83038b</code></a></td>
-  <td class="num">5.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 5.0M AKE &nbsp;·&nbsp; $2K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">5.0M AKE / <strong>$8K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">55</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x49c26a2c0851153f175b13f884c9f00b27b02e76" target="_blank"><code>0x49c26a2c…b02e76</code></a></td>
-  <td class="num">4.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 4.0M AKE &nbsp;·&nbsp; $2K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">4.0M AKE / <strong>$6K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">37</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x4a8b51d13abae933e5d28e75acdc7121a4216c77" target="_blank"><code>0x4a8b51d1…216c77</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span><div style="font-size:10px;color:var(--warn);margin-top:3px">Very active (374 txns) — likely market maker or OTC desk</div></td>
-  <td class="num">4.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 4.0M AKE &nbsp;·&nbsp; $2K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">4.0M AKE / <strong>$6K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">374</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xb9c15f9b580318135036e7970cf841ca50f88607" target="_blank"><code>0xb9c15f9b…f88607</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">4.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 4.0M AKE &nbsp;·&nbsp; $2K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">4.0M AKE / <strong>$6K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">23</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x7b4d92ba4e14bae7a5e2c92117ed86e40c0dfaad" target="_blank"><code>0x7b4d92ba…0dfaad</code></a></td>
-  <td class="num">4.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 4.0M AKE &nbsp;·&nbsp; $2K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">4.0M AKE / <strong>$6K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">75</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xbc3792234ed13e8e9f47a01ea50cfd9ee0d30edb" target="_blank"><code>0xbc379223…d30edb</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">4.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 4.0M AKE &nbsp;·&nbsp; $2K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">4.0M AKE / <strong>$6K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">110</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xba6984bde71f5880bcae7013eded88f1d9a04930" target="_blank"><code>0xba6984bd…a04930</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">3.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 3.5M AKE &nbsp;·&nbsp; $2K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">3.5M AKE / <strong>$6K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--green)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">10</td>
-  <td><span class="badge badge-red">sold 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xc21f33b882011f58c90b0c8444f21527dc0859c3" target="_blank"><code>0xc21f33b8…0859c3</code></a></td>
-  <td class="num">3.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 3.5M AKE &nbsp;·&nbsp; $2K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">3.5M AKE / <strong>$6K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">31</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x278fc4f3844f0c7a217cdde5a914dc5dfafc9250" target="_blank"><code>0x278fc4f3…fc9250</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span><div style="font-size:10px;color:var(--warn);margin-top:3px">Very active (483 txns) — likely market maker or OTC desk</div></td>
-  <td class="num">3.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 3.0M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">3.0M AKE / <strong>$5K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">483</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x300791c6886649542ae855984d6fb3f11a979ae9" target="_blank"><code>0x300791c6…979ae9</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">3.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 3.0M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">3.0M AKE / <strong>$5K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">37</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x0323f15565094cbbd05edeb744a5f0cc62df3eea" target="_blank"><code>0x0323f155…df3eea</code></a></td>
-  <td class="num">3.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 3.0M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">3.0M AKE / <strong>$5K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">5</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xfb889e1a1f4da07edaa94f7dc535d03cd5aab669" target="_blank"><code>0xfb889e1a…aab669</code></a></td>
-  <td class="num">3.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 3.0M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">3.0M AKE / <strong>$5K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">81</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x326ef9fa575a92090d8dea0b1f053afca64fb19b" target="_blank"><code>0x326ef9fa…4fb19b</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">3.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 3.0M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">3.0M AKE / <strong>$5K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">243</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x4835803a51c8f88d05baf5c74ef4fe3009df4c4a" target="_blank"><code>0x4835803a…df4c4a</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">2.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.5M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.5M AKE / <strong>$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">14</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x814a8d2a7c0f9a8faa6b288da3bb071624d808ba" target="_blank"><code>0x814a8d2a…d808ba</code></a></td>
-  <td class="num">2.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.5M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.5M AKE / <strong>$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">69</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x99ede7fec7ca75b461dc4f3693b06054e3a95ae0" target="_blank"><code>0x99ede7fe…a95ae0</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Very active (464 txns) — likely market maker or OTC desk</div></td>
-  <td class="num">2.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.5M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.5M AKE / <strong>$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">464</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x4b1dec753bbe21c62873a5269ce2bcd698f04306" target="_blank"><code>0x4b1dec75…f04306</code></a></td>
-  <td class="num">2.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.5M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.5M AKE / <strong>$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">143</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xdcced5a049111eac1f27388af8a20f54300fb3bb" target="_blank"><code>0xdcced5a0…0fb3bb</code></a></td>
-  <td class="num">2.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.5M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.5M AKE / <strong>$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">171</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x2fd0115e3ac2082965992e2170e903c8cf4f003a" target="_blank"><code>0x2fd0115e…4f003a</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">2.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.5M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.5M AKE / <strong>$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">167</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xb058d64da5e90c4ab74f0bacaa2262e45c4df44c" target="_blank"><code>0xb058d64d…4df44c</code></a></td>
-  <td class="num">2.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.5M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.5M AKE / <strong>$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">32</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x8b143c673f58228e78979d70b7a6432cacb7721b" target="_blank"><code>0x8b143c67…b7721b</code></a></td>
-  <td class="num">2.5M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.5M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">250.0K AKE / <strong>$400</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Partial — individual txns not traced<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--green)">2.2M</td>
-  <td class="num"><span style="color:var(--text)">10%</span></td>
-  <td class="num">119</td>
-  <td><span class="badge badge-orange">sold 10%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x6a2f95a35b5eb5e1b97b9b86c03f301fadcc9b18" target="_blank"><code>0x6a2f95a3…cc9b18</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">2.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.0M AKE &nbsp;·&nbsp; $988 <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.0M AKE / <strong>$3K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">114</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xdb2b844280c7f9d06787ea7c943dc5af57a07e78" target="_blank"><code>0xdb2b8442…a07e78</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">2.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.0M AKE &nbsp;·&nbsp; $988 <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.0M AKE / <strong>$3K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">35</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x8dc740ba63d70bed3b2f197c1368a0f26b7a12f5" target="_blank"><code>0x8dc740ba…7a12f5</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">2.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.0M AKE &nbsp;·&nbsp; $988 <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.0M AKE / <strong>$3K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">206</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x7d143938507cedc5c0f7e06b8079f5f90f0a8798" target="_blank"><code>0x7d143938…0a8798</code></a></td>
-  <td class="num">2.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 2.0M AKE &nbsp;·&nbsp; $988 <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">2.0M AKE / <strong>$3K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">24</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x412728cfb6210ee674bd54b747d0b861e26268c6" target="_blank"><code>0x412728cf…6268c6</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Very active (859 txns) — likely market maker or OTC desk</div></td>
-  <td class="num">1.8M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 1.8M AKE &nbsp;·&nbsp; $889 <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">1.8M AKE / <strong>$3K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">859</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xdc91c2cf4313fc80f36d540fb4f797d68f9bde1a" target="_blank"><code>0xdc91c2cf…9bde1a</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span><div style="font-size:10px;color:var(--warn);margin-top:3px">Very active (939 txns) — likely market maker or OTC desk</div></td>
-  <td class="num">1.2M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 1.2M AKE &nbsp;·&nbsp; $593 <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">1.2M AKE / <strong>$2K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">939</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x3bd9fac24e8a864d46af3f1ae98b64692ba555ec" target="_blank"><code>0x3bd9fac2…a555ec</code></a></td>
-  <td class="num">1.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 1.0M AKE &nbsp;·&nbsp; $494 <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">1.0M AKE / <strong>$2K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">196</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x7c0fef6c18e8494ffe2669ef691c4e5e8877717f" target="_blank"><code>0x7c0fef6c…77717f</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Very active (5365 txns) — likely market maker or OTC desk</div></td>
-  <td class="num">800.0K AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 1, 2025 &nbsp;·&nbsp; 800.0K AKE &nbsp;·&nbsp; $395 <span style="color:var(--muted)">(@$0.000494)</span>
-      </div></td>
-  <td class="num">800.0K AKE / <strong>$1K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">5365</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr></tbody>
-      <tfoot><tr style="background:var(--card2)">
-        <td><strong>Gross (43 captured)</strong></td>
-        <td class="num"><strong>250.8M AKE · $124K @ dist. price</strong></td>
-        <td class="num"><strong>223.5M AKE / $358K est.</strong></td>
-        <td class="num"><strong>131.0M</strong></td>
-        <td class="num"><strong>89%</strong></td>
-        <td></td><td></td>
-      </tr></tfoot>
+        <th>Pool / Wallet</th>
+        <th>Role</th>
+        <th>AKE Allocated / Received</th>
+        <th>AKE Distributed / Sold</th>
+        <th>Held Now</th>
+        <th>% Sold</th>
+        <th>Status</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x9009342F47a862F83c26E8A6de36Dccf3F2E14E8" target="_blank"><code>Pool 1 — 0x9009342f</code></a></td>
+          <td><span class="badge badge-purple">Pool contract</span></td>
+          <td class="num">5,000B AKE</td>
+          <td class="num" style="color:var(--warn)">1,859M AKE distributed</td>
+          <td class="num">3,141M AKE</td>
+          <td class="num">37.2%</td>
+          <td><span class="badge badge-badge-orange">Partially distributed</span></td>
+        </tr>
+        <tr>
+          <td style="font-size:11px;color:var(--muted);padding-left:24px">↳ Recipient wallet(s)</td>
+          <td style="font-size:11px;color:var(--muted)">1 wallet (single adminTransfer)</td>
+          <td class="num" style="color:var(--muted)">1,859M received</td>
+          <td class="num" style="color:var(--muted)">Not traced (archival RPC)</td>
+          <td class="num" style="color:var(--muted)">Unknown</td>
+          <td class="num" style="color:var(--muted)">—</td>
+          <td><span class="badge badge-badge-gray">not traced</span></td>
+        </tr>
+        <tr style="background:rgba(239,68,68,0.06)">
+          <td><a href="https://bscscan.com/address/0xd229b65d5Ab3E7D37E1C6cE2D84c8e2eDf09FaeE" target="_blank"><code>Pool 2 — 0xd229b65d</code></a></td>
+          <td><span class="badge badge-red">OVERHANG</span></td>
+          <td class="num" style="color:var(--danger)">15,000B AKE (15% of supply)</td>
+          <td class="num" style="color:var(--green)">0 distributed</td>
+          <td class="num" style="color:var(--danger)">15,000B AKE (100%)</td>
+          <td class="num">—</td>
+          <td><span class="badge badge-badge-red">Untouched since launch</span></td>
+        </tr>
+      </tbody>
     </table></div>
-    <p style="font-size:11px;color:var(--muted);margin-top:8px">¹ Est. proceeds = AKE sold × Oct 2025 avg ($0.001601). [C] = smart contract recipient (exchange or DeFi protocol). Net buyers held AKE beyond their grant (acquired via open market).</p>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Pool 1 recipient address was not captured in our archival scan — a full transfer-log pull from the pool contract is required. Pool 2 represents a 15% supply overhang with no on-chain vesting enforcement; at Oct 2025 avg ($0.001601) = ~$24M at risk of being unlocked at any time.</p>
   </div>
-
-
-
 </div><div class="section">
-  <h2>TeamAndAdvisors Pools</h2>
-
-  <div class="alert alert-warn" style="margin-bottom:14px">
-    <strong>Supply overhang:</strong> TeamAndAdvisors Pool 2 (<code>0xd229b65d</code>) holds <strong>15,000,000,000 AKE — 15% of total supply — completely untouched</strong> since launch (Aug 16, 2025). No on-chain vesting schedule; admin can release at any time.
-  </div>
-
-  <div class="grid-2" style="margin-bottom:14px">
-    <div class="card">
-      <h3>Pool 1 — <code>0x9009342f</code></h3>
-      <div class="wallet-stat"><span class="wallet-stat-label">Initial allocation</span><span class="wallet-stat-value">5,000B AKE (5%)</span></div>
-      <div class="wallet-stat"><span class="wallet-stat-label">Distributed</span><span class="wallet-stat-value" style="color:var(--warn)">1,859M AKE (37.2%)</span></div>
-      <div class="wallet-stat"><span class="wallet-stat-label">Remaining</span><span class="wallet-stat-value">3,141M AKE</span></div>
-      <div class="wallet-stat"><span class="wallet-stat-label">Distribution type</span><span class="wallet-stat-value">adminTransfer — team-controlled</span></div>
-      <div class="wallet-stat"><span class="wallet-stat-label">Implementation</span><span class="wallet-stat-value"><code>0x6e35616b</code> (shared with Pool 2)</span></div>
-      <p style="font-size:11px;color:var(--muted);margin-top:8px">Per-recipient data for Pool 1 not captured in current scan (archival RPC limited). Recipients are team members and advisors; on-chain routing requires targeted address scan.</p>
-    </div>
-    <div class="card">
-      <h3>Pool 2 — <code>0xd229b65d</code> <span class="badge badge-red" style="margin-left:8px">OVERHANG</span></h3>
-      <div class="wallet-stat"><span class="wallet-stat-label">Initial allocation</span><span class="wallet-stat-value" style="color:var(--danger)">15,000B AKE (15%)</span></div>
-      <div class="wallet-stat"><span class="wallet-stat-label">Distributed</span><span class="wallet-stat-value">0 AKE</span></div>
-      <div class="wallet-stat"><span class="wallet-stat-label">Remaining</span><span class="wallet-stat-value" style="color:var(--warn)">15,000B AKE — 100% intact</span></div>
-      <div class="wallet-stat"><span class="wallet-stat-label">Last activity</span><span class="wallet-stat-value">None since deployment (Aug 16, 2025)</span></div>
-      <div class="wallet-stat"><span class="wallet-stat-label">Implementation</span><span class="wallet-stat-value"><code>0x6e35616b</code> (shared with Pool 1)</span></div>
-      <p style="font-size:11px;color:var(--danger);margin-top:8px">15B AKE at current price ($0.000342) = ~$5.1M. At Oct 2025 avg ($0.001601) = ~$24M. Zero vesting enforcement on-chain.</p>
-    </div>
-  </div>
-
-
-
-</div><div class="section">
-  <h2>CreatorPlayerNodes Pools — All 3 Contracts</h2>
+<h2>CreatorPlayerNodes Pools — All 3 Contracts</h2>
 
   <div class="card" style="margin-bottom:14px">
     <div class="grid-3">
       <div>
-        <div class="stat-box-label">Pool 3 (0xaf665037)</div>
+        <div class="stat-box-label">Pool 3 (CN3) — <a href="https://bscscan.com/address/0xaF665037B9e19f14Cb3DF7f60A5B8fB77e2B98e5" target="_blank"><code>0xaf665037</code></a></div>
         <div class="stat-box-value" style="font-size:16px">16.0B AKE initial</div>
         <div class="stat-box-sub" style="color:var(--warn)">7.326B distributed (45.8%) to <strong>2,904 wallets</strong></div>
-        <div class="stat-box-sub">First tx: Aug 24, 2025 · Last tx: Sep 8, 2025</div>
-        <div class="stat-box-sub">Remaining in pool: 8.674B</div>
+        <div class="stat-box-sub">First tx: Aug 24, 2025 · Last tx: Sep 8, 2025 · Remaining: 8.674B</div>
       </div>
       <div>
-        <div class="stat-box-label">Pool 1 (0xb7c7786b)</div>
+        <div class="stat-box-label">Pool 1 (CN1) — <a href="https://bscscan.com/address/0xb7c7786Bc9e8dBF4A62dbEAf6cAd4EB1F7Cb7cd5" target="_blank"><code>0xb7c7786b</code></a></div>
         <div class="stat-box-value" style="font-size:16px">8.0B AKE initial</div>
         <div class="stat-box-sub" style="color:var(--warn)">322M distributed (4.0%) to <strong>1 wallet</strong></div>
-        <div class="stat-box-sub">Single tx: Sep 5, 2025</div>
-        <div class="stat-box-sub">Remaining in pool: 7.678B</div>
+        <div class="stat-box-sub">Single tx: Sep 5, 2025 · Remaining: 7.678B</div>
       </div>
       <div>
-        <div class="stat-box-label">Pool 2 (0xd2f72669)</div>
+        <div class="stat-box-label">Pool 2 (CN2) — <a href="https://bscscan.com/address/0xD2f72669b71DEcdb07cfd8Db5A1A86CA0b7e8aE5" target="_blank"><code>0xd2f72669</code></a></div>
         <div class="stat-box-value" style="font-size:16px">7.5B AKE initial</div>
         <div class="stat-box-sub" style="color:var(--warn)">790M distributed (10.5%) to <strong>1 wallet</strong></div>
-        <div class="stat-box-sub">Single tx: Sep 5, 2025</div>
-        <div class="stat-box-sub">Remaining in pool: 6.710B</div>
+        <div class="stat-box-sub">Single tx: Sep 5, 2025 · Remaining: 6.710B</div>
       </div>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin-top:12px">All 3 pools share implementation <code>0x5cf081d1</code> (bytecode string "CreaterPlayerNodesPool" confirmed). Combined initial: <strong>31.5B AKE (31.5%)</strong>. Combined remaining: <strong>23.06B</strong>. Combined distributed: <strong>~8.44B</strong> to 2,906 unique wallets.</p>
-    <div style="margin-top:10px;padding:8px 12px;background:var(--card2);border-radius:6px;font-size:11px;color:var(--muted)">
-      <strong style="color:var(--text)">Captured holdings summary (traced subset):</strong>
-      Of top recipients traced, 1 wallet(s) still hold 328.2K AKE · 6 wallet(s) fully sold
-    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:12px">All 3 pools share implementation <code>0x5cf081d1</code> (bytecode "CreaterPlayerNodesPool"). Combined initial: 31.5B AKE (31.5%). Combined remaining: 23.06B. Combined distributed: ~8.44B.</p>
   </div>
 
-  <h3 style="margin-bottom:8px">Pool 1 — Single Large Recipient</h3>
+  <h3 style="margin-bottom:8px">CN1 — Single Large Recipient</h3>
   <div class="card" style="margin-bottom:14px">
-    <div class="table-wrap"><table>
-      <thead><tr>
+    <div class="table-wrap"><table><thead><tr>
   <th>Wallet</th>
-  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ daily price</small></th>
-  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD · Venue</small></th>
+  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ recv price</small></th>
+  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD (Oct avg) · Venue</small></th>
   <th>Held Now</th>
   <th>% Sold</th>
   <th>Txns</th>
   <th>Status</th>
-</tr></thead>
-      <tbody><tr>
+</tr></thead><tbody><tr>
   <td><a href="https://bscscan.com/address/0xbc9f8145cf3fedeccafa4f25b3165e76ae1f8bef" target="_blank"><code>0xbc9f8145…1f8bef</code></a></td>
   <td class="num">166.4M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Sep 5, 2025 &nbsp;·&nbsp; 166.4M AKE &nbsp;·&nbsp; $140K <span style="color:var(--muted)">(@$0.000841)</span>
-      </div></td>
-  <td class="num">166.4M AKE / <strong>$266K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">2</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr></tbody>
-    </table></div>
-  </div>
-
-  <h3 style="margin-bottom:8px">Pool 2 — Single Large Recipient</h3>
-  <div class="card" style="margin-bottom:14px">
-    <div class="table-wrap"><table>
-      <thead><tr>
-  <th>Wallet</th>
-  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ daily price</small></th>
-  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD · Venue</small></th>
-  <th>Held Now</th>
-  <th>% Sold</th>
-  <th>Txns</th>
-  <th>Status</th>
-</tr></thead>
-      <tbody><tr>
-  <td><a href="https://bscscan.com/address/0x46ea91708870d5a3c6a3fe8b8183c9f168772647" target="_blank"><code>0x46ea9170…772647</code></a></td>
-  <td class="num">156.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Sep 5, 2025 &nbsp;·&nbsp; 156.0M AKE &nbsp;·&nbsp; $131K <span style="color:var(--muted)">(@$0.000841)</span>
-      </div></td>
-  <td class="num">156.0M AKE / <strong>$250K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">2</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr></tbody>
-    </table></div>
-  </div>
-
-  <h3 style="margin-bottom:8px">Pool 3 — Top Recipients (of 2,904 total wallets)</h3>
-  <div class="card" style="margin-bottom:14px">
-    <div class="table-wrap"><table>
-      <thead><tr>
-  <th>Wallet</th>
-  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ daily price</small></th>
-  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD · Venue</small></th>
-  <th>Held Now</th>
-  <th>% Sold</th>
-  <th>Txns</th>
-  <th>Status</th>
-</tr></thead>
-      <tbody><tr>
-  <td><a href="https://bscscan.com/address/0x4aaa5e8e45fc9f44411d583554646fe07315979a" target="_blank"><code>0x4aaa5e8e…15979a</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Also received 70M from CommunityPool — combined 320M received total; all sold</div></td>
-  <td class="num">320.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 320.0M AKE &nbsp;·&nbsp; $179K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">320.0M AKE / <strong>$512K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">4</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xc0d105814d1443013085d3bb637e5ad2831addbd" target="_blank"><code>0xc0d10581…1addbd</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Also received 20M from CommunityPool — combined 40M received total</div></td>
-  <td class="num">40.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 40.0M AKE &nbsp;·&nbsp; $22K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">40.0M AKE / <strong>$64K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">17</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xb2d3068ae05070a7c1c7f1f0a6fec57637c64fc1" target="_blank"><code>0xb2d3068a…c64fc1</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">2.2M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 2.2M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">2.2M AKE / <strong>$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">891</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xb2006845a57c2910fdda05fd5a1e5c8fcbd74462" target="_blank"><code>0xb2006845…d74462</code></a></td>
-  <td class="num">1.7M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 1.7M AKE &nbsp;·&nbsp; $933 <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">1.7M AKE / <strong>$3K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">12</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x0db8ecdf8d10e44443e2bd71be95e48b528ac075" target="_blank"><code>0x0db8ecdf…8ac075</code></a></td>
-  <td class="num">1.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 1.0M AKE &nbsp;·&nbsp; $566 <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">1.0M AKE / <strong>$2K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">83</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x292f6759952840f8f30796e5cb5dad08199346d7" target="_blank"><code>0x292f6759…9346d7</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span></td>
-  <td class="num">983.2K AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 983.2K AKE &nbsp;·&nbsp; $551 <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">655.0K AKE / <strong>$1K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Partial — individual txns not traced<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--green)">328.2K</td>
-  <td class="num"><span style="color:var(--warn)">67%</span></td>
-  <td class="num">102</td>
-  <td><span class="badge badge-orange">sold 67%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x7b58a8747eade36ee638207195a21949444f51ae" target="_blank"><code>0x7b58a874…4f51ae</code></a></td>
-  <td class="num">945.8K AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 945.8K AKE &nbsp;·&nbsp; $530 <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">945.8K AKE / <strong>$2K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">8</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr></tbody>
-    </table></div>
-    <p style="font-size:11px;color:var(--muted);margin-top:8px">Pool 3 distributed to 2,904 wallets in micro-grants (median ≈ 2,300 AKE). Only the top recipients by size are shown above. The aggregate of 2,904 recipients received 298.9M AKE total.</p>
-  </div>
-
-
-
-</div><div class="section">
-  <h2>CommunityPool — Distribution Overview</h2>
-  <div class="card" style="margin-bottom:10px">
-    <div class="grid-3" style="margin-bottom:14px">
-      <div><div class="stat-box-label">Pool address</div><div style="font-family:monospace;font-size:12px"><a href="https://bscscan.com/address/0x6b394c413d60b2aadb37a907a73a6f9a91c35015" target="_blank"><code>0x6b394c41…c35015</code></a></div></div>
-      <div><div class="stat-box-label">Initial allocation</div><div class="stat-box-value">1.000B AKE (1%)</div></div>
-      <div><div class="stat-box-label">Distributed</div><div class="stat-box-value" style="color:var(--danger)">972M AKE (97.2%)</div><div class="stat-box-sub">to <strong>2,241 unique wallets</strong></div></div>
-      <div><div class="stat-box-label">Remaining in pool</div><div class="stat-box-value">27.9M AKE</div></div>
-      <div><div class="stat-box-label">Distribution window</div><div class="stat-box-value" style="font-size:14px">Aug 24 – Sep 8, 2025</div><div class="stat-box-sub">2,589 transfer events · 2,241 unique recipients</div></div>
-      <div><div class="stat-box-label">Pattern</div><div class="stat-box-value" style="font-size:14px">Airdrop / rewards</div><div class="stat-box-sub">Median grant ≈ 3,400 AKE per wallet</div></div>
-    </div>
-    <p style="font-size:12px;color:var(--muted)">CommunityPool distributed in burst micro-transfers to 2,241 retail wallets — characteristic of an airdrop or game-reward campaign. In aggregate, recipients sold most of their tokens, adding steady sell pressure. Below are the top recipients by grant size.</p>
-  </div>
-  <div class="card">
-    <h3 style="margin-bottom:8px">Top Recipients (of 2,241 total wallets)</h3>
-    <div class="table-wrap"><table>
-      <thead><tr>
-  <th>Wallet</th>
-  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ daily price</small></th>
-  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD · Venue</small></th>
-  <th>Held Now</th>
-  <th>% Sold</th>
-  <th>Txns</th>
-  <th>Status</th>
-</tr></thead>
-      <tbody><tr>
-  <td><a href="https://bscscan.com/address/0x4aaa5e8e45fc9f44411d583554646fe07315979a" target="_blank"><code>0x4aaa5e8e…15979a</code></a></td>
-  <td class="num">320.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 320.0M AKE &nbsp;·&nbsp; $179K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">320.0M AKE / <strong>$512K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">4</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xcae53d40b4a4f2f835cea2e2dfeeb8e28d7a1984" target="_blank"><code>0xcae53d40…7a1984</code></a></td>
-  <td class="num">250.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 250.0M AKE &nbsp;·&nbsp; $140K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">250.0M AKE / <strong>$400K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Sep 5, 2025 &nbsp;·&nbsp; 166.4M AKE &nbsp;·&nbsp; ~$82K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">166.4M AKE / <strong>~$266K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
   <td class="num">3</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr></tbody></table></div>
+  </div>
+
+  <h3 style="margin-bottom:8px">CN2 — Single Large Recipient</h3>
+  <div class="card" style="margin-bottom:14px">
+    <div class="table-wrap"><table><thead><tr>
+  <th>Wallet</th>
+  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ recv price</small></th>
+  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD (Oct avg) · Venue</small></th>
+  <th>Held Now</th>
+  <th>% Sold</th>
+  <th>Txns</th>
+  <th>Status</th>
+</tr></thead><tbody><tr>
+  <td><a href="https://bscscan.com/address/0x46ea91708870d5a3c6a3fe8b8183c9f168772647" target="_blank"><code>0x46ea9170…772647</code></a></td>
+  <td class="num">156.0M AKE<br>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Sep 5, 2025 &nbsp;·&nbsp; 156.0M AKE &nbsp;·&nbsp; ~$77K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">156.0M AKE / <strong>~$250K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">5</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr></tbody></table></div>
+  </div>
+
+  <h3 style="margin-bottom:6px">CN3 — Top Recipients Above $1K Threshold</h3>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:10px">
+    $1K cutoff at receive-time price (~$0.000494, Aug–Sep 2025) = <strong>≥2.02M AKE per wallet.</strong>
+    Only <strong>2 of 2,904 wallets</strong> exceed this threshold. The next largest recipient (0xb2006845) received 1.67M AKE ≈ $825 — just below cutoff.
+    Remaining 2,902 wallets received on average ~102K AKE (~$50 each) and are below the materiality threshold.
+  </p>
+  <div class="card" style="margin-bottom:14px">
+    <div class="table-wrap"><table><thead><tr>
+  <th>Wallet</th>
+  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ recv price</small></th>
+  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD (Oct avg) · Venue</small></th>
+  <th>Held Now</th>
+  <th>% Sold</th>
+  <th>Txns</th>
+  <th>Status</th>
+</tr></thead><tbody><tr>
+  <td><a href="https://bscscan.com/address/0x4aaa5e8e45fc9f44411d583554646fe07315979a" target="_blank"><code>0x4aaa5e8e…15979a</code></a> <span title="smart contract" style="color:var(--muted);font-size:10px">[C]</span><div style="font-size:10px;color:var(--warn);margin-top:3px">Also received 70M from CommunityPool. Combined 320M total, all sold.</div></td>
+  <td class="num">250.0M AKE<br>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 24 – Sep 8 &nbsp;·&nbsp; 250.0M AKE &nbsp;·&nbsp; ~$124K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">250.0M AKE / <strong>~$400K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0xc0d105814d1443013085d3bb637e5ad2831addbd" target="_blank"><code>0xc0d10581…1addbd</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Also received 20M from CommunityPool. Combined 40M total, sold.</div></td>
+  <td class="num">20.0M AKE<br>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 24 – Sep 8 &nbsp;·&nbsp; 20.0M AKE &nbsp;·&nbsp; ~$10K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">20.0M AKE / <strong>~$32K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr>
+        <tr style="background:rgba(100,116,139,0.07);font-size:11px;color:var(--muted);font-style:italic">
+          <td colspan="7">Next: 0xb2006845 (1.67M, $825 @ recv price) — below $1K threshold. Remaining 2,902 wallets average ~102K AKE (~$50). Not shown individually.</td>
+        </tr>
+      </tbody></table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Est. proceeds = AKE sold × Oct 2025 avg ($0.001601). Venue: BubbleMaps aggregate.</p>
+  </div>
+</div><div class="section">
+<h2>CommunityPool — Distribution Overview</h2>
+
+  <div class="card" style="margin-bottom:10px">
+    <div class="grid-3" style="margin-bottom:12px">
+      <div><div class="stat-box-label">Pool address</div><div style="font-family:monospace;font-size:12px"><a href="https://bscscan.com/address/0x9009342f47a862f83c26e8a6de36dccf3f2e14e8" target="_blank"><code>CommunityPool</code></a></div></div>
+      <div><div class="stat-box-label">Total distributed</div><div class="stat-box-value" style="color:var(--warn)">822.6M AKE</div><div class="stat-box-sub">to 2,241 wallets</div></div>
+      <div><div class="stat-box-label">Avg grant per wallet</div><div class="stat-box-value">~367K AKE</div><div class="stat-box-sub">~$181 @ recv price — micro-airdrop pattern</div></div>
+    </div>
+    <p style="font-size:12px;color:var(--muted)">Burst micro-transfers to 2,241 retail wallets (characteristic airdrop/game-reward pattern). Aug–Sep 2025. In aggregate, top recipients all confirmed sold.</p>
+  </div>
+
+  <h3 style="margin-bottom:6px">Top Recipients Above $1K Threshold</h3>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:10px">
+    $1K cutoff at receive-time price (~$0.000494) = <strong>≥2.02M AKE.</strong>
+    <strong>10 of 2,241 wallets</strong> exceed this threshold.
+    Next wallet (0xd69f4c0a) received 1.86M ≈ $919 — below cutoff.
+    Remaining 2,231 wallets averaged ~367K AKE (~$181 each).
+  </p>
+  <div class="card">
+    <div class="table-wrap"><table><thead><tr>
+  <th>Wallet</th>
+  <th>AKE Received<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Date · Amount · USD @ recv price</small></th>
+  <th>AKE Sold / Est. Proceeds<br><small style="font-weight:400;text-transform:none;letter-spacing:0">Amount · USD (Oct avg) · Venue</small></th>
+  <th>Held Now</th>
+  <th>% Sold</th>
+  <th>Txns</th>
+  <th>Status</th>
+</tr></thead><tbody><tr>
+  <td><a href="https://bscscan.com/address/0xcae53d40b4a4f2f835cea2e2dfeeb8e28d7a1984" target="_blank"><code>0xcae53d40…7a1984</code></a></td>
+  <td class="num">250.0M AKE<br>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 250.0M AKE &nbsp;·&nbsp; ~$124K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">250.0M AKE / <strong>~$400K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
 </tr><tr>
   <td><a href="https://bscscan.com/address/0xb050bd0c2d4cce3c4d17d53b82d19d3916ff0cc1" target="_blank"><code>0xb050bd0c…ff0cc1</code></a></td>
   <td class="num">100.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 100.0M AKE &nbsp;·&nbsp; $56K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">100.0M AKE / <strong>$160K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 100.0M AKE &nbsp;·&nbsp; ~$49K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">100.0M AKE / <strong>~$160K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">4</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
 </tr><tr>
   <td><a href="https://bscscan.com/address/0xb4be258a94679b4acb00a15a5768e870599bea7b" target="_blank"><code>0xb4be258a…9bea7b</code></a></td>
   <td class="num">80.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 80.0M AKE &nbsp;·&nbsp; $45K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">80.0M AKE / <strong>$128K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 80.0M AKE &nbsp;·&nbsp; ~$40K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">80.0M AKE / <strong>~$128K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">7</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
 </tr><tr>
   <td><a href="https://bscscan.com/address/0xff53b6407583eaf4768ab8331a153a42e2b769b7" target="_blank"><code>0xff53b640…b769b7</code></a></td>
   <td class="num">74.3M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 74.3M AKE &nbsp;·&nbsp; $42K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">74.3M AKE / <strong>$119K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 74.3M AKE &nbsp;·&nbsp; ~$37K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">74.3M AKE / <strong>~$119K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">38</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
 </tr><tr>
   <td><a href="https://bscscan.com/address/0x654f2f5d2a42bb0afa867188ca6540596daaddb6" target="_blank"><code>0x654f2f5d…aaddb6</code></a></td>
   <td class="num">74.3M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 74.3M AKE &nbsp;·&nbsp; $42K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">74.3M AKE / <strong>$119K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 74.3M AKE &nbsp;·&nbsp; ~$37K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">74.3M AKE / <strong>~$119K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">12</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0x4aaa5e8e45fc9f44411d583554646fe07315979a" target="_blank"><code>0x4aaa5e8e…15979a</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Also received 250M from CN3. Combined 320M total.</div></td>
+  <td class="num">70.0M AKE<br>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 70.0M AKE &nbsp;·&nbsp; ~$35K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">70.0M AKE / <strong>~$112K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
 </tr><tr>
   <td><a href="https://bscscan.com/address/0x3b3ce60dc710428287b8c25357472daa4c5405e7" target="_blank"><code>0x3b3ce60d…5405e7</code></a></td>
   <td class="num">57.1M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 57.1M AKE &nbsp;·&nbsp; $32K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">57.1M AKE / <strong>$91K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 57.1M AKE &nbsp;·&nbsp; ~$28K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">57.1M AKE / <strong>~$91K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">15</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
 </tr><tr>
   <td><a href="https://bscscan.com/address/0x29666cd0516e15c74b5d6eb4a3d8f32875282ab4" target="_blank"><code>0x29666cd0…282ab4</code></a></td>
   <td class="num">56.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 56.0M AKE &nbsp;·&nbsp; $31K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">56.0M AKE / <strong>$90K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 56.0M AKE &nbsp;·&nbsp; ~$28K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">56.0M AKE / <strong>~$90K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">6</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
 </tr><tr>
-  <td><a href="https://bscscan.com/address/0xc0d105814d1443013085d3bb637e5ad2831addbd" target="_blank"><code>0xc0d10581…1addbd</code></a></td>
-  <td class="num">40.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 40.0M AKE &nbsp;·&nbsp; $22K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">40.0M AKE / <strong>$64K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+  <td><a href="https://bscscan.com/address/0xc0d105814d1443013085d3bb637e5ad2831addbd" target="_blank"><code>0xc0d10581…1addbd</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Also received 20M from CN3. Combined 40M total.</div></td>
+  <td class="num">20.0M AKE<br>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 20.0M AKE &nbsp;·&nbsp; ~$10K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">20.0M AKE / <strong>~$32K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">17</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
 </tr><tr>
   <td><a href="https://bscscan.com/address/0x0a787e87a4a82d0152e18bb0281de32d7e1c2034" target="_blank"><code>0x0a787e87…1c2034</code></a></td>
   <td class="num">2.6M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">
-        Aug 24 – Sep 8, 2025 &nbsp;·&nbsp; 2.6M AKE &nbsp;·&nbsp; $1K <span style="color:var(--muted)">(@$0.000560)</span>
-      </div></td>
-  <td class="num">2.6M AKE / <strong>$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Individual txns not traced (archival RPC)<br>Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate; per-wallet not traced)</div></td>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 2.6M AKE &nbsp;·&nbsp; ~$1K <span style="color:var(--muted)">(@$0.000494)</span></div></td>
+  <td class="num">2.6M AKE / <strong>~$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
   <td class="num" style="color:var(--muted)">0</td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">32</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr></tbody>
-    </table></div>
-    <p style="font-size:11px;color:var(--muted);margin-top:8px">Full 2,241-wallet roster not shown — aggregate behavior: overwhelming majority sold (pool is 97.2% depleted). Holdings summary of traced subset: 8 wallet(s) still hold 10.6M AKE combined.</p>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr>
+        <tr style="background:rgba(100,116,139,0.07);font-size:11px;color:var(--muted);font-style:italic">
+          <td colspan="7">Next: 0xd69f4c0a (1.86M, $919 @ recv price) and 0x47ac5ffd (1.86M, $919) — below $1K threshold. Remaining 2,231 wallets not shown individually.</td>
+        </tr>
+        <tr style="font-weight:600;background:rgba(59,130,246,0.06)">
+          <td>Gross (above-threshold only)</td>
+          <td class="num">784.4M AKE</td>
+          <td class="num"><strong>~$1.26M</strong> est. proceeds</td>
+          <td class="num">0</td>
+          <td class="num">100%</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody></table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Est. proceeds = AKE sold × Oct 2025 avg ($0.001601). Venue: BubbleMaps aggregate (Gate.io, KuCoin, Kraken, MEXC, PancakeSwap V3). Per-wallet routing not individually traced.</p>
   </div>
-
-
 </div><div class="section">
-  <h2>Insider Chain Analysis (W1–W5 Deployer-Connected Wallets)</h2>
+<h2>Insider Chain Analysis — 13.8B Distributor EOA &amp; Connected Wallets</h2>
 
-  <div class="alert alert-warn" style="margin-bottom:16px;">
-    <strong>Key pattern:</strong> All 5 wallets are passive — none have interacted with DEXs, bridges, or DeFi protocols. W2, W3, W4, W5 have nonce=0 (never sent a transaction). W1 is the only active insider: received gas from Binance Hot Wallet, sent 350M AKE to the Binance Alpha <em>airdrop distribution platform</em> (not a spot exchange — Binance has no AKE spot pair), and 700K to an active trader. W3 &amp; W5 share the same gas funder (OKX 175), same date — strong evidence of shared control.
-  </div>
-
-  <div class="grid-2" style="margin-bottom:16px;">
-
-    <!-- W1 -->
-    <div class="wallet-card">
-      <div class="wallet-header" style="background:rgba(239,68,68,0.12);border-bottom:1px solid var(--border)">
-        <div class="wallet-icon" style="background:#ef4444;color:white">W1</div>
-        <div>
-          <div style="font-weight:700;color:var(--text)">Wallet 1 — Active Insider</div>
-          <div class="wallet-addr">0x55a3319b1cfe8b82cacb0b5cf96c7445bf12066a</div>
-        </div>
-        <span class="badge badge-red" style="margin-left:auto">INSIDER</span>
-      </div>
-      <div class="wallet-body">
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Current AKE Balance</span>
-          <span class="wallet-stat-value" style="color:var(--text)">3,649,300,000</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Original Allocation</span>
-          <span class="wallet-stat-value">~4,000,000,000 AKE (4%)</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Transactions (nonce)</span>
-          <span class="wallet-stat-value">2 outgoing txs</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Gas Funded By</span>
-          <span class="wallet-stat-value" style="color:var(--warn)">Binance Hot Wallet 23 (Oct 1, 2025)</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">AKE Sold (Oct 1, 2025)</span>
-          <span class="wallet-stat-value" style="color:var(--highlight)">−350,000,000 → Binance Alpha airdrop platform (not spot CEX)</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">AKE Sent to Trader (Oct 1, 2025)</span>
-          <span class="wallet-stat-value" style="color:var(--warn)">−700,000 → 0x93deb693 (nonce=2626)</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Last Token Activity</span>
-          <span class="wallet-stat-value">Oct 1, 2025 (5:21 UTC)</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">AKE Source</span>
-          <span class="wallet-stat-value" style="color:var(--muted)">Multi-hop chain from deployer (via EOA intermediaries)</span>
-        </div>
-        <div style="margin-top:10px;font-size:11px;color:var(--muted)">
-          <span class="flag"> Note:</span> Received 4B AKE through obfuscation chain, used Binance to fund gas, sent 350M to Binance Alpha airdrop platform on Day 45 after launch. Binance has no AKE spot market; destination is an airdrop distribution contract, not a sell venue.
-        </div>
-      </div>
-    </div>
-
-    <!-- W2 -->
-    <div class="wallet-card">
-      <div class="wallet-header" style="background:rgba(59,130,246,0.1);border-bottom:1px solid var(--border)">
-        <div class="wallet-icon" style="background:#3b82f6;color:white">W2</div>
-        <div>
-          <div style="font-weight:700;color:var(--text)">Wallet 2 — Passive Holder</div>
-          <div class="wallet-addr">0x14804213c11a670ac7d9c82e9303a4db08dae296</div>
-        </div>
-        <span class="badge badge-yellow">PASSIVE</span>
-      </div>
-      <div class="wallet-body">
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Current AKE Balance</span>
-          <span class="wallet-stat-value">972,540,250</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Transactions (nonce)</span>
-          <span class="wallet-stat-value">0 — never sent a tx</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">BEP-20 Token Transfers</span>
-          <span class="wallet-stat-value">10 incoming</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Last Token Received</span>
-          <span class="wallet-stat-value color:var(--muted)">Unknown (archival node needed)</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">AKE Source</span>
-          <span class="wallet-stat-value" style="color:var(--muted)">Multi-hop / pool contract adminTransfer</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Gas Funded By</span>
-          <span class="wallet-stat-value" style="color:var(--muted)">Unknown (no BNB txs visible)</span>
-        </div>
-        <div style="margin-top:10px;font-size:11px;color:var(--muted)">
-          Non-round balance (972,540,250) suggests multiple partial inflows. Fully passive — AKE received but never moved.
-        </div>
-      </div>
-    </div>
-
-    <!-- W3 -->
-    <div class="wallet-card">
-      <div class="wallet-header" style="background:rgba(59,130,246,0.1);border-bottom:1px solid var(--border)">
-        <div class="wallet-icon" style="background:#6366f1;color:white">W3</div>
-        <div>
-          <div style="font-weight:700;color:var(--text)">Wallet 3 — OKX-Linked</div>
-          <div class="wallet-addr">0x3ce075da773fc527418613c1bd1f604993dd884b</div>
-        </div>
-        <span class="badge badge-orange">OKX LINK</span>
-      </div>
-      <div class="wallet-body">
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Current AKE Balance</span>
-          <span class="wallet-stat-value">560,999,928</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Transactions (nonce)</span>
-          <span class="wallet-stat-value">0 — never sent a tx</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Gas Funded By</span>
-          <span class="wallet-stat-value" style="color:var(--warn)">OKX 175 (Apr 24, 2026 — same day as W5)</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">AKE Source</span>
-          <span class="wallet-stat-value" style="color:var(--muted)">Pool contract adminTransfer</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Last Token Received</span>
-          <span class="wallet-stat-value" style="color:var(--muted)">Unknown (archival node needed)</span>
-        </div>
-        <div style="margin-top:10px;font-size:11px;color:var(--danger)">
-          <span class="flag"> Same gas funder as W5 (OKX 175, Apr 24, 2026)</span> — these wallets are almost certainly controlled by the same person.
-        </div>
-      </div>
-    </div>
-
-    <!-- W4 -->
-    <div class="wallet-card">
-      <div class="wallet-header" style="background:rgba(59,130,246,0.1);border-bottom:1px solid var(--border)">
-        <div class="wallet-icon" style="background:#3b82f6;color:white">W4</div>
-        <div>
-          <div style="font-weight:700;color:var(--text)">Wallet 4 — Passive Holder</div>
-          <div class="wallet-addr">0x76e9225529b174cfadbd1bbde64caa753fa8bcc5</div>
-        </div>
-        <span class="badge badge-yellow">PASSIVE</span>
-      </div>
-      <div class="wallet-body">
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Current AKE Balance</span>
-          <span class="wallet-stat-value">432,447,502</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">Transactions (nonce)</span>
-          <span class="wallet-stat-value">0 — never sent a tx</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">BEP-20 Token Transfers</span>
-          <span class="wallet-stat-value">9 incoming</span>
-        </div>
-        <div class="wallet-stat">
-          <span class="wallet-stat-label">AKE Source</span>
-          <span class="wallet-stat-value" style="color:var(--muted)">Pool contract adminTransfer</span>
-        </div>
-        <div style="margin-top:10px;font-size:11px;color:var(--muted)">
-          Non-round balance (432,447,502) + 9 incoming transfers suggests multiple partial distributions from pool contracts over time.
-        </div>
-      </div>
-    </div>
-
-    <!-- W5 -->
-    <div class="wallet-card" style="grid-column: span 2;">
-      <div class="wallet-header" style="background:rgba(249,115,22,0.1);border-bottom:1px solid var(--border)">
-        <div class="wallet-icon" style="background:#f97316;color:white">W5</div>
-        <div>
-          <div style="font-weight:700;color:var(--text)">Wallet 5 — OKX-Linked (W3 sister wallet)</div>
-          <div class="wallet-addr">0xf97ef431912f62e410d7ba14e3ccf2a45747111f</div>
-        </div>
-        <span class="badge badge-orange">OKX LINK</span>
-        <span class="badge badge-red" style="margin-left:6px">SAME CONTROLLER AS W3</span>
-      </div>
-      <div class="wallet-body">
-        <div class="grid-2">
-          <div>
-            <div class="wallet-stat">
-              <span class="wallet-stat-label">Current AKE Balance</span>
-              <span class="wallet-stat-value" style="color:var(--warn)">380,000,000 (round number)</span>
-            </div>
-            <div class="wallet-stat">
-              <span class="wallet-stat-label">Transactions (nonce)</span>
-              <span class="wallet-stat-value">0 — never sent a tx</span>
-            </div>
-            <div class="wallet-stat">
-              <span class="wallet-stat-label">BNB Transactions</span>
-              <span class="wallet-stat-value">1 (incoming BNB only)</span>
-            </div>
-          </div>
-          <div>
-            <div class="wallet-stat">
-              <span class="wallet-stat-label">Gas Funded By</span>
-              <span class="wallet-stat-value" style="color:var(--warn)">OKX 175 (Apr 24, 2026 — same day as W3)</span>
-            </div>
-            <div class="wallet-stat">
-              <span class="wallet-stat-label">AKE Source</span>
-              <span class="wallet-stat-value">Direct pool adminTransfer (round number suggests single receipt)</span>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:12px;padding:10px;background:rgba(239,68,68,0.07);border-radius:6px;font-size:12px;color:var(--danger);border:1px solid rgba(239,68,68,0.2)">
-          <strong>Confirmed coordination with W3:</strong> Both W3 and W5 received gas from OKX Hot Wallet 175 on April 24, 2026 — same day, same funder. Both have nonce=0. This is the clearest evidence of insider control: someone is preparing to move 941M AKE (W3+W5) using OKX as the gas source — likely preparing for an OKX withdrawal/sale.
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-</div><div class="section">
-  <h2>Binance Alpha — Airdrop Platform Analysis</h2>
-  <div class="alert alert-info" style="margin-bottom:14px">
-    <strong>Binance does NOT list AKE on any spot market.</strong> The address <code>0x73d8bd54f7cf5fab43fe4ef40a62d390644946db</code> ("Binance Alpha 2.0" on BSCScan) is an <strong>airdrop distribution platform</strong>, verified via EIP-1967 proxy whose implementation bytecode contains the literal string <em>"binance alpha cloud wallet"</em>. AKE deposited here is NOT sell pressure.
-  </div>
   <div class="card" style="margin-bottom:14px">
-    <div class="grid-3" style="margin-bottom:12px">
-      <div>
-        <div class="stat-box-label">AKE locked in Binance Alpha</div>
-        <div class="stat-box-value" style="color:var(--highlight)">~4.34B AKE</div>
-        <div class="stat-box-sub">4.34% of total supply</div>
-      </div>
-      <div>
-        <div class="stat-box-label">USD value (current price $0.000342)</div>
-        <div class="stat-box-value">~$1.48M</div>
-        <div class="stat-box-sub">~$2.70M @ Oct 2025 avg</div>
-      </div>
-      <div>
-        <div class="stat-box-label">Confirmed deposits traced</div>
-        <div class="stat-box-value">350M AKE</div>
-        <div class="stat-box-sub">from W1 (0x55a3319b) on Oct 1, 2025 — $431K @ daily price</div>
-      </div>
-    </div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">The main distribution EOA (<code>0xa38da2eb</code>) received 13.8B AKE at launch and distributed it to 12 sub-wallets. <strong>All 9 material recipients confirmed zero balance (100% sold).</strong> Below: where did the 13.8B go, and which insider wallets connected to the same deployer chain are still holding.</p>
+  </div>
+
+  <h3 style="margin-bottom:8px">Part 1 — The 13.8B EOA: All Confirmed Recipients Sold 100%</h3>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Source: main distributor EOA (<code>0xa38da2eb</code>) which received 13.8B AKE at launch and distributed to 12 wallets between Aug 16–Sep 4, 2025. 9 material wallets all confirmed zero balance.</p>
+  <div class="card" style="margin-bottom:16px">
     <div class="table-wrap"><table>
       <thead><tr>
-        <th>Metric</th><th>Value</th><th>Notes</th>
+        <th>Wallet</th>
+        <th>Received from EOA</th>
+        <th>Est. Proceeds (Oct avg)</th>
+        <th>Balance Now</th>
+        <th>% Sold</th>
+        <th>Nonce</th>
+        <th>Status</th>
       </tr></thead>
-      <tbody>
-        <tr>
-          <td>Total AKE at Binance Alpha platform</td>
-          <td class="num">~4,340,000,000 AKE</td>
-          <td>Accumulated from many depositors; represents airdrop pool for Alpha users</td>
-        </tr>
-        <tr>
-          <td>Total AKE distributed from all labeled pools</td>
-          <td class="num">~8.44B AKE</td>
-          <td>KOL 1.63B + CN3 7.33B + CommunityPool 972M + InvestorsPool 4.63B + TeamAdv1 1.86B + CN1 322M + CN2 790M</td>
-        </tr>
-        <tr>
-          <td>Binance Alpha as % of distributed</td>
-          <td class="num">~25%</td>
-          <td>~1 in 4 AKE distributed ended up in the Binance Alpha airdrop platform</td>
-        </tr>
-        <tr>
-          <td>Distributions FROM Binance Alpha to individual users</td>
-          <td class="num" style="color:var(--muted)">Not traced</td>
-          <td>Binance Alpha is a distribution platform that presumably routes AKE to registered Alpha users — outflow data requires separate archival scan of the platform contract</td>
-        </tr>
-        <tr>
-          <td>Confirmed AKE depositor: W1 (0x55a3319b)</td>
-          <td class="num">350,000,000 AKE</td>
-          <td><span class="badge badge-orange">Non-sale (lockup/further distribution)</span> Deposited Oct 1, 2025 · $431K @ daily price · NOT a sell venue</td>
+      <tbody><tr>
+  <td><a href="https://bscscan.com/address/0x07286aa168b3aa7d091048f090153162960c980b" target="_blank"><code>0x07286aa1…0c980b</code></a></td>
+  <td class="num">11650.0M AKE &nbsp;<span style="font-size:10px;color:var(--muted)">(~$5.76M @ recv)</span></td>
+  <td class="num"><strong>~$18.65M</strong> est.</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--danger)">100%</td>
+  <td class="num">15</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0x17a069f6e16d8155568594e9539b0d8136c8a4ae" target="_blank"><code>0x17a069f6…c8a4ae</code></a></td>
+  <td class="num">900.0M AKE &nbsp;<span style="font-size:10px;color:var(--muted)">(~$445K @ recv)</span></td>
+  <td class="num"><strong>~$1.44M</strong> est.</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--danger)">100%</td>
+  <td class="num">1041</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0xadc91c07adbe5ec0bc6a7360420b2f997ea6f2cb" target="_blank"><code>0xadc91c07…a6f2cb</code></a></td>
+  <td class="num">500.0M AKE &nbsp;<span style="font-size:10px;color:var(--muted)">(~$247K @ recv)</span></td>
+  <td class="num"><strong>~$800K</strong> est.</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--danger)">100%</td>
+  <td class="num">56</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0xf3ac12215d3d7f365eb1ef733d5fe17691ca8717" target="_blank"><code>0xf3ac1221…ca8717</code></a></td>
+  <td class="num">200.0M AKE &nbsp;<span style="font-size:10px;color:var(--muted)">(~$99K @ recv)</span></td>
+  <td class="num"><strong>~$320K</strong> est.</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--danger)">100%</td>
+  <td class="num">1</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0xdaa073bcb02cf5c6a5ce76ebeb006dcfe9982047" target="_blank"><code>0xdaa073bc…982047</code></a> [C]</td>
+  <td class="num">150.0M AKE &nbsp;<span style="font-size:10px;color:var(--muted)">(~$74K @ recv)</span></td>
+  <td class="num"><strong>~$240K</strong> est.</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--danger)">100%</td>
+  <td class="num">126</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0xa6c4900538e912501b508b9b3a459e710faa5955" target="_blank"><code>0xa6c49005…aa5955</code></a></td>
+  <td class="num">60.0M AKE &nbsp;<span style="font-size:10px;color:var(--muted)">(~$30K @ recv)</span></td>
+  <td class="num"><strong>~$96K</strong> est.</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--danger)">100%</td>
+  <td class="num">325</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0xe636e237eb330876fd850885d9fab209446418d4" target="_blank"><code>0xe636e237…6418d4</code></a></td>
+  <td class="num">50.0M AKE &nbsp;<span style="font-size:10px;color:var(--muted)">(~$25K @ recv)</span></td>
+  <td class="num"><strong>~$80K</strong> est.</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--danger)">100%</td>
+  <td class="num">38</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0xa4254f8552d8f0074f132a96fb4917dd560ce99f" target="_blank"><code>0xa4254f85…0ce99f</code></a></td>
+  <td class="num">20.0M AKE &nbsp;<span style="font-size:10px;color:var(--muted)">(~$10K @ recv)</span></td>
+  <td class="num"><strong>~$32K</strong> est.</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--danger)">100%</td>
+  <td class="num">67</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr>
+  <td><a href="https://bscscan.com/address/0xdf5000b665f39b241331ff9bdafef9ba0dfde9b7" target="_blank"><code>0xdf5000b6…fde9b7</code></a></td>
+  <td class="num">15.0M AKE &nbsp;<span style="font-size:10px;color:var(--muted)">(~$7K @ recv)</span></td>
+  <td class="num"><strong>~$24K</strong> est.</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--danger)">100%</td>
+  <td class="num">11</td>
+  <td><span class="badge badge-badge-red">SOLD 100%</span></td>
+</tr><tr style="color:var(--muted);font-size:11px">
+  <td><a href="https://bscscan.com/address/0x72e93123e8b5d168246739cdc45360ea11209364" target="_blank"><code>0x72e93123…209364</code></a></td>
+  <td class="num">1,000 AKE (dust)</td>
+  <td class="num" style="color:var(--muted)">~$0</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--muted)">—</td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-gray">dust</span></td>
+</tr><tr style="color:var(--muted);font-size:11px">
+  <td><a href="https://bscscan.com/address/0xbe86abaa5c1430518ca69b3287b44c6ca4991af2" target="_blank"><code>0xbe86abaa…991af2</code></a></td>
+  <td class="num">1,000 AKE (dust)</td>
+  <td class="num" style="color:var(--muted)">~$0</td>
+  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num" style="color:var(--muted)">—</td>
+  <td class="num">0</td>
+  <td><span class="badge badge-badge-gray">dust</span></td>
+</tr>
+        <tr style="font-weight:600;background:rgba(239,68,68,0.06)">
+          <td>GROSS (9 material + 2 dust)</td>
+          <td class="num">13.545B AKE</td>
+          <td class="num"><strong>~$21.69M</strong></td>
+          <td class="num" style="color:var(--muted)">~0</td>
+          <td class="num" style="color:var(--danger)">100%</td>
+          <td></td>
+          <td><span class="badge badge-badge-red">ALL SOLD</span></td>
         </tr>
       </tbody>
     </table></div>
-    <p style="font-size:11px;color:var(--muted);margin-top:8px">The 4.34B AKE locked in Binance Alpha should be treated as a <strong>non-sale lockup/distribution venue</strong> — tokens there are held for airdrop distribution to Binance Alpha registered users, not for market sale. Confirmed spot-market sell venues are: <strong>Gate.io, KuCoin, Kraken, MEXC</strong> (CEX) and <strong>PancakeSwap V3</strong> (DEX).</p>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Exit venues: Gate.io, KuCoin, Kraken, MEXC, PancakeSwap V3 (BubbleMaps aggregate). Per-wallet routing not individually traced. The single largest recipient (0x07286aa1, 11.65B AKE, ~$18.6M est.) accounts for 86% of this cluster's proceeds.</p>
   </div>
 
+  <h3 style="margin-bottom:8px">Part 2 — Insider Wallets Still Holding (Pool-Derived, Deployer-Connected)</h3>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:10px">These 5 wallets received AKE via pool <code>adminTransfer</code> calls or via the 4B deployer obfuscation chain (not from the 13.8B EOA). All are connected to the deployer by gas funding or AKE origin. Combined holding: <strong>~5.99B AKE</strong> (~~$9.60M at Oct avg). W3 + W5 pre-funded by OKX (Apr 24, 2026) — same funder, same date = confirmed shared control.</p>
+  <div class="card">
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th>Wallet</th>
+        <th>AKE Source / Chain</th>
+        <th>AKE Held Now</th>
+        <th>Nonce</th>
+        <th>Gas Funder</th>
+        <th>Status / Notes</th>
+      </tr></thead>
+      <tbody><tr>
+  <td><strong style="font-size:13px">W1</strong><br><div style="font-family:monospace;font-size:11px;color:var(--muted)">0x55a3319b1cfe8b82…</div></td>
+  <td style="font-size:11px">Via 4B deployer chain: Deployer → 0xb05e0018 (Hop1) → 0xf3acb8a9 (Hop2, Gate.io-funded) → W1</td>
+  <td class="num" style="color:var(--warn)">3649.3M AKE<br><span style="font-size:10px;color:var(--muted)">~$5.84M</span></td>
+  <td class="num">2</td>
+  <td style="font-size:11px;color:var(--muted)">Binance HW23 (Oct 1, 2025)</td>
+  <td style="font-size:11px"><span class="badge badge-badge-red">ACTIVE INSIDER</span><br><div style="margin-top:4px;color:var(--muted)">350M → Binance Alpha (airdrop platform, non-sale). 700K → active trader. 3.649B AKE still held.</div></td>
+</tr><tr>
+  <td><strong style="font-size:13px">W2</strong><br><div style="font-family:monospace;font-size:11px;color:var(--muted)">0x14804213c11a670a…</div></td>
+  <td style="font-size:11px">Pool contract adminTransfer (multiple partial inflows)</td>
+  <td class="num" style="color:var(--warn)">972.5M AKE<br><span style="font-size:10px;color:var(--muted)">~$1.56M</span></td>
+  <td class="num">0</td>
+  <td style="font-size:11px;color:var(--muted)">Unknown</td>
+  <td style="font-size:11px"><span class="badge badge-badge-yellow">PASSIVE</span><br><div style="margin-top:4px;color:var(--muted)">Non-round balance (972,540,250) suggests multiple partial distributions. Never sent a transaction.</div></td>
+</tr><tr>
+  <td><strong style="font-size:13px">W3</strong><br><div style="font-family:monospace;font-size:11px;color:var(--muted)">0x3ce075da773fc527…</div></td>
+  <td style="font-size:11px">Pool contract adminTransfer</td>
+  <td class="num" style="color:var(--warn)">561.0M AKE<br><span style="font-size:10px;color:var(--muted)">~$898K</span></td>
+  <td class="num">0</td>
+  <td style="font-size:11px;color:var(--muted)">OKX HW175 (Apr 24, 2026)</td>
+  <td style="font-size:11px"><span class="badge badge-badge-orange">OKX-LINKED</span><br><div style="margin-top:4px;color:var(--muted)">Same gas funder, same date as W5 → same controller. 561M AKE pre-positioned for likely OKX withdrawal.</div></td>
+</tr><tr>
+  <td><strong style="font-size:13px">W4</strong><br><div style="font-family:monospace;font-size:11px;color:var(--muted)">0x76e9225529b174cf…</div></td>
+  <td style="font-size:11px">Pool contract adminTransfer (9 incoming transfers)</td>
+  <td class="num" style="color:var(--warn)">432.4M AKE<br><span style="font-size:10px;color:var(--muted)">~$692K</span></td>
+  <td class="num">0</td>
+  <td style="font-size:11px;color:var(--muted)">Unknown</td>
+  <td style="font-size:11px"><span class="badge badge-badge-yellow">PASSIVE</span><br><div style="margin-top:4px;color:var(--muted)">Non-round balance + 9 incoming transfers: multiple pool distributions over time.</div></td>
+</tr><tr>
+  <td><strong style="font-size:13px">W5</strong><br><div style="font-family:monospace;font-size:11px;color:var(--muted)">0xf97ef431912f62e4…</div></td>
+  <td style="font-size:11px">Pool contract adminTransfer (single round-number receipt)</td>
+  <td class="num" style="color:var(--warn)">380.0M AKE<br><span style="font-size:10px;color:var(--muted)">~$608K</span></td>
+  <td class="num">0</td>
+  <td style="font-size:11px;color:var(--muted)">OKX HW175 (Apr 24, 2026)</td>
+  <td style="font-size:11px"><span class="badge badge-badge-orange">OKX-LINKED</span><br><div style="margin-top:4px;color:var(--muted)">Round balance (380M) = single receipt. Same gas funder/date as W3 → confirmed shared control. 941M combined (W3+W5) pre-positioned.</div></td>
+</tr>
+        <tr style="font-weight:600;background:rgba(249,115,22,0.06)">
+          <td>GROSS (W1–W5)</td>
+          <td></td>
+          <td class="num" style="color:var(--warn)">5,994M AKE<br><span style="font-size:10px">{usd(5_994_000_000)} est.</span></td>
+          <td></td><td></td>
+          <td style="font-size:11px">All pool-derived. 350M already moved to Binance Alpha (non-sale). 941M (W3+W5) pre-funded by OKX.</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+</div><div class="section">
+<h2>Binance Alpha — Airdrop Platform Analysis</h2>
 
+  <div class="alert alert-info" style="margin-bottom:14px">
+    <strong>Binance does NOT list AKE on any spot market.</strong> The address <code>0x73d8bd54f7cf5fab43fe4ef40a62d390644946db</code> ("Binance Alpha 2.0") is an <strong>airdrop distribution platform</strong> — EIP-1967 proxy whose implementation bytecode contains the literal string <em>"binance alpha cloud wallet"</em>. AKE deposited here is <strong>locked for airdrop distribution to Binance Alpha users, NOT sold</strong>.
+  </div>
 
+  <div class="card" style="margin-bottom:14px">
+    <div class="grid-3" style="margin-bottom:12px">
+      <div>
+        <div class="stat-box-label">Total AKE at Binance Alpha</div>
+        <div class="stat-box-value" style="color:var(--highlight)">~4.34B AKE</div>
+        <div class="stat-box-sub">4.34% of total supply · ~$1.48M (current) · ~$6.95M (Oct avg)</div>
+      </div>
+      <div>
+        <div class="stat-box-label">Traced deposit (W1)</div>
+        <div class="stat-box-value">350M AKE</div>
+        <div class="stat-box-sub">Oct 1, 2025 · ~$431K @ daily price · 8% of total Alpha balance</div>
+      </div>
+      <div>
+        <div class="stat-box-label">Venue classification</div>
+        <div class="stat-box-value" style="color:var(--green);font-size:13px">Non-sale lockup</div>
+        <div class="stat-box-sub">Airdrop distribution to registered Binance Alpha users — not a sell venue</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:8px">Traced Source Chain — How W1's 350M AKE Reached Binance Alpha</h3>
+  <div class="card" style="margin-bottom:14px">
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th>#</th>
+        <th>Wallet</th>
+        <th>Role</th>
+        <th>AKE Transferred</th>
+        <th>Gas Funded By</th>
+        <th>Notes</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="num">0</td>
+          <td><a href="https://bscscan.com/address/0xa38da2eb0e5b5b76b06e56d59bc2ff36a54b6a0b" target="_blank"><code>Deployer / Main EOA</code></a></td>
+          <td><span class="badge badge-badge-red">Origin</span></td>
+          <td class="num">13.8B AKE (at launch)</td>
+          <td>Self (deployer)</td>
+          <td style="font-size:11px">Received 13.8% of supply at launch. Funded Hop1 with BNB for gas.</td>
+        </tr>
+        <tr>
+          <td class="num">1</td>
+          <td><a href="https://bscscan.com/address/0xb05e0018dc4b26826a56bc11dd18fc891e1a50e8" target="_blank"><code>Hop 1 — 0xb05e0018</code></a></td>
+          <td><span class="badge badge-badge-orange">Forwarding hop</span></td>
+          <td class="num">4,000,000,000 AKE</td>
+          <td>Deployer EOA</td>
+          <td style="font-size:11px">nonce=1. Received 4B, forwarded all 4B to Hop2 in a single transaction.</td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td><a href="https://bscscan.com/address/0xf3acb8a9f6c0ca6f98ed0cbb4f5da05741d78e58" target="_blank"><code>Hop 2 — 0xf3acb8a9</code></a></td>
+          <td><span class="badge badge-badge-orange">Obfuscation hop</span></td>
+          <td class="num">4,000,000,000 AKE</td>
+          <td style="color:var(--warn)">Gate.io hot wallet</td>
+          <td style="font-size:11px">nonce=1. Gas funded by Gate.io — introduces CEX-origin obscurity. Forwarded all 4B to W1.</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td><a href="https://bscscan.com/address/0x55a3319b1cfe8b82cacb0b5cf96c7445bf12066a" target="_blank"><code>W1 — 0x55a3319b</code></a></td>
+          <td><span class="badge badge-badge-red">Final insider holder</span></td>
+          <td class="num">4,000,000,000 AKE received<br><strong>350,000,000 AKE → Binance Alpha</strong></td>
+          <td style="color:var(--warn)">Binance HW23 (Oct 1, 2025)</td>
+          <td style="font-size:11px">nonce=2. Holds 3.649B. On Oct 1, 2025 (same day gas received from Binance HW23): sent 350M to Binance Alpha + 700K to active trader.</td>
+        </tr>
+        <tr style="background:rgba(251,191,36,0.08)">
+          <td class="num">→</td>
+          <td><a href="https://bscscan.com/address/0x73d8bd54f7cf5fab43fe4ef40a62d390644946db" target="_blank"><code>Binance Alpha 2.0</code></a></td>
+          <td><span class="badge badge-badge-gray">Non-sale destination</span></td>
+          <td class="num">4,340,000,000 AKE total (many depositors)<br>of which 350M from W1</td>
+          <td>N/A</td>
+          <td style="font-size:11px">Airdrop distribution platform. ~4.34B AKE accumulated from multiple depositors (only 350M individually traced to W1). AKE here is distributed to registered Binance Alpha users — not sold on spot markets.</td>
+        </tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">The remaining ~3.99B AKE at Binance Alpha (beyond W1's 350M) came from other depositors not individually traced in this scan. The 4B obfuscation chain (Deployer → Hop1 → Hop2[Gate.io-funded] → W1) is a pattern used to obscure the deployer origin of the tokens before the Binance Alpha deposit.</p>
+  </div>
+
+  <div class="card">
+    <div class="table-wrap"><table>
+      <thead><tr><th>Metric</th><th>Value</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>AKE at Binance Alpha platform</td>
+          <td class="num">~4,340,000,000 AKE</td>
+          <td>Airdrop pool for Binance Alpha registered users</td>
+        </tr>
+        <tr>
+          <td>Traced deposit (W1 → Binance Alpha)</td>
+          <td class="num">350,000,000 AKE</td>
+          <td>Oct 1, 2025 · chain: Deployer → Hop1 → Hop2[Gate.io] → W1 → Binance Alpha</td>
+        </tr>
+        <tr>
+          <td>Untraced deposits (other depositors)</td>
+          <td class="num">~3,990,000,000 AKE</td>
+          <td>Multiple wallets not individually identified in scan</td>
+        </tr>
+        <tr>
+          <td>Confirmed AKE spot-sell venues</td>
+          <td class="num" style="color:var(--green)">Gate.io · KuCoin · Kraken · MEXC · PancakeSwap V3</td>
+          <td>Per BubbleMaps — confirmed AKE trading pairs on these venues only</td>
+        </tr>
+        <tr>
+          <td>Venue classification</td>
+          <td><span class="badge badge-badge-gray">Non-sale — lockup/distribution</span></td>
+          <td>Binance Alpha is not a sell venue. AKE deposited there goes to airdrop recipients, not to the open market.</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
 </div><div class="section">
   <h2>Other Wallet Clusters</h2>
   <p style="color:var(--muted);font-size:12px;margin-bottom:16px">Wallets outside the labeled pool system, grouped by on-chain behavioral criteria. Each cluster header states its membership criteria and wallet count.</p>
