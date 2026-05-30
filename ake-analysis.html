@@ -37,7 +37,10 @@
   h2 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
   h2::before { content: ""; width: 3px; height: 18px; background: var(--accent); border-radius: 2px; flex-shrink: 0; }
   h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
-  .section { margin-bottom: 32px; }
+  .section { margin-bottom: 28px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+  .section > h2:first-child { margin-top: 0; }
+  /* nested cards inside a section panel: drop the heavy chrome so panels don't double-box */
+  .section .card { background: var(--card2); border-color: var(--border); }
 
   /* Grid layouts */
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
