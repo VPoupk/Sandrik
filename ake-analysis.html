@@ -170,7 +170,7 @@ small { font-size:10px; }
     <div class="meta-item">Contract <span><a href="https://bscscan.com/token/0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db">0x2c3a8ee9...2C412F7Db</a></span></div>
     <div class="meta-item">Deployed <span>Aug 16, 2025 @ 21:06 UTC</span></div>
     <div class="meta-item">Deployer <span>0x6468cce9...ce2eac2</span></div>
-    <div class="meta-item">Analysis Date <span>May 28, 2026</span></div>
+    <div class="meta-item">Analysis Date <span>May 31, 2026</span></div>
     <div class="meta-item">Total Supply <span>100,000,000,000 AKE</span></div>
     <div class="meta-item">Holders <span>34,208</span></div>
   </div>
@@ -1469,13 +1469,14 @@ small { font-size:10px; }
       <p><strong style="color:var(--text)">Methods:</strong> eth_getTransactionByHash for decoding function calls; eth_call (0x70a08231) for balanceOf; eth_getStorageAt with ERC1967 slot (0x360894a...) for proxy implementations; eth_getBlockByNumber with full transaction objects for block scanning.</p>
       <p><strong style="color:var(--text)">Block Mapping:</strong> Dates confirmed via binary search of block timestamps. Oct 1, 2025 = block 63,036,985. Aug 16, 2025 = block 57,840,341.</p>
       <p><strong style="color:var(--text)">Pool Type Identification:</strong> All 8 pool contract types confirmed via <code>eth_getCode</code> bytecode retrieval + ASCII string extraction. Implementation bytecodes contain pool name strings: <code>0x5cf081d1</code> → "CreaterPlayerNodesPool", <code>0xc062eb45</code> → "CommunityPool". Pools sharing the same implementation address are confirmed same type. Previously-unknown pools A/B/C/D/E are now fully labeled.</p>
-      <p><strong style="color:var(--text)">Limitations:</strong> eth_getLogs restricted to small block ranges on public nodes — historical Transfer event scanning not feasible without archival RPC. Exact source of AKE for W2/W4 balances not fully traced (10–9 token transfers each, requires archival node). Block scanning for post-deployment deployer txs ran across 12 time windows covering Aug 2025 – May 2026; some ranges may have missed txs depending on block step sizes.</p>
+      <p><strong style="color:var(--text)">Full-History Pool Scans:</strong> All pool outflow data (InvestorsPool, T&A1, CN1/2/3, KOL, CommunityPool) was obtained via sequential full-history Transfer event scans covering blocks 57,840,000–101,400,000 (Aug 2025–May 2026) using OnFinality BNB endpoint (100k block ranges). Each scan is followed by a reconciliation gate: captured outflows vs. (initial_allocation − current balanceOf). A gap &gt;0.5% means INCOMPLETE and triggers a re-scan. Only pools passing the gate are marked final.</p>
+      <p><strong style="color:var(--text)">Limitations:</strong> Exact source of AKE for W2/W4 balances not fully traced (multiple incoming token transfers, requires archival tracing). KOL Pool individual wallet analysis covers all recipients captured by the full-history scan; micro-grants below $1K receive-time value are grouped, not individually analyzed.</p>
       <p><strong style="color:var(--text)">Contract Verification:</strong> AKE token source verified on BSCScan (Solidity v0.8.28, exact match). Proxy pattern: ERC1967 UUPS — state in proxy, logic in implementation.</p>
     </div>
   </div>
 
 <div style="text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border-top:1px solid var(--border);margin-top:16px">
-AKEDO (AKE) on BSC · On-Chain Distribution Forensics · Data point-in-time (May 29, 2026)
+AKEDO (AKE) on BSC · On-Chain Distribution Forensics · Data point-in-time (May 31, 2026)
 </div>
 
 
