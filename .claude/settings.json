@@ -1,0 +1,6 @@
+{
+  "env": {
+    "ANTHROPIC_MODEL": "claude-opus-4-8",
+    "CLAUDE_CODE_EFFORT_LEVEL": "high"
+  }
+}
