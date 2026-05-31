@@ -2,5 +2,28 @@
   "env": {
     "ANTHROPIC_MODEL": "claude-opus-4-8",
     "CLAUDE_CODE_EFFORT_LEVEL": "high"
+  },
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Edit",
+      "Write(src/**)",
+      "Write(tests/**)",
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git commit *)"
+    ],
+    "deny": [
+      "Read(**/.env*)",
+      "Read(**/.ssh/**)",
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Bash(git push *)"
+    ],
+    "defaultMode": "acceptEdits"
   }
 }
