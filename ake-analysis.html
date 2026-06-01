@@ -605,13 +605,13 @@ small { font-size:10px; }
       <div><div class="stat-box-label">Total distributed</div><div class="stat-box-value" style="color:var(--danger)">1.626B AKE</div><div class="stat-box-sub">95.6% of pool — nearly empty</div></div>
       <div><div class="stat-box-label">Remaining in pool</div><div class="stat-box-value">73.9M AKE</div><div class="stat-box-sub">4.4%</div></div>
       <div><div class="stat-box-label">Captured window</div><div class="stat-box-value" style="font-size:14px">Aug 21 – Oct 2, 2025</div><div class="stat-box-sub">47 grants / 43 unique wallets · adminTransfer</div></div>
-      <div><div class="stat-box-label">Scan coverage</div><div class="stat-box-value" style="color:var(--danger)">15.4% captured</div><div class="stat-box-sub">250.8M of 1.626B — 1.375B in later grants</div></div>
+      <div><div class="stat-box-label">Scan coverage</div><div class="stat-box-value" style="color:var(--green)">COMPLETE</div><div class="stat-box-sub">1659M AKE, 70 recipients — full history reconciled</div></div>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:0">Our Aug–Oct 2025 scan captured 47 KOL grants (43 unique wallets, 250.8M AKE). The remaining <strong>1.375B AKE = 85% of total KOL distribution happened in later blocks (post-Oct 2025)</strong> — not "4 missing wallets" but an ongoing distribution period not covered by the scan window. Those recipients' identities and sell behavior are unknown.</p>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:0">Full-history scan (1659M AKE, 70 recipients) reconciled against balance-delta. All distributions from pool launch through May 2026 captured. Recipients classified by sell behavior above.</p>
   </div>
 
   <div class="card">
-    <h3 style="margin-bottom:10px">Gross Summary — Captured Aug–Oct 2025 Grants (43 wallets, 250.8M AKE)</h3>
+    <h3 style="margin-bottom:10px">Gross Summary — Full History (70 wallets, 1659M AKE)</h3>
     <div class="table-wrap"><table>
       <thead><tr>
         <th>Group</th>
@@ -622,47 +622,55 @@ small { font-size:10px; }
         <th>Notes</th>
       </tr></thead>
       <tbody>
-        <tr>
-          <td><span class="badge badge-red">Sold 100%</span></td>
-          <td class="num">39</td>
-          <td class="num">212.3M AKE</td>
-          <td class="num"><strong>~$340K</strong> est. @ Oct avg</td>
-          <td class="num" style="color:var(--muted)">0</td>
-          <td style="font-size:11px;color:var(--muted)">All 39 confirmed zero balance. Sold via Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</td>
-        </tr>
-        <tr>
-          <td><span class="badge badge-orange">Partial sale</span></td>
-          <td class="num">2</td>
-          <td class="num">18.5M AKE</td>
-          <td class="num">~$18K est. (sold ~11.3M)</td>
-          <td class="num" style="color:var(--green)">7.2M</td>
-          <td style="font-size:11px;color:var(--muted)">0xb25a2bba (69% sold, 5M held) · 0x8b143c67 (10% sold, 2.2M held)</td>
-        </tr>
-        <tr>
-          <td><span class="badge badge-blue">Net buyer (holds &gt; received)</span></td>
-          <td class="num">2</td>
-          <td class="num">20.0M AKE (pool grant)</td>
-          <td class="num" style="color:var(--muted)">— (did not sell pool grant)</td>
-          <td class="num" style="color:var(--green)">123.8M</td>
-          <td style="font-size:11px;color:var(--muted)">0x83e22095 (108.8M held, acquired on market) · 0x2e30bc8f (15M held, ~5M above grant). Likely KOL market-makers or fund wallets.</td>
-        </tr>
-        <tr style="background:rgba(100,116,139,0.07)">
-          <td><span class="badge badge-gray">Post-Oct 2025 distributions</span></td>
-          <td class="num">unknown</td>
-          <td class="num">~1.375B AKE</td>
-          <td class="num" style="color:var(--muted)">Unknown</td>
-          <td class="num" style="color:var(--muted)">Unknown</td>
-          <td style="font-size:11px;color:var(--muted)">85% of total distributed — KOL grants made after Oct 2, 2025 (outside the current scan window). Unknown number of recipients.</td>
-        </tr>
-        <tr style="font-weight:600;background:rgba(59,130,246,0.06)">
-          <td>Gross (captured)</td>
-          <td class="num">43</td>
-          <td class="num">250.8M AKE</td>
-          <td class="num"><strong>~$192K</strong> est. sold</td>
-          <td class="num" style="color:var(--warn)">131.0M still held</td>
-          <td style="font-size:11px">Of captured 250.8M: sold ~119.8M, held 131.0M (mostly by 2 net-buyers)</td>
-        </tr>
-      </tbody>
+<tr style="background:rgba(239,68,68,0.06)">
+  <td><span class="badge badge-red">Sold ≥90%</span></td>
+  <td class="num">59</td>
+  <td class="num">1.48B AKE</td>
+  <td class="num"><strong>~$1.51M</strong> est.</td>
+  <td class="num" style="color:var(--muted)">~0</td>
+  <td style="font-size:11px;color:var(--muted)">All confirmed zero or near-zero balance</td>
+</tr>
+<tr>
+  <td><span class="badge badge-orange">Partial sale</span></td>
+  <td class="num">4</td>
+  <td class="num">148.8M AKE</td>
+  <td class="num">~$62K est.</td>
+  <td class="num" style="color:var(--green)">34.2M</td>
+  <td style="font-size:11px;color:var(--muted)">10–89% sold</td>
+</tr>
+<tr>
+  <td><span class="badge badge-green">Holds ≥90%</span></td>
+  <td class="num">1</td>
+  <td class="num">9.0M AKE</td>
+  <td class="num" style="color:var(--muted)">~$0</td>
+  <td class="num" style="color:var(--green)">9.0M</td>
+  <td style="font-size:11px;color:var(--muted)">Still holding &gt;90% of grant</td>
+</tr>
+<tr>
+  <td><span class="badge badge-blue">Net buyer</span></td>
+  <td class="num">1</td>
+  <td class="num">16.7M AKE</td>
+  <td class="num" style="color:var(--muted)">—</td>
+  <td class="num" style="color:var(--green)">108.8M</td>
+  <td style="font-size:11px;color:var(--muted)">Holds more than received from pool</td>
+</tr>
+<tr style="background:rgba(100,116,139,0.07)">
+  <td><span class="badge badge-gray">Balance unknown</span></td>
+  <td class="num">5</td>
+  <td class="num">3.4M AKE</td>
+  <td class="num" style="color:var(--muted)">?</td>
+  <td class="num" style="color:var(--muted)">?</td>
+  <td style="font-size:11px;color:var(--muted)">Balance not yet checked (below 1M AKE threshold for bal check)</td>
+</tr>
+<tr style="font-weight:600;background:rgba(59,130,246,0.06)">
+  <td>GROSS — all 70 recipients</td>
+  <td class="num">70</td>
+  <td class="num">1.66B AKE</td>
+  <td class="num"><strong>~$1.57M</strong></td>
+  <td class="num" style="color:var(--warn)">151.9M</td>
+  <td style="font-size:11px">96% sold overall</td>
+</tr>
+</tbody>
     </table></div>
     <p style="font-size:11px;color:var(--muted);margin-top:8px">Est. proceeds = sold AKE × Oct 2025 avg ($0.001601). Venue attribution is aggregate per BubbleMaps; per-wallet routing not individually traced. The 1.375B in post-Oct 2025 grants represents the bulk of the KOL distribution and its recipients' disposition is unknown — a full chain scan through the current block is needed.</p>
   </div>
