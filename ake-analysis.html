@@ -752,8 +752,8 @@ small { font-size:10px; }
       <div>
         <div class="stat-box-label">Pool 1 (CN1) — <a href="https://bscscan.com/address/0xb7c7786b6ca1130584f005e9c86554114b7fad62" target="_blank"><code>0xb7c7786b</code></a></div>
         <div class="stat-box-value" style="font-size:16px">8.0B AKE initial</div>
-        <div class="stat-box-sub" style="color:var(--warn)">322M distributed (4.0%) · scan: 1 capture (Aug 28, 2025)</div>
-        <div class="stat-box-sub">166.4M to 0xbc9f8145 captured · remaining 156M outside scan window · 7.678B in pool</div>
+        <div class="stat-box-sub" style="color:var(--warn)">322M distributed (4.0%) — 2 recipients, full-history scan</div>
+        <div class="stat-box-sub">Full-history scan: 2 recipients · 322M distributed · Remaining: 7.678B in pool</div>
       </div>
       <div>
         <div class="stat-box-label">Pool 2 (CN2) — <a href="https://bscscan.com/address/0xd2f72669e560c7ecd3c681612963990ef6f1981b" target="_blank"><code>0xd2f72669</code></a></div>
@@ -765,7 +765,7 @@ small { font-size:10px; }
     <p style="font-size:12px;color:var(--muted);margin-top:12px">All 3 pools share implementation <code>0x5cf081d1</code> (bytecode "CreaterPlayerNodesPool"). Combined initial: 31.5B AKE (31.5%). Combined remaining: 23.06B. Combined distributed: ~8.44B.</p>
   </div>
 
-  <h3 style="margin-bottom:8px">CN1 — Single Large Recipient</h3>
+  <h3 style="margin-bottom:6px">CN1 — Full History: Top Recipients Above $1K (2 recipients total)</h3>
   <div class="card" style="margin-bottom:14px">
     <div class="table-wrap"><table><thead><tr>
   <th>Wallet</th>
@@ -775,16 +775,35 @@ small { font-size:10px; }
   <th>% Sold</th>
   <th>Txns</th>
   <th>Status</th>
-</tr></thead><tbody><tr>
+</tr></thead><tbody>
+<tr>
   <td><a href="https://bscscan.com/address/0xbc9f8145cf3fedeccafa4f25b3165e76ae1f8bef" target="_blank"><code>0xbc9f8145…1f8bef</code></a></td>
-  <td class="num">166.4M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 28, 2025 &nbsp;·&nbsp; 166.4M AKE &nbsp;·&nbsp; ~$84K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">166.4M AKE / <strong>~$266K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num">166.4M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 28, 2025 &nbsp;·&nbsp; ~$81K <span style="color:var(--muted)">(@$0.000488)</span></div></td>
+  <td class="num">166.4M / <strong>~$81K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">3</td>
+  <td class="num">1</td>
   <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr></tbody></table></div>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0xf198244359c7cf8e52a1278e7d533edef0cb18b8" target="_blank"><code>0xf1982443…cb18b8</code></a></td>
+  <td class="num">156.0M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Oct 13, 2025 &nbsp;·&nbsp; ~$263K <span style="color:var(--muted)">(@$0.001688)</span></div></td>
+  <td class="num">156.0M / <strong>~$263K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">1</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr style="font-weight:600;background:rgba(59,130,246,0.06)">
+  <td>GROSS — all 2 recipients / 2 above $1K</td>
+  <td class="num">322.4M AKE total</td>
+  <td class="num">322.4M / <strong>~$345K</strong></td>
+  <td class="num" style="color:var(--warn)">0</td>
+  <td class="num">100% of total</td>
+  <td class="num">2</td>
+  <td><span class="badge badge-red">2 sold</span> <span class="badge badge-green">0 hold</span></td>
+</tr>
+</tbody></table></div>
   </div>
 
   <h3 style="margin-bottom:6px">CN2 — Full History: Top Recipients Above $1K (2 recipients total)</h3>
