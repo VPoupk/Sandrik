@@ -1159,18 +1159,16 @@ small { font-size:10px; }
   <div class="card" style="margin-bottom:10px">
     <div class="grid-3" style="margin-bottom:12px">
       <div><div class="stat-box-label">Pool address</div><div style="font-family:monospace;font-size:12px"><a href="https://bscscan.com/address/0x6b394c413d60b2aadb37a907a73a6f9a91c35015" target="_blank"><code>0x6b394c41…c35015</code></a></div></div>
-      <div><div class="stat-box-label">Total distributed</div><div class="stat-box-value" style="color:var(--warn)">970M AKE</div><div class="stat-box-sub">captured: 822.6M to 2,241 wallets in early window</div></div>
-      <div><div class="stat-box-label">Overall avg grant</div><div class="stat-box-value">~367K AKE</div><div class="stat-box-sub">~$181 @ recv price · skewed by 10 large wallets; tail avg ~17K AKE (~$8)</div></div>
+      <div><div class="stat-box-label">Total distributed</div><div class="stat-box-value" style="color:var(--warn)">973M AKE</div><div class="stat-box-sub">12240 recipients — full history scanned &amp; reconciled</div></div>
+      <div><div class="stat-box-label">Overall avg grant</div><div class="stat-box-value">79K AKE avg</div><div class="stat-box-sub">Skewed by top recipients; most grants are micro-distributions</div></div>
     </div>
-    <p style="font-size:12px;color:var(--muted)">Burst micro-transfers to 2,241 retail wallets (characteristic airdrop/game-reward pattern). Aug–Sep 2025. In aggregate, top recipients all confirmed sold.</p>
+    <p style="font-size:12px;color:var(--muted)">Burst micro-transfers to 12240 retail wallets (characteristic airdrop/game-reward pattern). Full history Aug 2025 – May 2026. Top recipients by receive-time value shown below.</p>
   </div>
 
-  <h3 style="margin-bottom:6px">Top Recipients Above $1K Threshold</h3>
+  <h3 style="margin-bottom:6px">Top Recipients Above $1K Threshold (Full History)</h3>
   <p style="font-size:12px;color:var(--muted);margin-bottom:10px">
-    $1K cutoff at receive-time price (~$0.000504) = <strong>≥1.98M AKE.</strong>
-    <strong>10 of 2,241 wallets</strong> exceed this threshold.
-    Next wallet (0xd69f4c0a) received 1.86M ≈ $919 — below cutoff.
-    Remaining 2,231 wallets averaged ~17K AKE (~$8 each). (The 367K figure is the overall average across all 2,241 wallets; excluding the top 10, the long tail is far smaller.)
+    Full-history scan. $1K threshold at receive-time price — <strong>21 of 12240 wallets</strong> exceed this threshold.
+    Remaining 12219 wallets are micro-distributions below $1K value. Gross row covers the full recipient set.
   </p>
   <div class="card">
     <div class="table-wrap"><table><thead><tr>
@@ -1181,111 +1179,208 @@ small { font-size:10px; }
   <th>% Sold</th>
   <th>Txns</th>
   <th>Status</th>
-</tr></thead><tbody><tr>
+</tr></thead><tbody>
+<tr>
   <td><a href="https://bscscan.com/address/0xcae53d40b4a4f2f835cea2e2dfeeb8e28d7a1984" target="_blank"><code>0xcae53d40…7a1984</code></a></td>
-  <td class="num">250.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 250.0M AKE &nbsp;·&nbsp; ~$126K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">250.0M AKE / <strong>~$400K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
+  <td class="num">250.0M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 28, 2025 &nbsp;·&nbsp; ~$122K <span style="color:var(--muted)">(@$0.000488)</span></div></td>
+  <td class="num">250.0M / <strong>~$122K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
   <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xb050bd0c2d4cce3c4d17d53b82d19d3916ff0cc1" target="_blank"><code>0xb050bd0c…ff0cc1</code></a></td>
-  <td class="num">100.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 100.0M AKE &nbsp;·&nbsp; ~$50K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">100.0M AKE / <strong>~$160K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xb4be258a94679b4acb00a15a5768e870599bea7b" target="_blank"><code>0xb4be258a…9bea7b</code></a></td>
-  <td class="num">80.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 80.0M AKE &nbsp;·&nbsp; ~$40K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">80.0M AKE / <strong>~$128K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xff53b6407583eaf4768ab8331a153a42e2b769b7" target="_blank"><code>0xff53b640…b769b7</code></a></td>
-  <td class="num">74.3M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 74.3M AKE &nbsp;·&nbsp; ~$37K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">74.3M AKE / <strong>~$119K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x654f2f5d2a42bb0afa867188ca6540596daaddb6" target="_blank"><code>0x654f2f5d…aaddb6</code></a></td>
-  <td class="num">74.3M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 74.3M AKE &nbsp;·&nbsp; ~$37K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">74.3M AKE / <strong>~$119K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x4aaa5e8e45fc9f44411d583554646fe07315979a" target="_blank"><code>0x4aaa5e8e…15979a</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Also received 250M from CN3. Combined 320M total.</div></td>
-  <td class="num">70.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 70.0M AKE &nbsp;·&nbsp; ~$35K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">70.0M AKE / <strong>~$112K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x3b3ce60dc710428287b8c25357472daa4c5405e7" target="_blank"><code>0x3b3ce60d…5405e7</code></a></td>
-  <td class="num">57.1M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 57.1M AKE &nbsp;·&nbsp; ~$29K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">57.1M AKE / <strong>~$91K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x29666cd0516e15c74b5d6eb4a3d8f32875282ab4" target="_blank"><code>0x29666cd0…282ab4</code></a></td>
-  <td class="num">56.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 56.0M AKE &nbsp;·&nbsp; ~$28K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">56.0M AKE / <strong>~$90K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0xc0d105814d1443013085d3bb637e5ad2831addbd" target="_blank"><code>0xc0d10581…1addbd</code></a><div style="font-size:10px;color:var(--warn);margin-top:3px">Also received 20M from CN3. Combined 40M total.</div></td>
-  <td class="num">20.0M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 20.0M AKE &nbsp;·&nbsp; ~$10K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">20.0M AKE / <strong>~$32K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
-  <td><span class="badge badge-red">SOLD 100%</span></td>
-</tr><tr>
-  <td><a href="https://bscscan.com/address/0x0a787e87a4a82d0152e18bb0281de32d7e1c2034" target="_blank"><code>0x0a787e87…1c2034</code></a></td>
-  <td class="num">2.6M AKE<br>
-      <div style="font-size:10px;color:var(--muted);margin-top:3px">Aug–Sep 2025 &nbsp;·&nbsp; 2.6M AKE &nbsp;·&nbsp; ~$1K <span style="color:var(--muted)">(@$0.000504)</span></div></td>
-  <td class="num">2.6M AKE / <strong>~$4K</strong> est.<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Gate.io / KuCoin / Kraken / MEXC / PancakeSwap (BubbleMaps aggregate)</div></td>
-  <td class="num" style="color:var(--muted)">0</td>
-  <td class="num"><span style="color:var(--danger)">100%</span></td>
-  <td class="num">0</td>
+  <td class="num">1</td>
   <td><span class="badge badge-red">SOLD 100%</span></td>
 </tr>
-        <tr style="background:rgba(100,116,139,0.07);font-size:11px;color:var(--muted);font-style:italic">
-          <td colspan="7">Next: 0xd69f4c0a (1.86M, $919 @ recv price) and 0x47ac5ffd (1.86M, $919) — below $1K threshold. Remaining 2,231 wallets not shown individually.</td>
-        </tr>
-        <tr style="font-weight:600;background:rgba(59,130,246,0.06)">
-          <td>Gross (above-threshold only)</td>
-          <td class="num">784.4M AKE</td>
-          <td class="num"><strong>~$1.26M</strong> est. proceeds</td>
-          <td class="num">0</td>
-          <td class="num">100%</td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody></table></div>
-    <p style="font-size:11px;color:var(--muted);margin-top:8px">Est. proceeds = AKE sold × Oct 2025 avg ($0.001601). Venue: BubbleMaps aggregate (Gate.io, KuCoin, Kraken, MEXC, PancakeSwap V3). Per-wallet routing not individually traced.</p>
+<tr>
+  <td><a href="https://bscscan.com/address/0xb050bd0c2d4cce3c4d17d53b82d19d3916ff0cc1" target="_blank"><code>0xb050bd0c…ff0cc1</code></a></td>
+  <td class="num">100.0M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 &nbsp;·&nbsp; ~$58K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">100.0M / <strong>~$58K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">2</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0xb4be258a94679b4acb00a15a5768e870599bea7b" target="_blank"><code>0xb4be258a…9bea7b</code></a></td>
+  <td class="num">80.0M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 &nbsp;·&nbsp; ~$46K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">80.0M / <strong>~$46K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">2</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0xff53b6407583eaf4768ab8331a153a42e2b769b7" target="_blank"><code>0xff53b640…b769b7</code></a></td>
+  <td class="num">74.3M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 &nbsp;·&nbsp; ~$43K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">74.3M / <strong>~$43K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">2</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x654f2f5d2a42bb0afa867188ca6540596daaddb6" target="_blank"><code>0x654f2f5d…aaddb6</code></a></td>
+  <td class="num">74.3M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 &nbsp;·&nbsp; ~$43K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">74.3M / <strong>~$43K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">2</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x4aaa5e8e45fc9f44411d583554646fe07315979a" target="_blank"><code>0x4aaa5e8e…15979a</code></a></td>
+  <td class="num">70.0M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 &nbsp;·&nbsp; ~$40K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">70.0M / <strong>~$40K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">1</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x97e2ae3f5665119e337ef632e1367191b4da7626" target="_blank"><code>0x97e2ae3f…da7626</code></a></td>
+  <td class="num">60.0M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Dec 18, 2025 &nbsp;·&nbsp; ~$18K <span style="color:var(--muted)">(@$0.000308)</span></div></td>
+  <td class="num">60.0M / <strong>~$18K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">1</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x3b3ce60dc710428287b8c25357472daa4c5405e7" target="_blank"><code>0x3b3ce60d…5405e7</code></a></td>
+  <td class="num">57.1M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 &nbsp;·&nbsp; ~$33K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">57.1M / <strong>~$33K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">2</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x29666cd0516e15c74b5d6eb4a3d8f32875282ab4" target="_blank"><code>0x29666cd0…282ab4</code></a></td>
+  <td class="num">56.0M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 &nbsp;·&nbsp; ~$32K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">56.0M / <strong>~$32K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">1</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0xc0d105814d1443013085d3bb637e5ad2831addbd" target="_blank"><code>0xc0d10581…1addbd</code></a></td>
+  <td class="num">20.0M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 &nbsp;·&nbsp; ~$12K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">20.0M / <strong>~$12K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">1</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x47ac5ffd36c418bf66e5e3513ab05d3c4610132d" target="_blank"><code>0x47ac5ffd…10132d</code></a></td>
+  <td class="num">5.5M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 – Sep 30, 2025 &nbsp;·&nbsp; ~$3K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">5.5M / <strong>~$3K</strong></td>
+  <td class="num" style="color:var(--green)">102</td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">6</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x0a787e87a4a82d0152e18bb0281de32d7e1c2034" target="_blank"><code>0x0a787e87…1c2034</code></a></td>
+  <td class="num">4.4M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 – Sep 30, 2025 &nbsp;·&nbsp; ~$3K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">4.4M / <strong>~$3K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">5</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0xd69f4c0ab94af7815b5e6907ce1ca1e0fd79924f" target="_blank"><code>0xd69f4c0a…79924f</code></a></td>
+  <td class="num">3.3M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 – Sep 30, 2025 &nbsp;·&nbsp; ~$2K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">3.3M / <strong>~$2K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">4</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x8f797e0e74c3780e6c4dc7b28406f978970b4cf4" target="_blank"><code>0x8f797e0e…0b4cf4</code></a></td>
+  <td class="num">2.8M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Sep 01, 2025 – Sep 30, 2025 &nbsp;·&nbsp; ~$1K <span style="color:var(--muted)">(@$0.000513)</span></div></td>
+  <td class="num">2.8M / <strong>~$1K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">4</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0xb2d3068ae05070a7c1c7f1f0a6fec57637c64fc1" target="_blank"><code>0xb2d3068a…c64fc1</code></a></td>
+  <td class="num">2.5M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 – Sep 30, 2025 &nbsp;·&nbsp; ~$1K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">2.5M / <strong>~$1K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">3</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0xfcc3abe4f7a7fe5cb89afcac4ad421e0e500f504" target="_blank"><code>0xfcc3abe4…00f504</code></a></td>
+  <td class="num">1.9M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Sep 26, 2025 – Sep 30, 2025 &nbsp;·&nbsp; ~$2K <span style="color:var(--muted)">(@$0.001009)</span></div></td>
+  <td class="num">1.9M / <strong>~$2K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">2</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x356bba962a528a1db67385de570da923535bb4f9" target="_blank"><code>0x356bba96…5bb4f9</code></a></td>
+  <td class="num">1.8M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Sep 26, 2025 &nbsp;·&nbsp; ~$2K <span style="color:var(--muted)">(@$0.001009)</span></div></td>
+  <td class="num">— (holds > received)</td>
+  <td class="num" style="color:var(--green)">14.3M</td>
+  <td class="num">0%</td>
+  <td class="num">2</td>
+  <td><span class="badge badge-blue">net buyer</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0xb2b0d66c965c45d2a6bb439b26c21a87d372a3b1" target="_blank"><code>0xb2b0d66c…72a3b1</code></a></td>
+  <td class="num">1.8M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Aug 21, 2025 – Aug 31, 2025 &nbsp;·&nbsp; ~$1K <span style="color:var(--muted)">(@$0.000577)</span></div></td>
+  <td class="num">1.8M / <strong>~$1K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">2</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0xf1a7719d5d873388d9f6dc2b70913518876f8c24" target="_blank"><code>0xf1a7719d…6f8c24</code></a></td>
+  <td class="num">1.0M AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Sep 30, 2025 &nbsp;·&nbsp; ~$2K <span style="color:var(--muted)">(@$0.001601)</span></div></td>
+  <td class="num">1.0M / <strong>~$2K</strong></td>
+  <td class="num" style="color:var(--muted)"><span style="color:var(--muted)">0</span></td>
+  <td class="num"><span style="color:var(--danger)">100%</span></td>
+  <td class="num">2</td>
+  <td><span class="badge badge-red">SOLD 100%</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x606de88ef0cb5ccb8f634d96b8c54f4a2a847726" target="_blank"><code>0x606de88e…847726</code></a></td>
+  <td class="num">1000K AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Sep 30, 2025 &nbsp;·&nbsp; ~$2K <span style="color:var(--muted)">(@$0.001601)</span></div></td>
+  <td class="num">?</td>
+  <td class="num" style="color:var(--muted)">?</td>
+  <td class="num">?</td>
+  <td class="num">81</td>
+  <td><span class="badge badge-gray">balance unknown</span></td>
+</tr>
+<tr>
+  <td><a href="https://bscscan.com/address/0x497ca236b10a09fd44d3791c54907853523a01f1" target="_blank"><code>0x497ca236…3a01f1</code></a></td>
+  <td class="num">891K AKE<br><div style="font-size:10px;color:var(--muted);margin-top:3px">Sep 30, 2025 &nbsp;·&nbsp; ~$1K <span style="color:var(--muted)">(@$0.001601)</span></div></td>
+  <td class="num">?</td>
+  <td class="num" style="color:var(--muted)">?</td>
+  <td class="num">?</td>
+  <td class="num">1</td>
+  <td><span class="badge badge-gray">balance unknown</span></td>
+</tr>
+<tr style="background:rgba(100,116,139,0.07);font-size:11px;color:var(--muted);font-style:italic"><td colspan="7">12219 wallets below $1K threshold — 104.2M AKE total (~$75K @ recv). next largest: 1.5M AKE = ~$862 @ recv</td></tr>
+<tr style="font-weight:600;background:rgba(59,130,246,0.06)">
+  <td>GROSS — all 12240 recipients / 21 above $1K</td>
+  <td class="num">972.7M AKE total</td>
+  <td class="num">864.8M / <strong>~$463K</strong></td>
+  <td class="num" style="color:var(--warn)">14.3M</td>
+  <td class="num">89% of total</td>
+  <td class="num">22102</td>
+  <td><span class="badge badge-red">18 sold</span> <span class="badge badge-green">0 hold</span></td>
+</tr>
+</tbody></table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Est. proceeds = AKE sold × receive-time price (daily from price data). Venue: BubbleMaps aggregate. Per-wallet routing not individually traced.</p>
   </div>
 </div><div class="section">
 <h2>Insider Chain Analysis — 13.8B Distributor EOA &amp; Connected Wallets</h2>
