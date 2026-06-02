@@ -1578,9 +1578,9 @@ small { font-size:10px; }
         <div class="stat-box-sub">4.34% of total supply · ~$1.48M (current) · ~$6.95M (Oct avg)</div>
       </div>
       <div>
-        <div class="stat-box-label">Traced deposit (W1)</div>
-        <div class="stat-box-value">350M AKE</div>
-        <div class="stat-box-sub">Oct 1, 2025 · ~$431K @ daily price · 8% of total Alpha balance</div>
+        <div class="stat-box-label">Total inbound (full scan)</div>
+        <div class="stat-box-value">74.51B AKE</div>
+        <div class="stat-box-sub">Full inbound scan: 273 depositors, 74.51B AKE total traced</div>
       </div>
       <div>
         <div class="stat-box-label">Venue classification</div>
@@ -1690,20 +1690,294 @@ small { font-size:10px; }
     </table></div>
   </div>
 
-  <h3 style="margin-bottom:8px">The Remaining ~3.89B AKE at Binance Alpha</h3>
+    <h3 style="margin-bottom:8px">Full-History Inbound Scan — All Depositors to Binance Alpha</h3>
   <div class="card">
-    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Total at Binance Alpha: ~4.34B AKE. Oct 1 inflow was 452M. The remaining ~3.89B accumulated through deposits on other days. Given the Alpha relayer proxies operate continuously with hundreds of transactions per day, the bulk of the 3.89B likely moved through those same EIP-1967 proxy routers — meaning it ultimately originated from team/insider-controlled wallets depositing AKE to the airdrop platform in batches over many months. A full inbound scan across the token's entire history (57.84M–101.35M blocks) is needed to enumerate every depositor cluster.</p>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Full Transfer-event inbound scan (blocks 57.84M–101.4M). 273 unique depositor addresses, 74.51B AKE total. Alpha relayer proxy infrastructure accounts for 74% of inflows — these are Binance Alpha's own on-chain routers that aggregate AKE from various sources before depositing to the main holding wallet. Direct/bulk depositors account for the remaining 26%.</p>
     <div class="table-wrap"><table>
-      <thead><tr><th>Metric</th><th>Value</th><th>Notes</th></tr></thead>
+      <thead><tr>
+        <th>Depositor</th>
+        <th>AKE Sent</th>
+        <th>Txns</th>
+        <th>Date Range</th>
+        <th>USD @ recv price</th>
+        <th>Type</th>
+      </tr></thead>
       <tbody>
-        <tr><td>Total AKE at Binance Alpha</td><td class="num">~4,340,000,000 AKE</td><td>Held for airdrop distribution to registered users</td></tr>
-        <tr><td>Oct 1, 2025 inflow (traced)</td><td class="num">452,279,447 AKE</td><td>W1 direct (350M) + Alpha relayer proxies (102M)</td></tr>
-        <tr><td>W1's share of all Alpha AKE</td><td class="num">8.1%</td><td>350M / 4,340M = only W1 is individually traced to insider chain</td></tr>
-        <tr><td>Other ~3.89B origin</td><td class="num" style="color:var(--muted)">Not traced in this scan</td><td>Likely team batches via Alpha relayer proxies; full inbound scan ongoing</td></tr>
-        <tr><td>Venue classification</td><td><span class="badge badge-gray">Non-sale — airdrop distribution</span></td><td>AKE deposited to Alpha goes to users via airdrop; not sold on spot markets</td></tr>
-        <tr><td>Confirmed spot-sell venues</td><td class="num" style="color:var(--green)">Gate.io · KuCoin · Kraken · MEXC · PancakeSwap V3</td><td>Per BubbleMaps — the actual sell-pressure venues for AKE</td></tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x6aba0315493b7e6989041c91181337b662fb1b90" target="_blank"><code>0x6aba0315…fb1b90</code></a><br>
+          <span style="font-size:10px;color:var(--muted)">Alpha router proxy</span></td>
+          <td class="num">49299.1M<br><span style="font-size:10px;color:var(--muted)">66.2%</span></td>
+          <td class="num">99870</td>
+          <td style="font-size:11px">2025-08-20 – 2026-06-04</td>
+          <td class="num" style="color:var(--highlight)">$20568K</td>
+          <td><span class="badge badge-gray">Alpha infra</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xb40b35fe21be75f6e5c0b7dabab1ec87d87a1395" target="_blank"><code>0xb40b35fe…7a1395</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">6279.8M<br><span style="font-size:10px;color:var(--muted)">8.4%</span></td>
+          <td class="num">6</td>
+          <td style="font-size:11px">2026-04-16 – 2026-04-20</td>
+          <td class="num" style="color:var(--highlight)">$5138K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xb50de384e012a5f0fd80c4ce85bb6e679256f25c" target="_blank"><code>0xb50de384…56f25c</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">5287.7M<br><span style="font-size:10px;color:var(--muted)">7.1%</span></td>
+          <td class="num">8</td>
+          <td style="font-size:11px">2026-04-14 – 2026-04-19</td>
+          <td class="num" style="color:var(--highlight)">$2822K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xd49ef7def42f4633cd55cb874e016a570ea99f04" target="_blank"><code>0xd49ef7de…a99f04</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">4444.7M<br><span style="font-size:10px;color:var(--muted)">6.0%</span></td>
+          <td class="num">12</td>
+          <td style="font-size:11px">2026-04-13 – 2026-04-29</td>
+          <td class="num" style="color:var(--highlight)">$2732K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xb300000b72deaeb607a12d5f54773d1c19c7028d" target="_blank"><code>0xb300000b…c7028d</code></a><br>
+          <span style="font-size:10px;color:var(--muted)">Alpha relayer proxy</span></td>
+          <td class="num">3446.8M<br><span style="font-size:10px;color:var(--muted)">4.6%</span></td>
+          <td class="num">15464</td>
+          <td style="font-size:11px">2025-08-20 – 2025-12-21</td>
+          <td class="num" style="color:var(--highlight)">$1438K</td>
+          <td><span class="badge badge-gray">Alpha infra</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x653dd7677aea3030eab68c97ed3594bacf560158" target="_blank"><code>0x653dd767…560158</code></a><br>
+          <span style="font-size:10px;color:var(--muted)">High-freq proxy (likely Alpha infra)</span></td>
+          <td class="num">1833.8M<br><span style="font-size:10px;color:var(--muted)">2.5%</span></td>
+          <td class="num">2778</td>
+          <td style="font-size:11px">2026-01-27 – 2026-06-03</td>
+          <td class="num" style="color:var(--highlight)">$689K</td>
+          <td><span class="badge badge-gray">Alpha infra</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xcfb02194256652c650a02290804456e34e619daa" target="_blank"><code>0xcfb02194…619daa</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">1459.7M<br><span style="font-size:10px;color:var(--muted)">2.0%</span></td>
+          <td class="num">3</td>
+          <td style="font-size:11px">2026-04-14 – 2026-05-21</td>
+          <td class="num" style="color:var(--highlight)">$779K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x6449b24d8dad7cef8ece12d7d5c8d0e0ef355a48" target="_blank"><code>0x6449b24d…355a48</code></a><br>
+          <span style="font-size:10px;color:var(--muted)">Single large deposit — unknown</span></td>
+          <td class="num">1000.0M<br><span style="font-size:10px;color:var(--muted)">1.3%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2026-04-19</td>
+          <td class="num" style="color:var(--highlight)">$535K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x697a0e23164cb267aae1e54d5849e77677237fc3" target="_blank"><code>0x697a0e23…237fc3</code></a><br>
+          <span style="font-size:10px;color:var(--muted)">Single large deposit — unknown</span></td>
+          <td class="num">416.4M<br><span style="font-size:10px;color:var(--muted)">0.6%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2026-01-04</td>
+          <td class="num" style="color:var(--highlight)">$175K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x55a3319b1cfe8b82cacb0b5cf96c7445bf12066a" target="_blank"><code>0x55a3319b…12066a</code></a><br>
+          <span style="font-size:10px;color:var(--muted)">W1 (insider chain)</span></td>
+          <td class="num">350.0M<br><span style="font-size:10px;color:var(--muted)">0.5%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2025-09-30</td>
+          <td class="num" style="color:var(--highlight)">$560K</td>
+          <td><span class="badge badge-red">Insider</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xc64effc9fc4dfc026d88f0eb6aa0e1fd88cffc47" target="_blank"><code>0xc64effc9…cffc47</code></a><br>
+          <span style="font-size:10px;color:var(--muted)">High-freq proxy (likely Alpha infra)</span></td>
+          <td class="num">304.4M<br><span style="font-size:10px;color:var(--muted)">0.4%</span></td>
+          <td class="num">415</td>
+          <td style="font-size:11px">2025-09-29 – 2025-12-17</td>
+          <td class="num" style="color:var(--highlight)">$503K</td>
+          <td><span class="badge badge-gray">Alpha infra</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x90c3526f030a9378658f06098e3e5478cf047201" target="_blank"><code>0x90c3526f…047201</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">92.3M<br><span style="font-size:10px;color:var(--muted)">0.1%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2025-10-18</td>
+          <td class="num" style="color:var(--highlight)">$146K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x29672d15f4cf98713a5ab633283d605816714ed4" target="_blank"><code>0x29672d15…714ed4</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">67.6M<br><span style="font-size:10px;color:var(--muted)">0.1%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2025-11-05</td>
+          <td class="num" style="color:var(--highlight)">$81K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x82d41b21847b4707506e460233fe21c8b4172963" target="_blank"><code>0x82d41b21…172963</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">56.5M<br><span style="font-size:10px;color:var(--muted)">0.1%</span></td>
+          <td class="num">11</td>
+          <td style="font-size:11px">2026-04-10 – 2026-04-11</td>
+          <td class="num" style="color:var(--highlight)">$24K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x9bc1c0a6d03ca9acc070ecde785f5222b3394584" target="_blank"><code>0x9bc1c0a6…394584</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">36.3M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">2</td>
+          <td style="font-size:11px">2025-11-21</td>
+          <td class="num" style="color:var(--highlight)">$15K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xfb27fb663af933e0118d1583877353bf418dd03f" target="_blank"><code>0xfb27fb66…8dd03f</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">31.1M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">6</td>
+          <td style="font-size:11px">2026-04-17</td>
+          <td class="num" style="color:var(--highlight)">$17K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x3c779e1f6332a2a5b7f8a973585ec2da64d31d60" target="_blank"><code>0x3c779e1f…d31d60</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">25.4M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2025-12-07</td>
+          <td class="num" style="color:var(--highlight)">$10K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xbcc1d3f5898df7b1d993fe324a216e6332ffedc2" target="_blank"><code>0xbcc1d3f5…ffedc2</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">11.2M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2026-05-14</td>
+          <td class="num" style="color:var(--highlight)">$4K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x1b94c6d74be6a6d1e0aac67333587a029f782f11" target="_blank"><code>0x1b94c6d7…782f11</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">7.8M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">2</td>
+          <td style="font-size:11px">2026-04-18</td>
+          <td class="num" style="color:var(--highlight)">$4K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xe481b4cf4c9ec01beb41705a59f63d243623d107" target="_blank"><code>0xe481b4cf…23d107</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">6.2M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">2</td>
+          <td style="font-size:11px">2026-05-05 – 2026-05-07</td>
+          <td class="num" style="color:var(--highlight)">$2K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xdc11e07de5ae23a381c80830cdcd697247eb302a" target="_blank"><code>0xdc11e07d…eb302a</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">6.1M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2026-04-01</td>
+          <td class="num" style="color:var(--highlight)">$1K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xc5cc64e098c3fe90cda253d7dd479d286966b592" target="_blank"><code>0xc5cc64e0…66b592</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">5.1M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">4</td>
+          <td style="font-size:11px">2025-10-10 – 2025-10-18</td>
+          <td class="num" style="color:var(--highlight)">$8K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xa4c4eb19ee5ed9dc22236357dd235bf745149d4e" target="_blank"><code>0xa4c4eb19…149d4e</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">4.6M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2026-04-17</td>
+          <td class="num" style="color:var(--highlight)">$3K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x82a5af083bc68705ed3f6845a970e13126476785" target="_blank"><code>0x82a5af08…476785</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">4.2M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2026-04-26</td>
+          <td class="num" style="color:var(--highlight)">$1K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xdfaf32b03ef235d1329da596cae4af624be539d9" target="_blank"><code>0xdfaf32b0…e539d9</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">3.7M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2026-05-20</td>
+          <td class="num" style="color:var(--highlight)">$1K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x860d3fcf7c069b60c09e8a23c027d97e57de8587" target="_blank"><code>0x860d3fcf…de8587</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">3.3M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2025-11-18</td>
+          <td class="num" style="color:var(--highlight)">$2K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x4a2ddb14378aa456f200956762b4d9632fac17dd" target="_blank"><code>0x4a2ddb14…ac17dd</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">3.1M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2026-04-17</td>
+          <td class="num" style="color:var(--highlight)">$2K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x4da09ddd2e2b0e46f5f396f640d2ffc82882c4c1" target="_blank"><code>0x4da09ddd…82c4c1</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">2.6M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2025-09-24</td>
+          <td class="num" style="color:var(--highlight)">$4K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xded297ede0eedcd0c6de0fb3f8b084333509cc48" target="_blank"><code>0xded297ed…09cc48</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">2.3M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">2</td>
+          <td style="font-size:11px">2026-04-17 – 2026-05-05</td>
+          <td class="num" style="color:var(--highlight)">$1K</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x34efee01b9bc098b7448b80a38120c94890d5498" target="_blank"><code>0x34efee01…0d5498</code></a><br>
+          <span style="font-size:10px;color:var(--muted)"></span></td>
+          <td class="num">2.3M<br><span style="font-size:10px;color:var(--muted)">0.0%</span></td>
+          <td class="num">1</td>
+          <td style="font-size:11px">2026-04-25</td>
+          <td class="num" style="color:var(--highlight)">$823</td>
+          <td><span class="badge badge-yellow">Unknown</span></td>
+        </tr>
       </tbody>
     </table></div>
+    <div style="margin-top:12px;padding:10px;background:rgba(59,130,246,0.06);border-radius:6px;font-size:12px;color:var(--muted)">
+      <strong>Key finding:</strong> The ~74% routed through Alpha proxy infrastructure cannot be individually attributed to specific insider or pool wallets without tracing the proxy&#39;s own inflows. The 26% directly deposited (19628M AKE) includes the traced W1 deposit (35M = 8% of total) plus other direct bulk transfers. Regardless of source, all AKE at the Alpha address is locked for airdrop distribution to Binance Alpha platform users — classified as a non-sale, non-exchange destination.
+    </div>
   </div>
 </div><div class="section">
   <h2>Other Wallet Clusters</h2>
