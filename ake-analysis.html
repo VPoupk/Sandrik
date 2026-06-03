@@ -1749,8 +1749,8 @@ small { font-size:10px; }
     <div class="grid-3" style="margin-bottom:12px">
       <div>
         <div class="stat-box-label">Total AKE at Binance Alpha</div>
-        <div class="stat-box-value" style="color:var(--highlight)">~4.34B AKE</div>
-        <div class="stat-box-sub">4.34% of total supply · ~$1.48M (current) · ~$6.95M (Oct avg)</div>
+        <div class="stat-box-value" style="color:var(--highlight)">~4.42B AKE</div>
+        <div class="stat-box-sub">4.42% of supply · only Binance address holding AKE (all 8 spot/hot wallets = 0)</div>
       </div>
       <div>
         <div class="stat-box-label">Total inbound (full scan)</div>
@@ -2152,6 +2152,105 @@ small { font-size:10px; }
     </table></div>
     <div style="margin-top:12px;padding:10px;background:rgba(59,130,246,0.06);border-radius:6px;font-size:12px;color:var(--muted)">
       <strong>Key finding:</strong> The ~74% routed through Alpha proxy infrastructure cannot be individually attributed to specific insider or pool wallets without tracing the proxy&#39;s own inflows. The 26% directly deposited (19628M AKE) includes the traced W1 deposit (35M = 8% of total) plus other direct bulk transfers. Regardless of source, all AKE at the Alpha address is locked for airdrop distribution to Binance Alpha platform users — classified as a non-sale, non-exchange destination.
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:8px">Binance Address Sweep — Where AKE Sits Across the Binance Cluster</h3>
+  <div class="card" style="margin-bottom:14px">
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">balanceOf(AKE) checked across every web-verified Binance-controlled BSC address (Alpha platform + Alpha router/relayer proxies + 8 confirmed Binance spot/hot wallets). <strong>Only the Binance Alpha airdrop platform holds AKE. Every Binance spot/hot wallet holds zero.</strong> Consistent with Binance operating no AKE spot market — net Binance-side accumulation is 4.42B, entirely inside the Alpha airdrop lockup.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Binance address</th><th>Label (BscScan)</th><th>AKE held</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(251,191,36,0.08)">
+          <td><a href="https://bscscan.com/address/0x73d8bd54f7cf5fab43fe4ef40a62d390644946db" target="_blank"><code>0x73d8bd54…946db</code></a></td>
+          <td>Binance Alpha 2.0</td>
+          <td class="num" style="color:var(--highlight)">4,421,432,834</td>
+          <td><span class="badge badge-gray">Airdrop platform (non-sale)</span></td>
+        </tr>
+        <tr><td><a href="https://bscscan.com/address/0x6aba0315493b7e6989041c91181337b662fb1b90" target="_blank"><code>0x6aba0315…b1b90</code></a></td><td>Alpha router (proxy)</td><td class="num">0</td><td><span class="badge badge-gray">Pass-through relayer</span></td></tr>
+        <tr><td><a href="https://bscscan.com/address/0xb300000b72deaeb607a12d5f54773d1c19c7028d" target="_blank"><code>0xb300000b…c7028d</code></a></td><td>Alpha relayer (proxy)</td><td class="num">0</td><td><span class="badge badge-gray">Pass-through relayer</span></td></tr>
+        <tr><td><code>0x8894e0a0…2d4e3</code></td><td>Binance 51</td><td class="num">0</td><td><span class="badge badge-green">Spot/hot — no AKE</span></td></tr>
+        <tr><td><code>0xeb2d2f1b…8a0bb</code></td><td>Binance: Hot Wallet 10</td><td class="num">0</td><td><span class="badge badge-green">Spot/hot — no AKE</span></td></tr>
+        <tr><td><code>0x515b72ed…33c8</code></td><td>Binance: Hot Wallet 12</td><td class="num">0</td><td><span class="badge badge-green">Spot/hot — no AKE</span></td></tr>
+        <tr><td><code>0xf977814e…1acec</code></td><td>Binance: Hot Wallet 20</td><td class="num">0</td><td><span class="badge badge-green">Spot/hot — no AKE</span></td></tr>
+        <tr><td><code>0x631fc1ea…aa161</code> · <code>0x5a52e96b…0efcb</code> · <code>0x161ba15a…b645</code> · <code>0x9696f59e…6976</code></td><td>Binance Hot Wallet / 6 / 17 / 18</td><td class="num">0</td><td><span class="badge badge-green">Spot/hot — no AKE</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <h3 style="margin-bottom:8px">Accumulation Timeline — Two Distinct Phases</h3>
+  <div class="card" style="margin-bottom:14px">
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Each of the 273 depositors bucketed by the block at which it first fed Alpha. Gross inbound (74.51B) splits into a continuous launch-era distribution engine and a single concentrated April-2026 burst. Net retained today: 4.42B (≈70B has been distributed back out to claimants).</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Window</th><th>Dates</th><th>What enters</th><th>Gross AKE</th><th>Depositors</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-gray">Phase 1 · engine</span></td>
+          <td>Aug 21 2025 → ongoing</td>
+          <td>Alpha router/relayer proxies churn (airdrop distribution mechanics), continuous from launch</td>
+          <td class="num">54.88B <span style="font-size:10px;color:var(--muted)">(74%)</span></td>
+          <td class="num">4 proxies (n≥100)</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">user wave</span></td>
+          <td>Sep 2025</td>
+          <td>First retail Alpha claimants — small individual amounts</td>
+          <td class="num">0.45B</td>
+          <td class="num">136 new (sub-$1K each)</td>
+        </tr>
+        <tr style="background:rgba(251,191,36,0.06)">
+          <td><span class="badge badge-red">insider</span></td>
+          <td>Oct 1 2025 (ATH day)</td>
+          <td>W1 (end of 4B deployer obfuscation chain) → 350M single deposit</td>
+          <td class="num">0.35B</td>
+          <td class="num">1 (insider)</td>
+        </tr>
+        <tr style="background:rgba(239,68,68,0.08)">
+          <td><span class="badge badge-red">Phase 2 · burst</span></td>
+          <td>Apr 11–18 2026 (7-day window)</td>
+          <td>Concentrated large direct deposits via aggregator wallets (see structure below)</td>
+          <td class="num" style="color:var(--danger)">18.58B</td>
+          <td class="num">~33 (5 dominate)</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <h3 style="margin-bottom:8px">April 2026 Burst — Fan-In Conduit Structure (18.58B)</h3>
+  <div class="card" style="margin-bottom:14px">
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">The 18.58B Phase-2 burst was delivered in a 7-day window (Apr 11–18 2026) through a layered fan-in: many <strong>fresh single-use conduit wallets (nonce=1)</strong>, each forwarding ≈1B AKE, collapse into <strong>5 aggregator EOAs</strong> that deposit to Alpha and are left holding 0. Several branches are sourced from <strong>CEX withdrawals</strong> (Gate.io, Bitget, OKX-funded gas) rather than on-chain pool/deployer wallets. All amounts on-chain verified.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Aggregator → Alpha</th><th>AKE to Alpha</th><th>Nonce</th><th>AKE now</th><th>Fed by</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xb40b35fe21be75f6e5c0b7dabab1ec87d87a1395" target="_blank"><code>0xb40b35fe…a1395</code></a></td>
+          <td class="num">6.28B</td><td class="num">8</td><td class="num">0</td>
+          <td style="font-size:11px">5 fresh conduits (nonce=1): 0xcbab2b1b 2.0B · 0xc3ec2eac 1.27B · 0xd9f95c95 1.01B · 0xa663504b 1.0B · 0xdfb3a466 1.0B</td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xb50de384e012a5f0fd80c4ce85bb6e679256f25c" target="_blank"><code>0xb50de384…6f25c</code></a></td>
+          <td class="num">5.29B</td><td class="num">9</td><td class="num">0</td>
+          <td style="font-size:11px">Fresh conduits: 0x915a28d7 1.0B · 0xc814e575 1.0B · 0xa9a528c9 0.6B · 0x42152339 0.37B · 0x68f2f7d2 0.1B</td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xd49ef7def42f4633cd55cb874e016a570ea99f04" target="_blank"><code>0xd49ef7de…99f04</code></a></td>
+          <td class="num">4.45B</td><td class="num">255</td><td class="num">0</td>
+          <td style="font-size:11px"><span class="badge badge-orange">Gate.io 1</span> (<code>0x0d070796…492fe</code>) — funded directly from the CEX hot wallet</td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0xcfb02194256652c650a02290804456e34e619daa" target="_blank"><code>0xcfb02194…619daa</code></a></td>
+          <td class="num">1.46B</td><td class="num">9</td><td class="num">0</td>
+          <td style="font-size:11px">Conduit 0xb0b3ee98 (OKX-funded gas) + others</td>
+        </tr>
+        <tr>
+          <td><a href="https://bscscan.com/address/0x6449b24d8dad7cef8ece12d7d5c8d0e0ef355a48" target="_blank"><code>0x6449b24d…355a48</code></a></td>
+          <td class="num">1.00B</td><td class="num">16</td><td class="num">0</td>
+          <td style="font-size:11px">Conduit 0xd47baea5 ← <span class="badge badge-orange">Bitget 3</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+    <div style="margin-top:12px;padding:10px;background:rgba(59,130,246,0.06);border-radius:6px;font-size:12px;color:var(--muted)">
+      <strong>Pattern summary (data only):</strong> (1) Net Binance-side AKE = 4.42B, all inside the Alpha airdrop lockup; zero on any Binance spot/hot wallet. (2) Gross inbound 74.51B is 74% Alpha&#39;s own relayer churn. (3) Non-engine accumulation is dominated by an 18.58B burst compressed into 7 days (Apr 11–18 2026), structured as fresh nonce=1 ≈1B conduits → 5 aggregators → Alpha, with multiple branches originating from CEX withdrawals (Gate.io 4.45B direct, Bitget, OKX). (4) The only individually-name-traced insider deposit remains W1&#39;s 350M on the Oct-1-2025 ATH day.
     </div>
   </div>
 </div><div class="section">
