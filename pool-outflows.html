@@ -147,7 +147,7 @@
 <div class="meta-item">Token <span>AKEDO (AKE)</span></div>
 <div class="meta-item">Contract <span>0x2c3a8ee9…2C412F7Db</span></div>
 <div class="meta-item">Method <span>Transfer-event logs via onFinality archival RPC</span></div>
-<div class="meta-item">Analysis Date <span>May 29, 2026</span></div>
+<div class="meta-item">Analysis Date <span>Jun 4, 2026</span></div>
 </div></header>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px">
   <a href="ake-analysis.html" style="padding:7px 14px;background:var(--card2);border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600">← ① Distribution Overview</a>
@@ -270,10 +270,10 @@ Conservative bound using period avg ($0.000621) gives ~38% lower figures.
 </p>
 </div>
 <div class="section"><h2>Where the Tokens Went — Sell Pressure vs Airdrop Allocation</h2>
-    <div class="alert alert-warn"><strong>Correction — Binance Alpha is not a spot exchange.</strong> An earlier version of this report classified deposits into <code>0x73d8bd54…</code> ("Binance Alpha 2.0" on BSCScan) as sell pressure. This is incorrect: Binance does <strong>not</strong> list $AKE on any spot market. That address is a <strong>Binance Alpha airdrop distribution platform</strong> (verified on-chain — EIP-1967 proxy whose implementation bytecode contains the literal string <em>"binance alpha cloud wallet"</em>). The 4.34B AKE there is an <strong>airdrop allocation, not sell pressure</strong>. Confirmed sell venues with AKE spot pairs: <strong>Gate.io, KuCoin, Kraken, MEXC</strong> and <strong>PancakeSwap V3</strong> (DEX).</div>
+    <div class="alert alert-warn"><strong>Correction — Binance Alpha is not a spot exchange.</strong> An earlier version of this report classified deposits into <code>0x73d8bd54…</code> ("Binance Alpha 2.0" on BSCScan) as sell pressure. This is incorrect: Binance does <strong>not</strong> list $AKE on any spot market. That address is a <strong>Binance Alpha airdrop distribution platform</strong> (verified on-chain — EIP-1967 proxy whose implementation bytecode contains the literal string <em>"binance alpha cloud wallet"</em>). The 4.52B AKE there is an <strong>airdrop allocation, not sell pressure</strong>. Confirmed sell venues with AKE spot pairs: <strong>Gate.io, KuCoin, Kraken, MEXC</strong> and <strong>PancakeSwap V3</strong> (DEX).</div>
     <div class="card"><div style="font-size:12.5px;color:var(--muted);line-height:1.8">
     <p><strong style="color:var(--text)">Airdrop allocation (NOT sell pressure):</strong></p>
-    <div class="wallet-stat"><span class="wallet-stat-label">Binance Alpha airdrop platform <a href="https://bscscan.com/address/0x73d8bd54f7cf5fab43fe4ef40a62d390644946db" target="_blank"><code>0x73d8bd54…4946db</code></a> — 130-byte EIP-1967 proxy; bytecode: <em>"binance alpha cloud wallet"</em>; <strong>no Binance AKE spot pair</strong></span><span class="wallet-stat-value" style="color:var(--muted)">4.34B AKE (airdrop)</span></div>
+    <div class="wallet-stat"><span class="wallet-stat-label">Binance Alpha airdrop platform <a href="https://bscscan.com/address/0x73d8bd54f7cf5fab43fe4ef40a62d390644946db" target="_blank"><code>0x73d8bd54…4946db</code></a> — 130-byte EIP-1967 proxy; bytecode: <em>"binance alpha cloud wallet"</em>; <strong>no Binance AKE spot pair</strong></span><span class="wallet-stat-value" style="color:var(--muted)">4.52B AKE (airdrop)</span></div>
     <p style="margin-top:14px"><strong style="color:var(--text)">Confirmed sell venues (AKE spot pairs listed):</strong></p>
     <div class="wallet-stat"><span class="wallet-stat-label">Gate.io <a href="https://bscscan.com/address/0x0d0707963952f2fba59dd06f2b425ace40b492fe" target="_blank"><code>0x0d070796…</code></a> (on-chain confirmed) + additional Gate wallets (BubbleMaps)</span><span class="wallet-stat-value" style="color:var(--danger)">≥1.64B AKE</span></div>
     <div class="wallet-stat"><span class="wallet-stat-label">KuCoin — AKE-specific deposit addresses (identified by BubbleMaps; not at standard BSC hot-wallet addresses)</span><span class="wallet-stat-value" style="color:var(--danger)">~1.67B AKE</span></div>
@@ -298,7 +298,7 @@ Conservative bound using period avg ($0.000621) gives ~38% lower figures.
     <tr><td><span class="badge badge-orange">PancakeSwap V3 (DEX)</span></td><td><a href="https://bscscan.com/address/0x4d3bf29ba30f8bfe4624e7678709afa195689c5d" target="_blank"><code>0x4d3bf29b…689c5d</code></a></td>
     <td>On-chain confirmed via PancakeSwap V3 factory <code>getPool(AKE,WBNB,0.01%)</code></td><td class="num">1.15B</td><td class="num" style="color:var(--danger)">$393K</td></tr>
     <tr><td style="color:var(--muted)"><del>Binance Alpha</del></td><td><code>0x73d8bd54…4946db</code></td>
-    <td><em>Airdrop distribution platform — no Binance AKE spot market. <strong>Excluded from sell pressure.</strong></em></td><td class="num" style="color:var(--muted)">4.34B (airdrop)</td><td class="num" style="color:var(--muted)">n/a</td></tr>
+    <td><em>Airdrop distribution platform — no Binance AKE spot market. <strong>Excluded from sell pressure.</strong></em></td><td class="num" style="color:var(--muted)">4.52B (airdrop)</td><td class="num" style="color:var(--muted)">n/a</td></tr>
     </tbody></table></div>
     <p style="font-size:11px;color:var(--muted);margin-top:8px">BubbleMaps data from user-provided screenshot (~May 2026). Gate.io and PancakeSwap confirmed independently via <code>eth_call balanceOf</code>. KuCoin/Kraken/MEXC exact addresses not found at standard BSC hot-wallet lookups; BubbleMaps-sourced figures used.</p></div>
 <div class="grid-3" style="margin-bottom:14px">
@@ -306,7 +306,7 @@ Conservative bound using period avg ($0.000621) gives ~38% lower figures.
     <div class="stat-box"><div class="stat-box-label">KuCoin + Kraken + MEXC (BubbleMaps)</div><div class="stat-box-value" style="color:var(--danger)">~3.36B AKE</div><div class="stat-box-sub">KuCoin ~1.67B · Kraken ~1.22B · MEXC ~0.47B</div></div>
     <div class="stat-box"><div class="stat-box-label">PancakeSwap V3 DEX pool</div><div class="stat-box-value">1.15B AKE</div><div class="stat-box-sub">confirmed on-chain · $393K @ $0.000342</div></div>
     </div>
-    <p style="font-size:11.5px;color:var(--muted);margin:-4px 0 14px">Combined real sell-pressure venues (Gate.io + KuCoin + Kraken + MEXC + PancakeSwap) hold roughly <strong>~12B AKE (~12% of supply)</strong> now sitting at exchange/DEX wallets — valued at <strong>~$4.1M at current price ($0.000342)</strong> or <strong>~$7.5M at the period-average ($0.000621)</strong>. Note: current CEX balances represent AKE that has been deposited but not yet sold; historical sell volume is higher if any was already sold. Binance Alpha (4.34B AKE) is excluded — it is an airdrop allocation, not exchange sell pressure.</p>
+    <p style="font-size:11.5px;color:var(--muted);margin:-4px 0 14px">Combined real sell-pressure venues (Gate.io + KuCoin + Kraken + MEXC + PancakeSwap) hold roughly <strong>~12B AKE (~12% of supply)</strong> now sitting at exchange/DEX wallets — valued at <strong>~$4.1M at current price ($0.000342)</strong> or <strong>~$7.5M at the period-average ($0.000621)</strong>. Note: current CEX balances represent AKE that has been deposited but not yet sold; historical sell volume is higher if any was already sold. Binance Alpha (4.52B AKE) is excluded — it is an airdrop allocation, not exchange sell pressure.</p>
 <div class="card"><h3>Reference — Binance Alpha airdrop platform inflows, peak-price day <span style="color:var(--muted);font-weight:400">(Oct 1, 2025, block 63.04–63.14M)</span></h3>
         <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Binance Alpha is an airdrop distribution platform, not a sell venue. However, on-chain inflow data from its peak-activity day (AKE's highest-price day) is preserved here because it identifies the largest single depositor: insider-linked wallet <strong>W1</strong> deposited 350M AKE worth <strong>$431K at that day's price</strong>. Whether this was a team-arranged airdrop distribution to Alpha users or W1's own exit is not determinable on-chain. The remainder of that day's 452M AKE inflow routed through Binance Alpha's own on-chain relayer proxies (infrastructure, not individual sellers). Grouped by sender:</p>
         <div class="table-wrap"><table><thead><tr><th>Date</th><th>Depositor</th><th>Type</th><th>AKE</th><th>#tx</th><th>Px (daily avg)</th><th>Token value at deposit</th></tr></thead><tbody>
@@ -322,5 +322,5 @@ Conservative bound using period avg ($0.000621) gives ~38% lower figures.
     <p><strong style="color:var(--text)">Block↔date:</strong> 0.571 s/block, anchored to deploy block 57,840,377 (Aug 16 2025). Dates ±~1 day.</p>
     </div></div></div>
 <div style="text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border-top:1px solid var(--border);margin-top:16px">
-AKEDO (AKE) on BSC · Outflow forensics via Transfer-event logs · Data point-in-time (May 29, 2026)</div>
+AKEDO (AKE) on BSC · Outflow forensics via Transfer-event logs · Data point-in-time (Jun 4, 2026)</div>
 </div></body></html>
