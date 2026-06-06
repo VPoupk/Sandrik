@@ -1,16 +1,3 @@
 {
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /tmp/restart_scans.sh >> /tmp/restart_scans.log 2>&1",
-            "timeout": 30,
-            "statusMessage": "Restarting scan pipeline..."
-          }
-        ]
-      }
-    ]
-  }
+  "hooks": {}
 }
