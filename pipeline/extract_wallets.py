@@ -11,7 +11,10 @@ import json, glob, re, os
 from pl_common import DATA, log, load_json, save_json
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DOCS = ["pool-outflows.html", "insider-outflows.html", "ake-analysis.html"]
+# Repricing scope = the two outflow docs only. ake-analysis.html is left
+# untouched (its sale-date proceeds were verified correct and its insider rows
+# encode hand-tuned sale/hold/non-sale judgments that must not be overwritten).
+DOCS = ["pool-outflows.html", "insider-outflows.html"]
 POOL_OF = {"ta1": "T&A1", "kol": "KOL", "cn1": "CN1", "cn2": "CN2",
            "cn3": "CN3", "community": "COM", "inv": "INV"}
 DENY = set(a.lower() for a in [
@@ -101,7 +104,10 @@ def main():
         n = 0
         for row in re.split(r"(?=<tr)", html):
             low = row.lower()
-            if "avg" not in low and "@ sold" not in low:
+            # any row that carries a proceeds figure (highlighted $ cell) or a
+            # sale annotation is in scope
+            if ("highlight" not in low and "@ sold" not in low and
+                    "avg" not in low):
                 continue
             addrs = [a.lower() for a in ADDR.findall(row) if a.lower() not in DENY]
             if not addrs:

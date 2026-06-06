@@ -1,0 +1,23 @@
+{
+ "price_points": 290,
+ "price_range": "2025-08-21..2026-06-06",
+ "updated": "2026-06-06 16:00:10Z",
+ "stage": "applied",
+ "scan_scanned_to": 102669786,
+ "scan_head": 102669786,
+ "scan_pct": 100.0,
+ "outbound_events": 568,
+ "proceeds_wallets": 50,
+ "anomalies": 8,
+ "repriced_pool_cells": 40,
+ "repriced_insider_cells": 13,
+ "insider_gross_usd": 6141295,
+ "pool_gross_usd": 1481720,
+ "skipped_anomalies": [
+  "0x83e22095(accumulator)",
+  "0x2e30bc8f(accumulator)",
+  "0x55a3319b(insider-hold/BinanceAlpha)",
+  "0xbe86abaa(dust holder)"
+ ],
+ "note": "ake-analysis.html left unchanged (verified correct)"
+}
