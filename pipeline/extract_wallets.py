@@ -50,8 +50,21 @@ def build_merged():
                 return POOL_OF[k]
         return "?"
 
-    files = (glob.glob("/tmp/*_full_rows.json") + glob.glob("/tmp/*_rows.json") +
-             glob.glob("/tmp/*_full.json"))
+    # One source file PER POOL only. The same pool's data lives in several
+    # files (*_full_rows.json, *_rows.json, *_full.json) and globs overlap, so
+    # naive summing triple-counts `recv`. Prefer the processed rows file.
+    cand = set(glob.glob("/tmp/*_full_rows.json") + glob.glob("/tmp/*_rows.json") +
+               glob.glob("/tmp/*_full.json"))
+    by_pool = {}
+    for fn in cand:
+        b = os.path.basename(fn)
+        pri = 3 if b.endswith("_full_rows.json") else (2 if b.endswith("_rows.json") else 1)
+        pool = pool_from_name(fn)
+        if pool not in by_pool or pri > by_pool[pool][0]:
+            by_pool[pool] = (pri, fn)
+    files = [v[1] for v in by_pool.values()]
+    log("extract_wallets: using 1 file per pool: " +
+        ", ".join(sorted(os.path.basename(f) for f in files)))
     for fn in files:
         try:
             d = json.load(open(fn))
