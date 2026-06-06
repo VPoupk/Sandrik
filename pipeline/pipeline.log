@@ -1,9 +1,0 @@
-2026-06-06 15:11:20Z  extract_wallets: rows_merged = 16115 receivers
-2026-06-06 15:11:20Z  extract_wallets: pool-outflows.html -> 40 proceeds rows
-2026-06-06 15:11:20Z  extract_wallets: insider-outflows.html -> 14 proceeds rows
-2026-06-06 15:11:20Z  extract_wallets: ake-analysis.html -> 2 proceeds rows
-2026-06-06 15:11:20Z  extract_wallets: IN-SCOPE wallets = 49
-2026-06-06 15:11:20Z  fetch_prices: existing points = 253
-2026-06-06 15:11:20Z  fetch_prices: CoinGecko 'akedo-games' failed: HTTP Error 404: Not Found
-2026-06-06 15:11:20Z  fetch_prices: CoinGecko 'akedo' -> 290 daily points
-2026-06-06 15:11:20Z  fetch_prices: merged -> 290 points (2025-08-21..2026-06-06)
