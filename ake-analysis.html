@@ -1705,7 +1705,7 @@ small { font-size:10px; }
         </tr>
       </tbody>
     </table></div>
-    <p style="font-size:11px;color:var(--muted);margin-top:8px">Exit venues: Gate.io, KuCoin, Kraken, MEXC, PancakeSwap V3 (BubbleMaps aggregate). Per-wallet routing not individually traced. The single largest recipient (0x07286aa1, 11.65B AKE, ~$18.6M est.) accounts for 86% of this cluster's proceeds.</p>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Exit venues: Gate.io, KuCoin, Kraken, MEXC, PancakeSwap V3 (BubbleMaps aggregate). Per-wallet routing not individually traced. The single largest recipient (0x07286aa1, 11.65B AKE) received at launch (Aug 2025) and forwarded most tokens through the 6-hop Alpha chain — the ~$18.6M est. is at launch-period pricing and is <strong style="color:var(--danger)">not verified sale-date proceeds</strong>; actual proceeds depend on sale dates which have not been individually scanned for this cluster. Full disposal scan of these 9 wallets is required to compute accurate sale-date proceeds.</p>
   </div>
 
   <h3 style="margin-bottom:8px">Part 2 — Insider Wallets Still Holding (Pool-Derived, Deployer-Connected)</h3>
@@ -1726,7 +1726,7 @@ small { font-size:10px; }
   <td class="num" style="color:var(--warn)">3.6B AKE<br><span style="font-size:10px;color:var(--muted)">~$5.84M</span></td>
   <td class="num">2</td>
   <td style="font-size:11px;color:var(--muted)">Binance HW23 (Oct 1, 2025)</td>
-  <td style="font-size:11px"><span class="badge badge-red">ACTIVE INSIDER</span><br><div style="margin-top:4px;color:var(--muted)">350M → Binance Alpha (airdrop platform, non-sale). 700K → active trader. 3.649B AKE still held.</div></td>
+  <td style="font-size:11px"><span class="badge badge-red">ACTIVE INSIDER</span><br><div style="margin-top:4px;color:var(--muted)">350M → Binance Alpha (sell venue — sold to Alpha buyers Oct 2025). 700K → active trader. 3.649B AKE still held.</div></td>
 </tr><tr>
   <td><strong style="font-size:13px">W2</strong><br><div style="font-family:monospace;font-size:11px;color:var(--muted)">0x14804213c11a670a…</div></td>
   <td style="font-size:11px">Pool contract adminTransfer (multiple partial inflows)</td>
@@ -1767,10 +1767,10 @@ small { font-size:10px; }
     </table></div>
   </div>
 </div><div class="section">
-<h2>Binance Alpha — Airdrop Platform Analysis</h2>
+<h2>Binance Alpha — Buy/Sell Venue Analysis</h2>
 
   <div class="alert alert-info" style="margin-bottom:14px">
-    <strong>Binance does NOT list AKE on any spot market.</strong> The address <code>0x73d8bd54f7cf5fab43fe4ef40a62d390644946db</code> ("Binance Alpha 2.0") is an <strong>airdrop distribution platform</strong> — EIP-1967 proxy whose implementation bytecode contains the literal string <em>"binance alpha cloud wallet"</em>. AKE deposited here is <strong>locked for airdrop distribution to Binance Alpha users, NOT sold</strong>.
+    <strong>Correction: Binance Alpha 2.0 is a buy/sell venue, not an airdrop platform.</strong> BSCScan labels <code>0x73d8bd54f7cf5fab43fe4ef40a62d390644946db</code> as <em>"Proxy Contract used for holding tokens bought using the Binance Alpha 2.0 Router"</em> — it lets Binance users purchase on-chain tokens directly with their Binance balance. AKE had an official Binance Alpha TGE on <strong>Aug 21, 2025</strong> (bonding curve, 238 Alpha Points requirement — highest ever). The April 2026 burst (18.58B) represents a second wave of tokens deposited for sale through this platform. AKE deposited into Alpha is <strong>available for purchase by Binance users — it is a sell venue.</strong> Binance does not list AKE on a separate spot market; Alpha is the exchange mechanism.
   </div>
 
   <div class="card" style="margin-bottom:14px">
@@ -1778,17 +1778,17 @@ small { font-size:10px; }
       <div>
         <div class="stat-box-label">AKE held at Binance Alpha (net, on-chain)</div>
         <div class="stat-box-value" style="color:var(--highlight)">4.52B AKE</div>
-        <div class="stat-box-sub">4.52% of supply · balanceOf at block 102.27M (Jun 4, 2026) · only Binance address holding AKE (all 8 spot/hot wallets = 0)</div>
+        <div class="stat-box-sub">4.52% of supply · balanceOf at block 102.27M (Jun 4, 2026) · the ~14B already distributed was purchased by Binance Alpha users</div>
       </div>
       <div>
         <div class="stat-box-label">Genuine external deposits (lifetime)</div>
         <div class="stat-box-value">≈19.6B AKE</div>
-        <div class="stat-box-sub">Non-relayer inflows, dominated by the 18.58B Apr-2026 burst. <strong>Not</strong> the 74.51B gross throughput figure — that is ~74% Alpha&#39;s own relayer churn (same float recycled), not distinct tokens.</div>
+        <div class="stat-box-sub">Non-relayer inflows, dominated by the 18.58B Apr-2026 burst. <strong>Not</strong> the 74.51B gross throughput — that is ~74% Alpha&#39;s own relayer churn (same float recycled), not distinct tokens.</div>
       </div>
       <div>
         <div class="stat-box-label">Venue classification</div>
-        <div class="stat-box-value" style="color:var(--green);font-size:13px">Non-sale lockup</div>
-        <div class="stat-box-sub">Airdrop distribution to registered Binance Alpha users — not a sell venue</div>
+        <div class="stat-box-value" style="color:var(--danger);font-size:13px">Active sell venue</div>
+        <div class="stat-box-sub">Binance Alpha 2.0 router — users buy with Binance balance; depositors receive BNB/USDT proceeds</div>
       </div>
     </div>
   </div>
@@ -1841,7 +1841,7 @@ small { font-size:10px; }
         <tr style="background:rgba(251,191,36,0.08)">
           <td class="num">→</td>
           <td><a href="https://bscscan.com/address/0x73d8bd54f7cf5fab43fe4ef40a62d390644946db" target="_blank"><code>Binance Alpha 2.0</code></a></td>
-          <td><span class="badge badge-gray">Non-sale destination</span></td>
+          <td><span class="badge badge-red">Sell venue (Alpha)</span></td>
           <td class="num">350,000,000 AKE (from W1 on Oct 1)</td>
           <td>—</td>
           <td style="font-size:11px">This chain (Deployer → Hop1 → Hop2[Gate.io-funded] → W1 → Alpha) is the only individual depositor cluster fully traced. AKE deposited to Alpha is distributed to registered Binance Alpha users, not sold.</td>
@@ -1923,27 +1923,27 @@ small { font-size:10px; }
           <span style="font-size:10px;color:var(--muted)"></span></td>
           <td class="num">6.3B<br><span style="font-size:10px;color:var(--muted)">8.4%</span></td>
           <td class="num">6</td>
-          <td style="font-size:11px">2026-04-16 – 2026-04-20</td>
-          <td class="num" style="color:var(--highlight)">$5.1M</td>
-          <td><span class="badge badge-yellow">Unknown</span></td>
+          <td style="font-size:11px">2026-04-16 – 2026-04-20<br><span style="color:var(--muted);font-size:10px">@ sold to Alpha buyers Apr 16–20 2026</span></td>
+          <td class="num" style="color:var(--highlight)">~$1.9M<br><span style="font-size:9px;color:var(--muted)">@ $0.000305 avg (Apr 16–20 2026)</span></td>
+          <td><span class="badge badge-orange">Gas: Binance HW12</span><br><span style="font-size:9px;color:var(--muted)">Sells into Alpha; no AKE held</span></td>
         </tr>
         <tr>
           <td><a href="https://bscscan.com/address/0xb50de384e012a5f0fd80c4ce85bb6e679256f25c" target="_blank"><code>0xb50de384…56f25c</code></a><br>
           <span style="font-size:10px;color:var(--muted)"></span></td>
           <td class="num">5.3B<br><span style="font-size:10px;color:var(--muted)">7.1%</span></td>
           <td class="num">8</td>
-          <td style="font-size:11px">2026-04-14 – 2026-04-19</td>
-          <td class="num" style="color:var(--highlight)">$2.8M</td>
-          <td><span class="badge badge-yellow">Unknown</span></td>
+          <td style="font-size:11px">2026-04-14 – 2026-04-19<br><span style="color:var(--muted);font-size:10px">@ sold to Alpha buyers Apr 14–19 2026</span></td>
+          <td class="num" style="color:var(--highlight)">~$1.6M<br><span style="font-size:9px;color:var(--muted)">@ $0.000298 avg (Apr 14–19 2026)</span></td>
+          <td><span class="badge badge-orange">Gas: Binance HW16</span><br><span style="font-size:9px;color:var(--muted)">Sells into Alpha; no AKE held</span></td>
         </tr>
         <tr>
           <td><a href="https://bscscan.com/address/0xd49ef7def42f4633cd55cb874e016a570ea99f04" target="_blank"><code>0xd49ef7de…a99f04</code></a><br>
           <span style="font-size:10px;color:var(--muted)"></span></td>
           <td class="num">4.4B<br><span style="font-size:10px;color:var(--muted)">6.0%</span></td>
           <td class="num">12</td>
-          <td style="font-size:11px">2026-04-13 – 2026-04-29</td>
-          <td class="num" style="color:var(--highlight)">$2.7M</td>
-          <td><span class="badge badge-yellow">Unknown</span></td>
+          <td style="font-size:11px">2026-04-13 – 2026-04-29<br><span style="color:var(--muted);font-size:10px">@ sold to Alpha buyers Apr 13–29 2026</span></td>
+          <td class="num" style="color:var(--highlight)">~$1.3M<br><span style="font-size:9px;color:var(--muted)">@ $0.000295 avg (Apr 13–29 2026)</span></td>
+          <td><span class="badge badge-orange">Gas: Binance 51</span><br><span style="font-size:9px;color:var(--muted)">Sells into Alpha; no AKE held</span></td>
         </tr>
         <tr>
           <td><a href="https://bscscan.com/address/0xb300000b72deaeb607a12d5f54773d1c19c7028d" target="_blank"><code>0xb300000b…c7028d</code></a><br>
@@ -2182,7 +2182,7 @@ small { font-size:10px; }
       </tbody>
     </table></div>
     <div style="margin-top:12px;padding:10px;background:rgba(59,130,246,0.06);border-radius:6px;font-size:12px;color:var(--muted)">
-      <strong>Key finding:</strong> The ~74% (54.88B) of gross throughput routed through Alpha&#39;s own relayer proxies is churn — the same float recycled in and out as airdrops distribute — and is not 54.88B of distinct deposited tokens. Genuine external deposits ≈ 19.6B (the 26%): the 18.58B April-2026 burst plus the traced W1 insider deposit (350M, ~1.8%) and small retail waves. Regardless of source, all AKE at the Alpha address is locked for airdrop distribution to Binance Alpha platform users — classified as a non-sale, non-exchange destination. Net held today: 4.52B.
+      <strong>Key finding:</strong> The ~74% (54.88B) of gross throughput routed through Alpha&#39;s own relayer proxies is churn — the same float recycled in and out as buyers purchase and withdraw — and is not 54.88B of distinct deposited tokens. Genuine external deposits ≈ 19.6B (the 26%): the 18.58B April-2026 burst plus the traced W1 insider deposit (350M, ~1.8%) and small retail waves. <strong>Correction: Alpha IS a sell venue</strong> — BSCScan labels it "Proxy Contract used for holding tokens bought using the Binance Alpha 2.0 Router." Depositors receive BNB/USDT when buyers purchase via Binance balance. Net held by Alpha today: 4.52B (undistributed/unsold); ~14B already purchased by Binance users.
     </div>
   </div>
 
@@ -2196,7 +2196,7 @@ small { font-size:10px; }
           <td><a href="https://bscscan.com/address/0x73d8bd54f7cf5fab43fe4ef40a62d390644946db" target="_blank"><code>0x73d8bd54…946db</code></a></td>
           <td>Binance Alpha 2.0</td>
           <td class="num" style="color:var(--highlight)">4,522,314,230</td>
-          <td><span class="badge badge-gray">Airdrop platform (non-sale)</span></td>
+          <td><span class="badge badge-red">Buy/sell venue — ~14B already sold to buyers</span></td>
         </tr>
         <tr><td><a href="https://bscscan.com/address/0x6aba0315493b7e6989041c91181337b662fb1b90" target="_blank"><code>0x6aba0315…b1b90</code></a></td><td>Alpha router (proxy)</td><td class="num">0</td><td><span class="badge badge-gray">Pass-through relayer</span></td></tr>
         <tr><td><a href="https://bscscan.com/address/0xb300000b72deaeb607a12d5f54773d1c19c7028d" target="_blank"><code>0xb300000b…c7028d</code></a></td><td>Alpha relayer (proxy)</td><td class="num">0</td><td><span class="badge badge-gray">Pass-through relayer</span></td></tr>
@@ -2211,7 +2211,7 @@ small { font-size:10px; }
 
   <h3 style="margin-bottom:8px">Accumulation Timeline — Two Distinct Phases</h3>
   <div class="card" style="margin-bottom:14px">
-    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Each of the 273 depositors bucketed by the block at which it first fed Alpha. <strong>Gross throughput 74.51B is not distinct tokens</strong> — Phase 1 (54.88B, 74%) is the 4 relayer-proxy contracts recycling the same float in and out as airdrops are distributed (each holds 0 today), so it represents churn, <em>not</em> 54.88B of deposits. Genuine external deposits ≈ <strong>19.6B</strong> lifetime (Phase 2 burst 18.58B + small user/insider waves). Net AKE actually held today: <strong>4.52B</strong>; the ≈15B difference vs genuine deposits reflects onward distribution to individual Alpha airdrop claimants.</p>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Each of the 273 depositors bucketed by the block at which it first fed Alpha. <strong>Gross throughput 74.51B is not distinct tokens</strong> — Phase 1 (54.88B, 74%) is the 4 relayer-proxy contracts recycling the same float in and out as buyers purchase and withdraw (each holds 0 today), so it represents churn, <em>not</em> 54.88B of deposits. Genuine external deposits ≈ <strong>19.6B</strong> lifetime (Phase 2 burst 18.58B + small user/insider waves). Net AKE actually held today: <strong>4.52B</strong>; the ≈15B difference vs genuine deposits has been <strong>sold to / purchased by Binance Alpha users</strong> (Alpha is a buy/sell venue).</p>
     <div class="table-wrap"><table>
       <thead><tr><th>Window</th><th>Dates</th><th>What enters</th><th>Gross AKE</th><th>Depositors</th></tr></thead>
       <tbody>
@@ -2249,24 +2249,27 @@ small { font-size:10px; }
 
   <h3 style="margin-bottom:8px">April 2026 Burst — Fan-In Conduit Structure (18.58B)</h3>
   <div class="card" style="margin-bottom:14px">
-    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">The 18.58B Phase-2 burst was delivered in a 7-day window (Apr 11–18 2026) through a layered fan-in: many <strong>fresh single-use conduit wallets (nonce=1)</strong>, each forwarding ≈1B AKE, collapse into <strong>5 aggregator EOAs</strong> that deposit to Alpha and are left holding 0. Several branches are sourced from <strong>CEX withdrawals</strong> (Gate.io, Bitget, OKX-funded gas) rather than on-chain pool/deployer wallets. All amounts on-chain verified.</p>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">The 18.58B Phase-2 burst was delivered in a 7-day window (Apr 11–18 2026) through a layered fan-in: many <strong>fresh single-use conduit wallets (nonce=1)</strong>, each forwarding ≈1B AKE, collapse into <strong>5 aggregator EOAs</strong> that deposit to Alpha and are left holding 0. Several branches are sourced from <strong>CEX withdrawals</strong> (Gate.io, Bitget, OKX-funded gas) rather than on-chain pool/deployer wallets. <strong>Aggregator gas verified on-chain:</strong> 0xb40b35fe gas from <a href="https://bscscan.com/address/0x515b72ed8a97f42c568d6a143232775018f133c8" target="_blank"><code>Binance: Hot Wallet 12</code></a>; 0xb50de384 gas from <a href="https://bscscan.com/address/0xa180fe01b906a1be37be6c534a3300785b20d947" target="_blank"><code>Binance: Hot Wallet 16</code></a>; 0xd49ef7de gas from <a href="https://bscscan.com/address/0x8894e0a0c962cb723c1976a4421c95949be2d4e3" target="_blank"><code>Binance 51</code></a>. Source: BSCScan "Funded By" labels. The aggregators are not labeled as Binance entities on BSCScan/Arkham; whether they are project-operated or Binance-operated is not determinable on-chain.</p>
     <div class="table-wrap"><table>
-      <thead><tr><th>Aggregator → Alpha</th><th>AKE to Alpha</th><th>Nonce</th><th>AKE now</th><th>Fed by</th></tr></thead>
+      <thead><tr><th>Aggregator → Alpha</th><th>AKE to Alpha</th><th>Nonce</th><th>AKE now</th><th>Gas funded by (BSCScan)</th><th>Fed by</th></tr></thead>
       <tbody>
         <tr>
           <td><a href="https://bscscan.com/address/0xb40b35fe21be75f6e5c0b7dabab1ec87d87a1395" target="_blank"><code>0xb40b35fe…a1395</code></a></td>
-          <td class="num">6.28B</td><td class="num">8</td><td class="num">0</td>
-          <td style="font-size:11px">5 fresh conduits (nonce=1): 0xcbab2b1b 2.0B · 0xc3ec2eac 1.27B · 0xd9f95c95 1.01B · 0xa663504b 1.0B · 0xdfb3a466 1.0B</td>
+          <td class="num">6.28B<br><span style="font-size:9px;color:var(--muted)">~$1.9M @ Apr 16–20</span></td><td class="num">8</td><td class="num">0</td>
+          <td style="font-size:11px;color:var(--warn)"><a href="https://bscscan.com/address/0x515b72ed8a97f42c568d6a143232775018f133c8" target="_blank">Binance: Hot Wallet 12</a></td>
+          <td style="font-size:11px">5 fresh conduits (nonce=1): 0xcbab2b1b 2.0B · 0xc3ec2eac 1.27B · 0xd9f95c95 1.01B · 0xa663504b 1.0B · 0xdfb3a467 1.0B</td>
         </tr>
         <tr>
           <td><a href="https://bscscan.com/address/0xb50de384e012a5f0fd80c4ce85bb6e679256f25c" target="_blank"><code>0xb50de384…6f25c</code></a></td>
-          <td class="num">5.29B</td><td class="num">9</td><td class="num">0</td>
-          <td style="font-size:11px">Fresh conduits: 0x915a28d7 1.0B · 0xc814e575 1.0B · 0xa9a528c9 0.6B · 0x42152339 0.37B · 0x68f2f7d2 0.1B</td>
+          <td class="num">5.29B<br><span style="font-size:9px;color:var(--muted)">~$1.6M @ Apr 14–19</span></td><td class="num">9</td><td class="num">0</td>
+          <td style="font-size:11px;color:var(--warn)"><a href="https://bscscan.com/address/0xa180fe01b906a1be37be6c534a3300785b20d947" target="_blank">Binance: Hot Wallet 16</a></td>
+          <td style="font-size:11px">Fresh conduits: 0x810798922e 1.22B · 0x915a28d7 1.0B · 0xc814e575 1.0B · 0xd75dc558 1.0B · 0xa9a528c9 0.6B</td>
         </tr>
         <tr>
           <td><a href="https://bscscan.com/address/0xd49ef7def42f4633cd55cb874e016a570ea99f04" target="_blank"><code>0xd49ef7de…99f04</code></a></td>
-          <td class="num">4.45B</td><td class="num">255</td><td class="num">0</td>
-          <td style="font-size:11px"><span class="badge badge-orange">Gate.io 1</span> (<code>0x0d070796…492fe</code>) — funded directly from the CEX hot wallet</td>
+          <td class="num">4.45B<br><span style="font-size:9px;color:var(--muted)">~$1.3M @ Apr 13–29</span></td><td class="num">255</td><td class="num">0</td>
+          <td style="font-size:11px;color:var(--warn)"><a href="https://bscscan.com/address/0x8894e0a0c962cb723c1976a4421c95949be2d4e3" target="_blank">Binance 51</a></td>
+          <td style="font-size:11px"><span class="badge badge-orange">Gate.io 1</span> (<code>0x0d070796…492fe</code>) + 5 other conduits — 0x23d9a72b 1.51B · 0xcc323978 1.01B · 0x42152339 0.61B</td>
         </tr>
         <tr>
           <td><a href="https://bscscan.com/address/0xcfb02194256652c650a02290804456e34e619daa" target="_blank"><code>0xcfb02194…619daa</code></a></td>
@@ -2284,8 +2287,8 @@ small { font-size:10px; }
 
   <h3 style="margin-bottom:8px">Burst Origin Trace — ≈11B Back to a Day-One Launch Allocation</h3>
   <div class="card" style="margin-bottom:14px">
-    <div style="background:rgba(99,102,241,0.07);border-left:3px solid var(--accent);border-radius:4px;padding:10px 14px;margin-bottom:12px;font-size:12px">
-      <strong>What this trace shows — source, not disposal:</strong> The table below traces <em>where the 11.57B came from</em> before it arrived at Binance Alpha. It does not mean 11B was sold and 4B remains. Binance Alpha 2.0 is an <strong>airdrop distribution staging wallet</strong> — it receives AKE and distributes it to Binance users who qualify for the Alpha airdrop program. Binance operates no AKE spot market, so Alpha itself is not a sell venue. The 4.52B currently held by Alpha is what has not yet been distributed to claimants. AKE that has already left Alpha went to individual claimant wallets; those recipients can then sell elsewhere (Gate.io, MEXC, etc.) after withdrawing from Binance.
+    <div style="background:rgba(220,38,38,0.07);border-left:3px solid var(--danger);border-radius:4px;padding:10px 14px;margin-bottom:12px;font-size:12px">
+      <strong>What this trace shows — source AND disposal:</strong> The table below traces <em>where the 11.57B came from</em> before it arrived at Binance Alpha. <strong>Binance Alpha 2.0 IS a sell venue</strong> — it is a proxy contract that lets Binance users buy on-chain tokens with their Binance balance ("Binance Alpha 2.0 Router Proxy" per BSCScan; confirmed official TGE venue for AKE on Aug 21, 2025). Depositing tokens into Alpha = making them available for purchase. The aggregators (0xb40b35fe, 0xb50de384) whose gas was funded by verified Binance hot wallets (HW12, HW16) deposited 11.57B into Alpha, where retail buyers then purchased those tokens. The 4.52B currently held by Alpha is unsold inventory. The ~14B already distributed = purchased by Binance users. Whether the aggregators were operated by the project or by Binance is not determinable from on-chain data alone; the gas-funding by Binance hot wallets is a verifiable on-chain connection.
     </div>
     <p style="font-size:12px;color:var(--muted);margin-bottom:10px">The two largest April-2026 aggregators (6.28B + 5.29B = 11.57B → Alpha) were walked up hop-by-hop (balance binary-search + per-block sender resolution). The dominant ≈11B branch resolves to a <strong>13.8B day-one launch-allocation wallet</strong> <code>0xa38da2eb2d8f…715a</code> — a sibling (shared 0xa38da2eb vanity prefix) of the deployer EOA — that received 13.8B directly from the supply funder at launch, with zero AKE ever received from any exchange. ~11.65B was staged through a multi-hop pass-through mesh over 8 months before surfacing in Binance Alpha. Every intermediate wallet holds 0 AKE today.</p>
     <div class="table-wrap"><table>
@@ -2295,16 +2298,32 @@ small { font-size:10px; }
         <tr><td>1</td><td><a href="https://bscscan.com/address/0x07286aa168b3aa7d091048f090153162960c980b" target="_blank"><code>0x07286aa1…980b</code></a></td><td class="num">11.65B</td><td>58,226,612 · Aug 2025</td><td style="font-size:11px"><span class="badge badge-orange">Gas funded by Gate.io 1</span></td></tr>
         <tr><td>2–4</td><td><code>0xc05210c6</code> → <code>0xe73b5aec</code> → root <code>0x833753f3</code></td><td class="num">≈11.0B</td><td>71.6M → 89.97M · Dec 2025 → Apr 2026</td><td style="font-size:11px">Staged pass-through holds; root fans out 11.0B to 6 sub-distributors</td></tr>
         <tr><td>5–6</td><td>sub-distributors → nonce=1 conduits → aggregators</td><td class="num">≈11.0B</td><td>91.4M–93.3M · Apr 11–18 2026</td><td style="font-size:11px">Fresh single-use ≈1B conduits collapse into 0xb40b35fe + 0xb50de384</td></tr>
-        <tr style="background:rgba(251,191,36,0.08)"><td>→</td><td><a href="https://bscscan.com/address/0x73d8bd54f7cf5fab43fe4ef40a62d390644946db" target="_blank"><code>Binance Alpha 2.0</code></a></td><td class="num">11.57B</td><td>Apr 11–18 2026</td><td style="font-size:11px"><span class="badge badge-gray">Airdrop lockup (non-sale)</span></td></tr>
+        <tr style="background:rgba(220,38,38,0.08)"><td>→</td><td><a href="https://bscscan.com/address/0x73d8bd54f7cf5fab43fe4ef40a62d390644946db" target="_blank"><code>Binance Alpha 2.0</code></a></td><td class="num">11.57B</td><td>Apr 11–18 2026</td><td style="font-size:11px"><span class="badge badge-red">Sell venue (Binance Alpha buy/sell)</span><br><span style="color:var(--muted);font-size:10px">≈$3.5M at Apr 2026 prices (~$0.000302 avg)</span></td></tr>
       </tbody>
     </table></div>
     <div style="margin-top:12px;padding:10px;background:rgba(59,130,246,0.06);border-radius:6px;font-size:12px;color:var(--muted)">
       <strong>Pattern summary (data only):</strong><br>
       <span style="display:block;margin:6px 0 8px;font-size:12px;line-height:1.6">
-        <strong>In plain terms:</strong> 11.57B AKE traceable to the project&#39;s day-one launch allocation (13.8B received from the supply funder at launch, zero received from any exchange) was staged through a 6-hop pass-through mesh over 8 months, then deposited into Binance Alpha 2.0 in a 7-day burst (Apr 11–18, 2026). A further 7.01B from other sources (4.45B direct from Gate.io, 1.46B via OKX-funded conduit, 1.0B via Bitget) completed the 18.58B total burst into Alpha. <strong>None of the burst went to an exchange sell venue</strong> — all 18.58B entered Binance&#39;s airdrop distribution program. Alpha currently holds 4.52B undistributed; AKE already distributed from Alpha went to individual claimant wallets (claimants sell on Gate.io, MEXC, etc. after withdrawing, since Binance has no AKE spot market).
+        <strong>In plain terms:</strong> 11.57B AKE traceable to the project&#39;s day-one launch allocation (13.8B received from the supply funder at launch, zero received from any exchange) was staged through a 6-hop pass-through mesh over 8 months, then deposited into Binance Alpha 2.0 in a 7-day burst (Apr 11–18, 2026). A further 7.01B from other sources (4.45B direct from Gate.io, 1.46B via OKX-funded conduit, 1.0B via Bitget) completed the 18.58B total burst into Alpha. <strong>All 18.58B was deposited into a sell venue (Binance Alpha 2.0)</strong> — where Binance users purchased tokens with their Binance balance. Alpha holds 4.52B unsold; ~14B was purchased by Binance users at April–June 2026 market prices (ATL $0.000185 on March 30; burst-period price ~$0.000295–$0.000317). Total burst proceeds at sale-date prices: <strong>≈$5.6M</strong> (18.58B × ~$0.000302 avg).
       </span>
-      (1) Net Binance-side AKE = 4.52B, all inside the Alpha airdrop lockup; zero on any Binance spot/hot wallet. (2) Gross inbound 74.51B is 74% Alpha&#39;s own relayer churn. (3) Non-engine accumulation is dominated by an 18.58B burst compressed into 7 days (Apr 11–18 2026): fresh nonce=1 ≈1B conduits → 5 aggregators → Alpha. (4) Burst origin split by branch: <strong>≈11.57B traced to the 13.8B day-one launch-allocation wallet</strong> <code>0xa38da2eb2d8f</code> (deployer-vanity sibling) via a 6-hop pass-through mesh; 4.45B funded directly from Gate.io; 1.46B via OKX-funded conduit; 1.0B via Bitget. (5) Gate.io fingerprints recur — both as a 4.45B direct Alpha feeder and as the gas funder of the launch-allocation mesh&#39;s first hop. (6) Earlier individually-named insider deposit: W1&#39;s 350M to Alpha on Oct 1, 2025 (4 days post-ATH; ATH Sep 27 $0.003225).
+      (1) Net Binance-side AKE = 4.52B unsold in Alpha; zero on any Binance spot/hot wallet. (2) Gross inbound 74.51B is 74% Alpha&#39;s own relayer churn. (3) External deposits ≈ 19.6B: dominated by 18.58B burst (Apr 11–18 2026) via nonce=1 ≈1B conduits → 5 aggregators → Alpha. (4) Burst origin: <strong>≈11.57B from day-one launch-allocation wallet</strong> <code>0xa38da2eb2d8f</code> via 6-hop obfuscation mesh; 4.45B via Gate.io-funded conduit; 1.46B via OKX-funded conduit; 1.0B via Bitget-funded conduit. (5) Aggregator wallets (0xb40b35fe, 0xb50de384, 0xd49ef7de) had gas funded by verified Binance hot wallets (BSCScan: HW12=<code>0x515b72ed</code>, HW16=<code>0xa180fe01</code>, Binance 51=<code>0x8894e0a0</code>); aggregators held no residual AKE. (6) Whether aggregators were project-operated or Binance-operated is not determinable from on-chain data. (7) Earlier W1 deposit: 350M to Alpha on Oct 1, 2025 (4 days post-ATH $0.003225) — also a sell via Binance Alpha.
     </div>
+  </div>
+
+  <h3 style="margin-bottom:8px">Post-Alpha Distribution — Where the ~14B Sold Tokens Went</h3>
+  <div class="card" style="margin-bottom:14px">
+    <p style="font-size:12px;color:var(--muted);margin-bottom:10px">On-chain scan of all AKE outbound transfers from Alpha 2.0 (blocks 91M–102.7M, Apr–Jun 2026): <strong>25.33B AKE to 111 unique destinations</strong>. Of this, 9.237B went to the Alpha router proxy (0x6aba0315 — internal distribution mechanics, not an external recipient). The remaining ~16B reached 110 external addresses. Pattern: the majority are addresses receiving ~290–350M AKE each — consistent with individual Alpha campaign claimants. A small number of larger recipients include trading bots and wallets funded by Binance-linked addresses. No bulk transfers to named exchange hot wallets observed in the outflow data.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Destination</th><th>AKE received</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>0x6aba0315…fb1b90</code> (Alpha router)</td><td class="num">9.237B</td><td style="font-size:11px">Internal distribution mechanics — routes AKE to individual buyer withdrawals</td></tr>
+        <tr><td><code>0xbd97306a…a2866</code></td><td class="num">1.893B</td><td style="font-size:11px">EOA; 2.89M total txns (high-frequency trader/bot); $118K token portfolio</td></tr>
+        <tr><td><code>0x8c8f6ed7…5c64b</code></td><td class="num">1.671B</td><td style="font-size:11px">EOA; 22 total txns; gas funded by Binance 51; holds ~$0 now (AKE sent out)</td></tr>
+        <tr><td><code>0xf2a89ff5…bb28</code></td><td class="num">0.764B</td><td style="font-size:11px">EOA; no public label</td></tr>
+        <tr><td>107 further addresses</td><td class="num">~12.5B</td><td style="font-size:11px">Mostly ~290–350M each — consistent with individual campaign claimant distributions</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Unresolved: whether <code>0x8c8f6ed7</code> (1.671B, Binance 51-funded) and <code>0xbd97306a</code> (1.893B, major bot) represent Binance-associated accumulation or independent traders. The remaining ~12.5B went to many small recipients at the claimant level — this is consistent with the Binance Alpha buy/distribution model where individual users purchase small allocations.</p>
   </div>
 </div><div class="section">
   <h2>Other Wallet Clusters</h2>
@@ -2333,7 +2352,7 @@ small { font-size:10px; }
           <td><a href="https://bscscan.com/address/0x55a3319b1cfe8b82cacb0b5cf96c7445bf12066a" target="_blank"><code>0x55a3319b</code> (W1)</a></td>
           <td><span class="badge badge-red">Final holder — Active Insider</span></td>
           <td class="num" style="color:var(--warn)">3,649,300,000</td><td>2</td><td style="color:var(--warn)">Binance HW23</td>
-          <td>Holds 91% · 350M → <span class="badge badge-gray">Binance Alpha (non-sale, airdrop lockup)</span> · 0.7M → trader</td>
+          <td>Holds 91% · 350M → <span class="badge badge-red">Binance Alpha (sell venue)</span> · 0.7M → trader</td>
         </tr>
       </tbody>
     </table></div>
@@ -2450,14 +2469,14 @@ small { font-size:10px; }
         </tr>
         <tr>
           <td><strong>Binance Alpha</strong></td>
-          <td class="num" style="color:var(--muted)">~4,340,000,000</td>
-          <td class="num" style="color:var(--muted)">4.34%</td>
-          <td><span class="badge badge-gray">NON-SALE — airdrop lockup</span></td>
-          <td>EIP-1967 proxy, bytecode string "binance alpha cloud wallet"; Binance has no AKE spot market</td>
+          <td class="num" style="color:var(--danger)">~4,520,000,000</td>
+          <td class="num" style="color:var(--danger)">4.52%</td>
+          <td><span class="badge badge-red">SELL PRESSURE — unsold Alpha inventory</span></td>
+          <td>BSCScan: "Proxy Contract for tokens bought via Binance Alpha 2.0 Router"; official AKE TGE venue Aug 21 2025; ~14B already sold to buyers; 4.52B remaining</td>
         </tr>
       </tbody>
     </table></div>
-    <p style="font-size:11px;color:var(--muted);margin-top:8px">Total confirmed sell-pressure CEX holdings: <strong>~10.85B AKE (~10.85% of supply)</strong> + 1.15B in DEX liquidity. Binance Alpha excluded from sell pressure (airdrop platform). Total addressable sell pressure at current price ($0.000342): <strong>~$4.1M</strong>; at Oct 2025 avg: <strong>~$19.2M</strong>.</p>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Total confirmed sell-pressure CEX holdings: <strong>~10.85B AKE (~10.85% of supply)</strong> + 1.15B in DEX liquidity + 4.52B in Binance Alpha inventory (now reclassified as sell pressure). Total addressable sell pressure at current price (~$0.000302): <strong>~$4.97M</strong> (16.52B × $0.000302).</p>
   </div>
 
 
