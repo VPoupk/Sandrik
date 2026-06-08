@@ -164,7 +164,7 @@
       <div style="padding:10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:6px;font-size:12px">
         <strong>Chain A — 13.8B</strong><br><span style="color:var(--muted)">0xa38da2eb (EOA)</span><br>→ 11.65B to <strong>0x07286aa1</strong> + 1.9B scattered</div>
       <div style="padding:10px;background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.25);border-radius:6px;font-size:12px">
-        <strong>Chain B — 4B</strong><br><span style="color:var(--muted)">0xb05e0018 (EOA)</span><br>→ 0xf3acb8a9 → <strong>W1</strong> (deposited 350M to Alpha)</div>
+        <strong>Chain B — 4B</strong><br><span style="color:var(--muted)">0xb05e0018 (EOA)</span><br>→ 0xf3acb8a9 → <strong>W1</strong> (sold 350M into Alpha)</div>
       <div style="padding:10px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:6px;font-size:12px">
         <strong>Chain C — 3B</strong><br><span style="color:var(--muted)">0x432d8577 (EOA)</span><br>→ <strong>0x681cf37b</strong> (owner contract, 115 BNB)</div>
     </div></div></div></div>
@@ -179,15 +179,15 @@
         <tr><td><a href="https://bscscan.com/address/0xef156d95a32a3e73fc7ae33eff8f549879a36098" target="_blank"><code>0xef156d95…a36098</code></a></td><td class="num">100,000,000</td><td>?</td><td><span class="badge badge-gray">unknown</span></td></tr></tbody></table></div>
         <div class="alert alert-info" style="margin-top:10px;margin-bottom:0"><strong>Status.</strong> 0x07286aa1 is an EOA (15 transactions) that <strong>now holds 0 AKE</strong> — the full 11.65B was forwarded onward. Of that, 100.0M was traced to the wallets listed above (which also hold 0). The remaining ~11.55B was redistributed through further chains; a significant portion contributed to the April 2026 Binance Alpha deposit burst (~19.6B genuine deposits across all sources). In total, 11.65B (11.65% of supply) moved through this address.</div></div>
 </div>
-<div class="section"><h2>Chain B — 4B → hop → W1 → Binance Alpha platform</h2>
+<div class="section"><h2>Chain B — 4B → hop → W1 → Binance Alpha (sell venue)</h2>
     <div class="card"><div style="font-size:12.5px;color:var(--muted);line-height:1.8">
     <p>Deployer → <strong>0xb05e0018</strong> (4B) → <strong>0xf3acb8a9</strong> (4B, single hop) → <strong>W1 0x55a3319b</strong>. W1 currently holds <strong>3.649B AKE</strong> (verified on-chain).</p>
     <div class="flow-row"><span class="flow-from">Deployer</span><span class="flow-arrow">→</span><span class="flow-to">0xb05e0018</span><span class="flow-amount">4.00B</span></div>
     <div class="flow-row"><span class="flow-from">0xb05e0018</span><span class="flow-arrow">→</span><span class="flow-to">0xf3acb8a9</span><span class="flow-amount">4.00B</span></div>
     <div class="flow-row"><span class="flow-from">0xf3acb8a9</span><span class="flow-arrow">→</span><span class="flow-to">W1 0x55a3319b</span><span class="flow-amount">4.00B</span></div>
-    <div class="flow-row"><span class="flow-from">W1</span><span class="flow-arrow">→</span><span class="flow-to">0x73d8bd54… Binance Alpha airdrop platform</span><span class="flow-amount" style="color:var(--highlight)">350.0M (Alpha deposit)</span></div>
+    <div class="flow-row"><span class="flow-from">W1</span><span class="flow-arrow">→</span><span class="flow-to">0x73d8bd54… Binance Alpha 2.0 (sell venue)</span><span class="flow-amount" style="color:var(--highlight)">350.0M (sold into Alpha)</span></div>
     <div class="flow-row"><span class="flow-from">W1</span><span class="flow-arrow">→</span><span class="flow-to">0x93deb693 (trader, 2,630 txns)</span><span class="flow-amount">0.7M</span></div>
-    <p style="margin-top:8px">W1's only two on-chain transfers (Oct 1 2025) sent <strong>350M AKE to the Binance Alpha airdrop distribution platform</strong> (<code>0x73d8bd54…</code>, verified on-chain — EIP-1967 proxy, bytecode contains <em>"binance alpha cloud wallet"</em>) plus 700K to an active trader (<code>0x93deb693</code>, 2,630 txns). At Oct 1 CoinGecko price ($0.001232) the 350M deposit was worth <strong>≈$431K</strong>. Binance does not list AKE on spot markets — Binance Alpha is an airdrop/distribution platform, not a sell venue. <span style="color:var(--muted)">[exchange holdings on the Official Pool Outflows page]</span></p>
+    <p style="margin-top:8px">W1's only two on-chain transfers (Oct 1 2025) sent <strong>350M AKE into Binance Alpha 2.0</strong> (<code>0x73d8bd54…</code>; BSCScan: "Proxy Contract for tokens bought via Binance Alpha 2.0 Router" — a buy/sell venue, not an airdrop platform) plus 700K to an active trader (<code>0x93deb693</code>, 2,630 txns). At Oct 1 CoinGecko price ($0.001232 — 4 days post-ATH) the 350M sold into Alpha was worth <strong>≈$431K</strong>. AKE had its official Binance Alpha TGE on Aug 21 2025; depositing to Alpha = selling to Binance users. <span style="color:var(--muted)">[exchange holdings on the Official Pool Outflows page]</span></p>
     </div></div></div>
 <div class="section"><h2>Chain C — 3B → the owner contract</h2>
     <div class="card"><div style="font-size:12.5px;color:var(--muted);line-height:1.8">
@@ -198,7 +198,7 @@
     <div style="font-size:12px;color:var(--muted);line-height:1.8;column-count:2;column-gap:24px">
     <p><strong style="color:var(--text)">Source:</strong> ERC-20 Transfer event logs (topic0 <code>0xddf252ad…</code>) from the AKE contract, filtered by sender address, pulled from an archival BSC node (onFinality). Balances/nonces/bytecode cross-checked on Binance public dataseed nodes.</p>
     <p><strong style="color:var(--text)">"Received without buying":</strong> every row originates from a pool contract or a deployer-funded EOA — i.e. tokens granted by the team, not purchased on a market.</p>
-    <p><strong style="color:var(--text)">Two "sold" measures:</strong> (1) <em>Offload %</em> = (received − current balance) ÷ received — counts any tokens that left the wallet, including forwards. (2) <em>Exchange deposit</em> = transfers whose destination is a verified spot exchange (Gate.io, KuCoin, Kraken, MEXC) or the PancakeSwap V3 DEX pool. Binance Alpha is <strong>excluded</strong> from sell pressure (airdrop distribution platform; Binance does not list AKE on spot markets).</p>
+    <p><strong style="color:var(--text)">Two "sold" measures:</strong> (1) <em>Offload %</em> = (received − current balance) ÷ received — counts any tokens that left the wallet, including forwards. (2) <em>Exchange deposit</em> = transfers whose destination is a verified spot exchange (Gate.io, KuCoin, Kraken, MEXC), the PancakeSwap V3 DEX pool, or Binance Alpha 2.0. Binance Alpha is <strong>included</strong> in sell pressure — BSCScan confirms it is a buy/sell venue (tokens deposited are purchased by Binance users), and AKE had its official Alpha TGE on Aug 21 2025.</p>
     <p><strong style="color:var(--text)">Coverage:</strong> Insider chains are reconstructed from complete Transfer-event logs for each EOA in the chain (these wallets have few transactions, so coverage is complete).</p>
     <p><strong style="color:var(--text)">Block↔date:</strong> 0.571 s/block, anchored to deploy block 57,840,377 (Aug 16 2025). Dates ±~1 day.</p>
     </div></div></div>
