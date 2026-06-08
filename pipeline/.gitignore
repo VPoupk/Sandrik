@@ -5,3 +5,4 @@ data/status.json
 data/disposals_raw.json
 data/blk_dates.json
 pipeline.log
+logs/
