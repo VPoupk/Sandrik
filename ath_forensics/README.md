@@ -39,9 +39,12 @@ holdings, token provenance (DAO/team connection), and selling patterns.
    subject). Maps to official allocation (Community 10M / Contributors 12M / Service 8M).
 
 ## Deliverables
-- **`ath_sellers_2026.csv`** — full table: all 41 wallets, ATH sold, USD at sale time,
-  current holdings, net, 2026 activity breakdown, provenance, DAO-origin %.
-- **`ath_sellers_2026.md`** — same table, formatted.
+- **`ATH_forensic_report.md`** — the full written report: findings, methodology,
+  front-running verdict, provenance, plus **Table A** (all wallets that sold >$1k YTD)
+  and **Table B** (all wallets that sold >$1k in the trailing 21 days).
+- **`ath_sellers_2026.csv`** — machine-readable YTD table: all 41 wallets, ATH sold,
+  USD at sale time, current holdings, net, 2026 activity breakdown, provenance, DAO-origin %.
+- **`ath_sellers_2026.md`** — YTD table, formatted.
 - Result/evidence JSON: `final_table.json`, `dao_origin.json`, `bal_authoritative.json`,
   `cow_sells.json`, `cow_owners.json`, `dao_roots.json`, `frontrun_stats.json`,
   `prices_daily.json`, `blocks.json`, `deploy.json`.
@@ -57,6 +60,8 @@ python3 final.py        # unified table (direct + CoW) -> final_table.json
 python3 provenance.py   # all-time inbound source classification
 python3 frontrun.py     # same-block ordering around subject's sells
 python3 frontrun2.py    # minute/hour/day co-trading windows
+python3 window21.py     # trailing-21-day >$1k seller aggregation -> window21_rows.json
+python3 gen_doc.py      # assemble ATH_forensic_report.md (findings + Table A + Table B)
 # (rpc.py = JSON-RPC helper; keccak.py = pure-python keccak-256 for event topics)
 ```
 
