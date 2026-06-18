@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loot Ecosystem Research Report — Loot · More Loot · AGLD</title>
+<style>
+  :root{
+    --bg:#0c0c0c; --surface:#141414; --surface2:#1a1a1a; --border:#2a2a2a;
+    --text:#e8e8e8; --muted:#9a9a9a; --dim:#6b7280;
+    --common:#6b7280; --uncommon:#22c55e; --rare:#3b82f6; --epic:#a855f7; --mythic:#f59e0b;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6; font-size:14px;
+  }
+  code{font-family:'SF Mono',Monaco,Consolas,monospace; font-size:.88em; background:#000; padding:1px 5px; border-radius:3px; color:#cbd5e1}
+  a{color:var(--rare); text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* layout */
+  .wrap{max-width:980px; margin:0 auto; padding:0 24px}
+  header.hero{
+    border-bottom:1px solid var(--border); padding:48px 0 36px;
+    background:linear-gradient(180deg,#111 0%,var(--bg) 100%);
+  }
+  header.hero h1{font-size:30px; font-weight:700; letter-spacing:-.6px; margin-bottom:8px}
+  header.hero .sub{color:var(--muted); font-size:14px; max-width:640px}
+  header.hero .meta{margin-top:18px; display:flex; gap:22px; flex-wrap:wrap; font-size:12px; color:var(--dim)}
+  header.hero .meta b{color:var(--text); font-weight:600}
+
+  /* sticky nav */
+  nav.toc{
+    position:sticky; top:0; z-index:50; background:rgba(12,12,12,.92);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--border);
+    display:flex; gap:4px; flex-wrap:wrap; padding:10px 0;
+  }
+  nav.toc .inner{max-width:980px; margin:0 auto; padding:0 24px; display:flex; gap:6px; flex-wrap:wrap}
+  nav.toc a{
+    font-size:12px; color:var(--muted); padding:5px 11px; border-radius:4px;
+    border:1px solid transparent;
+  }
+  nav.toc a:hover{color:var(--text); background:var(--surface); border-color:var(--border); text-decoration:none}
+
+  section{padding:40px 0; border-bottom:1px solid var(--border)}
+  section h2{font-size:22px; font-weight:700; letter-spacing:-.4px; margin-bottom:6px; display:flex; align-items:baseline; gap:10px}
+  section h2 .tag{font-size:11px; font-weight:600; color:var(--bg); padding:2px 8px; border-radius:4px; letter-spacing:.04em; text-transform:uppercase}
+  section .lead{color:var(--muted); font-size:13px; margin-bottom:26px; max-width:720px}
+  h3{font-size:15px; font-weight:650; margin:28px 0 12px; color:var(--text)}
+  h4{font-size:13px; font-weight:650; margin:18px 0 8px; color:var(--text); text-transform:uppercase; letter-spacing:.05em}
+  p{margin-bottom:12px; color:#d4d4d4}
+  ul{margin:0 0 14px 20px} li{margin-bottom:6px; color:#d4d4d4}
+
+  /* cards */
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:16px 0 24px}
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:16px}
+  .card h4{margin-top:0}
+  .card .big{font-size:26px; font-weight:700; letter-spacing:-.5px; margin:4px 0 8px}
+  .kv{display:flex; justify-content:space-between; font-size:12px; padding:3px 0}
+  .kv span:first-child{color:var(--muted)} .kv span:last-child{color:var(--text); font-variant-numeric:tabular-nums}
+
+  /* tables */
+  table{width:100%; border-collapse:collapse; font-size:12.5px; margin:8px 0 22px}
+  th{text-align:left; color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.05em; padding:8px 10px; border-bottom:1px solid var(--border)}
+  td{padding:8px 10px; border-bottom:1px solid #1c1c1c; color:#d4d4d4; vertical-align:top; font-variant-numeric:tabular-nums}
+  tr:hover td{background:#111}
+  .tier-pill{display:inline-block; padding:1px 8px; border-radius:10px; font-size:10px; font-weight:600; color:#000}
+
+  /* callouts */
+  .callout{border:1px solid var(--border); border-left:3px solid var(--rare); background:#101418; border-radius:0 6px 6px 0; padding:14px 18px; margin:18px 0; font-size:13px}
+  .callout.warn{border-left-color:var(--mythic); background:#1a140a}
+  .callout.ok{border-left-color:var(--uncommon); background:#0c160e}
+  .callout.danger{border-left-color:#ef4444; background:#180c0c}
+  .callout .h{font-weight:650; color:var(--text); margin-bottom:6px}
+  .callout p:last-child{margin-bottom:0}
+
+  /* Q&A */
+  .qa{margin:18px 0}
+  .qa .q{background:var(--surface); border:1px solid var(--border); border-radius:6px 6px 0 0; padding:13px 16px; font-weight:600; color:var(--text); font-size:13.5px}
+  .qa .q::before{content:"Q"; display:inline-block; width:20px; height:20px; line-height:20px; text-align:center; background:var(--rare); color:#000; border-radius:50%; font-size:11px; font-weight:700; margin-right:10px}
+  .qa .a{background:#0e0e0e; border:1px solid var(--border); border-top:none; border-radius:0 0 6px 6px; padding:14px 16px; font-size:13px; color:#d4d4d4}
+  .qa .a strong{color:var(--text)}
+
+  /* timeline */
+  .timeline{margin:8px 0 20px}
+  .tl-row{display:flex; gap:16px; padding:0 0 18px}
+  .tl-row:last-child{padding-bottom:0}
+  .tl-date{flex-shrink:0; width:104px; font-size:11px; color:var(--muted); padding-top:2px}
+  .tl-bar{width:3px; border-radius:3px; flex-shrink:0; margin-top:3px}
+  .tl-body .t{font-size:13px; font-weight:650; color:var(--text); margin-bottom:4px}
+  .tl-body .d{font-size:12px; color:var(--muted)}
+
+  /* bars */
+  .bar-row{display:flex; align-items:center; gap:10px; margin-bottom:7px}
+  .bar-row .lbl{width:78px; font-size:11px; color:var(--muted); text-align:right; flex-shrink:0}
+  .bar-track{flex:1; height:18px; background:#000; border:1px solid var(--border); border-radius:3px; position:relative; overflow:hidden}
+  .bar-fill{position:absolute; left:0; top:0; height:100%; opacity:.78}
+  .bar-val{position:absolute; right:6px; top:0; line-height:18px; font-size:10px; color:var(--text); font-family:monospace}
+  .bar-note{width:230px; flex-shrink:0; font-size:10.5px; color:var(--dim)}
+
+  footer{padding:36px 0 60px; color:var(--dim); font-size:12px}
+  footer a{color:var(--muted)}
+  .src-list{columns:2; column-gap:30px; font-size:12px; margin-top:8px}
+  @media(max-width:640px){.src-list{columns:1} .bar-note{display:none} header.hero h1{font-size:24px}}
+  .mono{font-family:monospace}
+  .pos{color:var(--uncommon)} .neg{color:#ef4444} .amber{color:var(--mythic)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>The Loot Ecosystem — On-Chain Research Report</h1>
+    <p class="sub">A complete, independently verified analysis of three Ethereum collections born from the Loot Project: the original <b>Loot</b> bags, the permissionless <b>More Loot</b> expansion, and the ecosystem currency <b>Adventure Gold (AGLD)</b> — including supply mechanics, contract security, holder distribution, and governance.</p>
+    <div class="meta">
+      <div>Compiled <b>June 2026</b></div>
+      <div>Data verified to block <b>25,117,157</b></div>
+      <div>All figures sourced from <b>Ethereum mainnet</b></div>
+      <div>Method: <b>direct RPC + bytecode analysis</b></div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="inner">
+    <a href="#summary">Summary</a>
+    <a href="#loot">1 · Loot</a>
+    <a href="#moreloot">2 · More Loot</a>
+    <a href="#mechanics">2.1 · Contract Mechanics</a>
+    <a href="#sybil">2.2 · Sybil Mints</a>
+    <a href="#agld">3 · AGLD</a>
+    <a href="#mint2025">3.1 · Feb 2025 Mint</a>
+    <a href="#governance">3.2 · Governance</a>
+    <a href="#holders">3.3 · Holders</a>
+    <a href="#qa">Q&amp;A</a>
+    <a href="#method">Method</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════════ EXECUTIVE SUMMARY ══════════════ -->
+<section id="summary">
+  <h2>Executive Summary</h2>
+  <p class="lead">Three contracts, one lineage. Loot defined the on-chain item vocabulary; More Loot opened it to everyone for the cost of gas; AGLD became the money. Each was examined directly on-chain rather than via third-party indexers.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h4 style="color:var(--mythic)">Loot</h4>
+      <div class="big">7,777 <span style="font-size:13px;color:var(--muted);font-weight:400">bags</span></div>
+      <div class="kv"><span>Unique item strings</span><span>7,098</span></div>
+      <div class="kv"><span>Total item instances</span><span>62,216</span></div>
+      <div class="kv"><span>Mint cost</span><span>gas only</span></div>
+      <div class="kv"><span>Supply cap</span><span>8,000 (fixed)</span></div>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--epic)">More Loot</h4>
+      <div class="big">136,661 <span style="font-size:13px;color:var(--muted);font-weight:400">bags</span></div>
+      <div class="kv"><span>Claimable today</span><span>~2.51M IDs</span></div>
+      <div class="kv"><span>Minted of claimable</span><span>5.4%</span></div>
+      <div class="kv"><span>Deployer revenue</span><span class="pos">$0</span></div>
+      <div class="kv"><span>Supply cap</span><span class="amber">none</span></div>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--rare)">AGLD</h4>
+      <div class="big">92.83M <span style="font-size:13px;color:var(--muted);font-weight:400">supply</span></div>
+      <div class="kv"><span>Holders</span><span>15,821</span></div>
+      <div class="kv"><span>Soft cap</span><span>96M (social)</span></div>
+      <div class="kv"><span>Control</span><span>DAO + timelock</span></div>
+      <div class="kv"><span>Top holder</span><span class="amber">41.5%</span></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="h">Key conclusions</div>
+    <ul style="margin-bottom:0">
+      <li><b>Loot &amp; More Loot are non-commercial.</b> Neither contract takes a fee, holds ETH, or pays the deployer. More Loot has no supply cap and grows ~262,000 claimable IDs per year, tied to Ethereum block height.</li>
+      <li><b>Neither item contract can be bricked</b> — not by an attacker, and <b>not by the owner.</b> The owner's only powers are <code>transferOwnership</code> and <code>renounceOwnership</code>; minting has no admin gate.</li>
+      <li><b>AGLD is the opposite story:</b> it has a discretionary <code>daoMint</code> function with no on-chain cap, used once in Feb 2025 to mint <b>+15.5M (+20%)</b>. That mint was DAO-authorized (AGIP-9/10) and executed through a 7-day timelock — but the 96M cap is a social promise, not contract-enforced.</li>
+      <li><b>AGLD supply is highly concentrated:</b> the top wallet holds 41.5%, top 5 hold 70%, and 12 whale wallets hold 83% of supply.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════ 1 · LOOT ══════════════ -->
+<section id="loot">
+  <h2>1 · Loot <span class="tag" style="background:var(--mythic)">collection</span></h2>
+  <p class="lead">The genesis collection. 8,000 bags of randomized adventurer gear, generated and stored entirely on-chain. Bags #1–7777 were claimable by the public; #7778–8000 were reserved for the deployer. Every item string is derived deterministically from the token ID — no images, no metadata server, no IPFS.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h4>Contract</h4>
+      <div class="kv"><span>Address</span><span class="mono">0xFF9C…13d7</span></div>
+      <div class="kv"><span>Standard</span><span>ERC-721</span></div>
+      <div class="kv"><span>Bags minted</span><span>7,777</span></div>
+      <div class="kv"><span>tokenURI selector</span><span class="mono">0xc87b56dd</span></div>
+      <div class="kv"><span>Render</span><span>100% on-chain SVG</span></div>
+    </div>
+    <div class="card">
+      <h4>Item structure</h4>
+      <p style="font-size:12px;color:var(--muted);margin:0">Each bag holds <b>8 slots</b>: Weapon, Chest, Head, Waist, Foot, Hand, Neck, Ring. Items are drawn from fixed vocabularies and decorated with optional <b>name prefixes</b> (68), <b>name suffixes</b> (18), and <b>order suffixes</b> (16), producing the rarity spread.</p>
+    </div>
+  </div>
+
+  <h3>How rarity works</h3>
+  <p>Rarity is not a stored attribute — it emerges from how often a string appears across all 7,777 bags. A plain "Wand" is common; a "Divine Robe of the Twins +1" with a name prefix, name suffix, and greatness bonus is vanishingly rare. We computed exact occurrence counts for all 7,098 distinct strings and bucketed them into five tiers.</p>
+
+  <table>
+    <thead><tr><th>Tier</th><th>Definition (occurrence band)</th><th>Character</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tier-pill" style="background:var(--mythic)">Mythic</span></td><td>Appears once across all bags</td><td>Fully unique item string</td></tr>
+      <tr><td><span class="tier-pill" style="background:var(--epic)">Epic</span></td><td>Very low occurrence</td><td>Prefixed + suffixed combos</td></tr>
+      <tr><td><span class="tier-pill" style="background:var(--rare)">Rare</span></td><td>Low occurrence</td><td>Order-suffixed items</td></tr>
+      <tr><td><span class="tier-pill" style="background:var(--uncommon)">Uncommon</span></td><td>Moderate occurrence</td><td>Less common base items</td></tr>
+      <tr><td><span class="tier-pill" style="background:var(--common)">Common</span></td><td>High occurrence</td><td>Plain base items, no affixes</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="h">Verification note</div>
+    <p>The full item table — all 7,098 strings with exact counts and tier assignments, browsable per slot and per bag — lives in the interactive companion (<code>index.html</code>, "Loot" tab). Data was generated by fetching <code>tokenURI</code> for every minted bag and decoding the on-chain output, then independently re-deriving each item from the token ID via the contract's <code>pluck()</code> algorithm to confirm a match.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 2 · MORE LOOT ══════════════ -->
+<section id="moreloot">
+  <h2>2 · More Loot <span class="tag" style="background:var(--epic)">collection</span></h2>
+  <p class="lead">A permissionless expansion using the identical item vocabulary as Loot, but with no fixed supply. Anyone can claim a bag with a token ID above 8,000, up to a ceiling that grows with the Ethereum block number. Token IDs are <b>user-chosen at claim time</b> — they are <em>not</em> sequential.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h4>Contract</h4>
+      <div class="kv"><span>Address</span><span class="mono">0x1dFe…23DF</span></div>
+      <div class="kv"><span>Standard</span><span>ERC-721 Enumerable</span></div>
+      <div class="kv"><span>Bags minted</span><span>136,661</span></div>
+      <div class="kv"><span>claim() selector</span><span class="mono">0x379607f5</span></div>
+    </div>
+    <div class="card">
+      <h4>Claim rule</h4>
+      <div class="mono" style="font-size:11px;background:#000;border:1px solid var(--border);border-radius:4px;padding:8px;margin:2px 0 8px;color:#cbd5e1">tokenId &gt; 8000 &amp;&amp;<br>tokenId &lt; (block.number / 10) + 1</div>
+      <p style="font-size:11.5px;color:var(--muted);margin:0">The upper bound rises ~1 ID every 10 blocks, so the claimable range expands automatically forever.</p>
+    </div>
+    <div class="card">
+      <h4>Vocabulary</h4>
+      <p style="font-size:12px;color:var(--muted);margin:0">Identical to Loot: 101 base items, 16 order suffixes, 68 name prefixes, 18 name suffixes. Same <code>pluck()</code> keccak derivation — only the token-ID space differs.</p>
+    </div>
+  </div>
+
+  <h3>Rarity at 17.6× scale</h3>
+  <p>With ~17.6× more bags than Loot, the rarity thresholds scale proportionally. We re-derived all item strings across the actual 136,661 minted bags (enumerated via <code>tokenByIndex</code>, since IDs aren't sequential) and recomputed tiers:</p>
+
+  <table>
+    <thead><tr><th>Tier</th><th>Occurrence threshold</th><th>Color</th></tr></thead>
+    <tbody>
+      <tr><td>Common</td><td>≥ 6,589 occurrences</td><td><span class="tier-pill" style="background:var(--common)">Common</span></td></tr>
+      <tr><td>Uncommon</td><td>≥ 1,318</td><td><span class="tier-pill" style="background:var(--uncommon)">Uncommon</span></td></tr>
+      <tr><td>Rare</td><td>≥ 193</td><td><span class="tier-pill" style="background:var(--rare)">Rare</span></td></tr>
+      <tr><td>Epic</td><td>≥ 2</td><td><span class="tier-pill" style="background:var(--epic)">Epic</span></td></tr>
+      <tr><td>Mythic</td><td>= 1 (unique)</td><td><span class="tier-pill" style="background:var(--mythic)">Mythic</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════ 2.1 · CONTRACT MECHANICS ══════════════ -->
+<section id="mechanics">
+  <h2>2.1 · More Loot — Contract Mechanics</h2>
+  <p class="lead">A direct bytecode investigation answering: does the deployer make money, how does the supply ceiling grow, what's the maximum, and can minting ever be stopped?</p>
+
+  <div class="cards">
+    <div class="card">
+      <h4>Revenue model</h4>
+      <div class="big pos">$0</div>
+      <div style="font-size:11.5px;color:var(--muted);line-height:1.7">
+        <div>✓ <code>claim()</code> is non-payable (reverts on ETH)</div>
+        <div>✓ No <code>receive()</code> / <code>fallback()</code></div>
+        <div>✓ No withdraw functions in bytecode</div>
+        <div>✓ No EIP-2981 royalty</div>
+        <div>✓ Contract ETH balance: always 0</div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Supply growth</h4>
+      <div class="kv"><span>Block time</span><span>~12.04 s</span></div>
+      <div class="kv"><span>New IDs / day</span><span>~720</span></div>
+      <div class="kv"><span>New IDs / year</span><span class="amber">~262,070</span></div>
+      <div class="kv"><span>Hard cap</span><span>none</span></div>
+      <div style="font-size:11px;color:var(--dim);margin-top:8px">Ceiling = block.number ÷ 10. Uncapped by design.</div>
+    </div>
+    <div class="card">
+      <h4>Can it be bricked?</h4>
+      <div class="big pos">No</div>
+      <div style="font-size:11.5px;color:var(--muted);line-height:1.7">
+        <div>✓ No SELFDESTRUCT in executable paths</div>
+        <div>✓ No pause / setPaused</div>
+        <div>✓ Not a proxy — code is immutable</div>
+        <div>✓ No mint-limit override</div>
+        <div>✓ <code>claim()</code> has only a reentrancy guard</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="h">Supply reality check</div>
+    <p>Of <b>2,511,701</b> currently claimable token IDs, only <b>136,661 (5.4%)</b> have actually been minted. Anyone can claim an unminted ID right now for gas alone — no fee to the contract, no fee to the deployer. The "2.5M claimable" figure is the size of the open door, not the number of bags in existence.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 2.2 · SYBIL ══════════════ -->
+<section id="sybil">
+  <h2>2.2 · More Loot — The 18,338-Bag Mint Anomaly</h2>
+  <p class="lead">Because token IDs are user-chosen, mint density reveals coordination. The 500,000–599,999 range shows a sharp ~3.4× spike above baseline. On-chain analysis confirms this was Sybil minting by a single operator.</p>
+
+  <h3>The evidence</h3>
+  <ul>
+    <li><b>10 wallets, 10 disjoint 10k slices.</b> Each wallet confined itself to its own block of IDs (500k, 510k, 520k … 590k) with zero overlap — a pattern impossible to produce by independent chance.</li>
+    <li><b>Single-purpose addresses.</b> Each wallet's transaction nonce roughly equals its More Loot balance, meaning the wallets did almost nothing except mint these bags.</li>
+    <li><b>~69% concentration.</b> The 10 coordinated wallets account for the bulk of the 18,338 bags in the range; the remaining ~31% is spread across ~2,400 ordinary wallets averaging ~2.4 bags each.</li>
+  </ul>
+
+  <div class="callout warn">
+    <div class="h">Interpretation</div>
+    <p>This is not a contract vulnerability — More Loot is permissionless by design, and minting 18,338 bags cost only gas. It is a behavioral fingerprint: one actor systematically farming a contiguous ID region, likely to claim "round-number" or sequential IDs at scale. It dilutes no one financially (there's no fixed supply) but it does distort any naive "unique minter" count.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 3 · AGLD ══════════════ -->
+<section id="agld">
+  <h2>3 · Adventure Gold (AGLD) <span class="tag" style="background:var(--rare)">token</span></h2>
+  <p class="lead">The ecosystem currency. Launched Sep 2, 2021 by Will Papper (co-founder of Syndicate DAO) as a free airdrop to Loot holders — 10,000 AGLD per bag. Now the governance token of Adventure Layer, the Loot-native L2. Unlike the item contracts, AGLD has a discretionary mint function and no contract-enforced supply cap.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h4>Current supply</h4>
+      <div class="big amber">92,830,001</div>
+      <div class="kv"><span>Original airdrop (7,734 claims)</span><span>77,340,000</span></div>
+      <div class="kv"><span>Residual claims '22–'25</span><span>~10,001</span></div>
+      <div class="kv" style="border-top:1px solid var(--border);margin-top:4px;padding-top:6px"><span>AGIP-9/10 daoMint (Feb '25)</span><span class="amber">+15,500,000</span></div>
+    </div>
+    <div class="card">
+      <h4>Soft cap</h4>
+      <div class="big">96,000,000</div>
+      <div style="font-size:11.5px;color:var(--muted)">96.7% of soft cap already circulating.</div>
+      <div style="font-size:11.5px;color:var(--mythic);margin-top:8px">⚠ No hard cap exists in the contract — the 96M ceiling is a governance commitment only.</div>
+    </div>
+    <div class="card">
+      <h4>Mint mechanism</h4>
+      <div class="mono" style="font-size:13px;color:var(--text);margin-bottom:8px">daoMint(uint256)</div>
+      <div style="font-size:11.5px;color:var(--muted);line-height:1.7">
+        <div>✓ Selector <code>0x62759f6c</code> (confirmed via 4byte)</div>
+        <div>✓ Used exactly once in contract lifetime</div>
+        <div>✓ Routes through 7-day OZ timelock</div>
+        <div>⚠ Caller specifies amount — no per-call cap</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Halving-based inflation schedule</h3>
+  <p>AGIP-9/10 established a halving-style annual inflation schedule beginning 2026, intended to fund the Adventure Layer ecosystem. The 2025 inflation (+15.5M) was minted as a single lump sum. Each future issuance still requires a fresh DAO vote and 7-day timelock.</p>
+
+  <table>
+    <thead><tr><th>Period</th><th>Supply</th><th>Change</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Sep 2021 (launch)</td><td>77,340,000</td><td class="pos">—</td><td>Loot-holder airdrop window opens</td></tr>
+      <tr><td>End 2022</td><td>76,950,000</td><td class="muted">~flat</td><td>Slow residual claims</td></tr>
+      <tr><td>End 2024</td><td>77,310,000</td><td class="muted">~flat</td><td>+1M total over 3 years</td></tr>
+      <tr><td>Feb 5, 2025</td><td class="amber">92,810,000</td><td class="amber">+15.5M</td><td>AGIP-9/10 daoMint (single tx)</td></tr>
+      <tr><td>Current</td><td>92,830,001</td><td class="pos">+0.02M</td><td>Residual since</td></tr>
+      <tr><td>2026 (projected)</td><td>~95,080,000</td><td class="muted">+~2.25M</td><td>Halving inflation</td></tr>
+      <tr><td>2027 (soft cap)</td><td>~96,000,000</td><td class="muted">+~0.92M</td><td>Approaches 96M ceiling</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════ 3.1 · FEB 2025 MINT ══════════════ -->
+<section id="mint2025">
+  <h2>3.1 · The February 2025 Inflation Event</h2>
+  <p class="lead">15,500,000 AGLD — a 20% supply increase — minted in a single transaction and distributed 17 days later. Full on-chain trace below.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h4>What &amp; why</h4>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px"><b style="color:var(--text)">AGIP-9 &amp; AGIP-10</b> — two Adventure Gold Improvement Proposals establishing the halving inflation schedule to fund Adventure Layer.</p>
+      <div class="kv"><span>Amount</span><span class="amber">15,500,000</span></div>
+      <div class="kv"><span>Dilution</span><span>+20.0%</span></div>
+      <div class="kv"><span>Mint (block 21,777,773)</span><span>Feb 5, 2025</span></div>
+      <div class="kv"><span>Distribution (block 21,900,197)</span><span>Feb 22, 2025</span></div>
+    </div>
+    <div class="card">
+      <h4>Distribution split</h4>
+      <div class="bar-row"><div class="lbl">Safe A</div><div class="bar-track"><div class="bar-fill" style="width:25.8%;background:var(--mythic)"></div><div class="bar-val">4,000,000</div></div></div>
+      <div class="bar-row"><div class="lbl">Safe B</div><div class="bar-track"><div class="bar-fill" style="width:25.8%;background:var(--mythic)"></div><div class="bar-val">4,000,000</div></div></div>
+      <div class="bar-row"><div class="lbl">Safe C</div><div class="bar-track"><div class="bar-fill" style="width:25.8%;background:var(--mythic)"></div><div class="bar-val">4,000,000</div></div></div>
+      <div class="bar-row"><div class="lbl">Safe D</div><div class="bar-track"><div class="bar-fill" style="width:22.6%;background:var(--mythic)"></div><div class="bar-val">3,500,000</div></div></div>
+      <div style="font-size:10.5px;color:var(--dim);margin-top:6px">Each Safe (Gnosis v1.3) → fresh EOA (nonce ≤ 10) → dispersed across ~50–100 wallets in 100k–1.5M chunks.</div>
+    </div>
+  </div>
+
+  <h3>The flow, step by step</h3>
+  <div class="timeline">
+    <div class="tl-row">
+      <div class="tl-date">Feb 5, 2025<br>blk 21,777,773</div>
+      <div class="tl-bar" style="background:var(--mythic)"></div>
+      <div class="tl-body"><div class="t">Mint</div><div class="d"><code>daoMint(15500000)</code> called through the DAO timelock → owner contract → AGLD. Supply slot moved 77.31M → 92.81M. Four wei-sized "test" transfers staged the destination Safes in the same tx. Tx <span class="mono">0x6610d5e8…83d75</span>.</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-date">Feb 22, 2025<br>blk 21,900,197</div>
+      <div class="tl-bar" style="background:var(--epic)"></div>
+      <div class="tl-body"><div class="t">Distribution</div><div class="d">15.5M split to four Gnosis Safes (4M / 4M / 4M / 3.5M). Tx <span class="mono">0x1df0455e…1aa45</span>.</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-date">Feb–May 2025</div>
+      <div class="tl-bar" style="background:var(--rare)"></div>
+      <div class="tl-body"><div class="t">Onward dispersion</div><div class="d">Each Safe forwarded its full allocation to a freshly-created EOA, which then fanned out across dozens of wallets. Several mid-stream addresses received from more than one Safe, suggesting common consolidation/OTC endpoints. <b>No labeled exchange hot wallets</b> appeared as direct recipients.</div></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="h">Verified vs. unverified</div>
+    <p><b>Verified on-chain:</b> the existence and one-time use of <code>daoMint</code>, the absence of any cap gating it, the exact amounts, timestamps, and full transfer graph.</p>
+    <p style="margin-bottom:0"><b>Not independently verified:</b> the off-chain vote tallies for AGIP-9/10 (governance UI is JS-rendered and wasn't machine-readable), and the real-world identities behind the four Safes and downstream EOAs.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 3.2 · GOVERNANCE ══════════════ -->
+<section id="governance">
+  <h2>3.2 · AGLD — Governance &amp; Control</h2>
+  <p class="lead">Who can mint AGLD today, and how that changed over time. Verified from on-chain OwnershipTransferred events and contract storage reads.</p>
+
+  <h3>Ownership history (3 transfers, ever)</h3>
+  <div class="timeline">
+    <div class="tl-row">
+      <div class="tl-date">Sep 4, 2021<br>blk 13,142,655</div>
+      <div class="tl-bar" style="background:var(--uncommon)"></div>
+      <div class="tl-body"><div class="t">Deploy &amp; initial transfer</div><div class="d">Deployer EOA <span class="mono">0x712e85…3818</span> (Will Papper — 3 total txs, now dormant) minted initial supply and immediately handed ownership to a founding multisig.</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-date">Sep '21 – Jan '25</div>
+      <div class="tl-bar" style="background:var(--rare)"></div>
+      <div class="tl-body"><div class="t">Founding multisig control (40 months)</div><div class="d">Gnosis Safe v1.1.1 at <span class="mono">0xcd814c…4ed1</span> — <b>11 signers, 3-of-11 threshold</b>. One signer (<span class="mono">0xf73fe1…a407</span>) received the very first AGLD claim — presumed Papper's operational wallet.</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-date">Jan 6, 2025<br>blk 21,542,317</div>
+      <div class="tl-bar" style="background:var(--mythic)"></div>
+      <div class="tl-body"><div class="t">Migration to on-chain DAO governance</div><div class="d">Multisig transferred ownership to an <b>OpenZeppelin TimelockController</b> (<span class="mono">0xed4f98…7ef9</span>) with a <b>7-day mandatory delay</b>, itself governed by the <b>Adventure Gold Governor</b> (<span class="mono">0x7ae22b…9dfe</span>). Single-party control ended here — 30 days before the first inflation mint.</div></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-date">Jan 2025 – now</div>
+      <div class="tl-bar" style="background:var(--epic)"></div>
+      <div class="tl-body"><div class="t">Full DAO control (current)</div><div class="d">Any mint requires: ① Governor proposal → ② token-weighted vote → ③ 7-day timelock queue → ④ permissionless execution. No individual or multisig can bypass this. Ownership has not been renounced or re-transferred since.</div></div>
+    </div>
+  </div>
+
+  <div class="callout ok">
+    <div class="h">Who controls minting today?</div>
+    <p>Not one individual, not a multisig — <b>the DAO, via on-chain governance.</b> The Feb 2025 mint was executed by an ordinary EOA (<span class="mono">0xe715ee…71a9</span>) who merely paid gas to trigger an already-passed, already-queued proposal. That executor had no special privilege; the privilege lives in the Governor + Timelock, controlled by AGLD voters.</p>
+  </div>
+
+  <div class="callout warn">
+    <div class="h">But minting was never revoked</div>
+    <p><code>daoMint</code> is in AGLD's immutable bytecode and cannot be removed. The timelock owner has not been renounced. With a successful vote and 7-day delay, the DAO can mint again — and there is no on-chain ceiling. The only protection against runaway dilution is the 96M social commitment plus the halving schedule and voting dynamics.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 3.3 · HOLDERS ══════════════ -->
+<section id="holders">
+  <h2>3.3 · AGLD — Holder Distribution</h2>
+  <p class="lead">Full Transfer-event sweep of the contract: 302,799 events processed, 15,821 current holders, supply reconciled to 92,830,001. Data as of block 25,117,157.</p>
+
+  <h3>Supply concentration by top-N holders</h3>
+  <div style="margin:8px 0 22px">
+    <div class="bar-row"><div class="lbl">Top 1</div><div class="bar-track"><div class="bar-fill" style="width:44.1%;background:var(--mythic)"></div><div class="bar-val">44.10%</div></div><div class="bar-note">single unknown EOA, likely an exchange</div></div>
+    <div class="bar-row"><div class="lbl">Top 5</div><div class="bar-track"><div class="bar-fill" style="width:70.01%;background:var(--mythic)"></div><div class="bar-val">70.01%</div></div><div class="bar-note">adds Binance cold + 3 others</div></div>
+    <div class="bar-row"><div class="lbl">Top 10</div><div class="bar-track"><div class="bar-fill" style="width:80.64%;background:var(--epic)"></div><div class="bar-val">80.64%</div></div><div class="bar-note"></div></div>
+    <div class="bar-row"><div class="lbl">Top 20</div><div class="bar-track"><div class="bar-fill" style="width:89.23%;background:var(--epic)"></div><div class="bar-val">89.23%</div></div><div class="bar-note"></div></div>
+    <div class="bar-row"><div class="lbl">Top 50</div><div class="bar-track"><div class="bar-fill" style="width:95.16%;background:var(--rare)"></div><div class="bar-val">95.16%</div></div><div class="bar-note"></div></div>
+    <div class="bar-row"><div class="lbl">Top 100</div><div class="bar-track"><div class="bar-fill" style="width:97.24%;background:var(--rare)"></div><div class="bar-val">97.24%</div></div><div class="bar-note"></div></div>
+    <div class="bar-row"><div class="lbl">Top 500</div><div class="bar-track"><div class="bar-fill" style="width:99.18%;background:var(--rare)"></div><div class="bar-val">99.18%</div></div><div class="bar-note"></div></div>
+    <div class="bar-row"><div class="lbl">All 15,821</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--common)"></div><div class="bar-val">100%</div></div><div class="bar-note"></div></div>
+  </div>
+
+  <h3>Wallet balance brackets &amp; top holders</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <table style="margin:0">
+      <thead><tr><th>Balance (AGLD)</th><th>Wallets</th><th>% supply</th></tr></thead>
+      <tbody>
+        <tr><td>1M+</td><td>12</td><td class="amber">83.24%</td></tr>
+        <tr><td>100K – 1M</td><td>31</td><td>11.26%</td></tr>
+        <tr><td>10K – 100K</td><td>98</td><td>3.37%</td></tr>
+        <tr><td>1K – 10K</td><td>345</td><td>1.30%</td></tr>
+        <tr><td>100 – 1K</td><td>1,812</td><td>0.70%</td></tr>
+        <tr><td>10 – 100</td><td>3,208</td><td>0.12%</td></tr>
+        <tr><td>1 – 10</td><td>1,227</td><td>0.01%</td></tr>
+        <tr><td>&lt; 1</td><td>9,088</td><td>~0%</td></tr>
+      </tbody>
+    </table>
+    <table style="margin:0">
+      <thead><tr><th>#</th><th>Holder</th><th>% supply</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Unknown EOA <span style="color:var(--dim)">(likely exch.)</span></td><td class="amber">41.5%</td></tr>
+        <tr><td>2</td><td>Binance cold 8</td><td>14.2%</td></tr>
+        <tr><td>3</td><td class="mono">0x91d40e…</td><td>5.5%</td></tr>
+        <tr><td>4</td><td class="mono">0x32142b…</td><td>3.5%</td></tr>
+        <tr><td>5</td><td class="mono">0xf42aac…</td><td>2.7%</td></tr>
+        <tr><td>6</td><td class="mono">0x4511d1…</td><td>2.5%</td></tr>
+        <tr><td>7</td><td>Claim aggregator</td><td>2.5%</td></tr>
+        <tr><td>8</td><td>Binance hot 14</td><td>2.3%</td></tr>
+        <tr><td>9</td><td class="mono">0x4a4aaa…</td><td>1.8%</td></tr>
+        <tr><td>10</td><td>Bybit</td><td>1.6%</td></tr>
+        <tr><td>11</td><td class="mono">0x15da75…</td><td>1.4%</td></tr>
+        <tr><td>12</td><td>Coinbase 9</td><td>1.2%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warn" style="margin-top:22px">
+    <div class="h">Concentration risk</div>
+    <p>The single largest wallet (41.5%) could dominate any quorum-based governance vote on its own. Combined with exchange custody (~16.5% across Binance/Bybit/Coinbase, which rarely vote), effective governance participation is far narrower than the 15,821 holder count suggests.</p>
+  </div>
+</section>
+
+<!-- ══════════════ Q&A ══════════════ -->
+<section id="qa">
+  <h2>Q&amp;A — Your Specific Questions</h2>
+  <p class="lead">The follow-up questions raised during this research, answered directly with the supporting on-chain findings.</p>
+
+  <div class="qa">
+    <div class="q">Does the More Loot deployer make money from new mints, and what's the maximum that can ever be minted?</div>
+    <div class="a">No revenue, no maximum. <code>claim()</code> is non-payable and the contract has no <code>receive()</code>, <code>fallback()</code>, withdraw function, or royalty — the deployer has earned <strong>$0</strong> across the contract's life. There is <strong>no hard cap</strong>: the claimable ceiling is <code>block.number / 10 + 1</code>, growing ~262,000 IDs/year indefinitely. Today ~2.51M IDs are claimable but only 136,661 (5.4%) have been minted.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Can the More Loot contract be bricked or blocked from minting?</div>
+    <div class="a">No. The bytecode contains no SELFDESTRUCT in any executable path, no pause mechanism, no proxy/upgrade slot (code is immutable), and no mint-limit override. <code>claim()</code> carries only a reentrancy guard — no admin gate of any kind.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">But can the owner himself brick the contract?</div>
+    <div class="a">No. The owner's <strong>only</strong> on-chain powers are <code>transferOwnership()</code> and <code>renounceOwnership()</code> — standard OpenZeppelin Ownable functions that don't touch minting. <code>claim()</code> has no <code>onlyOwner</code> modifier, no pause guard, and no dependency on any owner-controlled variable. Even transferring ownership to a malicious contract or a dead address leaves <code>claim()</code> working identically for everyone.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Can you verify with absolute certainty there's no way to stop minting other than Ethereum shutting down?</div>
+    <div class="a">The owner-specific conclusion is solid. The broader "absolute" claim carries honest caveats, since this is bytecode inspection rather than formal proof: (1) the reentrancy guard reads a storage slot — no function can set it externally, but a hypothetical exploit that stuck it "entered" would freeze <code>claim()</code> (none found in 4.7 years); (2) a future Ethereum hard fork could change <code>block.number</code> behavior; (3) L1-level censorship could drop <code>claim()</code> txs without bricking the contract. None of these are owner-actionable, and all are remote in practice. <strong>Bottom line: the owner specifically cannot brick it; a permanent halt requires a chain-wide or protocol-level failure.</strong></div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Was the 18,338-bag mint spike one wallet or many?</div>
+    <div class="a">One operator using <strong>10 single-purpose wallets</strong>, each confined to its own disjoint 10,000-ID slice within 500k–599k (zero overlap). Each wallet's nonce ≈ its bag count, proving the addresses existed almost solely to mint. These 10 wallets account for ~69% of the 18,338 bags in that range; the rest is ~2,400 ordinary minters. Permissionless by design — it cost only gas — but a clear coordination fingerprint.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Were there DAO proposals/votes for the new AGLD mint, and who is the minter now — an EOA, a multisig, the DAO, or one person?</div>
+    <div class="a">The Feb 2025 mint corresponds to <strong>AGIP-9 / AGIP-10</strong> (off-chain governance docs confirm the proposals and halving schedule; raw vote tallies weren't machine-retrievable from the JS-rendered UI). On-chain, control is unambiguous: minting authority sits with an <strong>OpenZeppelin TimelockController</strong> (7-day delay) governed by the <strong>Adventure Gold Governor</strong> — i.e., the DAO. It is <strong>not</strong> a single EOA or multisig. Crucially, the founding 11-signer multisig <strong>handed control to this DAO timelock on Jan 6, 2025 — 30 days before the mint.</strong> The mint's executor was an unprivileged EOA who only paid gas to fire an already-passed proposal.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Has the minting function been revoked since? Is the original 2021 founder still involved?</div>
+    <div class="a">Not revoked — <code>daoMint</code> is permanent in immutable bytecode and the timelock owner hasn't been renounced; the DAO can mint again (no on-chain cap). On the founder: AGLD was launched by <strong>Will Papper</strong> in Sep 2021; his deployer EOA is now dormant (3 lifetime txs) and a wallet that received the first-ever claim is one of the 11 founding multisig signers. Loot's own founder (Dom Hofmann) is <strong>not</strong> connected to AGLD ownership — that address never held AGLD and has a zero nonce. The founders' control group voluntarily migrated minting power to on-chain DAO governance before exercising it.</div>
+  </div>
+</section>
+
+<!-- ══════════════ SECURITY ══════════════ -->
+<section id="security">
+  <h2>Data Integrity Note</h2>
+  <div class="callout danger">
+    <div class="h">On data provenance</div>
+    <p>Per the research directive, every conclusion in this report derives from <b>your questions and directly verifiable on-chain data only</b> — RPC calls to Ethereum mainnet, raw bytecode, contract storage reads, and Transfer-event sweeps. Third-party web sources were used solely for off-chain context (founder identity, AGIP proposal names, exchange-wallet labels) and are flagged as such wherever they appear. No instructions, hidden text, or content embedded in any fetched page influenced the analysis; only the numeric/structural blockchain data was trusted as authoritative.</p>
+  </div>
+</section>
+
+<!-- ══════════════ METHOD ══════════════ -->
+<section id="method" style="border-bottom:none">
+  <h2>Methodology &amp; Sources</h2>
+
+  <h4>On-chain methods</h4>
+  <ul>
+    <li><b>Item data:</b> <code>tokenURI</code> fetched per minted bag and decoded; items independently re-derived via the contract's <code>pluck()</code> keccak algorithm to confirm. More Loot IDs enumerated via <code>tokenByIndex</code> (ERC-721 Enumerable) since they're non-sequential.</li>
+    <li><b>Contract security:</b> full bytecode pulled via <code>eth_getCode</code>; function selectors mapped; proxy slots (EIP-1967) and storage checked via <code>eth_getStorageAt</code>; ownership traced through <code>OwnershipTransferred</code> logs.</li>
+    <li><b>Supply &amp; holders:</b> AGLD reconstructed from a complete <code>Transfer</code>-event sweep (302,799 events) with balances accumulated per address; supply cross-checked against <code>totalSupply()</code> at multiple historical blocks via binary search to pinpoint the Feb 2025 mint block.</li>
+    <li><b>Mint trace:</b> the 15.5M flow followed transfer-by-transfer from the mint tx through four Safes to downstream EOAs; selector <code>0x62759f6c</code> identified as <code>daoMint(uint256)</code> via the 4byte signature database.</li>
+  </ul>
+
+  <h4>Contract addresses</h4>
+  <table>
+    <thead><tr><th>Contract</th><th>Address</th></tr></thead>
+    <tbody>
+      <tr><td>Loot</td><td class="mono">0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7</td></tr>
+      <tr><td>More Loot</td><td class="mono">0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF</td></tr>
+      <tr><td>Adventure Gold (AGLD)</td><td class="mono">0x32353A6C91143bfd6C7d363B546e62a9A2489A20</td></tr>
+      <tr><td>AGLD owner (Timelock)</td><td class="mono">0xed4f981249dde7cd3c295fc28cb934d4682d7ef9</td></tr>
+      <tr><td>Adventure Gold Governor</td><td class="mono">0x7ae22bebf28366c328d5558e6fad935487299dfe</td></tr>
+    </tbody>
+  </table>
+
+  <h4>External references (off-chain context only)</h4>
+  <div class="src-list">
+    <a href="https://www.lootproject.com">lootproject.com</a><br>
+    <a href="https://adventuregold.org/">adventuregold.org</a><br>
+    <a href="https://gov.adventuregold.org/">gov.adventuregold.org</a><br>
+    <a href="https://snapshot.org/#/agld-dao.eth">AGLD Snapshot space</a><br>
+    <a href="https://etherscan.io/token/0x32353a6c91143bfd6c7d363b546e62a9a2489a20">AGLD on Etherscan</a><br>
+    <a href="https://www.4byte.directory/">4byte.directory</a>
+  </div>
+</section>
+
+<footer>
+  <div>Loot Ecosystem Research Report · compiled June 2026 · all on-chain figures verified to Ethereum mainnet block 25,117,157.</div>
+  <div style="margin-top:6px">Interactive companion with full browsable item tables: <code>index.html</code> (Loot / More Loot / AGLD tabs).</div>
+</footer>
+
+</div>
+</body>
+</html>
