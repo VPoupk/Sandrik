@@ -1,0 +1,20 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Large, regenerable raw RPC dumps + bulky intermediates (recreated by the scripts)
+ath_transfers_raw.json
+ath_transfers_hist_raw.json
+ath_transfers_genesis_raw.json
+all_transfers.json
+v3_swaps_raw.json
+v4_swaps_raw.json
+v4_modliq_raw.json
+ts_map.json
+tx_origin.json
+sells.json
+buys.json
+wallets_core.json
+table_rows.json
+v4_txs.json
+balances_all.json
