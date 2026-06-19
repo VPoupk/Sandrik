@@ -1,4 +1,4 @@
-# ATH (AthenaDAO) - On-Chain Forensic Analysis
+# ATH (AthenaDAO) - Wallet-Watching & Anticipatory-Selling Analysis
 
 **Subject wallet:** `0xf0940b14e8a4bE798cD713A6807e95f47B769d9C`
 **Token:** ATH - AthenaDAO / AthenaBIO governance token - `0xa4ffdf3208f46898ce063e25c1c43056fa754739` (Ethereum, 18 dec)
@@ -15,26 +15,44 @@ Every figure below is reconstructed from raw Ethereum logs - no third-party dash
 - ATH has **only two Ethereum venues and no CEX listing**, so all on-chain selling is captured. Detected sells (**2,944,143 ATH**) reconcile to gross venue inflow (**2,943,757 ATH**) - essentially exact.
 - **USD = realized proceeds at the moment of sale** (WETH/BIO/CoW-buy-token received x that asset's USD rate on the sale date).
 
-## 2. Headline finding - are you being front-run?
-**No.** There is no transaction-level front-running and no sandwich bot targeting you.
-- Across all **9 of your sell transactions**, **zero** other ATH trades executed *before* you in the same block; **zero** sandwiches.
-- The wallets that appear "on top of you" are **arbitrage / market-making bots reacting to your price impact.** Proof: the #1 bot `0x930b88a5` traded **0 times in the hour *before*** your sells but **5x within the hour *after*** (17x within 6h after) - that is back-running/arbitrage, not prediction.
+## 2. Re-framed question: is anyone *watching your wallet* and selling in anticipation?
+This is **not** about same-block MEV (for the record there is none: across your 9 sell txs, zero other ATH trades ran before you in-block, no sandwiches). The question is whether holders see your loaded wallet and dump ahead of expected pressure. Verdict: **partial, confounded evidence.**
 
-**Why it feels like front-running:** ATH liquidity is only **~$59K** (V3 $32K + V4 $27K). Every large sell you place visibly moves price and creates a V3<->V4 dislocation that ~26 bots instantly arbitrage. The price fell **-79% over the period ($0.171 -> $0.036)**, so you (and everyone) sold into a downtrend with heavy slippage.
+**When your wallet became "watchable":** your tokens sat in a vesting contract until **2026-02-20**, when a **333,333 ATH** claim hit your wallet (you sold 16 min later); a second **200,000 ATH** claim hit **2026-05-27**. Your *original* 2023 receipt predates the DEX market (pool created Dec 2023), so the "7-14 days after first receipt" check is empty by construction - nobody could sell ahead of you then.
 
-## 3. The real "competing sellers" - parallel insider distribution
-What you're sensing is **other DAO-allocation holders distributing**, not a predatory bot:
-- **`0xea80c984` - 99% DAO-origin, the stealth seller.** Sold **59,970 ATH via 38 small CoW fills, near-daily Jan 4 -> Mar 31**, avg ~$0.099/ATH (distributed *early, near the top*). Token trail: genesis -> `0x5b99e2da` (12.5M Core/Early-Contributor pool) -> hub `0x0e449816` -> this wallet. Invisible on Etherscan's normal views because it routed through CoW.
-- **`0xd8a57177` (57,220 ATH, Mar 26)** and **`0x91e8b869` (32,535 ATH, Mar 27)** - both **100% DAO genesis recipients**, dumping on **consecutive days** (looks coordinated).
-- **`0xf35c6c74`** - DAO recipient; sold 15,761 but **still holds 64,011 ATH** (largest known future overhang outside the treasury).
-- These ran on their **own schedules and mostly finished by early Q2** - none reactively shadows your specific trades.
+**Aggregate selling roughly doubled once you were visible.** Excluding you and the arb/MM bots, non-bot selling ran **4,702 ATH/day before Feb 20** vs **9,155 ATH/day after** (~1.9x). That is consistent with holders de-risking around a visible whale - **but confounded** by (a) your own sells being the single largest genuine supply this year and (b) the price falling -79% ($0.171 -> $0.036). Both independently trigger others to sell, so this is correlation, not proof of monitoring.
+
+## 3. Who actually sold in reaction to you
+For each non-bot >$1k seller: share of volume sold shortly **after** your sells/unlocks. A random seller scores ~**33%** on "<=7d after" (that share of the post-Feb-20 timeline sits within 7 days of one of your sells), so only values well above 33% are reactive.
+
+| Wallet | Category | ATH sold | 1st sell | Started after you visible? | % ≤7d after your sell | % ≤14d after your unlock | Assessment |
+|---|---|--:|--:|:--:|--:|--:|---|
+| `0xd054ba91…` | market | 46,914 | 2026-05-29 | ✦ AFTER | 100% | 100% | **anticipatory exit** |
+| `0x3980daa7…` | market | 32,762 | 2026-01-31 | before | 97% | 92% | elevated post-sell selling |
+| `0x664eeb03…` | market | 11,358 | 2026-01-03 | before | 30% | 26% | independent (active before you were visible) |
+| `0xea80c984…` | DAO-allocation | 59,970 | 2026-01-04 | before | 16% | 16% | independent (active before you were visible) |
+| `0xd4a3a947…` | market | 106,036 | 2026-05-06 | ✦ AFTER | 0% | 0% | independent / own schedule |
+| `0xd8a57177…` | DAO-allocation | 57,220 | 2026-03-26 | ✦ AFTER | 0% | 0% | independent / own schedule |
+| `0x91e8b869…` | DAO-allocation | 32,535 | 2026-03-27 | ✦ AFTER | 0% | 0% | independent / own schedule |
+| `0x43309757…` | market | 25,614 | 2026-01-05 | before | 0% | 0% | independent (active before you were visible) |
+| `0x97162365…` | market | 22,540 | 2026-01-20 | before | 0% | 0% | independent (active before you were visible) |
+| `0xa31c8c9a…` | market | 20,514 | 2026-05-04 | ✦ AFTER | 0% | 0% | independent / own schedule |
+| `0x663bd8fd…` | market | 16,803 | 2026-05-09 | ✦ AFTER | 0% | 0% | sold just before your sells |
+| `0xf35c6c74…` | DAO-allocation | 15,761 | 2026-02-02 | before | 0% | 31% | independent (active before you were visible) |
+| `0x65a8f07b…` | market | 14,968 | 2026-01-11 | before | 0% | 0% | independent (active before you were visible) |
+| `0xaf061c2d…` | market | 5,800 | 2026-01-04 | before | 0% | 0% | independent (active before you were visible) |
+
+**The one clean case - `0xd054ba913bf972f2563dff4b26dc383587ae7808`:** bought **46,914 ATH on Mar 9** (via CoW), held it 11 weeks, then sold the **entire** bag on **May 29 - two days after your 200k unlock** and four days after your May 25 sell. 100% of its volume sits in your post-sell/post-unlock window. Market buyer (not DAO), single event - suggestive, not conclusive, but the textbook "saw the whale reload, rushed the exit" pattern.
+
+The other large sellers were **independent**: the stealth DAO distributor `0xea80c984` sold daily **before** you were visible (started Jan 4); `0xd8a57177`/`0x91e8b869` dumped Mar 26-27 in a window when you were **not** selling; `0xd4a3a947` dumped into the May 6 price bounce. None of these shadow your trades.
 
 ## 4. Provenance & DAO/team connection
-All 30M circulating ATH was minted to genesis **`0x4d754910...`**, then distributed to vesting/treasury contracts - consistent with the official allocation (Community 10M / **Core & Early Contributors 12M, 24-mo vesting** / Service Providers 8M incl. Molecule-bio.xyz 6.9M; 70M unminted treasury).
-- **DAO/team-connected sellers:** **you**, `0xea80c984`, `0xd8a57177`, `0x91e8b869`, `0xf35c6c74` (all trace to genesis/vesting).
-- **You** received **848,886 ATH** from DAO distribution contracts `0x71028407` + `0x0b7ffc1f`, sold ~483K (393K direct + 90K via CoW), and hold 50,000 - you are the **single largest *genuine* (non-bot) seller of ATH in 2026**.
-- **Arb/MM bots are NOT DAO-connected** - they source ATH by buying from the pools and reselling (hold 0).
-- **Market distributors** (`0xd4a3a947`, `0xd054ba91`, etc.) bought on the DEX or bridged in, then sold - no DAO link.
+All 30M circulating ATH was minted to genesis **`0x4d754910...`**, then distributed to vesting/treasury contracts - consistent with the official allocation (Community 10M / **Core & Early Contributors 12M, 24-mo vesting** / Service Providers 8M incl. Molecule-bio.xyz 6.9M; 70M unminted treasury). The "competing sellers" you sense are mostly **other DAO-allocation holders distributing on their own schedules**:
+- **`0xea80c984` - 99% DAO-origin.** 59,970 ATH via 38 CoW fills, near-daily Jan 4 -> Mar 31 (started *before* you were visible). Trail: genesis -> `0x5b99e2da` (12.5M Core/Early-Contributor pool) -> hub `0x0e449816` -> this wallet.
+- **`0xd8a57177` (57,220, Mar 26)** and **`0x91e8b869` (32,535, Mar 27)** - 100% DAO genesis recipients, consecutive-day dumps in a window when you were not selling.
+- **`0xf35c6c74`** - DAO recipient; sold 15,761 but **still holds 64,011 ATH** (largest known overhang outside the treasury).
+- **You** received **848,886 ATH** from DAO distribution contracts `0x71028407` + `0x0b7ffc1f`, sold ~483K (393K direct + 90K via CoW), hold 50,000 - the **single largest *genuine* (non-bot) seller of ATH in 2026**.
+- **Arb/MM bots are NOT DAO-connected** (buy from pools, resell, hold 0). **Market buyers** `0xd4a3a947` and the anticipatory-exit `0xd054ba91` bought/bridged in - no DAO link.
 
 ---
 
