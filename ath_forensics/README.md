@@ -39,6 +39,8 @@ holdings, token provenance (DAO/team connection), and selling patterns.
    subject). Maps to official allocation (Community 10M / Contributors 12M / Service 8M).
 
 ## Deliverables
+- **`ATH_forensic_report.html`** — styled, self-contained report (sortable tables,
+  color-coded categories, Etherscan links). Open in any browser.
 - **`ATH_forensic_report.md`** — the full written report: findings, methodology,
   front-running verdict, provenance, plus **Table A** (all wallets that sold >$1k YTD)
   and **Table B** (all wallets that sold >$1k in the trailing 21 days).
