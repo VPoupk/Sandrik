@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VITARNA — Holder, Buyer &amp; Cluster Analysis</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  :root{
+    --bg:#0b0d12; --panel:#111521; --panel2:#161b2b; --line:#1f2740;
+    --txt:#e6ecf5; --mut:#8a97b1; --mut2:#5e6b86; --acc:#5b8cff; --accv:#8b5cf6;
+    --grn:#22c55e; --red:#ef4444; --org:#f97316; --yel:#eab308; --cy:#06b6d4; --pink:#ec4899;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.6;font-size:15px}
+  a{color:var(--acc);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  code,.mono{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace}
+  .addr{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:var(--mut)}
+
+  header.hero{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e1320,#0b0d12);padding:46px 0 30px}
+  .tag{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accv);
+    border:1px solid #2c2350;background:#160f2e;padding:3px 10px;border-radius:30px;margin-bottom:14px}
+  h1{font-size:34px;font-weight:800;letter-spacing:-.01em}
+  h1 .sym{color:var(--acc)}
+  .sub{color:var(--mut);margin-top:8px;font-size:15px}
+  .hero .meta{margin-top:14px;font-size:12.5px;color:var(--mut2);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:var(--mut)}
+
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:26px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px 14px}
+  .kpi .l{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut2)}
+  .kpi .v{font-size:21px;font-weight:800;margin-top:3px}
+  .kpi .s{font-size:11px;color:var(--mut);margin-top:1px}
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(3,1fr)}.wrap{padding:0 14px}}
+
+  section{padding:38px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:23px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:11px}
+  h2 .n{font-size:13px;color:var(--mut2);border:1px solid var(--line);border-radius:7px;padding:2px 9px;font-weight:700}
+  h3{font-size:16px;font-weight:700;margin:22px 0 10px;color:#cdd7ea}
+  p{color:#c4cee0;margin:11px 0}
+  .lead{font-size:16.5px;color:#d3dcec}
+  .muted{color:var(--mut)}
+  ul{margin:11px 0 11px 4px;list-style:none}
+  li{padding:5px 0 5px 22px;position:relative;color:#c4cee0}
+  li:before{content:"▸";position:absolute;left:0;color:var(--acc)}
+
+  .callout{border-left:3px solid var(--acc);background:var(--panel);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0}
+  .callout.warn{border-color:var(--org)} .callout.good{border-color:var(--grn)} .callout.bad{border-color:var(--red)}
+  .callout .h{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin-bottom:5px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut2);font-weight:700;cursor:default}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr:hover td{background:#0f1422}
+  .pill{display:inline-block;font-size:11px;padding:1.5px 8px;border-radius:20px;border:1px solid var(--line);color:var(--mut)}
+  .k-treasury{color:#fca5a5;border-color:#5b1d1d;background:#1e0f0f}
+  .k-vesting{color:#fcd34d;border-color:#5c4a12;background:#1d1707}
+  .k-crowdsale{color:#fdba74;border-color:#5c3312;background:#1d1207}
+  .k-safe{color:#93c5fd;border-color:#1e3a6b;background:#0c1424}
+  .k-pool{color:#67e8f9;border-color:#155160;background:#08191d}
+  .k-router{color:#c4b5fd;border-color:#3b2d6b;background:#120e26}
+  .k-contract{color:#a8b3cc;border-color:#2a3350;background:#0f1320}
+  .k-eoa{color:#86efac;border-color:#14532d;background:#08160e}
+  .k-distributor{color:#fca5a5;border-color:#5b1d1d;background:#1e0f0f}
+  .k-cex{color:#f0abfc;border-color:#5b1d5b;background:#1a0f1a}
+  .tagn{font-size:11.5px;color:var(--mut)}
+
+  .bars{margin:16px 0}
+  .barrow{display:flex;align-items:center;gap:12px;margin:7px 0;font-size:13px}
+  .barrow .lab{width:185px;color:var(--mut);flex-shrink:0}
+  .barrow .track{flex:1;height:18px;background:#0e1320;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+  .barrow .fill{height:100%;border-radius:4px 0 0 4px}
+  .barrow .pct{width:64px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+
+  /* graph */
+  #graphbox{position:relative;background:radial-gradient(1200px 500px at 50% -10%,#10162a,#0b0d12);
+    border:1px solid var(--line);border-radius:14px;height:640px;overflow:hidden;margin-top:8px}
+  #graph{width:100%;height:100%;cursor:grab} #graph:active{cursor:grabbing}
+  .gcontrols{position:absolute;top:12px;left:12px;display:flex;gap:7px;flex-wrap:wrap;z-index:5}
+  .btn{padding:5px 11px;border:1px solid var(--line);border-radius:7px;background:#10172a;color:var(--mut);font-size:12px;cursor:pointer}
+  .btn:hover,.btn.on{background:#1b2440;color:var(--txt);border-color:#33406b}
+  .glegend{position:absolute;bottom:12px;left:12px;background:rgba(13,17,28,.86);border:1px solid var(--line);
+    border-radius:9px;padding:10px 13px;font-size:11.5px;z-index:5}
+  .glegend .t{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut2);margin-bottom:6px}
+  .li{display:flex;align-items:center;gap:7px;margin:3px 0;color:var(--mut)}
+  .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  #dpanel{position:absolute;top:12px;right:12px;width:290px;background:rgba(13,17,28,.95);border:1px solid var(--line);
+    border-radius:11px;padding:15px;display:none;z-index:6}
+  #dpanel.on{display:block}
+  #dpanel .x{float:right;color:var(--mut2);cursor:pointer;font-size:15px}
+  #dpanel .dl{font-size:11px;color:var(--mut2)} #dpanel .da{font-size:12px;color:var(--acc);word-break:break-all;margin:2px 0 10px}
+  .dr{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #161c2e;font-size:12.5px}
+  .dr .k{color:var(--mut2)} .dr .v{font-weight:600;font-variant-numeric:tabular-nums}
+  .hint{font-size:12px;color:var(--mut2);margin-top:8px}
+
+  .cluster-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .cluster-card .ch{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .cluster-card .ct{font-weight:800;font-size:15px}
+  .cluster-card .cb{font-size:12px;color:var(--mut)}
+  .evid{font-size:12.5px;color:var(--mut);margin-top:7px}
+  .evid b{color:#cdd7ea}
+
+  .foot{padding:30px 0 60px;color:var(--mut2);font-size:12.5px}
+  .foot code{color:var(--mut)}
+  .scrollx{overflow-x:auto}
+  .sticky-note{font-size:12px;color:var(--mut2);font-style:italic;margin-top:6px}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="tag">On-chain forensics · Ethereum mainnet</div>
+  <h1><span class="sym" id="h-sym">VITARNA</span> — Holder, Buyer &amp; Cluster Analysis</h1>
+  <div class="sub" id="h-sub">VitaRNA · tokenized IP of the Artan Bio IP-NFT (VitaDAO IP-NFT #28)</div>
+  <div class="meta">
+    <span><b>Contract</b> <a id="h-addr" class="mono" target="_blank"></a></span>
+    <span><b>Snapshot</b> <span id="h-now"></span></span>
+    <span><b>36h window</b> <span id="h-win"></span></span>
+    <span><b>Source</b> Blockscout + Ethereum RPC</span>
+  </div>
+  <div class="kpis" id="kpis"></div>
+</div></header>
+
+<div class="wrap">
+
+<section id="summary">
+  <h2>Executive summary</h2>
+  <p class="lead" id="sum-lead"></p>
+  <div class="grid2">
+    <div>
+      <h3>What this token is</h3>
+      <p>VITARNA represents fractionalized intellectual-property rights to <b>Artan Bio</b>, a gene-therapy
+      program (arginine-suppressor tRNA targeting nonsense mutations, lead candidate <b>ARTAN-102</b>,
+      manufacturing with Lonza) funded on-chain through <b>VitaDAO</b> as <b>IP-NFT #28</b>. It is a
+      DeSci research-funding asset, not a typical meme/utility coin — which shapes the entire holder map.</p>
+      <p class="muted">5.5M tokens were minted (5.0M at genesis in Mar 2024, +0.5M in Nov–Dec 2024).
+      20% of supply was sold to VITA holders via a crowdsale with a 12-month vesting lock — visible on-chain
+      as the Sablier vesting NFTs and the <code>StakedLockingCrowdSale</code> contract.</p>
+    </div>
+    <div>
+      <h3>Headline findings</h3>
+      <ul id="sum-bullets"></ul>
+    </div>
+  </div>
+</section>
+
+<section id="concentration">
+  <h2><span class="n">01</span> Supply concentration &amp; who controls it</h2>
+  <p>The token is <b>extremely concentrated</b>, but most of that concentration is <i>structural</i> —
+  the DAO treasury, the genesis distributor, vesting contracts and project multisigs — rather than a
+  single anonymous whale ready to dump. We separate "who holds it" from "what is actually liquid float".</p>
+
+  <div class="grid2">
+    <div>
+      <h3>Concentration curve</h3>
+      <div class="bars" id="conc-bars"></div>
+      <p class="sticky-note">Gini coefficient <b id="gini"></b> across <span id="nh"></span> holders — among the most
+      unequal distributions you will see, driven by the 47.9% treasury position.</p>
+    </div>
+    <div>
+      <h3>Supply by holder type</h3>
+      <div class="bars" id="bucket-bars"></div>
+      <p class="sticky-note">Only the green slice is genuine individual "float". DEX liquidity is just
+      <b id="dexliq"></b> of supply — the asset is thinly traded by design.</p>
+    </div>
+  </div>
+
+  <h3>Top 25 holders</h3>
+  <div class="scrollx"><table id="holders-tbl">
+    <thead><tr><th>#</th><th>Address / label</th><th>Type</th><th class="num">Balance</th>
+      <th class="num">% supply</th><th class="num">Cum %</th><th class="num">Peak</th><th class="num">Counterparties</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="hint">"Peak" = largest balance the wallet ever held (reconstructed from full transfer history).
+  A peak far above the current balance means the wallet distributed or sold down.</p>
+</section>
+
+<section id="buyers">
+  <h2><span class="n">02</span> Biggest buyers — last 36 hours</h2>
+  <p id="buyers-intro"></p>
+  <div class="callout" id="buyers-callout"></div>
+  <h3>Top net accumulators (36h)</h3>
+  <div class="scrollx"><table id="buyers-tbl">
+    <thead><tr><th>Address</th><th>New?</th><th>Acquired via</th><th class="num">Net bought</th>
+      <th class="num">Now holds</th><th class="num">% supply</th><th>Primary source</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="hint">"Acquired via" classifies the dominant inbound route in the window: <b>DEX</b> = direct Uniswap pool swap,
+  <b>aggregator</b> = routed through 0x / 1inch / Uniswap UniversalRouter / CoW / Relay settlers (still a market buy),
+  <b>vesting claim</b> = release from a Sablier lockup, <b>transfer</b> = received from another wallet/contract.</p>
+</section>
+
+<section id="connections">
+  <h2><span class="n">03</span> Connection map</h2>
+  <p>Nodes are the top ~120 holders plus every 36h buyer and notable past seller (project infrastructure —
+  treasury, pools, routers, vesting, the distributor — is excluded as it would falsely glue everyone together).
+  <b>Solid links</b> are direct VITARNA transfers between two wallets; <b>dashed links</b> are a shared
+  <i>personal</i> funding wallet (common CEX withdrawals are filtered out). Coloured wallets belong to a
+  detected multi-wallet entity.</p>
+  <div id="graphbox">
+    <div class="gcontrols">
+      <button class="btn on" id="b-color">Colour: cluster</button>
+      <button class="btn on" id="b-funding">Funding links: on</button>
+      <button class="btn" id="b-iso">Hide singletons</button>
+      <button class="btn" id="b-reheat">Reheat</button>
+    </div>
+    <svg id="graph"></svg>
+    <div id="dpanel"></div>
+    <div class="glegend" id="glegend"></div>
+  </div>
+  <p class="hint">Drag nodes; scroll to zoom; click a wallet for detail. Node area ∝ current balance.</p>
+</section>
+
+<section id="clusters">
+  <h2><span class="n">04</span> Detected clusters &amp; entities — full breakdown</h2>
+  <p id="clusters-intro"></p>
+  <h3>All detected groups</h3>
+  <div class="scrollx"><table id="clusters-tbl">
+    <thead><tr><th>Cluster</th><th class="num">Wallets</th><th class="num">Balance</th><th class="num">% supply</th>
+      <th>Linkage evidence</th><th>Character</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="hint">Every union-find component with &ge;2 members is listed. "Hop chain" = a vested/allocated
+  position relayed through one or more intermediate wallets to a final holder (now-empty intermediaries).</p>
+  <h3>Group detail</h3>
+  <div id="cluster-cards"></div>
+  <div class="callout warn">
+    <div class="h">Method note — why the cluster count is small</div>
+    A naïve "everyone who received from the same address" graph would report one giant 95%+ cluster, because
+    nearly all supply flows out of the genesis distributor and the DAO treasury. That is distribution, not
+    common ownership. We therefore <b>never</b> link wallets through hubs (treasury, distributor, pools, routers,
+    vesting, crowdsale, multisigs, or any wallet with &gt;40 counterparties), and we discount shared funders that
+    are high-throughput exchange/service wallets. What survives are genuine multi-wallet entities.
+  </div>
+</section>
+
+<section id="crosstoken">
+  <h2><span class="n">05</span> Cross-token whale overlap — VITA &amp; BIO</h2>
+  <p id="ct-intro"></p>
+  <div class="grid2">
+    <div>
+      <h3>Overlap at a glance</h3>
+      <div class="bars" id="ct-bars"></div>
+      <p class="sticky-note" id="ct-note"></p>
+    </div>
+    <div>
+      <h3>Ecosystem value held alongside VITARNA</h3>
+      <div id="ct-kpis" class="kpis" style="grid-template-columns:repeat(2,1fr)"></div>
+      <p class="sticky-note">VITA is VitaDAO's governance token; BIO is the Bio&nbsp;Protocol (BioDAO) ecosystem
+      token that VITARNA trades against in the Uniswap&nbsp;V4 pool. Holding both alongside VITARNA marks an
+      ecosystem-aligned participant rather than a one-off speculator.</p>
+    </div>
+  </div>
+  <div class="callout" id="ct-callout"></div>
+  <h3>Top cross-token holders</h3>
+  <div class="scrollx"><table id="ct-tbl">
+    <thead><tr><th>Address</th><th>Type</th><th class="num">VITARNA</th><th class="num">VITA</th>
+      <th class="num">BIO</th><th class="num">VITA+BIO&nbsp;$</th><th>Profile</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="hint">"Profile" — <b>ecosystem whale</b>: meaningful holdings of all three; <b>VITA-aligned</b> /
+  <b>BIO-aligned</b>: holds one of the two; <b>VITARNA-only</b>: no VITA/BIO (pure exposure to this IP token).</p>
+</section>
+
+<section id="pastsellers">
+  <h2><span class="n">06</span> Biggest past holders who exited</h2>
+  <p id="past-intro"></p>
+  <div class="callout" id="past-callout"></div>
+  <h3>Largest peak-to-now drawdowns (non-infrastructure wallets)</h3>
+  <div class="scrollx"><table id="past-tbl">
+    <thead><tr><th>Address</th><th class="num">Peak held</th><th class="num">Peak %</th>
+      <th>Peak date</th><th class="num">Now</th><th>Exit route</th><th>Where it went</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="hint">"Exit route" = DEX when the majority of the outflow hit a Uniswap pool; transfer/internal when it
+  moved to another wallet, a multisig, or a vesting/aggregator contract.</p>
+</section>
+
+<section id="method">
+  <h2><span class="n">07</span> Methodology &amp; caveats</h2>
+  <div class="grid2">
+    <div>
+      <h3>Data</h3>
+      <ul>
+        <li>Full holder list (331) and complete transfer history (15,763 events, deploy → snapshot) pulled from the
+          public Blockscout Ethereum API; balances reconstructed from transfers and validated against the
+          authoritative holder endpoint (match within &lt;0.01% on all but the treasury, off by 0.001%).</li>
+        <li>Address labels (ENS, contract names, protocol tags) from Blockscout; DEX pairs from Dexscreener;
+          first-funder and out-degree from each wallet's native-ETH transaction history.</li>
+        <li>Pools: Uniswap V3 VITARNA/VITA &amp; VITARNA/WETH, Uniswap V4 VITARNA/BIO (PoolManager singleton).</li>
+        <li>Cross-token overlap: exact VITA (<code>0x81f8…F321</code>) and BIO (<code>0xcb15…5ffA</code>) balances
+          fetched per wallet via Blockscout; prices from Blockscout exchange rates at snapshot.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>How clusters are inferred</h3>
+      <ul>
+        <li><b>Transfer-peer:</b> union-find over direct VITARNA transfers between non-hub wallets.</li>
+        <li><b>Common-funder:</b> wallets first funded by the same <i>low-throughput personal</i> ETH wallet
+          (out-degree &lt; 40). Exchange/service funders are identified by out-degree (hundreds) and
+          multi-million tx counts, and excluded.</li>
+        <li>Clustering proves <i>linkage</i>, not legal identity. A shared funder is strong but circumstantial;
+          treat single-link clusters as leads, not proof.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="muted">Balances/percentages are of total minted supply (5,500,000). "Float" excludes treasury,
+  distributor, pools, routers, vesting, crowdsale, multisigs and other contracts. Timestamps are UTC and
+  anchored to the latest on-chain transfer at snapshot time.</p>
+</section>
+
+<div class="foot">
+  Generated from on-chain data · contract <span class="mono" id="f-addr"></span> ·
+  snapshot <span id="f-now"></span> · <span id="f-counts"></span>.
+  This is on-chain pattern analysis for research purposes, not financial advice or an allegation of wrongdoing.
+</div>
+</div>
+
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const S = DATA.summary;
+const ETH = "https://etherscan.io/address/";
+const fmt = (n,d=0)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:d});
+const pct = (n,d=1)=>fmt(n,d)+'%';
+const ttag = k => `<span class="pill k-${k}">${k}</span>`;
+const dt = ts => ts? new Date(ts*1000).toISOString().slice(0,16).replace('T',' ')+' UTC' : '—';
+const dday = ts => ts? new Date(ts*1000).toISOString().slice(0,10) : '—';
+const sh = a => a? a.slice(0,6)+'…'+a.slice(-4):'—';
+const labelOf = a => (DATA.labels[a] && DATA.labels[a]!==a)? DATA.labels[a] : sh(a);
+
+// ---------- hero ----------
+document.getElementById('h-sym').textContent = S.symbol;
+const addrA=document.getElementById('h-addr'); addrA.textContent=S.token; addrA.href=ETH+S.token;
+document.getElementById('h-now').textContent = dt(S.now_ts);
+document.getElementById('h-win').textContent = dt(S.cutoff36)+' → '+dt(S.now_ts);
+document.getElementById('f-addr').textContent = S.token;
+document.getElementById('f-now').textContent = dt(S.now_ts);
+document.getElementById('f-counts').textContent = `${S.total_holders} holders · ${fmt(S.total_transfers)} transfers · ${S.n_clusters} clusters`;
+
+const fdv = S.total_supply*S.price_usd;
+const kpis=[
+  ['Price', '$'+fmt(S.price_usd,3), '~$'+fmt(S.volume_24h/1000,0)+'k 24h vol'],
+  ['FDV', '$'+fmt(fdv/1e6,2)+'M', fmt(S.total_supply)+' supply'],
+  ['Holders', fmt(S.total_holders), fmt(S.total_transfers)+' transfers'],
+  ['Top-1 control', pct(S.top1_pct), 'VitaDAO treasury'],
+  ['Top-10 control', pct(S.top10_pct), 'of total supply'],
+  ['Individual float', pct(S.float_pct), 'in EOAs'],
+];
+document.getElementById('kpis').innerHTML = kpis.map(k=>
+  `<div class="kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+
+// ---------- summary ----------
+const realBuyers = DATA.buyers36h.filter(b=>b.via==='DEX'||b.via==='aggregator');
+const netMkt = realBuyers.reduce((s,b)=>s+b.net,0);
+document.getElementById('sum-lead').innerHTML =
+  `Across ${S.total_holders} holders, the <b>VitaDAO treasury alone holds ${pct(S.top1_pct)}</b> of supply and the
+   top 10 addresses hold <b>${pct(S.top10_pct)}</b> — but ${pct(100-S.float_pct,0)} of that is treasury, vesting,
+   crowdsale and multisig infrastructure. Genuine individual float is just <b>${pct(S.float_pct)}</b>, and DEX
+   liquidity is a razor-thin <b>${pct(DATA.summary.buckets['DEX liquidity']||0,2)}</b>. In the last 36 hours,
+   <b>${S.n_buyers_36h} wallets net-accumulated</b> (mostly small, new, organic DEX/aggregator buys totalling
+   ~${fmt(netMkt)} VITARNA ≈ $${fmt(netMkt*S.price_usd/1000,0)}k), and we identify <b>${S.n_clusters} multi-wallet
+   entities</b> — the largest controlling ${pct(DATA.clusters[0]?DATA.clusters[0].total_pct:0,1)} via holder&nbsp;#6.`;
+
+const topPast = DATA.past_sellers[0];
+document.getElementById('sum-bullets').innerHTML = [
+  `<b>Treasury-dominated:</b> ${pct(S.top1_pct)} sits in the <code>vitadao.eth</code> Safe; ${pct(DATA.summary.buckets['Treasury / Distributor'])} is treasury+distributor combined.`,
+  `<b>Thin real float:</b> only ${pct(S.float_pct)} of supply is in ordinary wallets; ${pct(DATA.summary.buckets['Vesting (Sablier)'])} is still vesting via Sablier.`,
+  `<b>Buying is organic &amp; small:</b> ${realBuyers.length} of ${S.n_buyers_36h} net buyers came in through DEX/aggregator routes; the single largest 36h "buy" is actually a ${fmt(DATA.buyers36h[0].net)} vesting claim, not a market order.`,
+  `<b>Largest real cluster:</b> a ${DATA.clusters[0]?DATA.clusters[0].size:0}-wallet entity around holder&nbsp;#6 (${fmt(DATA.clusters[0]?DATA.clusters[0].total_balance:0)} VITARNA, ${pct(DATA.clusters[0]?DATA.clusters[0].total_pct:0)}), linked by a shared personal funder and direct transfers.`,
+  `<b>Past exits are mostly structural:</b> the biggest non-infra drawdown (${topPast?fmt(topPast.peak):0} VITARNA) moved wallet→multisig internally, not onto the market.`,
+  (function(){const CT=DATA.crosstoken;if(!CT)return '';const m=CT.balances;const TH=1;
+    const nv=Object.values(m).filter(v=>v.vita>TH).length;
+    const sv=Object.values(m).reduce((s,v)=>s+v.vita,0), sb=Object.values(m).reduce((s,v)=>s+v.bio,0);
+    return `<b>Deep but lopsided ecosystem overlap:</b> VITARNA-linked wallets hold ${fmt(100*sv/CT.meta.vita_supply,0)}% of all VITA and ${fmt(100*sb/CT.meta.bio_supply,0)}% of all BIO ($${fmt((sv*CT.meta.vita_price+sb*CT.meta.bio_price)/1e6,1)}M) — concentrated in treasury Safes, while most recent buyers hold neither (see §05).`;})(),
+].map(x=>`<li>${x}</li>`).join('');
+
+// ---------- concentration bars ----------
+const concRows=[['Top 1',S.top1_pct,'#ef4444'],['Top 3',S.top3_pct,'#f97316'],['Top 5',S.top5_pct,'#eab308'],
+  ['Top 10',S.top10_pct,'#84cc16'],['Top 20',S.top20_pct,'#22c55e'],['Top 50',S.top50_pct,'#06b6d4']];
+document.getElementById('conc-bars').innerHTML = concRows.map(r=>
+  `<div class="barrow"><span class="lab">${r[0]} holders</span>
+   <span class="track"><span class="fill" style="width:${r[1]}%;background:${r[2]}"></span></span>
+   <span class="pct">${pct(r[1])}</span></div>`).join('');
+document.getElementById('gini').textContent = fmt(S.gini,3);
+document.getElementById('nh').textContent = S.total_holders;
+document.getElementById('dexliq').textContent = pct(DATA.summary.buckets['DEX liquidity']||0,2);
+
+const bColors={'Treasury / Distributor':'#ef4444','EOA float':'#22c55e','Multisig (Safe)':'#5b8cff',
+  'Vesting (Sablier)':'#eab308','Other contracts':'#8a97b1','DEX liquidity':'#06b6d4',
+  'Crowdsale contract':'#f97316','CEX':'#ec4899'};
+const bk=Object.entries(S.buckets).sort((a,b)=>b[1]-a[1]);
+document.getElementById('bucket-bars').innerHTML = bk.map(([k,v])=>
+  `<div class="barrow"><span class="lab">${k}</span>
+   <span class="track"><span class="fill" style="width:${v}%;background:${bColors[k]||'#8a97b1'}"></span></span>
+   <span class="pct">${pct(v)}</span></div>`).join('');
+
+// ---------- holders table ----------
+document.querySelector('#holders-tbl tbody').innerHTML = DATA.holders.slice(0,25).map(h=>{
+  const peakFlag = h.peak>h.balance*1.5 ? `<span class="muted">${fmt(h.peak)}</span>` : fmt(h.peak);
+  return `<tr>
+    <td class="num">${h.rank}</td>
+    <td><a href="${ETH+h.address}" target="_blank" class="addr">${sh(h.address)}</a>
+        ${h.label?`<div class="tagn">${h.label}</div>`:''}</td>
+    <td>${ttag(h.kind)}</td>
+    <td class="num">${fmt(h.balance)}</td>
+    <td class="num">${pct(h.percent,2)}</td>
+    <td class="num">${pct(h.cumulative_percent,1)}</td>
+    <td class="num">${peakFlag}</td>
+    <td class="num">${h.counterparties}</td></tr>`;
+}).join('');
+
+// ---------- buyers ----------
+const newB = DATA.buyers36h.filter(b=>b.is_new).length;
+document.getElementById('buyers-intro').innerHTML =
+  `In the 36 hours to ${dt(S.now_ts)}, <b>${S.n_buyers_36h} wallets were net buyers</b> and only ${S.n_sellers_36h}
+   were net sellers. ${newB} of the buyers are brand-new wallets created inside the window. The flow is dominated by
+   small DEX and aggregator purchases — there is no single dominant whale accumulating, and no evidence of one
+   personal wallet seeding a swarm of buy wallets (every multi-wallet source resolves to a DEX router/settler).`;
+const bvia={}; DATA.buyers36h.forEach(b=>bvia[b.via]=(bvia[b.via]||0)+1);
+const viaStr=Object.entries(bvia).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`${v}×&nbsp;${k}`).join(' · ');
+document.getElementById('buyers-callout').innerHTML =
+  `<div class="h">Verdict — organic retail accumulation</div>
+   Routes: ${viaStr}. The largest single inflow (${fmt(DATA.buyers36h[0].net)} VITARNA to ${sh(DATA.buyers36h[0].address)})
+   is a <b>Sablier vesting release</b>, mirrored by an equal "sell" from the lockup contract — zero net market impact.
+   Excluding it, ~${fmt(netMkt)} VITARNA (≈ $${fmt(netMkt*S.price_usd/1000,0)}k) was actually bought on-market across
+   ${realBuyers.length} wallets, average ~${fmt(netMkt/realBuyers.length)} each.`;
+document.querySelector('#buyers-tbl tbody').innerHTML = DATA.buyers36h.slice(0,18).map(b=>`
+  <tr><td><a href="${ETH+b.address}" target="_blank" class="addr">${sh(b.address)}</a>
+      ${b.label?`<div class="tagn">${b.label}</div>`:''}</td>
+    <td>${b.is_new?'<span class="pill k-eoa">new</span>':'<span class="muted">existing</span>'}</td>
+    <td><span class="pill">${b.via}</span></td>
+    <td class="num">${fmt(b.net)}</td>
+    <td class="num">${fmt(b.cur_balance)}</td>
+    <td class="num">${pct(b.cur_pct,3)}</td>
+    <td class="addr">${b.main_source||'—'}</td></tr>`).join('');
+
+// ---------- clusters (full breakdown) ----------
+const PAL=['#5b8cff','#8b5cf6','#ec4899','#f97316','#22c55e','#06b6d4','#eab308','#f43f5e','#a855f7','#14b8a6'];
+const realClusters=DATA.clusters.filter(c=>c.total_balance>50);
+const charOf=c=>{
+  if(c.shared_funders.length && c.total_balance>50) return 'Funded + transfer-linked entity';
+  if(c.shared_funders.length) return 'Shared-funder pair (now empty)';
+  if(c.total_balance>50) return 'Transfer-linked entity';
+  return 'Hop chain (relayed allocation)';
+};
+document.getElementById('clusters-intro').innerHTML =
+  `After excluding distribution hubs and exchange funders, <b>${DATA.clusters.length} multi-wallet groupings</b>
+   survive. ${realClusters.length} hold a meaningful balance (led by the holder-#6 entity at
+   ${pct(DATA.clusters[0].total_pct,2)}); the remainder are low/zero-balance <i>hop chains</i> — vested or allocated
+   tokens relayed through throwaway intermediaries to a final wallet. Every group is listed below.`;
+
+document.querySelector('#clusters-tbl tbody').innerHTML = DATA.clusters.map(c=>{
+  const col=PAL[c.cluster_id%PAL.length];
+  const ev=[];
+  if(c.shared_funders.length) ev.push(`funder ${c.shared_funders.join(', ')}`);
+  if(c.has_transfer_link) ev.push('direct transfers');
+  return `<tr>
+    <td><span class="dot" style="display:inline-block;background:${col};margin-right:7px"></span><b>C${c.cluster_id}</b></td>
+    <td class="num">${c.size}</td>
+    <td class="num">${fmt(c.total_balance)}</td>
+    <td class="num">${pct(c.total_pct,3)}</td>
+    <td class="muted" style="font-size:12.5px">${ev.join(' · ')||'transfer hop'}</td>
+    <td>${charOf(c)}</td></tr>`;
+}).join('');
+
+document.getElementById('cluster-cards').innerHTML = DATA.clusters.map(c=>{
+  const col=PAL[c.cluster_id%PAL.length];
+  const ev=[];
+  if(c.shared_funders.length) ev.push(`shared personal funder <b>${c.shared_funders.join(', ')}</b>`);
+  if(c.has_transfer_link) ev.push('direct VITARNA transfers between members');
+  const members=c.members.map((m,i)=>{
+    const role=c.roles[i]; const bal=c.balances[i];
+    return `<tr><td><a href="${ETH+m}" target="_blank" class="addr">${sh(m)}</a>
+      ${DATA.labels[m]&&DATA.labels[m]!==m?`<span class="tagn">${DATA.labels[m]}</span>`:''}</td>
+      <td>${role==='holder'?'<span class="muted">holder</span>':`<span class="pill">${role}</span>`}</td>
+      <td class="num">${fmt(bal)}</td></tr>`;}).join('');
+  return `<div class="cluster-card" style="border-left:3px solid ${col}">
+    <div class="ch"><span class="ct" style="color:${col}">Cluster C${c.cluster_id}</span>
+      <span class="cb">${c.size} wallets · ${fmt(c.total_balance)} VITARNA · ${pct(c.total_pct,2)} of supply · ${charOf(c)}</span></div>
+    <div class="evid">Evidence: ${ev.length?ev.join('; '):'transfer-linked hop chain'}.</div>
+    <table style="margin-top:10px"><thead><tr><th>Wallet</th><th>Role</th><th class="num">Balance</th></tr></thead>
+      <tbody>${members}</tbody></table></div>`;
+}).join('');
+
+// ---------- cross-token overlap (VITA / BIO) ----------
+(function(){
+  const CT=DATA.crosstoken; if(!CT) return;
+  const M=CT.meta; const map=CT.balances;       // addr -> {vita,bio}
+  const analyzed=CT.analyzed;                    // # wallets queried
+  const vp=M.vita_price, bp=M.bio_price;
+  const TH=1; // >1 token counts as a holder
+  const holders=DATA.holders;
+  // attach to holders
+  holders.forEach(h=>{const c=map[h.address]||{vita:0,bio:0}; h._vita=c.vita; h._bio=c.bio;});
+  const nVita=Object.values(map).filter(v=>v.vita>TH).length;
+  const nBio=Object.values(map).filter(v=>v.bio>TH).length;
+  const nBoth=Object.values(map).filter(v=>v.vita>TH&&v.bio>TH).length;
+  const nNone=Object.values(map).filter(v=>v.vita<=TH&&v.bio<=TH).length;
+  const sumVita=Object.values(map).reduce((s,v)=>s+v.vita,0);
+  const sumBio=Object.values(map).reduce((s,v)=>s+v.bio,0);
+  // float-only (EOA) overlap
+  const floatSet=new Set(holders.filter(h=>h.kind==='eoa').map(h=>h.address));
+  const floatVita=holders.filter(h=>h.kind==='eoa'&&(map[h.address]||{}).vita>TH).length;
+  const floatN=floatSet.size;
+
+  // buyer-cohort overlap
+  const buyerAddrs=DATA.buyers36h.map(b=>b.address);
+  const buyerVita=buyerAddrs.filter(a=>(map[a]||{}).vita>TH).length;
+  const vitaShare=100*sumVita/M.vita_supply, bioShare=100*sumBio/M.bio_supply;
+
+  document.getElementById('ct-intro').innerHTML =
+    `VITARNA trades against <b>VITA</b> (VitaDAO governance, $${fmt(vp,3)}) and <b>BIO</b> (Bio&nbsp;Protocol,
+     $${fmt(bp,4)}) on Uniswap. The ${analyzed} VITARNA-associated wallets we checked collectively hold
+     <b>${fmt(vitaShare,0)}% of all VITA</b> and <b>${fmt(bioShare,0)}% of all BIO</b> — a deep ecosystem footprint.
+     But it splits sharply: the <b>value</b> is dominated by a few VitaDAO/BioDAO treasury Safes (some holding barely
+     any VITARNA), while genuine VITARNA holders divide into an ecosystem-aligned core and a newer, VITA-less
+     speculative wave.`;
+
+  const bars=[['Also hold VITA',nVita,'#8b5cf6'],['Also hold BIO',nBio,'#06b6d4'],
+    ['Hold both',nBoth,'#22c55e'],['VITARNA only',nNone,'#5e6b86']];
+  document.getElementById('ct-bars').innerHTML=bars.map(b=>{
+    const w=100*b[1]/analyzed;
+    return `<div class="barrow"><span class="lab">${b[0]}</span>
+      <span class="track"><span class="fill" style="width:${w}%;background:${b[2]}"></span></span>
+      <span class="pct">${b[1]}</span></div>`;}).join('');
+  document.getElementById('ct-note').innerHTML =
+    `<b>${floatVita} of ${floatN}</b> individual (EOA-float) VITARNA holders also hold VITA (${fmt(100*floatVita/floatN,0)}%) —
+     a sizable ecosystem-aligned base. But among the <b>${buyerAddrs.length} last-36h buyers, only ${buyerVita}</b> hold
+     VITA: the newest money is buying VITARNA as a standalone bet, not as a VitaDAO position.`;
+
+  document.getElementById('ct-kpis').innerHTML=[
+    ['VITA held by VITARNA wallets','$'+fmt(sumVita*vp/1e6,2)+'M',fmt(sumVita)+' VITA'],
+    ['BIO held by VITARNA wallets','$'+fmt(sumBio*bp/1e6,2)+'M',fmt(sumBio)+' BIO'],
+  ].map(k=>`<div class="kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+
+  const profile=(va,bi)=> (va>1000&&bi>1000)?'ecosystem whale':(va>TH&&bi>TH)?'ecosystem-aligned':
+    (va>TH)?'VITA-aligned':(bi>TH)?'BIO-aligned':'VITARNA-only';
+  const profClass=p=>p.includes('whale')?'k-treasury':p.includes('aligned')?'k-safe':'k-eoa';
+  // rank holders by cross value (VITA$+BIO$), show top 18 among non-pool/router
+  const ranked=holders.filter(h=>!['pool','router','zero'].includes(h.kind))
+    .map(h=>({...h,_cv:(h._vita||0)*vp+(h._bio||0)*bp})).sort((a,b)=>b._cv-a._cv).slice(0,18);
+  document.querySelector('#ct-tbl tbody').innerHTML=ranked.map(h=>{
+    const pr=profile(h._vita||0,h._bio||0);
+    return `<tr>
+      <td><a href="${ETH+h.address}" target="_blank" class="addr">${sh(h.address)}</a>
+        ${h.label?`<div class="tagn">${h.label}</div>`:''}</td>
+      <td>${ttag(h.kind)}</td>
+      <td class="num">${fmt(h.balance)}</td>
+      <td class="num">${h._vita>0.5?fmt(h._vita):'—'}</td>
+      <td class="num">${h._bio>0.5?fmt(h._bio):'—'}</td>
+      <td class="num">${h._cv>1?'$'+fmt(h._cv):'—'}</td>
+      <td><span class="pill ${profClass(pr)}">${pr}</span></td></tr>`;}).join('');
+
+  const top=ranked[0];
+  const treV=(map[DATA.holders[0].address]||{}).vita||0, treB=(map[DATA.holders[0].address]||{}).bio||0;
+  document.getElementById('ct-callout').innerHTML=
+    `<div class="h">Verdict — two different crowds wear the VITARNA badge</div>
+     By dollar value the cross-token leaderboard is owned by VitaDAO/BioDAO <b>treasury Safes</b>: the top entry
+     (${sh(top.address)}) holds ~$${fmt(top._cv/1e6,2)}M of VITA+BIO yet only ${fmt(top.balance)} VITARNA, and the
+     VitaDAO treasury itself holds ${fmt(treV)} VITA + ${fmt(treB)} BIO. These are ecosystem custodians, not VITARNA
+     whales. Among <i>actual</i> VITARNA holders the picture is bimodal: ~${fmt(100*floatVita/floatN,0)}% of individual
+     float is VITA-aligned (long-standing VitaDAO community), while the recent buy-side is overwhelmingly
+     VITA-less — fresh, standalone speculation on the IP/biotech story rather than a governance proxy.`;
+})();
+
+// ---------- past sellers ----------
+document.getElementById('past-intro').innerHTML =
+  `${S.n_past_sellers} non-infrastructure wallets once held a meaningful position and have since exited &ge;90% of
+   their peak. Critically, the very largest historical positions (the 600k–1M holders) are <i>contracts</i> — the
+   distributor, vesting lockups and the crowdsale — which we exclude here. Among ordinary wallets, the exits are
+   dominated by internal restructuring (wallet→multisig) and small DEX round-trips, not large market dumps.`;
+const dexExits=DATA.past_sellers.filter(p=>p.exit_via==='DEX');
+const dexExitVol=dexExits.reduce((s,p)=>s+p.sold_dex,0);
+document.getElementById('past-callout').innerHTML =
+  `<div class="h">Verdict — mostly internal, not dumps</div>
+   Of the ${S.n_past_sellers} exited wallets, ${dexExits.length} left primarily via DEX, together selling
+   ~${fmt(dexExitVol)} VITARNA on-market over the token's entire life. The single largest non-infra drawdown
+   (${fmt(DATA.past_sellers[0].peak)} VITARNA by ${sh(DATA.past_sellers[0].address)}) moved straight into a
+   GnosisSafe — a custody move, and part of the <code>zeusxbt.eth</code> entity (see C${(DATA.clusters.find(c=>c.members.includes(DATA.past_sellers[0].address))||{}).cluster_id ?? '—'}).`;
+document.querySelector('#past-tbl tbody').innerHTML = DATA.past_sellers.slice(0,16).map(p=>{
+  const dest=(p.main_dest||[]).map(d=>`${d[0]}`).slice(0,2).join(', ');
+  return `<tr><td><a href="${ETH+p.address}" target="_blank" class="addr">${sh(p.address)}</a>
+      ${p.label?`<div class="tagn">${p.label}</div>`:''}</td>
+    <td class="num">${fmt(p.peak)}</td>
+    <td class="num">${pct(p.peak_pct,2)}</td>
+    <td>${dday(p.peak_ts)}</td>
+    <td class="num">${fmt(p.current)}</td>
+    <td><span class="pill ${p.exit_via==='DEX'?'k-pool':''}">${p.exit_via}</span></td>
+    <td class="addr">${dest||'—'}</td></tr>`;
+}).join('');
+
+// ====================== D3 GRAPH ======================
+(function(){
+  const KCOL={treasury:'#ef4444',distributor:'#ef4444',vesting:'#eab308',crowdsale:'#f97316',
+    safe:'#5b8cff',pool:'#06b6d4',router:'#8b5cf6',contract:'#8a97b1',cex:'#ec4899',eoa:'#22c55e'};
+  let colorMode='cluster', showFunding=true, hideIso=false, sel=null;
+  const svg=d3.select('#graph');
+  const box=document.getElementById('graphbox');
+  let W=box.clientWidth,H=box.clientHeight;
+  svg.attr('viewBox',[0,0,W,H]);
+  const g=svg.append('g');
+  svg.call(d3.zoom().scaleExtent([0.15,6]).on('zoom',e=>g.attr('transform',e.transform)));
+
+  const nodes=DATA.nodes.map(d=>({...d}));
+  const idset=new Set(nodes.map(n=>n.id));
+  let links=DATA.edges.filter(e=>idset.has(e.source)&&idset.has(e.target))
+                      .map(e=>({...e,source:e.source,target:e.target}));
+  const clusterColor=cid=>cid<0?'#36405e':PAL[cid%PAL.length];
+  const nodeColor=n=> colorMode==='cluster' ? clusterColor(n.cluster_id) : (KCOL[n.kind]||'#36405e');
+  const maxBal=d3.max(nodes,n=>n.balance)||1;
+  const rOf=n=>Math.max(4, Math.min(46, 4+Math.sqrt(n.balance/maxBal)*46));
+
+  const link=g.append('g').selectAll('line').data(links).join('line')
+    .attr('stroke',d=>d.type==='funding'?'#8b5cf6':'#26304d')
+    .attr('stroke-width',d=>d.type==='funding'?1.4:Math.min(4,1+Math.log((d.tx_count||1)+1)))
+    .attr('stroke-dasharray',d=>d.type==='funding'?'4 3':null)
+    .attr('stroke-opacity',.65);
+
+  const node=g.append('g').selectAll('g').data(nodes).join('g').style('cursor','pointer')
+    .call(d3.drag()
+      .on('start',(e,d)=>{if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;})
+      .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y;})
+      .on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null;}))
+    .on('click',(e,d)=>{e.stopPropagation();select(d);});
+  node.append('circle').attr('r',rOf).attr('fill',nodeColor).attr('fill-opacity',.9)
+    .attr('stroke',d=>d3.color(nodeColor(d)).brighter(.6)).attr('stroke-width',1.3);
+  node.append('text').text(d=>d.rank&&d.rank<=12?(d.label&&d.label.length<16?d.label:sh(d.id)):'')
+    .attr('text-anchor','middle').attr('dy','-0.9em').attr('font-size',10).attr('fill','#aeb9d2')
+    .attr('pointer-events','none');
+
+  const sim=d3.forceSimulation(nodes)
+    .force('charge',d3.forceManyBody().strength(d=>-40-rOf(d)*6))
+    .force('link',d3.forceLink(links).id(d=>d.id).distance(d=>40+rOf(d.source)+rOf(d.target)).strength(.5))
+    .force('center',d3.forceCenter(W/2,H/2).strength(.06))
+    .force('collide',d3.forceCollide(d=>rOf(d)+3).strength(.85))
+    .force('x',d3.forceX(W/2).strength(.03)).force('y',d3.forceY(H/2).strength(.03))
+    .alphaDecay(.025);
+  sim.on('tick',()=>{
+    link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+    node.attr('transform',d=>`translate(${d.x},${d.y})`);
+  });
+
+  function neighbors(id){const s=new Set([id]);links.forEach(l=>{const a=l.source.id||l.source,b=l.target.id||l.target;
+    if(a===id)s.add(b);if(b===id)s.add(a);});return s;}
+  function select(d){
+    sel=d.id; const nb=neighbors(d.id);
+    node.select('circle').attr('fill-opacity',n=>nb.has(n.id)?1:.12).attr('stroke-width',n=>n.id===d.id?3:1.3);
+    link.attr('stroke-opacity',l=>{const a=l.source.id||l.source,b=l.target.id||l.target;return(a===d.id||b===d.id)?.95:.05;});
+    const rows=[
+      ['Type',d.kind],['Cluster',d.cluster_id>=0?('C'+d.cluster_id):'—'],
+      ['Balance',fmt(d.balance)+' VITARNA'],['% supply',pct(d.percent,3)],
+      ['Holder rank',d.rank||'—'],['Peak held',fmt(d.peak)],
+      ['Counterparties',d.counterparties],
+      ['Bought on DEX',fmt(d.bought_dex)],['Sold on DEX',fmt(d.sold_dex)],
+      ['First seen',dday(d.first_ts)],['Last seen',dday(d.last_ts)],
+      ['36h buyer',d.is_buyer_36h?'yes':'no'],['Past seller',d.is_past_seller?'yes':'no'],
+    ];
+    document.getElementById('dpanel').innerHTML=
+      `<span class="x" onclick="document.getElementById('dpanel').classList.remove('on');window.__deselect()">✕</span>
+       <div class="dl">${d.label||'wallet'}</div>
+       <a class="da" href="${ETH+d.id}" target="_blank">${d.id}</a>
+       ${rows.map(r=>`<div class="dr"><span class="k">${r[0]}</span><span class="v">${r[1]}</span></div>`).join('')}`;
+    document.getElementById('dpanel').classList.add('on');
+  }
+  window.__deselect=()=>{sel=null;node.select('circle').attr('fill-opacity',.9).attr('stroke-width',1.3);
+    link.attr('stroke-opacity',.65);};
+  svg.on('click',()=>{document.getElementById('dpanel').classList.remove('on');window.__deselect();});
+
+  function applyIso(){node.style('display',n=>hideIso&&n.cluster_id<0&&!n.is_buyer_36h&&!n.is_past_seller&&(n.rank>30)?'none':null);}
+  // controls
+  document.getElementById('b-color').onclick=function(){colorMode=colorMode==='cluster'?'kind':'cluster';
+    this.textContent='Colour: '+colorMode; node.select('circle').attr('fill',nodeColor)
+    .attr('stroke',d=>d3.color(nodeColor(d)).brighter(.6)); legend();};
+  document.getElementById('b-funding').onclick=function(){showFunding=!showFunding;this.classList.toggle('on',showFunding);
+    this.textContent='Funding links: '+(showFunding?'on':'off');
+    link.style('display',d=>(d.type==='funding'&&!showFunding)?'none':null);};
+  document.getElementById('b-iso').onclick=function(){hideIso=!hideIso;this.classList.toggle('on',hideIso);
+    this.textContent=hideIso?'Show singletons':'Hide singletons';applyIso();};
+  document.getElementById('b-reheat').onclick=()=>{sim.alphaTarget(.3).restart();setTimeout(()=>sim.alphaTarget(0),1500);};
+
+  function legend(){
+    let html='<div class="t">'+(colorMode==='cluster'?'Clusters':'Wallet type')+'</div>';
+    if(colorMode==='cluster'){
+      const cs=DATA.clusters.filter(c=>c.total_balance>5||c.size>=3).slice(0,7);
+      html+=cs.map(c=>`<div class="li"><span class="dot" style="background:${PAL[c.cluster_id%PAL.length]}"></span>C${c.cluster_id} · ${c.size}w · ${fmt(c.total_balance)}</div>`).join('');
+      html+=`<div class="li"><span class="dot" style="background:#36405e"></span>unclustered</div>`;
+    } else {
+      html+=Object.entries({eoa:'EOA',safe:'Multisig',vesting:'Vesting',contract:'Contract',pool:'Pool',router:'Router/agg'})
+        .map(([k,v])=>`<div class="li"><span class="dot" style="background:${KCOL[k]}"></span>${v}</div>`).join('');
+    }
+    html+=`<div class="li" style="margin-top:6px"><span style="width:16px;border-top:1.4px dashed #8b5cf6"></span>shared funder</div>`;
+    document.getElementById('glegend').innerHTML=html;
+  }
+  legend();
+  window.addEventListener('resize',()=>{W=box.clientWidth;H=box.clientHeight;svg.attr('viewBox',[0,0,W,H]);
+    sim.force('center',d3.forceCenter(W/2,H/2).strength(.06));sim.alpha(.2).restart();});
+})();
+</script>
+</body>
+</html>

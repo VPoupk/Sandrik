@@ -6,7 +6,19 @@ IP-NFT (VitaDAO IP-NFT #28) on **Ethereum mainnet**.
 **Contract:** `0x7b66E84Be78772a3afAF5ba8c1993a1B5D05F9C2`
 
 Open **[`index.html`](index.html)** in a browser for the full interactive report (self-contained;
-data is embedded inline, D3 loaded from CDN).
+D3 inlined, data embedded).
+
+### Variants (pick one)
+
+- **`index.html`** — v1: concentration, 36h buyers, connection graph, clusters, past sellers.
+- **`index_v2.html`** — v1 **plus** a **Cross-token whale overlap (VITA / BIO)** section and an expanded
+  **full 8-group cluster breakdown**. Built by `fetch_crosstoken.py` → `process_v2.py` → `build_v2.py`
+  (template `template_v2.html`, data `data/processed_v2.json`).
+
+Cross-token highlights: VITARNA-linked wallets hold ~33% of all VITA ($2.77M) and ~11% of all BIO
+($10.27M), but the value is concentrated in VitaDAO/BioDAO treasury Safes (the top cross-holder holds
+$10.85M of VITA+BIO yet only 1 VITARNA). ~31% of individual VITARNA float also holds VITA, vs only
+5 of 45 recent buyers — the newest money treats VITARNA as a standalone bet, not a governance proxy.
 
 ## Headline findings (snapshot 2026-06-23)
 
