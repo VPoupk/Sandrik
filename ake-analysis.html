@@ -531,6 +531,41 @@ small { font-size:10px; }
     </div>
   </div>
 
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Every implementation upgrade across all eight pools, in the three clustered windows</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      45 upgrades total across the eight proxies since launch (Investors 8, KOL 9, Nodes 1 and 2 six each, Nodes 3 and Team 1
+      five each, Team 2 four, Community two). Seventeen of them fall inside these three windows.
+    </p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Time (UTC)</th><th>Block</th><th>Pool</th><th>New implementation</th><th>What it enabled</th></tr></thead>
+      <tbody>
+        <tr><td colspan="5" style="background:var(--card2)"><strong>19 June 2026 — the whole pool system re-implemented in 2 minutes 57 seconds, by the deployer EOA</strong></td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td>16:00:17</td><td class="num">105,170,321</td><td><strong>Investors Pool</strong></td><td><code>0x27e8d745…4888c4</code></td><td><span class="badge badge-red">adds adminTransfer</span></td></tr>
+        <tr><td>16:02:02</td><td class="num">105,170,554</td><td>Team Pool 1</td><td><code>0x085a09f4…36cff1</code></td><td>—</td></tr>
+        <tr><td>16:02:12</td><td class="num">105,170,576</td><td>Community Pool</td><td><code>0xc9282593…be1809</code></td><td>—</td></tr>
+        <tr><td>16:02:23</td><td class="num">105,170,599</td><td>Team Pool 2</td><td><code>0x085a09f4…36cff1</code></td><td>—</td></tr>
+        <tr><td>16:02:35</td><td class="num">105,170,627</td><td>KOL Pool</td><td><code>0xd174826a…f3d42e</code></td><td>—</td></tr>
+        <tr><td>16:02:50</td><td class="num">105,170,661</td><td>Nodes Pool 1</td><td><code>0xf9b9f782…415c22</code></td><td>—</td></tr>
+        <tr><td>16:03:01</td><td class="num">105,170,684</td><td>Nodes Pool 2</td><td><code>0xf9b9f782…415c22</code></td><td>—</td></tr>
+        <tr><td>16:03:14</td><td class="num">105,170,713</td><td>Nodes Pool 3</td><td><code>0xf9b9f782…415c22</code></td><td>—</td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td><strong>16:09:01</strong></td><td class="num">105,171,484</td><td><strong>Investors Pool</strong></td><td><code>0x30d691a6…295ac9</code></td><td><span class="badge badge-gray">removes adminTransfer again</span></td></tr>
+        <tr><td colspan="5" style="background:var(--card2)"><strong>22 July 2026 — the three Nodes pools get the claim path, 41 seconds apart, by the Safe</strong></td></tr>
+        <tr><td>03:39:25</td><td class="num">111,404,345</td><td>Nodes Pool 1</td><td><code>0xee73d275…b38455</code></td><td><span class="badge badge-orange">signature-gated claim</span></td></tr>
+        <tr><td>03:39:47</td><td class="num">111,404,393</td><td>Nodes Pool 2</td><td><code>0xee73d275…b38455</code></td><td><span class="badge badge-orange">signature-gated claim</span></td></tr>
+        <tr><td>03:40:06</td><td class="num">111,404,437</td><td>Nodes Pool 3</td><td><code>0xee73d275…b38455</code></td><td><span class="badge badge-orange">signature-gated claim</span></td></tr>
+        <tr><td colspan="5" style="background:var(--card2)"><strong>25 July 2026 — five pools get userWithdraw() in 2 minutes 2 seconds, by the Safe. Nodes Pool 3 is left out.</strong></td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td>12:05:39</td><td class="num">112,047,462</td><td><strong>Investors Pool</strong></td><td><code>0x00445d6c…bfc9cc</code></td><td><span class="badge badge-red">adds userWithdraw()</span></td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td>12:06:10</td><td class="num">112,047,529</td><td><strong>Team Pool 1</strong></td><td><code>0x7095ad26…c5efcc</code></td><td><span class="badge badge-red">adds userWithdraw()</span></td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td>12:06:38</td><td class="num">112,047,593</td><td><strong>Team Pool 2</strong></td><td><code>0x6d9a94e4…721e1b</code></td><td><span class="badge badge-red">adds userWithdraw()</span></td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td>12:07:13</td><td class="num">112,047,669</td><td><strong>Nodes Pool 1</strong></td><td><code>0xec7ec7f1…590c3a</code></td><td><span class="badge badge-red">adds userWithdraw()</span> — 504.2mn outlier follows</td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td>12:07:41</td><td class="num">112,047,733</td><td><strong>Nodes Pool 2</strong></td><td><code>0xbac6dc46…ea84c8</code></td><td><span class="badge badge-red">adds userWithdraw()</span> — 1,035.8mn outlier follows</td></tr>
+        <tr><td>—</td><td class="num">—</td><td>Nodes Pool 3</td><td colspan="2"><span class="badge badge-green">not upgraded — and it is the only node pool with no outlier</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
   <div class="card">
     <h3>Simulated <code>userWithdraw()</code> — proof the entitlement did not exist beforehand</h3>
     <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
