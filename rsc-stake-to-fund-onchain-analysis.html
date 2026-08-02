@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ResearchCoin (RSC) — Stake-to-Fund On-Chain Analysis</title>
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#ffffff; --ink:#1a1a1a; --muted:#5c5c5c; --line:#e3e0da;
+  --accent:#2f5d50; --accent-soft:#e8f0ed; --warn:#8a4b12; --warn-soft:#fbf0e3;
+  --bad:#8f2d2d; --bad-soft:#fbeaea; --good:#2c5f35; --good-soft:#e9f2ea;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#14171a;--panel:#1c2024;--ink:#e9e6e1;--muted:#9aa0a6;--line:#2e343a;
+  --accent:#7fc0aa;--accent-soft:#1e2b27;--warn:#e0a86a;--warn-soft:#2b2318;
+  --bad:#e58b8b;--bad-soft:#2c1d1d;--good:#8dc99a;--good-soft:#1b2a1e;}
+}
+:root[data-theme="dark"]{--bg:#14171a;--panel:#1c2024;--ink:#e9e6e1;--muted:#9aa0a6;--line:#2e343a;
+  --accent:#7fc0aa;--accent-soft:#1e2b27;--warn:#e0a86a;--warn-soft:#2b2318;
+  --bad:#e58b8b;--bad-soft:#2c1d1d;--good:#8dc99a;--good-soft:#1b2a1e;}
+:root[data-theme="light"]{--bg:#fbfaf8;--panel:#ffffff;--ink:#1a1a1a;--muted:#5c5c5c;--line:#e3e0da;
+  --accent:#2f5d50;--accent-soft:#e8f0ed;--warn:#8a4b12;--warn-soft:#fbf0e3;
+  --bad:#8f2d2d;--bad-soft:#fbeaea;--good:#2c5f35;--good-soft:#e9f2ea;}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  overflow-x:hidden;}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 22px 90px}
+header.doc{border-bottom:3px solid var(--accent);padding-bottom:22px;margin-bottom:34px}
+.kicker{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-size:clamp(26px,4.4vw,40px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:16px;max-width:70ch;margin:0}
+.meta{margin-top:18px;font:12px/1.6 var(--mono);color:var(--muted)}
+h2{font-size:clamp(19px,2.6vw,25px);margin:52px 0 6px;letter-spacing:-.01em;padding-top:14px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:30px 0 8px}
+h4{font-size:14px;margin:22px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+p{margin:11px 0}
+code,.mono{font-family:var(--mono);font-size:.87em}
+.addr{font-family:var(--mono);font-size:.8em;word-break:break-all;color:var(--muted)}
+.tag{display:inline-block;font:600 10px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:4px;white-space:nowrap;vertical-align:middle}
+.t-ins{background:var(--bad-soft);color:var(--bad)}
+.t-ext{background:var(--good-soft);color:var(--good)}
+.t-unk{background:var(--warn-soft);color:var(--warn)}
+.t-neu{background:var(--accent-soft);color:var(--accent)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px;margin:26px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 17px}
+.card .lab{font:600 10px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card .val{font-size:26px;font-weight:680;letter-spacing:-.02em;margin:7px 0 3px}
+.card .note{font-size:12.5px;color:var(--muted);line-height:1.45}
+.card.hi{border-color:var(--accent);background:var(--accent-soft)}
+
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:18px 0;
+  border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:600px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 10.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  background:var(--bg);position:sticky;top:0;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-family:var(--mono);white-space:nowrap}
+tr.total td{font-weight:700;background:var(--accent-soft);border-top:2px solid var(--accent)}
+tr.sub td{background:var(--bg);font-weight:600}
+
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);
+  padding:15px 18px;border-radius:0 9px 9px 0;margin:20px 0}
+.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+.callout.bad{border-color:var(--bad);background:var(--bad-soft)}
+.callout .h{font-weight:700;margin-bottom:5px;font-size:14.5px}
+.callout p{margin:6px 0;font-size:14.5px}
+
+ul,ol{margin:11px 0;padding-left:22px}
+li{margin:6px 0}
+.flow{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;margin:18px 0;
+  font-family:var(--mono);font-size:12.5px;line-height:1.9;overflow-x:auto;white-space:pre}
+.footnote{font-size:13px;color:var(--muted);border-top:1px solid var(--line);margin-top:48px;padding-top:18px}
+.bar{height:9px;background:var(--line);border-radius:5px;overflow:hidden;min-width:90px;display:block}
+.bar > i{display:block;height:100%;background:var(--accent)}
+.bar > i.ins{background:var(--bad)}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <div class="kicker">On-chain forensic memo · Initial findings</div>
+  <h1>ResearchCoin (RSC): what the “stake-to-fund” launch actually did on-chain</h1>
+  <p class="sub">A first-principles reconstruction of ResearchHub’s staking / endowment product across Ethereum
+  and Base, built entirely from raw chain state — token contracts, Safe storage, transfer logs and historical
+  balance reconstruction — rather than from dashboards or aggregator summaries.</p>
+  <div class="meta">
+    Prepared 2026-08-02 · Chain state as of ETH block 25,668,253 / Base block 49,448,864<br>
+    Primary sources: Ethereum &amp; Base JSON-RPC (archive), Blockscout explorer APIs, CoinGecko daily reference prices<br>
+    Prices: CoinGecko daily USD close for <code>researchcoin</code>, applied at each transfer’s UTC date
+  </div>
+</header>
+
+<!-- ============================================ -->
+<h2>1. Executive summary</h2>
+
+<div class="cards">
+  <div class="card hi">
+    <div class="lab">Total ever staked</div>
+    <div class="val">21.97M RSC</div>
+    <div class="note">$1,846,213 valued at each deposit date<br>19 deposits, both chains</div>
+  </div>
+  <div class="card">
+    <div class="lab">Since Apr 10 launch</div>
+    <div class="val">21.52M RSC</div>
+    <div class="note">$1,804,943 at deposit dates</div>
+  </div>
+  <div class="card">
+    <div class="lab">Ever withdrawn</div>
+    <div class="val">0 RSC</div>
+    <div class="note">Net = gross. Zero outflows, structurally</div>
+  </div>
+  <div class="card">
+    <div class="lab">Insider-sourced share</div>
+    <div class="val">87.8%</div>
+    <div class="note">19.28M RSC / $1,605,993 traced to treasury, genesis-mint or multisig-signer wallets</div>
+  </div>
+</div>
+
+<p><strong>The headline finding is that there is no staking smart contract.</strong> RSC “staking” is a custodial
+book-entry: users send RSC to ResearchHub-controlled addresses and the yield (“Funding Credits”) is credited off-chain
+in the application database. ResearchHub’s own documentation confirms the design — “<em>no lockups, no gas fees</em>”,
+“<em>principal is revocable</em>”, “<em>RSC held in a ResearchHub account automatically earns Funding Credits</em>”,
+with yield defined as <code>Your Yield = RSC Emissions × (Your Held RSC / Total Held RSC on Platform)</code>. Nothing
+about that requires — or uses — a staking contract, and none exists on either chain.</p>
+
+<p>The address you identified, <code>0x467564…66d3</code>, <strong>is</strong> the destination of every large deposit, so your
+premise was right in substance. Mechanically it is a Gnosis Safe v1.4.1, <strong>2-of-3</strong>, that has received 19
+deposits totalling 21,965,651.18 RSC and has never sent anything out. It behaves as an omnibus cold-custody vault for
+the staking product, not as a staking contract.</p>
+
+<p>The second finding is about who actually staked. <strong>87.8% of the RSC in that vault came from wallets that
+trace back to ResearchHub itself</strong> — the genesis mint, the treasury multisigs, or wallets whose keys sign those
+same treasuries. The single largest depositor, at 9,999,000 RSC (45.5% of the vault), is the wallet that received
+700,000,000 RSC in the 2020 token generation event <em>and is itself a signer on Treasury 1 and Treasury 2</em>. Measured
+as external capital attracted, the launch drew roughly <strong>2.69M RSC (~$240k)</strong>, not $1.8M.</p>
+
+<div class="callout bad">
+  <div class="h">Two structural findings that carry real risk</div>
+  <p><strong>(a) On Base, the vault address has no contract code.</strong> <code>0x467564…66d3</code> holds
+  3,323,117.53 RSC on Base (~$225k) at an address where <code>eth_getCode</code> returns empty and the nonce is 0.
+  No Safe was ever deployed there. Those tokens cannot move today. They are recoverable only if the owners deploy
+  the identical Safe at that address via the same CREATE2 factory and salt — possible, but not done.</p>
+  <p><strong>(b) On Ethereum, the vault Safe’s nonce is 0.</strong> It has never executed a single transaction in its
+  life. No withdrawal path has ever been exercised or demonstrated for the 18,642,533.65 RSC it holds.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>2. Corrections to the brief</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Your premise</th><th>Verdict</th><th>What the chain shows</th></tr></thead>
+<tbody>
+<tr>
+  <td>RSC is <code>0xfbb75a59…f7e1</code></td>
+  <td><span class="tag t-unk">Partly</span></td>
+  <td>That is the <strong>Base</strong> RSC contract. On Ethereum it is an empty address. Ethereum RSC is
+      <code>0xD101dCC414F310268c37eEb4cD376CcFA507F571</code>. Both are named ResearchCoin / RSC, 18 decimals.</td>
+</tr>
+<tr>
+  <td>The staking multisig on ETH is <code>0x467564…66d3</code></td>
+  <td><span class="tag t-ext">Confirmed</span></td>
+  <td>Safe v1.4.1 proxy, mastercopy <code>0x41675C09…461a</code>, threshold 2 of 3 owners. It is the terminal
+      destination of every large staking deposit on both chains.</td>
+</tr>
+<tr>
+  <td>“On Base: <span class="mono">etherscan.io/address/0x467564…</span>”</td>
+  <td><span class="tag t-ins">Corrected</span></td>
+  <td>The same Etherscan link was pasted twice, so the Base leg was never actually checked. On Base that address is
+      <strong>not a contract at all</strong> — no code, nonce 0 — yet it holds 3,323,117.53 RSC. See §7.</td>
+</tr>
+<tr>
+  <td>There must be a staking contract</td>
+  <td><span class="tag t-ins">Not found</span></td>
+  <td>No staking contract exists on either chain. Every RSC-holding contract resolves to a Safe, a Uniswap/Aerodrome
+      pool, the Base bridge, a vesting contract, or an ERC-4337 user smart account. Staking is a custodial ledger.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h4>Method note — why not Etherscan</h4>
+<p>Etherscan and Basescan both return HTTP 403 to this environment (Cloudflare bot interdiction), so rather than fall
+back to second-hand sources I queried the chains directly: archive JSON-RPC nodes for
+<code>eth_call</code>, <code>eth_getLogs</code>, <code>eth_getCode</code> and <code>eth_getStorageAt</code>, plus the
+Blockscout explorer APIs for both networks. That is the same data Etherscan indexes, one layer closer to the source.
+One consequence worth recording: the Blockscout address index <em>missed</em> a 350,000 RSC transfer into the vault on
+2026-03-11. I found it by reconstructing the vault’s balance history through binary search on
+<code>balanceOf</code> across 6.4M Base blocks, which is why the ledger in §5 reconciles to the wei and an
+explorer-only reading would not have.</p>
+
+<!-- ============================================ -->
+<h2>3. Contract inventory</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Nickname</th><th>Address</th><th>Chain</th><th>Type</th><th class="num">RSC held</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td><strong>RSC-ETH</strong></td><td class="addr">0xD101dCC414F310268c37eEb4cD376CcFA507F571</td><td>ETH</td><td>ERC-20</td><td class="num">1,000,000,000 supply</td><td>Canonical token. Fixed supply, minted 2020-08-01.</td></tr>
+<tr><td><strong>RSC-BASE</strong></td><td class="addr">0xFbB75A59193A3525a8825BeBe7D4b56899E2f7e1</td><td>BASE</td><td>ERC-20</td><td class="num">72,933,772.76 supply</td><td>Bridged representation. Not additive to the 1B.</td></tr>
+<tr><td><strong>BRIDGE-ESCROW</strong></td><td class="addr">0x3154Cf16ccdb4C6d922629664174b904d80F2C35</td><td>ETH</td><td>L1ChugSplashProxy</td><td class="num">72,973,614.46</td><td>Base L1StandardBridge. Locks the L1 side of every bridged RSC.</td></tr>
+<tr><td><strong>STAKE-VAULT</strong> <span class="tag t-neu">focus</span></td><td class="addr">0x467564DCCE90FB21153adfa69c48A3Be235d66D3</td><td>ETH</td><td>Safe 1.4.1, 2/3, nonce 0</td><td class="num">18,642,533.65</td><td>Terminal destination of all ETH staking deposits.</td></tr>
+<tr><td><strong>STAKE-VAULT-BASE</strong> <span class="tag t-ins">no code</span></td><td class="addr">0x467564DCCE90FB21153adfa69c48A3Be235d66D3</td><td>BASE</td><td>EOA-shaped, empty</td><td class="num">3,323,117.53</td><td>Same address, never deployed on Base. Funds immobile.</td></tr>
+<tr><td><strong>TREASURY-ALPHA</strong></td><td class="addr">0x5222FF25F4DFC02d173C2cbd2055EE1D35f291F1</td><td>ETH</td><td>Safe, 2/6, nonce 63</td><td class="num">455,674,633</td><td>Docs: “ResearchHub Treasury 1”. 45.6% of all RSC.</td></tr>
+<tr><td><strong>TREASURY-BETA</strong></td><td class="addr">0xE3648e99B6E68A09e28428790D12B357f081dBe0</td><td>ETH</td><td>Safe, 2/6, nonce 71</td><td class="num">297,839,108</td><td>Docs: “ResearchHub Treasury 2”. 29.8% of all RSC.</td></tr>
+<tr><td><strong>TREASURY-OPS</strong></td><td class="addr">0xC4cfa2BdAE08416312fAa0B72758E1F3750f81e3</td><td>ETH</td><td>Safe, 2/3, nonce 309</td><td class="num">14,092,043</td><td>Docs: “Treasury 3”. By far the most-used Safe — the operating disbursement account.</td></tr>
+<tr><td><strong>FOUNDATION-COMMUNITY</strong></td><td class="addr">0xb280F00E70F28E8Ce38C40826270DE7e1B327E21</td><td>BASE</td><td>Safe, 2/3, nonce 265</td><td class="num">2,115,806</td><td>Docs: “Foundation Community”. Also a depositor into the vault.</td></tr>
+<tr><td><strong>HOT-WALLET</strong></td><td class="addr">0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</td><td>ETH</td><td>EOA, 1,211 txs</td><td class="num">350,372</td><td>Docs: “ResearchHub Hot Wallet”. Receives the small sweeps in the deposit flow.</td></tr>
+<tr><td><strong>TGE-DISTRIBUTOR-700M</strong></td><td class="addr">0xB518536B67720D9D61f5250cAF5c0494fC087D3d</td><td>ETH</td><td>EOA</td><td class="num">60,000,000</td><td>Received 700,000,000 RSC direct from the mint. Signer on Treasury 1 &amp; 2. Largest staker.</td></tr>
+<tr><td><strong>VEST-BENEFICIARY-70M</strong></td><td class="addr">0x1288d4d08C3e79b81C2DB1CE459AE374fC978D34</td><td>ETH</td><td>EOA</td><td class="num">8,090,687</td><td>Received 70,000,000 RSC direct from the mint. Beneficiary of the TokenVesting contract.</td></tr>
+<tr><td><strong>VESTING-CONTRACT</strong></td><td class="addr">0x4Df3043C103A1Dc0A80a408F04a2A37f5b0Eb662</td><td>ETH</td><td>TokenVesting</td><td class="num">2,755,068</td><td>Beneficiary = VEST-BENEFICIARY-70M. Start 2022-01-05, duration 2,250 days (ends ≈2028-03).</td></tr>
+<tr><td><strong>SIGNER-STAKER</strong></td><td class="addr">0x3D4B25c3E9FB5B159d932945cB74c5DF33dF339C</td><td>ETH</td><td>EOA</td><td class="num">3,606,374</td><td>Signer on both TREASURY-OPS and FOUNDATION-COMMUNITY. Staked 1.09M.</td></tr>
+<tr><td><strong>BASE-DESK</strong></td><td class="addr">0x901Fc41a79024017D84a29aabb8A47A9eCDb480F</td><td>BASE</td><td>EOA, 6 outbound txs</td><td class="num">15,845,066</td><td>Largest Base holder. Accumulation/trading pattern, not user deposits. See §8.</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============================================ -->
+<h2>4. How the stake-to-fund flow actually works</h2>
+
+<p>Every single large deposit into the vault follows an identical three-hop choreography, executed within a
+3–10 minute window. This is not a user calling <code>stake()</code> on a contract — it is an exchange-style
+deposit-and-sweep pipeline.</p>
+
+<div class="flow">STEP 1 — depositor's own wallet (EOA)
+         │
+         │  sends RSC to a freshly-deployed, single-use ERC-4337 smart account
+         ▼
+STEP 2 — DEPOSIT RELAY  (ERC1967Proxy → "SingleOwnerMSCA" implementation)
+         │                one relay per depositor; holds a zero balance before and after
+         │
+         ├──── small "test" tranche, typically 0.1% ──────►  HOT-WALLET  0x7F57d306…10cb
+         │
+         └──── principal ─────────────────────────────────►  STAKE-VAULT 0x467564…66d3
+                                                              (never moves again)</div>
+
+<p>A worked example, the 5M RSC deposit on 2026-04-20 (Ethereum, all timestamps UTC):</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Time</th><th>Movement</th><th class="num">RSC</th></tr></thead>
+<tbody>
+<tr><td class="mono">05:40:47</td><td>VEST-BENEFICIARY-70M → relay <code>0x3b1fddbe…9e3f</code></td><td class="num">1,000.00</td></tr>
+<tr><td class="mono">05:43:23</td><td>relay → HOT-WALLET <span class="tag t-neu">test sweep</span></td><td class="num">1,000.00</td></tr>
+<tr><td class="mono">05:46:59</td><td>VEST-BENEFICIARY-70M → relay</td><td class="num">5,000,000.00</td></tr>
+<tr><td class="mono">05:50:11</td><td>relay → STAKE-VAULT <span class="tag t-neu">principal</span></td><td class="num">5,000,000.00</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The relays are ERC-4337 modular smart accounts. Reading EIP-1967 implementation slots directly confirms that
+<strong>every relay on both chains points at the same implementation</strong>, <code>SingleOwnerMSCA</code> at
+<code>0xD206aC7fEf53d83ED4563E770b28Dba90D0D9eC8</code> — one uniform factory behind the whole deposit
+pipeline. They are ResearchHub-generated per-user deposit
+addresses — the on-chain footprint of the app’s “connect wallet and deposit” button. The routing split is
+informative: <strong>small amounts are swept to the operational hot wallet, large amounts to the cold vault</strong>.
+That is textbook custodial treasury management, and it is the strongest single piece of evidence that user
+balances here are an internal ledger rather than a contract position.</p>
+
+<div class="callout">
+  <div class="h">What this means for the “stake” abstraction</div>
+  <p>Because yield accrues on <em>any</em> RSC held in a ResearchHub account, there is no on-chain distinction
+  between “staked” RSC and “deposited” RSC. The vault is simply where the large custodial balances are parked.
+  A user’s stake is a database row; the vault is the backing. There is no on-chain enforcement of the yield formula,
+  no lockup, no redemption guarantee, and no way for a depositor to exit without ResearchHub acting for them.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>5. The complete deposit ledger</h2>
+
+<p>All 19 deposits, both chains, valued at the CoinGecko daily USD close for the date of the transfer. This
+reconciles exactly to the vault’s current balances on both chains (18,642,533.65 + 3,323,117.53).</p>
+
+<div class="scroll">
+<table>
+<thead><tr>
+  <th>Date</th><th>Chain</th><th class="num">RSC</th><th class="num">RSC px</th><th class="num">USD</th>
+  <th>Source wallet (nickname)</th><th>Class</th>
+</tr></thead>
+<tbody>
+<tr><td class="mono">2026-03-03</td><td>ETH</td><td class="num">100,000.00</td><td class="num">0.10296</td><td class="num">10,296</td><td>TREASURY-3 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-03-11</td><td>BASE</td><td class="num">350,000.00</td><td class="num">0.08850</td><td class="num">30,974</td><td>UNLINKED-F</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr class="sub"><td colspan="7">▼ Stake-to-fund product announced 2026-04-10</td></tr>
+<tr><td class="mono">2026-04-10</td><td>BASE</td><td class="num">192,984.31</td><td class="num">0.07300</td><td class="num">14,088</td><td>BASE-DISTRIBUTOR-A</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-04-10</td><td>BASE</td><td class="num">378,658.60</td><td class="num">0.07300</td><td class="num">27,643</td><td>BASE-DISTRIBUTOR-B</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-04-12</td><td>ETH</td><td class="num">400,000.00</td><td class="num">0.06776</td><td class="num">27,102</td><td>UNLINKED-G</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-04-16</td><td>ETH</td><td class="num">250,000.00</td><td class="num">0.06558</td><td class="num">16,395</td><td>UNLINKED-G</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-04-16</td><td>BASE</td><td class="num">769,130.00</td><td class="num">0.06558</td><td class="num">50,440</td><td>FOUNDATION-COMMUNITY</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-04-20</td><td>ETH</td><td class="num">5,000,000.00</td><td class="num">0.06916</td><td class="num">345,780</td><td>VEST-BENEFICIARY-70M</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-04-22</td><td>ETH</td><td class="num">1,000,000.00</td><td class="num">0.07512</td><td class="num">75,117</td><td>TREASURY-3 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-04-24</td><td>ETH</td><td class="num">1,092,533.65</td><td class="num">0.12958</td><td class="num">141,568</td><td>SIGNER-STAKER</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-05-06</td><td>BASE</td><td class="num">325,580.00</td><td class="num">0.12170</td><td class="num">39,622</td><td>UNLINKED-D</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-05-10</td><td>ETH</td><td class="num">200,000.00</td><td class="num">0.14426</td><td class="num">28,852</td><td>UNLINKED-H</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-05-16</td><td>ETH</td><td class="num">101,000.00</td><td class="num">0.13944</td><td class="num">14,084</td><td>TREASURY-2 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-05-16</td><td>ETH</td><td class="num">500,000.00</td><td class="num">0.13944</td><td class="num">69,721</td><td>TREASURY-2 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-05-20</td><td>BASE</td><td class="num">714,186.00</td><td class="num">0.12194</td><td class="num">87,085</td><td>FOUNDATION-COMMUNITY</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-06-11</td><td>BASE</td><td class="num">462,613.50</td><td class="num">0.09253</td><td class="num">42,804</td><td>BASE-DESK-C</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-06-17</td><td>BASE</td><td class="num">129,965.12</td><td class="num">0.09803</td><td class="num">12,740</td><td>UNLINKED-E</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-07-04</td><td>ETH</td><td class="num">999,000.00</td><td class="num">0.09339</td><td class="num">93,292</td><td>TGE-DISTRIBUTOR-700M</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-07-07</td><td>ETH</td><td class="num">9,000,000.00</td><td class="num">0.07985</td><td class="num">718,610</td><td>TGE-DISTRIBUTOR-700M</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr class="total"><td colspan="2">TOTAL — 19 deposits, 0 withdrawals</td><td class="num">21,965,651.18</td><td class="num">—</td><td class="num">1,846,213</td><td colspan="2"></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Net-on-net since the April 10 launch</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Window</th><th class="num">Gross in (RSC)</th><th class="num">Gross out</th><th class="num">Net (RSC)</th><th class="num">USD at deposit dates</th></tr></thead>
+<tbody>
+<tr><td>Pre-launch (Mar 3 – Mar 11)</td><td class="num">450,000.00</td><td class="num">0</td><td class="num">450,000.00</td><td class="num">41,270</td></tr>
+<tr><td><strong>Post-launch (Apr 10 – Aug 2)</strong></td><td class="num">21,515,651.18</td><td class="num">0</td><td class="num">21,515,651.18</td><td class="num">1,804,943</td></tr>
+<tr class="total"><td>All time</td><td class="num">21,965,651.18</td><td class="num">0</td><td class="num">21,965,651.18</td><td class="num">1,846,213</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>Net equals gross, and that is a structural fact rather than a behavioural one.</strong> The Ethereum Safe’s
+nonce is 0, meaning it has never executed a transaction — a Safe can only move tokens through
+<code>execTransaction</code>, so zero nonce mathematically forecloses any outflow. On Base the address has no code and
+therefore no ability to transact at all. Retention is 100% because exit is currently impossible, not because
+depositors chose to stay. Read the “no withdrawals” number as a lock, not as loyalty.</p>
+
+<div class="callout warn">
+  <div class="h">Mark-to-market</div>
+  <p>Cost basis at deposit dates: <strong>$1,846,213</strong>. Value of the same 21,965,651.18 RSC at the
+  2026-08-02 close of $0.06785: <strong>$1,490,373</strong>. Unrealised change <strong>−$355,840 (−19.3%)</strong>.
+  RSC rallied from $0.0656 on 16 April to a peak of $0.1615 on 12 May — roughly 2.4× — before fully retracing to
+  $0.0679 by 2 August. Deposits cluster on both sides of that arc, and the two largest (July, 9.999M RSC combined)
+  landed after the round trip was complete.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>6. Where the money came from</h2>
+
+<p>Each depositor was traced backwards through its own RSC history to the point of origin — in several cases all the
+way to the 2020-08-01 genesis mint. Grouping by ultimate source:</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Source (nickname)</th><th class="num">RSC staked</th><th class="num">USD</th><th class="num">Share</th><th>Provenance evidence</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>TGE-DISTRIBUTOR-700M</strong><br><span class="addr">0xB518536B…7D3d</span></td>
+  <td class="num">9,999,000.00</td><td class="num">811,902</td>
+  <td class="num">45.5%<br><span class="bar"><i class="ins" style="width:45.5%"></i></span></td>
+  <td>Received <strong>700,000,000 RSC directly from the zero address</strong> at the 2020-08-01 mint; forwarded
+      630,000,001 to TREASURY-BETA in 2022; still holds 60,000,000. <strong>Is a signer on both Treasury 1 and
+      Treasury 2.</strong></td>
+</tr>
+<tr>
+  <td><strong>VEST-BENEFICIARY-70M</strong><br><span class="addr">0x1288d4d0…8D34</span></td>
+  <td class="num">5,000,000.00</td><td class="num">345,780</td>
+  <td class="num">22.8%<br><span class="bar"><i class="ins" style="width:22.8%"></i></span></td>
+  <td>Received <strong>70,000,000 RSC directly from the mint</strong>, routed it into a vesting escrow, and has been
+      receiving it back in tranches since. Named <strong>beneficiary of the TokenVesting contract</strong> that still
+      holds 2,755,068 RSC.</td>
+</tr>
+<tr>
+  <td><strong>FOUNDATION-COMMUNITY</strong><br><span class="addr">0xb280F00E…7E21</span></td>
+  <td class="num">1,483,316.00</td><td class="num">137,525</td>
+  <td class="num">6.8%<br><span class="bar"><i class="ins" style="width:6.8%"></i></span></td>
+  <td>The Safe <strong>listed in ResearchHub’s own contracts-and-addresses page</strong> as “Foundation Community”.
+      The organisation staked into its own product, twice.</td>
+</tr>
+<tr>
+  <td><strong>TREASURY-3 GRANTEE</strong><br><span class="addr">0x5aa0122f…3fea</span></td>
+  <td class="num">1,100,000.00</td><td class="num">85,412</td>
+  <td class="num">5.0%<br><span class="bar"><i class="ins" style="width:5.0%"></i></span></td>
+  <td>Funded with <strong>1,048,000 RSC across 18 transfers from TREASURY-OPS</strong> (2022–2024). Essentially all of
+      its balance originates from ResearchHub’s operating treasury.</td>
+</tr>
+<tr>
+  <td><strong>SIGNER-STAKER</strong><br><span class="addr">0x3D4B25c3…339C</span></td>
+  <td class="num">1,092,533.65</td><td class="num">141,568</td>
+  <td class="num">5.0%<br><span class="bar"><i class="ins" style="width:5.0%"></i></span></td>
+  <td><strong>Signer on TREASURY-OPS and on FOUNDATION-COMMUNITY.</strong> Holds 3,606,374 RSC.</td>
+</tr>
+<tr>
+  <td><strong>TREASURY-2 GRANTEE</strong><br><span class="addr">0x144985d2…B00d</span></td>
+  <td class="num">601,000.00</td><td class="num">83,804</td>
+  <td class="num">2.7%<br><span class="bar"><i class="ins" style="width:2.7%"></i></span></td>
+  <td>Received <strong>1,600,100 RSC from TREASURY-BETA</strong> in September 2025, then staked 601,000 of it in May 2026.</td>
+</tr>
+<tr class="sub"><td>Subtotal — traceable to ResearchHub</td><td class="num">19,275,849.65</td><td class="num">1,605,993</td><td class="num">87.8%</td><td></td></tr>
+<tr>
+  <td>UNLINKED-G <span class="addr">0x7f38aa84…5435</span></td>
+  <td class="num">650,000.00</td><td class="num">43,497</td><td class="num">3.0%</td>
+  <td>Funded with 1,000,000 RSC from <code>0xcc5f1f28…e21b</code> in 2023. No treasury or signer link found.</td>
+</tr>
+<tr>
+  <td>BASE-DESK-C <span class="addr">0x1985ea6e…5c87</span></td>
+  <td class="num">462,613.50</td><td class="num">42,804</td><td class="num">2.1%</td>
+  <td>High-frequency Base trading wallet; principal counterparty of BASE-DESK. Exchange/market-maker profile.</td>
+</tr>
+<tr>
+  <td>BASE-DISTRIBUTOR-B <span class="addr">0x26b610a0…7419</span></td>
+  <td class="num">378,658.60</td><td class="num">27,643</td><td class="num">1.7%</td>
+  <td>Aggregator wallet, many-to-one inflow pattern, also trades with BASE-DESK.</td>
+</tr>
+<tr>
+  <td>UNLINKED-F <span class="addr">0xfd91745f…f2b1</span></td>
+  <td class="num">350,000.00</td><td class="num">30,974</td><td class="num">1.6%</td>
+  <td>The pre-launch 2026-03-11 deposit. Plain EOA, sent direct with no relay — the only deposit that skipped the pipeline.</td>
+</tr>
+<tr>
+  <td>UNLINKED-D <span class="addr">0xf32b2204…a1f2</span></td>
+  <td class="num">325,580.00</td><td class="num">39,622</td><td class="num">1.5%</td>
+  <td>No treasury link found.</td>
+</tr>
+<tr>
+  <td>UNLINKED-H <span class="addr">0x665f3d71…cd4e</span></td>
+  <td class="num">200,000.00</td><td class="num">28,852</td><td class="num">0.9%</td>
+  <td>Funded with 200,000 RSC from <code>0xb2d60143…8eab</code> in 2024. Staked the entire balance.</td>
+</tr>
+<tr>
+  <td>BASE-DISTRIBUTOR-A <span class="addr">0x739120ad…2360</span></td>
+  <td class="num">192,984.31</td><td class="num">14,088</td><td class="num">0.9%</td>
+  <td>Distribution wallet: observed sending <em>identical</em> 913,572 RSC tranches to several addresses that now sit in
+      the Base top-25 holders. Suggests one entity operating a wallet cluster.</td>
+</tr>
+<tr>
+  <td>UNLINKED-E <span class="addr">0x7a81ac54…a144</span></td>
+  <td class="num">129,965.12</td><td class="num">12,740</td><td class="num">0.6%</td>
+  <td>No treasury link found.</td>
+</tr>
+<tr class="sub"><td>Subtotal — not traceable to ResearchHub</td><td class="num">2,689,801.53</td><td class="num">240,220</td><td class="num">12.2%</td><td></td></tr>
+<tr class="total"><td>TOTAL</td><td class="num">21,965,651.18</td><td class="num">1,846,213</td><td class="num">100%</td><td></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout bad">
+  <div class="h">So what did the launch actually attract?</div>
+  <p>Of the $1.80M staked after 10 April, roughly <strong>$240k (2.69M RSC) came from wallets with no traceable
+  ResearchHub origin</strong> — and even that is generous, since three of those (BASE-DESK-C, BASE-DISTRIBUTOR-A/B)
+  behave like exchange or market-maker infrastructure rather than retail participants. The other 87.8% is the
+  organisation, its treasuries, its grantees and its own multisig signers moving RSC from one pocket into another.
+  A TVL chart for this product would be measuring internal transfers, not demand.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>7. Team and insider control</h2>
+
+<h3>7.1 The signer-overlap matrix</h3>
+
+<p>Safe ownership was read directly from contract storage (<code>getOwners()</code>, <code>getThreshold()</code>).
+The overlap is the single most decisive piece of evidence in this memo — the same handful of keys governs the
+treasuries, the foundation and the staking vault.</p>
+
+<div class="scroll">
+<table>
+<thead><tr>
+  <th>Signer key</th><th>Treasury&nbsp;1<br>455.7M</th><th>Treasury&nbsp;2<br>297.8M</th>
+  <th>Treasury&nbsp;3<br>14.1M</th><th>Stake&nbsp;Vault<br>18.6M</th><th>Foundation<br>2.1M</th>
+</tr></thead>
+<tbody>
+<tr><td><strong>KEY-OMEGA</strong> <span class="addr">0x12ab2598…8e73</span></td><td>●</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td><strong>KEY-SIGMA</strong> <span class="addr">0xf3bfe6c4…3e3e</span></td><td>●</td><td>●</td><td></td><td>●</td><td></td></tr>
+<tr><td><strong>KEY-TAU</strong> <span class="addr">0x67f843da…7985</span></td><td>●</td><td>●</td><td></td><td>●</td><td></td></tr>
+<tr><td><strong>TGE-DISTRIBUTOR-700M</strong> <span class="addr">0xB518536B…7D3d</span></td><td>●</td><td>●</td><td></td><td></td><td></td></tr>
+<tr><td><strong>KEY-DELTA</strong> <span class="addr">0xafdb8502…e860</span></td><td>●</td><td>●</td><td></td><td></td><td></td></tr>
+<tr><td><strong>SIGNER-STAKER</strong> <span class="addr">0x3D4B25c3…339C</span></td><td></td><td></td><td>●</td><td></td><td>●</td></tr>
+<tr><td><strong>KEY-IOTA</strong> <span class="addr">0x1f40d80a…3226</span></td><td></td><td></td><td>●</td><td></td><td>●</td></tr>
+<tr><td colspan="6" style="color:var(--muted);font-size:12.5px">Thresholds: T1 2-of-6 · T2 2-of-6 · T3 2-of-3 · Stake Vault 2-of-3 · Foundation 2-of-3</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Three consequences follow directly:</p>
+<ol>
+  <li><strong>The staking vault is not independent custody.</strong> Its three owners — KEY-OMEGA, KEY-SIGMA, KEY-TAU —
+  are exactly the three-way intersection of Treasury 1 and Treasury 2’s signer sets. Any two of them can move user
+  deposits, and the same two can move 753M RSC of treasury. There is no separation between “user funds” and
+  “company funds” at the key level.</li>
+  <li><strong>KEY-OMEGA alone signs all five core Safes.</strong> One key is present in every ResearchHub multisig
+  that matters — the three treasuries hold 76.8% of total supply between them, and KEY-OMEGA also signs the staking
+  vault and the foundation Safe on top of that.</li>
+  <li><strong>The largest staker is a treasury signer.</strong> TGE-DISTRIBUTOR-700M staked 9,999,000 RSC while
+  simultaneously holding signing rights over 753M RSC of treasury. Its “stake” is a transfer between two accounts it
+  helps control.</li>
+</ol>
+
+<h3>7.2 The case for calling these wallets insider-controlled</h3>
+
+<p>Wallet attribution is inference, so here is the evidence tier by tier. I have deliberately <em>not</em> attached
+any individual’s name to any key — nothing on-chain supports that, and ResearchHub’s published team list
+(Brian Armstrong, co-founder/CEO; Patrick Joyce, co-founder/COO; plus named staff) cannot be mapped to addresses
+from chain data alone.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Confidence</th><th>Wallets</th><th>Basis</th></tr></thead>
+<tbody>
+<tr>
+  <td><span class="tag t-ins">Certain</span></td>
+  <td>TREASURY-ALPHA, TREASURY-BETA, TREASURY-OPS, FOUNDATION-COMMUNITY, HOT-WALLET, both RSC token contracts</td>
+  <td>Published by ResearchHub in its own docs (<code>docs.researchhub.com/researchcoin/contracts-and-addresses</code>)
+      and confirmed to exist with the stated roles on-chain.</td>
+</tr>
+<tr>
+  <td><span class="tag t-ins">Very high</span></td>
+  <td>STAKE-VAULT, KEY-OMEGA, KEY-SIGMA, KEY-TAU, KEY-DELTA, KEY-IOTA</td>
+  <td>Signer-set identity with the published treasuries. A key that co-signs a 455M-RSC treasury is by definition
+      inside the trust boundary, whether or not it is named anywhere.</td>
+</tr>
+<tr>
+  <td><span class="tag t-ins">Very high</span></td>
+  <td>TGE-DISTRIBUTOR-700M, VEST-BENEFICIARY-70M</td>
+  <td>Received 700M and 70M RSC <em>directly from the zero address</em> in the genesis mint — only founding parties
+      receive mint output. One is a treasury signer; the other is a vesting-contract beneficiary with a 2022 start
+      and a 2,250-day term, which is the signature of a founder or early-employee allocation.</td>
+</tr>
+<tr>
+  <td><span class="tag t-ins">High</span></td>
+  <td>SIGNER-STAKER</td>
+  <td>Signs two published Safes. Holds 3.6M RSC.</td>
+</tr>
+<tr>
+  <td><span class="tag t-unk">Moderate</span></td>
+  <td>TREASURY-3 GRANTEE, TREASURY-2 GRANTEE</td>
+  <td>Balances originate almost entirely from ResearchHub treasuries (1,048,000 across 18 transfers, and 1,600,100
+      respectively). Consistent with contributors, editors or grantees rather than arm’s-length buyers — treasury-funded,
+      but not necessarily insiders in a governance sense.</td>
+</tr>
+<tr>
+  <td><span class="tag t-ext">Not established</span></td>
+  <td>BASE-DESK, BASE-DESK-C, BASE-DISTRIBUTOR-A/B, EthSafe-6.7M (3-of-8), EthSafe-1.5M (5-of-11)</td>
+  <td>No signer overlap and no treasury funding path found. The two large Safes have entirely disjoint owner sets and
+      much higher thresholds, which reads as third-party custody (exchange, fund or partner DAO) rather than
+      ResearchHub. Flagged as unresolved, not as insider.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>7.3 Supply and concentration</h3>
+
+<p>An important accounting point first: <strong>RSC supply is 1,000,000,000 and is not additive across chains.</strong>
+The 72,933,772.76 RSC on Base is a bridged representation, backed 1:1 by 72,973,614.46 RSC locked in the Base
+L1StandardBridge escrow on Ethereum. Adding the two chains would double-count. (The 39,841.70 RSC gap between escrow
+and Base supply is consistent with withdrawals in the bridge’s challenge window.)</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Holder</th><th>Chain</th><th class="num">RSC</th><th class="num">% of 1B</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>TREASURY-ALPHA</td><td>ETH</td><td class="num">455,674,633</td><td class="num">45.57%</td><td>Locked in 2-of-6 Safe</td></tr>
+<tr><td>TREASURY-BETA</td><td>ETH</td><td class="num">297,839,108</td><td class="num">29.78%</td><td>Locked in 2-of-6 Safe</td></tr>
+<tr><td>TGE-DISTRIBUTOR-700M</td><td>ETH</td><td class="num">60,000,000</td><td class="num">6.00%</td><td>EOA, freely movable</td></tr>
+<tr><td>STAKE-VAULT</td><td>ETH</td><td class="num">18,642,534</td><td class="num">1.86%</td><td>Safe, nonce 0 — never moved</td></tr>
+<tr><td>TREASURY-OPS</td><td>ETH</td><td class="num">14,092,043</td><td class="num">1.41%</td><td>Active disbursement Safe</td></tr>
+<tr><td>VEST-BENEFICIARY-70M</td><td>ETH</td><td class="num">8,090,687</td><td class="num">0.81%</td><td>EOA</td></tr>
+<tr><td>SIGNER-STAKER</td><td>ETH</td><td class="num">3,606,374</td><td class="num">0.36%</td><td>EOA</td></tr>
+<tr><td>VESTING-CONTRACT</td><td>ETH</td><td class="num">2,755,068</td><td class="num">0.28%</td><td>Releases to VEST-BENEFICIARY-70M until ≈2028</td></tr>
+<tr><td>HOT-WALLET</td><td>ETH</td><td class="num">350,372</td><td class="num">0.04%</td><td>Operational</td></tr>
+<tr><td>STAKE-VAULT-BASE</td><td>BASE</td><td class="num">3,323,118</td><td class="num">0.33%</td><td><strong>No contract at address — immobile</strong></td></tr>
+<tr><td>FOUNDATION-COMMUNITY</td><td>BASE</td><td class="num">2,115,806</td><td class="num">0.21%</td><td>2-of-3 Safe</td></tr>
+<tr class="total"><td>Identified ResearchHub / insider cluster</td><td></td><td class="num">866,489,743</td><td class="num">86.65%</td><td></td></tr>
+<tr><td>Bridge escrow (backs Base supply)</td><td>ETH</td><td class="num">72,973,614</td><td class="num">7.30%</td><td>Not a holder — collateral</td></tr>
+<tr class="total"><td>Residual dispersed float</td><td></td><td class="num">≈133,470,416</td><td class="num">13.35%</td><td>Spread over ~9,100 ETH + ~78,400 Base holders</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="h">The float discrepancy worth flagging</div>
+  <p>CoinGecko reports circulating supply of <strong>238,228,884 RSC</strong> and a market cap of ~$67.0M. My
+  residual float after removing every identified treasury, genesis, vesting and vault balance is
+  <strong>≈133.5M RSC</strong> — about 56% of the reported figure. At $0.06785 that is a genuine dispersed-float
+  value of roughly <strong>$9.1M</strong>, against a headline market cap of $67M. The gap is ~105M RSC that
+  CoinGecko counts as circulating but which sits in wallets I can tie to the genesis mint, the treasuries or their
+  signers. Anyone sizing a position off the quoted market cap is working with a denominator that on-chain data
+  does not support.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>8. Adjacent findings</h2>
+
+<h3>BASE-DESK — the largest Base holder is not the deposit wallet</h3>
+<p><code>0x901Fc41a…480F</code> holds 15,845,066 RSC, the largest single balance on Base, but it has initiated only
+<strong>6 transactions in its life</strong>. Its RSC history is 21 events: large round-lot flows in and out with three
+counterparties (<code>0x1985ea6e…</code>, <code>0x26b610a0…</code>, <code>0x739120ad…</code>) in amounts like
+807,608.99 / 916,006.87 / 755,845.41 RSC. That is an OTC or market-making relationship, not user deposits. Two of
+those same counterparties later appear as depositors into the staking vault.</p>
+
+<h3>Address-poisoning against the ResearchHub cluster</h3>
+<p>BASE-DESK has received three zero-value transfers from <code>0x198566394a02488e1cf7529d4bcc39b1a7ef5c87</code> —
+a vanity address engineered to mimic its genuine counterparty <code>0x1985EA6E9c68E1C272d8209f3B478AC2Fdb25c87</code>
+(same first four and last three characters). This is a classic address-poisoning attack timed immediately after each
+real transfer, intended to get a truncated address copied from history. Worth flagging to the team as an operational
+risk.</p>
+
+<h3>Spam-token noise on the vault</h3>
+<p>Of the 96 token-transfer events into the vault address on Base, roughly 90% are unsolicited scam-token airdrops
+(Planet, Spell, Crispy, Robots, Nyx, Unicorn, Aurora and others) sent to a visibly wealthy address. One of them is a
+<strong>counterfeit token also using the symbol “RSC”</strong>, which sent 1.00 unit on 2026-05-03. Any analysis that
+filters by symbol rather than contract address will pick up that fake. All figures in this memo filter by contract
+address.</p>
+
+<!-- ============================================ -->
+<h2>9. Risk register</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>#</th><th>Finding</th><th>Severity</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Base vault has no deployed contract</td><td><span class="tag t-ins">Critical</span></td>
+  <td>3,323,117.53 RSC (~$225k) sits at an address with no code and nonce 0 on Base. Nobody holds a private key for it
+      — it is a CREATE2 Safe address that was never deployed on that chain. Recovery requires deploying the identical
+      Safe via the same factory and salt. Until then the funds are frozen.</td></tr>
+<tr><td>2</td><td>No withdrawal has ever been executed</td><td><span class="tag t-ins">Critical</span></td>
+  <td>ETH vault Safe nonce = 0 across 18.6M RSC and five months. The redemption path is entirely untested in
+      production.</td></tr>
+<tr><td>3</td><td>No custody separation</td><td><span class="tag t-ins">High</span></td>
+  <td>The vault’s 2-of-3 signer set is a subset of the treasury signer sets. The same two keys can move user deposits
+      and company treasury.</td></tr>
+<tr><td>4</td><td>No staking contract at all</td><td><span class="tag t-unk">High</span></td>
+  <td>Yield, lockups and redemption are enforced by ResearchHub’s database, not by code. Docs confirm “principal is
+      revocable”. Depositors hold a claim on the company, not a contract position.</td></tr>
+<tr><td>5</td><td>TVL is overwhelmingly internal</td><td><span class="tag t-unk">High</span></td>
+  <td>87.8% of staked RSC traces to ResearchHub treasuries, the genesis mint or multisig signers. Headline TVL is not
+      a demand signal.</td></tr>
+<tr><td>6</td><td>Reported float overstates dispersion</td><td><span class="tag t-unk">Medium</span></td>
+  <td>~105M RSC counted as circulating sits in identifiable insider-cluster wallets.</td></tr>
+<tr><td>7</td><td>Yield is emission-funded</td><td><span class="tag t-unk">Medium</span></td>
+  <td>Documented returns (23.6% year 1 at 30% participation) are paid in newly emitted RSC from the 60% community
+      allocation. This is dilution-funded yield, not revenue-funded.</td></tr>
+<tr><td>8</td><td>Address-poisoning in progress</td><td><span class="tag t-unk">Medium</span></td>
+  <td>Look-alike address actively targeting the Base treasury cluster.</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============================================ -->
+<h2>10. Open items for round two</h2>
+<ol>
+  <li><strong>The 12.2% unlinked cohort.</strong> Four wallets (~1.0M RSC) still need a full provenance trace. The Base
+  explorer API is slow enough that this needs a dedicated crawl; my working hypothesis from flow shape is exchange or
+  market-maker infrastructure rather than retail.</li>
+  <li><strong>Identify the two disjoint Safes</strong> — <code>0x71028407…6D7f</code> (3-of-8, 6.7M RSC) and
+  <code>0xd9C6Ee15…A1Ab</code> (5-of-11, 1.5M RSC). Their governance shape suggests institutional custody; confirming
+  whether they are exchanges would materially change the float calculation.</li>
+  <li><strong>Confirm the launch tweet contents.</strong> <code>x.com</code> returns HTTP 402 to this environment, so the
+  10 April announcement could not be read directly. Everything dated to the launch here comes from on-chain timing
+  and the docs, not from the tweet.</li>
+  <li><strong>Watch for the first vault outflow.</strong> The moment the ETH Safe’s nonce moves off 0, the redemption
+  mechanism becomes observable. That is the single highest-information event to monitor.</li>
+  <li><strong>Reconcile against ResearchHub’s reported staking figures</strong> once published — the delta between
+  their stated TVL and the 21.97M RSC actually in the vault would be informative.</li>
+</ol>
+
+<!-- ============================================ -->
+<h2>Appendix — wallet nickname glossary</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Nickname</th><th>Address</th><th>Chain</th><th>Why it is called that</th></tr></thead>
+<tbody>
+<tr><td>STAKE-VAULT</td><td class="addr">0x467564DCCE90FB21153adfa69c48A3Be235d66D3</td><td>ETH</td><td>Terminal destination of all 19 staking deposits; never sends</td></tr>
+<tr><td>STAKE-VAULT-BASE</td><td class="addr">0x467564DCCE90FB21153adfa69c48A3Be235d66D3</td><td>BASE</td><td>Same address, undeployed; holds 3.32M RSC it cannot move</td></tr>
+<tr><td>TREASURY-ALPHA</td><td class="addr">0x5222FF25F4DFC02d173C2cbd2055EE1D35f291F1</td><td>ETH</td><td>Docs “Treasury 1”; largest single balance in the ecosystem</td></tr>
+<tr><td>TREASURY-BETA</td><td class="addr">0xE3648e99B6E68A09e28428790D12B357f081dBe0</td><td>ETH</td><td>Docs “Treasury 2”; received 630M from the genesis distributor</td></tr>
+<tr><td>TREASURY-OPS</td><td class="addr">0xC4cfa2BdAE08416312fAa0B72758E1F3750f81e3</td><td>ETH</td><td>Docs “Treasury 3”; nonce 309 — the day-to-day paying account</td></tr>
+<tr><td>FOUNDATION-COMMUNITY</td><td class="addr">0xb280F00E70F28E8Ce38C40826270DE7e1B327E21</td><td>BASE</td><td>Docs “Foundation Community”; staked 1.48M into the vault</td></tr>
+<tr><td>HOT-WALLET</td><td class="addr">0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</td><td>ETH</td><td>Docs “Hot Wallet”; receives the small test sweeps</td></tr>
+<tr><td>TGE-DISTRIBUTOR-700M</td><td class="addr">0xB518536B67720D9D61f5250cAF5c0494fC087D3d</td><td>ETH</td><td>Took 700M straight from the mint; signs T1 and T2; biggest staker</td></tr>
+<tr><td>VEST-BENEFICIARY-70M</td><td class="addr">0x1288d4d08C3e79b81C2DB1CE459AE374fC978D34</td><td>ETH</td><td>Took 70M from the mint; beneficiary of the TokenVesting escrow</td></tr>
+<tr><td>VESTING-CONTRACT</td><td class="addr">0x4Df3043C103A1Dc0A80a408F04a2A37f5b0Eb662</td><td>ETH</td><td>TokenVesting, 2022-01-05 start, 2,250-day term</td></tr>
+<tr><td>SIGNER-STAKER</td><td class="addr">0x3D4B25c3E9FB5B159d932945cB74c5DF33dF339C</td><td>ETH</td><td>Signs Treasury 3 and Foundation, and staked 1.09M itself</td></tr>
+<tr><td>TREASURY-3 GRANTEE</td><td class="addr">0x5aa0122f52d42BEdaFbc194bE0e0fD0A0D1F3fEA</td><td>ETH</td><td>Balance built from 18 Treasury-3 transfers</td></tr>
+<tr><td>TREASURY-2 GRANTEE</td><td class="addr">0x144985d2a125c7E4d2Fa9098C3523aD4B0C5B00d</td><td>ETH</td><td>Funded 1.6M by Treasury 2 in Sept 2025</td></tr>
+<tr><td>BASE-DESK</td><td class="addr">0x901Fc41a79024017D84a29aabb8A47A9eCDb480F</td><td>BASE</td><td>Largest Base holder; 6 lifetime txs; OTC-shaped flows</td></tr>
+<tr><td>BASE-DESK-C</td><td class="addr">0x1985EA6E9c68E1C272d8209f3B478AC2Fdb25c87</td><td>BASE</td><td>BASE-DESK’s main counterparty; also staked 462k</td></tr>
+<tr><td>BASE-DISTRIBUTOR-A</td><td class="addr">0x739120aDe7Ed878FcA5bBdB806263a8258Fe2360</td><td>BASE</td><td>Fans out identical 913,572 RSC tranches to a wallet cluster</td></tr>
+<tr><td>BASE-DISTRIBUTOR-B</td><td class="addr">0x26b610A059dE2488EbE3E0edA02ae17907917419</td><td>BASE</td><td>Many-to-one aggregation profile</td></tr>
+<tr><td>KEY-OMEGA</td><td class="addr">0x12ab259853038a8b542b77d4ebf3af671b7e8e73</td><td>ETH/BASE</td><td>The only key that signs all five core Safes</td></tr>
+<tr><td>KEY-SIGMA / KEY-TAU</td><td class="addr">0xf3bfe6c4…3e3e / 0x67f843da…7985</td><td>ETH</td><td>Co-sign T1, T2 and the staking vault</td></tr>
+<tr><td>DEPOSIT RELAY (×13)</td><td class="addr">ERC1967Proxy → SingleOwnerMSCA</td><td>ETH/BASE</td><td>Single-use ERC-4337 accounts; the app’s per-user deposit addresses</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="footnote">
+<strong>Provenance and caveats.</strong> Every balance, owner set, nonce, supply figure and transfer in this memo was
+read from Ethereum and Base chain state on 2026-08-02 via archive JSON-RPC and the Blockscout explorer APIs; no
+aggregator, dashboard or third-party analytics product was used for on-chain facts. USD figures apply CoinGecko’s
+daily close for <code>researchcoin</code> to the UTC date of each transfer — a daily close, not an execution price,
+so per-line values carry intraday error, largest around the volatile 24 April and 3 May prints.
+Wallet nicknames are my own labels describing observed behaviour; they are not ResearchHub designations except where
+the memo states the address is published in ResearchHub’s documentation. Attribution of wallets to
+<em>the organisation</em> rests on signer overlap, genesis-mint receipt and treasury funding paths, all of which are
+verifiable on-chain; no wallet is attributed to any <em>named individual</em>, because chain data does not support that
+and I have not inferred it. Addresses in the “not established” tier may well turn out to be exchanges or unrelated
+third parties. This is an initial pass — §10 lists what is still open.
+</p>
+
+</div>
+</body>
+</html>
