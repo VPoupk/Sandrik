@@ -212,7 +212,8 @@ explorer-only reading would not have.</p>
 <tr><td><strong>TREASURY-ALPHA</strong></td><td class="addr">0x5222FF25F4DFC02d173C2cbd2055EE1D35f291F1</td><td>ETH</td><td>Safe, 2/6, nonce 63</td><td class="num">455,674,633</td><td>Docs: “ResearchHub Treasury 1”. 45.6% of all RSC.</td></tr>
 <tr><td><strong>TREASURY-BETA</strong></td><td class="addr">0xE3648e99B6E68A09e28428790D12B357f081dBe0</td><td>ETH</td><td>Safe, 2/6, nonce 71</td><td class="num">297,839,108</td><td>Docs: “ResearchHub Treasury 2”. 29.8% of all RSC.</td></tr>
 <tr><td><strong>TREASURY-OPS</strong></td><td class="addr">0xC4cfa2BdAE08416312fAa0B72758E1F3750f81e3</td><td>ETH</td><td>Safe, 2/3, nonce 309</td><td class="num">14,092,043</td><td>Docs: “Treasury 3”. By far the most-used Safe — the operating disbursement account.</td></tr>
-<tr><td><strong>FOUNDATION-COMMUNITY</strong></td><td class="addr">0xb280F00E70F28E8Ce38C40826270DE7e1B327E21</td><td>BASE</td><td>Safe, 2/3, nonce 265</td><td class="num">2,115,806</td><td>Docs: “Foundation Community”. Also a depositor into the vault.</td></tr>
+<tr><td><strong>FOUNDATION-COMMUNITY</strong></td><td class="addr">0xb280F00E70F28E8Ce38C40826270DE7e1B327E21</td><td>BASE</td><td>Safe, 2/3, nonce 265</td><td class="num">2,115,806</td><td>Docs: “Foundation Community”. The Base-side bridge-landing and distribution hub: 533 RSC events, 46.34M in / 44.22M out. Also a depositor into the vault.</td></tr>
+<tr><td><strong>SAFE-BASE-1M</strong> <span class="tag t-unk">untouched</span></td><td class="addr">0x6D1dFd4BCB0707374D9eE5cA798F9c4f80633497</td><td>BASE + ETH</td><td>Safe, 2/4, Base nonce 0</td><td class="num">1,006,756 (Base)<br>563,440 (ETH)</td><td>Second never-moved Safe, funded once on 2026-05-14 via the same test-then-principal pattern. See §8.</td></tr>
 <tr><td><strong>HOT-WALLET</strong></td><td class="addr">0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</td><td>ETH</td><td>EOA, 1,211 txs</td><td class="num">350,372</td><td>Docs: “ResearchHub Hot Wallet”. Receives the small sweeps in the deposit flow.</td></tr>
 <tr><td><strong>TGE-DISTRIBUTOR-700M</strong></td><td class="addr">0xB518536B67720D9D61f5250cAF5c0494fC087D3d</td><td>ETH</td><td>EOA</td><td class="num">60,000,000</td><td>Received 700,000,000 RSC direct from the mint. Signer on Treasury 1 &amp; 2. Largest staker.</td></tr>
 <tr><td><strong>VEST-BENEFICIARY-70M</strong></td><td class="addr">0x1288d4d08C3e79b81C2DB1CE459AE374fC978D34</td><td>ETH</td><td>EOA</td><td class="num">8,090,687</td><td>Received 70,000,000 RSC direct from the mint. Beneficiary of the TokenVesting contract.</td></tr>
@@ -600,6 +601,23 @@ a vanity address engineered to mimic its genuine counterparty <code>0x1985EA6E9c
 real transfer, intended to get a truncated address copied from history. Worth flagging to the team as an operational
 risk.</p>
 
+<h3>A second never-moved Safe using the same deposit pattern</h3>
+<p><code>0x6D1dFd4B…3497</code> is a 2-of-4 Safe holding <strong>1,006,756.37 RSC on Base and 563,440.49 RSC on
+Ethereum</strong>. Its entire Base balance arrived in a single minute on 2026-05-14: 100 RSC, then 1,006,656.37 RSC,
+from EOA <code>0xe028e57f…e582</code>, which swept itself to zero in the process. Its Base nonce is <strong>0</strong> —
+like the staking vault, it has never executed a transaction. The test-then-principal shape matches the deposit
+pipeline in §4, but the principal landed in a different Safe with a different signer set, so this is a separate
+custody or settlement arrangement rather than part of the 21.97M staked. Flagged because a second untouched
+million-RSC Safe on the same rails is worth understanding before drawing conclusions about where deposits go.</p>
+
+<h3>Reading “from 0x0” correctly on Base</h3>
+<p>FOUNDATION-COMMUNITY shows 32,601,942 RSC arriving from the zero address across 20 transfers. On Base that is
+<strong>not a mint of new supply</strong> — the Base RSC contract is a standard OP-stack bridged token
+(<code>l1Token()</code> returns the Ethereum RSC contract, <code>bridge()</code> returns the canonical
+<code>0x4200…0010</code> L2StandardBridge), so zero-address issuance there is the bridge crediting tokens already
+locked in the L1 escrow. Genesis-mint reasoning in §6 applies only to the Ethereum contract, whose supply was fixed
+at 1B on 2020-08-01. An analysis that treats Base zero-address inflows as new issuance would double-count badly.</p>
+
 <h3>Spam-token noise on the vault</h3>
 <p>Of the 96 token-transfer events into the vault address on Base, roughly 90% are unsolicited scam-token airdrops
 (Planet, Spell, Crispy, Robots, Nyx, Unicorn, Aurora and others) sent to a visibly wealthy address. One of them is a
@@ -649,7 +667,13 @@ address.</p>
   market-maker infrastructure rather than retail.</li>
   <li><strong>Identify the two disjoint Safes</strong> — <code>0x71028407…6D7f</code> (3-of-8, 6.7M RSC) and
   <code>0xd9C6Ee15…A1Ab</code> (5-of-11, 1.5M RSC). Their governance shape suggests institutional custody; confirming
-  whether they are exchanges would materially change the float calculation.</li>
+  whether they are exchanges would materially change the float calculation.
+  <em>Partial progress:</em> the 3-of-8 Safe’s full RSC history is now traced — it was funded entirely by
+  <code>0xf0940b14…9d9c</code> (7.55M across 2023–24) and pays out only to <code>0x11a45586…b316</code>, with
+  <strong>no treasury or signer link to ResearchHub</strong>. It stays in the “not established” tier on current
+  evidence; the next step is identifying those two counterparties.</li>
+  <li><strong>Resolve SAFE-BASE-1M</strong> (<code>0x6D1dFd4B…3497</code>, §8) — a second never-moved Safe holding
+  1.57M RSC across both chains, funded through the same test-then-principal choreography as the staking deposits.</li>
   <li><strong>Confirm the launch tweet contents.</strong> <code>x.com</code> returns HTTP 402 to this environment, so the
   10 April announcement could not be read directly. Everything dated to the launch here comes from on-chain timing
   and the docs, not from the tweet.</li>
