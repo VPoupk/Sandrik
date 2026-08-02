@@ -195,6 +195,11 @@ small { font-size:10px; }
     Nodes Pool 2 from 6.710bn to 11mn, Nodes Pool 1 from 7.678bn to 642mn. <strong>Team Pool 2 moved for the first time in
     its existence</strong> (−2.000bn). And <strong>every single one of the five insider wallets this report previously flagged as
     "still holding" liquidated</strong> — four of them to zero.
+    <br><br>
+    <strong>Of that 34.48bn, 20.87bn went to 6,225 node claimants in flat ~3mn tranches, and 13.61bn went to eleven addresses.</strong>
+    Ten of the eleven were created on 26 July, gas-funded within one hour of each other with identical amounts from a single
+    exchange withdrawal address, and drew their allocations through a function that had been installed in the pool contracts
+    the previous afternoon and did not exist before it.
   </div>
 
   <div class="stat-grid" style="margin-bottom:16px">
@@ -209,9 +214,9 @@ small { font-size:10px; }
       <div class="stat-box-sub">$0.00017407 (Jul 10) → $0.00558723 (Jul 27)</div>
     </div>
     <div class="stat-box">
-      <div class="stat-box-label">Insider wallets exited</div>
-      <div class="stat-box-value" style="color:var(--danger)">5 of 5</div>
-      <div class="stat-box-sub">4 to zero; Whale Insider −851mn</div>
+      <div class="stat-box-label">Went to eleven addresses</div>
+      <div class="stat-box-value" style="color:var(--danger)">13.61bn</div>
+      <div class="stat-box-sub">$30.44M at per-date prices · every other recipient got ≤5mn</div>
     </div>
     <div class="stat-box">
       <div class="stat-box-label">Still in pools</div>
@@ -231,13 +236,16 @@ small { font-size:10px; }
   </div>
 
   <div class="alert alert-warn" style="margin-bottom:0">
-    <strong>Two corrections to the previous edition of this report, both settled on-chain this pass.</strong>
-    (1) The Whale Insider's 4bn did <em>not</em> arrive via the Gate.io-funded hop. It came directly from the Mega Forwarder on
+    <strong>Three corrections to earlier editions of this report, all settled on-chain this pass.</strong>
+    (1) <strong>The pool outflows were not admin pushes.</strong> Of the 6,622 outbound transfers, exactly one was an admin push — the 4.073bn on 19 June. Every
+    other transfer was pulled by its own recipient. What made that possible was that the pools' <em>logic contracts were replaced</em> to add a withdrawal function
+    that had not previously existed — twice, and never announced. The mechanism is set out in full below; it is a more serious
+    finding than the one it replaces, and better evidenced.
+    (2) The Whale Insider's 4bn did <em>not</em> arrive via the Gate.io-funded hop. It came directly from the Mega Forwarder on
     Aug 26, 2025 — verified by reading the funding block itself
     (<a href="https://bscscan.com/tx/0x0ded3b64c7b42edd582ba8f15c617dea937c642b56a6889a2c7b0c0fd3aec3c0" target="_blank">tx 0x0ded3b64…c3c0</a>).
-    The Gate.io-funded hop's 4bn went somewhere else entirely — into the Merge Wallet on Dec 14, 2025.
-    (2) The April-2026 Fan-Out Root split into <strong>three</strong> sub-distributors, not six.
-    Both prior claims came from second-hand aggregation; both are now replaced with directly-read chain data.
+    The Gate.io-funded hop's 4bn went into the Merge Wallet on Dec 14, 2025.
+    (3) The April-2026 Fan-Out Root split into <strong>three</strong> sub-distributors, not six.
   </div>
 </div>
 
@@ -302,13 +310,13 @@ small { font-size:10px; }
       <thead><tr><th>Nickname</th><th>Address</th><th>What it is</th><th>Launch allocation</th><th>Balance now</th><th>Value now</th></tr></thead>
       <tbody>
         <tr><td><strong>Supply Funder</strong></td><td><a href="https://bscscan.com/address/0x6468cce97a300ff9d02d4cad0d3e097cace2eac2" target="_blank"><code>0x6468cce9…ce2eac2</code></a></td><td>Deployer EOA. Held all 100bn at genesis and pushed out all 11 allocations in 10 seconds.</td><td class="num">100.000bn</td><td class="num">0</td><td class="num">—</td></tr>
-        <tr><td><strong>Investors Pool</strong></td><td><a href="https://bscscan.com/address/0x27333bD8c321a263B0565e69EEa3b736b9D1f42c" target="_blank"><code>0x27333bd8…d1f42c</code></a></td><td>ERC1967 proxy. adminTransfer only — investors cannot self-claim.</td><td class="num">25.000bn</td><td class="num">14.367bn</td><td class="num">$59.8M</td></tr>
-        <tr><td><strong>Nodes Pool 3</strong></td><td><a href="https://bscscan.com/address/0xaf66503770451c83a4f12a1146a32271893508ce" target="_blank"><code>0xaf665037…3508ce</code></a></td><td>ERC1967 proxy, CreaterPlayerNodesPool implementation.</td><td class="num">16.000bn</td><td class="num" style="color:var(--danger)">0</td><td class="num">—</td></tr>
-        <tr><td><strong>Team Pool 2</strong></td><td><a href="https://bscscan.com/address/0xd229b65d50e412cc3c394233e7a53a1dac4da457" target="_blank"><code>0xd229b65d…4da457</code></a></td><td>ERC1967 proxy, TeamAndAdvisors implementation.</td><td class="num">15.000bn</td><td class="num">13.000bn</td><td class="num">$54.1M</td></tr>
+        <tr><td><strong>Investors Pool</strong></td><td><a href="https://bscscan.com/address/0x27333bD8c321a263B0565e69EEa3b736b9D1f42c" target="_blank"><code>0x27333bd8…d1f42c</code></a></td><td>ERC1967 UUPS proxy, 9 implementation upgrades to date. Neither <code>adminTransfer</code> nor <code>userWithdraw</code> was present in the code for most of its life.</td><td class="num">25.000bn</td><td class="num">14.367bn</td><td class="num">$59.8M</td></tr>
+        <tr><td><strong>Nodes Pool 3</strong></td><td><a href="https://bscscan.com/address/0xaf66503770451c83a4f12a1146a32271893508ce" target="_blank"><code>0xaf665037…3508ce</code></a></td><td>ERC1967 UUPS proxy, CreaterPlayerNodesPool. Signature-gated claims. <strong>Not</strong> part of the Jul-25 upgrade wave.</td><td class="num">16.000bn</td><td class="num" style="color:var(--danger)">0</td><td class="num">—</td></tr>
+        <tr><td><strong>Team Pool 2</strong></td><td><a href="https://bscscan.com/address/0xd229b65d50e412cc3c394233e7a53a1dac4da457" target="_blank"><code>0xd229b65d…4da457</code></a></td><td>ERC1967 UUPS proxy, time-locked vesting. First movement in its history came on Jul 26 2026.</td><td class="num">15.000bn</td><td class="num">13.000bn</td><td class="num">$54.1M</td></tr>
         <tr><td><strong>Founder Wallet</strong></td><td><a href="https://bscscan.com/address/0xa38da2eb2d8fd956eb049c9790fe67f6e245715a" target="_blank"><code>0xa38da2eb…45715a</code></a></td><td>EOA. Shares the <code>0xa38da2eb</code> vanity prefix with a deployer sibling. Never received AKE from any exchange.</td><td class="num">13.800bn</td><td class="num" style="color:var(--danger)">0</td><td class="num">—</td></tr>
-        <tr><td><strong>Nodes Pool 1</strong></td><td><a href="https://bscscan.com/address/0xb7c7786b6ca1130584f005e9c86554114b7fad62" target="_blank"><code>0xb7c7786b…7fad62</code></a></td><td>ERC1967 proxy.</td><td class="num">8.000bn</td><td class="num">642mn</td><td class="num">$2.67M</td></tr>
-        <tr><td><strong>Nodes Pool 2</strong></td><td><a href="https://bscscan.com/address/0xd2f72669e560c7ecd3c681612963990ef6f1981b" target="_blank"><code>0xd2f72669…f1981b</code></a></td><td>ERC1967 proxy.</td><td class="num">7.500bn</td><td class="num">11.0mn</td><td class="num">$46K</td></tr>
-        <tr><td><strong>Team Pool 1</strong></td><td><a href="https://bscscan.com/address/0x9009342f6d3b2f685fc9f5fe4dc9d3e30ed0e248" target="_blank"><code>0x9009342f…d0e248</code></a></td><td>ERC1967 proxy.</td><td class="num">5.000bn</td><td class="num">1.141bn</td><td class="num">$4.75M</td></tr>
+        <tr><td><strong>Nodes Pool 1</strong></td><td><a href="https://bscscan.com/address/0xb7c7786b6ca1130584f005e9c86554114b7fad62" target="_blank"><code>0xb7c7786b…7fad62</code></a></td><td>ERC1967 UUPS proxy. Upgraded twice in Jul 2026 — claim path on the 22nd, <code>userWithdraw</code> on the 25th.</td><td class="num">8.000bn</td><td class="num">642mn</td><td class="num">$2.67M</td></tr>
+        <tr><td><strong>Nodes Pool 2</strong></td><td><a href="https://bscscan.com/address/0xd2f72669e560c7ecd3c681612963990ef6f1981b" target="_blank"><code>0xd2f72669…f1981b</code></a></td><td>ERC1967 UUPS proxy. Upgraded twice in Jul 2026 — claim path on the 22nd, <code>userWithdraw</code> on the 25th.</td><td class="num">7.500bn</td><td class="num">11.0mn</td><td class="num">$46K</td></tr>
+        <tr><td><strong>Team Pool 1</strong></td><td><a href="https://bscscan.com/address/0x9009342f6d3b2f685fc9f5fe4dc9d3e30ed0e248" target="_blank"><code>0x9009342f…d0e248</code></a></td><td>ERC1967 UUPS proxy, time-locked vesting.</td><td class="num">5.000bn</td><td class="num">1.141bn</td><td class="num">$4.75M</td></tr>
         <tr><td><strong>Shadow Wallet</strong></td><td><a href="https://bscscan.com/address/0xb05e00183a44bb3d0da10beeacdb01d71ae08cda" target="_blank"><code>0xb05e0018…e08cda</code></a></td><td>EOA, nonce=1. One transfer in its entire life: the full 4bn out.</td><td class="num">4.000bn</td><td class="num" style="color:var(--danger)">0</td><td class="num">—</td></tr>
         <tr><td><strong>Liquidity Wallet</strong></td><td><a href="https://bscscan.com/address/0x432d8577931d0c06707ad8795bd9b9649d6d3a1d" target="_blank"><code>0x432d8577…6d3a1d</code></a></td><td>EOA. Seeded the LP / treasury proxy.</td><td class="num">3.000bn</td><td class="num" style="color:var(--danger)">0</td><td class="num">—</td></tr>
         <tr><td><strong>KOL Pool</strong></td><td><a href="https://bscscan.com/address/0xbd6ae2b2a7414934327e2a7da1a8691c792f9ad5" target="_blank"><code>0xbd6ae2b2…2f9ad5</code></a></td><td>ERC1967 proxy. 95.7% drained back in 2025.</td><td class="num">1.700bn</td><td class="num">73.9mn</td><td class="num">$307K</td></tr>
@@ -316,6 +324,36 @@ small { font-size:10px; }
       </tbody>
       <tfoot><tr><td colspan="3"><strong>Total still inside pool contracts</strong></td><td class="num">79.200bn</td><td class="num"><strong>29.263bn</strong></td><td class="num"><strong>$121.7M</strong></td></tr></tfoot>
     </table></div>
+  </div>
+
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Pool identities — verified from the implementation bytecode, not from the label</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      Each proxy's ERC1967 implementation slot was read, the implementation's bytecode pulled, and its embedded revert strings
+      extracted. That is what the names below rest on. All eight proxies return the same <code>owner()</code>.
+    </p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Pool</th><th>Current implementation</th><th>Revert strings found in the bytecode</th><th>Contract family</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Investors Pool</strong></td><td><code>0x00445d6c…bfc9cc</code></td><td>"Unlock time not reached" · "Unlock time is 0" · "No unlock amount" · "Already withdrawn" · "Accounts and amounts length mismatch" · "Only token address can withdraw"</td><td rowspan="3"><span class="badge badge-purple">time-locked vesting</span><br><small style="color:var(--muted)">batch-registered beneficiaries, an <code>unlockTime</code>, and a per-beneficiary withdrawal</small></td></tr>
+        <tr><td><strong>Team Pool 1</strong></td><td><code>0x7095ad26…c5efcc</code></td><td>same set, plus "Unlock time already set"</td></tr>
+        <tr><td><strong>Team Pool 2</strong></td><td><code>0x6d9a94e4…721e1b</code></td><td>same set, plus "Unlock time already set"</td></tr>
+        <tr><td><strong>Nodes Pool 1</strong></td><td><code>0xec7ec7f1…590c3a</code></td><td rowspan="3">"CreaterPlayerNodesPool: checker is zero address" · "node pool: insufficient balance for withdrawal" · "invalid signature length" · "Already withdrawn"</td><td rowspan="3"><span class="badge badge-orange">signature-gated claim</span><br><small style="color:var(--muted)">a backend "checker" signs each claim; the holder submits it</small></td></tr>
+        <tr><td><strong>Nodes Pool 2</strong></td><td><code>0xbac6dc46…ea84c8</code></td></tr>
+        <tr><td><strong>Nodes Pool 3</strong></td><td><code>0xee73d275…b38455</code></td></tr>
+        <tr><td><strong>KOL Pool</strong></td><td><code>0xd174826a…f3d42e</code></td><td>"Accounts and kolInfo length mismatch" · "Begin time is 0" · "Periods is 0" · <strong>"admin lock"</strong></td><td><span class="badge badge-yellow">periodic vesting</span></td></tr>
+        <tr><td><strong>Community Pool</strong></td><td><code>0xc9282593…be1809</code></td><td>"CommunityPool: checker is zero address" · "CommunityPool: insufficient balance" · "invalid signature length"</td><td><span class="badge badge-orange">signature-gated claim</span></td></tr>
+      </tbody>
+    </table></div>
+    <div class="alert alert-danger" style="margin:12px 0 0">
+      <strong>All eight pools answer to one address.</strong> <code>owner()</code> on every pool returns
+      <code>0x551a8417…1da5eb</code> — a Gnosis Safe v1.4.1, 3-of-4 threshold, deployed 2026-07-18 08:51:39 UTC and handed
+      control of all eight pools 32 minutes later. Before that, every pool had been owned by the deployer EOA
+      <code>0x6468cce9…ce2eac2</code> continuously since launch. Two of the Safe's four signers
+      (<code>0x28b78a61…0557e</code>, <code>0xd3adb370…be9cde</code>) have never sent a transaction and hold no BNB; a third has
+      sent one; <code>0x88f4b387…2ef8e</code> executes everything.
+    </div>
   </div>
 
   <div class="card" style="margin-bottom:12px">
@@ -376,207 +414,227 @@ small { font-size:10px; }
 </div>
 <!-- =============== POOL DRAIN =============== -->
 <div class="section">
-  <h2>The Pool Drain — 34.5bn AKE Out of the Project Pools, May 28 → Aug 1 2026</h2>
-  <p style="color:var(--muted);font-size:12px;margin-bottom:14px">
-    Complete Transfer-event scan of all eight pool contracts across blocks 100,940,328 → 113,384,906.
-    <strong style="color:var(--text)">34.482bn AKE left the pools in 6,622 transfers to 6,236 distinct addresses</strong>; 2.073bn of it came back, so the
-    net reduction in pool balances is <strong style="color:var(--text)">32.409bn</strong> — from 61.672bn at block 100,940,327 to 29.263bn at block 113,384,906. Each row is valued at the CoinGecko daily
-    price for the date of that transfer — which matters enormously here, because the same 4bn out of the Investors Pool was worth
-    $1.31M in June and $12.22M in July.
-  </p>
+  <h2>The Pool Drain — 34.48bn AKE Out of the Project Pools, May 28 → Aug 1 2026</h2>
+
+  <div class="alert alert-green" style="margin-bottom:14px">
+    <strong>Reconciliation.</strong> This figure was re-derived from an independent second scan — every AKE Transfer with a pool
+    contract as sender <em>or</em> recipient across blocks 100,940,328 → 113,384,906 — and checked against
+    <code>balanceOf()</code> at both ends. <strong>34.4818bn out, 2.0734bn back, net −32.4084bn.</strong> The balance delta over
+    the same blocks is <strong>−32.4083bn</strong>. Every pool reconciles individually to within 0.04mn AKE (rounding on the
+    opening balances). The 32.41% of supply figure is exact.
+  </div>
 
   <div class="card" style="margin-bottom:12px">
     <div class="table-wrap"><table>
-      <thead><tr><th>Pool</th><th>Date</th><th>AKE out</th><th>Price that day</th><th>Value at that date</th><th>Recipients</th><th>Shape of the distribution</th></tr></thead>
+      <thead><tr><th>Pool</th><th>Gross out</th><th>Back in</th><th>Net</th><th>Δ balanceOf</th><th>Reconciles</th><th>Transfers</th></tr></thead>
       <tbody>
-        <tr>
-          <td><strong>Investors Pool</strong></td><td>2026-06-19</td><td class="num">4.073bn</td>
-          <td class="num">$0.00032107</td><td class="num">$1.31M</td><td class="num">1</td>
-          <td>Single transfer to <strong>Pool Drain Wallet 1</strong> <code>0xf23abe61…86aa4</code>. 2.073bn returned three days later; 2.000bn forwarded onward.</td>
-        </tr>
-        <tr style="background:rgba(245,158,11,0.05)">
-          <td><strong>Nodes Pool 3</strong></td><td>2026-07-22</td><td class="num">8.673bn</td>
-          <td class="num">$0.00168297</td><td class="num">$14.60M</td><td class="num">2,483</td>
-          <td><span class="badge badge-green">broad</span> Uniform tranches, mostly 5.0mn and 3.7–4.1mn each</td>
-        </tr>
-        <tr style="background:rgba(245,158,11,0.05)">
-          <td><strong>Nodes Pool 1</strong></td><td>2026-07-22</td><td class="num">6.531bn</td>
-          <td class="num">$0.00168297</td><td class="num">$10.99M</td><td class="num">2,221</td>
-          <td><span class="badge badge-green">broad</span> Uniform tranches 2.4–3.2mn each</td>
-        </tr>
-        <tr style="background:rgba(245,158,11,0.05)">
-          <td><strong>Nodes Pool 2</strong></td><td>2026-07-22</td><td class="num">5.663bn</td>
-          <td class="num">$0.00168297</td><td class="num">$9.53M</td><td class="num">1,907</td>
-          <td><span class="badge badge-green">broad</span> Uniform tranches 2.8–3.4mn each. Pools 1 and 2 ran simultaneously — blocks 111,517,869 → 111,535,488, a 2h12m window</td>
-        </tr>
-        <tr style="background:rgba(239,68,68,0.07)">
-          <td><strong>Investors Pool</strong></td><td>2026-07-26</td><td class="num">4.000bn</td>
-          <td class="num">$0.00305380</td><td class="num">$12.22M</td><td class="num">4</td>
-          <td><span class="badge badge-red">concentrated</span> 1,290.4mn · 932.6mn · 898.7mn · 878.3mn</td>
-        </tr>
-        <tr style="background:rgba(239,68,68,0.07)">
-          <td><strong>Team Pool 2</strong></td><td>2026-07-26</td><td class="num">2.000bn</td>
-          <td class="num">$0.00305380</td><td class="num">$6.11M</td><td class="num">2</td>
-          <td><span class="badge badge-red">concentrated</span> 1,123.5mn · 876.5mn. <strong>First movement in this contract's entire history.</strong></td>
-        </tr>
-        <tr style="background:rgba(239,68,68,0.07)">
-          <td><strong>Team Pool 1</strong></td><td>2026-07-26</td><td class="num">2.000bn</td>
-          <td class="num">$0.00305380</td><td class="num">$6.11M</td><td class="num">2</td>
-          <td><span class="badge badge-red">concentrated</span> 1,057.2mn · 942.8mn</td>
-        </tr>
-        <tr style="background:rgba(239,68,68,0.07)">
-          <td><strong>Nodes Pools 1 + 2</strong></td><td>2026-07-26</td><td class="num">1.540bn</td>
-          <td class="num">$0.00305380</td><td class="num">$4.70M</td><td class="num">2</td>
-          <td><span class="badge badge-red">concentrated</span> 504.2mn and 1,035.8mn — the tail of the node pools, routed the concentrated way</td>
-        </tr>
+        <tr><td><strong>Nodes Pool 3</strong></td><td class="num">8.6740bn</td><td class="num">0</td><td class="num">−8.6740bn</td><td class="num">−8.6740bn</td><td><span class="badge badge-green">exact</span></td><td class="num">2,483</td></tr>
+        <tr><td><strong>Investors Pool</strong></td><td class="num">8.0734bn</td><td class="num">2.0734bn</td><td class="num">−6.0000bn</td><td class="num">−6.0000bn</td><td><span class="badge badge-green">exact</span></td><td class="num">5</td></tr>
+        <tr><td><strong>Nodes Pool 1</strong></td><td class="num">7.0354bn</td><td class="num">0</td><td class="num">−7.0354bn</td><td class="num">−7.0354bn</td><td><span class="badge badge-green">exact</span></td><td class="num">2,222</td></tr>
+        <tr><td><strong>Nodes Pool 2</strong></td><td class="num">6.6990bn</td><td class="num">0</td><td class="num">−6.6990bn</td><td class="num">−6.6990bn</td><td><span class="badge badge-green">exact</span></td><td class="num">1,908</td></tr>
+        <tr><td><strong>Team Pool 2</strong></td><td class="num">2.0000bn</td><td class="num">0</td><td class="num">−2.0000bn</td><td class="num">−2.0000bn</td><td><span class="badge badge-green">exact</span></td><td class="num">2</td></tr>
+        <tr><td><strong>Team Pool 1</strong></td><td class="num">2.0000bn</td><td class="num">0</td><td class="num">−2.0000bn</td><td class="num">−2.0000bn</td><td><span class="badge badge-green">exact</span></td><td class="num">2</td></tr>
+        <tr><td>KOL Pool</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td><span class="badge badge-gray">no activity</span></td><td class="num">0</td></tr>
+        <tr><td>Community Pool</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td><span class="badge badge-gray">no activity</span></td><td class="num">0</td></tr>
       </tbody>
-      <tfoot>
-        <tr><td colspan="2"><strong>TOTAL</strong></td><td class="num"><strong>34.482bn</strong></td><td class="num">per-date</td><td class="num"><strong>$65.56M</strong></td><td class="num">6,236</td><td>6,622 transfers · 2.073bn returned → net −32.4bn</td></tr>
-      </tfoot>
+      <tfoot><tr><td><strong>TOTAL</strong></td><td class="num"><strong>34.4818bn</strong></td><td class="num"><strong>2.0734bn</strong></td><td class="num"><strong>−32.4084bn</strong></td><td class="num"><strong>−32.4083bn</strong></td><td><span class="badge badge-green">−0.02mn</span></td><td class="num"><strong>6,622</strong></td></tr></tfoot>
     </table></div>
-  </div>
-
-  <div class="alert alert-danger" style="margin-bottom:12px">
-    <strong>Two distributions, four days apart, with opposite shapes.</strong>
-    On <strong>Jul 22</strong> the three Nodes pools pushed <strong>20.867bn ($35.12M)</strong> out to <strong>6,225 distinct
-    addresses</strong> in uniform per-address tranches — the shape of a genuine, broad claim-style distribution, and consistent
-    with the ADODO node programme the team was publicising that week.
-    On <strong>Jul 26</strong> the Investors Pool, both Team pools and the tail of the Nodes pools pushed
-    <strong>9.540bn ($29.13M)</strong> out to <strong>ten addresses</strong> — eight of them inside a
-    <strong>2 minute 35 second window</strong> (blocks 112,261,109 → 112,261,454). That was the day before AKE printed its
-    all-time high.
-  </div>
-
-  <div class="card">
-    <h3>What happened to the 20.9bn that went to the 6,225 node-programme addresses</h3>
-    <p style="color:var(--muted);font-size:12px;margin-bottom:12px">
-      Two tests were run against this group. Both were run to see whether the broad distribution behaved like a real user
-      distribution or like another layering hop.
-    </p>
-    <div class="grid-2" style="margin-bottom:12px">
-      <div class="card" style="background:var(--card)">
-        <div class="stat-box-label">Test 1 — did they deposit into Binance Alpha?</div>
-        <div class="stat-box-value" style="color:var(--green);font-size:16px">No — zero overlap</div>
-        <div class="stat-box-sub">Of the 186 addresses that deposited AKE into Binance Alpha between Jul 19 and Aug 1,
-          <strong>none</strong> is one of the 6,225 node-programme recipients.</div>
-      </div>
-      <div class="card" style="background:var(--card)">
-        <div class="stat-box-label">Test 2 — do they still hold?</div>
-        <div class="stat-box-value" style="color:var(--danger);font-size:16px">300 of 300 at zero</div>
-        <div class="stat-box-sub">A random 300-address sample received 1,044.3mn AKE and holds
-          <strong>0.0mn</strong> today. Not one sampled address retained any part of its allocation.</div>
-      </div>
-    </div>
-    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
-      Tracing 40 of those sampled addresses forward shows the answer to both at once: each one forwarded its entire balance to a
-      <strong>different fresh address</strong> — 40 senders produced 46 distinct destinations, in amounts of 5–13mn AKE. The
-      broad distribution was real in shape but it was not terminal. It fanned into a second layer of roughly the same width,
-      and it is that second layer, not the 6,225, that reaches the market.
-    </p>
-    <div class="alert alert-warn" style="margin:0">
-      <strong>Read this carefully in both directions.</strong> A one-hop-then-forward pattern is what a genuine claim programme
-      looks like when claimants sweep to their own exchange deposit addresses — and it is also what layering looks like. What the
-      data settles is that the 20.9bn did <em>not</em> stay with 6,225 holders and did <em>not</em> go straight to Binance Alpha.
-      What it does not settle is who controls the second layer. That would need the second layer traced to named venue
-      addresses, which is beyond what this pass covered.
+    <div style="margin-top:10px;font-size:11px;color:var(--muted)">
+      6,622 outbound transfers to 6,236 distinct recipients. Opening balances at block 100,940,327:
+      Investors 20.3671bn · Team 2 15.0000bn · Nodes 3 8.6740bn · Nodes 1 7.6776bn · Nodes 2 6.7100bn ·
+      Team 1 3.1414bn · KOL 73.9mn · Community 27.9mn = 61.6719bn. Closing at block 113,384,906: 29.2630bn.
     </div>
   </div>
 </div>
 
-<!-- =============== THE TEN =============== -->
+<!-- =============== HOW THE LOCK WAS OPENED =============== -->
 <div class="section">
-  <h2>Ten New Insider Wallets — Jul 26, 2026, One Day Before the All-Time High</h2>
+  <h2>How the Locked Pools Were Opened — Proxy Upgrades, Not Admin Keys</h2>
 
   <div class="alert alert-danger" style="margin-bottom:14px">
-    <strong>Ten freshly created wallets received 9.540bn AKE ($29.13M at that day's price) directly from four different
-    project-pool contracts, and every one of them had its gas paid by the same address, in the same amount, within the same hour.</strong>
-    They are still holding all of it. At today's price the position is worth <strong>$39.7M</strong>.
+    <strong>The pools were genuinely locked. They were opened by replacing their code.</strong>
+    Every pool is an ERC1967 UUPS proxy: state lives in the proxy, logic lives in a swappable implementation contract. Twice in
+    this window the controlling account upgraded a pool's implementation to a version that contained a withdrawal function the
+    previous version did not have, moved tokens through it, and — the first time — upgraded straight back. This was verified by
+    reading the ERC1967 implementation slot block by block, disassembling each implementation for the presence of the two
+    function selectors, and reading the upgrade transactions themselves.
   </div>
 
   <div class="card" style="margin-bottom:12px">
+    <h3>Investors Pool — which functions existed when</h3>
     <div class="table-wrap"><table>
-      <thead><tr>
-        <th>Nickname</th><th>Address</th><th>Received from</th><th>AKE</th>
-        <th>Value @ Jul 26 ($0.00305380)</th><th>Value now ($0.00415901)</th><th>Nonce</th><th>Holds today</th>
-      </tr></thead>
+      <thead><tr><th>Implementation</th><th>Active from</th><th>Bytecode size</th><th><code>adminTransfer(address,uint256)</code><br><small style="font-weight:400;text-transform:none">0xf17e48ec</small></th><th><code>userWithdraw()</code><br><small style="font-weight:400;text-transform:none">0xa646f9ad</small></th></tr></thead>
       <tbody>
-        <tr><td><strong>Pool Recipient 1</strong></td><td><a href="https://bscscan.com/address/0x7986fa5f64a0997f3b50990f2ba64f81d829ff9c" target="_blank"><code>0x7986fa5f…829ff9c</code></a></td><td>Investors Pool</td><td class="num">1,290.4mn</td><td class="num">$3.94M</td><td class="num">$5.37M</td><td class="num">1</td><td class="num">100%</td></tr>
-        <tr><td><strong>Pool Recipient 2</strong></td><td><a href="https://bscscan.com/address/0x30a603dbd14981417b520ce96d2005d96c6fd275" target="_blank"><code>0x30a603db…6fd275</code></a></td><td>Team Pool 2</td><td class="num">1,123.5mn</td><td class="num">$3.43M</td><td class="num">$4.67M</td><td class="num">1</td><td class="num">100%</td></tr>
-        <tr><td><strong>Pool Recipient 3</strong></td><td><a href="https://bscscan.com/address/0xcfbbe27f7fb368d15d3a278da85415e62e9706fa" target="_blank"><code>0xcfbbe27f…9706fa</code></a></td><td>Team Pool 1</td><td class="num">1,057.2mn</td><td class="num">$3.23M</td><td class="num">$4.40M</td><td class="num">1</td><td class="num">100%</td></tr>
-        <tr><td><strong>Pool Recipient 4</strong></td><td><a href="https://bscscan.com/address/0x998ef0e79a7574952d098d9b4e01f87d3fd864a8" target="_blank"><code>0x998ef0e7…d864a8</code></a></td><td>Nodes Pool 2</td><td class="num">1,035.8mn</td><td class="num">$3.16M</td><td class="num">$4.31M</td><td class="num">1</td><td class="num">100%</td></tr>
-        <tr><td><strong>Pool Recipient 5</strong></td><td><a href="https://bscscan.com/address/0xa8da77a990638b75963ac923e6cc617dc7e20377" target="_blank"><code>0xa8da77a9…e20377</code></a></td><td>Team Pool 1</td><td class="num">942.8mn</td><td class="num">$2.88M</td><td class="num">$3.92M</td><td class="num">1</td><td class="num">100%</td></tr>
-        <tr><td><strong>Pool Recipient 6</strong></td><td><a href="https://bscscan.com/address/0x86ea348705c21fe04ed58061878b9bb507868dd4" target="_blank"><code>0x86ea3487…868dd4</code></a></td><td>Investors Pool</td><td class="num">932.6mn</td><td class="num">$2.85M</td><td class="num">$3.88M</td><td class="num">1</td><td class="num">100%</td></tr>
-        <tr><td><strong>Pool Recipient 7</strong></td><td><a href="https://bscscan.com/address/0xc970decb237c291b255b16884b9707c357250b26" target="_blank"><code>0xc970decb…250b26</code></a></td><td>Investors Pool</td><td class="num">898.7mn</td><td class="num">$2.74M</td><td class="num">$3.74M</td><td class="num">1</td><td class="num">100%</td></tr>
-        <tr><td><strong>Pool Recipient 8</strong></td><td><a href="https://bscscan.com/address/0xac7aea82b35320dd050c79e413234423894a321a" target="_blank"><code>0xac7aea82…4a321a</code></a></td><td>Investors Pool</td><td class="num">878.3mn</td><td class="num">$2.68M</td><td class="num">$3.65M</td><td class="num">1</td><td class="num">100%</td></tr>
-        <tr><td><strong>Pool Recipient 9</strong></td><td><a href="https://bscscan.com/address/0xe26c27d9c5fea9a032ea770d057338a46740213f" target="_blank"><code>0xe26c27d9…40213f</code></a></td><td>Team Pool 2</td><td class="num">876.5mn</td><td class="num">$2.68M</td><td class="num">$3.65M</td><td class="num">1</td><td class="num">100%</td></tr>
-        <tr><td><strong>Pool Recipient 10</strong></td><td><a href="https://bscscan.com/address/0x248e4158b775444b8e33e5aa37a46524bf880b15" target="_blank"><code>0x248e4158…880b15</code></a></td><td>Nodes Pool 1</td><td class="num">504.2mn</td><td class="num">$1.54M</td><td class="num">$2.10M</td><td class="num">1</td><td class="num">100%</td></tr>
+        <tr><td><code>0xd24ef64a…7933aa</code></td><td>2026-04-13 15:03:59</td><td class="num">10,452 B</td><td><span class="badge badge-gray">absent</span></td><td><span class="badge badge-gray">absent</span></td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td><code>0x27e8d745…4888c4</code></td><td><strong>2026-06-19 16:00:17</strong></td><td class="num">10,591 B</td><td><span class="badge badge-red">PRESENT</span></td><td><span class="badge badge-gray">absent</span></td></tr>
+        <tr><td><code>0x30d691a6…295ac9</code></td><td><strong>2026-06-19 16:09:01</strong></td><td class="num">10,452 B</td><td><span class="badge badge-gray">absent</span></td><td><span class="badge badge-gray">absent</span></td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td><code>0x00445d6c…bfc9cc</code></td><td><strong>2026-07-25 12:05:39</strong></td><td class="num">11,933 B</td><td><span class="badge badge-gray">absent</span></td><td><span class="badge badge-red">PRESENT</span></td></tr>
       </tbody>
-      <tfoot><tr><td colspan="3"><strong>TOTAL — 9.54% of total supply</strong></td><td class="num"><strong>9,540.0mn</strong></td><td class="num"><strong>$29.13M</strong></td><td class="num"><strong>$39.68M</strong></td><td></td><td class="num"><strong>100%</strong></td></tr></tfoot>
     </table></div>
   </div>
 
   <div class="card" style="margin-bottom:12px">
-    <h3>Why these ten are classed as one insider cluster — the heuristics, and what each one is worth</h3>
+    <h3>Episode 1 — June 19, 2026: the transfer function existed for 8 minutes 44 seconds</h3>
     <div class="table-wrap"><table>
-      <thead><tr><th>Signal</th><th>What was observed</th><th>How strong it is on its own</th></tr></thead>
+      <thead><tr><th>Time (UTC)</th><th>Block</th><th>Actor</th><th>Action</th></tr></thead>
       <tbody>
-        <tr>
-          <td><strong>Shared gas funder</strong></td>
-          <td>All ten received their first-ever BNB from <code>0x635308e7…7553d9</code>. Read out of the funding transaction in
-              the block where each balance first went above zero — not from an explorer's "Funded By" field. OKLink labels that
-              address <strong>"KuCoin. DepositAndWithdraw_5"</strong>; it has 1,832,478 transactions and 1,744 BNB.</td>
-          <td><span class="badge badge-yellow">moderate alone</span> An exchange withdrawal wallet serves thousands of unrelated users</td>
-        </tr>
-        <tr>
-          <td><strong>Identical gas amount</strong></td>
-          <td>Every one of the ten received <strong>exactly 0.0020 BNB</strong>. Not approximately — the same number ten times.</td>
-          <td><span class="badge badge-orange">strong</span> Ten independent users do not withdraw identical dust amounts</td>
-        </tr>
-        <tr>
-          <td><strong>Funding window</strong></td>
-          <td>All ten funded between blocks 112,236,346 and 112,253,143 — inside about one hour on Jul 26, and
-              <em>before</em> any of them received AKE.</td>
-          <td><span class="badge badge-orange">strong</span> Pre-positioning, not reaction</td>
-        </tr>
-        <tr>
-          <td><strong>Receipt window</strong></td>
-          <td>Eight of the ten received their allocation between blocks 112,261,109 and 112,261,454 — <strong>2 minutes
-              35 seconds</strong>. From four <em>different</em> pool contracts.</td>
-          <td><span class="badge badge-red">decisive</span> Four separate contracts firing into eight fresh wallets inside 2½ minutes is one operator</td>
-        </tr>
-        <tr>
-          <td><strong>Zero prior history</strong></td>
-          <td>Every one is nonce=1 with no AKE history before Jul 26 and no other token activity.</td>
-          <td><span class="badge badge-yellow">moderate</span> Consistent with fresh custody wallets</td>
-        </tr>
-        <tr>
-          <td><strong>Uniform posture since</strong></td>
-          <td>All ten still hold 100% of what they received, and all ten sit at nonce=1 — one transaction sent each, and since
-              the full balance is intact, none of those transactions moved AKE out.</td>
-          <td><span class="badge badge-orange">strong</span> Identical behaviour across ten wallets is one policy, not ten decisions</td>
-        </tr>
-        <tr>
-          <td><strong>Source privilege</strong></td>
-          <td>These transfers came out of pool contracts that only an admin can move. No claim function, no user action —
-              the project moved these tokens.</td>
-          <td><span class="badge badge-red">decisive</span> Rules out any organic-buyer explanation</td>
-        </tr>
+        <tr><td>16:00:17</td><td class="num">105,170,321</td><td><strong>Supply Funder</strong> <code>0x6468cce9…ce2eac2</code> — the deployer EOA that distributed all 100bn at genesis</td><td><code>upgradeToAndCall()</code> → installs <code>0x27e8d745</code>, which contains <code>adminTransfer</code><br><a href="https://bscscan.com/tx/0x480d5da913f2e41f62b2628abd61db331b97ce44cceb485858a87f490f51b97e" target="_blank">tx 0x480d5da9…b97e</a></td></tr>
+        <tr style="background:rgba(239,68,68,0.07)"><td><strong>16:00:41</strong></td><td class="num">105,170,374</td><td>same EOA</td><td><code>adminTransfer(0xf23abe61…, 4,073,428,631 AKE)</code> — 24 seconds after the upgrade<br><a href="https://bscscan.com/tx/0x262f81333e77e18de1539c46066ac3655b29752b1c320d79bd94f6dbfdeb5cca" target="_blank">tx 0x262f8133…5cca</a> · $1.31M at that day's price ($0.00032107)</td></tr>
+        <tr><td>16:09:01</td><td class="num">105,171,484</td><td>same EOA</td><td><code>upgradeToAndCall()</code> → installs <code>0x30d691a6</code>, <strong>removing</strong> <code>adminTransfer</code> again. Byte size returns to exactly 10,452 B<br><a href="https://bscscan.com/tx/0x65d8a184002d05c557b83078496bec4be827cd41820f1ee26659e5adb9a1adaf" target="_blank">tx 0x65d8a184…1adaf</a></td></tr>
       </tbody>
     </table></div>
-    <div class="alert alert-info" style="margin:12px 0 0">
-      No single one of these signals would carry the classification. The combination does: <strong>admin-only source</strong> +
-      <strong>identical gas amount from one funder</strong> + <strong>2m35s receipt window across four contracts</strong> is not
-      reachable by ten unrelated recipients. What the data does not tell us is <em>who</em> — the funder is an exchange
-      withdrawal address, which anonymises the operator. Team, investor, market-maker and OTC-buyer all remain live
-      possibilities.
+    <div class="alert alert-warn" style="margin:12px 0 0">
+      The ability to move tokens out of the Investors Pool did not exist before 16:00:17 and did not exist after 16:09:01.
+      It was installed, used once, and removed. 2.073bn of the 4.073bn was returned to the pool three days later; 2.000bn was
+      forwarded onward.
     </div>
   </div>
 
-  <div class="alert alert-warn" style="margin-bottom:0">
-    <strong>What to watch.</strong> These ten wallets hold 9.54bn AKE — 9.5% of total supply, and about 42% as much as
-    CoinGecko's entire reported circulating supply of 22.8bn. None of it has moved. Each wallet has sent exactly one
-    transaction since being funded and the AKE balance is untouched. A scheduled unlock of roughly 4.9% of market cap falls on
-    Aug 21, 2026.
+  <div class="card" style="margin-bottom:12px">
+    <h3>Episode 2 — July 18–26, 2026: ownership moves to a fresh multisig, then three pools gain a withdrawal function</h3>
+    <div class="timeline">
+      <div class="timeline-item"><div class="timeline-dot" style="border-color:var(--muted)"></div>
+        <div class="timeline-date">2026-07-16</div>
+        <div class="timeline-text">Price begins its run — $0.00019 → $0.00068 in a day.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="border-color:var(--warn)"></div>
+        <div class="timeline-date">2026-07-18 08:51:39 · block 110,678,377</div>
+        <div class="timeline-text"><strong>A Gnosis Safe v1.4.1 is deployed</strong> at <code>0x551a8417…1da5eb</code> — 3-of-4 threshold.</div>
+        <div class="timeline-sub">Of its four signers, two (<code>0x28b78a61…</code>, <code>0xd3adb370…</code>) have never sent a transaction and hold zero BNB; one has sent one; the fourth, <code>0x88f4b387…2ef8e</code>, executes everything.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="border-color:var(--danger)"></div>
+        <div class="timeline-date">2026-07-18 09:23:59 · block 110,682,684</div>
+        <div class="timeline-text"><strong>Ownership of all eight pool contracts transfers from the deployer EOA to that Safe — 32 minutes after the Safe was created.</strong></div>
+        <div class="timeline-sub">Until this moment the pools had been owned by <code>0x6468cce9…ce2eac2</code> continuously since launch, 11 months.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="border-color:var(--warn)"></div>
+        <div class="timeline-date">2026-07-22 03:40:06 · block 111,404,437</div>
+        <div class="timeline-text">Nodes Pool 3 implementation upgraded to <code>0xee73d275…b38455</code>.</div>
+        <div class="timeline-sub">The 8.674bn node distribution begins three hours later at 06:42.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="border-color:var(--danger)"></div>
+        <div class="timeline-date">2026-07-25 12:05:39 – 12:07:41 · blocks 112,047,462 → 112,047,733</div>
+        <div class="timeline-text"><strong>The Safe executes five <code>upgradeToAndCall()</code> transactions in 2 minutes 2 seconds</strong>, replacing the implementations of the Investors Pool, Team Pool 1, Team Pool 2, Nodes Pool 1 and Nodes Pool 2.</div>
+        <div class="timeline-sub">Investors 12:05:39 · Team 1 12:06:10 · Team 2 12:06:38 · Nodes 1 12:07:13 · Nodes 2 12:07:41. All sent by signer <code>0x88f4b387…2ef8e</code> via <code>execTransaction()</code>. Each new implementation contains <code>userWithdraw()</code>; none of the previous ones did. <strong>Nodes Pool 3 was not upgraded — and it is the one node pool with no outlier.</strong></div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="border-color:var(--danger)"></div>
+        <div class="timeline-date">2026-07-26 ≈13:00 · blocks 112,236,346 – 112,253,143</div>
+        <div class="timeline-text">Ten fresh wallets are each funded with <strong>exactly 0.0020 BNB</strong> from one address — OKLink labels it <strong>"KuCoin. DepositAndWithdraw_5"</strong>.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="border-color:var(--danger)"></div>
+        <div class="timeline-date">2026-07-26 13:43:05 – 14:51:03</div>
+        <div class="timeline-text"><strong>Those ten wallets call <code>userWithdraw()</code> and take 9.540bn AKE</strong> — eight of them inside 2 minutes 35 seconds.</div>
+        <div class="timeline-sub">$29.13M at that day's price. Each call is 4 bytes of calldata — no arguments, no signature.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="border-color:var(--green)"></div>
+        <div class="timeline-date">2026-07-27</div>
+        <div class="timeline-text">All-time high $0.00558723. The ADODO node buyback is announced publicly — the first public communication in this sequence.</div></div>
+    </div>
+    <div class="alert alert-danger" style="margin:12px 0 0">
+      <strong>Nothing in this sequence was announced.</strong> A review of AKEDO's public channels for 20 July – 2 August 2026
+      surfaces the ADODO node buyback (27 July), a product-launch note (27 July) and price commentary. There is
+      <strong>no public announcement of a contract upgrade, an investor unlock, or a team vesting release</strong> in the period.
+      The two contract upgrades that made 13.6bn AKE movable were disclosed nowhere.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Simulated <code>userWithdraw()</code> — proof the entitlement did not exist beforehand</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      <code>eth_call</code> of <code>userWithdraw()</code>, executed <em>from</em> each wallet's own address against the pool, at
+      successive historical blocks. A binary search on the transition finds the exact block each wallet first became able to
+      withdraw. Every one lands inside the 59-second upgrade window — not at any earlier date, and not at the contract's
+      <code>unlockTime</code>, which had already passed in August 2025.
+    </p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Wallet</th><th>Pool</th><th>Aug 2025 – Jul 20 2026</th><th>First block it could withdraw</th><th>Timestamp</th></tr></thead>
+      <tbody>
+        <tr><td><code>0x7986fa5f…829ff9c</code></td><td>Investors</td><td><span class="badge badge-gray">reverts</span></td><td class="num">112,047,462</td><td>2026-07-25 12:05:39</td></tr>
+        <tr><td><code>0x86ea3487…868dd4</code></td><td>Investors</td><td><span class="badge badge-gray">reverts</span></td><td class="num">112,047,462</td><td>2026-07-25 12:05:39</td></tr>
+        <tr><td><code>0xcfbbe27f…9706fa</code></td><td>Team 1</td><td><span class="badge badge-gray">reverts</span></td><td class="num">112,047,529</td><td>2026-07-25 12:06:10</td></tr>
+        <tr><td><code>0x30a603db…6fd275</code></td><td>Team 2</td><td><span class="badge badge-gray">reverts</span></td><td class="num">112,047,593</td><td>2026-07-25 12:06:38</td></tr>
+      </tbody>
+    </table></div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted)">
+      <code>unlockTime()</code> reads 2025-08-24 10:00:00 UTC on the Investors Pool and 2025-08-21 10:00:00 UTC on both Team
+      pools. The time lock was not what changed. The code was.
+    </div>
+  </div>
+</div>
+
+<!-- =============== WHO GOT WHAT =============== -->
+<div class="section">
+  <h2>Who Received the 34.48bn — Two Populations, and Two Outliers Inside the Broad One</h2>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Population A — 6,225 node claimants, 20.868bn, July 22</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      Each of these transfers was <strong>pulled by the recipient</strong>, not pushed by an admin: the recipient sent the
+      transaction, called the Nodes-pool claim function (selector <code>0xb1bd11b4</code>, 452 bytes of calldata carrying a
+      token address, an amount, a deadline and a backend signature), and received their own allocation. Sampling 60 of these
+      transactions, the AKE recipient is the transaction sender in <strong>60 of 60</strong> cases.
+    </p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Pool</th><th>Date</th><th>AKE</th><th>Price</th><th>Value</th><th>Claimants</th><th>Median</th><th>Largest</th><th>Max ÷ median</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Nodes Pool 3</strong></td><td>2026-07-22/24</td><td class="num">8.674bn</td><td class="num">$0.00168297</td><td class="num">$14.60M</td><td class="num">2,483</td><td class="num">3.891mn</td><td class="num">5.000mn</td><td class="num"><span class="badge badge-green">1.29×</span></td></tr>
+        <tr><td><strong>Nodes Pool 1</strong></td><td>2026-07-22</td><td class="num">6.531bn</td><td class="num">$0.00168297</td><td class="num">$10.99M</td><td class="num">2,221</td><td class="num">2.941mn</td><td class="num">3.694mn</td><td class="num"><span class="badge badge-green">1.26×</span></td></tr>
+        <tr><td><strong>Nodes Pool 2</strong></td><td>2026-07-22</td><td class="num">5.663bn</td><td class="num">$0.00168297</td><td class="num">$9.53M</td><td class="num">1,907</td><td class="num">2.974mn</td><td class="num">3.699mn</td><td class="num"><span class="badge badge-green">1.24×</span></td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2"><strong>TOTAL</strong></td><td class="num"><strong>20.868bn</strong></td><td class="num">$0.00168297</td><td class="num"><strong>$35.12M</strong></td><td class="num"><strong>6,225 distinct</strong></td><td colspan="3">Distribution is genuinely flat — no outlier above 1.29× the median</td></tr></tfoot>
+    </table></div>
+    <div class="alert alert-warn" style="margin:12px 0 0">
+      <strong>One oddity worth recording.</strong> The order identifier inside each claim payload is the ASCII string
+      <code>mock_</code> followed by the claimant's own address — e.g. <code>mock_623f1177f24a45a7e69f3cbd36be71afa0</code>.
+      Production claims signed against synthetic <code>mock_</code> order IDs means the backend was not matching these to real
+      purchase records; it was generating an identifier from the address. That is a process observation, not evidence of
+      misappropriation — the amounts themselves are flat and consistent with a genuine per-node payout.
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Population B — eleven wallets, 13.613bn, and two of them are hiding inside Population A</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      Across the entire nine-week window, <strong>exactly eleven addresses received 50mn AKE or more from a pool contract.</strong>
+      Every other one of the 6,236 recipients received 5.0mn or less.
+    </p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Recipient</th><th>From</th><th>Date</th><th>AKE</th><th>Value at that date</th><th>Function used</th><th>vs that pool's median claim</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(245,158,11,0.07)"><td>—</td><td><code>0xf23abe61…86aa4</code><br><small style="color:var(--muted)">Pool Drain Wallet 1 · gas from Binance: Hot Wallet 13</small></td><td>Investors</td><td>2026-06-19</td><td class="num">4,073.4mn</td><td class="num">$1.31M</td><td><code>adminTransfer</code><br><small style="color:var(--muted)">pushed by the deployer</small></td><td class="num">—</td></tr>
+        <tr><td>1</td><td><code>0x7986fa5f…829ff9c</code></td><td>Investors</td><td>2026-07-26</td><td class="num">1,290.4mn</td><td class="num">$3.94M</td><td><code>userWithdraw()</code></td><td class="num">—</td></tr>
+        <tr><td>2</td><td><code>0x30a603db…6fd275</code></td><td>Team 2</td><td>2026-07-26</td><td class="num">1,123.5mn</td><td class="num">$3.43M</td><td><code>userWithdraw()</code></td><td class="num">—</td></tr>
+        <tr><td>3</td><td><code>0xcfbbe27f…9706fa</code></td><td>Team 1</td><td>2026-07-26</td><td class="num">1,057.2mn</td><td class="num">$3.23M</td><td><code>userWithdraw()</code></td><td class="num">—</td></tr>
+        <tr style="background:rgba(239,68,68,0.10)"><td>4</td><td><code>0x998ef0e7…d864a8</code></td><td><strong>Nodes 2</strong></td><td>2026-07-26</td><td class="num">1,035.8mn</td><td class="num">$3.16M</td><td><code>userWithdraw()</code><br><small style="color:var(--danger)">not the signed claim the other 1,907 used</small></td><td class="num"><span class="badge badge-red">348× median<br>280× the next-largest</span></td></tr>
+        <tr><td>5</td><td><code>0xa8da77a9…e20377</code></td><td>Team 1</td><td>2026-07-26</td><td class="num">942.8mn</td><td class="num">$2.88M</td><td><code>userWithdraw()</code></td><td class="num">—</td></tr>
+        <tr><td>6</td><td><code>0x86ea3487…868dd4</code></td><td>Investors</td><td>2026-07-26</td><td class="num">932.6mn</td><td class="num">$2.85M</td><td><code>userWithdraw()</code></td><td class="num">—</td></tr>
+        <tr><td>7</td><td><code>0xc970decb…250b26</code></td><td>Investors</td><td>2026-07-26</td><td class="num">898.7mn</td><td class="num">$2.74M</td><td><code>userWithdraw()</code></td><td class="num">—</td></tr>
+        <tr><td>8</td><td><code>0xac7aea82…4a321a</code></td><td>Investors</td><td>2026-07-26</td><td class="num">878.3mn</td><td class="num">$2.68M</td><td><code>userWithdraw()</code></td><td class="num">—</td></tr>
+        <tr><td>9</td><td><code>0xe26c27d9…40213f</code></td><td>Team 2</td><td>2026-07-26</td><td class="num">876.5mn</td><td class="num">$2.68M</td><td><code>userWithdraw()</code></td><td class="num">—</td></tr>
+        <tr style="background:rgba(239,68,68,0.10)"><td>10</td><td><code>0x248e4158…880b15</code></td><td><strong>Nodes 1</strong></td><td>2026-07-26</td><td class="num">504.2mn</td><td class="num">$1.54M</td><td><code>userWithdraw()</code><br><small style="color:var(--danger)">not the signed claim the other 2,221 used</small></td><td class="num"><span class="badge badge-red">171× median<br>137× the next-largest</span></td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="4"><strong>TOTAL — the eleven</strong></td><td class="num"><strong>13,613.4mn</strong></td><td class="num"><strong>$30.44M</strong></td><td colspan="2">13.6% of total supply</td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="alert alert-danger" style="margin-bottom:12px">
+    <strong>The two node-pool outliers are the clearest single finding in this report.</strong>
+    Nodes Pool 1 paid 2,221 claimants a median of 2.941mn each, and paid <code>0x248e4158…</code> <strong>504.2mn</strong>.
+    Nodes Pool 2 paid 1,907 claimants a median of 2.974mn each, and paid <code>0x998ef0e7…</code> <strong>1,035.8mn</strong>.
+    Those two did not use the claim path everyone else used — the 4,128 ordinary claimants called the signature-gated function
+    with 452 bytes of signed calldata; these two called <code>userWithdraw()</code> with four bytes and no signature, on a
+    different day, four days after the node distribution had finished, using a code path installed in those two pools the previous
+    afternoon. Nodes Pool 3, which distributed 8.674bn to 2,483 claimants on the same day through the same claim mechanism,
+    was <em>not</em> given that upgrade — and it has no outlier at all: its largest recipient took 5.0mn against a 3.891mn
+    median. The two pools that received the extra code are precisely the two pools with a nine-figure outlier. Between them they took <strong>1.540bn out of pools that were paying everyone else three million.</strong>
+  </div>
+
+  <div class="card">
+    <h3>Cross-check against every wallet in the prior editions of this report</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      All ten July-26 wallets were checked against the union of every address appearing in the earlier full-history pool scans
+      and in all three previously published pages — 1,447 addresses in total, including the 22 InvestorsPool recipients, the 70
+      KOL recipients, the 5,802 Nodes Pool 3 recipients and the whole insider set.
+    </p>
+    <div class="alert alert-warn" style="margin:0">
+      <strong>None of the ten has ever appeared before.</strong> They are not the Investors 1–21 from the November-2025 to
+      March-2026 tranches, they are not among the earlier node claimants, and they are not connected to the 13.8bn distributor
+      chain. Every one is an address with no AKE history and no token history of any kind before 26 July 2026.
+      Whoever these belong to, the entitlement was created on 25 July and taken the next day.
+    </div>
   </div>
 </div>
 <!-- =============== OLD INSIDERS RESOLVED =============== -->
@@ -932,16 +990,34 @@ small { font-size:10px; }
       <thead><tr><th>Heuristic</th><th>What it detects</th><th>Weight</th><th>Where it fires in this report</th></tr></thead>
       <tbody>
         <tr>
-          <td><strong>Admin-only source</strong></td>
-          <td>Tokens leaving an ERC1967 pool proxy that has no public claim function — only an admin can move them</td>
+          <td><strong>Capability inserted by proxy upgrade, then used</strong></td>
+          <td>An implementation containing a withdrawal function is installed, tokens move through it, and in one case the
+              implementation is reverted minutes later. Verified by reading the ERC1967 slot at successive blocks and testing
+              each implementation's bytecode for the selector.</td>
           <td><span class="badge badge-red">decisive</span></td>
-          <td>All 34.5bn of pool outflow. Rules out any "organic buyer" reading of the recipients.</td>
+          <td>Investors Pool 19 Jun (function present for 8m44s, 4.073bn moved, then removed); Investors + Team 1 + Team 2
+              25 Jul (<code>userWithdraw()</code> added in a 59-second window, 9.540bn taken the next day)</td>
+        </tr>
+        <tr>
+          <td><strong>Simulated call at historical blocks</strong></td>
+          <td>Whether a specific wallet could have withdrawn at any earlier date. <code>eth_call</code> from that wallet's own
+              address, binary-searched to the transition block.</td>
+          <td><span class="badge badge-red">decisive</span></td>
+          <td>All four tested July-26 wallets first became able to withdraw inside the 59-second upgrade window — not at the
+              contract's <code>unlockTime</code>, which had passed in August 2025</td>
+        </tr>
+        <tr>
+          <td><strong>Different function from the peer group</strong></td>
+          <td>A recipient taking from the same pool as thousands of others, but through a code path none of them used</td>
+          <td><span class="badge badge-red">decisive</span></td>
+          <td>Two wallets took 504.2mn and 1,035.8mn from the Nodes pools via unsigned <code>userWithdraw()</code>; the other
+              4,128 claimants used the signature-gated claim and averaged ~3mn</td>
         </tr>
         <tr>
           <td><strong>Tight receipt window across multiple contracts</strong></td>
-          <td>One operator sequencing several admin calls</td>
-          <td><span class="badge badge-red">decisive</span></td>
-          <td>Eight of the ten Jul-26 recipients, from four different pools, in 2m35s</td>
+          <td>One operator sequencing several calls</td>
+          <td><span class="badge badge-orange">strong</span></td>
+          <td>Eight of the ten July-26 wallets drew from four different pools inside 2m35s</td>
         </tr>
         <tr>
           <td><strong>Identical gas amount from one funder</strong></td>

@@ -11,3 +11,5 @@ data/ake_delta_v2_checkpoint.json
 data/ake_gap_may_jun_2026_checkpoint.json
 data/pool_out_checkpoint.json
 data/ts_grid.json
+data/pool_reconcile_checkpoint.json
+data/pool_events_checkpoint.json

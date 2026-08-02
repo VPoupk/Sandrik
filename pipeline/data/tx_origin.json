@@ -1,0 +1,202 @@
+{
+ "nodes3_jul22": {
+  "n_logs": 1,
+  "n_tx": 1,
+  "senders": [
+   [
+    "0x77adaa1ee0d0cc206cf518bf18922808ffd512e4",
+    1
+   ]
+  ],
+  "selectors": [
+   [
+    "0xb1bd11b4",
+    1
+   ]
+  ],
+  "to": [
+   [
+    "0xaf66503770451c83a4f12a1146a32271893508ce",
+    1
+   ]
+  ],
+  "self_claim": 1,
+  "sampled": 1
+ },
+ "nodes1_jul22": {
+  "n_logs": 2221,
+  "n_tx": 2221,
+  "senders": [
+   [
+    "0x623f1177f24a45a7e69f3cbd36be71afa0b688df",
+    1
+   ],
+   [
+    "0x7a8b0568c97a7450eca975beb7238f17854def75",
+    1
+   ],
+   [
+    "0x113c7b681ea9da8001dcdc839f5ada0113fee169",
+    1
+   ],
+   [
+    "0x6c8ddeabe152a6d273233643c18ea5b93dc6b648",
+    1
+   ],
+   [
+    "0x20054b4ae81f440f4293ba7c3eda4cb12ba0d21e",
+    1
+   ],
+   [
+    "0xd582a535705494f8d83b76997512ad59cf5f8d0a",
+    1
+   ],
+   [
+    "0xc6e5f55d1bfbd21d6e44c863c6fe81347841ffd9",
+    1
+   ],
+   [
+    "0x262152d9ff689523511dc1d2aba48b188cbd4787",
+    1
+   ],
+   [
+    "0xdf1e426bbbc20d3babfa4905e5951eed97f3eefe",
+    1
+   ],
+   [
+    "0x3307d1ae3e062a51edd646366c76ad43278dbbce",
+    1
+   ]
+  ],
+  "selectors": [
+   [
+    "0xb1bd11b4",
+    60
+   ]
+  ],
+  "to": [
+   [
+    "0xb7c7786b6ca1130584f005e9c86554114b7fad62",
+    60
+   ]
+  ],
+  "self_claim": 60,
+  "sampled": 60
+ },
+ "investors_jul26": {
+  "n_logs": 4,
+  "n_tx": 4,
+  "senders": [
+   [
+    "0x7986fa5f64a0997f3b50990f2ba64f81d829ff9c",
+    1
+   ],
+   [
+    "0x86ea348705c21fe04ed58061878b9bb507868dd4",
+    1
+   ],
+   [
+    "0xc970decb237c291b255b16884b9707c357250b26",
+    1
+   ],
+   [
+    "0xac7aea82b35320dd050c79e413234423894a321a",
+    1
+   ]
+  ],
+  "selectors": [
+   [
+    "0xa646f9ad",
+    4
+   ]
+  ],
+  "to": [
+   [
+    "0x27333bd8c321a263b0565e69eea3b736b9d1f42c",
+    4
+   ]
+  ],
+  "self_claim": 4,
+  "sampled": 4
+ },
+ "team2_jul26": {
+  "n_logs": 2,
+  "n_tx": 2,
+  "senders": [
+   [
+    "0x30a603dbd14981417b520ce96d2005d96c6fd275",
+    1
+   ],
+   [
+    "0xe26c27d9c5fea9a032ea770d057338a46740213f",
+    1
+   ]
+  ],
+  "selectors": [
+   [
+    "0xa646f9ad",
+    2
+   ]
+  ],
+  "to": [
+   [
+    "0xd229b65d50e412cc3c394233e7a53a1dac4da457",
+    2
+   ]
+  ],
+  "self_claim": 2,
+  "sampled": 2
+ },
+ "team1_jul26": {
+  "n_logs": 2,
+  "n_tx": 2,
+  "senders": [
+   [
+    "0xcfbbe27f7fb368d15d3a278da85415e62e9706fa",
+    1
+   ],
+   [
+    "0xa8da77a990638b75963ac923e6cc617dc7e20377",
+    1
+   ]
+  ],
+  "selectors": [
+   [
+    "0xa646f9ad",
+    2
+   ]
+  ],
+  "to": [
+   [
+    "0x9009342f6d3b2f685fc9f5fe4dc9d3e30ed0e248",
+    2
+   ]
+  ],
+  "self_claim": 2,
+  "sampled": 2
+ },
+ "investors_jun19": {
+  "n_logs": 1,
+  "n_tx": 1,
+  "senders": [
+   [
+    "0x6468cce97a300ff9d02d4cad0d3e097cace2eac2",
+    1
+   ]
+  ],
+  "selectors": [
+   [
+    "0xf17e48ec",
+    1
+   ]
+  ],
+  "to": [
+   [
+    "0x27333bd8c321a263b0565e69eea3b736b9d1f42c",
+    1
+   ]
+  ],
+  "self_claim": 0,
+  "sampled": 1
+ }
+}
