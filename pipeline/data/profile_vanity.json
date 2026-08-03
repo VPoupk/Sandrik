@@ -1,0 +1,51 @@
+{
+ "0x57114155891605d9c5a2907e2b702cf60ab07c0e": {
+  "nonce": 0,
+  "is_contract": false,
+  "code_len": 0,
+  "bnb": 0.0,
+  "ake": 3470322933.333126
+ },
+ "0x5711143f9e8139fb431578780331e42b5cb67c0e": {
+  "nonce": 0,
+  "is_contract": false,
+  "code_len": 0,
+  "bnb": 0.0,
+  "ake": 0.0
+ },
+ "0xd6bea0fffc1cb09412bd2dcfb8537ae78aa3cbad": {
+  "nonce": 0,
+  "is_contract": false,
+  "code_len": 0,
+  "bnb": 0.0,
+  "ake": 1951694504.136244
+ },
+ "0xd6bedf1f5fa62acfc72636fb36bda476ca8ccbad": {
+  "nonce": 0,
+  "is_contract": false,
+  "code_len": 0,
+  "bnb": 0.0,
+  "ake": 0.0
+ },
+ "0xa9578b2b9ddcd0465cdc05140b3821032b5a722b": {
+  "nonce": 0,
+  "is_contract": false,
+  "code_len": 0,
+  "bnb": 0.0,
+  "ake": 2449095105.6447687
+ },
+ "0xa957946b35463e07d35b474fff95855dcd74722b": {
+  "nonce": 0,
+  "is_contract": false,
+  "code_len": 0,
+  "bnb": 0.0,
+  "ake": 0.0
+ },
+ "0xe043ae76f3af8be33291f2975bd08ad9e4c0e0ae": {
+  "nonce": 13,
+  "is_contract": false,
+  "code_len": 0,
+  "bnb": 0.0,
+  "ake": 0.0
+ }
+}
