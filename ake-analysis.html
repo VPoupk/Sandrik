@@ -181,6 +181,7 @@ small { font-size:10px; }
   <span style="padding:7px 14px;background:rgba(59,130,246,0.18);border:1px solid var(--accent);border-radius:7px;font-size:12px;font-weight:600;color:#93c5fd">① Distribution Overview <span style="color:var(--muted);font-weight:400">(this page)</span></span>
   <a href="pool-outflows.html" style="padding:7px 14px;background:var(--card2);border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600">② Official Pool Outflows →</a>
   <a href="insider-outflows.html" style="padding:7px 14px;background:var(--card2);border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600">③ Insider / Deployer-Linked Outflows →</a>
+  <a href="follow-up-findings.html" style="padding:7px 14px;background:var(--card2);border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600">⑤ Follow-Up Findings →</a>
 </div>
 
 <!-- =============== HEADLINE =============== -->
@@ -672,6 +673,123 @@ small { font-size:10px; }
     </div>
   </div>
 </div>
+<!-- =============== WHAT WAS ACTUALLY SOLD SINCE JUL 26 =============== -->
+<div class="section">
+  <h2>What Was Actually Sold Since the July 26 Unlocks</h2>
+  <p style="color:var(--muted);font-size:12px;margin-bottom:14px">
+    Complete Transfer-event scan of the AKE contract from <strong>block 112,252,392 (26 Jul 2026 13:43 UTC — the first of the
+    ten pool withdrawals)</strong> to chain head at block 113,384,906. 3,405 distinct addresses received AKE in that window.
+    A send to an exchange address is treated as a sale, priced at the CoinGecko daily average for the day of the transfer.
+    Binance venues are reported separately and excluded from the sold total, since Alpha is an inventory venue where the
+    deposit date and the realisation date are not the same thing.
+  </p>
+
+  <div class="stat-grid" style="margin-bottom:16px">
+    <div class="stat-box">
+      <div class="stat-box-label">Sold on non-Binance exchanges</div>
+      <div class="stat-box-value" style="color:var(--danger)">1.037bn</div>
+      <div class="stat-box-sub">$4.14M at each day's price · 1.04% of supply</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-label">Sent to Binance venues</div>
+      <div class="stat-box-value" style="color:var(--warn)">2.308bn</div>
+      <div class="stat-box-sub">$8.18M · excluded from the sold total</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-label">Net DEX selling</div>
+      <div class="stat-box-value" style="color:var(--green)">−6.4mn</div>
+      <div class="stat-box-sub">5.270bn in, 5.277bn out — two-way trading, not distribution</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-box-label">Of the 9.540bn unlocked on Jul 26</div>
+      <div class="stat-box-value" style="color:var(--green)">0</div>
+      <div class="stat-box-sub">none of it has reached any venue</div>
+    </div>
+  </div>
+
+  <div class="alert alert-green" style="margin-bottom:14px">
+    <strong>The headline is what did <em>not</em> happen. None of the 9.540bn that the ten wallets took on 26 July has been
+    sold — none of it has moved at all.</strong> The selling that did occur in the eight days after the unlocks totals
+    <strong>1.037bn to non-Binance exchanges, worth $4.14M</strong> at the prices on the days it happened, and it came from
+    entirely different addresses.
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Where it went</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Venue</th><th>AKE received</th><th>Value at transfer dates</th><th>Counts as a sale?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Gate.io 1</strong> <code>0x0d070796…0b492fe</code></td><td class="num">791.7mn</td><td class="num">$3,205,678</td><td><span class="badge badge-red">yes</span></td></tr>
+        <tr><td><strong>KuCoin: Hot Wallet 2</strong> <code>0x53f78a07…f3fa23</code></td><td class="num">245.6mn</td><td class="num">$931,811</td><td><span class="badge badge-red">yes</span></td></tr>
+        <tr style="background:rgba(100,116,139,0.10)"><td><strong>Gate.io 5</strong> <code>0xc882b111…984f071</code></td><td class="num">575.4mn</td><td class="num">$2,510,998</td><td><span class="badge badge-gray">no — internal</span> the entire 575.4mn came from Gate.io 1, an exchange moving its own inventory between its own wallets</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td><strong>Gross into non-Binance exchanges</strong></td><td class="num">1,612.7mn</td><td class="num">$6,648,486</td><td></td></tr>
+        <tr><td><strong>less the internal Gate→Gate leg</strong></td><td class="num">−575.4mn</td><td class="num">−$2,510,998</td><td></td></tr>
+        <tr><td><strong>NET EXTERNAL SALES</strong></td><td class="num"><strong>1,037.3mn</strong></td><td class="num"><strong>$4,137,488</strong></td><td></td></tr>
+      </tfoot>
+    </table></div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Day by day, priced at each day's close</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Date</th><th>Price that day</th><th>To non-Binance CEX</th><th>Value</th><th>Into the DEX pool</th><th>Value</th><th>To Binance venues</th></tr></thead>
+      <tbody>
+        <tr><td>2026-07-26</td><td class="num">$0.00305380</td><td class="num">8.7mn</td><td class="num">$26,714</td><td class="num">214.9mn</td><td class="num">$656,110</td><td class="num">—</td></tr>
+        <tr><td>2026-07-27 <span style="color:var(--muted)">· ATH</span></td><td class="num">$0.00314941</td><td class="num">84.1mn</td><td class="num">$264,845</td><td class="num">2,101.7mn</td><td class="num">$6,619,087</td><td class="num">—</td></tr>
+        <tr style="background:rgba(239,68,68,0.06)"><td>2026-07-28</td><td class="num">$0.00400137</td><td class="num"><strong>689.3mn</strong></td><td class="num"><strong>$2,758,158</strong></td><td class="num">869.4mn</td><td class="num">$3,478,938</td><td class="num">—</td></tr>
+        <tr><td>2026-07-29</td><td class="num">$0.00409715</td><td class="num">64.3mn</td><td class="num">$263,482</td><td class="num">949.1mn</td><td class="num">$3,888,746</td><td class="num">—</td></tr>
+        <tr><td>2026-07-30</td><td class="num">$0.00385308</td><td class="num">46.3mn</td><td class="num">$178,379</td><td class="num">559.9mn</td><td class="num">$2,157,230</td><td class="num">—</td></tr>
+        <tr><td>2026-07-31</td><td class="num">$0.00452415</td><td class="num">94.8mn</td><td class="num">$428,714</td><td class="num">441.3mn</td><td class="num">$1,996,727</td><td class="num">—</td></tr>
+        <tr style="background:rgba(239,68,68,0.06)"><td>2026-08-01</td><td class="num">$0.00436411</td><td class="num"><strong>625.1mn</strong></td><td class="num"><strong>$2,728,195</strong></td><td class="num">133.9mn</td><td class="num">$584,250</td><td class="num">—</td></tr>
+      </tbody>
+      <tfoot><tr><td><strong>TOTAL</strong></td><td class="num">per-date</td><td class="num"><strong>1,612.7mn</strong> gross<br>1,037.3mn net</td><td class="num"><strong>$6.65M</strong> gross<br><strong>$4.14M</strong> net</td><td class="num"><strong>5,270.2mn</strong></td><td class="num"><strong>$19.38M</strong></td><td class="num"><strong>2,307.6mn</strong> · $8.18M</td></tr></tfoot>
+    </table></div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted)">
+      The two heavy CEX days are 28 July (689.3mn, the day after the all-time high) and 1 August (625.1mn, which includes the
+      575.4mn internal Gate→Gate move — external selling that day was 49.7mn).
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Why the DEX number is not a sale figure</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      5.270bn AKE went <em>into</em> the PancakeSwap V3 AKE/USDT pool in this window, which taken alone would read as $19.38M of
+      selling. But <strong>5.277bn came back out</strong> over the same period. The pool's net directional flow is
+      <strong>−6.4mn AKE</strong> — essentially zero.
+    </p>
+    <div class="alert alert-warn" style="margin:0">
+      That is the signature of arbitrage and market-making, not distribution. The same pattern is visible transaction by
+      transaction: identical amounts cycling pool → router → intermediary → pool within a few blocks. Counting the gross
+      inflow as sales would overstate DEX selling by roughly $19M. The honest figure for net DEX distribution over this window
+      is approximately zero.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Who did the selling</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Sender</th><th>Venue</th><th>AKE</th><th>Who this is</th></tr></thead>
+      <tbody>
+        <tr><td><code>0x035ae7d9…67b90c</code></td><td>Gate.io 1</td><td class="num">234.5mn</td><td>Received 208mn in the July window from Alpha-side flows; not a pool recipient</td></tr>
+        <tr><td><code>0x87821630…4eb07b3</code></td><td>Gate.io 1</td><td class="num">122.2mn</td><td>High-frequency address, 7,182 txns</td></tr>
+        <tr><td><code>0x8d17fbfb…8ba5d7</code></td><td>Gate.io 1</td><td class="num">109.9mn</td><td>—</td></tr>
+        <tr><td><code>0x96973f7b…81b748</code></td><td>Gate.io 1</td><td class="num">67.4mn</td><td>Net accumulator of 316mn earlier in July</td></tr>
+        <tr><td><code>0x6eb9fec1…4e284af</code></td><td>Gate.io 1</td><td class="num">56.5mn</td><td>—</td></tr>
+        <tr><td><code>0x39ac22b2…1bd31b</code></td><td>KuCoin HW2</td><td class="num">52.7mn</td><td>—</td></tr>
+        <tr><td>28 further senders</td><td>Gate.io 1 / KuCoin</td><td class="num">≈394mn</td><td>Long tail below 50mn each</td></tr>
+      </tbody>
+    </table></div>
+    <div class="alert alert-danger" style="margin:12px 0 0">
+      <strong>Not one of the ten July-26 wallets appears anywhere in this table, or anywhere in the 34 transfers of 5mn or more
+      into a non-Binance venue.</strong> Their 9.540bn is still sitting where it landed. The selling in this window came from
+      the wider float — addresses that had accumulated through Alpha and the node distribution — not from the unlocked
+      allocations. At today's price the ten wallets' untouched position is worth <strong>$43.3M</strong>, against
+      <strong>$4.14M</strong> of realised external selling by everyone else combined since the unlock.
+    </div>
+  </div>
+</div>
 <!-- =============== OLD INSIDERS RESOLVED =============== -->
 <div class="section">
   <h2>The Five Wallets the Last Report Flagged as "Still Holding" — All Five Liquidated</h2>
@@ -788,7 +906,7 @@ small { font-size:10px; }
         <tr><td>7</td><td>2026-04-01</td><td>Cold Hold → <strong>Fan-Out Root</strong></td><td class="num">3,000 AKE, then 10,999,997,000</td><td class="num">$0.00019802</td><td class="num">$2.18M</td><td>Blocks 89,973,686 and 89,990,354. Motionless for 3½ months before this.</td></tr>
         <tr style="background:rgba(59,130,246,0.06)"><td>8</td><td>2026-04-08/09</td><td>Fan-Out Root → <strong>3 sub-distributors</strong></td><td class="num">3,218,765,432<br>4,512,345,678<br>3,268,808,691</td><td class="num">$0.00022572</td><td class="num">$2.48M</td><td><strong>Correction.</strong> Three, not six. Each preceded by a test transfer (27,188 / 34,572 / 18,439 AKE) on Apr 8. Two of the three amounts are keyboard walks.</td></tr>
         <tr><td>9</td><td>2026-04-15</td><td>Sub-Distributor 1 → 3 nonce=1 conduits</td><td class="num">1.000bn · 1.000bn · 1.219bn</td><td class="num">$0.00065552</td><td class="num">$2.11M</td><td>Block 92,671,301+ · conduits <code>0xdfb3a466</code>, <code>0xd47baea5</code>, <code>0x810798922e</code></td></tr>
-        <tr><td>10</td><td>2026-04-11 → 04-18</td><td>conduits → <strong>Alpha Feeders → Binance Alpha</strong></td><td class="num">18.113bn total burst</td><td class="num">$0.00045029 → $0.00047408</td><td class="num">≈$9.4M</td><td>Feeder A 6.280bn · B 5.288bn · C 4.145bn · D 1.400bn · E 1.000bn</td></tr>
+        <tr><td>10</td><td>2026-04-11 → 05-17</td><td>conduits → <strong>Alpha Feeders → Binance Alpha</strong></td><td class="num">18.472bn total burst</td><td class="num">per transfer, $0.00030118 – $0.00081390</td><td class="num"><strong>$11.21M</strong></td><td>Every one of the 30 Feeder→Alpha transfers has now been dated and priced individually: Feeder A 6.280bn/$3.56M · B 5.288bn/$3.28M · C 4.445bn/$2.91M · D 1.460bn/$0.92M · E 1.000bn/$0.54M</td></tr>
       </tbody>
     </table></div>
   </div>

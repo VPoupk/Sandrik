@@ -17,3 +17,7 @@ data/buyback_scan_checkpoint.json
 data/buyback_scan_hi_checkpoint.json
 data/buyback_usdt_win_checkpoint.json
 data/buyback_usdt_checkpoint.json
+data/pool_full_checkpoint.json
+data/alpha_apr_checkpoint.json
+data/feeder_scan_checkpoint.json
+data/sells_jul26_agg.json
