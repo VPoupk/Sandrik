@@ -13,3 +13,7 @@ data/pool_out_checkpoint.json
 data/ts_grid.json
 data/pool_reconcile_checkpoint.json
 data/pool_events_checkpoint.json
+data/buyback_scan_checkpoint.json
+data/buyback_scan_hi_checkpoint.json
+data/buyback_usdt_win_checkpoint.json
+data/buyback_usdt_checkpoint.json
