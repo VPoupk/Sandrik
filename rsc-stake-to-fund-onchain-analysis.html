@@ -794,7 +794,219 @@ finding that survives is an operational one: five months and 3.3M RSC in, nobody
 </div>
 
 <!-- ============================================ -->
-<h2>8. Adjacent findings</h2>
+<h2>8. The hot wallets — how RSC actually moves day to day</h2>
+
+<p>This section is deliberately separate from the staking analysis above. The staking vault is a place RSC goes to
+sit; the hot wallets are where it circulates. They only touch each other at one point — the small “test” sweeps in
+the deposit pipeline (§4) — so treat what follows as the operating picture of the token, not as part of the
+stake-to-fund story.</p>
+
+<p>The first thing worth correcting is the framing of “two hot wallets”. There is
+<strong>one address, <code>0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</code>, operating independently on both
+chains</strong> — the same key, two deployments of activity. It is an EOA on each (no contract code), with an
+Ethereum account nonce of 1,248 and a Base account nonce of 3,398. ResearchHub’s docs list it only under Ethereum,
+so its Base life is undocumented and, by transaction count, considerably busier.</p>
+
+<div class="cards">
+  <div class="card"><div class="lab">Ethereum hot wallet</div><div class="val">15.50M in</div>
+    <div class="note">15.14M out · net +352k<br>1,340 transfers · 2024-05-02 → 2026-08-02</div></div>
+  <div class="card"><div class="lab">Concentration of inflow</div><div class="val">80.3%</div>
+    <div class="note">12.44M RSC of 15.50M came from Treasury 1 alone, across 31 transfers</div></div>
+  <div class="card"><div class="lab">Largest single use</div><div class="val">10.38M</div>
+    <div class="note">68.6% of all outflow went to the Base bridge — this wallet is the main ETH→Base conduit</div></div>
+</div>
+
+<h3>8.1 Ethereum hot wallet — a treasury tap that feeds the bridge and pays users</h3>
+
+<p>The Ethereum side has a very clean two-job shape. Money arrives in a few large lumps from the treasuries and
+leaves in two very different ways: a handful of enormous bridge transfers, and roughly a thousand small payments.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Direction</th><th class="num">RSC</th><th class="num">Transfers</th><th class="num">Counterparties</th><th>Shape</th></tr></thead>
+<tbody>
+<tr><td><strong>Inflow</strong></td><td class="num">15,495,361.39</td><td class="num">146</td><td class="num">78</td>
+    <td>Few, large, concentrated — 80.3% from Treasury 1</td></tr>
+<tr><td><strong>Outflow</strong></td><td class="num">15,143,151.42</td><td class="num">1,194</td><td class="num">373</td>
+    <td>Many, small — median transfer across the whole wallet is 1,169 RSC</td></tr>
+<tr class="total"><td>Net retained</td><td class="num">352,209.97</td><td colspan="3">Matches the 350,372 RSC live balance; this wallet runs near-empty by design</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="num">RSC in</th><th class="num">n</th><th>Top sources</th><th class="num">RSC out</th><th class="num">n</th><th>Top destinations</th></tr></thead>
+<tbody>
+<tr><td class="num">12,440,000</td><td class="num">31</td><td><strong>TREASURY-ALPHA</strong> (Treasury 1)</td>
+    <td class="num">10,382,050</td><td class="num">21</td><td><strong>BASE-BRIDGE-ESCROW</strong></td></tr>
+<tr><td class="num">1,350,900</td><td class="num">2</td><td><strong>TREASURY-BETA</strong> (Treasury 2)</td>
+    <td class="num">249,985</td><td class="num">2</td><td class="addr">0xe29cb975…0a22</td></tr>
+<tr><td class="num">250,020</td><td class="num">3</td><td><strong>DISTRIBUTOR-20M</strong></td>
+    <td class="num">240,754</td><td class="num">3</td><td class="addr">0x72f2c4dd…fb53</td></tr>
+<tr><td class="num">250,000</td><td class="num">1</td><td class="addr">0x29e46015…11Ee (fed SIGNER-STAKER)</td>
+    <td class="num">203,874</td><td class="num">14</td><td class="addr">0x430d7dc3…4466</td></tr>
+<tr><td class="num">167,597</td><td class="num">3</td><td><strong>KEY-OMEGA</strong> (the all-Safe signer)</td>
+    <td class="num">144,325</td><td class="num">10</td><td class="addr">0x2e62a6d9…95be</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Two things stand out. <strong>The wallet is essentially a spending account for Treasury 1</strong> — 12.44M RSC
+arrived from it in 31 tranches, and the wallet holds almost nothing at rest. And
+<strong>its dominant function is bridging, not paying</strong>: 68.6% of everything that left went to the Base
+bridge in just 21 transfers, while the remaining ~4.8M was spread across 1,173 payments to 373 addresses at a median
+of about 1,169 RSC. That long tail is the visible on-chain footprint of platform payouts — bounties, peer-review
+rewards, editor payments — which is exactly what a hot wallet in ResearchHub’s docs should be doing.</p>
+
+<p>Activity is not flat over time. Monthly RSC-transfer counts run in the single digits through most of 2025, then
+step up sharply around the staking launch: 14 in March 2026, 19 in April, <strong>28 in May</strong>, before falling
+back to 6–8 through June and July. The busiest month of the wallet’s life coincides with the staking product’s first
+full month.</p>
+
+<h3>8.2 Where the bridged RSC goes — and who else uses the bridge</h3>
+
+<p>Since the hot wallet’s main job is bridging, it is worth seeing the bridge as a whole. The escrow contract
+<code>0x3154Cf16…2C35</code> currently locks <strong>72,973,614.46 RSC</strong>, which is what backs the entire Base
+supply. Sampling its <strong>3,000 most recent</strong> RSC transfer events (the contract has more history than that,
+so read this as a recent-activity profile rather than a lifetime total):</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Flow</th><th class="num">RSC</th><th class="num">Addresses</th><th>Character</th></tr></thead>
+<tbody>
+<tr><td>Deposits (Ethereum → Base)</td><td class="num">53,148,694.55</td><td class="num">180</td><td>Dominated by two ResearchHub accounts</td></tr>
+<tr><td>Withdrawals (Base → Ethereum)</td><td class="num">4,504,162.84</td><td class="num">37</td><td>An order of magnitude smaller — traffic is overwhelmingly one-way</td></tr>
+<tr class="sub"><td colspan="4"><strong>Largest depositors in the sample</strong></td></tr>
+<tr><td><strong>TREASURY-OPS</strong> (Treasury 3)</td><td class="num">18,026,930</td><td class="num">13 txs</td><td>The single biggest bridger of RSC to Base</td></tr>
+<tr><td><strong>HOT-WALLET</strong></td><td class="num">10,132,000</td><td class="num">19 txs</td><td>Second — the flows described in §8.1</td></tr>
+<tr><td class="addr">0x3488d35b…c23f</td><td class="num">3,066,750</td><td class="num">442 txs</td><td>Very high count, small average — bridge-relayer or aggregator profile, not a treasury</td></tr>
+<tr><td class="addr">0x3a23f943…97a5 · 0xe83f7590…870c · 0x04ce218e…7777</td><td class="num">4,008,367 combined</td><td class="num">530 txs</td><td>Same high-frequency shape; third-party bridging infrastructure</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>So the ETH→Base pipe is mostly ResearchHub moving its own inventory: Treasury 3 and the hot wallet together
+account for <strong>28.2M RSC of the 53.1M sampled</strong>, with the remainder split between a handful of
+high-frequency relayer addresses and a long tail of ordinary users. Very little comes back — withdrawals are 8.5% of
+deposits in the same window, which is consistent with Base being where the product actually operates.</p>
+
+<h3>8.3 Base hot wallet — the actual payout engine</h3>
+
+<p>The Base side of the same address is where the volume lives. It opened on <strong>2024-12-18</strong> with a
+bridge mint and has run continuously since, through <strong>2026-08-04</strong> — it was still paying out on the day
+this memo was written.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Direction</th><th class="num">RSC</th><th class="num">Transfers</th><th class="num">Counterparties</th><th>Shape</th></tr></thead>
+<tbody>
+<tr><td><strong>Inflow</strong></td><td class="num">14,534,433.84</td><td class="num">492</td><td class="num">204</td>
+    <td>71.4% is bridge mints from Ethereum</td></tr>
+<tr><td><strong>Outflow</strong></td><td class="num">13,975,587.08</td><td class="num">7,077</td><td class="num">933</td>
+    <td>Retail-sized: median non-zero payout <strong>714.98 RSC</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>The two chains reconcile exactly.</strong> The Ethereum hot wallet sent 10,382,050 RSC to the bridge
+escrow in 21 transfers; the Base hot wallet received <strong>10,382,050 RSC from the bridge in 21 mints</strong>.
+Same amount, same count. The wallet bridges to itself. That gives the complete operating loop:</p>
+
+<div class="flow">TREASURY-ALPHA (Treasury 1)
+      │  12.44M RSC in 31 tranches
+      ▼
+HOT WALLET on Ethereum ──── 10.38M in 21 txs ────►  Base bridge  ────►  HOT WALLET on Base
+      │                                                                        │
+      │  ~4.8M across 1,173 small                                              │  13.98M across 7,077 transfers
+      ▼  payments to 373 addresses                                             ▼  to 933 addresses
+   ETH-side recipients                                                   Base-side recipients
+                                                                          (median payout ~715 RSC)</div>
+
+<p>Where it goes on Base splits into two very different populations. The top three destinations —
+<code>0x9d5025b3…d8b2</code> (3.78M across 19 transfers), <code>0xd90bea2b…4f8f</code> (1.82M) and
+<code>0x97e2ad35…c202f</code> (1.46M) — are all <strong>contracts that now hold zero RSC</strong>. Money went in and
+straight back out, so these are pass-through routers rather than endpoints; 5.06M RSC, over a third of all outflow,
+moved through them. Underneath that sits the long tail: hundreds of wallets receiving a few hundred RSC at a time,
+which is the platform paying its users.</p>
+
+<p>Activity is <strong>declining</strong>, and in the opposite direction to Ethereum. Monthly RSC transfer counts
+peaked at 783 in December 2025 and have fallen steadily since — 389 in January 2026, 273 in March, 253 in June,
+241 in July. The staking launch did not lift Base payout volume; if anything the trend through 2026 is down by
+roughly two-thirds from the late-2025 peak, even as the Ethereum wallet had its busiest month ever in May 2026.</p>
+
+<h4>Two anomalies worth flagging</h4>
+<ul>
+  <li><strong>52.8% of outgoing transfers carry zero value.</strong> 3,738 of 7,077 outbound RSC transfers move
+  exactly 0 RSC. Excluding them, the median payout is 714.98 and the mean 4,185.56. Emitting several thousand
+  zero-value transfers is not normal treasury behaviour — the most likely explanations are no-op sweeps of
+  already-empty deposit accounts or a batch payout job that does not skip zero-balance rows. It is wasteful rather
+  than dangerous, but it badly distorts any transfer-count-based activity metric for this token, including ones a
+  casual explorer view would show.</li>
+  <li><strong>168,196.88 RSC has been sent to the burn address</strong> <code>0x…dEaD</code> across 44 transfers,
+  all from this wallet. Note this does <em>not</em> reduce <code>totalSupply()</code> — the tokens still count as
+  supply, they are simply unspendable forever. Anyone computing float from <code>totalSupply</code> will overstate
+  it by that amount.</li>
+</ul>
+
+<div class="callout warn">
+  <div class="h">A measurement caveat, and a live-drift warning</div>
+  <p>Inflow minus outflow across the 7,569 indexed Base events gives +558,847 RSC, while the wallet actually holds
+  323,000.42 RSC. The ~236k gap means the explorer’s index is not perfectly complete for this address — the same
+  class of omission that cost a 350,000 RSC transfer in §2. Treat the Base in/out totals as accurate to within a few
+  percent, not to the wei; the direction and shape of the flows are unaffected.</p>
+  <p>Related: these are <em>live</em> figures. Over the two hours spent writing this section the bridge escrow moved
+  from 72,973,614.46 to 72,946,439.73 RSC and Base supply from 72,933,772.76 to 72,812,381.74. The gap between them
+  (39,842 → 134,058) is in-flight bridge withdrawals in the challenge window — its fluctuation confirms the
+  interpretation given in §7.3. Every chain figure in this memo needs a timestamp attached to be meaningful.</p>
+</div>
+
+<h3>8.4 On exchange labels — what I could and could not get</h3>
+
+<p>Named labels (“Coinbase 10”, “Binance Hot Wallet”) would sharpen several attributions in this memo, so it is
+worth being explicit about why none appear.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Route</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Etherscan / Basescan <strong>API</strong> (V2, <code>chainid=1</code> and <code>8453</code>)</td>
+    <td>Reachable, but every call returns <code>Missing/Invalid API Key</code>. The free tier exists but requires
+        registering an account, which I cannot do on your behalf.</td></tr>
+<tr><td>Etherscan / Basescan <strong>web pages</strong></td>
+    <td>HTTP 403 with <code>server: cloudflare</code> and <code>cf-mitigated: challenge</code> — an interactive
+        anti-bot challenge. Notably this is <em>not</em> our network policy blocking it: the egress proxy reports a
+        clean <code>200 Connection Established</code> and passes the request through. The block is Etherscan’s.</td></tr>
+<tr><td>Headless Chromium against those pages</td>
+    <td>Abandoned deliberately. Getting through would have meant defeating an anti-automation control the site
+        operator put up on purpose. The data is public and free, but the gate is intentional, and Etherscan
+        publishes a supported API for exactly this use — so the right move is to use that, with a key.</td></tr>
+<tr><td>Blockscout label fields (<code>public_tags</code>, <code>name</code>, metadata proxy)</td>
+    <td>Queried on both chains. Effectively empty for this purpose — it returns nothing even for a well-known
+        Binance hot wallet used as a control, so its silence carries no information.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">What replaced labels — and why it is arguably better</div>
+  <p>Rather than guess at names, exchange-scale addresses in this memo are identified by
+  <strong>behaviour that a label could only summarise anyway</strong>: account nonce, counterparty fan-out and
+  chain footprint. Those are read straight from chain state and cannot be stale or wrong.</p>
+  <p>The numbers are not subtle. <strong>BASE-DESK-C has an account nonce of 5,253,524</strong> — over five million
+  transactions sent from one address. BASE-DISTRIBUTOR-A is at 1,926,718, BASE-DISTRIBUTOR-B at 928,464, and
+  EXCHANGE-FUNDER at 2,592,304 with zero presence on Ethereum. No individual, fund or market-maker operates at those
+  counts; that is centralised-exchange infrastructure, whatever brand sits on top of it. For contrast, ResearchHub’s
+  own hot wallet — a genuinely busy operational account — sits at 1,248 on Ethereum and 3,398 on Base, three orders
+  of magnitude below.</p>
+  <p>This is why calling those wallets <em>external capital</em> is safe even without a brand name: RSC reaching a
+  depositor through an address that has sent five million transactions did not come from a ResearchHub treasury.
+  <strong>If you supply an Etherscan API key, one key covers both chains via the V2 endpoint and I can attach real
+  names in a single pass</strong> — it would refine the narrative, but it would not move any figure in this memo.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>9. Adjacent findings</h2>
 
 <h3>BASE-DESK — the largest Base holder is not the deposit wallet</h3>
 <p><code>0x901Fc41a…480F</code> holds 15,845,066 RSC, the largest single balance on Base, but it has initiated only
@@ -835,7 +1047,7 @@ filters by symbol rather than contract address will pick up that fake. All figur
 address.</p>
 
 <!-- ============================================ -->
-<h2>9. Risk register</h2>
+<h2>10. Risk register</h2>
 
 <div class="scroll">
 <table>
@@ -871,7 +1083,7 @@ address.</p>
 </div>
 
 <!-- ============================================ -->
-<h2>10. Open items for round two</h2>
+<h2>11. Open items for round two</h2>
 <ol>
   <li><strong>Confirm the “funded by Coinbase” claims.</strong> Two remain open: the 2020 ETH funding of the 700M TGE
   wallet (the explorer’s inbound index would not reach back that far in this pass), and the operator behind
@@ -945,7 +1157,7 @@ the memo states the address is published in ResearchHub’s documentation. Attri
 <em>the organisation</em> rests on signer overlap, genesis-mint receipt and treasury funding paths, all of which are
 verifiable on-chain; no wallet is attributed to any <em>named individual</em>, because chain data does not support that
 and I have not inferred it. Addresses in the “not established” tier may well turn out to be exchanges or unrelated
-third parties. This is an initial pass — §10 lists what is still open.
+third parties. This is an initial pass — §11 lists what is still open.
 </p>
 
 </div>
