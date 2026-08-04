@@ -199,11 +199,14 @@ kept 16.04M, was re-granted a much smaller tranche, still holds 8,090,687, and s
 <div class="callout bad">
   <div class="h">Two structural findings that carry real risk</div>
   <p><strong>(a) On Base, the vault address has no contract code.</strong> <code>0x467564…66d3</code> holds
-  3,323,117.53 RSC on Base (~$225k) at an address where <code>eth_getCode</code> returns empty and the nonce is 0.
-  No Safe was ever deployed there. Those tokens cannot move today. They are recoverable only if the owners deploy
-  the identical Safe at that address via the same CREATE2 factory and salt — possible, but not done.</p>
-  <p><strong>(b) On Ethereum, the vault Safe’s nonce is 0.</strong> It has never executed a single transaction in its
-  life. No withdrawal path has ever been exercised or demonstrated for the 18,642,533.65 RSC it holds.</p>
+  3,323,117.53 RSC on Base (~$225k) at an address where <code>eth_getCode</code> returns empty, the account nonce is 0,
+  and sampling historical blocks back to Base block 30,000,000 shows code has <em>never</em> existed there. Those
+  tokens cannot move today. See §7.4 for the proof that this address is not — and cannot be — an externally owned
+  account, and for the exact one-transaction recovery path.</p>
+  <p><strong>(b) On Ethereum, the vault Safe’s transaction nonce is 0.</strong> It has never executed a single Safe
+  transaction in its life. No withdrawal path has ever been exercised or demonstrated for the 18,642,533.65 RSC it
+  holds. (Its <em>account</em> nonce is 1, which is simply the EIP-161 default for a created contract — the two
+  counters are different things.)</p>
 </div>
 
 <!-- ============================================ -->
@@ -685,6 +688,52 @@ from chain data alone.</p>
 </table>
 </div>
 
+<h3>7.4 Could the Base address just be an EOA the team controls?</h3>
+
+<p>This is the right question to ask, and it was worth testing rather than assuming — if the address were an ordinary
+externally owned account, the team would hold a private key, the 3.32M RSC would be perfectly spendable, and the
+“frozen funds” finding would collapse. It is not an EOA, and the reason is arithmetic rather than opinion.</p>
+
+<p>The Ethereum instance was created by transaction <code>0x8c06ea48…7de0</code>, sent by
+<strong>KEY-OMEGA</strong> to the canonical Safe&nbsp;1.4.1 <code>SafeProxyFactory</code>
+(<code>0x4e1DCf7A…ec67</code>) with selector <code>0x1688f0b9</code> —
+<code>createProxyWithNonce(address,bytes,uint256)</code>. That is a <strong>CREATE2</strong> deployment, so the
+address is a pure function of the factory, the singleton, the initializer and the salt nonce. Decoding the calldata
+and recomputing it from scratch reproduces the address exactly:</p>
+
+<div class="flow">_singleton   = 0x41675c099f32341bf84bfc5382af534df5c7461a   (Safe 1.4.1 singleton)
+saltNonce    = 0
+initializer  = 484 bytes  (owner set + threshold, baked in)
+
+salt         = keccak256( keccak256(initializer) ++ saltNonce )
+             = 0x30526feeb1492d16d6a9db9de699bbecdcde3543cc68342b98ad1fd29a2bf381
+
+address      = keccak256( 0xff ++ factory ++ salt ++ keccak256(initcode) )[12:]
+             = 0x467564dcce90fb21153adfa69c48a3be235d66d3
+
+actual       = 0x467564dcce90fb21153adfa69c48a3be235d66d3          ✓ MATCH</div>
+
+<p>An EOA address is <code>last20(keccak256(pubkey))</code>. This address is
+<code>last20(keccak256(0xff ‖ factory ‖ salt ‖ keccak256(initcode)))</code>. For the same address to <em>also</em> be
+an EOA someone controls, they would need a keypair whose public-key hash collides with a CREATE2 hash — a 160-bit
+preimage problem, around 1 in 10<sup>48</sup>. Nobody holds a key for this address on Base or anywhere else.
+Two supporting checks agree: the Ethereum code is the genuine 171-byte Safe proxy runtime, <em>not</em> an EIP-7702
+delegation (which would begin <code>0xef0100</code> and would indicate an EOA with attached code), and Base has never
+had code at this address at any sampled block.</p>
+
+<div class="callout">
+  <div class="h">The good news: recovery is one permissionless transaction</div>
+  <p>Both the <code>SafeProxyFactory</code> and the Safe 1.4.1 singleton exist on Base at <strong>identical addresses
+  with byte-identical code</strong> — I compared both. Replaying the same <code>createProxyWithNonce</code> call on
+  Base with the same singleton, initializer and <code>saltNonce = 0</code> deterministically produces the same
+  address, deploying a working Safe on top of the 3,323,117.53 RSC already sitting there.</p>
+  <p>Better still, this cannot be hijacked. The salt commits to <code>keccak256(initializer)</code>, and the
+  initializer contains the owner set and threshold — so changing the owners changes the address. <strong>Anyone</strong>
+  can send the recovery transaction and the only Safe that can appear at that address is the one with the original
+  2-of-3 owners. So the correct characterisation is <em>currently immobile, cheaply and safely recoverable</em> —
+  not lost. What remains notable is that five months and 3.3M RSC in, nobody has done it.</p>
+</div>
+
 <h3>7.3 Supply and concentration</h3>
 
 <p>An important accounting point first: <strong>RSC supply is 1,000,000,000 and is not additive across chains.</strong>
@@ -773,10 +822,12 @@ address.</p>
 <table>
 <thead><tr><th>#</th><th>Finding</th><th>Severity</th><th>Detail</th></tr></thead>
 <tbody>
-<tr><td>1</td><td>Base vault has no deployed contract</td><td><span class="tag t-ins">Critical</span></td>
-  <td>3,323,117.53 RSC (~$225k) sits at an address with no code and nonce 0 on Base. Nobody holds a private key for it
-      — it is a CREATE2 Safe address that was never deployed on that chain. Recovery requires deploying the identical
-      Safe via the same factory and salt. Until then the funds are frozen.</td></tr>
+<tr><td>1</td><td>Base vault has no deployed contract</td><td><span class="tag t-unk">High</span></td>
+  <td>3,323,117.53 RSC (~$225k) sits at an address with no code on Base. Proven CREATE2-derived (§7.4), so no private
+      key exists and it cannot be an EOA — the funds are unspendable as things stand. <strong>Downgraded from
+      Critical:</strong> the factory and singleton are byte-identical on Base, so one permissionless replay of
+      <code>createProxyWithNonce</code> restores control, and the salt commits to the owner set so the recovery
+      cannot be hijacked. The residual concern is operational, not cryptographic — nobody has noticed in five months.</td></tr>
 <tr><td>2</td><td>No withdrawal has ever been executed</td><td><span class="tag t-ins">Critical</span></td>
   <td>ETH vault Safe nonce = 0 across 18.6M RSC and five months. The redemption path is entirely untested in
       production.</td></tr>
