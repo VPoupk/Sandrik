@@ -170,7 +170,7 @@ minted since, and it is the anchor against which every “insider” claim below
 <tr><td class="mono">01:04:05</td><td class="num">2,500,000</td><td class="num">0.25%</td><td class="addr">0x8B2864a6…71b3</td><td><strong>Signer on Treasury 2.</strong> Balance now 0</td></tr>
 <tr><td class="mono">01:16:58</td><td class="num">2,500,000</td><td class="num">0.25%</td><td class="addr">0x385eE67B…0177</td><td><strong>Signer on Treasury 1.</strong> Still holds 1,562,500</td></tr>
 <tr><td class="mono">01:06:02</td><td class="num">2,500,000</td><td class="num">0.25%</td><td class="addr">0x95ccCfEE…877C</td><td>Individual wallet, no Safe role found. Holds 55,046</td></tr>
-<tr><td class="mono">01:30:11</td><td class="num">10,000</td><td class="num">0.001%</td><td class="addr">0x76835CA5…b7B1</td><td><strong>DISTRIBUTOR-20M</strong> — later received 20M from Treasury 1; 1,500 transfer events (see §6)</td></tr>
+<tr><td class="mono">01:30:11</td><td class="num">10,000</td><td class="num">0.001%</td><td class="addr">0x76835CA5…b7B1</td><td><strong>DISTRIBUTOR-70M</strong> — later received 69.61M from the treasuries (51M from T1, 18.61M from T2) and distributed all of it; holds 0 today</td></tr>
 <tr><td class="mono">01:28:31</td><td class="num">10,000</td><td class="num">0.001%</td><td class="addr">0xC46fcA82…d96D</td><td>Contract. Balance now 0</td></tr>
 <tr class="total"><td>8 mints</td><td class="num">1,000,000,000</td><td class="num">100%</td><td colspan="2"></td></tr>
 </tbody>
@@ -474,7 +474,7 @@ genuinely external participation in this product happened on Base.</p>
   <td class="num">650,000.00</td><td class="num">43,497</td><td class="num">3.0%</td>
   <td><span class="tag t-ins">reclassified</span> Funded with 1,000,000 RSC by <code>dolosus.eth</code>
       (<code>0xcC5F1f28…E21B</code> — an ENS-named <em>contract</em>, not an EOA), which in turn received
-      <strong>1,370,000 RSC from DISTRIBUTOR-20M and 301,792 RSC directly from Treasury 3</strong>.
+      <strong>1,370,000 RSC from DISTRIBUTOR-70M and 301,792 RSC directly from Treasury 3</strong>.
       Treasury-downstream at two hops.</td>
 </tr>
 <tr class="sub"><td>Tier B subtotal — treasury-funded, no governance role</td><td class="num">2,351,000.00</td><td class="num">212,718</td><td class="num">10.7%</td><td></td></tr>
@@ -558,13 +558,11 @@ were read live; the Ethereum figures matched the submitted values to the wei.</p
     <td><span class="tag t-ext">Confirmed +</span></td>
     <td>Balance exact. Both source transfers confirmed. <strong>Stronger than “likely”:</strong> this address is a
         <em>signer on Treasury 3 and on the Foundation Community Safe</em>. 0x29E46015 was itself fed 1,617,838 RSC by
-        Treasury 3 and 1,428,833 by DISTRIBUTOR-20M.</td></tr>
+        Treasury 3 and 1,428,833 by DISTRIBUTOR-70M.</td></tr>
 <tr><td>0x76835CA5 “funds RHT1 and 0x81aa”</td><td><span class="tag t-unk">Inverted</span></td>
-    <td>Direction is the other way: it <em>received</em> 20,000,000 RSC <strong>from</strong> Treasury 1 in April 2023,
-        then fanned out across 1,500 transfer events. It is a downstream distribution wallet, not a funder of the
-        treasury. Renamed <strong>DISTRIBUTOR-20M</strong>.</td></tr>
+    <td>Direction is the other way: it <em>received</em> RSC <strong>from</strong> the treasuries — 51,000,000 from Treasury 1 and 18,610,000 from Treasury 2, <strong>69.61M in total</strong> — and fanned it out across ~2,800 transactions, holding 0 today. It is ResearchHub's main downstream distribution wallet, not a funder of the treasury. Renamed <strong>DISTRIBUTOR-70M</strong>.</td></tr>
 <tr><td>0x7F38Aa84 / dolosus.eth “vested”, treated as non-insider</td><td><span class="tag t-ins">Reclassified</span></td>
-    <td>dolosus.eth confirmed as ENS name — but it is a <em>contract</em>. It received 1,370,000 RSC from DISTRIBUTOR-20M
+    <td>dolosus.eth confirmed as ENS name — but it is a <em>contract</em>. It received 1,370,000 RSC from DISTRIBUTOR-70M
         and 301,792 from Treasury 3. The 650,000 stake is <strong>treasury-downstream</strong>, moved from Tier C to Tier B.</td></tr>
 <tr><td>0x144985d2 funded from RHT2</td><td><span class="tag t-ext">Confirmed</span></td>
     <td>1,600,100 RSC from Treasury 2 in September 2025; staked 601,000.</td></tr>
@@ -842,7 +840,7 @@ leaves in two very different ways: a handful of enormous bridge transfers, and r
     <td class="num">10,382,050</td><td class="num">21</td><td><strong>BASE-BRIDGE-ESCROW</strong></td></tr>
 <tr><td class="num">1,350,900</td><td class="num">2</td><td><strong>TREASURY-BETA</strong> (Treasury 2)</td>
     <td class="num">249,985</td><td class="num">2</td><td class="addr">0xe29cb975…0a22</td></tr>
-<tr><td class="num">250,020</td><td class="num">3</td><td><strong>DISTRIBUTOR-20M</strong></td>
+<tr><td class="num">250,020</td><td class="num">3</td><td><strong>DISTRIBUTOR-70M</strong></td>
     <td class="num">240,754</td><td class="num">3</td><td class="addr">0x72f2c4dd…fb53</td></tr>
 <tr><td class="num">250,000</td><td class="num">1</td><td class="addr">0x29e46015…11Ee (fed SIGNER-STAKER)</td>
     <td class="num">203,874</td><td class="num">14</td><td class="addr">0x430d7dc3…4466</td></tr>
@@ -1005,6 +1003,75 @@ worth being explicit about why none appear.</p>
   names in a single pass</strong> — it would refine the narrative, but it would not move any figure in this memo.</p>
 </div>
 
+<h3>8.5 The four largest Base holders — all exchange infrastructure</h3>
+
+<p>Basescan’s labels resolve the gap in §8.4. Matching its reported quantities against live chain balances gives an
+exact identification for each of the top four, and the result overturns the natural reading of that table.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>#</th><th>Basescan label</th><th>Address</th><th class="num">RSC</th><th class="num">% Base</th><th class="num">Account nonce</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><em>(none)</em></td><td class="addr">0x901Fc41a…480F</td><td class="num">15,845,065.85</td><td class="num">21.76%</td><td class="num">3</td><td><span class="tag t-ext">exchange cold wallet</span></td></tr>
+<tr><td>2</td><td><strong>MEXC 15</strong></td><td class="addr">0x4e3ae00E…1B60</td><td class="num">4,772,640.57</td><td class="num">6.55%</td><td class="num">2,429,748</td><td><span class="tag t-ext">exchange</span></td></tr>
+<tr><td>3</td><td><strong>Gate 1</strong></td><td class="addr">0x0D070796…92Fe</td><td class="num">3,900,117.81</td><td class="num">5.36%</td><td class="num">1,553,191</td><td><span class="tag t-ext">exchange</span></td></tr>
+<tr><td>4</td><td><strong>Coinbase 35</strong></td><td class="addr">0x1985EA6E…5c87</td><td class="num">3,651,608.32</td><td class="num">5.02%</td><td class="num">5,253,555</td><td><span class="tag t-ext">exchange</span></td></tr>
+<tr class="total"><td colspan="3">Top 4 combined</td><td class="num">28,169,432.55</td><td class="num">38.69%</td><td colspan="2">Over a third of Base supply sits in exchange custody</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">The nonce heuristic in §8.4 checks out exactly</div>
+  <p>Before these labels existed I classified addresses as exchange infrastructure purely by transaction count.
+  The labels now confirm it: Coinbase 35 at 5.25M transactions, MEXC 15 at 2.43M, Gate 1 at 1.55M. My previously
+  unnamed <strong>BASE-DESK-C is Coinbase 35</strong> — which means the 462,613.50 RSC it supplied to a staking
+  deposit was a <strong>Coinbase withdrawal</strong>, confirming that deposit as genuinely external (Tier C stands).</p>
+</div>
+
+<h4>Holder #1 is not a whale — it is almost certainly exchange cold storage</h4>
+
+<p>The unlabelled 21.76% holder looks like a mystery whale. It is not. <strong>It has sent three transactions in its
+entire life</strong>, and the pattern around them is conclusive:</p>
+
+<div class="flow">2026-04-02 19:27:07   receives 0.000011 ETH from 0x91d66b38 (EXCHANGE-FUNDER, 2.59M txs, Base-only)
+2026-04-02 19:29:03   sends RSC          ← 1 min 56 s later
+
+2026-04-13 15:01:57   receives 0.000011 ETH from 0x91d66b38
+2026-04-13 15:04:03   sends RSC          ← 2 min 06 s later
+
+2026-06-11 01:56:35   receives 0.000011 ETH from 0x91d66b38
+2026-06-11 01:58:03   sends RSC          ← 1 min 28 s later</div>
+
+<p>An independent whale holding $1.1M of a token pays its own gas and keeps a balance. This wallet holds no ETH at
+rest and is topped up with the <em>exact</em> gas required, by an exchange’s dispenser, moments before each move —
+and all three moves went to Coinbase 35. Its RSC came the same way: <strong>17,973,940.18 RSC received from Coinbase
+35 across 7 transfers, 7,752,570.10 sent back across 3</strong>, with the remaining ~5.6M arriving from two further
+exchange-scale wallets. That is hot-to-cold rebalancing, not accumulation by a person. Basescan simply has not
+labelled it yet.</p>
+
+<p>So the honest headline is that <strong>the entire top of the Base holder table is custodial float</strong> —
+tokens held by exchanges on behalf of their users — rather than concentrated ownership. This does not change the
+insider-concentration figures in §7.3, where none of these four was ever counted as insider-held.</p>
+
+<h4>Insider traces: none to the exchanges, but one notable treasury→market path</h4>
+
+<p>I checked the ResearchHub side directly rather than inferring. Scanning the complete RSC histories of the
+Base hot wallet (7,569 events) and the Foundation Community Safe (533 events) for any transfer to or from these four
+addresses returns <strong>nothing — zero direct flows in either direction</strong>. Checking the reverse on Ethereum,
+none of the three treasuries has ever sent RSC to an exchange-scale address; every large destination is an internal
+wallet, a vesting contract, the bridge, or the distribution wallet.</p>
+
+<p>There is one exception worth stating plainly, because it is the single on-chain path from treasury to open
+market: <strong>Treasury 3 sent 6,404,728.10 RSC directly into the Uniswap V3 pool</strong>
+(<code>0xec206137…0970</code>, which holds 310,641.76 today). Whether that is liquidity provision or disposal cannot
+be settled from the transfer alone, but it is treasury RSC entering a venue where anyone can buy it.</p>
+
+<p>Two further treasury flows are worth recording for the insider picture, both now fully passed on:
+<strong>Treasury 2 sent 44,958,333.33 RSC to KEY-OMEGA</strong> — the key that signs all five core Safes — and
+12,500,000 RSC to KEY-TAU, a staking-vault signer. Both wallets hold essentially nothing today, so the RSC moved on
+somewhere; tracing where is left as an open item.</p>
+
 <!-- ============================================ -->
 <h2>9. Adjacent findings</h2>
 
@@ -1134,7 +1201,7 @@ address.</p>
 <tr><td>BASE-DESK-C</td><td class="addr">0x1985EA6E9c68E1C272d8209f3B478AC2Fdb25c87</td><td>BASE</td><td>BASE-DESK’s main counterparty; also staked 462k</td></tr>
 <tr><td>BASE-DISTRIBUTOR-A</td><td class="addr">0x739120aDe7Ed878FcA5bBdB806263a8258Fe2360</td><td>BASE</td><td>Fans out identical 913,572 RSC tranches to a wallet cluster</td></tr>
 <tr><td>BASE-DISTRIBUTOR-B</td><td class="addr">0x26b610A059dE2488EbE3E0edA02ae17907917419</td><td>BASE</td><td>Many-to-one aggregation profile</td></tr>
-<tr><td>DISTRIBUTOR-20M</td><td class="addr">0x76835CA5Ebc7935CedBB1e0AA3d322e704b1b7B1</td><td>ETH</td><td>Took 20M from Treasury 1 in 2023 and fanned it out over 1,500 transfers; feeds dolosus.eth and 0x29E46015</td></tr>
+<tr><td>DISTRIBUTOR-70M</td><td class="addr">0x76835CA5Ebc7935CedBB1e0AA3d322e704b1b7B1</td><td>ETH</td><td>Took 69.61M from Treasuries 1 and 2 and fanned it out over ~2,800 txs; holds 0 today; feeds dolosus.eth and 0x29E46015</td></tr>
 <tr><td>VESTING-70M</td><td class="addr">0x8bbB6c4B6dE838dF0e6ceED5d32C20b44Ee8ea02</td><td>ETH</td><td>Held the original 70M grant; clawed 53.96M back to Treasury 2 on 2022-01-04</td></tr>
 <tr><td>dolosus.eth</td><td class="addr">0xcC5F1f2800Ff0a4DA973f4bC077124d3aB01E21B</td><td>ETH</td><td>ENS-named <em>contract</em>; treasury-downstream; funded the 650k depositor</td></tr>
 <tr><td>fauler.eth</td><td class="addr">0xB2d60143097b4F992BfBE955a22dbb2AcD9a8EAb</td><td>ETH</td><td>Bought 250k RSC on Uniswap V3; funded the only confirmed external ETH deposit</td></tr>
