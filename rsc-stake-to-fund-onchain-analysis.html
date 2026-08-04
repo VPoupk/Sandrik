@@ -688,52 +688,6 @@ from chain data alone.</p>
 </table>
 </div>
 
-<h3>7.4 Could the Base address just be an EOA the team controls?</h3>
-
-<p>This is the right question to ask, and it was worth testing rather than assuming — if the address were an ordinary
-externally owned account, the team would hold a private key, the 3.32M RSC would be perfectly spendable, and the
-“frozen funds” finding would collapse. It is not an EOA, and the reason is arithmetic rather than opinion.</p>
-
-<p>The Ethereum instance was created by transaction <code>0x8c06ea48…7de0</code>, sent by
-<strong>KEY-OMEGA</strong> to the canonical Safe&nbsp;1.4.1 <code>SafeProxyFactory</code>
-(<code>0x4e1DCf7A…ec67</code>) with selector <code>0x1688f0b9</code> —
-<code>createProxyWithNonce(address,bytes,uint256)</code>. That is a <strong>CREATE2</strong> deployment, so the
-address is a pure function of the factory, the singleton, the initializer and the salt nonce. Decoding the calldata
-and recomputing it from scratch reproduces the address exactly:</p>
-
-<div class="flow">_singleton   = 0x41675c099f32341bf84bfc5382af534df5c7461a   (Safe 1.4.1 singleton)
-saltNonce    = 0
-initializer  = 484 bytes  (owner set + threshold, baked in)
-
-salt         = keccak256( keccak256(initializer) ++ saltNonce )
-             = 0x30526feeb1492d16d6a9db9de699bbecdcde3543cc68342b98ad1fd29a2bf381
-
-address      = keccak256( 0xff ++ factory ++ salt ++ keccak256(initcode) )[12:]
-             = 0x467564dcce90fb21153adfa69c48a3be235d66d3
-
-actual       = 0x467564dcce90fb21153adfa69c48a3be235d66d3          ✓ MATCH</div>
-
-<p>An EOA address is <code>last20(keccak256(pubkey))</code>. This address is
-<code>last20(keccak256(0xff ‖ factory ‖ salt ‖ keccak256(initcode)))</code>. For the same address to <em>also</em> be
-an EOA someone controls, they would need a keypair whose public-key hash collides with a CREATE2 hash — a 160-bit
-preimage problem, around 1 in 10<sup>48</sup>. Nobody holds a key for this address on Base or anywhere else.
-Two supporting checks agree: the Ethereum code is the genuine 171-byte Safe proxy runtime, <em>not</em> an EIP-7702
-delegation (which would begin <code>0xef0100</code> and would indicate an EOA with attached code), and Base has never
-had code at this address at any sampled block.</p>
-
-<div class="callout">
-  <div class="h">The good news: recovery is one permissionless transaction</div>
-  <p>Both the <code>SafeProxyFactory</code> and the Safe 1.4.1 singleton exist on Base at <strong>identical addresses
-  with byte-identical code</strong> — I compared both. Replaying the same <code>createProxyWithNonce</code> call on
-  Base with the same singleton, initializer and <code>saltNonce = 0</code> deterministically produces the same
-  address, deploying a working Safe on top of the 3,323,117.53 RSC already sitting there.</p>
-  <p>Better still, this cannot be hijacked. The salt commits to <code>keccak256(initializer)</code>, and the
-  initializer contains the owner set and threshold — so changing the owners changes the address. <strong>Anyone</strong>
-  can send the recovery transaction and the only Safe that can appear at that address is the one with the original
-  2-of-3 owners. So the correct characterisation is <em>currently immobile, cheaply and safely recoverable</em> —
-  not lost. What remains notable is that five months and 3.3M RSC in, nobody has done it.</p>
-</div>
-
 <h3>7.3 Supply and concentration</h3>
 
 <p>An important accounting point first: <strong>RSC supply is 1,000,000,000 and is not additive across chains.</strong>
@@ -772,6 +726,71 @@ and Base supply is consistent with withdrawals in the bridge’s challenge windo
   CoinGecko counts as circulating but which sits in wallets I can tie to the genesis mint, the treasuries or their
   signers. Anyone sizing a position off the quoted market cap is working with a denominator that on-chain data
   does not support.</p>
+</div>
+
+<h3>7.4 “Couldn’t the Base address just be a wallet the team controls?” — in plain English</h3>
+
+<p>Fair question, and the right one to press on: if that address were an ordinary wallet, someone would hold its
+password, the 3.32M RSC would be perfectly spendable, and the frozen-funds finding would collapse. Here is why it
+isn’t, without assuming any prior knowledge of how these networks work.</p>
+
+<p><strong>There are two ways an address can come into existence.</strong></p>
+<ul>
+  <li><strong>A personal wallet.</strong> You first generate a secret number. The address is then calculated
+  <em>from</em> that secret — it is essentially the secret’s fingerprint. The secret exists first; whoever knows it
+  controls the address.</li>
+  <li><strong>A program (a “smart contract”, e.g. a Safe).</strong> No secret is ever generated. The address is
+  calculated from a <em>recipe</em>: which factory built it, and what settings were fed in. There is no password
+  anywhere in the process, because there is nothing for a password to unlock — the code itself decides who can move
+  the money.</li>
+</ul>
+
+<p>Looking at an address alone, you cannot tell which kind it is. You tell them apart by asking where the address
+<em>came from</em> — and here we can check, because the Ethereum copy was built in the open. Its construction
+transaction shows it was produced by the standard Safe factory, using the recipe method. So I took that same recipe
+— same factory, same settings, same batch number — and recalculated what address it ought to produce.
+<strong>It produced <code>0x467564…66d3</code>, exactly.</strong></p>
+
+<p>That settles it. The address is the output of a recipe, not the fingerprint of a secret. And this cannot be run
+backwards: finding a secret whose fingerprint happens to land on a recipe’s output is the same problem as guessing
+somebody’s password by chance — roughly a 1 in 10<sup>48</sup> shot, and the assumption the entire system’s security
+rests on. So there is no password for this address. Not lost — <strong>it never existed</strong>.</p>
+
+<h4>Why the money is stuck, and why that is fixable</h4>
+
+<p>The recipe was only ever run on Ethereum. On Base, the address was worked out but <strong>the building was never
+put up</strong>. RSC was then sent to what is effectively an empty plot of land. Nothing can move those tokens
+because there is nothing there to move them — no code, and no password either.</p>
+
+<p>The fix is simply to <strong>run the same recipe on Base</strong>. The factory it needs is already deployed
+there, byte-for-byte identical — I compared both. Same recipe plus same ingredients gives the same address, so the
+Safe would materialise directly on top of the tokens already sitting there, and its owners could move them. That is
+one transaction, costing a few dollars of gas.</p>
+
+<p>Two details make this less alarming than it first sounds. It is <strong>permissionless</strong> — anyone can send
+that transaction, not only the team. And it <strong>cannot be hijacked</strong>, because the list of owners is part
+of the recipe: change who owns the Safe and you change the address, so an attacker’s version would land somewhere
+else entirely and touch nothing. The only Safe that can ever appear at that address is the intended one, with the
+original three owners.</p>
+
+<p>So the accurate description is <strong>immobile but cheaply and safely recoverable</strong>, not “lost”. The
+finding that survives is an operational one: five months and 3.3M RSC in, nobody has sent that transaction.</p>
+
+<div class="callout">
+  <div class="h">The technical version, for readers who want it</div>
+  <p>Creation tx <code>0x8c06ea48…7de0</code>, sent by KEY-OMEGA to Safe 1.4.1 <code>SafeProxyFactory</code>
+  <code>0x4e1DCf7A…ec67</code>, selector <code>0x1688f0b9</code> =
+  <code>createProxyWithNonce(address,bytes,uint256)</code> — a CREATE2 deployment. Decoding the calldata gives
+  singleton <code>0x41675c09…461a</code>, <code>saltNonce = 0</code>, and a 484-byte initializer.
+  Then <code>salt = keccak256(keccak256(initializer) ‖ saltNonce)</code> =
+  <code>0x30526fee…f381</code>, and
+  <code>keccak256(0xff ‖ factory ‖ salt ‖ keccak256(initcode))[12:]</code> reproduces
+  <code>0x467564dcce90fb21153adfa69c48a3be235d66d3</code> exactly. An EOA address is
+  <code>last20(keccak256(pubkey))</code>; a colliding key is a 160-bit preimage problem.
+  Corroborating: the Ethereum code is the genuine 171-byte Safe proxy runtime, <em>not</em> an EIP-7702 delegation
+  (which would start <code>0xef0100</code> and would in fact indicate a key-controlled account); and Base has never
+  held code at this address at any sampled block back to 30,000,000. Because the salt commits to
+  <code>keccak256(initializer)</code>, the owner set cannot be substituted without changing the resulting address.</p>
 </div>
 
 <!-- ============================================ -->
