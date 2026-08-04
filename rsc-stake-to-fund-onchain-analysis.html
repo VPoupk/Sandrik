@@ -899,8 +899,8 @@ this memo was written.</p>
 <table>
 <thead><tr><th>Direction</th><th class="num">RSC</th><th class="num">Transfers</th><th class="num">Counterparties</th><th>Shape</th></tr></thead>
 <tbody>
-<tr><td><strong>Inflow</strong></td><td class="num">14,534,433.84</td><td class="num">492</td><td class="num">204</td>
-    <td>71.4% is bridge mints from Ethereum</td></tr>
+<tr><td><strong>Inflow</strong></td><td class="num">14,398,775.84</td><td class="num">490</td><td class="num">203</td>
+    <td>72.1% is bridge mints from Ethereum</td></tr>
 <tr><td><strong>Outflow</strong></td><td class="num">13,975,587.08</td><td class="num">7,077</td><td class="num">933</td>
     <td>Retail-sized: median non-zero payout <strong>714.98 RSC</strong></td></tr>
 </tbody>
@@ -949,10 +949,27 @@ roughly two-thirds from the late-2025 peak, even as the Ethereum wallet had its 
 
 <div class="callout warn">
   <div class="h">A measurement caveat, and a live-drift warning</div>
-  <p>Inflow minus outflow across the 7,569 indexed Base events gives +558,847 RSC, while the wallet actually holds
-  323,000.42 RSC. The ~236k gap means the explorer’s index is not perfectly complete for this address — the same
-  class of omission that cost a 350,000 RSC transfer in §2. Treat the Base in/out totals as accurate to within a few
-  percent, not to the wei; the direction and shape of the flows are unaffected.</p>
+  <p>These totals were reconciled against chain state rather than trusted. Two checks were needed. First, the wallet
+  makes <strong>self-transfers</strong> — 2 events totalling 135,658 RSC where it is both sender and receiver — which
+  naive accounting counts as inflow and inflates net; they are excluded above. Second, I rebuilt the balance
+  cumulatively from the transfer list and compared it to <code>balanceOf</code> at checkpoints across the wallet’s
+  life:</p>
+  <div class="scroll"><table>
+  <thead><tr><th class="num">Base block</th><th class="num">Cumulative from index</th><th class="num">On-chain balance</th><th class="num">Drift</th></tr></thead>
+  <tbody>
+  <tr><td class="num">32,432,456</td><td class="num">682,948.82</td><td class="num">682,948.82</td><td class="num">0.00</td></tr>
+  <tr><td class="num">36,907,502</td><td class="num">375,361.06</td><td class="num">375,361.06</td><td class="num">0.00</td></tr>
+  <tr><td class="num">39,332,481</td><td class="num">426,215.03</td><td class="num">426,215.03</td><td class="num">0.00</td></tr>
+  <tr><td class="num">43,584,807</td><td class="num">611,818.55</td><td class="num">476,896.51</td><td class="num">134,922.04</td></tr>
+  <tr><td class="num">49,539,509</td><td class="num">423,188.76</td><td class="num">327,260.39</td><td class="num">95,928.37</td></tr>
+  </tbody></table></div>
+  <p>The index is <strong>exact to the wei through block ~39.3M and then develops a gap</strong>, leaving roughly
+  95,928 RSC of outbound transfers unaccounted for by the end. That window is not arbitrary: the 350,000 RSC vault
+  transfer the index omitted in §2 sits at Base block <strong>43,229,574</strong> — inside it. Two independent API
+  routes (Blockscout v1 and v2) return byte-identical data, which proves consistency but not completeness, since both
+  read the same index. <strong>The takeaway is that Base explorer data before ~block 43.6M cannot be trusted for
+  completeness</strong>; totals here are good to about 0.7% and the flow shape is unaffected, but any figure that
+  must be exact should be rebuilt from <code>balanceOf</code>, as the staking ledger in §5 was.</p>
   <p>Related: these are <em>live</em> figures. Over the two hours spent writing this section the bridge escrow moved
   from 72,973,614.46 to 72,946,439.73 RSC and Base supply from 72,933,772.76 to 72,812,381.74. The gap between them
   (39,842 → 134,058) is in-flight bridge withdrawals in the challenge window — its fluctuation confirms the
