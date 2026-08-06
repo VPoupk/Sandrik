@@ -935,12 +935,16 @@ roughly two-thirds from the late-2025 peak, even as the Ethereum wallet had its 
 
 <h4>Two anomalies worth flagging</h4>
 <ul>
-  <li><strong>52.8% of outgoing transfers carry zero value.</strong> 3,738 of 7,077 outbound RSC transfers move
-  exactly 0 RSC. Excluding them, the median payout is 714.98 and the mean 4,185.56. Emitting several thousand
-  zero-value transfers is not normal treasury behaviour — the most likely explanations are no-op sweeps of
-  already-empty deposit accounts or a batch payout job that does not skip zero-balance rows. It is wasteful rather
-  than dangerous, but it badly distorts any transfer-count-based activity metric for this token, including ones a
-  casual explorer view would show.</li>
+  <li><strong>52.8% of outgoing transfers carry zero value — and they are an attack, not a bug.</strong> 3,738 of
+  7,077 outbound RSC transfers move exactly 0 RSC. My first reading was that these were no-op sweeps or a sloppy
+  batch job; that was wrong. Testing every zero-value destination against the wallet’s real counterparties shows
+  <strong>93.2% share both the first four and the last four hex characters with a genuine payout recipient</strong>
+  — for example <code>0x1bf1e632…cbdd307</code> shadowing the real <code>0x1bf12eb1…b7ed307</code>, which received
+  113 payments. This is <strong>large-scale address poisoning</strong>: an attacker calls
+  <code>transferFrom(hotWallet, lookalike, 0)</code>, which needs no approval and emits a Transfer event that
+  <em>appears to originate from ResearchHub’s hot wallet</em>. The goal is that someone copying an address out of
+  the wallet’s history pastes the attacker’s. 3,484 such events are targeted at this payout flow. Excluding them,
+  the median genuine payout is 714.98 RSC and the mean 4,185.56.</li>
   <li><strong>168,196.88 RSC has been sent to the burn address</strong> <code>0x…dEaD</code> across 44 transfers,
   all from this wallet. Note this does <em>not</em> reduce <code>totalSupply()</code> — the tokens still count as
   supply, they are simply unspendable forever. Anyone computing float from <code>totalSupply</code> will overstate
@@ -1079,8 +1083,9 @@ addresses returns <strong>nothing — zero direct flows in either direction</str
 none of the three treasuries has ever sent RSC to an exchange-scale address; every large destination is an internal
 wallet, a vesting contract, the bridge, or the distribution wallet.</p>
 
-<p>There is one exception worth stating plainly, because it is the single on-chain path from treasury to open
-market: <strong>Treasury 3 sent 6,404,728.10 RSC directly into the Uniswap V3 pool</strong>
+<p><strong>That direct test is necessary but not sufficient — see §8.6, where treasury RSC does reach these same
+exchanges through a multi-hop route.</strong> One direct exception is also worth stating plainly:
+<strong>Treasury 3 sent 6,404,728.10 RSC straight into the Uniswap V3 pool</strong>
 (<code>0xec206137…0970</code>, which holds 310,641.76 today). Whether that is liquidity provision or disposal cannot
 be settled from the transfer alone, but it is treasury RSC entering a venue where anyone can buy it.</p>
 
@@ -1088,6 +1093,82 @@ be settled from the transfer alone, but it is treasury RSC entering a venue wher
 <strong>Treasury 2 sent 44,958,333.33 RSC to KEY-OMEGA</strong> — the key that signs all five core Safes — and
 12,500,000 RSC to KEY-TAU, a staking-vault signer. Both wallets hold essentially nothing today, so the RSC moved on
 somewhere; tracing where is left as an open item.</p>
+
+<h3>8.6 Treasury → exchange: the multi-hop path</h3>
+
+<div class="callout bad">
+  <div class="h">This corrects §8.5</div>
+  <p>§8.5 states that no treasury has ever sent RSC to an exchange-scale address. That is true, and it is also too
+  narrow a test — it only looked at <em>direct</em> transfers. Treasury RSC does reach exchanges, through a
+  consistent multi-hop route. Every hop below was verified against chain state.</p>
+</div>
+
+<p>The route has five legs, and each intermediate address is a single-purpose pass-through that ends at zero:</p>
+
+<div class="flow">TREASURY-OPS (Treasury 3, Ethereum)
+   │   10,000,000 RSC in 3 transactions since April 2026
+   ▼
+Base bridge escrow ──(1–3 min later, relayMessage)──► FOUNDATION-COMMUNITY Safe (Base)
+   │
+   ├── 5,000,000 ──► 0x48cd88dA ──► DIST-Ae823F1b ──┬── 2,999,990 ──► MEXC-FUNNEL  ──► MEXC 15
+   │                (pure pass-through)             ├── 1,460,000 ──► GATE-FUNNEL  ──► Gate 1
+   │                                                └── 1,250,000 ──► CB-FUNNEL    ──► Coinbase 35
+   │
+   └── 4,276,710 ──► 0x620c0738 ────────────────────┬── 1,294,445 ──► GATE-FUNNEL  ──► Gate 1
+                                                    └──   914,311 ──► MEXC-FUNNEL  ──► MEXC 15</div>
+
+<h4>Verification of the chain you traced</h4>
+<div class="scroll">
+<table>
+<thead><tr><th>Leg</th><th>Claim</th><th>Verified</th></tr></thead>
+<tbody>
+<tr><td>Treasury 3 → bridge (ETH)</td><td>6M + 2M + 2M = 10M</td>
+    <td><span class="tag t-ext">Exact</span> <code>0x616fcd56…</code> 6M on 2026-07-21, <code>0x83390ceb…</code> 2M on 2026-05-15, <code>0xe4b969b7…</code> 2M on 2026-04-30 — all <code>execTransaction</code> from <code>0xC4cfa2Bd…81e3</code></td></tr>
+<tr><td>Bridge → Foundation (Base)</td><td>6M + 2M + 2M</td>
+    <td><span class="tag t-ext">Exact</span> <code>0xc706700b…</code>, <code>0x028f4d7b…</code>, <code>0xf9327f43…</code> — all <code>relayMessage</code>, mint to <code>0xb280F00E…7E21</code>, 56 s to 3 min after the L1 leg</td></tr>
+<tr><td>Foundation → 0x48cd88dA → DIST-Ae823F1b</td><td>5M</td>
+    <td><span class="tag t-ext">Exact</span> 5,000,000 in, 5,000,000 out, 5 events total — a pure relay</td></tr>
+<tr><td>DIST-Ae823F1b → Coinbase</td><td>1,250,000 via <code>0xF229E503</code></td>
+    <td><span class="tag t-ext">Exact</span> that address has exactly 2 events: 1,250,000 in, 1,250,000 out to Coinbase 35</td></tr>
+<tr><td>→ MEXC 15</td><td>2,250,000 via <code>0x3cde3b05…</code></td>
+    <td><span class="tag t-ext">Exact</span> 2,250,000 RSC from <code>0x4Bae370A</code> to MEXC 15 on 2026-07-28 — one of nine such transfers</td></tr>
+<tr><td>“0xAe823F1b also funds the 350k stake”</td><td>—</td>
+    <td><span class="tag t-unk">Not found</span> No direct 350,000 transfer from <code>0xAe823F1b</code> to <code>0xFD91745F</code> appears in its outflow list. That link needs re-checking.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>The exchange funnels — and they are bigger than the example</h4>
+
+<p>Your trace found one funnel; there are three, each a dedicated single-exchange deposit address that forwards
+<strong>100% of what it receives</strong> and retains nothing:</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Funnel</th><th class="num">Total in</th><th>Forwards to</th><th class="num">Retained</th><th>Upstream</th></tr></thead>
+<tbody>
+<tr><td><strong>MEXC-FUNNEL</strong> <span class="addr">0x4Bae370A…2cE5</span></td><td class="num">4,344,339</td><td>MEXC 15 (9 transfers)</td><td class="num">0</td><td>3.91M from the two Foundation distributors; 330k from Gate 1</td></tr>
+<tr><td><strong>GATE-FUNNEL</strong> <span class="addr">0x40a03e42…d671</span></td><td class="num">2,754,445</td><td>Gate 1 (7 transfers)</td><td class="num">0</td><td>100% from the two Foundation distributors</td></tr>
+<tr><td><strong>CB-FUNNEL</strong> <span class="addr">0xF229E503…D9D8</span></td><td class="num">1,250,000</td><td>Coinbase 35 (1 transfer)</td><td class="num">0</td><td>100% from DIST-Ae823F1b</td></tr>
+<tr class="total"><td>Total reaching exchanges via funnels</td><td class="num">8,348,784</td><td colspan="3">of which <strong>7,918,746 (94.8%)</strong> traces to the Foundation Community Safe, i.e. to Treasury 3</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="h">What this does and does not show</div>
+  <p><strong>It does show</strong> that roughly <strong>7.92M RSC of treasury lineage has reached MEXC, Gate and
+  Coinbase</strong> through deliberately structured single-purpose hops, and that the routing is not incidental —
+  three separate funnels, one per exchange, each retaining nothing.</p>
+  <p><strong>It does not show a one-way dump.</strong> The flow is partly bidirectional: distributor
+  <code>0x620c0738</code> received <strong>1,788,484 RSC back from MEXC 15</strong>, and MEXC-FUNNEL took 329,998
+  from Gate 1. That round-tripping is more consistent with market-making or exchange-side liquidity operations than
+  with pure disposal. Reaching an exchange is not the same as being sold, and I cannot see order books from here —
+  so the honest statement is that treasury-origin RSC is being routed onto exchanges in volume, with intent
+  unresolved. Note also the pattern that would look identical either way: the Foundation Safe is the same entity
+  that staked 1,483,316 RSC into the staking vault (§6), so the same treasury lineage is simultaneously supplying
+  “TVL” and exchange inventory.</p>
+</div>
 
 <!-- ============================================ -->
 <h2>9. Adjacent findings</h2>
@@ -1160,8 +1241,16 @@ address.</p>
 <tr><td>7</td><td>Yield is emission-funded</td><td><span class="tag t-unk">Medium</span></td>
   <td>Documented returns (23.6% year 1 at 30% participation) are paid in newly emitted RSC from the 60% community
       allocation. This is dilution-funded yield, not revenue-funded.</td></tr>
-<tr><td>8</td><td>Address-poisoning in progress</td><td><span class="tag t-unk">Medium</span></td>
-  <td>Look-alike address actively targeting the Base treasury cluster.</td></tr>
+<tr><td>8</td><td>Large-scale address-poisoning against the payout flow</td><td><span class="tag t-ins">High</span></td>
+  <td><strong>3,484 confirmed poisoning events</strong> (§8.3) impersonating the Base hot wallet, 93.2% of them
+      shadowing a real payout recipient by first-4/last-4 hex match. Any user or operator who copies a counterparty
+      address out of that wallet’s history risks pasting an attacker’s. Also targets the Base treasury cluster
+      (§9). This is live and worth reporting to the team.</td></tr>
+<tr><td>9</td><td>Treasury RSC routed onto exchanges via structured hops</td><td><span class="tag t-unk">Medium</span></td>
+  <td>~7.92M RSC of Treasury 3 lineage has reached MEXC, Gate and Coinbase through three dedicated
+      single-exchange funnels that retain nothing (§8.6). Flow is partly bidirectional, so this is not evidence of a
+      one-way dump — but it is treasury inventory being placed on exchanges by the same entity that supplies the
+      staking vault’s “TVL”.</td></tr>
 </tbody>
 </table>
 </div>
