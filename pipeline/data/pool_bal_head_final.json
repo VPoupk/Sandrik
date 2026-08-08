@@ -1,0 +1,50 @@
+{
+ "0x27333bd8c321a263b0565e69eea3b736b9d1f42c": {
+  "name": "Investors Pool",
+  "alloc": 25000000000,
+  "bal": 14367143155.0,
+  "withdrawn": 10632856845.0
+ },
+ "0xaf66503770451c83a4f12a1146a32271893508ce": {
+  "name": "Nodes Pool 3",
+  "alloc": 16000000000,
+  "bal": 0.7466666689597604,
+  "withdrawn": 15999999999.253334
+ },
+ "0xd229b65d50e412cc3c394233e7a53a1dac4da457": {
+  "name": "Team Pool 2",
+  "alloc": 15000000000,
+  "bal": 13000000000.000002,
+  "withdrawn": 1999999999.999998
+ },
+ "0xb7c7786b6ca1130584f005e9c86554114b7fad62": {
+  "name": "Nodes Pool 1",
+  "alloc": 8000000000,
+  "bal": 642200459.0,
+  "withdrawn": 7357799541.0
+ },
+ "0xd2f72669e560c7ecd3c681612963990ef6f1981b": {
+  "name": "Nodes Pool 2",
+  "alloc": 7500000000,
+  "bal": 11000000.0,
+  "withdrawn": 7489000000.0
+ },
+ "0x9009342f6d3b2f685fc9f5fe4dc9d3e30ed0e248": {
+  "name": "Team Pool 1",
+  "alloc": 5000000000,
+  "bal": 1141428571.4285715,
+  "withdrawn": 3858571428.5714283
+ },
+ "0xbd6ae2b2a7414934327e2a7da1a8691c792f9ad5": {
+  "name": "KOL Pool",
+  "alloc": 1700000000,
+  "bal": 73900000.0,
+  "withdrawn": 1626100000.0
+ },
+ "0x6b394c413d60b2aadb37a907a73a6f9a91c35015": {
+  "name": "Community Pool",
+  "alloc": 1000000000,
+  "bal": 27892532.3650003,
+  "withdrawn": 972107467.6349998
+ }
+}

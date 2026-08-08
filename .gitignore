@@ -1,0 +1,10 @@
+
+# Raw full-transfer scan checkpoints — hundreds of MB of intermediates.
+# Everything derived from them (ledger.json, recent_window.json,
+# classify_final.json, pool_dist_final.json) is committed and is what the
+# report actually reads. Regenerate with pipeline/master_scan.py.
+pipeline/data/master_april.json
+pipeline/data/master_may.json
+pipeline/data/master_jul19_26.json
+pipeline/data/master_recent.json
+pipeline/data/pool_out_checkpoint.json

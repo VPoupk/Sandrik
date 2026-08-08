@@ -1,0 +1,97 @@
+{
+ "0x4d3bf29ba30f8bfe4624e7678709afa195689c5d": {
+  "dex": "PancakeV3",
+  "pair": "AKE/WBNB",
+  "fee": 100
+ },
+ "0x37490a764588dab0437abfd82af6295d32eec2e6": {
+  "dex": "PancakeV3",
+  "pair": "AKE/WBNB",
+  "fee": 500
+ },
+ "0xcd8697550008edfe7e72a74c42818aa3ce29603f": {
+  "dex": "PancakeV3",
+  "pair": "AKE/WBNB",
+  "fee": 2500
+ },
+ "0x63b78d5f25fd029c2b7cff3a8a61a0686e705336": {
+  "dex": "PancakeV3",
+  "pair": "AKE/WBNB",
+  "fee": 10000
+ },
+ "0xb1d8532cf72b48e625c5b9fb45d2120acb7a70ef": {
+  "dex": "PancakeV3",
+  "pair": "AKE/USDT",
+  "fee": 100
+ },
+ "0x48198e931598bdbfa2171e8fe9767a09c13066ff": {
+  "dex": "PancakeV3",
+  "pair": "AKE/USDT",
+  "fee": 500
+ },
+ "0x25a6494c7fdbcba7057648ad6bc6876db700065c": {
+  "dex": "PancakeV3",
+  "pair": "AKE/USDT",
+  "fee": 2500
+ },
+ "0x2c81c287492b6307f2bebff2d7dd1569771a5b3c": {
+  "dex": "PancakeV3",
+  "pair": "AKE/USDT",
+  "fee": 10000
+ },
+ "0xaf3e0fc56b2e2cd31453462a7231403667651fe8": {
+  "dex": "PancakeV3",
+  "pair": "AKE/USDC",
+  "fee": 100
+ },
+ "0x7d7c19c85759d2b2679f5f70d905815146e6a821": {
+  "dex": "PancakeV3",
+  "pair": "AKE/USDC",
+  "fee": 10000
+ },
+ "0xcab229ac5415ae9ff8ba7f32acca7d11e437b35b": {
+  "dex": "UniswapV3",
+  "pair": "AKE/WBNB",
+  "fee": 3000
+ },
+ "0xd6e507299ca2f9c8c7999f7f4357386e83a0b358": {
+  "dex": "UniswapV3",
+  "pair": "AKE/USDT",
+  "fee": 100
+ },
+ "0xa7ea63aaf79672f2b0b89c999ae31f52fb68a114": {
+  "dex": "UniswapV3",
+  "pair": "AKE/USDT",
+  "fee": 500
+ },
+ "0x20c0555ea3e2066673416423a17d64275fa43488": {
+  "dex": "UniswapV3",
+  "pair": "AKE/USDT",
+  "fee": 3000
+ },
+ "0x83fcd80d7973cca1aa821590bbec66d27a2d4ad4": {
+  "dex": "UniswapV3",
+  "pair": "AKE/USDT",
+  "fee": 10000
+ },
+ "0x22710a1c4b36bf0c429e3e76e0b46b4bed10d344": {
+  "dex": "UniswapV3",
+  "pair": "AKE/USDC",
+  "fee": 3000
+ },
+ "0xc4b25bc84f43eb0c448b5f22e55fff644b9a1a01": {
+  "dex": "UniswapV3",
+  "pair": "AKE/USDC",
+  "fee": 10000
+ },
+ "0x31e492e0b47ebda736b8655f6e9cb564bc9d4435": {
+  "dex": "PancakeV2",
+  "pair": "AKE/WBNB",
+  "fee": null
+ },
+ "0x168770fc147cbe3b94e958bb9404dde5406dde08": {
+  "dex": "PancakeV2",
+  "pair": "AKE/USDT",
+  "fee": null
+ }
+}

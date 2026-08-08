@@ -1,0 +1,66 @@
+{
+ "0xb3e17d2ebbd710be53ecd8e8727337a8dd792811": {
+  "contract": true,
+  "codelen": 23052
+ },
+ "0x278d858f05b94576c1e6f73285886876ff6ef8d2": {
+  "contract": true,
+  "codelen": 688
+ },
+ "0x0501f595d17dd90ff11a9873692ee3f8d478f4e5": {
+  "contract": true,
+  "codelen": 2513
+ },
+ "0xb0fc0fa8dd14a7a728d19de04407e3d09c195b60": {
+  "contract": true,
+  "codelen": 172
+ },
+ "0xcb6fbeeb12546d9ba6590be28973e12425f4d06d": {
+  "contract": false,
+  "codelen": 1
+ },
+ "0x4923d960f84d89e72c78daf82015b519aaafe994": {
+  "contract": true,
+  "codelen": 7335
+ },
+ "0xc806a99c11d0419129773ebfeb826dfd773ee7cd": {
+  "contract": true,
+  "codelen": 16631
+ },
+ "0x982385d229082d390d4fb942d28eb728e8f42c33": {
+  "contract": true,
+  "codelen": 1763
+ },
+ "0x4e7ed91e702ef2ff0c58e251c6e20d1dc1e31a5f": {
+  "contract": true,
+  "codelen": 11392
+ },
+ "0x4a4915a02ebfd6e05132ff9f622646d157b719bb": {
+  "contract": false,
+  "codelen": 1
+ },
+ "0x7817dbf38e9d1c95671625f0052c147864692fe0": {
+  "contract": false,
+  "codelen": 1
+ },
+ "0xbd97306a087ed0c46b783cfbfdcdc6c12c7a2866": {
+  "contract": false,
+  "codelen": 1
+ },
+ "0x28e2ea090877bf75740558f6bfb36a5ffee9e9df": {
+  "contract": true,
+  "codelen": 24010
+ },
+ "0x9999b0cdd35d7f3b281ba02efc0d228486940515": {
+  "contract": true,
+  "codelen": 24
+ },
+ "0x83fcd80d7973cca1aa821590bbec66d27a2d4ad4": {
+  "contract": true,
+  "codelen": 22143,
+  "token0": "0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db",
+  "token1": "0x55d398326f99059ff775485246999027b3197955",
+  "factory": "0xdb1d10011ad0ff90774d0c6bb92e5c5c8b4461f7",
+  "fee": 10000
+ }
+}

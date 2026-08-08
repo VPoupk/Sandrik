@@ -1,0 +1,712 @@
+{
+ "other": [
+  [
+   "0xc2eff1f1ce35d395408a34ad881dbcd978f40b89",
+   "0x"
+  ],
+  [
+   "0x27333bd8c321a263b0565e69eea3b736b9d1f42c",
+   "AKEDO"
+  ],
+  [
+   "0xaf66503770451c83a4f12a1146a32271893508ce",
+   "AKEDO"
+  ],
+  [
+   "0xb7c7786b6ca1130584f005e9c86554114b7fad62",
+   "AKEDO"
+  ],
+  [
+   "0xd2f72669e560c7ecd3c681612963990ef6f1981b",
+   "AKEDO"
+  ],
+  [
+   "0x9009342f6d3b2f685fc9f5fe4dc9d3e30ed0e248",
+   "AKEDO"
+  ],
+  [
+   "0xd229b65d50e412cc3c394233e7a53a1dac4da457",
+   "AKEDO"
+  ],
+  [
+   "0x9008d19f58aabd9ed0d60971565aa8510560ab41",
+   "CoW Swap"
+  ],
+  [
+   "0x29ed0a2f22a92ff84a7f196785ca6b0d21aeec62",
+   "Magpie Protocol"
+  ],
+  [
+   "0x337685fdab40d39bd02028545a4ffa7d287cc3e2",
+   "Mayan"
+  ],
+  [
+   "0xc590175e458b83680867afd273527ff58f74c02b",
+   "MetaMask Swaps"
+  ],
+  [
+   "0xedfc4481f53447f2ea4c1db24cf906a6c7cb0782",
+   "Revert"
+  ],
+  [
+   "0xd36b6d646ac6e23672e9eedec558164c7f2d6deb",
+   "ROX"
+  ],
+  [
+   "0x07964f135f276412b3182a3b2407b8dd45000000",
+   "Transit Swap"
+  ]
+ ],
+ "binance": [
+  [
+   "0x6aba0315493b7e6989041c91181337b662fb1b90",
+   "Binance Wallet"
+  ],
+  [
+   "0xb300000b72deaeb607a12d5f54773d1c19c7028d",
+   "Binance Wallet"
+  ],
+  [
+   "0x88649f4743a758171077b98ee2003f1989b1615a",
+   "Binance Wallet"
+  ],
+  [
+   "0xe4b5b2667e049ac8c79ae6c5a7e3300815aa32be",
+   "Binance. DepositAndWithdraw_2"
+  ],
+  [
+   "0x73d8bd54f7cf5fab43fe4ef40a62d390644946db",
+   "Binance. Hot Wallet_4"
+  ]
+ ],
+ "user_tag": [
+  [
+   "0x1a6210a860191981f456a5634901c1c142cd2662",
+   "Binance. User"
+  ],
+  [
+   "0x0fe8e97a4bb830d1bcbb1b850f2c8471b5fc7750",
+   "Binance. User"
+  ],
+  [
+   "0x5948465233ccc82bacd01641a8183bd1edccc888",
+   "Binance. User"
+  ],
+  [
+   "0x0d6f42feefe63a991c07da1922701afe3ff15931",
+   "Binance. User"
+  ],
+  [
+   "0x70f08a434d3d2a445b38facfc4cb8ba8d5de8c2a",
+   "Binance. User"
+  ],
+  [
+   "0x8fb16d70c4c5648e57fa232dc88c6c3bd3b407a5",
+   "BingX. User"
+  ],
+  [
+   "0x347723562ba58ec75702ccd73ec91ce15ce92d16",
+   "CoinEx. User"
+  ],
+  [
+   "0xd5da17a84314194e348649c89a65143a061f7190",
+   "Gate.io. User"
+  ],
+  [
+   "0x81d38c2b48bbad46b64cab22f67099206a913788",
+   "Gate.io. User"
+  ],
+  [
+   "0x7476c568d6fc88a7ad6944a6f9fb1b5d725a58e1",
+   "Gate.io. User"
+  ],
+  [
+   "0xa1a5abf55711f7456f8b42de068f9a990b5aed7a",
+   "Gate.io. User"
+  ],
+  [
+   "0xe99d09913f7823e857109acc0473785db03cc91a",
+   "Gate.io. User"
+  ],
+  [
+   "0xcd0a2a67b4a1090fe4539e1770ff53687cb01dd4",
+   "Gate.io. User"
+  ],
+  [
+   "0x9b56c76dbd2f4824d0c12250e6c9d48b04b05163",
+   "Gate.io. User"
+  ],
+  [
+   "0x4ccfef700db6833e26c1cca0357ae43430d42271",
+   "Gate.io. User"
+  ],
+  [
+   "0x4306d7db991e3eb70d0a1f10e1c92f17a987f24f",
+   "Gate.io. User"
+  ],
+  [
+   "0xe2aca79c6cad337499c2588972cd5dfd667ae2e6",
+   "Gate.io. User"
+  ],
+  [
+   "0x7c5aa87a4f5565621b202243bdcb431f713dda29",
+   "Gate.io. User"
+  ],
+  [
+   "0x15807bf27537d368c83910fa4cc3c2c10024f2b8",
+   "Gate.io. User"
+  ],
+  [
+   "0xdc904e79494c7d9db3072fa79c3276974f9a4f77",
+   "Gate.io. User"
+  ],
+  [
+   "0x39f8762c92ff534efbf4bfd26efdf14267b6e96b",
+   "Gate.io. User"
+  ],
+  [
+   "0x80e02791919d5a09f474dac80c46db529ce54a95",
+   "Gate.io. User"
+  ],
+  [
+   "0x20f1fc2ad1de7a16babb580e4a1b3e0029199f1e",
+   "Gate.io. User"
+  ],
+  [
+   "0x326bc1f9483ee348dc6c434906176128a5932c2d",
+   "Gate.io. User"
+  ],
+  [
+   "0xabc321526152de582892a347fc6f249d33bbe3a7",
+   "Gate.io. User"
+  ],
+  [
+   "0xfae65f5239a0f9e84d037eca5630f681ca43ba8b",
+   "Gate.io. User"
+  ],
+  [
+   "0xf531830b4b20274c27bee4cbf1cbccee9bcab7dd",
+   "Gate.io. User"
+  ],
+  [
+   "0xc1ce33eb7a4d7be1ba6da0bd99f4373dc3303085",
+   "Gate.io. User"
+  ],
+  [
+   "0x1ca62fb4203b68983fe327c98c29fb78596446ce",
+   "Gate.io. User"
+  ],
+  [
+   "0x94372cc8bf179d1797fe6e5a6dd3d724ff95d953",
+   "Gate.io. User"
+  ],
+  [
+   "0xbf2ba304beccbd30a2374e6f6cbd4815badaf3af",
+   "Gate.io. User"
+  ],
+  [
+   "0xfe89cc98f63c5d959ba18b5611f3d8125902b7e4",
+   "Gate.io. User"
+  ],
+  [
+   "0x3ba3141e3006c039d0315a8932a3b9387abe3325",
+   "Gate.io. User"
+  ],
+  [
+   "0xe5cb1895bbf01c4074831be1783abada3fa47941",
+   "Gate.io. User"
+  ],
+  [
+   "0xad5d10746c1b9e60fc43b4bb67772fa695b053f3",
+   "Gate.io. User"
+  ],
+  [
+   "0x50df5521648520e15c5804109107d6cabb106273",
+   "Gate.io. User"
+  ],
+  [
+   "0x0251ee389d6fcb3eaa58fcd7aa339806f65346ab",
+   "Gate.io. User"
+  ],
+  [
+   "0x0d0ec949f343c076afec68743fe86c3a6208a77a",
+   "Gate.io. User"
+  ],
+  [
+   "0x1f7e66dbf2fbf30e9f00ae7968369e455934e28c",
+   "Gate.io. User"
+  ],
+  [
+   "0xcdcc1d4c1b2f55a9c4444b2968699b5abacc9898",
+   "Gate.io. User"
+  ],
+  [
+   "0xf2a89ff5495ab91468bd2ef8543f15e5b77fbb28",
+   "Gate.io. User"
+  ],
+  [
+   "0x96973f7b83a3c785d94e0a6d8712174abb81b748",
+   "Gate.io. User"
+  ],
+  [
+   "0x7e31d70f38b9f873ace22be146385805d9c5c2b2",
+   "Gate.io. User"
+  ],
+  [
+   "0x8d17fbfb03a6b7e8fdcfd60f1f9e6c08578ba5d7",
+   "Gate.io. User"
+  ],
+  [
+   "0x6eb9fec1aa0e3053b3aba0cc320a87f724e284af",
+   "Gate.io. User"
+  ],
+  [
+   "0xe6451016f095835a0d5ef98a5c0092e47ddf0a93",
+   "Gate.io. User"
+  ],
+  [
+   "0x99aa6c281fa565e2b35c90f646523b6a5023e978",
+   "Gate.io. User"
+  ],
+  [
+   "0xfb9bf2dde6dcdc44d3b89ddb477f8503a3b9d0bb",
+   "Gate.io. User"
+  ],
+  [
+   "0x522fd166904453443b9ed7fb43e622acc804839e",
+   "Gate.io. User"
+  ],
+  [
+   "0xc527f0517e6a7afdddd6a8f0b873ba2a3fe01553",
+   "Gate.io. User"
+  ],
+  [
+   "0x1da4c9456a0706fcf20f59e085d7cc516e6ee83f",
+   "Gate.io. User"
+  ],
+  [
+   "0xdca89e378f8e98526ce5f54f08bc8fa20853bd5a",
+   "Gate.io. User"
+  ],
+  [
+   "0x89e94acc3a619fbea6aa28c26eec8b6f01e2ac8b",
+   "Gate.io. User"
+  ],
+  [
+   "0x2004b06ea7c2f5eec504ec8489ec210dfe220fd5",
+   "Gate.io. User"
+  ],
+  [
+   "0x33ba873aa26b9c44c311e44bfd502dc7ad9cda8a",
+   "Gate.io. User"
+  ],
+  [
+   "0xe4adb7d180598321db9750a0d220a2ca994619b3",
+   "Gate.io. User"
+  ],
+  [
+   "0xa4510761b1d8643c6aab58c56b15f62bc4789d1d",
+   "Gate.io. User"
+  ],
+  [
+   "0x138f2ac198e4e5d7fb9b426ff358c154ed0273ae",
+   "Gate.io. User"
+  ],
+  [
+   "0xeb7ede1d99774a11efc34498733e1df26ef6e779",
+   "Gate.io. User"
+  ],
+  [
+   "0x41cd20a8871176893090fcf29412e6d9fbcffe20",
+   "Gate.io. User"
+  ],
+  [
+   "0x5576132eb74518fb27de2123ed3e6b1d43e0dac7",
+   "Gate.io. User"
+  ],
+  [
+   "0x7f551b64b365d09f838e9bed1dd2c69f047d52ee",
+   "Gate.io. User"
+  ],
+  [
+   "0x7802d3c9a5b92717b5f25a3d06f9f3f16637fcea",
+   "Gate.io. User"
+  ],
+  [
+   "0x0ddac46267bf3d967885924561cc968673330c86",
+   "Gate.io. User"
+  ],
+  [
+   "0x285e6cac7be8faa0dd08709aadc15a087bd44372",
+   "Gate.io. User"
+  ],
+  [
+   "0xa0c20049de0746770ce3e7e6b80455b4bddf71eb",
+   "Gate.io. User"
+  ],
+  [
+   "0x4b2d9e4a21d0b3099385fbbe12fcb1a104124e56",
+   "Gate.io. User"
+  ],
+  [
+   "0x5ed20a72d66017dd7e485f8caae8e474a3f4e2af",
+   "Gate.io. User"
+  ],
+  [
+   "0x66d413d78224e14ef44b4781451b122f651918a9",
+   "Gate.io. User"
+  ],
+  [
+   "0x1d57fcdc97babfb5c897f81a6dce781459ee37cc",
+   "Gate.io. User"
+  ],
+  [
+   "0xdff35502859ac3d211f74da45b5d6dfe32f22560",
+   "Gate.io. User"
+  ],
+  [
+   "0x3c4e80b3bdb819743f9e679515b5c1dd3179d2c2",
+   "Gate.io. User"
+  ],
+  [
+   "0x5a85178fba4cde4cecb079a1bd56b26347ed3e53",
+   "KCEX. User"
+  ],
+  [
+   "0x58e1885adc33d07b1afc16f11463163a1a28cced",
+   "Kraken. User"
+  ],
+  [
+   "0x279b01f074762e51d7d70a27d3b4eedd839b566a",
+   "Kraken. User"
+  ],
+  [
+   "0x18a3a7fbee2c00d29eb80ebc536b0c4e0714a50f",
+   "Kraken. User"
+  ],
+  [
+   "0xbcb5148b8348b022f8d4fc59d2a7295f6202c7a3",
+   "Kraken. User"
+  ],
+  [
+   "0x263a48a94e52db1570ba656cb4d9e834a207b8a6",
+   "KuCoin. User"
+  ],
+  [
+   "0xdca52a75542abbacb6804bdfd666578b94569fef",
+   "KuCoin. User"
+  ],
+  [
+   "0x14bf713a753c1d3f15779282d6cd64835132bc73",
+   "KuCoin. User"
+  ],
+  [
+   "0xd9f674fd30040fd96fa6e20bdd5c7920aed968d9",
+   "KuCoin. User"
+  ],
+  [
+   "0x39ac22b2063b9c64a4fc2d00b26cccc5271bd31b",
+   "KuCoin. User"
+  ],
+  [
+   "0x9f5ed2a81e73bc98e09374d6048a9d1c9feecb9f",
+   "KuCoin. User"
+  ],
+  [
+   "0x9f2fa8543a0458c5e33c83693f5889237a8fec60",
+   "KuCoin. User"
+  ],
+  [
+   "0x9be038a39a2eb42c57fdff71cb92fe03394b4f08",
+   "KuCoin. User"
+  ],
+  [
+   "0xac47489b2324b6f02992ac541c9f941d14280cbb",
+   "KuCoin. User"
+  ],
+  [
+   "0xb20b0627cfed6a2e3ac22bb231795f9ff938c0dc",
+   "KuCoin. User"
+  ],
+  [
+   "0xc803ef87dae70ad00fd21cc65dcafc384efd4543",
+   "MEXC. User"
+  ],
+  [
+   "0xb5a699a335e8615b6e3b0cf2569d49c1c1245e18",
+   "MEXC. User"
+  ],
+  [
+   "0xf908aa5d119a21b3005a83b540610958c612fb24",
+   "MEXC. User"
+  ],
+  [
+   "0x4b51345f29b32763cfcea9b83fc087d793f5b332",
+   "MEXC. User"
+  ],
+  [
+   "0x20f5d96462d7a1d03e790dfd9456d5dede97fb91",
+   "MEXC. User"
+  ],
+  [
+   "0xb13221834db9c46a9706cc5b8cf434608b7cfe67",
+   "MEXC. User"
+  ],
+  [
+   "0xc9dfb45265ba3e312d4fbb7ee6effafcc85ddad3",
+   "MEXC. User"
+  ],
+  [
+   "0x0ea5c119b36ceee24773d102b9052f5da3850917",
+   "MEXC. User"
+  ],
+  [
+   "0x772e17f4d05d68bca82428c29708a08a691195a0",
+   "MEXC. User"
+  ],
+  [
+   "0x19a2432075534e955d12d467509d1876e834fdc8",
+   "MEXC. User"
+  ],
+  [
+   "0x50048c5d6575f915cd81f52d3bf196d86b26067c",
+   "MEXC. User"
+  ],
+  [
+   "0xb261e6854d263eb0c58ec94f33450456b5cd6614",
+   "MEXC. User"
+  ],
+  [
+   "0xe9843b2d15e337e89445c107befa633119be6ec7",
+   "MEXC. User"
+  ],
+  [
+   "0x60ea7f349ef005ac741b142ddc1e7be9e3628d9f",
+   "MEXC. User"
+  ],
+  [
+   "0xa76cb489fad3e025f46780870b3afc696c5cdd26",
+   "MEXC. User"
+  ],
+  [
+   "0x70d78023bc540568b69e926b9c2b991086f08071",
+   "MEXC. User"
+  ]
+ ],
+ "cex": [
+  [
+   "0xd97107064b8c7520aae6c6e6ca75bb2aa73b670d",
+   "BingX. Cold Wallet_6"
+  ],
+  [
+   "0x2b3bf74b29f59fb8dda41cf3d6a8da28cf8e7921",
+   "BingX. DepositAndWithdraw_15"
+  ],
+  [
+   "0xb81be888587704aa77c581e01299abe3667a7897",
+   "CoinEx. DepositAndWithdraw_1"
+  ],
+  [
+   "0x32e3e876aa0c1732ed9efcf9d8615de7afaef59f",
+   "CoinEx. DepositAndWithdraw_4"
+  ],
+  [
+   "0x8782163068c7cd74d2510768a61135c1e4eb07b3",
+   "Gate.io"
+  ],
+  [
+   "0x035ae7d933dcbfe617ffba194a88af0c2867b90c",
+   "Gate.io"
+  ],
+  [
+   "0xdd04f596569b09bb967ab9f20cdc1b7bc7495afd",
+   "Gate.io"
+  ],
+  [
+   "0xc882b111a75c0c657fc507c04fbfcd2cc984f071",
+   "Gate.io. Cold Wallet_1"
+  ],
+  [
+   "0x0d0707963952f2fba59dd06f2b425ace40b492fe",
+   "Gate.io. DepositAndWithdraw_1"
+  ],
+  [
+   "0xe19ed11103265687a351662aab588a890ec598b4",
+   "Kraken"
+  ],
+  [
+   "0xcc282e2004428939ee5149a9e7872f0b4d5d5ec7",
+   "Kraken"
+  ],
+  [
+   "0x7dafba1d69f6c01ae7567ffd7b046ca03b706f83",
+   "Kraken. Cold Wallet_3"
+  ],
+  [
+   "0x317b31c2458e4593ba32d2692a330efcc19c2935",
+   "Kraken. DepositAndWithdraw_6"
+  ],
+  [
+   "0xb8e6d31e7b212b2b7250ee9c26c56cebbfbe6b23",
+   "KuCoin. Cold Wallet_2"
+  ],
+  [
+   "0x8dac80ce96f69f9762bc450faa4d7fbd5891ae18",
+   "KuCoin. Cold Wallet_6"
+  ],
+  [
+   "0x69be413d648ae00f0fbd9856f1355e22b36ee5e0",
+   "KuCoin. Cold Wallet_7"
+  ],
+  [
+   "0x53f78a071d04224b8e254e243fffc6d9f2f3fa23",
+   "KuCoin. DepositAndWithdraw_3"
+  ],
+  [
+   "0x17a30350771d02409046a683b18fe1c13ccfc4a8",
+   "KuCoin. Hot Wallet_1"
+  ],
+  [
+   "0xcded3bb9d2dc98f6e4e772095b48051acfb84df9",
+   "KuCoin. Withdraw_3"
+  ],
+  [
+   "0x124d9bf2fecbc16b54ec4accdb14d44c2144f012",
+   "LBank. DepositAndWithdraw_7"
+  ],
+  [
+   "0x4982085c9e2f89f2ecb8131eca71afad896e89cb",
+   "MEXC. DepositAndWithdraw_4"
+  ],
+  [
+   "0xdd3d3c05a672b8a1112e158cd2fc6f577c2b6e1f",
+   "OKX DEX"
+  ],
+  [
+   "0x62ccef0b4545166f721caa9fee13c1d3767e27dc",
+   "OKX DEX"
+  ],
+  [
+   "0x33d285926c0d6b35bdf61d04cc77de60ce0bd5db",
+   "OKX DEX"
+  ],
+  [
+   "0x3156020dff8d99af1ddc523ebdfb1ad2018554a0",
+   "OKX DEX. DexRouter"
+  ],
+  [
+   "0x7a7ad9aa93cd0a2d0255326e5fb145cec14997ff",
+   "OKX Labs Aggregator"
+  ],
+  [
+   "0xdbf7122c0b7af893580df087eabac0b3be3e9483",
+   "Ourbit. DepositAndWithdraw_1"
+  ]
+ ],
+ "dex_router": [
+  [
+   "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
+   "Jumper Exchange"
+  ],
+  [
+   "0x9999b0cdd35d7f3b281ba02efc0d228486940515",
+   "PancakeSwap"
+  ],
+  [
+   "0xf4d8bdcd871db9e77f93259b7d288b9c71f2931d",
+   "PancakeSwap"
+  ],
+  [
+   "0x3fe7b866182aab8c805769747663b3046541c4d6",
+   "PancakeSwap"
+  ],
+  [
+   "0x3087b907c07089a74047d5a841cd306466eeeae0",
+   "PancakeSwap"
+  ],
+  [
+   "0x9c71dc4b91e6bcbbe0c2f4faf712ad7d4998ac52",
+   "PancakeSwap"
+  ],
+  [
+   "0xa50c4fe8c8a0a47872c378c11cf7f6ea1780ff7b",
+   "PancakeSwap"
+  ],
+  [
+   "0xe65f1199abfb99cb1b46704195a4ca47c8342572",
+   "PancakeSwap"
+  ],
+  [
+   "0x31d6ea082acc3d4e377528a721ac5c4b891726fb",
+   "PancakeSwap"
+  ],
+  [
+   "0x593980c50a2b838a706d124881085635bc39f97e",
+   "PancakeSwap"
+  ],
+  [
+   "0x5260f8edb4c383cd69ceb8afc042e290c1ff490a",
+   "PancakeSwap"
+  ],
+  [
+   "0x25af352f4490cb40f12bd5a881bdd99838cc9c14",
+   "PancakeSwap"
+  ],
+  [
+   "0x4b1b2ea60cc20a171cb7eed8fe0de988f79651d2",
+   "PancakeSwap"
+  ],
+  [
+   "0xa6137adcc2f98567e607fbac2289834e5ef9db1b",
+   "PancakeSwap"
+  ],
+  [
+   "0x3d90f66b534dd8482b181e24655a9e8265316be9",
+   "PancakeSwap"
+  ],
+  [
+   "0x23fd4fa6e5b76284238af5ae5a20e26abf05eede",
+   "PancakeSwap"
+  ],
+  [
+   "0x46a15b0b27311cedf172ab29e4f4766fbe7f4364",
+   "PancakeSwap V3"
+  ],
+  [
+   "0x4d3bf29ba30f8bfe4624e7678709afa195689c5d",
+   "PancakeSwap V3. LP(AKE/WBNB)"
+  ],
+  [
+   "0x2480faeb931272cd1f7375d8f4c104a4db5fff63",
+   "PancakeSwap V4"
+  ],
+  [
+   "0xd9c500dff816a1da21a48a732d3498bf09dc9aeb",
+   "PancakeSwap. UniversalRouter"
+  ],
+  [
+   "0x238a358808379702088667322f80ac48bad5e6c4",
+   "PancakeSwap. Vault"
+  ],
+  [
+   "0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f",
+   "Relay"
+  ],
+  [
+   "0x28e2ea090877bf75740558f6bfb36a5ffee9e9df",
+   "Uniswap"
+  ],
+  [
+   "0x1906c1d672b88cd1b9ac7593301ca990f94eae07",
+   "Uniswap"
+  ],
+  [
+   "0x20c0555ea3e2066673416423a17d64275fa43488",
+   "Uniswap V3. LP(AKE/USDT)"
+  ],
+  [
+   "0x83fcd80d7973cca1aa821590bbec66d27a2d4ad4",
+   "Uniswap. LP(AKE/USDT)"
+  ]
+ ]
+}

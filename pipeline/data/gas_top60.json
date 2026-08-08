@@ -1,0 +1,650 @@
+{
+ "0xb8210c25df20921538ea35729badc3e0a63520f1": {
+  "block": 108796583,
+  "ts": 1783517654,
+  "date": "2026-07-08 13:34",
+  "funders": [
+   {
+    "from": "0x4e3c463a11a42d96a2c1de51a09bc9bcab8d08f3",
+    "bnb": 0.00147,
+    "hash": "0x8303eaa521b32389c014c03a0bb39b37534d1bc905cbd05f4b7b2547dd49528e"
+   }
+  ]
+ },
+ "0x93fc44cac166647fa7c2e014b47b9e25c1f987d7": {
+  "block": 111798484,
+  "ts": 1784869074,
+  "date": "2026-07-24 04:57",
+  "funders": [
+   {
+    "from": "0xe043ae76f3af8be33291f2975bd08ad9e4c0e0ae",
+    "bnb": 0.00342775790680496,
+    "hash": "0xcc0accc18aff8efe6579502fd2d8b34fff98b5bdc16f7b419de7590403257527"
+   }
+  ]
+ },
+ "0x57114155891605d9c5a2907e2b702cf60ab07c0e": {
+  "err": "no balance change detected on a 40-point grid"
+ },
+ "0x3e2bd24ea2aabf4311c3ca61bf5ce290ff52a448": {
+  "block": 108803014,
+  "ts": 1783520549,
+  "date": "2026-07-08 14:22",
+  "funders": [
+   {
+    "from": "0xce2898c901c2c51756a1c4b995048c2893d76d62",
+    "bnb": 0.0002,
+    "hash": "0x1a57ea6b5ff93ca0fe49cc495f382b6a1aaacbf5da5ca15e6c9fd1e0ee1dbb13"
+   }
+  ]
+ },
+ "0xa9578b2b9ddcd0465cdc05140b3821032b5a722b": {
+  "err": "no balance change detected on a 40-point grid"
+ },
+ "0xaf6bc591cd10e62c74497bd5f9904329ecb59da1": {
+  "err": "no balance change detected on a 40-point grid"
+ },
+ "0xd6bea0fffc1cb09412bd2dcfb8537ae78aa3cbad": {
+  "err": "no balance change detected on a 40-point grid"
+ },
+ "0xfd543380531b2d4ca4b8d41577e4c48f5d34d5f1": {
+  "block": 111745484,
+  "ts": 1784845160,
+  "date": "2026-07-23 22:19",
+  "funders": [
+   {
+    "from": "0x6cfcfbdb420269994e957e131e591d2e3415bacc",
+    "bnb": 0.08235313940690338,
+    "hash": "0x964b4f7e776aadd005078f24e503de957ed69077520b4e2075a7e92c33f42b4a"
+   }
+  ]
+ },
+ "0x0a555abaea3d3ad75b2b3ce5df866388da798fb9": {
+  "err": "no balance change detected on a 40-point grid"
+ },
+ "0x4f70ff8dd69bb0d11de2f93027fc2f806ed635da": {
+  "err": "no balance change detected on a 40-point grid"
+ },
+ "0x7986fa5f64a0997f3b50990f2ba64f81d829ff9c": {
+  "block": 112236346,
+  "ts": 1785066163,
+  "date": "2026-07-26 11:42",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0xd60bb909d26e37fc11de602e561e8010c47dd319423402c20e5e4708543be34d"
+   }
+  ]
+ },
+ "0x30a603dbd14981417b520ce96d2005d96c6fd275": {
+  "block": 112253126,
+  "ts": 1785073715,
+  "date": "2026-07-26 13:48",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0xb44156096c62716890deffee959cb3a614644eae9f273d370e79d8d9b0350d97"
+   }
+  ]
+ },
+ "0xd16f2977bdf363039af059bc98504fc44d38d746": {
+  "err": "no balance change detected on a 40-point grid"
+ },
+ "0x76e3a78017467dc174b4ee4425cbc3fa07ce015f": {
+  "block": 111744879,
+  "ts": 1784844888,
+  "date": "2026-07-23 22:14",
+  "funders": [
+   {
+    "from": "0x553579830923d293250179b1fa1ce6e2d90d57c4",
+    "bnb": 0.01859913834585312,
+    "hash": "0xbb97d3f11eec11ed7b17615af1715e24de44cd44d90ca5465e556ced472838f1"
+   }
+  ]
+ },
+ "0xcfbbe27f7fb368d15d3a278da85415e62e9706fa": {
+  "block": 112253124,
+  "ts": 1785073714,
+  "date": "2026-07-26 13:48",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0xd72a6d77becd10ee57953e29c448a3d1d7660391284e2a22b84069596412c8a0"
+   }
+  ]
+ },
+ "0x998ef0e79a7574952d098d9b4e01f87d3fd864a8": {
+  "block": 112236346,
+  "ts": 1785066163,
+  "date": "2026-07-26 11:42",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0xf7a8247e6687464a6e3d6adc16eea6a19d6ba993be3542ce8594981238b284cf"
+   }
+  ]
+ },
+ "0xa8da77a990638b75963ac923e6cc617dc7e20377": {
+  "block": 112253124,
+  "ts": 1785073714,
+  "date": "2026-07-26 13:48",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0xabb929171a051c7af5ebf18459ef97acb7b8ee8d69bfe465ea853abf9d90f911"
+   }
+  ]
+ },
+ "0x86ea348705c21fe04ed58061878b9bb507868dd4": {
+  "block": 112253124,
+  "ts": 1785073714,
+  "date": "2026-07-26 13:48",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0x666146f822b13acc581adb6d55ba5a487242a8fa60560e9c3db7720ec42c8260"
+   }
+  ]
+ },
+ "0xc970decb237c291b255b16884b9707c357250b26": {
+  "block": 112253110,
+  "ts": 1785073708,
+  "date": "2026-07-26 13:48",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0xbbb5506f1660eb755750f8e46a188854859f4ddd0d567e5229e6a38ba0ec3842"
+   }
+  ]
+ },
+ "0xac7aea82b35320dd050c79e413234423894a321a": {
+  "block": 112253110,
+  "ts": 1785073708,
+  "date": "2026-07-26 13:48",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0x125aa324ff0a615ab2643a59616cc5b2bf919bcbf5460cf712552c65e8bdf5ed"
+   }
+  ]
+ },
+ "0xe26c27d9c5fea9a032ea770d057338a46740213f": {
+  "block": 112253126,
+  "ts": 1785073715,
+  "date": "2026-07-26 13:48",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0xfce79d7f443b193612346ca1371d3a22feb546263670ea495334ef70198f2864"
+   }
+  ]
+ },
+ "0x33ab2b0c6908e472cb9f5b04e6d2a1e7e9220b4a": {
+  "err": "no balance change detected on a 40-point grid"
+ },
+ "0x248e4158b775444b8e33e5aa37a46524bf880b15": {
+  "block": 112253143,
+  "ts": 1785073723,
+  "date": "2026-07-26 13:48",
+  "funders": [
+   {
+    "from": "0x635308e731a878741bfec299e67f5fd28c7553d9",
+    "bnb": 0.002,
+    "hash": "0x4cb7665af58aa133d873b6ec28e63095a40bec43b7e303f576d5b4f83a90bac3"
+   }
+  ]
+ },
+ "0x1d2ce507ca0b86cb04a26ab6d295130634b0023a": {
+  "block": 70429274,
+  "ts": 1764823499,
+  "date": "2025-12-04 04:44",
+  "funders": [
+   {
+    "from": "0x195bb4bede9f7dfd06da2c1b1b839b1f400024fc",
+    "bnb": 0.11754229379269511,
+    "hash": "0x15be7ec7aa9b990451e8250aa1fa2b8f501f2fddf6036ff101df6908c632533e"
+   }
+  ]
+ },
+ "0x22b7c56ad6a8c77ec851b2c3329011758c1c9aab": {
+  "block": 111417107,
+  "ts": 1784697309,
+  "date": "2026-07-22 05:15",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x30ba027efa8215d0b2ea65baf7af31ee4d84b541d4054c16c3357649b6d75263"
+   }
+  ]
+ },
+ "0xc8995feb91aeb0892a9865d5654ee9aab6c61237": {
+  "block": 111416896,
+  "ts": 1784697214,
+  "date": "2026-07-22 05:13",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0xecfd60d5ea75c757c6fcff39ea31b412adddda7e8d2858364aabe7dae7a3323a"
+   }
+  ]
+ },
+ "0x99236a881a31d454bac8256d9da69a9500082b13": {
+  "block": 111418212,
+  "ts": 1784697807,
+  "date": "2026-07-22 05:23",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x15daf56d0edf9efe6f178f4fd5227626007059421074b6c75031d6cad7b785af"
+   }
+  ]
+ },
+ "0x26aa7c11b00a48a0a94ac1aa25b7e30d14d04e59": {
+  "block": 111417063,
+  "ts": 1784697289,
+  "date": "2026-07-22 05:14",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x4e4c09a3374038e25fbe726db4f9d9113e79133ae48bb5cb647be12a8857f6c7"
+   }
+  ]
+ },
+ "0xb4e62beb6fafbf52c1dfa8cc155c196dd7305c67": {
+  "block": 111418371,
+  "ts": 1784697878,
+  "date": "2026-07-22 05:24",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x37d8a1896c7997dd4682b8c9781425a784b34c87c390c89f32d0349437cbbe82"
+   }
+  ]
+ },
+ "0x843e3d4c3e4fe0644ad958bf45e62caa0a521cbc": {
+  "block": 111417167,
+  "ts": 1784697336,
+  "date": "2026-07-22 05:15",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0xaee38be596fbdca68c421f787bdef7bb4d4e782101d3cc34843518f127b6b7c0"
+   }
+  ]
+ },
+ "0x7b142b8b8160cd108432e52f8cce54a1f87bee10": {
+  "block": 111417143,
+  "ts": 1784697325,
+  "date": "2026-07-22 05:15",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0xa8c0efa7e322b62478464b96a4bdfe50e5dd30601744bcdc5af3e3a9d4a4fab2"
+   }
+  ]
+ },
+ "0x7c4bac22812834cd2ae34cb131e87bc1b88890d2": {
+  "block": 111416957,
+  "ts": 1784697241,
+  "date": "2026-07-22 05:14",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x843178febeaed9d25e5b16d22946233fb10839c88c9a9a27b5596e671eeec37c"
+   }
+  ]
+ },
+ "0x1c0d7989da73f138d42f3938762f0ba796a6fd08": {
+  "block": 111418293,
+  "ts": 1784697843,
+  "date": "2026-07-22 05:24",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x9e40a95f0abc19ad796e398f6ad1cd515072f7bf7628d4fe402912047762c8bc"
+   }
+  ]
+ },
+ "0xf00df8374509db1f0938b8b7b05016e891a8c99d": {
+  "block": 111417250,
+  "ts": 1784697373,
+  "date": "2026-07-22 05:16",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0x0d583d495b24c2dad066f7e2d07bf658652d14d6eb39ab8238d391050e999d1e"
+   }
+  ]
+ },
+ "0xdffccf427f868f3da94df272adcbb2b31c0471c0": {
+  "block": 111417025,
+  "ts": 1784697272,
+  "date": "2026-07-22 05:14",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0x13912141ad44f214c6adef778e2e150ce298a750364e18825a8d7f5504ac7d4b"
+   }
+  ]
+ },
+ "0x8758c431b0a7d78a908e620f56b05efc20eb84ee": {
+  "block": 111417894,
+  "ts": 1784697664,
+  "date": "2026-07-22 05:21",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0xa9c3abaf178232815cbe1340243932b3f13ac37a35dfe8f3cbd312270154b38a"
+   }
+  ]
+ },
+ "0xd239aa962e130c1804ab4afb3b8c84387046543f": {
+  "block": 111417307,
+  "ts": 1784697399,
+  "date": "2026-07-22 05:16",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x4ea0bca878ec6c865e16d522688af0f3e7bea41979c01c9d629710f692f347c5"
+   }
+  ]
+ },
+ "0xe3aec223b82032f1ded6686df9089cb5e3e32f3c": {
+  "block": 111417417,
+  "ts": 1784697449,
+  "date": "2026-07-22 05:17",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0xbdce0bce5651eb9eab984dad1e81315e445bd3c8f5db95cacc7b52c7ebf97526"
+   }
+  ]
+ },
+ "0x74acbb567fd2d07e8fbfda86aa08ae11bca1238b": {
+  "block": 111418579,
+  "ts": 1784697972,
+  "date": "2026-07-22 05:26",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x7c87d92ded8d65786d781901998eeb7191f1d93632e7651c2acfb27e02d4fbe0"
+   }
+  ]
+ },
+ "0xc432cb918ede4ac2fb2eb0116cde085f0eb206f9": {
+  "block": 111417516,
+  "ts": 1784697493,
+  "date": "2026-07-22 05:18",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0xc54ee9e258600ab3b766fa511731fcb1a959372d9fa81ba2bc29d91a92969ec9"
+   }
+  ]
+ },
+ "0xbf9aac8507e706d55e9339e9153dd66527b5a4fd": {
+  "block": 111418334,
+  "ts": 1784697862,
+  "date": "2026-07-22 05:24",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0x5366e1583be0755a1d6982abbc98daf426d9f7c4d29711778db9558f564c6d37"
+   }
+  ]
+ },
+ "0xe3dcbda3026f28c8b6428e6a862715da9014f3f3": {
+  "block": 111416828,
+  "ts": 1784697183,
+  "date": "2026-07-22 05:13",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0xffd01bf05e4342c9da5f9472c64161e73cc20abe8fe9965fcd50aec592626e2d"
+   }
+  ]
+ },
+ "0x4c5cf7c9617bcf7132f1b2b8f77ee364b2a3d56d": {
+  "block": 111418453,
+  "ts": 1784697915,
+  "date": "2026-07-22 05:25",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0x472011e9c55b88f32619ede559a31fbf748214c5588cf5999b7feedd117ae3f1"
+   }
+  ]
+ },
+ "0xce3d53f99f3983fa590d2f27e4cfe9ebc73068c3": {
+  "block": 111417966,
+  "ts": 1784697696,
+  "date": "2026-07-22 05:21",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0xea5becad92d7ba04d6c3676f6c930749679ceeb65d054b403e12ee4f9687495f"
+   }
+  ]
+ },
+ "0x581a50258b34ad13b99e87bab75ab522512f0640": {
+  "block": 111417398,
+  "ts": 1784697440,
+  "date": "2026-07-22 05:17",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0xfbf2ef4ed0fd0207708062ec727f089f5b7a7c41d41672afee9c8bf0f2518d8a"
+   }
+  ]
+ },
+ "0x1f553808825d858b1dfba16dfb1d5ba5bb8c7e7f": {
+  "block": 111418238,
+  "ts": 1784697818,
+  "date": "2026-07-22 05:23",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0xe52c8b07c8f2921dff46dd758e845794b1a722117a8203f2ab46b9cb00332089"
+   }
+  ]
+ },
+ "0x1a6ea0a3a691bfae9cd94f0dd808bcd72f120f8e": {
+  "block": 111416990,
+  "ts": 1784697256,
+  "date": "2026-07-22 05:14",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0xbd2556a5741868d734c9fbb87d2dd1a709053cec02eebf83b249e711adc60fb3"
+   }
+  ]
+ },
+ "0xa368493f74839fc1f20cb4ab6a5a6d539d877a56": {
+  "block": 111417671,
+  "ts": 1784697563,
+  "date": "2026-07-22 05:19",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0x7a4fb4474c763ba4c7a2e18c4d6e3410180911a7af0e35cceb5f70669fbf134d"
+   }
+  ]
+ },
+ "0x41fc51b0d67ca3781a25fcf73ac3b5065bfb405c": {
+  "block": 111417764,
+  "ts": 1784697605,
+  "date": "2026-07-22 05:20",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x042f328824ee87e60a7e1ebe2dc3cd301d81c2be034f5d7b2ac976975429c68d"
+   }
+  ]
+ },
+ "0x54517f528d31a67bd84c4ce775f8139a4ea19136": {
+  "block": 111418257,
+  "ts": 1784697827,
+  "date": "2026-07-22 05:23",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0xc76de5b5c79aac7cbf354805814e98957ed5b9e0ebed419fdc93af58ff0ac367"
+   }
+  ]
+ },
+ "0x42d61b1a07739b14eaa467cef37b997c285b9fda": {
+  "block": 111418521,
+  "ts": 1784697946,
+  "date": "2026-07-22 05:25",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0x434d5a4689aeb2541d19c36823e80e6aa1e269b45f0e93581760849082aebfc4"
+   }
+  ]
+ },
+ "0x6684d6802717ae5df2a5eb5922c85cf961d1cb65": {
+  "block": 111417940,
+  "ts": 1784697684,
+  "date": "2026-07-22 05:21",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x83a8e300df7d9369d372dadb69b30a354f78222ba9757220f78589a1f6b0314c"
+   }
+  ]
+ },
+ "0x06737d187f9c5d65de3a15fe13cfd91c5934d4a5": {
+  "block": 111417336,
+  "ts": 1784697412,
+  "date": "2026-07-22 05:16",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0x491d6a3e438b7292877fff76488e33c6b11daff7345808690870baa0efc22afd"
+   }
+  ]
+ },
+ "0xc80ae5a4757ae9f69fc0a437c14cce484cab4588": {
+  "block": 111418121,
+  "ts": 1784697766,
+  "date": "2026-07-22 05:22",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0xa7c16c7ee8352603b860d9664127bdd4a127122a4e28659aca81e27e1bfba8ed"
+   }
+  ]
+ },
+ "0xf1b6a6920ca33f56e4cd74d58452fe5a8faff0e8": {
+  "block": 111418086,
+  "ts": 1784697750,
+  "date": "2026-07-22 05:22",
+  "funders": [
+   {
+    "from": "0x5ba434b40be6cfc7033bf8d4545320fa609a4268",
+    "bnb": 0.001,
+    "hash": "0xdf201bf8e8ba957d0e310ceccc1e8c4b2caefd73fe8bed73ea3c5ec41f6a2e3f"
+   }
+  ]
+ },
+ "0x6c9bbea750a7c191695b4ecc7f641c054af4b84f": {
+  "block": 111417439,
+  "ts": 1784697459,
+  "date": "2026-07-22 05:17",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0xdf7637ec47dccd100857eab15588848210583492f893b8ea1f1f4b8cc36e08c8"
+   }
+  ]
+ },
+ "0xf3f5be04f7ebcba8ce52db58f596b04b59edfd0c": {
+  "block": 111417546,
+  "ts": 1784697507,
+  "date": "2026-07-22 05:18",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0xcd6f775283d7fc4c26d7bbac9914a3a4a5ae18e0415f0ff2f258884ffdd1e3fe"
+   }
+  ]
+ },
+ "0x12ad42bbab47e9e6272a464f153dc66cf95bd4df": {
+  "block": 111416840,
+  "ts": 1784697189,
+  "date": "2026-07-22 05:13",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0x6b6d18a6078a8351eba99910f2822f0c8f631274dbe47f9f7c291ec04f0592ee"
+   }
+  ]
+ },
+ "0x4d5f56a8ae6e121d0c702d995cb447fe43e708fd": {
+  "block": 111417269,
+  "ts": 1784697382,
+  "date": "2026-07-22 05:16",
+  "funders": [
+   {
+    "from": "0x33387a9a5ffec880487d62f6c7642cdf94fa276f",
+    "bnb": 0.001,
+    "hash": "0x70898efe3065e9145185b19359db6117387bbf61b271974a0074000ae85794be"
+   }
+  ]
+ },
+ "0xe74522ec8e210df1b96b9b7e83ee31d846af4775": {
+  "block": 111416936,
+  "ts": 1784697232,
+  "date": "2026-07-22 05:13",
+  "funders": [
+   {
+    "from": "0x78a769774684ae68265d2c1d850b975aa7fe87fd",
+    "bnb": 0.001,
+    "hash": "0x59d16b8955f81f73d392b8742c12f3cd3261b3ecf02a87860f53bc8d8921595c"
+   }
+  ]
+ }
+}

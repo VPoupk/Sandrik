@@ -1,0 +1,3348 @@
+{
+ "0xb8210c25df20921538ea35729badc3e0a63520f1": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52526
+ },
+ "0x93fc44cac166647fa7c2e014b47b9e25c1f987d7": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52202
+ },
+ "0x57114155891605d9c5a2907e2b702cf60ab07c0e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52168
+ },
+ "0x3e2bd24ea2aabf4311c3ca61bf5ce290ff52a448": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52525
+ },
+ "0xa9578b2b9ddcd0465cdc05140b3821032b5a722b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52167
+ },
+ "0xaf6bc591cd10e62c74497bd5f9904329ecb59da1": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52168
+ },
+ "0xd6bea0fffc1cb09412bd2dcfb8537ae78aa3cbad": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52433
+ },
+ "0xfd543380531b2d4ca4b8d41577e4c48f5d34d5f1": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52467
+ },
+ "0x0a555abaea3d3ad75b2b3ce5df866388da798fb9": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52432
+ },
+ "0x4f70ff8dd69bb0d11de2f93027fc2f806ed635da": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52433
+ },
+ "0x7986fa5f64a0997f3b50990f2ba64f81d829ff9c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0x30a603dbd14981417b520ce96d2005d96c6fd275": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52453
+ },
+ "0xd16f2977bdf363039af059bc98504fc44d38d746": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52433
+ },
+ "0x76e3a78017467dc174b4ee4425cbc3fa07ce015f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52467
+ },
+ "0xcfbbe27f7fb368d15d3a278da85415e62e9706fa": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0x998ef0e79a7574952d098d9b4e01f87d3fd864a8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52450
+ },
+ "0xa8da77a990638b75963ac923e6cc617dc7e20377": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52454
+ },
+ "0x86ea348705c21fe04ed58061878b9bb507868dd4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52451
+ },
+ "0xc970decb237c291b255b16884b9707c357250b26": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52452
+ },
+ "0xac7aea82b35320dd050c79e413234423894a321a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52456
+ },
+ "0xe26c27d9c5fea9a032ea770d057338a46740213f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52452
+ },
+ "0x33ab2b0c6908e472cb9f5b04e6d2a1e7e9220b4a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52432
+ },
+ "0x248e4158b775444b8e33e5aa37a46524bf880b15": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52453
+ },
+ "0x1d2ce507ca0b86cb04a26ab6d295130634b0023a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "KyberSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53724
+ },
+ "0x22b7c56ad6a8c77ec851b2c3329011758c1c9aab": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0xc8995feb91aeb0892a9865d5654ee9aab6c61237": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0x99236a881a31d454bac8256d9da69a9500082b13": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0x26aa7c11b00a48a0a94ac1aa25b7e30d14d04e59": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0xb4e62beb6fafbf52c1dfa8cc155c196dd7305c67": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0x843e3d4c3e4fe0644ad958bf45e62caa0a521cbc": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52440
+ },
+ "0x7b142b8b8160cd108432e52f8cce54a1f87bee10": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0x7c4bac22812834cd2ae34cb131e87bc1b88890d2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52440
+ },
+ "0x1c0d7989da73f138d42f3938762f0ba796a6fd08": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52440
+ },
+ "0xf00df8374509db1f0938b8b7b05016e891a8c99d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0xdffccf427f868f3da94df272adcbb2b31c0471c0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52440
+ },
+ "0x8758c431b0a7d78a908e620f56b05efc20eb84ee": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52440
+ },
+ "0xd239aa962e130c1804ab4afb3b8c84387046543f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0xe3aec223b82032f1ded6686df9089cb5e3e32f3c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0x74acbb567fd2d07e8fbfda86aa08ae11bca1238b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0xc432cb918ede4ac2fb2eb0116cde085f0eb206f9": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0xbf9aac8507e706d55e9339e9153dd66527b5a4fd": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0xe3dcbda3026f28c8b6428e6a862715da9014f3f3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x4c5cf7c9617bcf7132f1b2b8f77ee364b2a3d56d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0xce3d53f99f3983fa590d2f27e4cfe9ebc73068c3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x581a50258b34ad13b99e87bab75ab522512f0640": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x1f553808825d858b1dfba16dfb1d5ba5bb8c7e7f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x1a6ea0a3a691bfae9cd94f0dd808bcd72f120f8e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0xa368493f74839fc1f20cb4ab6a5a6d539d877a56": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0x41fc51b0d67ca3781a25fcf73ac3b5065bfb405c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52284
+ },
+ "0x54517f528d31a67bd84c4ce775f8139a4ea19136": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0x42d61b1a07739b14eaa467cef37b997c285b9fda": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0x6684d6802717ae5df2a5eb5922c85cf961d1cb65": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0x06737d187f9c5d65de3a15fe13cfd91c5934d4a5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0xc80ae5a4757ae9f69fc0a437c14cce484cab4588": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0xf1b6a6920ca33f56e4cd74d58452fe5a8faff0e8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x6c9bbea750a7c191695b4ecc7f641c054af4b84f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0xf3f5be04f7ebcba8ce52db58f596b04b59edfd0c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0x12ad42bbab47e9e6272a464f153dc66cf95bd4df": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52284
+ },
+ "0x4d5f56a8ae6e121d0c702d995cb447fe43e708fd": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0xe74522ec8e210df1b96b9b7e83ee31d846af4775": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0xa6014a0d355b22de2e3c1a24a5cc9054c1989de5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52189
+ },
+ "0xa06937804ac18d2bf1cf92d700cb2e323d026b2c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0xe7e1c6306de3297740dff192a7a697b5d9ce8a1c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0x36aad8e43c04d3089879f71e2e6df65b9d89610d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52189
+ },
+ "0xde40f9f64db0fbb6411a52080801ef0080d98642": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52189
+ },
+ "0x480d2dbcda7745779f9dc78a17cb2102eaaabc37": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0x47f473d20a811d13db887c4dccf0b83611dfe4b5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52285
+ },
+ "0xfb227c24a984871ad66ad1a60655d19506a08445": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0x9ddea78a4133c71b2e60402826cf31ffccabdfc2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0x6844298197b0f170399f739237da2caf85c87113": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52189
+ },
+ "0xfa83c862af644301d3c8c628436573cf5499a121": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0xe8441390bed44a11650d28d3ec187f4582e0fe24": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0x2a0ccdb0e6ba3175a21d5eeb0f33636fafa8d47d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0xd15cccf5371eb06ce24241ddffa556ba3d032abf": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x82cbbe3ab614be7d04ffb0c17990db94ca4c9d09": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0x11617f3a463011702c9cc304d76fb92af7ca40c7": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x23dc6b7ab288b4f60e74a75988e0bb19ed803921": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52189
+ },
+ "0xe202f743d4b94b90c69a1796cf44e97ccce8adc2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x0c7a3cdc1c4159b4719653d7191b79841b8dcc07": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0x7d959199f28fd9b90b27a3b9f733c73154dd6dd2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0xb2fe8d9c66a3bac81b0513b69d89b7f7e4ffa83e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x7273852545e0e737062075481b999bbd5ca90230": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0x300b0e4e8575427dd43a78b22c40a7c182e079ca": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52189
+ },
+ "0xb7bc38a7377b25b97b6d24d0009a9dc335e12309": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0xd1ac2b57edbd009072b2c298198aa415a1e94973": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0xcb9437a4f799b1adbdc811dbe399b9caaa96567a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0x8ae5382993002f299956f5a2e219690b8b78665b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52068
+ },
+ "0x1226d44114b224311488dc22aa2459faf4b7bec0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0xac6364830a843b9c33f349dda7d50d2255bf0f1c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52068
+ },
+ "0x4af24cd205d95e1e17d3a24ad315072bda95ca98": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52441
+ },
+ "0xc765a438ca4992024cca7996dc651a7f70071775": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0xaa82d62063aba43806630d8c430db03504ae8333": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0x56cb2a9f07d0784177bc565cba09911e467ef72f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0xed1720e195ec1015f470f848351685d6e166ec5c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52068
+ },
+ "0xaf21d6ed121792238170a397777b9570dcacc042": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0x5ce2d10907fa74067dfffeb2aa7ebd2131132b67": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52068
+ },
+ "0xeee31315b86c23df98698981212599b48cb19951": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52068
+ },
+ "0x96263150f69252bf5642e4b10ec2762760687440": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0xbfd972db269e01154197b50eb495c67ddfa3f9b7": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52752
+ },
+ "0x3dd7e0cafc29081c3308cd095ba09de47ec209c8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0x772e135310c19b38716a6851051b424a0fd2aa77": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52670
+ },
+ "0xd5e8bb56407737558d7d24c4f98251b50cf4fe0e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52068
+ },
+ "0xd03cc04346cfc4c39e49a13bd8d8ab3909ddfcf1": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0x02400e56ec012612f79034abb05f948d4bf4ba32": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52669
+ },
+ "0x329881dc1af1aced2f1e6e101f37977868f4d4ae": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52670
+ },
+ "0x99b1f24e191b273e1e454f408621ff8c7e08c81b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0x2e19eb9dbfbac2b4bee94c15cb03d8de348fad72": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52670
+ },
+ "0x1538ce100d3ca2d53ebf862a530278677f5cdbc8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52669
+ },
+ "0xe66e9c1e39c1e470d734dbc8e2c8a7e7448843b1": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52069
+ },
+ "0x30f5f7a302983e3e2be7bdebd9f9ca6ab995285e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52670
+ },
+ "0xba247a4952d99054fa2b577b3f9650ebb5e2d3bc": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52670
+ },
+ "0x7b9badab46e9393da1fd8212471f7ba2a824b3d4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52442
+ },
+ "0xeaca9fb394c0c4f717e7e87ed7199935893cf74f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52670
+ },
+ "0x5515e2d9ed022d3344ef033dee13e2bfb1dc8b74": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52120
+ },
+ "0x6274a920ca409dcac8e2f4c427ba80a2b4fd53ee": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52120
+ },
+ "0x2097ab8512ca6b50afe49f891fe3b2580f97081c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52669
+ },
+ "0x9f06b1fe691681816ceae98854cd29c9b6667f5c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52120
+ },
+ "0xe6871f5bdc730e9c528f58ecba8f082714473330": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52120
+ },
+ "0x1a264ec72b752c597cda0d00be576b92f194ced3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52120
+ },
+ "0x938045f31e192327c1ea3286398ea575c5b8b267": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52120
+ },
+ "0x083098f407a4bbb1d0f4de153d7f222163f494ca": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52120
+ },
+ "0xe9d045df6a50f1ad335b08d586820114dcb83542": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52120
+ },
+ "0xa9a528c9de6c0b7da39d7ea37d222beb2d013c49": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52133
+ },
+ "0xb20f204a158e4ed0f40fa02b048bbb2ea7ff3cc8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "AnyswapV3 User",
+   "Aggregated Address"
+  ],
+  "is_contract": false,
+  "bytes": 54681
+ },
+ "0xf09541b6bd516f3436291b399245e5e48cb14e9f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52943
+ },
+ "0x324e559d0f7507c4782f54662b09b984b1874094": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54072
+ },
+ "0xfc89c020774524c9d03bd5de48fec149b10bdec3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52774
+ },
+ "0x609b4e801a390b7f971cd988feb62dfd974b7f87": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53814
+ },
+ "0x93deb693b170d56bdde1b0a5222b14c0f885d976": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52878
+ },
+ "0x9e229b12cc9081d6a510b29ccbd6311743e277ed": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54142
+ },
+ "0x390e8a48a3aa969fb172bea39a97217c89b9f803": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52550
+ },
+ "0x63bb1a6a0032458376d084dc5979c702b627203d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52880
+ },
+ "0xe19ed11103265687a351662aab588a890ec598b4": {
+  "ok": true,
+  "entity": "Kraken",
+  "entity_tags": [
+   "Exchange: Kraken"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53490
+ },
+ "0x0908a40eb8dc56b76065a549824b5fa777ef1ed7": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52884
+ },
+ "0xb81be888587704aa77c581e01299abe3667a7897": {
+  "ok": true,
+  "entity": "CoinEx. DepositAndWithdraw_1",
+  "entity_tags": [
+   "Exchange: CoinEx. DepositAndWithdraw_1"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 54006
+ },
+ "0x92fbb21d1e72f7f7f291a38d54f28b6ca81ca15c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 54572
+ },
+ "0xdbf7122c0b7af893580df087eabac0b3be3e9483": {
+  "ok": true,
+  "entity": "Ourbit. DepositAndWithdraw_1",
+  "entity_tags": [
+   "Exchange: Ourbit. DepositAndWithdraw_1"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 54338
+ },
+ "0xd62e4abfffd6ad9a28eaa2144c6bac65c618f97a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53016
+ },
+ "0x0307b1ec99c817d68f705fdef0ed7ff88de79364": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "KyberSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54239
+ },
+ "0x537f572e9502bd2ec5d46c7ae917992cac96474f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53048
+ },
+ "0x52e868e60b37a637359a010977e4a86b63ab266c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54572
+ },
+ "0x1a6210a860191981f456a5634901c1c142cd2662": {
+  "ok": true,
+  "entity": "Binance. User",
+  "entity_tags": [
+   "Exchange: Binance. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53596
+ },
+ "0x22f171160544953b83b1f5d60bf04144d76b4275": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53043
+ },
+ "0x8c5ff004d2bc097a507082f195929c95ebf0d790": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52880
+ },
+ "0x70c69520eb6595d102bfd8aed8fc58428489c4e4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 54571
+ },
+ "0xefecfabdb4c6679c266cb0e2e0d145ef04b51674": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53479
+ },
+ "0xc4d50263c1e89b65b63c830ff93fadc957064fa4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54151
+ },
+ "0xb58b65f04db57974a88a4f9cf84344d2515a9950": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52202
+ },
+ "0xc2f2cbb68d4e5c8aacfe3b168aa415bc09bac813": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54107
+ },
+ "0x3731fef012267a5170e97b468b6f6c4cfc62ed28": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52203
+ },
+ "0xdf769057eb42b27bd7dd4c8643779f0dfe49a6a2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User",
+   "PancakeSwap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54707
+ },
+ "0x184f129c627686410b42846417e6f6a806f6ce90": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52455
+ },
+ "0x7817dbf38e9d1c95671625f0052c147864692fe0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54573
+ },
+ "0x3bc367866468d4f80096be899b66ab29d03f2717": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53013
+ },
+ "0x1dc89ab25ab5d8714fcf9ee4bd9c9a58debeb4d8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "1inch User",
+   "PancakeSwap User",
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 55081
+ },
+ "0xdaf2e40324fc0aa97d23e0cc3fbae1de1bdb7517": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52202
+ },
+ "0xd76fff4460b42ccc5d9676b2981394e9c0edb563": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52203
+ },
+ "0x3441e2189a9984a67c1c3ddfd6fc660d8293776d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52455
+ },
+ "0xa1a5abf55711f7456f8b42de068f9a990b5aed7a": {
+  "ok": true,
+  "entity": "Gate.io. User",
+  "entity_tags": [
+   "Exchange: Gate.io. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53582
+ },
+ "0xde61bc14c43e9dd3602016fac1eceb5c145f0087": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54084
+ },
+ "0x1ac3c3660d691c59a4caeda940e152ee07002cd9": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52456
+ },
+ "0x4132d406fa587039503cc7b3bb9fe3645bcc72e6": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54394
+ },
+ "0x12d2b8ac38c59758a062a9f757f2740461779439": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54828
+ },
+ "0x750ba4da2a0ed04af1fe5988c0b2406297a4a58b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Alpha User",
+   "PancakeSwap User",
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54707
+ },
+ "0x18b16f1ca1dc604d74d4a4a64496e04e96cf3204": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Velora User",
+   "1inch User",
+   "KyberSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54984
+ },
+ "0x421a57aac091a7058c3783d627828c16d8c0bd73": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52454
+ },
+ "0x10cb2d4369560afa2399116f916a5a5c5e60b1a4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52456
+ },
+ "0xc2f1bfcf9c5945237c0806bb5d702ad9e336b064": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52619
+ },
+ "0x8543ac58e0a0c0250c134c7eae4da035b2e545e6": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52455
+ },
+ "0x438b8cba87caa0757fa505acab5a6563dcd27b7e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52456
+ },
+ "0xeb81e7f422cd6802db9c37701e58775bfa465473": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53738
+ },
+ "0x7c0759c60fa792393c0c5dc20139c5fc8fff04ac": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52456
+ },
+ "0x0778c60c51e18c6e3ec794cce779e2fe17ca32e3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52470
+ },
+ "0x09396c0f70c82550431cce1a297e6890d9cf6c1d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53127
+ },
+ "0xd2580cf1e5c626fcc6d2663ecf0643501d9b898c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54398
+ },
+ "0x349c0bdc7158609ef37ad56c80525e28656d2fda": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52455
+ },
+ "0x0faeb60e1b406c2f84454f169a2512a5792e1aa8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53301
+ },
+ "0xc1b2aff52877b4a23422f554f3d240be50ec80cf": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53800
+ },
+ "0x686b066129cf83574d8c5c6bf36e80353a285775": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52461
+ },
+ "0xd97107064b8c7520aae6c6e6ca75bb2aa73b670d": {
+  "ok": true,
+  "entity": "BingX. Cold Wallet_6",
+  "entity_tags": [
+   "Exchange: BingX. Cold Wallet_6"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 54277
+ },
+ "0xd4e3a4dd5ef670c256b9affdf137a372dde479e0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53468
+ },
+ "0xf38956fcbf5a2a52750c2682630b115bbfda72f5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53983
+ },
+ "0x8c4f68b691bdc29dece2c4e569a6cff3f042676f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "KyberSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54124
+ },
+ "0x36b30e4e337fcee319b6e0055e6e6721d456da2e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54736
+ },
+ "0xfa00a9ed787f3793db668bff3e6e6e7db0f92a1b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52870
+ },
+ "0x0fe8e97a4bb830d1bcbb1b850f2c8471b5fc7750": {
+  "ok": true,
+  "entity": "Binance. User",
+  "entity_tags": [
+   "Exchange: Binance. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53571
+ },
+ "0x4e7ed91e702ef2ff0c58e251c6e20d1dc1e31a5f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53297
+ },
+ "0x6fc5e97a0a3c0b82ff866ca165e9142264aa2515": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52188
+ },
+ "0x42d794bad0300f5daef145c933aa03cfbc79af8a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54603
+ },
+ "0xf5a11b9b5210bfa9783a66aec9512013e621fe75": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Alpha User",
+   "Binance Web3 Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53931
+ },
+ "0x1c1cde1b7686765ebfa41d7b60b8131f181c2cf2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54143
+ },
+ "0x1c318b41400fa29536bcdad9c6dc8c0123b5ec0d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52167
+ },
+ "0xdd97f4464f59df7091eed87d8ac8d6111c93aca8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52866
+ },
+ "0x3a933649083f949b5174b20ca5bac16042c4c513": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 54558
+ },
+ "0x7bf196fbd75c675c219fe774650e37f545fb2d27": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53032
+ },
+ "0xa79927295642f248b60bc5fe8b4529ae02e925cb": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53787
+ },
+ "0x64152685563b3e9cec6f016b4b5240ce74e1cd79": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52196
+ },
+ "0x66afc7f4f8d2dcef77fb8f2ba3a1c78dc86809ac": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52678
+ },
+ "0xebc97d430e20d48571bbc0a0aa397b7d2726eca2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "TransitSwap User",
+   "Transit Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54095
+ },
+ "0x62f20e61a48d68d2f8621c67ac3f293f0a86cc11": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53790
+ },
+ "0xc8f4f0ff1fa6ebd9112165f3768090d243697793": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52722
+ },
+ "0xaf2c77215a21a21f399475a71cf938a790a65a6c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52379
+ },
+ "0x4cc0839c169a16bdd629f15aa229fa476e7e16c2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "1inch User"
+  ],
+  "is_contract": false,
+  "bytes": 53979
+ },
+ "0x70d751bb6a1bd8469dbce93d533099b47bf07f0b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52689
+ },
+ "0x33279e8df05fd4dcf24eccf7efbe460c8e352ce6": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Velora User",
+   "KyberSwap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55029
+ },
+ "0xab8056f941b52dcc168740d64407bfcf0ec25c82": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "TransitSwap User",
+   "Transit Swap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54955
+ },
+ "0x9faa979d868a758d9818b26f086e6338ba436cd4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53056
+ },
+ "0xbd97306a087ed0c46b783cfbfdcdc6c12c7a2866": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54147
+ },
+ "0x6ed4c081a76929a8f8871c0a687eaae0dded6a71": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53485
+ },
+ "0xf34b02843ffc7f7bb268fd4bb157a1b797ec2409": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54418
+ },
+ "0xf6b91ddc6296efecb47cdbb35bf343bb9d9ca8a4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User",
+   "Aggregated Address"
+  ],
+  "is_contract": false,
+  "bytes": 55034
+ },
+ "0x5393990bf2d83714dd1fc9fe047181abee99157e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54259
+ },
+ "0x95c62f644150b53a2bd9785b869c177c8b7c5eee": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52823
+ },
+ "0xf926ac9b3b6857682a4d44db8dd8f1e925ac1974": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52788
+ },
+ "0xdf58ab8a1911942e34ce007f612be461ef501032": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "1inch User",
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 55009
+ },
+ "0x19b1c6bf3cecf83f7dec969b1324e7f72feba816": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55077
+ },
+ "0xd3a1b6fc9a5a28eb6e30a235e946df2815ac1e4b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 54665
+ },
+ "0xd847cd02e5641ce0857d3fcf7a30c9cb5fb1abb8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Transit Swap User",
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54529
+ },
+ "0x828d5f6a19da7fc6dc50021c7ce256b1243d334c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52642
+ },
+ "0xef193c068eef36b7335b9b785b28d51e83843808": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 55215
+ },
+ "0xbfae5af11af54728c05ebcabab9590b7a8e524f6": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54093
+ },
+ "0xf13f8a1c98447b141dd6c57c9aad4bfcaca988cb": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53655
+ },
+ "0xce7b0b086328d8ba5c9d62eacdf34bf72c51218b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "1inch User"
+  ],
+  "is_contract": false,
+  "bytes": 54711
+ },
+ "0x128d3f06af882cf9b20abb72fc66a0485a56ab53": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54097
+ },
+ "0x529c0bc45c9683ff9ea18b8bec9125e21eeb8325": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52290
+ },
+ "0x8b7dfb8713ddc4d6215cdcd2d0e9182f50177e11": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52977
+ },
+ "0xb0b1177e8b32bfb9744c50f1350c6a614cc1aa77": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52983
+ },
+ "0x2d9de54c09e3c20bd800be55f528e9e820fe2c6e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54339
+ },
+ "0x25b1a9de268bb4ecf40852eff2431083c7872932": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53896
+ },
+ "0x32e279fd5acdd42e7f17a21d43251065dde298d2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53898
+ },
+ "0x1b4a427ff9ccc33f76cd939ba45fdd69acfb4054": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52202
+ },
+ "0x626dbf74114d401ba636ef21082abe3f3e907d14": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52168
+ },
+ "0x39a21f1467c901ad5b6fcbf533ff9b674181620d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 54220
+ },
+ "0x3e4399b25b31e4b2b02268da9b51aed41ca305ca": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53795
+ },
+ "0xff8571d2aa8e78b8ce7b3968c4b3115073c33f4a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54371
+ },
+ "0xa4231d9090c0643bcffa48471d9aaf5340dcdf1d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 54117
+ },
+ "0x2a70270fec0a724d9bccdf9f1d24d4319d21f728": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52699
+ },
+ "0x5948465233ccc82bacd01641a8183bd1edccc888": {
+  "ok": true,
+  "entity": "Binance. User",
+  "entity_tags": [
+   "Exchange: Binance. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53571
+ },
+ "0xc80336fb51d0372381362339200a70e2dc58c3f3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52865
+ },
+ "0x8c77fc8ce65446191da50c9b94dbd4ed9469f7c0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52179
+ },
+ "0xef036f7614ae55e698e2cece839c7bebe37bde3b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52167
+ },
+ "0x8af970f1a791545ba49635372a82cca4e9b8537a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Bitget Wallet User",
+   "Bitkeep Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54430
+ },
+ "0x2b3bf74b29f59fb8dda41cf3d6a8da28cf8e7921": {
+  "ok": true,
+  "entity": "BingX. DepositAndWithdraw_15",
+  "entity_tags": [
+   "Exchange: BingX. DepositAndWithdraw_15"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 54579
+ },
+ "0x64f69f86b9ec437abf100a93ff8c2f6b4aa84700": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52802
+ },
+ "0x9fee0028e94d04ba51f83b40654b0cd221f9314d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address"
+  ],
+  "is_contract": true,
+  "bytes": 54199
+ },
+ "0xe179dff7dc07729905c526f9d39c170a09dade09": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53300
+ },
+ "0xa3362ac82cf0f81f6a837067801112df112151b1": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54347
+ },
+ "0x120160f3eec825fa34984ba1a5891ac80f34d4a2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Transit Swap User",
+   "PancakeSwap User",
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54879
+ },
+ "0x9d160a34133c90901273d4d8f0b972c2eaf531ce": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52781
+ },
+ "0xabf48bbcb7816c4a89362537ae6719b62f8885e4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "1inch User",
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54820
+ },
+ "0x0d92e003283da805fc28c1924b49825dfbe574ce": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52433
+ },
+ "0x96667cfe592d705719a71ae656497736a99e1ed7": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address"
+  ],
+  "is_contract": true,
+  "bytes": 53867
+ },
+ "0x5897874af574d50ce88f9ca7d5a5b2f0e1dc9b20": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Bitkeep Swap User",
+   "Bitget Wallet User"
+  ],
+  "is_contract": false,
+  "bytes": 54695
+ },
+ "0x187530c02c0112a348eed5c6e4bd456540879701": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Velora User",
+   "1inch User"
+  ],
+  "is_contract": false,
+  "bytes": 54141
+ },
+ "0xd360e2f5ec3ae38a20f14d242e4e31503ac63854": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54179
+ },
+ "0x5aed655cc4ae8768d3869e1ff1067e3026c5de25": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Transit Swap User",
+   "Aggregated Address",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 55223
+ },
+ "0x5a85178fba4cde4cecb079a1bd56b26347ed3e53": {
+  "ok": true,
+  "entity": "KCEX. User",
+  "entity_tags": [
+   "Exchange: KCEX. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53799
+ },
+ "0x1da412646f0024ae6b6eb4f5218311251653e531": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52447
+ },
+ "0xce6406e309dc2681030ec1a52d58bbf33368c007": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Coinbase Swap User",
+   "PancakeSwap User",
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 55037
+ },
+ "0x1bf9ca1c6ea9f56e2773a8f99384672b534af4c2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54196
+ },
+ "0x0cdd5e7636c5117bce8c256546cc6f76dd58ef68": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53717
+ },
+ "0x5d26b4f7d08d90dd2f33e41c807710926248819e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54829
+ },
+ "0x08b590b2c0535db34a9f6fc9c4ab6f0e807ea305": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52469
+ },
+ "0x03e1a568a8e4b17173cf717ecf39f8c4bcfb94b3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Transit Swap User",
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55201
+ },
+ "0x2332e77d7c2a8009bf9d022155701a7e378e323c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53720
+ },
+ "0xc01e3d49e91164a659f6b288870e10faefe1dd9c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54690
+ },
+ "0x82596c0fc3d565bc764bddb5357b3923c62f7b74": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53722
+ },
+ "0xb4f34d09124b8c9712957b76707b42510041ecbb": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "1inch User",
+   "Binance Alpha User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55347
+ },
+ "0x7b83bb9313f692d223d8791b958f57c19a04f29e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52458
+ },
+ "0xb3eb833853b3d7b4bdad7defb1e869372a2c6767": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "AnyswapV3 User"
+  ],
+  "is_contract": false,
+  "bytes": 55006
+ },
+ "0x15c69452c916c46ad15f70bc0a1b61f058a1f545": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52433
+ },
+ "0x92e4a9aaede057b6a72a538f4c29bded621d9bab": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Transit Swap User",
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54879
+ },
+ "0xdffa87c62be2faf6962de0857e5e5c23f16a11fd": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52444
+ },
+ "0xbf1c2ed4b24fa751de700fd3e8d37dc3a2d6600f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53727
+ },
+ "0xc8df817348a37f7b2fef76e8daf1187d5c322f8e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address",
+   "TransitSwap User",
+   "Transit Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54883
+ },
+ "0x97ca0f47c3610a6366ecb8a03ac931be9cbfcb21": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52466
+ },
+ "0x102cd8a753e8d60098a240056fd9b93b82782be0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Transit Swap User",
+   "PancakeSwap User",
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55216
+ },
+ "0x4bc0b64ce07b093081e7c6acba55dbfd0247e9d7": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52433
+ },
+ "0x3a1e62cda5f15deba091bd4683e3cf5fe0465b53": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54495
+ },
+ "0xcdae81a2987dfd2148037facf72b718987c2cec3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53725
+ },
+ "0x42f08f45fa73da3614146161a209e57788eef98c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Alpha User",
+   "Binance Web3 Swap User",
+   "CoWSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55038
+ },
+ "0x6a17a6be25b2bbbd3f6dce4444ffc016aec77fc3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53732
+ },
+ "0xe4b5b2667e049ac8c79ae6c5a7e3300815aa32be": {
+  "ok": true,
+  "entity": "Binance. DepositAndWithdraw_2",
+  "entity_tags": [
+   "Exchange: Binance. DepositAndWithdraw_2"
+  ],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54460
+ },
+ "0x960532c95eee54303c3b2166e09fd6528f586376": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52184
+ },
+ "0x1fd858bcdd2d8e138d5ecf612191fa80957f8d0f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Metamask Swap User",
+   "AnyswapV3 User"
+  ],
+  "is_contract": false,
+  "bytes": 54873
+ },
+ "0x0d6f42feefe63a991c07da1922701afe3ff15931": {
+  "ok": true,
+  "entity": "Binance. User",
+  "entity_tags": [
+   "Exchange: Binance. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53890
+ },
+ "0xdb697136defe5ab2ba99e5053265e7033e916bec": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54594
+ },
+ "0x6ef83b10a4c302f8ba03b13fe318cdb205580101": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54269
+ },
+ "0x222e0de5cfa2f4d5095aeb5490434c81b21b5b7f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53798
+ },
+ "0x63662d5243caf8c4e5b5f23adedfc941324ef757": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53971
+ },
+ "0x0a129f7f77d249005d9d2fc6f9f719d492f09d35": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 53933
+ },
+ "0xbf38182ff42ced2cbefdac3f9414216aa05b9b85": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53641
+ },
+ "0xb7ac7c97c7232a0b25c699457686e65991c34b60": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54266
+ },
+ "0xd21c9edca5920fda33f6666d04e26b8a3224fad3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54230
+ },
+ "0x5d72dcefea8ba4324b5714e3641dbc693ae5a2e5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Alpha User",
+   "Binance Web3 Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53930
+ },
+ "0xb0976d173a8c7543b9d6860ff13491989ae5c649": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53967
+ },
+ "0x0db9e145385905fac7c003c011550adbf9e33e0c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53028
+ },
+ "0x95bfc34fb53beb9935d1f45ef7c5a9fb0a2a7efa": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52168
+ },
+ "0x70f08a434d3d2a445b38facfc4cb8ba8d5de8c2a": {
+  "ok": true,
+  "entity": "Binance. User",
+  "entity_tags": [
+   "Exchange: Binance. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 54078
+ },
+ "0x31ee5082b031f132d0587ce8e4e5d3a92295db28": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53644
+ },
+ "0x2d539ba0a66d45696664600bc6300c58b25a6322": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User",
+   "AnyswapV3 User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55760
+ },
+ "0x62d660b0548c15215c1f4aa207ba77544afedd9d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54146
+ },
+ "0x79ad858cdff50ca6728d2531894001f221e805c7": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52866
+ },
+ "0xcce630e81dd71b588aa8fca96e1b42ff33b990c0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "TransitSwap User",
+   "Transit Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54243
+ },
+ "0x1e0c040fa234d98e745c65a6b654aacd2748dde5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "1inch User"
+  ],
+  "is_contract": false,
+  "bytes": 53940
+ },
+ "0xcacacf5bbf8dc3a4f4ef6c0c508d056127f3643c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54390
+ },
+ "0xb33b22bbe467d894105f0ef6a41b25af8468b62d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52682
+ },
+ "0xf59d6564135ac866cb6d82a9aad262e6e12cb703": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User",
+   "Bitget Wallet User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55764
+ },
+ "0x046fc67eae586a8b6fd8f7841f8b129e59c5304d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Transit Swap User",
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53919
+ },
+ "0x94422840d89955887b7a3c03ded278608dcef8af": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "1inch User"
+  ],
+  "is_contract": false,
+  "bytes": 54271
+ },
+ "0xd9498ca02e6b0bf16eca27778b6d5f60f2acf80e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Transit Swap User",
+   "PancakeSwap User",
+   "Aggregated Address"
+  ],
+  "is_contract": false,
+  "bytes": 54777
+ },
+ "0xb4bac7f24580072afc33b2b8c1c5918c88dfe9e0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address"
+  ],
+  "is_contract": true,
+  "bytes": 53430
+ },
+ "0x83edaf5f8b03d85e518c5e92f97d953d6f8313ac": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52661
+ },
+ "0x47a2f6abeb37039b0d68b00dc6717a7b0306c649": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "1inch User",
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 53885
+ },
+ "0x35ca5d389e45b88cb257634dd161d232e40b2952": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User"
+  ],
+  "is_contract": true,
+  "bytes": 54110
+ },
+ "0xab08924e2318e1d541c8628c5498b86ece9d064a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52695
+ },
+ "0x3e21bcfc686cca32c7177e916006b5733661d771": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54748
+ },
+ "0x75a46a38f89b2d1da66af79cb0884b15632aa950": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 51996
+ },
+ "0x429c858ab1e7c809eb1efae511c6600c3eb4380c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53618
+ },
+ "0xcd101a07625676df71a397c1a5f03a279b0df59d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 51996
+ },
+ "0x13af4f72d4980770607de8be73cc9cab32a4d3ec": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52533
+ },
+ "0xaf83866ba8b8689202e5744d04c7512dd9250e5a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 51996
+ },
+ "0x2a541a94a010a6a672295e9e7185ccff1d84d2b5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52030
+ },
+ "0x4055b47fe269971e4bc52511351edf206089456b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Transit Swap User",
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53739
+ },
+ "0xbe96eb0e1f6a3bdc47c4000f76d9c6d20214fd1f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52681
+ },
+ "0x2729bd85ea6f2be8358dfae5af086c7b236c87a7": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52215
+ },
+ "0xcd6b980029e6e6e0733ac8ec3e02be9410d09799": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Alpha User",
+   "1inch User",
+   "KyberSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55085
+ },
+ "0x658467a8debea31b0bf2b104990d98aac3d4605a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Alpha User",
+   "CoWSwap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54766
+ },
+ "0xe2bf60dc3c6cba3d12aac9ca81f0ddf96d7b9567": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address"
+  ],
+  "is_contract": true,
+  "bytes": 53430
+ },
+ "0xcafd1f21d8c00668dffa1ac2793cd1edb0705aae": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52031
+ },
+ "0x495deb5ccac188aa656b21f7ec143de7131dae57": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52180
+ },
+ "0x6abc8af60700d862f172f8da1faa30ea54104c3d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Web3 Swap User",
+   "Binance Alpha User"
+  ],
+  "is_contract": false,
+  "bytes": 54277
+ },
+ "0x5ff509334055b61db218676186464b32d86067f4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Transit Swap User",
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54626
+ },
+ "0x2a370e503a7c18e7b97d1a8453964e9b1612b512": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "KyberSwap User",
+   "1inch User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54748
+ },
+ "0x39f9f65b6557c3a263da11776fd975e029cae432": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Transit Swap User",
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54256
+ },
+ "0x34e566d71479abd273238f8dd371108fb4708609": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52545
+ },
+ "0xd5da6d43b07895da42263e21066d3920f3958967": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52532
+ },
+ "0x17622a3ee97eb5da765808291ff4c4a60ef8e983": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52180
+ },
+ "0xcae214dcc97572152a667d7c9c06b39d7790efea": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Binance Alpha User",
+   "Uniswap User"
+  ],
+  "is_contract": false,
+  "bytes": 55099
+ },
+ "0x6cd6aed5bff867d399472f47dc8ffd5f2430be4b": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User",
+   "Binance Web3 Swap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55114
+ },
+ "0xcb6911c3485ae2d0a5ad9b992029b303f26aaa1f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "KyberSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53914
+ },
+ "0x4c1079f1c260da4444a002aaabcecc7fdc2b2b73": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53042
+ },
+ "0xf03f6342aa41f31bb3242b069f0e0e2b1ccf4cdb": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address"
+  ],
+  "is_contract": true,
+  "bytes": 54276
+ },
+ "0x24438255531ad0aaea82037203369710d18959a9": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53464
+ },
+ "0x6e2d1bc70c90f97f2f688de02359657c2782f012": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "TransitSwap User",
+   "PancakeSwap User",
+   "Transit Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54626
+ },
+ "0xdef21d6ddf5b25219b8a43106c763f1a5f7e2a22": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52205
+ },
+ "0xfaade562ac885766e91c67e73078bca63869a799": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52180
+ },
+ "0x84cfacdb80dc532fb8a32b34214fba47f355b497": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52455
+ },
+ "0x1de2bf760a4f1c7f241594c6aa6304c7607bbd8d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address"
+  ],
+  "is_contract": false,
+  "bytes": 53661
+ },
+ "0xd1dd3a8d05b10df3c048a462c4fd6201690861b9": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53646
+ },
+ "0x4e9639dee2520f533848264e864af6f1296f4d31": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52878
+ },
+ "0xa624f46a6b0da60cb383383e1e65dd1d1ea8fcfb": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "TransitSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53485
+ },
+ "0x706c7c9a438bba8d64ff4d1acc716fdc4759307e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address"
+  ],
+  "is_contract": true,
+  "bytes": 53442
+ },
+ "0x03e2890a1398a604a2dc4233dc6a76195efe2722": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53804
+ },
+ "0xf3982b6c71db3368ae6d4c656cabe121b0d15a98": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52007
+ },
+ "0x6a686319a5f95f4e9de21163fc5b8d5d8566d26e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53308
+ },
+ "0x69898590b3ae74f0954d88de729fb83be2216fad": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53313
+ },
+ "0xe39ef0a10225d728cd8b8217ac676d0e9cc4bdca": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53485
+ },
+ "0xd5eb63d2cf884b011ac4f4f27b7428d1f2454cb3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53636
+ },
+ "0x44ffba370ad7e71774c13e0ac9cba4c7372d6308": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "CoWSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53738
+ },
+ "0xd2da0af1670007224e9c2f0758f8fac3b4905740": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53739
+ },
+ "0x231e2a205b21c9f470045d29314e108b13454143": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address"
+  ],
+  "is_contract": true,
+  "bytes": 53442
+ },
+ "0x346cbfcfe670f6bd858a5374f1013b987482336a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User",
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53754
+ },
+ "0x4b71a2be904443eddaf1470a0fc19d8c306d57c0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52224
+ },
+ "0x2ada4df628b935dfe067660066d900d7b7bba2d8": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 53303
+ },
+ "0x6596b13a37d771f7607b7418914ad210eeac0f64": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Aggregated Address"
+  ],
+  "is_contract": false,
+  "bytes": 53905
+ },
+ "0x9ceeeff89208ba8a481a1f41b42bcf0535caa1c9": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52035
+ }
+}

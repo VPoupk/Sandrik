@@ -1,0 +1,60 @@
+{
+ "elapsed_months": 11.563731931668856,
+ "as_of": "2026-08-08",
+ "rows": [
+  {
+   "name": "Community (3 Nodes pools)",
+   "alloc": 31500000000.0,
+   "cliff": 0,
+   "linear": 48,
+   "tge": 0.0208,
+   "withdrawn": 30846800000.0,
+   "vested": 8086054139.290406
+  },
+  {
+   "name": "Strategic Investors",
+   "alloc": 25000000000.0,
+   "cliff": 3,
+   "linear": 24,
+   "tge": 0.0,
+   "withdrawn": 10632900000.0,
+   "vested": 8931504599.211563
+  },
+  {
+   "name": "Early Contributors (Team)",
+   "alloc": 15000000000.0,
+   "cliff": 6,
+   "linear": 42,
+   "tge": 0.0,
+   "withdrawn": 2000000000.0,
+   "vested": 1994556035.291909
+  },
+  {
+   "name": "Advisors",
+   "alloc": 5000000000.0,
+   "cliff": 6,
+   "linear": 42,
+   "tge": 0.0,
+   "withdrawn": 3858600000.0,
+   "vested": 664852011.7639697
+  },
+  {
+   "name": "KOLs & services",
+   "alloc": 1700000000.0,
+   "cliff": 0,
+   "linear": 6,
+   "tge": 0.2,
+   "withdrawn": 1626100000.0,
+   "vested": 1700000000.0
+  },
+  {
+   "name": "Community Airdrop",
+   "alloc": 1000000000.0,
+   "cliff": 0,
+   "linear": 0,
+   "tge": 1.0,
+   "withdrawn": 972100000.0,
+   "vested": 1000000000.0
+  }
+ ]
+}

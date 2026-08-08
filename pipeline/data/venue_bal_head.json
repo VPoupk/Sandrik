@@ -1,0 +1,207 @@
+{
+ "0x73d8bd54f7cf5fab43fe4ef40a62d390644946db": {
+  "name": "Binance. Hot Wallet_4",
+  "group": "binance",
+  "bal": "4255443266385465082943809979"
+ },
+ "0x6aba0315493b7e6989041c91181337b662fb1b90": {
+  "name": "Binance Wallet",
+  "group": "binance",
+  "bal": "0"
+ },
+ "0xb300000b72deaeb607a12d5f54773d1c19c7028d": {
+  "name": "Binance Wallet",
+  "group": "binance",
+  "bal": "0"
+ },
+ "0x0d0707963952f2fba59dd06f2b425ace40b492fe": {
+  "name": "Gate.io. DepositAndWithdraw_1",
+  "group": "cex",
+  "bal": "289894857131599723022739585"
+ },
+ "0xc882b111a75c0c657fc507c04fbfcd2cc984f071": {
+  "name": "Gate.io. Cold Wallet_1",
+  "group": "cex",
+  "bal": "909469241752251589298615792"
+ },
+ "0x53f78a071d04224b8e254e243fffc6d9f2f3fa23": {
+  "name": "KuCoin. DepositAndWithdraw_3",
+  "group": "cex",
+  "bal": "250821225875287635298922683"
+ },
+ "0x4982085c9e2f89f2ecb8131eca71afad896e89cb": {
+  "name": "MEXC. DepositAndWithdraw_4",
+  "group": "cex",
+  "bal": "164460090010719119883232939"
+ },
+ "0x317b31c2458e4593ba32d2692a330efcc19c2935": {
+  "name": "Kraken. DepositAndWithdraw_6",
+  "group": "cex",
+  "bal": "291164374565563439508318442"
+ },
+ "0x8782163068c7cd74d2510768a61135c1e4eb07b3": {
+  "name": "Gate.io",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0xb8e6d31e7b212b2b7250ee9c26c56cebbfbe6b23": {
+  "name": "KuCoin. Cold Wallet_2",
+  "group": "cex",
+  "bal": "3316860000000000000000"
+ },
+ "0xe19ed11103265687a351662aab588a890ec598b4": {
+  "name": "Kraken",
+  "group": "cex",
+  "bal": "10613604160000000000000000"
+ },
+ "0xb81be888587704aa77c581e01299abe3667a7897": {
+  "name": "CoinEx. DepositAndWithdraw_1",
+  "group": "cex",
+  "bal": "8501294584395123707179531"
+ },
+ "0xdbf7122c0b7af893580df087eabac0b3be3e9483": {
+  "name": "Ourbit. DepositAndWithdraw_1",
+  "group": "cex",
+  "bal": "8109412130723185575777302"
+ },
+ "0xd97107064b8c7520aae6c6e6ca75bb2aa73b670d": {
+  "name": "BingX. Cold Wallet_6",
+  "group": "cex",
+  "bal": "1614524438891100040000000"
+ },
+ "0x2b3bf74b29f59fb8dda41cf3d6a8da28cf8e7921": {
+  "name": "BingX. DepositAndWithdraw_15",
+  "group": "cex",
+  "bal": "504631039999999960000000"
+ },
+ "0xe4b5b2667e049ac8c79ae6c5a7e3300815aa32be": {
+  "name": "Binance. DepositAndWithdraw_2",
+  "group": "binance",
+  "bal": "159134968001665611346979"
+ },
+ "0x8dac80ce96f69f9762bc450faa4d7fbd5891ae18": {
+  "name": "KuCoin. Cold Wallet_6",
+  "group": "cex",
+  "bal": "7851185929977086038365366"
+ },
+ "0x035ae7d933dcbfe617ffba194a88af0c2867b90c": {
+  "name": "Gate.io",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0x17a30350771d02409046a683b18fe1c13ccfc4a8": {
+  "name": "KuCoin. Hot Wallet_1",
+  "group": "cex",
+  "bal": "145991980230000000000000000"
+ },
+ "0xcded3bb9d2dc98f6e4e772095b48051acfb84df9": {
+  "name": "KuCoin. Withdraw_3",
+  "group": "cex",
+  "bal": "20903231949948190000000000"
+ },
+ "0x69be413d648ae00f0fbd9856f1355e22b36ee5e0": {
+  "name": "KuCoin. Cold Wallet_7",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0x7dafba1d69f6c01ae7567ffd7b046ca03b706f83": {
+  "name": "Kraken. Cold Wallet_3",
+  "group": "cex",
+  "bal": "236055067100000000000000000"
+ },
+ "0xdd04f596569b09bb967ab9f20cdc1b7bc7495afd": {
+  "name": "Gate.io",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0x124d9bf2fecbc16b54ec4accdb14d44c2144f012": {
+  "name": "LBank. DepositAndWithdraw_7",
+  "group": "cex",
+  "bal": "7643411916079289770263350"
+ },
+ "0xcc282e2004428939ee5149a9e7872f0b4d5d5ec7": {
+  "name": "Kraken",
+  "group": "cex",
+  "bal": "69637431140000000000000000"
+ },
+ "0x88649f4743a758171077b98ee2003f1989b1615a": {
+  "name": "Binance Wallet",
+  "group": "binance",
+  "bal": "0"
+ },
+ "0x32e3e876aa0c1732ed9efcf9d8615de7afaef59f": {
+  "name": "CoinEx. DepositAndWithdraw_4",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0x8894e0a0c962cb723c1976a4421c95949be2d4e3": {
+  "name": "Binance. DepositAndWithdraw_1",
+  "group": "binance",
+  "bal": "105000000000000000000"
+ },
+ "0x515b72ed8a97f42c568d6a143232775018f133c8": {
+  "name": "Binance. Withdraw_59",
+  "group": "binance",
+  "bal": "5000000000000000000"
+ },
+ "0xdccf3b77da55107280bd850ea519df3705d1a75a": {
+  "name": "Binance. Withdraw_73",
+  "group": "binance",
+  "bal": "0"
+ },
+ "0xbd612a3f30dca67bf60a39fd0d35e39b7ab80774": {
+  "name": "Binance. Withdraw_72",
+  "group": "binance",
+  "bal": "5000000000000000000"
+ },
+ "0x01c952174c24e1210d26961d456a77a39e1f0bb0": {
+  "name": "Binance. Withdraw_48",
+  "group": "binance",
+  "bal": "0"
+ },
+ "0xf977814e90da44bfa03b6295a0616a897441acec": {
+  "name": "Binance. Cold Wallet_7",
+  "group": "binance",
+  "bal": "0"
+ },
+ "0xeb2d2f1b8c558a40207669291fda468e50c8a0bb": {
+  "name": "Binance. Withdraw_75",
+  "group": "binance",
+  "bal": "5000000000000000000"
+ },
+ "0x631fc1ea2270e98fbd9d92658ece0f5a269aa161": {
+  "name": "Binance. Deposit_2",
+  "group": "binance",
+  "bal": "0"
+ },
+ "0x635308e731a878741bfec299e67f5fd28c7553d9": {
+  "name": "KuCoin. DepositAndWithdraw_5",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0xf5988713400da6fc8a58ec9515e2b0df9b40b115": {
+  "name": "OKX. DepositAndWithdraw_173",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0x7c0629bbbaf7d68ffaa393e3fedc9b633679fa5f": {
+  "name": "OKX. Hot Wallet_30",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0x559432e18b281731c054cd703d4b49872be4ed53": {
+  "name": "OKX. Hot Wallet_243",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0x6cc5f688a315f3dc28a7781717a9a798a59fda7b": {
+  "name": "OKX",
+  "group": "cex",
+  "bal": "0"
+ },
+ "0x3b5a23f6207d87b423c6789d2625ea620423b32d": {
+  "name": "OKX. DepositAndWithdraw_1",
+  "group": "cex",
+  "bal": "0"
+ }
+}

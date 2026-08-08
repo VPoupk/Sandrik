@@ -1,0 +1,23 @@
+{
+ "0x38128fb355745a7a09db72a808acf496a9f72b65": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52757
+ },
+ "0x3c783c21a0383057d128bae431894a5c19f9cf06": {
+  "ok": true,
+  "entity": "Binance. Withdraw_70",
+  "entity_tags": [
+   "Exchange: Binance. Withdraw_70"
+  ],
+  "property_tags": [
+   "AnyswapV3 User",
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 55833
+ }
+}

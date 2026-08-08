@@ -1,0 +1,150 @@
+{
+ "0x28e2ea090877bf75740558f6bfb36a5ffee9e9df": {
+  "name": "Uniswap",
+  "bal": "2290051934248429879406799"
+ },
+ "0x9999b0cdd35d7f3b281ba02efc0d228486940515": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0x7a7ad9aa93cd0a2d0255326e5fb145cec14997ff": {
+  "name": "OKX Labs Aggregator",
+  "bal": "0"
+ },
+ "0xdd3d3c05a672b8a1112e158cd2fc6f577c2b6e1f": {
+  "name": "OKX DEX",
+  "bal": "0"
+ },
+ "0xf4d8bdcd871db9e77f93259b7d288b9c71f2931d": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0x62ccef0b4545166f721caa9fee13c1d3767e27dc": {
+  "name": "OKX DEX",
+  "bal": "0"
+ },
+ "0x46a15b0b27311cedf172ab29e4f4766fbe7f4364": {
+  "name": "PancakeSwap V3",
+  "bal": "0"
+ },
+ "0x3156020dff8d99af1ddc523ebdfb1ad2018554a0": {
+  "name": "OKX DEX. DexRouter",
+  "bal": "0"
+ },
+ "0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f": {
+  "name": "Relay",
+  "bal": "0"
+ },
+ "0x3fe7b866182aab8c805769747663b3046541c4d6": {
+  "name": "PancakeSwap",
+  "bal": "1591441732950558418931"
+ },
+ "0x29ed0a2f22a92ff84a7f196785ca6b0d21aeec62": {
+  "name": "Magpie Protocol",
+  "bal": "0"
+ },
+ "0x3087b907c07089a74047d5a841cd306466eeeae0": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0x9c71dc4b91e6bcbbe0c2f4faf712ad7d4998ac52": {
+  "name": "PancakeSwap",
+  "bal": "2461064639039719800568"
+ },
+ "0xa50c4fe8c8a0a47872c378c11cf7f6ea1780ff7b": {
+  "name": "PancakeSwap",
+  "bal": "557"
+ },
+ "0xd36b6d646ac6e23672e9eedec558164c7f2d6deb": {
+  "name": "ROX",
+  "bal": "0"
+ },
+ "0xe65f1199abfb99cb1b46704195a4ca47c8342572": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0x31d6ea082acc3d4e377528a721ac5c4b891726fb": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0x2480faeb931272cd1f7375d8f4c104a4db5fff63": {
+  "name": "PancakeSwap V4",
+  "bal": "0"
+ },
+ "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae": {
+  "name": "Jumper Exchange",
+  "bal": "0"
+ },
+ "0xc2eff1f1ce35d395408a34ad881dbcd978f40b89": {
+  "name": "0x",
+  "bal": "0"
+ },
+ "0x07964f135f276412b3182a3b2407b8dd45000000": {
+  "name": "Transit Swap",
+  "bal": "18403547220586967693685"
+ },
+ "0x593980c50a2b838a706d124881085635bc39f97e": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0x9008d19f58aabd9ed0d60971565aa8510560ab41": {
+  "name": "CoW Swap",
+  "bal": "202984494547728406955"
+ },
+ "0xc590175e458b83680867afd273527ff58f74c02b": {
+  "name": "MetaMask Swaps",
+  "bal": "0"
+ },
+ "0x5260f8edb4c383cd69ceb8afc042e290c1ff490a": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0x25af352f4490cb40f12bd5a881bdd99838cc9c14": {
+  "name": "PancakeSwap",
+  "bal": "722"
+ },
+ "0x1906c1d672b88cd1b9ac7593301ca990f94eae07": {
+  "name": "Uniswap",
+  "bal": "0"
+ },
+ "0x238a358808379702088667322f80ac48bad5e6c4": {
+  "name": "PancakeSwap. Vault",
+  "bal": "55626698060517432115306"
+ },
+ "0x4b1b2ea60cc20a171cb7eed8fe0de988f79651d2": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0xd9c500dff816a1da21a48a732d3498bf09dc9aeb": {
+  "name": "PancakeSwap. UniversalRouter",
+  "bal": "0"
+ },
+ "0xa6137adcc2f98567e607fbac2289834e5ef9db1b": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0x3d90f66b534dd8482b181e24655a9e8265316be9": {
+  "name": "PancakeSwap",
+  "bal": "0"
+ },
+ "0x337685fdab40d39bd02028545a4ffa7d287cc3e2": {
+  "name": "Mayan",
+  "bal": "0"
+ },
+ "0x33d285926c0d6b35bdf61d04cc77de60ce0bd5db": {
+  "name": "OKX DEX",
+  "bal": "0"
+ },
+ "0x23fd4fa6e5b76284238af5ae5a20e26abf05eede": {
+  "name": "PancakeSwap",
+  "bal": "1"
+ },
+ "0xedfc4481f53447f2ea4c1db24cf906a6c7cb0782": {
+  "name": "Revert",
+  "bal": "0"
+ },
+ "0x653dd7677aea3030eab68c97ed3594bacf560158": {
+  "name": "Unlabelled Alpha-side contract",
+  "bal": "0"
+ }
+}

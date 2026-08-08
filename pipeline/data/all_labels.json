@@ -1,0 +1,831 @@
+{
+ "0x4d3bf29ba30f8bfe4624e7678709afa195689c5d": {
+  "ok": true,
+  "entity": "PancakeSwap V3. LP(AKE/WBNB)",
+  "entity_tags": [
+   "Derivatives: PancakeSwap V3. LP(AKE/WBNB)"
+  ],
+  "property_tags": [
+   "Pool"
+  ],
+  "is_contract": true,
+  "bytes": 54455
+ },
+ "0x73d8bd54f7cf5fab43fe4ef40a62d390644946db": {
+  "ok": true,
+  "entity": "Binance. Hot Wallet_4",
+  "entity_tags": [
+   "Exchange: Binance. Hot Wallet_4"
+  ],
+  "property_tags": [
+   "CoWSwap User"
+  ],
+  "is_contract": true,
+  "bytes": 55163
+ },
+ "0x6aba0315493b7e6989041c91181337b662fb1b90": {
+  "ok": true,
+  "entity": "Binance Wallet",
+  "entity_tags": [
+   "Wallets: Binance Wallet"
+  ],
+  "property_tags": [
+   "CoWSwap User",
+   "Router"
+  ],
+  "is_contract": true,
+  "bytes": 55591
+ },
+ "0xb300000b72deaeb607a12d5f54773d1c19c7028d": {
+  "ok": true,
+  "entity": "Binance Wallet",
+  "entity_tags": [
+   "Wallets: Binance Wallet"
+  ],
+  "property_tags": [
+   "Router"
+  ],
+  "is_contract": true,
+  "bytes": 55867
+ },
+ "0x0d0707963952f2fba59dd06f2b425ace40b492fe": {
+  "ok": true,
+  "entity": "Gate.io. DepositAndWithdraw_1",
+  "entity_tags": [
+   "Exchange: Gate.io. DepositAndWithdraw_1"
+  ],
+  "property_tags": [
+   "AnyswapV3 User"
+  ],
+  "is_contract": false,
+  "bytes": 55049
+ },
+ "0x28e2ea090877bf75740558f6bfb36a5ffee9e9df": {
+  "ok": true,
+  "entity": "Uniswap",
+  "entity_tags": [
+   "DEX: Uniswap"
+  ],
+  "property_tags": [
+   "Factory"
+  ],
+  "is_contract": true,
+  "bytes": 55041
+ },
+ "0xb3e17d2ebbd710be53ecd8e8727337a8dd792811": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53030
+ },
+ "0x278d858f05b94576c1e6f73285886876ff6ef8d2": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53302
+ },
+ "0x9999b0cdd35d7f3b281ba02efc0d228486940515": {
+  "ok": true,
+  "entity": "PancakeSwap",
+  "entity_tags": [
+   "Derivatives: PancakeSwap"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 54359
+ },
+ "0x0501f595d17dd90ff11a9873692ee3f8d478f4e5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52332
+ },
+ "0xbd97306a087ed0c46b783cfbfdcdc6c12c7a2866": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54135
+ },
+ "0x7a7ad9aa93cd0a2d0255326e5fb145cec14997ff": {
+  "ok": true,
+  "entity": "OKX Labs Aggregator",
+  "entity_tags": [
+   "DeFi: OKX Labs Aggregator"
+  ],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53992
+ },
+ "0xc882b111a75c0c657fc507c04fbfcd2cc984f071": {
+  "ok": true,
+  "entity": "Gate.io. Cold Wallet_1",
+  "entity_tags": [
+   "Exchange: Gate.io. Cold Wallet_1"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53627
+ },
+ "0x53f78a071d04224b8e254e243fffc6d9f2f3fa23": {
+  "ok": true,
+  "entity": "KuCoin. DepositAndWithdraw_3",
+  "entity_tags": [
+   "Exchange: KuCoin. DepositAndWithdraw_3"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 54592
+ },
+ "0x83fcd80d7973cca1aa821590bbec66d27a2d4ad4": {
+  "ok": true,
+  "entity": "Uniswap. LP(AKE/USDT)",
+  "entity_tags": [
+   "DEX: Uniswap. LP(AKE/USDT)"
+  ],
+  "property_tags": [
+   "Pool"
+  ],
+  "is_contract": true,
+  "bytes": 54466
+ },
+ "0x833753f3980c61c5b8f49ad07275b173bca52714": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52189
+ },
+ "0xdd3d3c05a672b8a1112e158cd2fc6f577c2b6e1f": {
+  "ok": true,
+  "entity": "OKX DEX",
+  "entity_tags": [
+   "DEX: OKX DEX"
+  ],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53638
+ },
+ "0xc806a99c11d0419129773ebfeb826dfd773ee7cd": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53031
+ },
+ "0x4923d960f84d89e72c78daf82015b519aaafe994": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53036
+ },
+ "0xb40b35fe21be75f6e5c0b7dabab1ec87d87a1395": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52532
+ },
+ "0x000000000a01ea06f8b3a01319bbaa2cb2453a3c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52332
+ },
+ "0x7817dbf38e9d1c95671625f0052c147864692fe0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Uniswap User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54566
+ },
+ "0x982385d229082d390d4fb942d28eb728e8f42c33": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52825
+ },
+ "0xd49ef7def42f4633cd55cb874e016a570ea99f04": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Binance Alpha User",
+   "Binance Web3 Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54758
+ },
+ "0x4e7ed91e702ef2ff0c58e251c6e20d1dc1e31a5f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53033
+ },
+ "0x4a4915a02ebfd6e05132ff9f622646d157b719bb": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53019
+ },
+ "0x4982085c9e2f89f2ecb8131eca71afad896e89cb": {
+  "ok": true,
+  "entity": "MEXC. DepositAndWithdraw_4",
+  "entity_tags": [
+   "Exchange: MEXC. DepositAndWithdraw_4"
+  ],
+  "property_tags": [
+   "Metamask Swap User"
+  ],
+  "is_contract": false,
+  "bytes": 54769
+ },
+ "0xb0fc0fa8dd14a7a728d19de04407e3d09c195b60": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52825
+ },
+ "0xcb6fbeeb12546d9ba6590be28973e12425f4d06d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52190
+ },
+ "0x653dd7677aea3030eab68c97ed3594bacf560158": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52332
+ },
+ "0x2ad99fcfe69248561bf5f0eb788af5217afaaa29": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53524
+ },
+ "0xf4d8bdcd871db9e77f93259b7d288b9c71f2931d": {
+  "ok": true,
+  "entity": "PancakeSwap",
+  "entity_tags": [
+   "Derivatives: PancakeSwap"
+  ],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 54176
+ },
+ "0x6449b24d8dad7cef8ece12d7d5c8d0e0ef355a48": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52031
+ },
+ "0x208633b825abf7b0c2a1ccea7dbdfc37d0d5a325": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52864
+ },
+ "0x62ccef0b4545166f721caa9fee13c1d3767e27dc": {
+  "ok": true,
+  "entity": "OKX DEX",
+  "entity_tags": [
+   "DEX: OKX DEX"
+  ],
+  "property_tags": [
+   "Router"
+  ],
+  "is_contract": true,
+  "bytes": 53907
+ },
+ "0xe73b5aec494cbc76bbd79af4e01ae7da32584370": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52683
+ },
+ "0xe179dff7dc07729905c526f9d39c170a09dade09": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52863
+ },
+ "0xb50de384e012a5f0fd80c4ce85bb6e679256f25c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52029
+ },
+ "0x27333bd8c321a263b0565e69eea3b736b9d1f42c": {
+  "ok": true,
+  "entity": "AKEDO",
+  "entity_tags": [
+   "DeFi: AKEDO"
+  ],
+  "property_tags": [
+   "Pool"
+  ],
+  "is_contract": true,
+  "bytes": 53906
+ },
+ "0x9d1aae9cd3db793fb00dc8d768b517953722a96d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52193
+ },
+ "0x57fd714755dbe55798501e1b4b2bcc355c06bf6a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User"
+  ],
+  "is_contract": true,
+  "bytes": 54780
+ },
+ "0xc58102fd6ebf241d845ece964131aed8dc4968ac": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52525
+ },
+ "0x7cd7a04d3730df6e49e1edacb6ded8a1fef5d856": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52020
+ },
+ "0xaf66503770451c83a4f12a1146a32271893508ce": {
+  "ok": true,
+  "entity": "AKEDO",
+  "entity_tags": [
+   "DeFi: AKEDO"
+  ],
+  "property_tags": [
+   "Pool"
+  ],
+  "is_contract": true,
+  "bytes": 53907
+ },
+ "0x317b31c2458e4593ba32d2692a330efcc19c2935": {
+  "ok": true,
+  "entity": "Kraken. DepositAndWithdraw_6",
+  "entity_tags": [
+   "Exchange: Kraken. DepositAndWithdraw_6"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53485
+ },
+ "0x60b97709d633dd4e0f0f44f6102fd50341c0afa6": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "CoWSwap User"
+  ],
+  "is_contract": true,
+  "bytes": 54118
+ },
+ "0x561beec8614eaa3038f03bce7cb4f72b3d271d8e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52508
+ },
+ "0xf23abe615b96badcf5e46d390d0697d433986aa4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52202
+ },
+ "0xffc3bfa2a01ed2b0a644ff5e7555f384353887cb": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52203
+ },
+ "0xaf2c77215a21a21f399475a71cf938a790a65a6c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52378
+ },
+ "0xd5da17a84314194e348649c89a65143a061f7190": {
+  "ok": true,
+  "entity": "Gate.io. User",
+  "entity_tags": [
+   "Exchange: Gate.io. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53580
+ },
+ "0x8782163068c7cd74d2510768a61135c1e4eb07b3": {
+  "ok": true,
+  "entity": "Gate.io",
+  "entity_tags": [
+   "Exchange: Gate.io"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53558
+ },
+ "0x4b7d0e43a9bff643633372cc73ab6977c21ef38d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52551
+ },
+ "0xed63bc63c2a9a296dc82e0f849bd6a41b2168c79": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52352
+ },
+ "0xb7c7786b6ca1130584f005e9c86554114b7fad62": {
+  "ok": true,
+  "entity": "AKEDO",
+  "entity_tags": [
+   "DeFi: AKEDO"
+  ],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53669
+ },
+ "0x0a960739374ffb06772a4bb0d1ef96c5a8ae8e17": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52846
+ },
+ "0x055a3b37957bfbd3345bed9968e7e8dd56d67066": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "Bitkeep Swap User",
+   "Velora User",
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 55101
+ },
+ "0xd2f72669e560c7ecd3c681612963990ef6f1981b": {
+  "ok": true,
+  "entity": "AKEDO",
+  "entity_tags": [
+   "DeFi: AKEDO"
+  ],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53669
+ },
+ "0x85401508c777321eed3018390408ad0ab2e087e5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52550
+ },
+ "0x7aa852b62ece614caa9673a9fcde62729becce55": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52199
+ },
+ "0x57bdb6b8ee3e755b4df96cc127d97ca5f48ca775": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52203
+ },
+ "0x8c8b5293795d643d982dcbafc905d0645e9f8efb": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53049
+ },
+ "0x301218ba005e6eacf0d9433337483eca789c7617": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52202
+ },
+ "0x84eece394a096cd80f6e3386012ed5708440f844": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53048
+ },
+ "0x3bc367866468d4f80096be899b66ab29d03f2717": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53014
+ },
+ "0x46a15b0b27311cedf172ab29e4f4766fbe7f4364": {
+  "ok": true,
+  "entity": "PancakeSwap V3",
+  "entity_tags": [
+   "DEX: PancakeSwap V3"
+  ],
+  "property_tags": [
+   "LpToken"
+  ],
+  "is_contract": true,
+  "bytes": 55006
+ },
+ "0xba6ffb31cca9dbbc29a028f236346ab43bc4c985": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 53816
+ },
+ "0xfd543380531b2d4ca4b8d41577e4c48f5d34d5f1": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52214
+ },
+ "0x73b4c818892283e5fc37fee7b91ff7245b236d3c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53044
+ },
+ "0x553579830923d293250179b1fa1ce6e2d90d57c4": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52180
+ },
+ "0x75f838dbf3be0a79d6e5904ab5c364d5418a5f66": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52343
+ },
+ "0x59c26d4ae5b89a5b5844011fee22dd41c0a50cfa": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52546
+ },
+ "0x33ab2b0c6908e472cb9f5b04e6d2a1e7e9220b4a": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52007
+ },
+ "0xced8fbabce46b205d911445eb93820fd8502a359": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53021
+ },
+ "0x81d38c2b48bbad46b64cab22f67099206a913788": {
+  "ok": true,
+  "entity": "Gate.io. User",
+  "entity_tags": [
+   "Exchange: Gate.io. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53581
+ },
+ "0x025315786d51cdfae43a4e830c6fe6fd0eb34737": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52040
+ },
+ "0xb891cc3b4271e85644c4e871e16c650ecc71d5b0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 53046
+ },
+ "0xb7697d225fa34bf1ebd3413adfa1c35b1be74729": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52172
+ },
+ "0x58e1885adc33d07b1afc16f11463163a1a28cced": {
+  "ok": true,
+  "entity": "Kraken. User",
+  "entity_tags": [
+   "Exchange: Kraken. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53591
+ },
+ "0x4c1079f1c260da4444a002aaabcecc7fdc2b2b73": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52871
+ },
+ "0xb94be7297f31e92110c143dd7190ad5dd93f354e": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52839
+ },
+ "0xb8210c25df20921538ea35729badc3e0a63520f1": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52365
+ },
+ "0x031942f26a094be40414f442a2f1295e3a5c1680": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52877
+ },
+ "0x46378bc53ab5db6388a5ea02cb466eaff5bfe6b0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 52872
+ },
+ "0xcbab2b1b10654590ad63e9a6a699023c1fdb8fff": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52456
+ },
+ "0xa074027a3bb55b6f01989e20202f532894d7d97c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52030
+ },
+ "0x7476c568d6fc88a7ad6944a6f9fb1b5d725a58e1": {
+  "ok": true,
+  "entity": "Gate.io. User",
+  "entity_tags": [
+   "Exchange: Gate.io. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53409
+ },
+ "0x9021069ce6842ac73d824941f841810e7d73f4c5": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52456
+ },
+ "0x3156020dff8d99af1ddc523ebdfb1ad2018554a0": {
+  "ok": true,
+  "entity": "OKX DEX. DexRouter",
+  "entity_tags": [
+   "DEX: OKX DEX. DexRouter"
+  ],
+  "property_tags": [
+   "Router"
+  ],
+  "is_contract": true,
+  "bytes": 54386
+ },
+ "0xb8e6d31e7b212b2b7250ee9c26c56cebbfbe6b23": {
+  "ok": true,
+  "entity": "KuCoin. Cold Wallet_2",
+  "entity_tags": [
+   "Exchange: KuCoin. Cold Wallet_2"
+  ],
+  "property_tags": [],
+  "is_contract": true,
+  "bytes": 54288
+ },
+ "0x6cfcfbdb420269994e957e131e591d2e3415bacc": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52432
+ }
+}
