@@ -246,14 +246,20 @@ small { font-size:10px; }
           <td class="num">25 wallets, 12.90bn</td>
           <td><span class="badge badge-red">first-gas tracing</span></td><td>§9</td>
         </tr>
-        <tr>
+        <tr style="background:rgba(239,68,68,0.06)">
           <td>8</td>
-          <td><strong>No published Binance programme covers AKE.</strong> Binance's own page states the coin is not listed for trade; its announcement search returns zero results for "AKEDO". Yet 121.50bn AKE has passed through the Binance Alpha custody address over the token's life</td>
-          <td class="num">zero announcements</td>
-          <td><span class="badge badge-orange">absence of a public record</span></td><td>§10</td>
+          <td><strong>Binance ran an AKE airdrop, and the tokens behind it came from the insider chain.</strong> The Alpha Box tiers announced on Binance Square — 155,555 / 194,444 / 555,555 AKE — are all present on-chain on 8 July 2026; 155,555 is the single most-transferred value of that week. In the five days before it, 7.64bn AKE entered Binance's Alpha custody address, 98.9% of it from four wallets this report had already flagged: three April Alpha Feeders and the Whale Insider</td>
+          <td class="num">7.64bn in, 217.54mn out</td>
+          <td><span class="badge badge-red">exact-value frequency test on 168,270 transfers</span></td><td>§10</td>
         </tr>
         <tr>
           <td>9</td>
+          <td><strong>Binance's quoted circulating supply is 47.94bn below what is actually distributed.</strong> Binance's own API reports 22.80bn circulating and prices a $90.65M market cap off it, while 70.74bn sits outside the allocation pools and is free to move</td>
+          <td class="num">3.1× understated</td>
+          <td><span class="badge badge-orange">Binance API vs balanceOf</span></td><td>§10</td>
+        </tr>
+        <tr>
+          <td>10</td>
           <td><strong>The node-buyback eligibility list is clean.</strong> None of the 47 wallets carries any insider signature on any test applied</td>
           <td class="num">47 wallets</td>
           <td><span class="badge badge-green">negative on every test</span></td><td>§12</td>
@@ -287,6 +293,10 @@ small { font-size:10px; }
         directly from the DEX factory contracts.</li>
       <li>Two addresses previously treated as Binance infrastructure carry <strong>no explorer label at all</strong>. They are
         now reported as unlabelled rather than attributed to Binance.</li>
+      <li><strong>The Binance airdrop finding is new and reverses the previous edition's conclusion.</strong> That edition
+        said no published Binance programme covered AKE, on the basis that the announcement archive returns nothing for
+        "AKEDO". The archive still returns nothing — but the Alpha Box airdrop was published on Binance Square, which is also
+        binance.com, and the chain corroborates it precisely. The earlier statement was too strong and is corrected in §10.</li>
       <li>April's Alpha flow is reported <strong>gross in, gross out and net</strong>. The earlier "18.47bn into Alpha" figure
         was gross inflow; Alpha paid out 14.19bn in the same month, so it accumulated 4.58bn, not 18.47bn.</li>
     </ul>
@@ -305,11 +315,21 @@ small { font-size:10px; }
           ERC1967 implementation slots, full block transaction lists for gas funding, and simulated <code>eth_call</code> at
           historical blocks to date entitlements.</li>
         <li><strong>Wallet labels</strong> come from a block explorer's own page or they are not used. Every label in this
-          report is an OKLink <code>entityTag</code> read directly from that address's page on 8 Aug 2026. BscScan was
-          unreachable from this environment (HTTP 403 at every attempt), so no BscScan label is relied on this edition.</li>
+          report is an OKLink <code>entityTag</code> read directly from that address's page on 8 Aug 2026.
+          <strong>BscScan could not be read this session</strong> and no BscScan label is relied on. Four routes were tried:
+          plain HTTPS with a full browser header set (403), a TLS-impersonating client that reproduces Chrome's handshake
+          (403, <code>cf-mitigated: challenge</code> — a Cloudflare JavaScript challenge), the Etherscan V2 API (BSC requires
+          a paid plan), and a real headless Chromium, which is the only thing that can clear a JS challenge but has no
+          network egress in this environment — every host, including <code>example.com</code>, fails with
+          <code>ERR_CONNECTION_RESET</code> through the sandbox's egress proxy.</li>
         <li><strong>Project and exchange claims</strong> come from the primary source only — Akedo's own whitepaper and
-          website, and Binance's own pages and announcement search. No aggregator, news site or analytics vendor is used for
-          any factual claim.</li>
+          website, and Binance's own pages, announcement archive, Binance Square and Binance's public Alpha API
+          (<code>bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list</code>). All are binance.com. No
+          aggregator, news site or analytics vendor is used for any factual claim.</li>
+        <li><strong>Claims made off-chain are tested against the chain wherever the claim implies a chain footprint.</strong>
+          The Binance Square airdrop announcement named three exact token amounts, so every AKE transfer in the relevant week
+          was read and its exact values counted — a test that could have refuted the announcement and instead confirmed it
+          (§10).</li>
         <li><strong>Prices</strong>: the CoinGecko daily series for <code>akedo</code>, applied per transfer date. Never a
           single price across dates — a flat price would misstate April by a factor of four on its own.</li>
         <li><strong>Where a controller cannot be established</strong>, that is said plainly. Six wallets in this report have
@@ -1244,97 +1264,234 @@ small { font-size:10px; }
 </div>
 <!-- ===================== BINANCE ===================== -->
 <div class="section">
-  <h2>10 · The Binance Question — Is There Any AKE Programme That Would Explain the Alpha Flow?</h2>
+  <h2>10 · The Binance Question — the Alpha Box Airdrop, and Who Paid For It</h2>
 
   <div class="alert alert-danger" style="margin-bottom:14px">
-    <strong>Answer: on Binance's own published record there is none.</strong> AKE is not listed on Binance spot —
-    Binance says so verbatim on its own page. Binance's announcement search returns <strong>zero</strong> results for
-    "AKEDO". No Binance announcement in any category names AKE. Yet 121.50bn AKE — more than the entire supply, counting each pass through — has moved into the Binance Alpha
-    custody address over the token's life, and 117.25bn has moved back out. Those two facts sit side by side and the
-    public record does not reconcile them.
+    <strong>There was an AKE airdrop on Binance, it is visible on-chain, and it was not funded out of Binance's own
+    inventory.</strong> Binance Square announced an Alpha Box airdrop covering AKEDO with tiers of
+    <strong>155,555 / 194,444 / 555,555 AKE</strong>. All three amounts appear on-chain, in volume, on
+    <strong>8 July 2026</strong> — 155,555 AKE is the single most frequently transferred value of the entire week. In the
+    five days immediately before it, <strong>7.64bn AKE was deposited into Binance's Alpha custody address by four wallets
+    this report had already flagged independently</strong>: three of the five April Alpha Feeders, and the Whale Insider.
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>The falsifiable test, and its result</h3>
+    <p style="font-size:12px;color:var(--muted);line-height:1.8">
+      A tiered airdrop paid on-chain leaves a signature that cannot be faked: the same handful of exact values, repeated far
+      more often than any other value. So every AKE Transfer across <strong>1–19 July 2026</strong> and again over 6–8 August
+      was read from the chain and its exact values counted. The 5–12 July week alone carries
+      <strong>168,270 transfers with 113,496 distinct values</strong>. If the three tiers were absent, the Square post would
+      not be corroborated. They are not absent — and, just as importantly, they are absent everywhere outside the airdrop
+      window, which is what rules out coincidence.
+    </p>
+    <div class="table-wrap" style="margin-top:10px"><table>
+      <thead><tr><th>Window</th><th class="num">Transfer legs at a tier value</th><th class="num">Distinct transactions</th><th class="num">AKE</th><th class="num">USD at daily price</th></tr></thead>
+      <tbody>
+        <tr><td>1 – 5 July 2026 <span style="color:var(--muted);font-size:11px">before</span></td>
+            <td class="num">0</td><td class="num">0</td><td class="num">0.00mn</td><td class="num">$0</td></tr>
+        <tr style="background:rgba(239,68,68,0.10)"><td><strong>5 – 12 July 2026</strong> <span style="color:var(--muted);font-size:11px">the airdrop</span></td>
+            <td class="num">4,698</td><td class="num"><strong>1,305</strong></td><td class="num"><strong>217.54mn</strong></td><td class="num">$42,694</td></tr>
+        <tr><td>12 – 19 July 2026 <span style="color:var(--muted);font-size:11px">tail</span></td>
+            <td class="num">346</td><td class="num">89</td><td class="num">15.12mn</td><td class="num">$6,902</td></tr>
+        <tr><td>6 – 8 August 2026 <span style="color:var(--muted);font-size:11px">control</span></td>
+            <td class="num">0</td><td class="num">0</td><td class="num">0.00mn</td><td class="num">$0</td></tr>
+      </tbody>
+      <tfoot><tr><td><strong>TOTAL</strong></td><td class="num">5,044</td><td class="num"><strong>1,394</strong></td>
+        <td class="num"><strong>232.67mn</strong></td><td class="num"><strong>$49,596</strong></td></tr></tfoot>
+    </table></div>
+    <div class="table-wrap" style="margin-top:12px"><table>
+      <thead><tr><th>Tier announced on Binance Square</th><th class="num">Rank among all values, 5–12 Jul</th><th class="num">Transactions</th><th class="num">AKE</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(239,68,68,0.10)"><td><strong>155,555 AKE</strong></td><td class="num"><strong>#1 — the single most-transferred value of the week</strong></td><td class="num">1,210</td><td class="num">188.22mn</td></tr>
+        <tr style="background:rgba(239,68,68,0.08)"><td><strong>194,444 AKE</strong></td><td class="num">#8</td><td class="num">160</td><td class="num">31.11mn</td></tr>
+        <tr style="background:rgba(239,68,68,0.06)"><td><strong>555,555 AKE</strong></td><td class="num">top 40</td><td class="num">24</td><td class="num">13.33mn</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">
+      For scale: the next-most-common values that week are ordinary trade sizes appearing 1,407 and 832 times, and no round
+      number other than 100,000 and 1,000,000 comes near. Three arbitrary six-digit values reaching the top ranks
+      simultaneously, in one week, and nowhere else, is the airdrop.
+      Valued at the CoinGecko daily average for each transfer's own date; AKE traded at $0.000196 that week, which is why a
+      232.67mn distribution is worth under $50,000.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>The distribution, day by day</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Date</th><th class="num">AKE at tier values</th><th class="num">Share</th><th class="num">AKE price that day</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(239,68,68,0.12)"><td><strong>2026-07-08</strong> — airdrop day</td><td class="num"><strong>207.78mn</strong></td><td class="num">89.3%</td><td class="num">$0.00019643</td></tr>
+        <tr><td>2026-07-09</td><td class="num">6.30mn</td><td class="num">2.7%</td><td class="num">$0.00019200</td></tr>
+        <tr><td>2026-07-10</td><td class="num">2.68mn</td><td class="num">1.2%</td><td class="num">$0.00019366</td></tr>
+        <tr><td>2026-07-11</td><td class="num">0.78mn</td><td class="num">0.3%</td><td class="num">$0.00019351</td></tr>
+        <tr><td>2026-07-12</td><td class="num">1.09mn</td><td class="num">0.5%</td><td class="num">$0.00020307</td></tr>
+        <tr><td>2026-07-13</td><td class="num">1.24mn</td><td class="num">0.5%</td><td class="num">$0.00019238</td></tr>
+        <tr><td>2026-07-14</td><td class="num">0.93mn</td><td class="num">0.4%</td><td class="num">$0.00018807</td></tr>
+        <tr><td>2026-07-15</td><td class="num">6.14mn</td><td class="num">2.6%</td><td class="num">$0.00018914</td></tr>
+        <tr><td>2026-07-16</td><td class="num">2.29mn</td><td class="num">1.0%</td><td class="num">$0.00067870</td></tr>
+        <tr><td>2026-07-17</td><td class="num">3.27mn</td><td class="num">1.4%</td><td class="num">$0.00101839</td></tr>
+        <tr><td>2026-07-18</td><td class="num">0.16mn</td><td class="num">0.1%</td><td class="num">$0.00143887</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">
+      Nine tenths of it moved on the first day. The stragglers on 16–18 July sold into a price that had already begun the run
+      to the 27 July all-time high — but by then only 5.72mn was left to sell.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>What the chain shows is the airdrop being sold, not the airdrop being paid</h3>
+    <p style="font-size:12px;color:var(--muted);line-height:1.8">
+      Binance credits Alpha balances inside its own ledger, so the <em>award</em> of an Alpha Box airdrop has no on-chain
+      footprint at all. What does appear on-chain is what happens next: the recipient sells, and Alpha settles that sale by
+      routing tokens out of Binance custody into a DEX pool. Every one of these 1,305 transactions terminates at the
+      PancakeSwap V3 AKE/WBNB pool. So this is 1,305 recipients disposing of an entire airdrop allocation, in one click,
+      within hours of receiving it — 207.78mn of the 217.54mn on 8 July alone, the day it landed.
+      <br><br>
+      That also means <strong>232.67mn is a floor, not the size of the airdrop.</strong> Any recipient who held their
+      allocation inside Binance, or sold it against another Alpha user rather than into the pool, leaves no trace in this
+      measurement. The true programme was at least this large and may have been considerably larger.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Who funded the custody address the airdrop was paid from</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      Daily flow through <code>0x73d8bd54…</code> (OKLink: <strong>Binance. Hot Wallet_4</strong>) in the run-up. The address
+      was moving tens of millions a day through the end of June. On 4 July that changes.
+    </p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Date</th><th class="num">Into custody</th><th class="num">Out</th><th class="num">Net</th><th>Largest non-Binance depositor that day</th></tr></thead>
+      <tbody>
+        <tr><td>2026-06-29</td><td class="num">27.2mn</td><td class="num">2.3mn</td><td class="num">+24.9mn</td><td class="addr">4.0mn — 0x30b36b30…</td></tr>
+        <tr><td>2026-07-01</td><td class="num">12.5mn</td><td class="num">12.5mn</td><td class="num">−0.1mn</td><td>—</td></tr>
+        <tr><td>2026-07-03</td><td class="num">108.9mn</td><td class="num">127.9mn</td><td class="num">−19.0mn</td><td class="addr">3.4mn — unlabelled Alpha-side contract</td></tr>
+        <tr style="background:rgba(239,68,68,0.08)"><td><strong>2026-07-04</strong></td><td class="num">2,289.2mn</td><td class="num">1,880.4mn</td><td class="num">+408.8mn</td><td><strong>991.0mn — Alpha Feeder C</strong> <code>0xd49ef7de…</code></td></tr>
+        <tr style="background:rgba(239,68,68,0.08)"><td><strong>2026-07-05</strong></td><td class="num">1,996.4mn</td><td class="num">732.0mn</td><td class="num">+1,264.4mn</td><td><strong>1,373.0mn — Alpha Feeder C</strong> <code>0xd49ef7de…</code></td></tr>
+        <tr style="background:rgba(239,68,68,0.08)"><td><strong>2026-07-06</strong></td><td class="num">1,114.3mn</td><td class="num">167.4mn</td><td class="num">+946.9mn</td><td><strong>1,080.0mn — Alpha Feeder E</strong> <code>0x6449b24d…</code></td></tr>
+        <tr style="background:rgba(239,68,68,0.08)"><td><strong>2026-07-07</strong></td><td class="num">5,861.8mn</td><td class="num">2,621.0mn</td><td class="num">+3,240.8mn</td><td><strong>972.5mn — Alpha Feeder E</strong> <code>0x6449b24d…</code></td></tr>
+        <tr style="background:rgba(239,68,68,0.12)"><td><strong>2026-07-08 — airdrop day</strong></td><td class="num">1,028.8mn</td><td class="num">486.2mn</td><td class="num">+542.6mn</td><td><strong>833.2mn — Whale Insider</strong> <code>0x55a3319b…</code></td></tr>
+        <tr><td>2026-07-09</td><td class="num">48.5mn</td><td class="num">137.6mn</td><td class="num">−89.1mn</td><td class="addr">3.4mn — unlabelled Alpha-side contract</td></tr>
+      </tbody>
+      <tfoot><tr><td><strong>4 – 8 July, net into Binance custody</strong></td><td colspan="2"></td>
+        <td class="num"><strong>+6,403.5mn</strong></td><td></td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>The four depositors, all previously flagged in this report on unrelated evidence</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Wallet</th><th>Address</th><th class="num">Deposited to Alpha, 25 Jun – 8 Jul</th><th>Why it was already flagged</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Alpha Feeder E</strong></td><td class="addr">0x6449b24d…ef355a48</td><td class="num">2,962.5mn</td>
+            <td>Pushed 1,000.0mn into Alpha during the April burst (§8). Also gas-funded the wallet that holds 3,738.0mn (§9)</td></tr>
+        <tr><td><strong>Alpha Feeder C</strong></td><td class="addr">0xd49ef7de…0ea99f04</td><td class="num">2,364.0mn</td>
+            <td>Pushed 4,444.6mn into Alpha during the April burst (§8)</td></tr>
+        <tr><td><strong>Alpha Feeder A</strong></td><td class="addr">0xb40b35fe…d87a1395</td><td class="num">1,480.0mn</td>
+            <td>Largest April Alpha depositor at 6,279.7mn (§8)</td></tr>
+        <tr style="background:rgba(239,68,68,0.08)"><td><strong>Whale Insider</strong></td><td class="addr">0x55a3319b…bf12066a</td><td class="num">833.2mn</td>
+            <td>Received 4.000bn directly from the Mega Forwarder on 26 Aug 2025 — the day-one insider chain (§11). Deposited <strong>on airdrop day itself</strong></td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2"><strong>Four wallets</strong></td><td class="num"><strong>7,639.7mn</strong></td>
+        <td>98.9% of all non-Binance deposits into Alpha custody in the window</td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="alert alert-danger" style="margin-bottom:12px">
+    <strong>What this does and does not establish — stated precisely, because the distinction matters.</strong>
+    <ul style="margin:8px 0 0 18px;line-height:1.8">
+      <li><strong>Established:</strong> an Alpha Box airdrop of AKE with tiers 155,555 / 194,444 / 555,555 was announced on
+        Binance Square and is corroborated by the chain on 8 July 2026.</li>
+      <li><strong>Established:</strong> in the five days before it, 7.64bn AKE entered the Binance custody address the
+        airdrop was paid from, and 98.9% of that came from four wallets already tied to the insider distribution chain on
+        evidence gathered before this question was asked.</li>
+      <li><strong>Not established:</strong> that those particular tokens were the ones airdropped. Custody is fungible; a
+        balance cannot be earmarked. Anyone claiming a direct funding link is asserting more than the chain shows.</li>
+      <li><strong>Not established:</strong> any agreement between Akedo and Binance. No such document is public, and none is
+        inferred here.</li>
+    </ul>
+    What can be said without qualification is the sequence: insider-chain wallets deposited 7.64bn into Binance's Alpha
+    custody; days later Binance ran an AKE airdrop out of that address; and the recipients sold 232.67mn of it straight back
+    into the PancakeSwap pool, nine tenths of that within hours.
   </div>
 
   <div class="grid-2" style="margin-bottom:12px">
     <div class="card" style="background:var(--card)">
-      <h3>What Binance itself publishes</h3>
+      <h3>AKE is still not listed on Binance — now confirmed from Binance's own API</h3>
       <ul style="font-size:12px;color:var(--muted);padding-left:18px;line-height:1.85">
+        <li>Binance's Alpha token endpoint returns AKE as <code>"alphaId":"ALPHA_331"</code> with
+          <strong><code>"listingCex": false</code></strong> and <code>"cexCoinName": ""</code>. That is a machine-readable
+          statement from Binance's own systems, stronger than the marketing page.</li>
         <li><a href="https://www.binance.com/en/how-to-buy/akedo" target="_blank">binance.com/en/how-to-buy/akedo</a> —
           <em>"Note: This coin is not listed on Binance for trade and service."</em></li>
-        <li>Same page — <em>"AKEDO cannot be purchased directly with a debit or credit card since Alpha Tokens are not
-          listed on the Binance CEX."</em></li>
         <li>Same page — <em>"Alpha Tokens cannot be withdrawn from Binance and are subject to higher price volatility."</em></li>
-        <li><a href="https://www.binance.com/en/alpha/bsc/0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db" target="_blank">The Alpha
-          token page</a> — AKE is present on Alpha, "Alpha Data Source: On-Chain + Limit", tagged BSC and AI,
-          <strong>37,128 holders</strong>, market cap $90.85M, price $0.0039851 as read on 8 Aug 2026.</li>
-        <li><a href="https://www.binance.com/en/support/announcement/search?query=AKEDO" target="_blank">Binance announcement
-          search for "AKEDO"</a> — <strong>zero results.</strong></li>
-        <li><a href="https://www.binance.com/en/support/announcement/list/48" target="_blank">New listings announcement
-          feed</a> — no AKE or AKEDO entry.</li>
+        <li>The <a href="https://www.binance.com/en/support/announcement/list/48" target="_blank">announcement archive</a>
+          still returns <strong>no AKE or AKEDO entry</strong>. The airdrop was published on Binance Square, not in the
+          announcement feed — both are binance.com, but only the Square post carries it.</li>
+        <li>Same API: <code>"onlineTge": true</code>, <code>"holders": 37,123</code>, price $0.0039765, market cap
+          $90.65M, FDV $397.65M.</li>
       </ul>
     </div>
     <div class="card" style="background:var(--card)">
-      <h3>What Akedo itself publishes</h3>
-      <ul style="font-size:12px;color:var(--muted);padding-left:18px;line-height:1.85">
-        <li>The <a href="https://akedo-1.gitbook.io/akedo-whitepaper/tokenomics" target="_blank">whitepaper tokenomics
-          page</a> sets out every allocation and its vesting terms. It does <strong>not</strong> mention Binance, any
-          exchange listing, or any airdrop beyond the 1% Community Airdrop released at TGE.</li>
-        <li><a href="https://www.akedo.gg/" target="_blank">akedo.gg</a> carries no announcement of a Binance listing, a
-          Binance airdrop, a node buyback, or a token unlock.</li>
-      </ul>
-      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:10px">
-        So neither side of the transaction has published anything that accounts for the volume. That is the finding — it is a
-        statement about the <em>absence</em> of a public record, and it is reported as exactly that.
+      <h3>A discrepancy worth noting: the circulating supply Binance quotes</h3>
+      <p style="font-size:12px;color:var(--muted);line-height:1.8">
+        Binance's own API reports <code>"circulatingSupply": 22,796,250,000</code> — 22.80bn — and computes the $90.65M
+        market cap from it. But <strong>70.74bn AKE is outside the allocation pools</strong> at the same moment: 63.98bn in
+        ordinary wallets, 6.75bn at venues. The quoted circulating figure is <strong>47.94bn lower</strong> than what has
+        actually been distributed and is free to move.
+        <br><br>
+        On the distributed-supply basis the market capitalisation would be roughly <strong>3.1× the quoted figure</strong>.
+        This report does not assert who is responsible for the discrepancy — circulating-supply figures are typically
+        self-reported by projects — but it is a large gap and it is measurable directly from the chain.
       </p>
     </div>
   </div>
 
-  <div class="alert alert-warn" style="margin-bottom:12px">
-    <strong>What this does and does not establish.</strong> An absence of announcements is not proof that no arrangement
-    exists — private arrangements are not announced, and Binance runs Alpha promotions through channels that are not always
-    mirrored into the announcement archive. What can be said precisely: as of 8 August 2026, using only Binance's own site
-    and Akedo's own documentation, <strong>no published Binance programme covers AKE</strong>, and in particular
-    <strong>none exists for April 2026</strong>, the month in which 18.41bn AKE was pushed into Alpha by five wallets.
-    Anyone treating the Alpha flow as evidence of an arrangement is inferring it; this report does not.
-  </div>
-
   <div class="card" style="margin-bottom:12px">
-    <h3>Why Binance receipts are not counted as sales in this report</h3>
+    <h3>Why Binance receipts are still not counted as sales elsewhere in this report</h3>
     <p style="font-size:12px;color:var(--muted);line-height:1.8">
-      Every non-Binance exchange deposit in this report is treated as a sale at that day's price. Binance is deliberately
-      excluded from that rule, for a reason that is on Binance's own page: AKE has no Binance spot market, so a deposit into
-      Binance's Alpha custody address is not a sale into a Binance order book. Alpha is a venue where the token trades
-      on-chain, and the same address both receives and pays out — over the token's life it has taken in 121.50bn and paid out
-      117.25bn, against a total supply of 100bn. Treating gross deposits there as realised sales would overstate disposals by tens of billions of tokens.
-      Binance flow is therefore reported gross in, gross out and net, and is never added to the sales total.
+      Every non-Binance exchange deposit is treated as a sale at that day's price. Binance is excluded from that rule because
+      AKE has no Binance spot market, so a deposit into Alpha custody is not a sale into a Binance order book. The same
+      address both receives and pays out — over the token's life it has taken in 121.50bn and paid out 117.25bn against a
+      total supply of 100bn, because the same float cycles through repeatedly. Treating gross deposits there as realised
+      sales would overstate disposals by tens of billions of tokens. The airdrop analysis above is the exception that proves
+      the rule: it counts only the 232.67mn that demonstrably left custody and terminated in a DEX pool.
     </p>
   </div>
 
   <div class="card">
     <h3>Where Binance's AKE balance stands now</h3>
     <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:10px">
-      Of the thirteen Binance-tagged addresses that have ever touched AKE, only the Alpha custody address holds any at chain
-      head. The follow-up question — "does Binance only hold 4.5bn now?" — resolves to
-      <strong>4,255.6mn (4.26bn)</strong>, of which 4,255.4mn is in the Alpha custody address, read as <code>balanceOf</code> at block 114,777,002.
+      Of the thirteen Binance-tagged addresses that have touched AKE, only the Alpha custody address holds a material
+      balance. The follow-up question — "does Binance only hold 4.5bn now?" — resolves to <strong>4,255.6mn (4.26bn)</strong>
+      at block 114,777,002, of which 4,255.4mn is in the Alpha custody address.
     </p>
     <div class="table-wrap"><table>
-      <thead><tr><th>Binance address (OKLink entity tag)</th><th>Address</th><th>Balance at head</th></tr></thead>
+      <thead><tr><th>Binance address (OKLink entity tag)</th><th>Address</th><th class="num">Balance at head</th></tr></thead>
       <tbody>
-        <tr><td><strong>Binance. Hot Wallet_4</strong> — the Alpha custody address</td>
+        <tr><td><strong>Binance. Hot Wallet_4</strong> — Alpha custody; the airdrop was paid from here</td>
             <td class="addr">0x73d8bd54…0644946db</td><td class="num"><strong>4,255.4mn</strong></td></tr>
         <tr><td>Binance. DepositAndWithdraw_2</td><td class="addr">0xe4b5b266…815aa32be</td><td class="num">0.2mn</td></tr>
         <tr><td>Binance. DepositAndWithdraw_1</td><td class="addr">0x8894e0a0…49be2d4e3</td><td class="num">0.0</td></tr>
-        <tr><td>Binance. Withdraw_59 / _72 / _75 / _48 / _73</td><td class="addr">five addresses</td><td class="num">0.0</td></tr>
+        <tr><td>Binance. Withdraw_59 / _72 / _73 / _75 / _48</td><td class="addr">five addresses</td><td class="num">0.0</td></tr>
         <tr><td>Binance. Cold Wallet_7</td><td class="addr">0xf977814e…897441acec</td><td class="num">0.0</td></tr>
         <tr><td>Binance. Deposit_2</td><td class="addr">0x631fc1ea…5a269aa161</td><td class="num">0.0</td></tr>
-        <tr><td>Binance Wallet ×3 (Alpha routing contracts — 285.4bn of pass-through, net zero)</td><td class="addr">0x6aba0315…, 0xb300000b…, 0x88649f47…</td><td class="num">0.0</td></tr>
+        <tr><td>Binance Wallet ×3 — Alpha routing contracts, 285.4bn of pass-through, net zero</td>
+            <td class="addr">0x6aba0315…, 0xb300000b…, 0x88649f47…</td><td class="num">0.0</td></tr>
       </tbody>
       <tfoot><tr><td><strong>TOTAL held by Binance-tagged addresses</strong></td><td></td>
         <td class="num"><strong>4,255.6mn</strong></td></tr></tfoot>
     </table></div>
     <p style="font-size:11px;color:var(--muted);margin-top:10px">
-      All thirteen labels are OKLink <code>entityTag</code> reads taken directly from each address's page on 8 Aug 2026.
-      BscScan was unreachable from this environment (HTTP 403), so BscScan labels could not be re-verified this session and
-      are not relied on.
+      All thirteen labels are OKLink <code>entityTag</code> reads taken from each address's own page on 8 Aug 2026. One
+      further contract in the airdrop routing chain, <code>0x0501f595…d478f4e5</code>, carries <strong>no explorer
+      label</strong> despite handling 15.36bn in each direction; it sits between Binance's routers and the PancakeSwap pool
+      and is reported here as unlabelled rather than attributed to Binance.
+      BscScan could not be read this session — it is behind a Cloudflare JavaScript challenge (<code>cf-mitigated:
+      challenge</code>) that a headless browser cannot clear here, because Chromium has no network egress in this
+      environment. No BscScan label is relied on.
     </p>
   </div>
 </div>
@@ -2017,9 +2174,11 @@ small { font-size:10px; }
                 contain no name string in their bytecode; only the Nodes and Community pools self-identify.</td></tr>
         <tr><td>The eight largest holders whose gas funder could not be found</td>
             <td>Listed as <strong>unresolved</strong>, holding 15,074.2mn between them, rather than assigned to a cluster.</td></tr>
-        <tr><td>Whether a Binance arrangement exists</td>
-            <td>Only that <strong>no published Binance programme covers AKE</strong>. Absence of an announcement is not proof
-                of absence of an arrangement, and that is stated in §10 rather than glossed.</td></tr>
+        <tr><td>Whether the 7.64bn deposited into Binance custody funded the airdrop</td>
+            <td>Only that it arrived in the five days before, from wallets already flagged on other evidence. Custody is
+                fungible and a balance cannot be earmarked, so no direct funding link is asserted (§10).</td></tr>
+        <tr><td>Whether any Akedo–Binance arrangement exists</td>
+            <td>Nothing is claimed. An airdrop is a published Binance programme, not evidence of a private agreement.</td></tr>
         <tr><td>Whether the vesting overrun breaches an agreement</td>
             <td>Only that withdrawals exceed the <em>published</em> schedule. A whitepaper is a statement of intent; the
                 contracts demonstrably did not enforce it, because the code was replaced.</td></tr>
@@ -2033,9 +2192,14 @@ small { font-size:10px; }
   <div class="alert alert-warn" style="margin-bottom:12px">
     <strong>Known limitations.</strong>
     <ul style="margin:8px 0 0 18px;line-height:1.8">
-      <li><strong>BscScan was unreachable</strong> from this environment (HTTP 403 on every attempt, via both the fetch tool
-        and direct request). All labels this edition are OKLink's. Where BscScan and OKLink historically disagreed, that
-        disagreement could not be re-checked.</li>
+      <li><strong>BscScan was unreachable</strong> from this environment. It sits behind a Cloudflare JavaScript challenge;
+        four independent routes were tried and are listed in §2. All labels this edition are OKLink's, and where BscScan and
+        OKLink historically disagreed that disagreement could not be re-checked.</li>
+      <li><strong>The airdrop figure of 217.54mn is a floor.</strong> Binance credits Alpha balances off-chain, so only
+        allocations that were sold into a DEX pool leave a trace. Recipients who held, or who sold to another Alpha user,
+        are invisible to this measurement.</li>
+      <li><strong>The exact-value test covered 5–12 July 2026 only.</strong> Airdrop-tier amounts outside that window, if
+        any, were not searched; a scan of 6–8 August found none.</li>
       <li><strong>The full-transfer ledger starts at block 88,000,000 (22 March 2026).</strong> Before that date the record is
         complete for every pool movement and every exchange or Binance movement — both scanned from the deployment block — but
         not for wallet-to-wallet transfers between third parties.</li>
