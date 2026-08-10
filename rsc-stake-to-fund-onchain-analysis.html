@@ -94,7 +94,7 @@ a{color:var(--accent)}
   <div class="meta">
     Prepared 2026-08-02 · Chain state as of ETH block 25,668,253 / Base block 49,448,864<br>
     Primary sources: Ethereum &amp; Base JSON-RPC (archive), Blockscout explorer APIs, CoinGecko daily reference prices<br>
-    Prices: CoinGecko daily USD close for <code>researchcoin</code>, applied at each transfer’s UTC date
+    Prices: CoinGecko <strong>hourly</strong> USD series for <code>researchcoin</code>, matched to each transfer’s exact block timestamp (worst-case gap 23 min)
   </div>
 </header>
 
@@ -105,12 +105,12 @@ a{color:var(--accent)}
   <div class="card hi">
     <div class="lab">Total ever staked</div>
     <div class="val">21.97M RSC</div>
-    <div class="note">$1,846,213 valued at each deposit date<br>19 deposits, both chains</div>
+    <div class="note">$1,824,823 valued at each deposit date<br>19 deposits, both chains</div>
   </div>
   <div class="card">
     <div class="lab">Since Apr 10 launch</div>
     <div class="val">21.52M RSC</div>
-    <div class="note">$1,804,943 at deposit dates</div>
+    <div class="note">$1,783,458 at deposit dates</div>
   </div>
   <div class="card">
     <div class="lab">Ever withdrawn</div>
@@ -120,7 +120,7 @@ a{color:var(--accent)}
   <div class="card">
     <div class="lab">Insider-sourced share</div>
     <div class="val">90.7%</div>
-    <div class="note">19.93M RSC / $1,649,563 traced to the TGE mint, the treasuries, or multisig signers<br>
+    <div class="note">19.93M RSC / $1,629,244 traced to the TGE mint, the treasuries, or multisig signers<br>
     <span class="tag t-neu">rev. 2</span> was 87.8% before TGE tracing</div>
   </div>
 </div>
@@ -334,37 +334,57 @@ balances here are an internal ledger rather than a contract position.</p>
 <!-- ============================================ -->
 <h2>5. The complete deposit ledger</h2>
 
-<p>All 19 deposits, both chains, valued at the CoinGecko daily USD close for the date of the transfer. This
-reconciles exactly to the vault’s current balances on both chains (18,642,533.65 + 3,323,117.53).</p>
+<p>All 19 deposits, both chains, each valued at <strong>the CoinGecko price for its own transfer hour</strong>, not
+at a blended or per-day rate. The RSC column reconciles exactly to the vault’s current balances on both chains
+(18,642,533.65 + 3,323,117.53).</p>
+
+<div class="callout">
+  <div class="h">Pricing method — and why it was tightened</div>
+  <p>The first version of this table used CoinGecko’s <em>daily</em> close per transfer date. That is defensible but
+  it silently applies one price to different events: the 16 April deposits, for instance, are 21½ hours apart and
+  were both priced at $0.06558. RSC moved enough intraday for that to matter.</p>
+  <p>Every deposit is now matched to the CoinGecko <strong>hourly</strong> series (pulled in two sub-90-day windows,
+  which is what the API needs to return hourly rather than daily granularity), using each transfer’s exact block
+  timestamp. <strong>The worst gap between a transfer and its nearest price point is 23 minutes</strong>, and
+  <strong>18 of the 19 deposits get a distinct price</strong> — the only shared pair is the two 16 May transfers,
+  which are 2 minutes apart and genuinely belong to the same hour.</p>
+  <p>The correction is material at the line level even though it is small in aggregate (−1.16%). The largest single
+  change is the 24 April deposit of 1,092,533.65 RSC: the daily close of $0.12958 caught a spike, but the transfer
+  actually landed at 21:07 UTC when RSC was $0.09319 — <strong>overstating that one line by $39,752</strong>.
+  The 16 April Base deposit moves the other way, understated by $9,253.</p>
+  <p class="mono" style="font-size:12px;color:var(--muted)">Note: the price column is displayed to 5 decimal places
+  but USD is computed from the unrounded price, so multiplying the two columns can differ by a few dollars per row
+  (worst case $40 on the 9M line). The totals are exact.</p>
+</div>
 
 <div class="scroll">
 <table>
 <thead><tr>
-  <th>Date</th><th>Chain</th><th class="num">RSC</th><th class="num">RSC px</th><th class="num">USD</th>
+  <th>Transfer time (UTC)</th><th>Chain</th><th class="num">RSC</th><th class="num">px @ hour</th><th class="num">USD</th>
   <th>Source wallet (nickname)</th><th>Class</th>
 </tr></thead>
 <tbody>
-<tr><td class="mono">2026-03-03</td><td>ETH</td><td class="num">100,000.00</td><td class="num">0.10296</td><td class="num">10,296</td><td>TREASURY-3 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr><td class="mono">2026-03-11</td><td>BASE</td><td class="num">350,000.00</td><td class="num">0.08850</td><td class="num">30,974</td><td>UNLINKED-F</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-03-03 17:20</td><td>ETH</td><td class="num">100,000.00</td><td class="num">0.10159</td><td class="num">10,159</td><td>TREASURY-3 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-03-11 17:01</td><td>BASE</td><td class="num">350,000.00</td><td class="num">0.08916</td><td class="num">31,207</td><td>UNLINKED-F</td><td><span class="tag t-unk">unlinked</span></td></tr>
 <tr class="sub"><td colspan="7">▼ Stake-to-fund product announced 2026-04-10</td></tr>
-<tr><td class="mono">2026-04-10</td><td>BASE</td><td class="num">192,984.31</td><td class="num">0.07300</td><td class="num">14,088</td><td>BASE-DISTRIBUTOR-A</td><td><span class="tag t-unk">unlinked</span></td></tr>
-<tr><td class="mono">2026-04-10</td><td>BASE</td><td class="num">378,658.60</td><td class="num">0.07300</td><td class="num">27,643</td><td>BASE-DISTRIBUTOR-B</td><td><span class="tag t-unk">unlinked</span></td></tr>
-<tr><td class="mono">2026-04-12</td><td>ETH</td><td class="num">400,000.00</td><td class="num">0.06776</td><td class="num">27,102</td><td>UNLINKED-G</td><td><span class="tag t-unk">unlinked</span></td></tr>
-<tr><td class="mono">2026-04-16</td><td>ETH</td><td class="num">250,000.00</td><td class="num">0.06558</td><td class="num">16,395</td><td>UNLINKED-G</td><td><span class="tag t-unk">unlinked</span></td></tr>
-<tr><td class="mono">2026-04-16</td><td>BASE</td><td class="num">769,130.00</td><td class="num">0.06558</td><td class="num">50,440</td><td>FOUNDATION-COMMUNITY</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr><td class="mono">2026-04-20</td><td>ETH</td><td class="num">5,000,000.00</td><td class="num">0.06916</td><td class="num">345,780</td><td>VEST-BENEFICIARY-70M</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr><td class="mono">2026-04-22</td><td>ETH</td><td class="num">1,000,000.00</td><td class="num">0.07512</td><td class="num">75,117</td><td>TREASURY-3 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr><td class="mono">2026-04-24</td><td>ETH</td><td class="num">1,092,533.65</td><td class="num">0.12958</td><td class="num">141,568</td><td>SIGNER-STAKER</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr><td class="mono">2026-05-06</td><td>BASE</td><td class="num">325,580.00</td><td class="num">0.12170</td><td class="num">39,622</td><td>UNLINKED-D</td><td><span class="tag t-unk">unlinked</span></td></tr>
-<tr><td class="mono">2026-05-10</td><td>ETH</td><td class="num">200,000.00</td><td class="num">0.14426</td><td class="num">28,852</td><td>UNLINKED-H</td><td><span class="tag t-unk">unlinked</span></td></tr>
-<tr><td class="mono">2026-05-16</td><td>ETH</td><td class="num">101,000.00</td><td class="num">0.13944</td><td class="num">14,084</td><td>TREASURY-2 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr><td class="mono">2026-05-16</td><td>ETH</td><td class="num">500,000.00</td><td class="num">0.13944</td><td class="num">69,721</td><td>TREASURY-2 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr><td class="mono">2026-05-20</td><td>BASE</td><td class="num">714,186.00</td><td class="num">0.12194</td><td class="num">87,085</td><td>FOUNDATION-COMMUNITY</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr><td class="mono">2026-06-11</td><td>BASE</td><td class="num">462,613.50</td><td class="num">0.09253</td><td class="num">42,804</td><td>BASE-DESK-C</td><td><span class="tag t-unk">unlinked</span></td></tr>
-<tr><td class="mono">2026-06-17</td><td>BASE</td><td class="num">129,965.12</td><td class="num">0.09803</td><td class="num">12,740</td><td>UNLINKED-E</td><td><span class="tag t-unk">unlinked</span></td></tr>
-<tr><td class="mono">2026-07-04</td><td>ETH</td><td class="num">999,000.00</td><td class="num">0.09339</td><td class="num">93,292</td><td>TGE-DISTRIBUTOR-700M</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr><td class="mono">2026-07-07</td><td>ETH</td><td class="num">9,000,000.00</td><td class="num">0.07985</td><td class="num">718,610</td><td>TGE-DISTRIBUTOR-700M</td><td><span class="tag t-ins">insider</span></td></tr>
-<tr class="total"><td colspan="2">TOTAL — 19 deposits, 0 withdrawals</td><td class="num">21,965,651.18</td><td class="num">—</td><td class="num">1,846,213</td><td colspan="2"></td></tr>
+<tr><td class="mono">2026-04-10 18:23</td><td>BASE</td><td class="num">192,984.31</td><td class="num">0.06720</td><td class="num">12,969</td><td>BASE-DISTRIBUTOR-A</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-04-10 20:02</td><td>BASE</td><td class="num">378,658.60</td><td class="num">0.06811</td><td class="num">25,789</td><td>BASE-DISTRIBUTOR-B</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-04-12 20:38</td><td>ETH</td><td class="num">400,000.00</td><td class="num">0.06613</td><td class="num">26,454</td><td>UNLINKED-G</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-04-16 00:09</td><td>ETH</td><td class="num">250,000.00</td><td class="num">0.06558</td><td class="num">16,395</td><td>UNLINKED-G</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-04-16 21:40</td><td>BASE</td><td class="num">769,130.00</td><td class="num">0.07761</td><td class="num">59,693</td><td>FOUNDATION-COMMUNITY</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-04-20 05:50</td><td>ETH</td><td class="num">5,000,000.00</td><td class="num">0.07033</td><td class="num">351,662</td><td>VEST-BENEFICIARY-70M</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-04-22 16:52</td><td>ETH</td><td class="num">1,000,000.00</td><td class="num">0.08352</td><td class="num">83,518</td><td>TREASURY-3 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-04-24 21:07</td><td>ETH</td><td class="num">1,092,533.65</td><td class="num">0.09319</td><td class="num">101,816</td><td>SIGNER-STAKER</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-05-06 16:03</td><td>BASE</td><td class="num">325,580.00</td><td class="num">0.12061</td><td class="num">39,267</td><td>UNLINKED-D</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-05-10 08:16</td><td>ETH</td><td class="num">200,000.00</td><td class="num">0.14315</td><td class="num">28,629</td><td>UNLINKED-H</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-05-16 12:49</td><td>ETH</td><td class="num">101,000.00</td><td class="num">0.13534</td><td class="num">13,670</td><td>TREASURY-2 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-05-16 12:51</td><td>ETH</td><td class="num">500,000.00</td><td class="num">0.13534</td><td class="num">67,672</td><td>TREASURY-2 GRANTEE</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-05-20 16:19</td><td>BASE</td><td class="num">714,186.00</td><td class="num">0.12167</td><td class="num">86,896</td><td>FOUNDATION-COMMUNITY</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-06-11 23:20</td><td>BASE</td><td class="num">462,613.50</td><td class="num">0.09848</td><td class="num">45,557</td><td>BASE-DESK-C</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-06-17 11:12</td><td>BASE</td><td class="num">129,965.12</td><td class="num">0.09357</td><td class="num">12,161</td><td>UNLINKED-E</td><td><span class="tag t-unk">unlinked</span></td></tr>
+<tr><td class="mono">2026-07-04 19:54</td><td>ETH</td><td class="num">999,000.00</td><td class="num">0.09279</td><td class="num">92,699</td><td>TGE-DISTRIBUTOR-700M</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr><td class="mono">2026-07-07 00:15</td><td>ETH</td><td class="num">9,000,000.00</td><td class="num">0.07985</td><td class="num">718,610</td><td>TGE-DISTRIBUTOR-700M</td><td><span class="tag t-ins">insider</span></td></tr>
+<tr class="total"><td colspan="2">TOTAL — 19 deposits, 0 withdrawals</td><td class="num">21,965,651.18</td><td class="num">—</td><td class="num">1,824,823</td><td colspan="2"></td></tr>
 </tbody>
 </table>
 </div>
@@ -375,9 +395,9 @@ reconciles exactly to the vault’s current balances on both chains (18,642,533.
 <table>
 <thead><tr><th>Window</th><th class="num">Gross in (RSC)</th><th class="num">Gross out</th><th class="num">Net (RSC)</th><th class="num">USD at deposit dates</th></tr></thead>
 <tbody>
-<tr><td>Pre-launch (Mar 3 – Mar 11)</td><td class="num">450,000.00</td><td class="num">0</td><td class="num">450,000.00</td><td class="num">41,270</td></tr>
-<tr><td><strong>Post-launch (Apr 10 – Aug 2)</strong></td><td class="num">21,515,651.18</td><td class="num">0</td><td class="num">21,515,651.18</td><td class="num">1,804,943</td></tr>
-<tr class="total"><td>All time</td><td class="num">21,965,651.18</td><td class="num">0</td><td class="num">21,965,651.18</td><td class="num">1,846,213</td></tr>
+<tr><td>Pre-launch (Mar 3 – Mar 11)</td><td class="num">450,000.00</td><td class="num">0</td><td class="num">450,000.00</td><td class="num">41,365</td></tr>
+<tr><td><strong>Post-launch (Apr 10 – Aug 2)</strong></td><td class="num">21,515,651.18</td><td class="num">0</td><td class="num">21,515,651.18</td><td class="num">1,783,458</td></tr>
+<tr class="total"><td>All time</td><td class="num">21,965,651.18</td><td class="num">0</td><td class="num">21,965,651.18</td><td class="num">1,824,823</td></tr>
 </tbody>
 </table>
 </div>
@@ -390,8 +410,9 @@ depositors chose to stay. Read the “no withdrawals” number as a lock, not as
 
 <div class="callout warn">
   <div class="h">Mark-to-market</div>
-  <p>Cost basis at deposit dates: <strong>$1,846,213</strong>. Value of the same 21,965,651.18 RSC at the
-  2026-08-02 close of $0.06785: <strong>$1,490,373</strong>. Unrealised change <strong>−$355,840 (−19.3%)</strong>.
+  <p>Cost basis, each deposit valued at its own hour: <strong>$1,824,823</strong>. Value of the same
+  21,965,651.18 RSC at the latest hourly print, $0.07186 (2026-08-05 00:00 UTC):
+  <strong>$1,578,409</strong>. Unrealised change <strong>−$246,414 (−13.5%)</strong>.
   RSC rallied from $0.0656 on 16 April to a peak of $0.1615 on 12 May — roughly 2.4× — before fully retracing to
   $0.0679 by 2 August. Deposits cluster on both sides of that arc, and the two largest (July, 9.999M RSC combined)
   landed after the round trip was complete.</p>
@@ -407,11 +428,11 @@ a ResearchHub treasury without any governance role, Tier C is capital that demon
 
 <div class="cards">
   <div class="card"><div class="lab">Tier A — certain insider</div><div class="val">17.57M</div>
-    <div class="note">$1,436,845 · 80.0% of the vault<br>TGE mint recipients, treasury signers, org Safes</div></div>
+    <div class="note">$1,411,376 · 80.0% of the vault<br>TGE mint recipients, treasury signers, org Safes</div></div>
   <div class="card"><div class="lab">Tier B — treasury-funded</div><div class="val">2.35M</div>
-    <div class="note">$212,718 · 10.7%<br>RSC traceable to a treasury, no governance role</div></div>
+    <div class="note">$217,868 · 10.7%<br>RSC traceable to a treasury, no governance role</div></div>
   <div class="card"><div class="lab">Tier C — external</div><div class="val">2.04M</div>
-    <div class="note">$196,726 · 9.3%<br>Market-bought or exchange-funded</div></div>
+    <div class="note">$195,580 · 9.3%<br>Market-bought or exchange-funded</div></div>
 </div>
 
 <p><strong>Split by chain the picture is starkly different: Ethereum is 98.93% insider-or-treasury sourced
@@ -424,7 +445,7 @@ genuinely external participation in this product happened on Base.</p>
 <tbody>
 <tr>
   <td><strong>TGE-DISTRIBUTOR-700M</strong><br><span class="addr">0xB518536B…7D3d</span></td>
-  <td class="num">9,999,000.00</td><td class="num">811,902</td>
+  <td class="num">9,999,000.00</td><td class="num">811,309</td>
   <td class="num">45.5%<br><span class="bar"><i class="ins" style="width:45.5%"></i></span></td>
   <td>Received <strong>700,000,000 RSC directly from the zero address</strong> at the 2020-08-01 mint; forwarded
       630,000,001 to TREASURY-BETA in 2022; still holds 60,000,000. <strong>Is a signer on both Treasury 1 and
@@ -432,7 +453,7 @@ genuinely external participation in this product happened on Base.</p>
 </tr>
 <tr>
   <td><strong>VEST-BENEFICIARY-70M</strong><br><span class="addr">0x1288d4d0…8D34</span></td>
-  <td class="num">5,000,000.00</td><td class="num">345,780</td>
+  <td class="num">5,000,000.00</td><td class="num">351,662</td>
   <td class="num">22.8%<br><span class="bar"><i class="ins" style="width:22.8%"></i></span></td>
   <td>Received <strong>70,000,000 RSC directly from the mint</strong>, routed it into a vesting escrow, and has been
       receiving it back in tranches since. Named <strong>beneficiary of the TokenVesting contract</strong> that still
@@ -440,7 +461,7 @@ genuinely external participation in this product happened on Base.</p>
 </tr>
 <tr>
   <td><strong>FOUNDATION-COMMUNITY</strong><br><span class="addr">0xb280F00E…7E21</span></td>
-  <td class="num">1,483,316.00</td><td class="num">137,525</td>
+  <td class="num">1,483,316.00</td><td class="num">146,588</td>
   <td class="num">6.8%<br><span class="bar"><i class="ins" style="width:6.8%"></i></span></td>
   <td>The Safe <strong>listed in ResearchHub’s own contracts-and-addresses page</strong> as “Foundation Community”.
       Its Base capital is now traced to source: on <strong>2024-11-24 at 16:51:59 UTC Treasury 3 executed a Safe
@@ -451,81 +472,81 @@ genuinely external participation in this product happened on Base.</p>
 </tr>
 <tr>
   <td><strong>TREASURY-3 GRANTEE</strong><br><span class="addr">0x5aa0122f…3fea</span></td>
-  <td class="num">1,100,000.00</td><td class="num">85,412</td>
+  <td class="num">1,100,000.00</td><td class="num">93,677</td>
   <td class="num">5.0%<br><span class="bar"><i class="ins" style="width:5.0%"></i></span></td>
   <td>Funded with <strong>1,048,000 RSC across 18 transfers from TREASURY-OPS</strong> (2022–2024). Essentially all of
       its balance originates from ResearchHub’s operating treasury.</td>
 </tr>
 <tr>
   <td><strong>SIGNER-STAKER</strong><br><span class="addr">0x3D4B25c3…339C</span></td>
-  <td class="num">1,092,533.65</td><td class="num">141,568</td>
+  <td class="num">1,092,533.65</td><td class="num">101,816</td>
   <td class="num">5.0%<br><span class="bar"><i class="ins" style="width:5.0%"></i></span></td>
   <td><strong>Signer on TREASURY-OPS and on FOUNDATION-COMMUNITY.</strong> Holds 3,606,374 RSC.</td>
 </tr>
 <tr>
   <td><strong>TREASURY-2 GRANTEE</strong><br><span class="addr">0x144985d2…B00d</span></td>
-  <td class="num">601,000.00</td><td class="num">83,804</td>
+  <td class="num">601,000.00</td><td class="num">81,342</td>
   <td class="num">2.7%<br><span class="bar"><i class="ins" style="width:2.7%"></i></span></td>
   <td>Received <strong>1,600,100 RSC from TREASURY-BETA</strong> in September 2025, then staked 601,000 of it in May 2026.</td>
 </tr>
-<tr class="sub"><td>Tier A subtotal — certain insider</td><td class="num">17,574,849.65</td><td class="num">1,436,845</td><td class="num">80.0%</td><td></td></tr>
+<tr class="sub"><td>Tier A subtotal — certain insider</td><td class="num">17,574,849.65</td><td class="num">1,411,376</td><td class="num">80.0%</td><td></td></tr>
 <tr>
   <td><strong>DOLOSUS-CHAIN</strong> <span class="addr">0x7f38aa84…5435</span></td>
-  <td class="num">650,000.00</td><td class="num">43,497</td><td class="num">3.0%</td>
+  <td class="num">650,000.00</td><td class="num">42,849</td><td class="num">3.0%</td>
   <td><span class="tag t-ins">reclassified</span> Funded with 1,000,000 RSC by <code>dolosus.eth</code>
       (<code>0xcC5F1f28…E21B</code> — an ENS-named <em>contract</em>, not an EOA), which in turn received
       <strong>1,370,000 RSC from DISTRIBUTOR-70M and 301,792 RSC directly from Treasury 3</strong>.
       Treasury-downstream at two hops.</td>
 </tr>
-<tr class="sub"><td>Tier B subtotal — treasury-funded, no governance role</td><td class="num">2,351,000.00</td><td class="num">212,718</td><td class="num">10.7%</td><td></td></tr>
-<tr class="sub"><td><strong>Tier A + B — traceable to ResearchHub</strong></td><td class="num">19,925,849.65</td><td class="num">1,649,563</td><td class="num">90.7%</td><td></td></tr>
+<tr class="sub"><td>Tier B subtotal — treasury-funded, no governance role</td><td class="num">2,351,000.00</td><td class="num">217,868</td><td class="num">10.7%</td><td></td></tr>
+<tr class="sub"><td><strong>Tier A + B — traceable to ResearchHub</strong></td><td class="num">19,925,849.65</td><td class="num">1,629,244</td><td class="num">90.7%</td><td></td></tr>
 <tr>
   <td><strong>fauler.eth chain</strong> <span class="addr">0x665F3D71…cD4e</span></td>
-  <td class="num">200,000.00</td><td class="num">28,852</td><td class="num">0.9%</td>
+  <td class="num">200,000.00</td><td class="num">28,629</td><td class="num">0.9%</td>
   <td><span class="tag t-ext">external, confirmed</span> Funded by <code>fauler.eth</code>
       (<code>0xB2d60143…8EAb</code>), which acquired its 250,000 RSC <strong>from the Uniswap V3 pool</strong>
       — a market purchase, not a grant. The only ETH-side deposit confirmed as outside capital.</td>
 </tr>
 <tr>
   <td>BASE-DESK-C <span class="addr">0x1985ea6e…5c87</span></td>
-  <td class="num">462,613.50</td><td class="num">42,804</td><td class="num">2.1%</td>
+  <td class="num">462,613.50</td><td class="num">45,557</td><td class="num">2.1%</td>
   <td>High-frequency Base trading wallet; principal counterparty of BASE-DESK. Exchange/market-maker profile.</td>
 </tr>
 <tr>
   <td>BASE-DISTRIBUTOR-B <span class="addr">0x26b610a0…7419</span></td>
-  <td class="num">378,658.60</td><td class="num">27,643</td><td class="num">1.7%</td>
+  <td class="num">378,658.60</td><td class="num">25,789</td><td class="num">1.7%</td>
   <td>Aggregator wallet, many-to-one inflow pattern, also trades with BASE-DESK.</td>
 </tr>
 <tr>
   <td>UNLINKED-F <span class="addr">0xfd91745f…f2b1</span></td>
-  <td class="num">350,000.00</td><td class="num">30,974</td><td class="num">1.6%</td>
+  <td class="num">350,000.00</td><td class="num">31,207</td><td class="num">1.6%</td>
   <td>The pre-launch 2026-03-11 deposit. Plain EOA, sent direct with no relay — the only deposit that skipped the pipeline.</td>
 </tr>
 <tr>
   <td>UNLINKED-D <span class="addr">0xf32b2204…a1f2</span></td>
-  <td class="num">325,580.00</td><td class="num">39,622</td><td class="num">1.5%</td>
+  <td class="num">325,580.00</td><td class="num">39,267</td><td class="num">1.5%</td>
   <td>No treasury link found.</td>
 </tr>
 <tr>
   <td>BASE-DISTRIBUTOR-A <span class="addr">0x739120ad…2360</span></td>
-  <td class="num">192,984.31</td><td class="num">14,088</td><td class="num">0.9%</td>
+  <td class="num">192,984.31</td><td class="num">12,969</td><td class="num">0.9%</td>
   <td>Distribution wallet: observed sending <em>identical</em> 913,572 RSC tranches to several addresses that now sit in
       the Base top-25 holders. Suggests one entity operating a wallet cluster.</td>
 </tr>
 <tr>
   <td>UNLINKED-E <span class="addr">0x7a81ac54…a144</span></td>
-  <td class="num">129,965.12</td><td class="num">12,740</td><td class="num">0.6%</td>
+  <td class="num">129,965.12</td><td class="num">12,161</td><td class="num">0.6%</td>
   <td>No treasury link found; consistent with a market purchase.</td>
 </tr>
-<tr class="sub"><td>Tier C subtotal — external / market-sourced</td><td class="num">2,039,801.53</td><td class="num">196,726</td><td class="num">9.3%</td><td></td></tr>
-<tr class="total"><td>TOTAL</td><td class="num">21,965,651.18</td><td class="num">1,846,213</td><td class="num">100%</td><td></td></tr>
+<tr class="sub"><td>Tier C subtotal — external / market-sourced</td><td class="num">2,039,801.53</td><td class="num">195,580</td><td class="num">9.3%</td><td></td></tr>
+<tr class="total"><td>TOTAL</td><td class="num">21,965,651.18</td><td class="num">1,824,823</td><td class="num">100%</td><td></td></tr>
 </tbody>
 </table>
 </div>
 
 <div class="callout bad">
   <div class="h">So what did the launch actually attract?</div>
-  <p>Of the $1.85M ever staked, <strong>$196,726 (2.04M RSC, 9.3%) came from outside the ResearchHub perimeter</strong>
+  <p>Of the $1.85M ever staked, <strong>$195,580 (2.04M RSC, 9.3%) came from outside the ResearchHub perimeter</strong>
   — and essentially all of it arrived on Base. The other 90.7% is the organisation, its treasuries, its grantees and
   its own multisig signers moving RSC from one pocket into another. On Ethereum the external share is
   <strong>200,000 RSC — 1.07%</strong>, a single depositor who bought on Uniswap. A TVL chart for this product would
@@ -719,8 +740,8 @@ and Base supply is consistent with withdrawals in the bridge’s challenge windo
   <div class="h">The float discrepancy worth flagging</div>
   <p>CoinGecko reports circulating supply of <strong>238,228,884 RSC</strong> and a market cap of ~$67.0M. My
   residual float after removing every identified treasury, genesis, vesting and vault balance is
-  <strong>≈133.5M RSC</strong> — about 56% of the reported figure. At $0.06785 that is a genuine dispersed-float
-  value of roughly <strong>$9.1M</strong>, against a headline market cap of $67M. The gap is ~105M RSC that
+  <strong>≈133.5M RSC</strong> — about 56% of the reported figure. At $0.07186 that is a genuine dispersed-float
+  value of roughly <strong>$9.6M</strong>, against a headline market cap of $67M. The gap is ~105M RSC that
   CoinGecko counts as circulating but which sits in wallets I can tie to the genesis mint, the treasuries or their
   signers. Anyone sizing a position off the quoted market cap is working with a denominator that on-chain data
   does not support.</p>
