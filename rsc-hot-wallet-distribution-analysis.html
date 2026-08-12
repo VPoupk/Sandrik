@@ -93,7 +93,7 @@ a{color:var(--accent)}
 
 <header class="doc">
   <div class="kicker">Companion analysis · hot-wallet distributions</div>
-  <h1>Who receives RSC from the ResearchHub hot wallet, and what do they do with it?</h1>
+  <h1>Who receives RSC from the ResearchHub distributing wallets, and what do they do with it?</h1>
   <p class="sub">A census of every outbound RSC payment the hot wallet has ever made across Ethereum and Base —
   4,533 transfers to 788 distinct addresses — together with a deep dive into the handful of outliers that carry
   most of the value.</p>
@@ -420,7 +420,92 @@ the single exception of the Foundation Safe's direct funding of OUTLIER-2. The l
 column above hold their RSC because a treasury funded them separately, not because the hot wallet paid them.</p>
 
 <!-- ============================================ -->
-<h2>7. Method and limits</h2>
+<h2>7. Treasury 3 — the other distributing account</h2>
+
+<p>The hot wallet is not the only address that pays RSC out to individuals. Treasury 3
+(<code>0xC4cfa2BdAE08416312fAa0B72758E1F3750f81e3</code>) also makes direct payments, and applying the same census
+to it shows a different function entirely.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Measure</th><th class="num">Hot wallet</th><th class="num">Treasury 3</th></tr></thead>
+<tbody>
+<tr><td>Outbound transfers, all time</td><td class="num">4,533</td><td class="num">412</td></tr>
+<tr><td>Distinct recipients</td><td class="num">788</td><td class="num">86</td></tr>
+<tr><td>Median payment</td><td class="num">850 RSC</td><td class="num">11,481 RSC</td></tr>
+<tr><td>Payments to external recipients</td><td class="num">18,568,492 RSC</td><td class="num">14,427,450 RSC</td></tr>
+<tr><td>Share of outbound value that is infrastructure</td><td class="num">35.7% (bridge)</td><td class="num">73.1% (bridge, DEX pool, internal)</td></tr>
+<tr><td>Typical cadence</td><td class="num">continuous, daily</td><td class="num">monthly, in bursts</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">Treasury 3 runs a monthly payment schedule, not a bounty stream</div>
+  <p>Of Treasury 3's 83 external recipients, <strong>21 are paid on a recurring monthly cadence</strong> — six or
+  more transfers each, with a median gap of 29–32 days. Those 21 account for <strong>9,550,551 RSC, 66.2% of all
+  external Treasury 3 flow</strong>. Several run continuously for two years or more, and amounts step up or down
+  over time rather than varying transfer-by-transfer.</p>
+  <p>That is the shape of salaries, retainers or program stipends. Bounty-style payment — many recipients, small
+  amounts, irregular timing — is what the hot wallet does, at 788 recipients and a median of 850 RSC.
+  <strong>The two accounts serve different functions and should not be pooled.</strong></p>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Treasury 3 recipients on a monthly cadence (top 10 of 21)</th><th class="num">Transfers</th><th class="num">RSC</th><th class="num">Median gap</th><th>Period</th></tr></thead>
+<tbody>
+<tr><td class="addr">0x72f2c4dd…fb53</td><td class="num">29</td><td class="num">2,104,471</td><td class="num">30 d</td><td>2022-06 → 2024-04</td></tr>
+<tr><td class="addr">0x29e46015…11ee</td><td class="num">30</td><td class="num">1,617,838</td><td class="num">30 d</td><td>2022-06 → 2025-03</td></tr>
+<tr><td class="addr">0x5aa0122f…3fea</td><td class="num">18</td><td class="num">1,048,000</td><td class="num">31 d</td><td>2022-10 → 2024-01</td></tr>
+<tr><td class="addr">0xc3d17022…f47</td><td class="num">9</td><td class="num">841,250</td><td class="num">29 d</td><td>2022-08 → 2023-03</td></tr>
+<tr><td class="addr">0x1594c830…56a8</td><td class="num">26</td><td class="num">724,611</td><td class="num">30 d</td><td>2022-06 → 2024-04</td></tr>
+<tr><td class="addr">0x732876f7…8b58</td><td class="num">14</td><td class="num">601,734</td><td class="num">32 d</td><td>2023-02 → 2025-03</td></tr>
+<tr><td class="addr">0x0406fb64…dc49</td><td class="num">13</td><td class="num">408,171</td><td class="num">32 d</td><td>2023-06 → 2025-03</td></tr>
+<tr><td class="addr">0x4a5b7148…343c</td><td class="num">10</td><td class="num">320,000</td><td class="num">31 d</td><td>2022-06 → 2023-07</td></tr>
+<tr><td class="addr">0xcc5f1f28…e21b</td><td class="num">12</td><td class="num">301,792</td><td class="num">30 d</td><td>2022-10 → 2025-03</td></tr>
+<tr><td class="addr">0x24b581eb…ca7e</td><td class="num">8</td><td class="num">267,828</td><td class="num">30 d</td><td>2023-12 → 2025-03</td></tr>
+<tr class="total"><td>All 21 monthly recipients</td><td class="num">—</td><td class="num">9,550,551</td><td colspan="2">66.2% of external Treasury 3 flow</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>7.1 Isolating the non-recurring payments</h3>
+
+<p>The remainder of Treasury 3's external flow is not compensation-shaped and should be read separately.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Segment</th><th class="num">Transfers</th><th class="num">RSC</th><th class="num">Share of external flow</th></tr></thead>
+<tbody>
+<tr><td>Recurring monthly recipients (21 addresses)</td><td class="num">—</td><td class="num">9,550,551</td><td class="num">66.2%</td></tr>
+<tr><td>Payments under 50,000 RSC</td><td class="num">323</td><td class="num">5,689,448</td><td class="num">39.4%</td></tr>
+<tr><td>Payments of 50,000 RSC or more</td><td class="num">58</td><td class="num">8,738,002</td><td class="num">60.6%</td></tr>
+<tr class="total"><td>External total</td><td class="num">381</td><td class="num">14,427,450</td><td class="num">100%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The two splits overlap — a monthly recipient can receive large payments — so they should not be added. What they
+establish jointly is that Treasury 3's external activity is dominated by a small, stable set of recurring payees
+rather than by a broad contributor population. <strong>16 of its 83 external recipients also receive from the hot
+wallet</strong>, taking 5,911,292 RSC from Treasury 3 (41.0% of external flow), so the two payee populations
+overlap materially at the top even though their payment patterns differ.</p>
+
+<div class="callout warn">
+  <div class="h">What cannot be established here</div>
+  <p>RSC's USD price before August 2025 falls outside the range the public CoinGecko API serves, and the great
+  majority of Treasury 3's payments predate that. <strong>These payments therefore cannot be sized in dollars</strong>,
+  which means they cannot be compared against ResearchHub's published bounty values to confirm or exclude a
+  bounty interpretation on amount alone. The classification above rests on cadence and recipient-set size, which are
+  observable regardless of price.</p>
+  <p>Equally, a monthly schedule identifies a payment <em>pattern</em>, not a role. It is consistent with salaried
+  staff, long-running editors, retained contractors or program grantees, and chain data does not distinguish between
+  them.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>8. Method and limits</h2>
 <ul>
   <li><strong>Zero-value transfers are excluded throughout.</strong> 3,738 outbound transfers of exactly 0 RSC
   originate from address-poisoning activity by a third party rather than from ResearchHub, and their "recipients"
