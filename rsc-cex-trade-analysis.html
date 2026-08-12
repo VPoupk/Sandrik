@@ -92,10 +92,10 @@ a{color:var(--accent)}
 
 <header class="doc">
   <div class="kicker">Companion analysis · centralised-exchange trade tape</div>
-  <h1>Did the RSC staking launch pull $1.8M of buying through the market?</h1>
+  <h1>What the RSC trade tape can and cannot say about $1.8M of buying</h1>
   <p class="sub">A test of one specific claim, against 731,862 individual executed spot trades from four
-  centralised exchanges covering 1 January to 2 August 2026. If the stake-to-fund product genuinely attracted
-  ~$1.8M of new capital, a matching bid should be visible on the tape. It is not.</p>
+  centralised exchanges covering 1 January to 2 August 2026. It tests whether the ~$1.8M staked
+  could have been matched by buying in the market, and what the tape does and does not bound.</p>
   <div class="meta">
     Source: Tardis-derived trade tape, one row per executed trade — <code>MEXC RSCUSDT</code>,
     <code>Gate.io RSC_USDT</code>, <code>Kraken RSC-USD</code>, <code>Kraken RSC-EUR</code>,
@@ -109,14 +109,14 @@ a{color:var(--accent)}
 
 <div class="cards">
   <div class="card hi">
-    <div class="lab">Net taker flow since Apr 10</div>
+    <div class="lab">Net aggressive (taker) buying since Apr 10</div>
     <div class="val neg">−$69,995</div>
-    <div class="note">Net <em>selling</em>, across $26.6M of volume — 0.26% of turnover</div>
+    <div class="note">Across $26.6M of turnover. Note this does <em>not</em> bound passive accumulation — see §3</div>
   </div>
   <div class="card">
-    <div class="lab">Peak cumulative net buying</div>
-    <div class="val">+$5,190</div>
-    <div class="note">The highest the cumulative line ever reaches, on launch day itself</div>
+    <div class="lab">Passive-buy ceiling, post-launch</div>
+    <div class="val">$13.3M</div>
+    <div class="note">Takers sold this much, so the passive side bought it. $1.78M is 13.4% of it — feasible</div>
   </div>
   <div class="card">
     <div class="lab">Best 60-day window</div>
@@ -130,15 +130,20 @@ a{color:var(--accent)}
   </div>
 </div>
 
-<p><strong>There is no trace of $1.8M of net buying.</strong> Since the 10 April launch, taker flow across the
-three continuously-covered venues is <em>negative</em> — aggressors sold $69,995 more than they bought, on
-$26,575,075 of turnover. The cumulative net-flow line never rises above <strong>+$5,190</strong> at any point in
-the 115 days, and spends most of the period between −$100k and −$300k.</p>
+<p><strong>There is no net <em>aggressive</em> buying:</strong> since the 10 April launch, taker flow across the
+three continuously-covered venues is negative — aggressors sold $69,995 more than they bought on $26,575,075 of
+turnover, and the cumulative net-flow line never rises above +$5,190.</p>
 
-<p>The claim under test needs ~$1.78M of one-directional accumulation, which would be <strong>6.7% of all
-volume in the period</strong> arriving as persistent one-way pressure into a book whose median day is
-$65,751. That is not a subtle signal that could hide in the noise. It simply is not there, and the price
-went <em>down</em> over the window rather than up.</p>
+<p><strong>That does not settle the question, and this document does not claim it does.</strong> A buyer working
+passive limit orders is filled by aggressive sellers, so their accumulation prints as taker <em>selling</em> — and
+if they step the bid up, the price rises while net taker flow stays negative. That is exactly the pattern on the
+days that produced the April–May rally. Section 3 sets out the correct bound: takers sold $13.3M over the
+post-launch period, so the passive side bought $13.3M, and <strong>$1.78M is 13.4% of that — entirely feasible for
+a single participant</strong>.</p>
+
+<p>What can be said firmly is narrower. The market was <em>large enough</em> to absorb the claim; the flow data
+cannot confirm or exclude it; and the price ended the period 5.9% lower than it started, having round-tripped a
+2.4× rally. Any accumulation that occurred did not leave a durable price level.</p>
 
 <div class="callout bad">
   <div class="h">The two datasets agree, and that is the strongest part of the finding</div>
@@ -189,18 +194,36 @@ one deliberate approximation in this analysis.</p>
 <p>The <code>side</code> field marks the <strong>aggressor</strong> — the party who crossed the spread — not the
 maker. Net taker flow is therefore a measure of directional pressure, and it needs one honest caveat.</p>
 
-<div class="callout warn">
-  <div class="h">The limitation, stated plainly</div>
+<div class="callout bad">
+  <div class="h">Why net taker flow does not answer the question</div>
   <p>Every trade has a buyer and a seller, so an exchange tape can never show "net money in" the way a bank statement
-  does. A patient accumulator working <em>passive</em> limit orders would be filled by aggressive sellers and would
-  show up in this data as taker <strong>selling</strong>. So a negative net-taker figure does not, by itself, rule
-  out someone quietly accumulating $1.8M.</p>
-  <p>What rules it out is the combination of three independent things: (1) taker flow shows no sustained bid;
-  (2) the price <em>fell</em> over the period, whereas absorbing 6.7% of all turnover as one-way demand into a book
-  this thin would lift it hard; and (3) the on-chain record shows the staked tokens never came from exchanges in the
-  first place — they came from treasury-lineage wallets that already held them. Any one of these alone would be
-  suggestive; together they are conclusive.</p>
+  does. Critically, <strong>a buyer working passive limit orders is filled by aggressive sellers, so their
+  accumulation is recorded as taker SELLING</strong>. If that buyer keeps stepping their bid up, the price rises
+  while every print registers on the sell side.</p>
+  <p>That is not a hypothetical here. It is precisely the pattern on the days that produced the rally —
+  23 April rose 52.3% on net taker flow of <strong>−$117,968</strong>; 6 June rose 56.1% on <strong>−$3,717</strong>.
+  <strong>Rising price on negative net taker flow is the signature of passive accumulation, not evidence against
+  it.</strong> A negative net-taker figure therefore does <em>not</em> rule out a mandated buyer, and this document
+  does not claim that it does.</p>
+  <p>The measure that does bound the question is the <strong>passive-side ceiling</strong>: whatever takers sold,
+  the passive side bought. That sets the maximum any single accumulator could have absorbed.</p>
 </div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Window</th><th class="num">Taker sell notional<br>= passive-buy ceiling</th><th class="num">$1.78M as share of it</th><th class="num">Net taker</th></tr></thead>
+<tbody>
+<tr><td>Rally, 16 Apr – 12 May</td><td class="num">5,750,630</td><td class="num">31.0%</td><td class="num neg">−112,236</td></tr>
+<tr><td>Post-launch, 10 Apr – 2 Aug</td><td class="num">13,322,535</td><td class="num">13.4%</td><td class="num neg">−69,995</td></tr>
+<tr><td>Full YTD, 1 Jan – 2 Aug</td><td class="num">17,670,196</td><td class="num">10.1%</td><td class="num neg">−339,228</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>Accumulating $1.78M passively is comfortably within the observed liquidity.</strong> It is 13.4% of what
+the passive side bought over the post-launch period and 31.0% of the rally window. Nothing in the flow data excludes
+it, and the price behaviour during the rally is consistent with it. What the tape cannot do is identify who was on
+the passive side of those fills.</p>
 
 <!-- ============================================ -->
 <h2>4. Before and after 10 April</h2>
@@ -629,15 +652,17 @@ when large stakes landed?</p>
 </div>
 
 <div class="callout bad">
-  <div class="h">The 7 July deposit settles it on its own</div>
+  <div class="h">What the 7 July deposit does and does not show</div>
   <p>On 7 July a single wallet staked <strong>9,000,000 RSC — roughly $719,000</strong>, the largest deposit the
   product ever received and 40% of its entire lifetime intake. Total RSC turnover across every venue that day was
   <strong>$24,935</strong>.</p>
-  <p>Buying $719k in a market trading $25k a day is not possible — it would be <strong>29× the day's entire global
-  volume</strong>, and would have moved the price by multiples. The price closed at $0.0798, down slightly. The
-  tokens were plainly not bought; they were transferred from a wallet that already held them, which is exactly what
-  the on-chain trace shows (a genesis-mint wallet holding 60M RSC). Whatever "TVL" that deposit created, it
-  represented no new money entering the ecosystem.</p>
+  <p>Those tokens were plainly not purchased on the market <em>that day</em> — $719k would have been 29× the day's
+  entire global volume — and the on-chain trace shows them coming from a genesis-mint wallet holding 60M RSC.</p>
+  <p>This bounds the timing, not the economics. Under an off-market-sale model the deposit would not coincide with
+  any buying: a purchaser pays off-market, the treasury delivers tokens it already holds, and any repurchase is
+  worked separately over time. <strong>The low-volume settlement day is therefore consistent with that model rather
+  than evidence against it.</strong> What it does rule out is the simplest reading — that a staker bought RSC on the
+  open market and then deposited it.</p>
 </div>
 
 <!-- ============================================ -->
@@ -689,16 +714,23 @@ was not this announcement, and the announcement itself produced no durable bid.<
 <p>The stake-to-fund product did coincide with a real and sustained increase in trading activity — turnover roughly
 tripled and has stayed elevated. That is genuine, and it is the strongest thing that can be said for it.</p>
 
-<p>But on the specific question asked: <strong>there is no trace of $1.8M, or anything close to it, entering RSC
-through the market since 10 April.</strong> Net taker flow is −$69,995 across $26.6M of turnover; the cumulative
-line peaks at +$5,190; the best cherry-picked 60-day window reaches 13% of the required figure; and the price fell
-5.9% over the window and 39% over the year. The single largest stake, $719k on 7 July, landed on a day the entire
-market traded $24,935.</p>
+<p>On the specific question asked, the tape supports a narrower answer than a simple yes or no.
+<strong>There is no net aggressive buying</strong> — net taker flow is −$69,995 across $26.6M of turnover.
+<strong>But passive accumulation of $1.78M is not excluded</strong>: it is 13.4% of what the passive side bought
+over the period, and the rally days show precisely the rising-price-on-taker-selling signature that passive
+accumulation produces. The flow data is compatible with the hypothesis and cannot identify who was on the passive
+side.</p>
 
-<p>Read alongside the on-chain memo, the picture is consistent and unambiguous. Roughly 90% of what was staked was
-pre-existing insider and treasury inventory that never touched an exchange, and the genuinely external share — about
-$195k on-chain, matched by market flow in the same low-hundred-thousands range — is what actually arrived. The gap
-between $1.8M of headline "TVL" and roughly $0.2M of real external participation is the finding.</p>
+<p>Two observations do survive independently of that. The price ended the period <strong>5.9% lower than it
+started</strong>, having fully round-tripped a 2.4× rally, so whatever buying occurred left no durable price level.
+And the on-chain record shows the staked RSC itself was treasury-origin — which is equally consistent with internal
+circulation and with an off-market sale where the treasury delivers the tokens, so it does not discriminate between
+them either.</p>
+
+<p>The honest summary is that <strong>the question is not resolvable from public trade and chain data alone</strong>.
+An off-market sale followed by a market repurchase leaves an on-chain trail that looks identical to internal
+circulation, and a repurchase executed passively leaves a tape that looks like net selling. What this document
+establishes is the size of the space the claim would have to fit into — and it fits.</p>
 
 <p class="footnote">
 Built from 731,862 individual trade records across five files. One row = one executed spot trade; timestamps read as

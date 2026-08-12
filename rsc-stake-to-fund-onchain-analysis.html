@@ -604,23 +604,43 @@ this directly.</p>
 </table>
 </div>
 
-<p>The attribution does not hold, for two independent reasons.</p>
+<div class="callout bad">
+  <div class="h">Net taker flow is the wrong test, and it is worth being explicit about why</div>
+  <p>The window shows cumulative net taker flow of <strong>−$112,236</strong> — aggressors sold more than they
+  bought. That is <em>not</em> evidence against a repurchase. <strong>A buyer working passive limit orders is filled
+  by aggressive sellers, so their accumulation is recorded as taker selling; if they step the bid up, the price
+  rises while net taker flow stays negative.</strong> Rising price on negative net taker flow is the signature of
+  passive accumulation, not its refutation.</p>
+  <p>Two of the four rally days show exactly this shape — 23 April rose 52.3% on net taker flow of −$117,968, and
+  the largest volume day of the year, 6 June, rose 56.1% on −$3,717. The correct bound is the passive side: takers
+  sold <strong>$5,750,630</strong> in this window, so the passive side bought that much.
+  <strong>$1.78M is 31.0% of it — well within reach of a single participant.</strong></p>
+</div>
+
+<p>Two observations about timing survive that correction, and one common argument does not.</p>
 
 <ul>
-  <li><strong>The rally ran on net selling.</strong> Cumulative net taker flow across the whole window is
-  <strong>−$112,236</strong>. If treasury RSC had been repurchased on-market at anything like the scale of the
-  deposits, the tape would show sustained net buying. It shows the opposite.</li>
-  <li><strong>The deposits and the price moves do not line up.</strong> The four days that produced the rally —
+  <li><strong>The deposits do not coincide with the price moves.</strong> The four days that produced the rally —
   23 April, 30 April, 2 May and 8 May — carry $5.9M of the window's $11.4M volume between them and
-  <strong>none of them has a staking deposit at all</strong>. Conversely the largest April deposit, 5,000,000 RSC on
-  20 April, landed on a <strong>$75,195 volume day</strong>. Acquiring that quantity on-market would have required
-  roughly nine times the entire day's global turnover.</li>
+  <strong>none has a staking deposit</strong>. The largest April deposit, 5,000,000 RSC on 20 April, settled on a
+  <strong>$75,195 volume day</strong>.</li>
+  <li><strong>That timing argument does not refute an off-market sale.</strong> Under such a model the deposit and
+  the buying are deliberately decoupled: a purchaser pays off-market, the treasury delivers tokens it already holds,
+  and any repurchase is worked separately through a market maker. Low-volume settlement days are what that model
+  predicts. What the timing does exclude is the simplest reading — that stakers bought RSC on the open market and
+  deposited it themselves.</li>
+  <li><strong>The rally left no durable level.</strong> RSC returned to $0.0687 by 2 August, below where the window
+  started, having round-tripped a 2.4× move. Accumulation on the scale discussed would normally leave a higher floor
+  unless it was subsequently distributed.</li>
 </ul>
 
-<p>The rally is better explained by the pattern visible across the whole dataset: four isolated sessions of 15–60×
-median volume that move price 50%+ intraday and retrace within 48 hours. RSC returned to $0.0687 by 2 August, below
-where it started the window. What the deposit timing does confirm is the provenance finding — repeatedly, large
-stakes settle on days when the market could not have supplied them.</p>
+<p>The attribution can therefore be neither confirmed nor excluded from chain and tape data. An off-market sale
+followed by a market repurchase produces an on-chain trail indistinguishable from internal circulation, and a
+passively-executed repurchase produces a tape indistinguishable from net selling. One adjacent observation cuts
+against a pure accumulation reading: over the same period <strong>7.92M RSC of treasury lineage moved <em>onto</em>
+exchanges</strong> through dedicated deposit funnels (§8.5) — inventory leaving the treasury toward trading venues,
+which is the opposite direction to a buyback, though it is equally consistent with supplying a market maker that
+quotes both sides.</p>
 
 <!-- ============================================ -->
 <h2>7. Team and insider control</h2>
