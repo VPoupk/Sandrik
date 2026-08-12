@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ResearchCoin hot wallet — distribution census and outlier analysis</title>
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#ffffff; --ink:#1a1a1a; --muted:#5c5c5c; --line:#e3e0da;
+  --accent:#2f5d50; --accent-soft:#e8f0ed; --warn:#8a4b12; --warn-soft:#fbf0e3;
+  --bad:#8f2d2d; --bad-soft:#fbeaea; --good:#2c5f35; --good-soft:#e9f2ea;
+  --s1:#2a78d6; --s2:#e34948; --grid:#e6e3dd;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171a;--panel:#1c2024;--ink:#e9e6e1;--muted:#9aa0a6;--line:#2e343a;
+    --accent:#7fc0aa;--accent-soft:#1e2b27;--warn:#e0a86a;--warn-soft:#2b2318;
+    --bad:#e58b8b;--bad-soft:#2c1d1d;--good:#8dc99a;--good-soft:#1b2a1e;
+    --s1:#3987e5;--s2:#e66767;--grid:#2b3137;}
+}
+:root[data-theme="dark"]{--bg:#14171a;--panel:#1c2024;--ink:#e9e6e1;--muted:#9aa0a6;--line:#2e343a;
+  --accent:#7fc0aa;--accent-soft:#1e2b27;--warn:#e0a86a;--warn-soft:#2b2318;
+  --bad:#e58b8b;--bad-soft:#2c1d1d;--good:#8dc99a;--good-soft:#1b2a1e;
+  --s1:#3987e5;--s2:#e66767;--grid:#2b3137;}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;overflow-x:hidden}
+.wrap{max-width:1060px;margin:0 auto;padding:40px 22px 90px}
+header.doc{border-bottom:3px solid var(--accent);padding-bottom:22px;margin-bottom:34px}
+.kicker{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-size:clamp(25px,4.2vw,38px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:16px;max-width:72ch;margin:0}
+.meta{margin-top:18px;font:12px/1.6 var(--mono);color:var(--muted)}
+h2{font-size:clamp(19px,2.6vw,25px);margin:52px 0 6px;letter-spacing:-.01em;padding-top:14px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:30px 0 8px}
+h4{font-size:14px;margin:22px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+p{margin:11px 0}
+code,.mono{font-family:var(--mono);font-size:.87em}
+.addr{font-family:var(--mono);font-size:.8em;word-break:break-all;color:var(--muted)}
+.tag{display:inline-block;font:600 10px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:4px;white-space:nowrap;vertical-align:middle}
+.t-bad{background:var(--bad-soft);color:var(--bad)}
+.t-good{background:var(--good-soft);color:var(--good)}
+.t-warn{background:var(--warn-soft);color:var(--warn)}
+.t-neu{background:var(--accent-soft);color:var(--accent)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px;margin:26px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 17px}
+.card .lab{font:600 10px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card .val{font-size:26px;font-weight:680;letter-spacing:-.02em;margin:7px 0 3px}
+.card .note{font-size:12.5px;color:var(--muted);line-height:1.45}
+.card.hi{border-color:var(--accent);background:var(--accent-soft)}
+
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:18px 0;
+  border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:600px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 10.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  background:var(--bg);position:sticky;top:0;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-family:var(--mono);white-space:nowrap}
+tr.total td{font-weight:700;background:var(--accent-soft);border-top:2px solid var(--accent)}
+tr.sub td{background:var(--bg);font-weight:600}
+tr.hl td{background:var(--bad-soft)}
+
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);
+  padding:15px 18px;border-radius:0 9px 9px 0;margin:20px 0}
+.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+.callout.bad{border-color:var(--bad);background:var(--bad-soft)}
+.callout .h{font-weight:700;margin-bottom:5px;font-size:14.5px}
+.callout p{margin:6px 0;font-size:14.5px}
+
+figure{margin:22px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 14px 10px}
+figcaption{font-size:13px;color:var(--muted);margin:2px 6px 10px;line-height:1.5}
+figcaption strong{color:var(--ink)}
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart .grid{stroke:var(--grid);stroke-width:1}
+.chart .axl{fill:var(--muted);font:11px var(--mono)}
+.chart .axs{fill:var(--muted);font:10px var(--mono)}
+.chart .axt{fill:var(--ink);font:600 12px var(--mono)}
+.chart .axv{fill:var(--muted);font:10px var(--mono)}
+.flow{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;margin:18px 0;
+  font-family:var(--mono);font-size:12.5px;line-height:1.85;overflow-x:auto;white-space:pre}
+ul,ol{margin:11px 0;padding-left:22px} li{margin:6px 0}
+.footnote{font-size:13px;color:var(--muted);border-top:1px solid var(--line);margin-top:48px;padding-top:18px}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <div class="kicker">Companion analysis · hot-wallet distributions</div>
+  <h1>Who receives RSC from the ResearchHub hot wallet, and what do they do with it?</h1>
+  <p class="sub">A census of every outbound RSC payment the hot wallet has ever made across Ethereum and Base —
+  4,533 transfers to 788 distinct addresses — together with a deep dive into the handful of outliers that carry
+  most of the value.</p>
+  <div class="meta">
+    Subject: <code>0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</code> on Ethereum and Base<br>
+    Period: first outbound payment 2024-05 (Ethereum) / 2024-12 (Base) through 2026-08-04<br>
+    Sources: Ethereum and Base chain state via archive JSON-RPC; Blockscout transfer indexes; recipient balances
+    read directly with <code>balanceOf</code>
+  </div>
+</header>
+
+<!-- ============================================ -->
+<h2>1. Summary</h2>
+
+<div class="cards">
+  <div class="card hi">
+    <div class="lab">Distributions, all time</div>
+    <div class="val">4,533</div>
+    <div class="note">29,118,738 RSC to 788 distinct addresses<br>896 address-chain pairs</div>
+  </div>
+  <div class="card">
+    <div class="lab">Median payment</div>
+    <div class="val">850 RSC</div>
+    <div class="note">Mean 6,424 · p90 5,000 · p99 82,203</div>
+  </div>
+  <div class="card">
+    <div class="lab">Recipients holding nothing today</div>
+    <div class="val">73.4%</div>
+    <div class="note">658 of 896 have a zero RSC balance</div>
+  </div>
+  <div class="card">
+    <div class="lab">Of value distributed, retained</div>
+    <div class="val">13.9%</div>
+    <div class="note">86.1% has left the wallets it was paid to</div>
+  </div>
+</div>
+
+<p>Three findings dominate. <strong>The payment population is small and highly skewed</strong>: the median
+payment is 850 RSC and 94% of all payments are under 10,000 RSC, yet 0.31% of transfers carry 36.1% of the value.
+<strong>Retention is low</strong>: 73.4% of recipients hold no RSC at all today, and only 13.9% of everything
+distributed still sits with the address it was paid to. And <strong>the largest non-bridge flows do not go to
+individuals at all</strong> — they run through a three-address pipeline that ends at a decentralised-exchange
+settlement contract.</p>
+
+<!-- ============================================ -->
+<h2>2. The 1,818,217 RSC recipient</h2>
+
+<p>The single largest non-bridge destination in the hot wallet's history is
+<code>0xd90bea2b00b81a0c35dec7223fb1f20034674f8f</code>, a Gnosis Safe. It received
+<strong>1,818,216.85 RSC across 8 transfers</strong>. Prior payments to the same address do exist, but they are an
+order of magnitude smaller — the total is dominated by one transfer.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Date (UTC)</th><th class="num">RSC</th><th class="num">× median payment</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="mono">2026-04-24 17:57</td><td class="num">223,672.98</td><td class="num">263×</td><td>First contact — two weeks after the staking launch</td></tr>
+<tr><td class="mono">2026-05-08 19:49</td><td class="num">18,273.99</td><td class="num">21×</td><td></td></tr>
+<tr class="hl"><td class="mono">2026-05-13 21:41</td><td class="num">1,179,666.98</td><td class="num">1,388×</td><td><strong>The largest payment ever made to a non-bridge address</strong></td></tr>
+<tr><td class="mono">2026-06-02 16:07</td><td class="num">51,728.98</td><td class="num">61×</td><td></td></tr>
+<tr><td class="mono">2026-06-29 15:49</td><td class="num">28,310.98</td><td class="num">33×</td><td></td></tr>
+<tr><td class="mono">2026-07-02 21:13</td><td class="num">60,902.98</td><td class="num">72×</td><td></td></tr>
+<tr><td class="mono">2026-07-16 16:32</td><td class="num">128,852.98</td><td class="num">152×</td><td></td></tr>
+<tr><td class="mono">2026-07-26 14:22</td><td class="num">126,806.98</td><td class="num">149×</td><td></td></tr>
+<tr class="total"><td>8 transfers</td><td class="num">1,818,216.85</td><td class="num">—</td><td>All on Base</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout bad">
+  <div class="h">How the 13 May payment compares to everything else</div>
+  <p>At <strong>1,179,666.98 RSC</strong> it is <strong>1,388× the median distribution</strong> and sits at the
+  <strong>99.956th percentile</strong> — larger than 4,531 of the 4,533 payments the wallet has ever made.</p>
+  <p>It did not occur in isolation. On <strong>the same day</strong>, the Ethereum side of the hot wallet sent
+  <strong>1,200,000 RSC to the Base bridge</strong> — the second-largest transfer in its history. The bridged
+  amount and the amount paid out on Base match to within 1.7%, and the two legs are hours apart. The 13 May payment
+  was funded by a same-day cross-chain top-up rather than out of accumulated balance.</p>
+</div>
+
+<h3>2.1 Were there other recipients of this magnitude?</h3>
+
+<p>Fourteen distributions in the wallet's entire history are 500,000 RSC or larger. They account for
+<strong>36.1% of all value distributed while being 0.31% of the transfer count</strong>. Twelve of the fourteen went
+to the Base bridge — the wallet moving its own funds between its two chains, not a payment to anyone.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Date</th><th class="num">RSC</th><th>Chain</th><th>Destination</th><th>Type</th></tr></thead>
+<tbody>
+<tr><td class="mono">2026-05-13</td><td class="num">1,200,000.00</td><td>ETH</td><td>Base bridge escrow</td><td>Internal transfer</td></tr>
+<tr class="hl"><td class="mono">2026-05-13</td><td class="num">1,179,666.98</td><td>BASE</td><td><code>0xd90bea2b…4f8f</code></td><td><strong>Payment</strong></td></tr>
+<tr><td class="mono">2026-03-06</td><td class="num">1,000,000.00</td><td>ETH</td><td>Base bridge escrow</td><td>Internal transfer</td></tr>
+<tr><td class="mono">2026-01-14</td><td class="num">1,000,000.00</td><td>ETH</td><td>Base bridge escrow</td><td>Internal transfer</td></tr>
+<tr><td class="mono">2025-11-27</td><td class="num">900,900.00</td><td>ETH</td><td>Base bridge escrow</td><td>Internal transfer</td></tr>
+<tr><td class="mono">2025-08-04</td><td class="num">900,000.00</td><td>ETH</td><td>Base bridge escrow</td><td>Internal transfer</td></tr>
+<tr class="hl"><td class="mono">2025-08-05</td><td class="num">822,568.97</td><td>BASE</td><td><code>0x9d5025b3…d8b2</code></td><td><strong>Payment</strong></td></tr>
+<tr><td class="mono">2025-01-30 → 2025-11-26</td><td class="num">500,000.00 ×7</td><td>ETH</td><td>Base bridge escrow</td><td>Internal transfer</td></tr>
+<tr class="total"><td>14 transfers</td><td class="num">10,503,136</td><td colspan="3">36.1% of all distributed value</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>Only two payments above 500,000 RSC in the wallet's entire life went to something other than the bridge
+— and both went into the same pipeline</strong>, described in §5. There is no population of large individual
+recipients; there is one route.</p>
+
+<!-- ============================================ -->
+<h2>3. The distribution census</h2>
+
+<figure>
+  <figcaption><strong>The same 4,533 payments, counted two ways.</strong> By number of payments (left) the
+  distribution is dominated by sub-10,000 RSC amounts. By value carried (right) the shape inverts entirely: the
+  38 payments of 100,000 RSC or more — 0.84% of the count, in red — carry 58.6% of every RSC the wallet has ever
+  distributed.</figcaption>
+  <svg viewBox="0 0 900 300" class="chart" role="img" aria-label="Hot-wallet payments by size bucket: number of payments versus RSC carried"><text x="58" y="24" class="axt">Number of payments</text><line x1="58" y1="246.0" x2="448.0" y2="246.0" class="grid"/><text x="51" y="250.0" class="axl" text-anchor="end">0</text><line x1="58" y1="194.5" x2="448.0" y2="194.5" class="grid"/><text x="51" y="198.5" class="axl" text-anchor="end">626</text><line x1="58" y1="143.0" x2="448.0" y2="143.0" class="grid"/><text x="51" y="147.0" class="axl" text-anchor="end">1,252</text><line x1="58" y1="91.5" x2="448.0" y2="91.5" class="grid"/><text x="51" y="95.5" class="axl" text-anchor="end">1,879</text><line x1="58" y1="40.0" x2="448.0" y2="40.0" class="grid"/><text x="51" y="44.0" class="axl" text-anchor="end">2,505</text><rect x="71.0" y="244.5" width="39.0" height="1.5" rx="3" fill="var(--s1)"/><text x="90.5" y="238.5" class="axv" text-anchor="middle">10</text><text x="90.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 90.5 261.0)">10–100</text><rect x="136.0" y="40.0" width="39.0" height="206.0" rx="3" fill="var(--s1)"/><text x="155.5" y="34.0" class="axv" text-anchor="middle">2,505</text><text x="155.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 155.5 261.0)">100–1k</text><rect x="201.0" y="101.0" width="39.0" height="145.0" rx="3" fill="var(--s1)"/><text x="220.5" y="95.0" class="axv" text-anchor="middle">1,763</text><text x="220.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 220.5 261.0)">1k–10k</text><rect x="266.0" y="228.2" width="39.0" height="17.8" rx="3" fill="var(--s1)"/><text x="285.5" y="222.2" class="axv" text-anchor="middle">217</text><text x="285.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 285.5 261.0)">10k–100k</text><rect x="331.0" y="243.2" width="39.0" height="2.8" rx="3" fill="var(--s2)"/><text x="350.5" y="237.2" class="axv" text-anchor="middle">34</text><text x="350.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 350.5 261.0)">100k–1M</text><rect x="396.0" y="244.5" width="39.0" height="1.5" rx="3" fill="var(--s2)"/><text x="415.5" y="238.5" class="axv" text-anchor="middle">4</text><text x="415.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 415.5 261.0)">≥1M</text><text x="494.0" y="24" class="axt">RSC carried</text><line x1="494.0" y1="246.0" x2="884.0" y2="246.0" class="grid"/><text x="487.0" y="250.0" class="axl" text-anchor="end">0</text><line x1="494.0" y1="194.5" x2="884.0" y2="194.5" class="grid"/><text x="487.0" y="198.5" class="axl" text-anchor="end">3.2M</text><line x1="494.0" y1="143.0" x2="884.0" y2="143.0" class="grid"/><text x="487.0" y="147.0" class="axl" text-anchor="end">6.3M</text><line x1="494.0" y1="91.5" x2="884.0" y2="91.5" class="grid"/><text x="487.0" y="95.5" class="axl" text-anchor="end">9.5M</text><line x1="494.0" y1="40.0" x2="884.0" y2="40.0" class="grid"/><text x="487.0" y="44.0" class="axl" text-anchor="end">12.7M</text><rect x="507.0" y="244.5" width="39.0" height="1.5" rx="3" fill="var(--s1)"/><text x="526.5" y="238.5" class="axv" text-anchor="middle">0k</text><text x="526.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 526.5 261.0)">10–100</text><rect x="572.0" y="226.4" width="39.0" height="19.6" rx="3" fill="var(--s1)"/><text x="591.5" y="220.4" class="axv" text-anchor="middle">1.2M</text><text x="591.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 591.5 261.0)">100–1k</text><rect x="637.0" y="169.5" width="39.0" height="76.5" rx="3" fill="var(--s1)"/><text x="656.5" y="163.5" class="axv" text-anchor="middle">4.7M</text><text x="656.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 656.5 261.0)">1k–10k</text><rect x="702.0" y="146.6" width="39.0" height="99.4" rx="3" fill="var(--s1)"/><text x="721.5" y="140.6" class="axv" text-anchor="middle">6.1M</text><text x="721.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 721.5 261.0)">10k–100k</text><rect x="767.0" y="40.0" width="39.0" height="206.0" rx="3" fill="var(--s2)"/><text x="786.5" y="34.0" class="axv" text-anchor="middle">12.7M</text><text x="786.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 786.5 261.0)">100k–1M</text><rect x="832.0" y="174.9" width="39.0" height="71.1" rx="3" fill="var(--s2)"/><text x="851.5" y="168.9" class="axv" text-anchor="middle">4.4M</text><text x="851.5" y="261.0" class="axs" text-anchor="middle" transform="rotate(-30 851.5 261.0)">≥1M</text><text x="58" y="292" class="axs">payment size bucket (RSC) · red = buckets above 100,000 RSC</text></svg>
+</figure>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Payment size</th><th class="num">Transfers</th><th class="num">% of count</th><th class="num">RSC</th><th class="num">% of value</th></tr></thead>
+<tbody>
+<tr><td>10 – 100</td><td class="num">10</td><td class="num">0.2%</td><td class="num">291</td><td class="num">0.0%</td></tr>
+<tr><td>100 – 1,000</td><td class="num">2,505</td><td class="num">55.3%</td><td class="num">1,208,637</td><td class="num">4.2%</td></tr>
+<tr><td>1,000 – 10,000</td><td class="num">1,763</td><td class="num">38.9%</td><td class="num">4,713,123</td><td class="num">16.2%</td></tr>
+<tr><td>10,000 – 100,000</td><td class="num">217</td><td class="num">4.8%</td><td class="num">6,124,685</td><td class="num">21.0%</td></tr>
+<tr><td>100,000 – 1,000,000</td><td class="num">34</td><td class="num">0.75%</td><td class="num">12,692,336</td><td class="num">43.6%</td></tr>
+<tr><td>≥ 1,000,000</td><td class="num">4</td><td class="num">0.09%</td><td class="num">4,379,667</td><td class="num">15.0%</td></tr>
+<tr class="total"><td>All</td><td class="num">4,533</td><td class="num">100%</td><td class="num">29,118,738</td><td class="num">100%</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>3.1 Recipients, by chain</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Chain</th><th class="num">Recipients</th><th class="num">Transfers</th><th class="num">RSC</th><th class="num">Median per recipient</th><th class="num">Median single payment</th></tr></thead>
+<tbody>
+<tr><td>Ethereum</td><td class="num">373</td><td class="num">1,194</td><td class="num">15,143,151</td><td class="num">3,339</td><td class="num">1,188</td></tr>
+<tr><td>Base</td><td class="num">525</td><td class="num">3,339</td><td class="num">13,975,587</td><td class="num">1,936</td><td class="num">715</td></tr>
+<tr class="total"><td>Combined</td><td class="num">788 unique</td><td class="num">4,533</td><td class="num">29,118,738</td><td class="num">—</td><td class="num">850</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>110 addresses appear on both chains, which is why 788 unique addresses produce 896 address-chain pairs. Base
+carries nearly three times the transfer count on slightly less value — payments there are smaller and more frequent,
+consistent with Base being the venue where the platform actually pays contributors.</p>
+
+<h3>3.2 Recurring versus one-off</h3>
+
+<p>Excluding the bridge and the burn address, the population splits almost exactly in half by count — but not at all
+by value.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Group</th><th class="num">Recipients</th><th class="num">% of recipients</th><th class="num">RSC received</th><th class="num">% of value</th><th class="num">Retention</th><th class="num">Fully exited</th></tr></thead>
+<tbody>
+<tr><td>One-off (a single payment ever)</td><td class="num">444</td><td class="num">49.6%</td><td class="num">1,778,431</td><td class="num">9.6%</td><td class="num">20.4%</td><td class="num">73.9%</td></tr>
+<tr><td>Recurring (two or more)</td><td class="num">452</td><td class="num">50.4%</td><td class="num">16,790,061</td><td class="num">90.4%</td><td class="num">13.2%</td><td class="num">73.0%</td></tr>
+<tr class="total"><td>All</td><td class="num">896</td><td class="num">100%</td><td class="num">18,568,492</td><td class="num">100%</td><td class="num">13.9%</td><td class="num">73.4%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Half the recipients are one-time, and between them they account for under a tenth of the value. The
+<strong>rate at which recipients fully exit is essentially identical in both groups (73.9% vs 73.0%)</strong> —
+being a repeat recipient does not predict holding.</p>
+
+<h3>3.3 Concentration</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Top N recipients</th><th class="num">RSC</th><th class="num">Share of all distributions</th></tr></thead>
+<tbody>
+<tr><td>1 (the Base bridge — internal)</td><td class="num">10,382,050</td><td class="num">35.7%</td></tr>
+<tr><td>3</td><td class="num">15,979,388</td><td class="num">54.9%</td></tr>
+<tr><td>5</td><td class="num">18,306,286</td><td class="num">62.9%</td></tr>
+<tr><td>10</td><td class="num">20,050,201</td><td class="num">68.9%</td></tr>
+<tr><td>25</td><td class="num">22,010,437</td><td class="num">75.6%</td></tr>
+<tr><td>50</td><td class="num">23,909,934</td><td class="num">82.1%</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============================================ -->
+<h2>4. What recipients do with the RSC</h2>
+
+<p>Current balances were read for all 896 recipient-chain pairs. Because some recipients also hold RSC from other
+sources, retention is measured as the received amount or the current balance, whichever is lower — this avoids
+crediting the hot wallet for holdings it did not supply.</p>
+
+<div class="cards">
+  <div class="card"><div class="lab">Received (excl. bridge &amp; burn)</div><div class="val">18.57M</div><div class="note">RSC, across 896 recipient-chain pairs</div></div>
+  <div class="card"><div class="lab">Still held</div><div class="val">2.58M</div><div class="note">13.9% retention</div></div>
+  <div class="card"><div class="lab">No longer held</div><div class="val">15.99M</div><div class="note">86.1% has moved on from the receiving address</div></div>
+  <div class="card"><div class="lab">Hold a zero balance</div><div class="val">658</div><div class="note">73.4% of all recipients, having received 14.50M RSC</div></div>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Holding threshold</th><th class="num">Recipients</th><th class="num">% of population</th><th class="num">RSC held</th></tr></thead>
+<tbody>
+<tr><td>Any balance above zero</td><td class="num">248</td><td class="num">27.7%</td><td class="num">6,597,180</td></tr>
+<tr><td>More than 1 RSC</td><td class="num">190</td><td class="num">21.2%</td><td class="num">6,597,158</td></tr>
+<tr><td>More than 100 RSC</td><td class="num">153</td><td class="num">17.1%</td><td class="num">6,596,555</td></tr>
+<tr><td>More than 1,000 RSC</td><td class="num">96</td><td class="num">10.7%</td><td class="num">6,570,654</td></tr>
+<tr><td>More than 10,000 RSC</td><td class="num">44</td><td class="num">4.9%</td><td class="num">6,363,647</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The held total of 6.60M RSC exceeds the 2.58M attributable to hot-wallet payments because several large holders
+were funded principally from elsewhere — treasury grants, in the cases identified in §6. Retention among
+<em>Ethereum</em> recipients is 20.9%, against <strong>11.5% on Base</strong>, where the smaller, more frequent
+contributor payments are made.</p>
+
+<h3>4.1 How much was sold</h3>
+
+<div class="callout warn">
+  <div class="h">What can and cannot be measured</div>
+  <p>"Sold" is not directly observable on-chain. What is observable is that <strong>15.99M RSC no longer sits at the
+  address it was paid to</strong>, and where the next hop went for the largest recipients.</p>
+  <p>Tracing the 70 largest recipients — 13.91M RSC, 75% of everything distributed — gives
+  <strong>≥3.48M RSC sent directly to decentralised-exchange venues</strong> (CoW Protocol settlement, Aerodrome
+  and Uniswap pools) and <strong>129,965 RSC deposited directly to a centralised exchange</strong>. The remaining
+  21.9M of onward movement goes to addresses that are neither, which for the top recipients means intermediate hops
+  of the kind documented in the on-chain memo's exchange-funnel section. <strong>A precise total sold is therefore
+  not determinable</strong>; the defensible statement is that at least 3.6M RSC reached a trading venue in one hop,
+  and that 86.1% of everything distributed has left the recipient address.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>5. The outlier pipeline</h2>
+
+<p>The three largest non-bridge recipients are not separate destinations. They form a single chain, and it
+terminates at a decentralised exchange rather than at a person.</p>
+
+<div class="flow">HOT WALLET ──3,779,121 (19 transfers, Apr 2025 – Mar 2026)──►  OUTLIER-2  0x9d5025b3…d8b2
+FOUNDATION SAFE ──480,851 (6 transfers, Jun 2025 – Jun 2026)──►     (EIP-7702 delegated account)
+                                                                          │
+                                                          4,148,793 (19 transfers)
+                                                                          ▼
+HOT WALLET ──1,818,217 (8 transfers, Apr – Jul 2026)────────────►  OUTLIER-1  0xd90bea2b…4f8f
+exchange-scale wallet ──823,569 (1 transfer)────────────────────►     (Gnosis Safe)
+                                                                          │
+                                            ≥1,074,703 across 293 transfers│──►  CoW Protocol GPv2Settlement
+                                                        823,569, 1 transfer│──►  EOA 0x3a236910…d1bd
+
+HOT WALLET ──1,459,882 (10 transfers, Aug – Oct 2025)───────────►  OUTLIER-3  0x97e2ad35…c202f
+                                                    1,459,902, 7 transfers │──►  EOA 0x41377373…ef9c</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Address</th><th>Type</th><th class="num">From hot wallet</th><th>Active</th><th>Onward destination</th></tr></thead>
+<tbody>
+<tr><td><strong>OUTLIER-2</strong><br><span class="addr">0x9d5025b327e6b863e5050141c987d988c07fd8b2</span></td>
+    <td>EOA with an EIP-7702 delegation to a MetaMask smart-account implementation</td>
+    <td class="num">3,779,121</td><td>2025-04-10 → 2026-03-14</td>
+    <td>4,148,793 RSC to OUTLIER-1; holds nothing</td></tr>
+<tr><td><strong>OUTLIER-1</strong><br><span class="addr">0xd90bea2b00b81a0c35dec7223fb1f20034674f8f</span></td>
+    <td>Gnosis Safe</td>
+    <td class="num">1,818,217</td><td>2026-04-24 → 2026-07-26</td>
+    <td>≥1,074,703 RSC to CoW Protocol settlement across 293 transfers; 823,569 to an EOA</td></tr>
+<tr><td><strong>OUTLIER-3</strong><br><span class="addr">0x97e2ad35911a856c205ebeda1d3e339b7b0c202f</span></td>
+    <td>Contract</td>
+    <td class="num">1,459,882</td><td>2025-08-08 → 2025-10-01</td>
+    <td>1,459,902 RSC to a single EOA in 7 transfers; holds nothing</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>The handover</h4>
+<p>The two large Base recipients do not overlap in time. OUTLIER-2 receives from the hot wallet between April 2025
+and <strong>14 March 2026</strong>, then stops. OUTLIER-1 receives its first payment on <strong>24 April 2026</strong>
+and continues through July. OUTLIER-2's own balance then flows into OUTLIER-1. The pattern is consistent with one
+operational function being rotated onto a new address shortly after the staking product launched, rather than with
+two unrelated counterparties.</p>
+
+<h4>A fourth pattern worth noting</h4>
+<p><code>0x4bdcf665…e68c</code> received 867,017 RSC in a distinctly programmatic sequence: near-daily payments of
+49,999.99, 74,999.99 and 99,999.98 RSC through late September and October 2025. Unlike the others,
+<strong>it still holds 866,265 RSC — essentially everything it was ever paid</strong>, making it the largest
+genuine holder among all hot-wallet recipients. Round-number amounts on a daily cadence, then no disposal, reads as
+a scheduled internal transfer or an escrow arrangement rather than a contributor payment.</p>
+
+<!-- ============================================ -->
+<h2>6. Links to other wallets in the RSC structure</h2>
+
+<p>Each of the 896 recipient-chain pairs was checked against the set of addresses identified elsewhere in this
+work — the treasuries, the multisig signers, the staking depositors and their funders, the exchange funnels, the
+vesting contracts and the labelled exchange wallets.</p>
+
+<div class="callout">
+  <div class="h">Result: the overlap is real but small, with one substantial exception</div>
+  <p><strong>12 of 896 recipient-chain pairs match a known address, and between them they received 43,632 RSC</strong>
+  — under a quarter of one percent of everything distributed. Most are payments of a few hundred RSC, consistent
+  with ordinary platform activity rather than with treasury movement.</p>
+  <p>The exception is at the pipeline. <strong>OUTLIER-2 received 480,851 RSC directly from the Foundation
+  Community Safe</strong> across six transfers between June 2025 and June 2026 — including 300,000 RSC on
+  2026-06-03. That is a direct funding link between the project's own multisig and the largest non-bridge
+  destination of hot-wallet funds, independent of the hot wallet itself.</p>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Recipient</th><th>Known role</th><th class="num">Received from hot wallet</th><th class="num">Currently holds</th></tr></thead>
+<tbody>
+<tr><td><span class="addr">0x9d5025b3…d8b2</span></td><td>OUTLIER-2 — also funded 480,851 RSC by the Foundation Community Safe</td><td class="num">3,779,121</td><td class="num">0</td></tr>
+<tr><td><code>dolosus.eth</code> <span class="addr">0xcC5F1f28…E21B</span></td><td>Supplied the wallet behind a 650,000 RSC staking deposit; treasury-downstream</td><td class="num">40,555</td><td class="num">36,312</td></tr>
+<tr><td><span class="addr">0x5aa0122f…3fea</span></td><td>Staking depositor (1,100,000 RSC), funded by Treasury 3</td><td class="num">633</td><td class="num">619,882</td></tr>
+<tr><td><span class="addr">0xcad41a2e…9ce1</span></td><td>Funder of the above depositor</td><td class="num">674</td><td class="num">433,981</td></tr>
+<tr><td><span class="addr">0x144985d2…B00d</span></td><td>Staking depositor (601,000 RSC), funded by Treasury 2</td><td class="num">303</td><td class="num">833,351</td></tr>
+<tr><td><span class="addr">0x29E46015…11Ee</span></td><td>Supplied 3,000,000 RSC to a multisig-signer depositor</td><td class="num">1,305</td><td class="num">0</td></tr>
+<tr><td><span class="addr">0x67f843da…7985</span></td><td>Signer on Treasuries 1 and 2 and on the staking vault</td><td class="num">152</td><td class="num">620</td></tr>
+<tr><td><span class="addr">0x76835CA5…b7B1</span></td><td>Treasury distribution wallet (69.61M RSC lifetime)</td><td class="num">10</td><td class="num">0</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Read carefully, the pattern is that <strong>the hot wallet's payment population is largely disjoint from the
+staking and treasury population</strong>. Where the two do meet, the amounts are trivial — a few hundred RSC — with
+the single exception of the Foundation Safe's direct funding of OUTLIER-2. The large holders in the right-hand
+column above hold their RSC because a treasury funded them separately, not because the hot wallet paid them.</p>
+
+<!-- ============================================ -->
+<h2>7. Method and limits</h2>
+<ul>
+  <li><strong>Zero-value transfers are excluded throughout.</strong> 3,738 outbound transfers of exactly 0 RSC
+  originate from address-poisoning activity by a third party rather than from ResearchHub, and their "recipients"
+  are attacker-controlled look-alike addresses. Including them would inflate the recipient count by roughly 400
+  addresses.</li>
+  <li><strong>The Base bridge and the burn address are excluded from the recipient population</strong> where stated.
+  The bridge is the wallet moving its own funds between chains; the burn address is not a counterparty. Both are
+  retained in the all-time distribution totals.</li>
+  <li><strong>Retention is a point-in-time measure</strong> taken from current balances. It cannot distinguish a
+  recipient who sold from one who moved funds to another wallet they control, and it does not capture RSC that was
+  received, spent, and later re-acquired.</li>
+  <li><strong>Onward-destination tracing covers the 70 largest recipients</strong> (13.91M RSC, 75% of distributed
+  value), not the full population. Two of those traces hit the 300-event page limit and are lower bounds; the CoW
+  Protocol figure for OUTLIER-1 rises from 895,069 to 1,074,703 when the sample is widened, so it should be read as
+  a floor.</li>
+  <li><strong>Address roles are inferred from behaviour and contract type.</strong> No recipient is attributed to a
+  named individual or organisation beyond the labelled exchange wallets and the addresses ResearchHub publishes
+  itself.</li>
+</ul>
+
+<p class="footnote">
+All figures derive from complete outbound RSC transfer histories for
+<code>0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</code> on Ethereum (1,340 transfer events) and Base (7,569 events),
+cross-checked between two independent explorer API routes and reconciled against <code>balanceOf</code> at
+checkpoints. Recipient balances were read directly from each chain at the time of writing and will drift. Amounts
+are in RSC; no USD conversion is applied in this document.
+</p>
+
+</div>
+</body>
+</html>
