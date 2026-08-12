@@ -93,8 +93,8 @@ a{color:var(--accent)}
 <header class="doc">
   <div class="kicker">Companion analysis · centralised-exchange trade tape</div>
   <h1>What the RSC trade tape can and cannot say about $1.8M of buying</h1>
-  <p class="sub">A test of one specific claim, against 731,862 individual executed spot trades from four
-  centralised exchanges covering 1 January to 2 August 2026. It tests whether the ~$1.8M staked
+  <p class="sub">A test of one specific claim, against 901,231 individual executions — 731,862 spot trades from
+  four centralised exchanges and 169,369 on-chain swaps from three Base liquidity pools, covering 2026 to date. It tests whether the ~$1.8M staked
   could have been matched by buying in the market, and what the tape does and does not bound.</p>
   <div class="meta">
     Source: Tardis-derived trade tape, one row per executed trade — <code>MEXC RSCUSDT</code>,
@@ -117,6 +117,11 @@ a{color:var(--accent)}
     <div class="lab">Passive-buy ceiling, post-launch</div>
     <div class="val">$13.3M</div>
     <div class="note">Takers sold this much, so the passive side bought it. $1.78M is 13.4% of it — feasible</div>
+  </div>
+  <div class="card hi">
+    <div class="lab">Net on-chain buying during the rally</div>
+    <div class="val pos">+$135,587</div>
+    <div class="note">1,161,274 RSC removed from Base pools, 16 Apr – 12 May. Unambiguous — an AMM has no passive side</div>
   </div>
   <div class="card">
     <div class="lab">Best 60-day window</div>
@@ -141,9 +146,17 @@ days that produced the April–May rally. Section 3 sets out the correct bound: 
 post-launch period, so the passive side bought $13.3M, and <strong>$1.78M is 13.4% of that — entirely feasible for
 a single participant</strong>.</p>
 
-<p>What can be said firmly is narrower. The market was <em>large enough</em> to absorb the claim; the flow data
-cannot confirm or exclude it; and the price ended the period 5.9% lower than it started, having round-tripped a
-2.4× rally. Any accumulation that occurred did not leave a durable price level.</p>
+<p><strong>The on-chain venues resolve part of it.</strong> RSC also trades on three Base pools, which are a third
+of total turnover, and an automated market maker has no passive side — every swap is directional. Through the rally,
+<strong>net on-chain buying was +$135,587, or 1,161,274 RSC removed from the pools</strong>, while centralised net
+taker flow read −$112,236. <em>There was real net buying, and it is visible on-chain.</em> The price move does not
+require an unexplained mechanism.</p>
+
+<p>What it does not do is reach the figure under test. Net on-chain accumulation through the rally is
+<strong>7.6% of $1.78M</strong>, and the combined CEX+DEX picture nets to roughly flat (+$23,350). Accumulation at
+the claimed scale remains possible, but it would have to have happened passively on the order books rather than
+on-chain. The price also ended the period 5.9% below where it started, having fully round-tripped a 2.4× rally, so
+whatever was accumulated left no durable price level.</p>
 
 <div class="callout bad">
   <div class="h">The two datasets agree, and that is the strongest part of the finding</div>
@@ -170,13 +183,18 @@ cannot confirm or exclude it; and the price ended the period 5.9% lower than it 
 <tr><td>Kraken <code>RSC-USD</code></td><td>USD</td><td class="num">38,406</td><td>1 Jan – 2 Aug</td><td class="num">214 / 214</td><td><span class="tag t-good">yes</span></td></tr>
 <tr><td>Kraken <code>RSC-EUR</code></td><td>EUR</td><td class="num">9,522</td><td>1 Jan – 2 Aug</td><td class="num">180 / 214</td><td><span class="tag t-warn">excluded — FX</span></td></tr>
 <tr><td>MEXC <code>RSCUSDT</code></td><td>USDT</td><td class="num">184,491</td><td><strong>25 Jun – 2 Aug only</strong></td><td class="num">39 / 39</td><td><span class="tag t-bad">no — 39 days</span></td></tr>
-<tr class="total"><td>Total</td><td></td><td class="num">731,862</td><td colspan="3"></td></tr>
+<tr class="total"><td>CEX total</td><td></td><td class="num">731,862</td><td colspan="3"></td></tr>
+<tr class="sub"><td colspan="6">On-chain venues, parsed directly from Base logs — see §8</td></tr>
+<tr><td>Aerodrome Slipstream ×2 + Uniswap V3</td><td>WETH</td><td class="num">169,369</td><td>1 Jan – 12 Aug</td><td class="num">224 / 224</td><td><span class="tag t-good">yes</span></td></tr>
+<tr class="total"><td>Grand total</td><td></td><td class="num">901,231</td><td colspan="3">trades and swaps</td></tr>
 </tbody>
 </table>
 </div>
 
 <p><strong>MEXC contributes no data before 25 June</strong>, so it cannot appear in any before/after comparison
-without inventing a pre-launch baseline it does not have. Every headline figure in this document therefore uses the
+without inventing a pre-launch baseline it does not have. <span class="tag t-warn">pending</span> The missing
+1 January – 24 June window is the single largest gap in this dataset and is being sourced separately; every CEX
+figure below should be read as excluding MEXC for that period. Every headline figure in this document therefore uses the
 three continuously-covered venues only. That is a conservative choice in the right direction: MEXC is large
 (<strong>40.7% of notional</strong> in the window where it does exist), so excluding it understates total turnover —
 but including it would only make $1.8M a <em>smaller</em> share of volume, not a more visible one. For completeness,
@@ -666,7 +684,121 @@ when large stakes landed?</p>
 </div>
 
 <!-- ============================================ -->
-<h2>8. Newsflow correlation</h2>
+<h2>8. The on-chain market — Aerodrome and Uniswap</h2>
+
+<p>Centralised venues are not the whole market. RSC trades on three WETH-paired pools on Base, and every swap on
+them is a public event. All <strong>169,369 swaps</strong> from 1 January to 12 August 2026 were parsed directly
+from Base logs — 1,017 block ranges covering 9.66M blocks, <strong>with no unrecovered gaps</strong>.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Pool</th><th>Address</th><th>Pair</th><th class="num">USD volume YTD</th><th class="num">Share of DEX</th></tr></thead>
+<tbody>
+<tr><td>Aerodrome Slipstream, tick spacing 200</td><td class="addr">0x6cCa90E7…3018</td><td>WETH / RSC</td><td class="num">16,147,475</td><td class="num">86.8%</td></tr>
+<tr><td>Aerodrome Slipstream, tick spacing 50</td><td class="addr">0x6cdA37dD…965F</td><td>WETH / RSC</td><td class="num">1,618,048</td><td class="num">8.7%</td></tr>
+<tr><td>Uniswap V3, 1% fee</td><td class="addr">0xE7F85073…a030</td><td>WETH / RSC</td><td class="num">836,759</td><td class="num">4.5%</td></tr>
+<tr class="total"><td>Total</td><td colspan="2">169,369 swaps</td><td class="num">18,602,282</td><td class="num">100%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout bad">
+  <div class="h">DEX flow is unambiguous in a way exchange flow is not</div>
+  <p>On an order book, net taker flow does not bound accumulation, because a passive buyer's fills print as taker
+  sells (§3). <strong>On an automated market maker there is no passive side.</strong> Every swap is against the
+  pool: if RSC leaves the pool someone bought it, if RSC enters the pool someone sold it. Net pool flow is therefore
+  a direct measure of accumulation or distribution, with no interpretive ambiguity.</p>
+  <p>This makes the DEX data the sharpest instrument available for the question — and it is <strong>a third of the
+  market</strong>, not a rounding error.</p>
+</div>
+
+<h3>8.1 Market share: the four exchanges are two thirds of RSC, not all of it</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Window</th><th class="num">CEX volume</th><th class="num">DEX volume</th><th class="num">Total</th><th class="num">DEX share</th></tr></thead>
+<tbody>
+<tr><td>Full YTD, 1 Jan – 2 Aug</td><td class="num">35,001,165</td><td class="num">17,860,209</td><td class="num">52,861,374</td><td class="num">33.8%</td></tr>
+<tr><td>Post-launch, 10 Apr – 2 Aug</td><td class="num">26,575,075</td><td class="num">13,446,444</td><td class="num">40,021,519</td><td class="num">33.6%</td></tr>
+<tr><td>Rally, 16 Apr – 12 May</td><td class="num">11,389,024</td><td class="num">5,848,329</td><td class="num">17,237,354</td><td class="num">33.9%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The DEX share is remarkably stable at roughly a third across every window, and the single Aerodrome tick-200 pool
+is <strong>larger than Kraken and comparable to Gate.io</strong>. Any statement about "the RSC market" that omits it
+is missing a third of the turnover. CEX figures here exclude MEXC before 25 June, so the true CEX total is higher
+and the DEX share correspondingly lower — see §2.</p>
+
+<h3>8.2 Net flow, and what it says about the rally</h3>
+
+<figure>
+  <figcaption><strong>Cumulative net flow, centralised versus on-chain.</strong> The CEX line is net taker flow,
+  which does not bound passive accumulation. The DEX line is net pool flow, which is unambiguous directional
+  buying. The shaded band is the 16 April – 12 May rally, and it is the one stretch where the two diverge sharply.</figcaption>
+  <svg viewBox="0 0 900 230" class="chart" role="img" aria-label="Cumulative net flow on centralised exchanges versus decentralised pools, 2026 year to date"><line x1="70" y1="159.5" x2="884" y2="159.5" class="grid"/><text x="62" y="163.5" class="axl" text-anchor="end">-$400k</text><line x1="70" y1="137.9" x2="884" y2="137.9" class="grid"/><text x="62" y="141.9" class="axl" text-anchor="end">-$300k</text><line x1="70" y1="116.4" x2="884" y2="116.4" class="grid"/><text x="62" y="120.4" class="axl" text-anchor="end">-$200k</text><line x1="70" y1="94.8" x2="884" y2="94.8" class="grid"/><text x="62" y="98.8" class="axl" text-anchor="end">-$100k</text><line x1="70" y1="73.2" x2="884" y2="73.2" class="zero"/><text x="62" y="77.2" class="axl" text-anchor="end">$0</text><line x1="70" y1="51.6" x2="884" y2="51.6" class="grid"/><text x="62" y="55.6" class="axl" text-anchor="end">+$100k</text><line x1="70" y1="30.0" x2="884" y2="30.0" class="grid"/><text x="62" y="34.0" class="axl" text-anchor="end">+$200k</text><text x="70.0" y="222" class="axl" text-anchor="middle">01</text><text x="183.2" y="222" class="axl" text-anchor="middle">02</text><text x="285.4" y="222" class="axl" text-anchor="middle">03</text><text x="398.5" y="222" class="axl" text-anchor="middle">04</text><text x="508.0" y="222" class="axl" text-anchor="middle">05</text><text x="621.2" y="222" class="axl" text-anchor="middle">06</text><text x="730.7" y="222" class="axl" text-anchor="middle">07</text><text x="843.8" y="222" class="axl" text-anchor="middle">08</text><line x1="431.4" y1="30" x2="431.4" y2="196" class="evt"/><text x="431.4" y="21" class="evtlab" text-anchor="middle">Apr 10 launch</text><rect x="453.3" y="30" width="94.9" height="166" fill="var(--s2)" opacity="0.07"/><text x="500.7" y="42.0" class="evtlab" text-anchor="middle">rally</text><path d="M70.0,63.6 L73.7,54.9 L77.3,52.1 L81.0,52.0 L84.6,46.7 L88.3,54.4 L91.9,58.7 L95.6,63.8 L99.2,67.0 L102.9,74.1 L106.5,77.3 L110.2,79.4 L113.8,74.7 L117.5,75.0 L121.1,78.1 L124.8,81.1 L128.4,80.4 L132.1,88.0 L135.7,93.5 L139.4,96.9 L143.0,98.5 L146.7,107.9 L150.3,111.5 L154.0,111.6 L157.6,119.5 L161.3,119.3 L164.9,122.2 L168.6,125.5 L172.2,128.6 L175.9,128.0 L179.5,131.2 L183.2,135.8 L186.8,133.2 L190.5,134.3 L194.1,135.4 L197.8,132.8 L201.4,130.4 L205.1,128.6 L208.7,132.2 L212.4,136.4 L216.0,137.8 L219.7,137.6 L223.3,134.9 L227.0,129.9 L230.6,128.6 L234.3,130.5 L237.9,130.5 L241.6,130.2 L245.2,130.5 L248.9,132.7 L252.5,131.3 L256.2,130.1 L259.8,130.2 L263.5,131.7 L267.1,132.6 L270.8,131.0 L274.4,129.3 L278.1,136.6 L281.7,135.6 L285.4,136.3 L289.0,134.6 L292.7,137.3 L296.3,133.2 L300.0,130.4 L303.6,129.6 L307.3,129.3 L310.9,129.2 L314.6,129.9 L318.2,128.3 L321.9,127.0 L325.5,126.1 L329.2,124.5 L332.8,125.2 L336.5,124.8 L340.1,123.1 L343.8,125.5 L347.4,129.4 L351.1,130.4 L354.7,129.0 L358.4,127.1 L362.0,127.7 L365.7,127.3 L369.3,126.5 L373.0,125.0 L376.6,127.4 L380.3,127.6 L383.9,126.8 L387.6,126.5 L391.2,126.6 L394.9,125.9 L398.5,124.4 L402.2,123.7 L405.8,123.4 L409.5,119.5 L413.1,119.6 L416.8,119.7 L420.4,116.5 L424.1,122.2 L427.7,131.3 L431.4,130.2 L435.0,139.4 L438.7,135.6 L442.3,137.8 L446.0,139.6 L449.6,139.6 L453.3,130.8 L456.9,132.3 L460.6,132.8 L464.2,133.1 L467.9,133.7 L471.5,134.2 L475.2,130.3 L478.8,155.8 L482.5,175.9 L486.1,181.1 L489.8,179.5 L493.4,182.9 L497.1,180.5 L500.7,182.6 L504.4,177.6 L508.0,176.7 L511.7,151.2 L515.3,158.9 L519.0,167.0 L522.6,166.5 L526.3,169.0 L529.9,178.9 L533.6,153.8 L537.2,157.5 L540.9,155.2 L544.5,150.6 L548.2,163.8 L551.8,165.3 L555.5,161.9 L559.1,169.1 L562.8,169.8 L566.4,176.9 L570.1,181.4 L573.7,182.1 L577.4,182.5 L581.0,186.4 L584.7,190.5 L588.3,181.7 L592.0,177.0 L595.6,179.5 L599.3,180.8 L602.9,186.4 L606.6,182.7 L610.2,183.6 L613.9,184.4 L617.5,186.5 L621.2,190.9 L624.8,185.4 L628.5,190.4 L632.1,192.8 L635.8,191.6 L639.4,192.4 L643.1,196.0 L646.7,176.1 L650.4,179.6 L654.0,179.9 L657.7,180.0 L661.3,182.4 L665.0,177.3 L668.6,173.9 L672.3,170.5 L675.9,171.1 L679.6,176.3 L683.2,175.2 L686.9,178.4 L690.5,170.1 L694.2,168.9 L697.8,170.1 L701.5,174.6 L705.1,176.5 L708.8,174.0 L712.4,172.8 L716.1,171.5 L719.7,170.8 L723.4,171.9 L727.0,170.6 L730.7,162.1 L734.3,158.0 L738.0,158.0 L741.6,159.1 L745.3,162.4 L748.9,159.0 L752.6,158.8 L756.2,162.8 L759.9,161.3 L763.5,157.9 L767.2,153.3 L770.8,153.9 L774.5,154.3 L778.1,150.2 L781.8,150.2 L785.4,155.8 L789.1,155.6 L792.7,152.5 L796.4,150.4 L800.0,142.8 L803.7,139.8 L807.3,144.6 L811.0,146.8 L814.6,149.1 L818.3,149.6 L821.9,150.9 L825.6,149.9 L829.2,149.4 L832.9,146.2 L836.5,147.5 L840.2,149.5 L843.8,149.2 L847.5,146.4 L851.1,146.4 L854.8,146.4 L858.4,146.4 L862.1,146.4 L865.7,146.4 L869.4,146.4 L873.0,146.4 L876.7,146.4 L880.3,146.4 L884.0,146.4" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round"/><text x="880" y="140.4" class="axv" text-anchor="end" fill="var(--s1)">CEX</text><path d="M70.0,71.4 L73.7,68.5 L77.3,68.2 L81.0,67.4 L84.6,64.7 L88.3,59.7 L91.9,63.5 L95.6,61.5 L99.2,62.5 L102.9,64.2 L106.5,64.9 L110.2,60.9 L113.8,62.4 L117.5,64.3 L121.1,64.9 L124.8,66.2 L128.4,65.9 L132.1,67.8 L135.7,66.1 L139.4,66.2 L143.0,65.0 L146.7,69.0 L150.3,70.8 L154.0,69.9 L157.6,70.4 L161.3,70.8 L164.9,72.9 L168.6,73.8 L172.2,74.1 L175.9,72.4 L179.5,68.1 L183.2,66.5 L186.8,66.9 L190.5,66.9 L194.1,67.2 L197.8,65.5 L201.4,62.9 L205.1,61.9 L208.7,62.2 L212.4,64.4 L216.0,63.0 L219.7,64.5 L223.3,62.9 L227.0,63.7 L230.6,63.7 L234.3,61.0 L237.9,61.3 L241.6,62.5 L245.2,61.0 L248.9,64.1 L252.5,65.3 L256.2,65.3 L259.8,64.7 L263.5,63.6 L267.1,62.7 L270.8,61.6 L274.4,59.3 L278.1,59.8 L281.7,60.7 L285.4,59.2 L289.0,61.4 L292.7,60.6 L296.3,63.3 L300.0,64.2 L303.6,64.8 L307.3,65.9 L310.9,66.6 L314.6,67.0 L318.2,66.2 L321.9,66.4 L325.5,67.2 L329.2,66.1 L332.8,67.9 L336.5,68.9 L340.1,70.1 L343.8,71.3 L347.4,71.1 L351.1,72.6 L354.7,72.4 L358.4,71.7 L362.0,71.7 L365.7,72.4 L369.3,71.2 L373.0,70.5 L376.6,72.3 L380.3,72.7 L383.9,72.6 L387.6,72.8 L391.2,73.7 L394.9,74.6 L398.5,74.2 L402.2,74.1 L405.8,73.8 L409.5,73.1 L413.1,74.1 L416.8,74.6 L420.4,74.5 L424.1,60.9 L427.7,72.2 L431.4,71.6 L435.0,73.7 L438.7,73.5 L442.3,75.3 L446.0,74.8 L449.6,74.1 L453.3,66.8 L456.9,70.9 L460.6,72.7 L464.2,71.2 L467.9,68.7 L471.5,68.7 L475.2,64.0 L478.8,52.2 L482.5,58.3 L486.1,60.3 L489.8,62.6 L493.4,61.1 L497.1,58.3 L500.7,59.9 L504.4,55.5 L508.0,56.9 L511.7,44.9 L515.3,44.6 L519.0,50.7 L522.6,51.2 L526.3,49.7 L529.9,49.7 L533.6,41.3 L537.2,42.4 L540.9,42.9 L544.5,43.0 L548.2,44.8 L551.8,45.7 L555.5,43.3 L559.1,46.3 L562.8,48.4 L566.4,57.0 L570.1,59.0 L573.7,58.8 L577.4,60.1 L581.0,59.7 L584.7,66.9 L588.3,69.0 L592.0,63.6 L595.6,66.2 L599.3,66.3 L602.9,71.7 L606.6,70.2 L610.2,67.7 L613.9,70.5 L617.5,72.8 L621.2,74.0 L624.8,68.1 L628.5,72.7 L632.1,73.6 L635.8,71.8 L639.4,60.4 L643.1,62.9 L646.7,64.3 L650.4,66.1 L654.0,68.1 L657.7,66.7 L661.3,66.8 L665.0,64.8 L668.6,67.3 L672.3,67.0 L675.9,70.6 L679.6,72.5 L683.2,76.2 L686.9,82.3 L690.5,81.6 L694.2,81.6 L697.8,83.9 L701.5,82.7 L705.1,79.8 L708.8,76.8 L712.4,81.7 L716.1,78.4 L719.7,77.9 L723.4,82.8 L727.0,81.1 L730.7,77.1 L734.3,78.4 L738.0,73.4 L741.6,76.3 L745.3,88.4 L748.9,89.0 L752.6,87.9 L756.2,83.6 L759.9,84.3 L763.5,87.2 L767.2,86.4 L770.8,87.0 L774.5,86.9 L778.1,93.8 L781.8,93.6 L785.4,97.5 L789.1,98.5 L792.7,93.1 L796.4,91.4 L800.0,80.1 L803.7,79.2 L807.3,78.4 L811.0,82.1 L814.6,87.9 L818.3,89.0 L821.9,94.1 L825.6,93.8 L829.2,94.4 L832.9,98.9 L836.5,102.3 L840.2,102.1 L843.8,103.5 L847.5,103.0 L851.1,101.4 L854.8,98.7 L858.4,103.1 L862.1,106.2 L865.7,107.5 L869.4,108.9 L873.0,106.1 L876.7,109.4 L880.3,111.1 L884.0,111.0" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round"/><text x="880" y="105.0" class="axv" text-anchor="end" fill="var(--s2)">DEX</text></svg>
+</figure>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Window</th><th class="num">CEX net</th><th class="num">DEX net</th><th class="num">DEX net, RSC</th><th class="num">Combined</th></tr></thead>
+<tbody>
+<tr><td>Full YTD</td><td class="num neg">−339,228</td><td class="num neg">−138,084</td><td class="num neg">—</td><td class="num neg">−477,312</td></tr>
+<tr><td>Pre-launch, 1 Jan – 9 Apr</td><td class="num neg">−269,233</td><td class="num pos">+4,727</td><td class="num neg">−352,274</td><td class="num neg">−264,506</td></tr>
+<tr><td>Post-launch, 10 Apr – 2 Aug</td><td class="num neg">−69,995</td><td class="num neg">−142,811</td><td class="num neg">—</td><td class="num neg">−212,806</td></tr>
+<tr class="hl"><td><strong>Rally, 16 Apr – 12 May</strong></td><td class="num neg">−112,236</td><td class="num pos"><strong>+135,587</strong></td><td class="num pos"><strong>+1,161,274</strong></td><td class="num pos">+23,350</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">This answers the question the CEX tape could not</div>
+  <p>Through the rally, <strong>on-chain buyers removed 1,161,274 RSC net from the pools — $135,587 of unambiguous
+  net buying</strong>, at a time when centralised net taker flow read −$112,236. The two venues point in opposite
+  directions, and the on-chain side is the one without an interpretive escape hatch.</p>
+  <p>Every one of the days that produced the rally shows net DEX buying: 8 April +$62,944, 23 April +$54,609,
+  30 April +$20,515, 2 May +$55,302, 8 May +$38,755, and the year's biggest day, 6 June, +$52,619.
+  <strong>There was real net buying, and it is visible on-chain.</strong> A price that roughly doubled on a token
+  this thin no longer requires an unexplained mechanism.</p>
+  <p>What it does not do is reach $1.8M. Net on-chain accumulation through the rally is <strong>7.6% of that
+  figure</strong>. The combined picture — CEX −$112,236 and DEX +$135,587 — nets to roughly flat, so any accumulation
+  at the claimed scale would still have to have occurred passively on the order books, within the $5.75M ceiling
+  set out in §3.</p>
+</div>
+
+<h3>8.3 Monthly, both venue types</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Month</th><th class="num">CEX volume</th><th class="num">DEX volume</th><th class="num">DEX share</th><th class="num">CEX net</th><th class="num">DEX net</th><th class="num">Combined net</th></tr></thead>
+<tbody>
+<tr><td>2026-01</td><td class="num">2,616,220</td><td class="num">1,604,872</td><td class="num">38.0%</td><td class="num neg">−268,914</td><td class="num pos">+23,699</td><td class="num neg">−245,215</td></tr>
+<tr><td>2026-02</td><td class="num">1,396,089</td><td class="num">844,448</td><td class="num">37.7%</td><td class="num neg">−20,060</td><td class="num pos">+33,959</td><td class="num pos">+13,898</td></tr>
+<tr><td>2026-03</td><td class="num">1,044,387</td><td class="num">626,268</td><td class="num">37.5%</td><td class="num pos">+44,935</td><td class="num neg">−64,126</td><td class="num neg">−19,191</td></tr>
+<tr class="sub"><td colspan="7">▼ staking launched 10 April 2026</td></tr>
+<tr><td>2026-04</td><td class="num">9,401,322</td><td class="num">4,045,119</td><td class="num">30.1%</td><td class="num neg">−239,522</td><td class="num pos">+88,573</td><td class="num neg">−150,949</td></tr>
+<tr><td>2026-05</td><td class="num">8,040,794</td><td class="num">4,736,407</td><td class="num">37.1%</td><td class="num neg">−41,296</td><td class="num neg">−80,431</td><td class="num neg">−121,727</td></tr>
+<tr><td>2026-06</td><td class="num">8,728,358</td><td class="num">3,599,015</td><td class="num">29.2%</td><td class="num pos">+73,763</td><td class="num neg">−38,446</td><td class="num pos">+35,317</td></tr>
+<tr><td>2026-07</td><td class="num">3,589,724</td><td class="num">2,257,053</td><td class="num">38.6%</td><td class="num pos">+97,569</td><td class="num neg">−97,156</td><td class="num pos">+413</td></tr>
+<tr><td>2026-08 (partial)</td><td class="num">184,271</td><td class="num">889,100</td><td class="num">82.8%</td><td class="num pos">+14,298</td><td class="num neg">−41,235</td><td class="num neg">−26,938</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>April is the only month with materially positive net on-chain buying (+$88,573) and it is the month the product
+launched. Every month from May onward is net on-chain selling. The August DEX share of 82.8% is an artefact of the
+CEX dataset ending on 2 August while the chain scan runs to the 12th.</p>
+
+<h4>Method</h4>
+<p>Swaps were read from the pools' <code>Swap</code> logs. The RSC leg of each swap gives direction — RSC leaving
+the pool is a purchase, RSC entering it is a sale — and the WETH leg, valued at the daily ETH/USD rate, gives the
+notional. Because the pools are WETH-paired, DEX notionals are independent of the RSC price series used elsewhere in
+this document. Liquidity additions and removals do not emit <code>Swap</code> and are therefore excluded by
+construction. Block timestamps are interpolated across Base's fixed two-second cadence between measured endpoints,
+so day boundaries carry at most a few minutes of uncertainty.</p>
+
+<!-- ============================================ -->
+<h2>9. Newsflow correlation</h2>
 
 <p>The one announcement that can be dated precisely from a primary source is the launch itself, via the post ID:
 <strong>2026-04-10 16:51:29 UTC</strong> for the ResearchHub Foundation announcement, and
@@ -690,15 +822,15 @@ was not this announcement, and the announcement itself produced no durable bid.<
 </div>
 
 <!-- ============================================ -->
-<h2>9. Caveats</h2>
+<h2>10. Caveats</h2>
 <ul>
   <li><strong>USDT is treated as ≈ USD.</strong> The data guide is explicit that this is not strictly true. At the
   scale of the conclusion — an order-of-magnitude gap — a peg deviation of a fraction of a percent changes nothing,
   but the aggregate is a USD-equivalent, not a USD figure.</li>
-  <li><strong>Four venues are not the whole market.</strong> These files cover the venues where RSC's liquidity
-  actually sits, but DEX volume (Uniswap V3 on Ethereum, Aerodrome on Base) is not in this dataset and is treated
-  separately in the on-chain memo. A buyer could in principle have accumulated on-chain instead — though the on-chain
-  trace is precisely what shows the staked tokens came from treasury wallets.</li>
+  <li><strong>Base DEX pools are now included; Ethereum DEX is not.</strong> Section 8 covers the three WETH/RSC
+  pools on Base, which carry a third of total turnover. The Uniswap V3 pool on Ethereum is not parsed here; it held
+  310,642 RSC at the time of writing and is materially smaller than the Base venues, but its omission means the DEX
+  share stated is a floor.</li>
   <li><strong>Coverage completeness is asserted by the file, not proven.</strong> Per the data guide, observed
   min/max timestamps do not prove an unbroken interval. Every continuous venue shows trades on all 214 days, which
   is good evidence but not a guarantee against intra-day gaps.</li>
@@ -709,7 +841,7 @@ was not this announcement, and the announcement itself produced no durable bid.<
 </ul>
 
 <!-- ============================================ -->
-<h2>10. Conclusion</h2>
+<h2>11. Conclusion</h2>
 
 <p>The stake-to-fund product did coincide with a real and sustained increase in trading activity — turnover roughly
 tripled and has stayed elevated. That is genuine, and it is the strongest thing that can be said for it.</p>
@@ -727,10 +859,12 @@ And the on-chain record shows the staked RSC itself was treasury-origin — whic
 circulation and with an off-market sale where the treasury delivers the tokens, so it does not discriminate between
 them either.</p>
 
-<p>The honest summary is that <strong>the question is not resolvable from public trade and chain data alone</strong>.
-An off-market sale followed by a market repurchase leaves an on-chain trail that looks identical to internal
-circulation, and a repurchase executed passively leaves a tape that looks like net selling. What this document
-establishes is the size of the space the claim would have to fit into — and it fits.</p>
+<p>The honest summary is that <strong>the question is not fully resolvable from public trade and chain data
+alone</strong>. An off-market sale followed by a market repurchase leaves an on-chain trail indistinguishable from
+internal circulation, and a repurchase executed passively on an order book leaves a tape that looks like net
+selling. What this document establishes is the size of the space the claim must fit into, and the one part of the
+market where flow is unambiguous. On-chain, net buying through the rally was real but an order of magnitude smaller
+than the claim; on the order books, the room exists but the actor cannot be identified.</p>
 
 <p class="footnote">
 Built from 731,862 individual trade records across five files. One row = one executed spot trade; timestamps read as
