@@ -120,8 +120,13 @@ a{color:var(--accent)}
   </div>
   <div class="card hi">
     <div class="lab">Net on-chain buying during the rally</div>
-    <div class="val pos">+$135,587</div>
-    <div class="note">1,161,274 RSC removed from Base pools, 16 Apr – 12 May. Unambiguous — an AMM has no passive side</div>
+    <div class="val pos">+1.16M RSC</div>
+    <div class="note">Removed net from the Base pools, 16 Apr – 12 May. Unambiguous — an AMM has no passive side</div>
+  </div>
+  <div class="card hi">
+    <div class="lab">Treasury ↔ exchanges, post-launch</div>
+    <div class="val neg">−3.92M RSC</div>
+    <div class="note">4.96M RSC delivered to exchanges against 1.04M received back. Net supplier, not buyer (§11.3)</div>
   </div>
   <div class="card">
     <div class="lab">Best 60-day window</div>
@@ -135,9 +140,14 @@ a{color:var(--accent)}
   </div>
 </div>
 
-<p><strong>There is no net <em>aggressive</em> buying:</strong> since the 10 April launch, taker flow across the
-three continuously-covered venues is negative — aggressors sold $69,995 more than they bought on $26,575,075 of
-turnover, and the cumulative net-flow line never rises above +$5,190.</p>
+<p><strong>The staked RSC was never bought on the market.</strong> 90.71% of it traces to treasury lineage and was
+delivered from inventory — the path is treasury → depositor → vault, and no market transaction is required at any
+step. That reframes the question: the missing buy pressure is not an anomaly, it is what a treasury-delivered stake
+looks like. §11 sets this out in full.</p>
+
+<p>Measured directionally, every flow runs the same way. <strong>The ResearchHub complex sent 4.96M RSC to
+exchanges and received 1.04M back</strong> — a net delivery of 3.92M. The Base pools <strong>absorbed 2.86M RSC
+net</strong>. Exchange net taker flow was +310,313 RSC on 245M RSC of turnover, i.e. flat.</p>
 
 <p><strong>That does not settle the question, and this document does not claim it does.</strong> A buyer working
 passive limit orders is filled by aggressive sellers, so their accumulation prints as taker <em>selling</em> — and
@@ -841,30 +851,136 @@ was not this announcement, and the announcement itself produced no durable bid.<
 </ul>
 
 <!-- ============================================ -->
-<h2>11. Conclusion</h2>
+<h2>11. What the data supports</h2>
 
-<p>The stake-to-fund product did coincide with a real and sustained increase in trading activity — turnover roughly
-tripled and has stayed elevated. That is genuine, and it is the strongest thing that can be said for it.</p>
+<p>This section states only what the measurements establish, and marks explicitly where they stop.</p>
 
-<p>On the specific question asked, the tape supports a narrower answer than a simple yes or no.
-<strong>There is no net aggressive buying</strong> — net taker flow is −$69,995 across $26.6M of turnover.
-<strong>But passive accumulation of $1.78M is not excluded</strong>: it is 13.4% of what the passive side bought
-over the period, and the rally days show precisely the rising-price-on-taker-selling signature that passive
-accumulation produces. The flow data is compatible with the hypothesis and cannot identify who was on the passive
-side.</p>
+<h3>11.1 The staked RSC was never bought on the market</h3>
 
-<p>Two observations do survive independently of that. The price ended the period <strong>5.9% lower than it
-started</strong>, having fully round-tripped a 2.4× rally, so whatever buying occurred left no durable price level.
-And the on-chain record shows the staked RSC itself was treasury-origin — which is equally consistent with internal
-circulation and with an off-market sale where the treasury delivers the tokens, so it does not discriminate between
-them either.</p>
+<p>Each of the 19 depositors was traced backwards through its own token history. <strong>19,925,849.65 RSC — 90.71%
+of the vault — reaches a ResearchHub treasury, the 2020 genesis mint, or a wallet compensated by the treasury.</strong>
+The remaining 2,039,801.53 RSC (9.29%) came from wallets funded by exchange withdrawals or DEX purchases.</p>
 
-<p>The honest summary is that <strong>the question is not fully resolvable from public trade and chain data
-alone</strong>. An off-market sale followed by a market repurchase leaves an on-chain trail indistinguishable from
-internal circulation, and a repurchase executed passively on an order book leaves a tape that looks like net
-selling. What this document establishes is the size of the space the claim must fit into, and the one part of the
-market where flow is unambiguous. On-chain, net buying through the rally was real but an order of magnitude smaller
-than the claim; on the order books, the room exists but the actor cannot be identified.</p>
+<p>This is the pivotal fact, and it reframes the question. The path was
+<strong>treasury → depositor wallet → vault</strong>. <strong>No market transaction is required at any step.</strong>
+If a purchaser paid off-market, the cash went to the seller and the tokens came from existing inventory — an order
+book never sees it. Asking "where is the 22M of buy pressure" therefore presumes a market purchase that the chain
+shows did not happen. Its absence is not an anomaly to be explained; it is what a treasury-delivered stake looks
+like.</p>
+
+<h3>11.2 Capacity was never the constraint — direction is what matters</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Post-launch, 10 Apr onward</th><th class="num">RSC</th><th>Reading</th></tr></thead>
+<tbody>
+<tr><td>Traded on the three continuous exchanges</td><td class="num">244,967,632</td><td>11× the staked total — ample capacity</td></tr>
+<tr><td>Exchange net taker flow</td><td class="num pos">+310,313</td><td>Flat on 245M of turnover</td></tr>
+<tr><td>Bought out of the Base pools</td><td class="num">67,617,758</td><td></td></tr>
+<tr><td>Sold into the Base pools</td><td class="num">70,473,817</td><td></td></tr>
+<tr class="hl"><td><strong>Net pool flow</strong></td><td class="num neg"><strong>−2,856,059</strong></td><td><strong>The pools absorbed RSC. The market was net supplied, not drained</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The market turned over more than ten times the staked quantity, so it could easily have supplied 22M RSC. It did
+not. On the venue where direction carries no ambiguity, <strong>tokens moved into the market rather than out of
+it</strong>. Had 22M RSC been drained from public venues to fill the vault, pool inventory would have fallen.</p>
+
+<h3>11.3 The treasury was a net supplier to exchanges, not a buyer</h3>
+
+<p>The one measurement that directly tests a repurchase is the direction of RSC between the ResearchHub complex and
+the labelled exchange wallets. Every Base block from the launch to 12 August was scanned with both address sets as
+log filters — <strong>no unrecovered ranges</strong>.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Direction</th><th class="num">RSC</th><th class="num">Transfers</th></tr></thead>
+<tbody>
+<tr><td>MEXC funnel → MEXC 15</td><td class="num">2,250,000</td><td class="num">1</td></tr>
+<tr><td>Gate funnel → Gate 1</td><td class="num">1,460,000</td><td class="num">1</td></tr>
+<tr><td>Coinbase funnel → Coinbase 35</td><td class="num">1,250,000</td><td class="num">1</td></tr>
+<tr class="sub"><td>Complex → exchanges</td><td class="num">4,960,000</td><td class="num">4</td></tr>
+<tr><td>MEXC 15 → distributor <code>0x620c0738</code></td><td class="num">808,337</td><td class="num">—</td></tr>
+<tr><td>exchange-scale B → distributor <code>0xAe823F1b</code></td><td class="num">150,000</td><td class="num">—</td></tr>
+<tr><td>Coinbase 35 → distributor <code>0xAe823F1b</code></td><td class="num">80,000</td><td class="num">—</td></tr>
+<tr class="sub"><td>Exchanges → complex</td><td class="num">1,038,337</td><td class="num">6</td></tr>
+<tr class="total"><td>Net into the complex</td><td class="num neg">−3,921,663</td><td colspan="1">net delivery to exchanges</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>The complex sent nearly five times more RSC to exchanges than it received back.</strong> There is inbound
+flow, but at a quarter of the outbound. No net on-chain repurchase exists in this period.</p>
+
+<div class="callout warn">
+  <div class="h">The limit of this test, stated precisely</div>
+  <p><strong>Buying RSC on a centralised exchange does not require withdrawing it.</strong> Tokens purchased inside
+  an exchange account can remain there indefinitely and leave no on-chain trace whatsoever. This measurement
+  therefore excludes an on-chain repurchase; it cannot exclude one held at an exchange. It also covers only the
+  labelled exchange wallets and the identified ResearchHub addresses on Base — a route through fresh intermediaries
+  or through Ethereum would not appear.</p>
+</div>
+
+<h3>11.4 There was real buying, and it is smaller than the claim by an order of magnitude</h3>
+
+<p>Through the 16 April – 12 May rally, <strong>1,161,274 RSC was removed net from the Base pools (+$135,587)</strong>
+— unambiguous directional buying on a venue with no passive side. Every day that produced the rally shows net DEX
+buying. This is genuine demand and it explains why the price roughly doubled on a book this thin. It is
+<strong>about 5% of the staked quantity</strong>, and it fully reversed: RSC ended the period at $0.0687, below
+where the window opened.</p>
+
+<h3>11.5 The volume increase is market-making, not accumulation</h3>
+
+<p>Turnover roughly tripled on exchanges and quadrupled on-chain after the launch, while net flow stayed near zero
+in both. <strong>Rising volume with balanced direction is the signature of two-sided quoting</strong>, and the
+treasury delivered 4.96M RSC of inventory to exchanges over the same period — the funding such an operation
+requires. The volume increase is consistent with a market maker being active. It is equally consistent with that
+maker hedging genuine off-market sales, so <strong>it does not discriminate between the two readings</strong>.</p>
+
+<h3>11.6 What cannot be determined from any public data</h3>
+
+<ul>
+  <li><strong>Whether purchasers paid real money off-market.</strong> The chain is identical whether an entity moved
+  its own tokens between its own accounts or delivered inventory against payment received elsewhere. The payment leg
+  is off-chain by construction.</li>
+  <li><strong>Whether RSC was repurchased inside exchange accounts.</strong> See §11.3.</li>
+  <li><strong>Who was on the passive side of exchange fills.</strong> Order books do not attribute counterparties;
+  the ceiling ($13.3M post-launch) is a bound, not an identification.</li>
+</ul>
+
+<div class="callout">
+  <div class="h">Summary</div>
+  <p>Every measurable on-chain flow in the period runs in the same direction: <strong>from the treasury toward the
+  market</strong>. 21.97M RSC of treasury-lineage tokens into the staking vault, 4.96M RSC of inventory to
+  exchanges, 2.86M RSC net absorbed by the Base pools, and 86.1% of everything the hot wallet distributed no longer
+  held by its recipient. Against that, on-chain buying during the rally was 1.16M RSC, and net exchange flow was
+  flat on 245M RSC of turnover.</p>
+  <p><strong>The data does not show a buy-side programme of the size the staked total would imply, and it does not
+  need one</strong> — the tokens came from inventory, not from the market. What the data cannot say is whether
+  anyone paid for them.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>12. Conclusion</h2>
+
+<p>The staking product coincided with a genuine and sustained increase in trading activity — turnover roughly
+tripled on exchanges and quadrupled on-chain, and has stayed elevated. That is real.</p>
+
+<p>On the question of whether ~$1.8M of buying passed through the market: <strong>no such programme is visible, and
+the chain shows why none was required.</strong> 90.71% of the staked RSC came from treasury lineage and was
+delivered from inventory, so no purchase had to occur. Every measurable flow in the period runs from the treasury
+toward the market — 4.96M RSC of inventory delivered to exchanges against 1.04M received back, 2.86M RSC net
+absorbed by the Base pools, and exchange net taker flow of +310,313 RSC on 245M RSC of turnover.</p>
+
+<p>There <em>was</em> real buying: 1,161,274 RSC removed net from the pools during the April–May rally, which is
+why the price roughly doubled. It amounts to about 5% of the staked quantity and it fully reversed, leaving RSC at
+$0.0687 — below where the window opened and 39% down on the year.</p>
+
+<p>Two things remain outside the reach of any public dataset, and no amount of further chain work will settle them:
+whether purchasers paid real money off-market, and whether RSC was repurchased inside exchange accounts without
+ever being withdrawn. Both are invisible by construction. The measurements bound the question; they do not close
+it.</p>
 
 <p class="footnote">
 Built from 731,862 individual trade records across five files. One row = one executed spot trade; timestamps read as
