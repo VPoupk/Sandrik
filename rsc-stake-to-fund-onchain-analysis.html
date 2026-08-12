@@ -86,7 +86,7 @@ a{color:var(--accent)}
 <div class="wrap">
 
 <header class="doc">
-  <div class="kicker">On-chain forensic memo · Initial findings</div>
+  <div class="kicker">On-chain analysis · ResearchCoin (RSC)</div>
   <h1>ResearchCoin (RSC): what the “stake-to-fund” launch actually did on-chain</h1>
   <p class="sub">A first-principles reconstruction of ResearchHub’s staking / endowment product across Ethereum
   and Base, built entirely from raw chain state — token contracts, Safe storage, transfer logs and historical
@@ -120,38 +120,9 @@ a{color:var(--accent)}
   <div class="card">
     <div class="lab">Insider-sourced share</div>
     <div class="val">90.7%</div>
-    <div class="note">19.93M RSC / $1,629,244 traced to the TGE mint, the treasuries, or multisig signers<br>
-    <span class="tag t-neu">rev. 2</span> was 87.8% before TGE tracing</div>
+    <div class="note">19.93M RSC / $1,629,244 traced to the TGE mint, the treasuries, or multisig signers</div>
   </div>
 </div>
-
-<div class="callout">
-  <div class="h">Revision 2 — what changed</div>
-  <p>The complete 2020 token-generation mint has now been recovered (§5), and every depositor traced back to it.
-  Three findings moved the numbers: the Foundation Community Safe’s Base capital is confirmed as
-  <strong>bridged directly from Treasury 3</strong>; the 650k depositor resolves to a
-  <strong>Treasury-1 distribution wallet</strong>; and one depositor is confirmed to have
-  <strong>bought its RSC on Uniswap</strong>. Insider share moves from 87.8% to <strong>90.7%</strong> —
-  <strong>98.9% on Ethereum</strong> and <strong>44.6% on Base</strong>.</p>
-</div>
-
-<p><strong>The headline finding is that there is no staking smart contract.</strong> RSC “staking” is a custodial
-book-entry: users send RSC to ResearchHub-controlled addresses and the yield (“Funding Credits”) is credited off-chain
-in the application database. ResearchHub’s own documentation confirms the design — “<em>no lockups, no gas fees</em>”,
-“<em>principal is revocable</em>”, “<em>RSC held in a ResearchHub account automatically earns Funding Credits</em>”,
-with yield defined as <code>Your Yield = RSC Emissions × (Your Held RSC / Total Held RSC on Platform)</code>. Nothing
-about that requires — or uses — a staking contract, and none exists on either chain.</p>
-
-<p>The address you identified, <code>0x467564…66d3</code>, <strong>is</strong> the destination of every large deposit, so your
-premise was right in substance. Mechanically it is a Gnosis Safe v1.4.1, <strong>2-of-3</strong>, that has received 19
-deposits totalling 21,965,651.18 RSC and has never sent anything out. It behaves as an omnibus cold-custody vault for
-the staking product, not as a staking contract.</p>
-
-<p>The second finding is about who actually staked. <strong>90.7% of the RSC in that vault came from wallets that
-trace back to ResearchHub itself</strong> — the genesis mint, the treasury multisigs, or wallets whose keys sign those
-same treasuries. The single largest depositor, at 9,999,000 RSC (45.5% of the vault), is the wallet that received
-700,000,000 RSC in the 2020 token generation event <em>and is itself a signer on Treasury 1 and Treasury 2</em>. Measured
-as external capital attracted, the launch drew roughly <strong>2.04M RSC (~$197k)</strong>, not $1.8M.</p>
 
 <!-- ============================================ -->
 <h2>1a. The 2020 token generation event — the root of every attribution</h2>
@@ -210,32 +181,34 @@ kept 16.04M, was re-granted a much smaller tranche, still holds 8,090,687, and s
 </div>
 
 <!-- ============================================ -->
-<h2>2. Corrections to the brief</h2>
+<h2>2. Contract identification and scope</h2>
+<p>Four points of identification are established before the analysis, because each is a common source of error when
+reading this token across two chains.</p>
 
 <div class="scroll">
 <table>
-<thead><tr><th>Your premise</th><th>Verdict</th><th>What the chain shows</th></tr></thead>
+<thead><tr><th>Point</th><th>Status</th><th>What the chain shows</th></tr></thead>
 <tbody>
 <tr>
-  <td>RSC is <code>0xfbb75a59…f7e1</code></td>
-  <td><span class="tag t-unk">Partly</span></td>
+  <td>The address <code>0xfbb75a59…f7e1</code> is RSC</td>
+  <td><span class="tag t-unk">Chain-specific</span></td>
   <td>That is the <strong>Base</strong> RSC contract. On Ethereum it is an empty address. Ethereum RSC is
       <code>0xD101dCC414F310268c37eEb4cD376CcFA507F571</code>. Both are named ResearchCoin / RSC, 18 decimals.</td>
 </tr>
 <tr>
-  <td>The staking multisig on ETH is <code>0x467564…66d3</code></td>
+  <td><code>0x467564…66d3</code> is the staking vault on Ethereum</td>
   <td><span class="tag t-ext">Confirmed</span></td>
   <td>Safe v1.4.1 proxy, mastercopy <code>0x41675C09…461a</code>, threshold 2 of 3 owners. It is the terminal
       destination of every large staking deposit on both chains.</td>
 </tr>
 <tr>
-  <td>“On Base: <span class="mono">etherscan.io/address/0x467564…</span>”</td>
-  <td><span class="tag t-ins">Corrected</span></td>
-  <td>The same Etherscan link was pasted twice, so the Base leg was never actually checked. On Base that address is
-      <strong>not a contract at all</strong> — no code, nonce 0 — yet it holds 3,323,117.53 RSC. See §7.</td>
+  <td>The same address on Base</td>
+  <td><span class="tag t-ins">Not deployed</span></td>
+  <td>On Base that address is <strong>not a contract</strong> — no code, account nonce 0 — yet it holds
+      3,323,117.53 RSC. See §7.4.</td>
 </tr>
 <tr>
-  <td>There must be a staking contract</td>
+  <td>A dedicated staking contract exists</td>
   <td><span class="tag t-ins">Not found</span></td>
   <td>No staking contract exists on either chain. Every RSC-holding contract resolves to a Safe, a Uniswap/Aerodrome
       pool, the Base bridge, a vesting contract, or an ERC-4337 user smart account. Staking is a custodial ledger.</td>
@@ -244,15 +217,14 @@ kept 16.04M, was re-granted a much smaller tranche, still holds 8,090,687, and s
 </table>
 </div>
 
-<h4>Method note — why not Etherscan</h4>
-<p>Etherscan and Basescan both return HTTP 403 to this environment (Cloudflare bot interdiction), so rather than fall
-back to second-hand sources I queried the chains directly: archive JSON-RPC nodes for
-<code>eth_call</code>, <code>eth_getLogs</code>, <code>eth_getCode</code> and <code>eth_getStorageAt</code>, plus the
-Blockscout explorer APIs for both networks. That is the same data Etherscan indexes, one layer closer to the source.
-One consequence worth recording: the Blockscout address index <em>missed</em> a 350,000 RSC transfer into the vault on
-2026-03-11. I found it by reconstructing the vault’s balance history through binary search on
-<code>balanceOf</code> across 6.4M Base blocks, which is why the ledger in §5 reconciles to the wei and an
-explorer-only reading would not have.</p>
+<h4>Data sources</h4>
+<p>All figures are read from Ethereum and Base chain state via archive JSON-RPC —
+<code>eth_call</code>, <code>eth_getLogs</code>, <code>eth_getCode</code>, <code>eth_getStorageAt</code> — with the
+Blockscout explorer APIs used for transfer indexing. Explorer indexes are treated as a convenience rather than an
+authority: a 350,000 RSC transfer into the vault on 2026-03-11 is absent from the Blockscout address index and was
+recovered by reconstructing the vault's balance history through binary search on <code>balanceOf</code> across
+6.4M Base blocks. Every balance-derived figure in §5 is reconciled against chain state rather than against the
+index.</p>
 
 <!-- ============================================ -->
 <h2>3. Contract inventory</h2>
@@ -339,19 +311,19 @@ at a blended or per-day rate. The RSC column reconciles exactly to the vault’s
 (18,642,533.65 + 3,323,117.53).</p>
 
 <div class="callout">
-  <div class="h">Pricing method — and why it was tightened</div>
-  <p>The first version of this table used CoinGecko’s <em>daily</em> close per transfer date. That is defensible but
-  it silently applies one price to different events: the 16 April deposits, for instance, are 21½ hours apart and
-  were both priced at $0.06558. RSC moved enough intraday for that to matter.</p>
-  <p>Every deposit is now matched to the CoinGecko <strong>hourly</strong> series (pulled in two sub-90-day windows,
+  <div class="h">Pricing method</div>
+  <p>Daily closing prices are not used, because they apply one price to events that are far apart within a day —
+  the two 16 April deposits, for instance, are 21½ hours apart — and RSC's intraday range is wide enough for that to
+  distort individual lines materially.</p>
+  <p>Each deposit is matched to the CoinGecko <strong>hourly</strong> series (pulled in two sub-90-day windows,
   which is what the API needs to return hourly rather than daily granularity), using each transfer’s exact block
   timestamp. <strong>The worst gap between a transfer and its nearest price point is 23 minutes</strong>, and
   <strong>18 of the 19 deposits get a distinct price</strong> — the only shared pair is the two 16 May transfers,
   which are 2 minutes apart and genuinely belong to the same hour.</p>
-  <p>The correction is material at the line level even though it is small in aggregate (−1.16%). The largest single
-  change is the 24 April deposit of 1,092,533.65 RSC: the daily close of $0.12958 caught a spike, but the transfer
-  actually landed at 21:07 UTC when RSC was $0.09319 — <strong>overstating that one line by $39,752</strong>.
-  The 16 April Base deposit moves the other way, understated by $9,253.</p>
+  <p>The choice matters at the line level even though the aggregate effect is small (1.16%). On the 24 April deposit
+  of 1,092,533.65 RSC the daily close of $0.12958 reflects an intraday spike, while the transfer settled at 21:07 UTC
+  with RSC at $0.09319 — a $39,752 difference on that line alone. The 16 April Base deposit differs by $9,253 in the
+  other direction.</p>
   <p class="mono" style="font-size:12px;color:var(--muted)">Note: the price column is displayed to 5 decimal places
   but USD is computed from the unrounded price, so multiplying the two columns can differ by a few dollars per row
   (worst case $40 on the 9M line). The totals are exact.</p>
@@ -493,7 +465,7 @@ genuinely external participation in this product happened on Base.</p>
 <tr>
   <td><strong>DOLOSUS-CHAIN</strong> <span class="addr">0x7f38aa84…5435</span></td>
   <td class="num">650,000.00</td><td class="num">42,849</td><td class="num">3.0%</td>
-  <td><span class="tag t-ins">reclassified</span> Funded with 1,000,000 RSC by <code>dolosus.eth</code>
+  <td>Funded with 1,000,000 RSC by <code>dolosus.eth</code>
       (<code>0xcC5F1f28…E21B</code> — an ENS-named <em>contract</em>, not an EOA), which in turn received
       <strong>1,370,000 RSC from DISTRIBUTOR-70M and 301,792 RSC directly from Treasury 3</strong>.
       Treasury-downstream at two hops.</td>
@@ -553,65 +525,6 @@ genuinely external participation in this product happened on Base.</p>
   be measuring internal transfers, not demand.</p>
 </div>
 
-<h3>6a. Verification of the hand-traced hypotheses</h3>
-<p>Every wallet-level claim put to me was checked against chain state rather than accepted. Balances quoted below
-were read live; the Ethereum figures matched the submitted values to the wei.</p>
-
-<div class="scroll">
-<table>
-<thead><tr><th>Claim</th><th>Verdict</th><th>Evidence</th></tr></thead>
-<tbody>
-<tr><td>0xB518536B got 700M at TGE, holds 60M, staked 10M</td><td><span class="tag t-ext">Confirmed</span></td>
-    <td>Mint of exactly 700,000,000 at 01:03:15 on 2020-08-01; balance 60,000,000; staked 9,999,000 (999k + 9.0M).</td></tr>
-<tr><td>…“was funded by Coinbase”</td><td><span class="tag t-unk">Unverified</span></td>
-    <td>Could not confirm. The explorer’s inbound-transaction index for this address surfaces only 2026 dust from
-        address-poisoning contracts; the 2020 funding transaction was not reachable within this pass. <strong>Not
-        disproved — just not evidenced.</strong> I have left it out of the classification, which does not depend on it.</td></tr>
-<tr><td>0x1288d4d0: 70M at TGE, transferred to 0x8bbB6c4B, balance 8,090,686.67</td><td><span class="tag t-ext">Confirmed +</span></td>
-    <td>All exact. <code>0x8bbB6c4B</code> is a contract literally named <code>Vesting</code> holding RSC.
-        <strong>New:</strong> it clawed back 53,958,333.33 RSC to Treasury 2 on 2022-01-04 (§1a). <strong>New:</strong> this
-        wallet’s first-ever ETH funding came from <strong>KEY-OMEGA</strong> — the key that signs all five core Safes —
-        and its second from the RSC token deployer.</td></tr>
-<tr><td>0x5aa0122f is glymphatic.eth, 619,882 RSC, “vested from team-controlled wallet”</td><td><span class="tag t-unk">Mostly</span></td>
-    <td>Balance 619,882.00 exact. Funding path confirmed: 1,048,000 RSC across 18 transfers from Treasury 3. The ENS
-        name did not resolve through my lookup, so treat <em>glymphatic.eth</em> as unconfirmed by this pass.</td></tr>
-<tr><td>0x3D4B25c3 “likely insider”, 3,606,373.81 RSC; sources 0x29E46015 (3M from RHT3) and 0x81aa4F3b (1.7M)</td>
-    <td><span class="tag t-ext">Confirmed +</span></td>
-    <td>Balance exact. Both source transfers confirmed. <strong>Stronger than “likely”:</strong> this address is a
-        <em>signer on Treasury 3 and on the Foundation Community Safe</em>. 0x29E46015 was itself fed 1,617,838 RSC by
-        Treasury 3 and 1,428,833 by DISTRIBUTOR-70M.</td></tr>
-<tr><td>0x76835CA5 “funds RHT1 and 0x81aa”</td><td><span class="tag t-unk">Inverted</span></td>
-    <td>Direction is the other way: it <em>received</em> RSC <strong>from</strong> the treasuries — 51,000,000 from Treasury 1 and 18,610,000 from Treasury 2, <strong>69.61M in total</strong> — and fanned it out across ~2,800 transactions, holding 0 today. It is ResearchHub's main downstream distribution wallet, not a funder of the treasury. Renamed <strong>DISTRIBUTOR-70M</strong>.</td></tr>
-<tr><td>0x7F38Aa84 / dolosus.eth “vested”, treated as non-insider</td><td><span class="tag t-ins">Reclassified</span></td>
-    <td>dolosus.eth confirmed as ENS name — but it is a <em>contract</em>. It received 1,370,000 RSC from DISTRIBUTOR-70M
-        and 301,792 from Treasury 3. The 650,000 stake is <strong>treasury-downstream</strong>, moved from Tier C to Tier B.</td></tr>
-<tr><td>0x144985d2 funded from RHT2</td><td><span class="tag t-ext">Confirmed</span></td>
-    <td>1,600,100 RSC from Treasury 2 in September 2025; staked 601,000.</td></tr>
-<tr><td>0x665F3D71 balance 0; funded by fauler.eth, “purchased”</td><td><span class="tag t-ext">Confirmed</span></td>
-    <td>Balance 0.00 exact. fauler.eth confirmed as ENS name. <strong>“Purchased” is right</strong> — its 250,000 RSC
-        came from the Uniswap V3 pool. The only ETH-side deposit that is genuinely external.</td></tr>
-<tr><td>“17.5M insider of 18.6M on ETH; 79.8% of vaulted stake”</td><td><span class="tag t-unk">Understated</span></td>
-    <td>ETH insider is <strong>18,442,533.65 of 18,642,533.65 — 98.93%</strong> once the dolosus chain is included.
-        Vault-wide the figure is <strong>90.71%</strong>, not 79.8%.</td></tr>
-<tr><td>“Likely no insiders of 3.32M on BASE”</td><td><span class="tag t-ins">Contradicted</span></td>
-    <td>Your own trace contains the disproof but stops one step short: the Foundation Community Safe supplied
-        1,483,316 RSC — <strong>44.64% of the Base total</strong> — and its capital is the 10M bridged from Treasury 3.
-        The <em>rest</em> of Base does look genuinely external, which is the real finding.</td></tr>
-<tr><td>Base depositors “funded by Coinbase Deposit funder”</td><td><span class="tag t-unk">Directionally right</span></td>
-    <td>0x1695Bf93 and 0x63613A06 were both first funded by the <em>same</em> address,
-        <code>0x91d66b38…769A</code> — <strong>2,592,304 transactions, Base-only, zero on Ethereum</strong>. That is
-        exchange withdrawal infrastructure beyond doubt. I cannot put a brand name on it from chain data, so it is
-        labelled <strong>EXCHANGE-FUNDER</strong>; the classification (external capital) is unaffected.</td></tr>
-<tr><td>0xF32b2204 “trader”, funded via Aerodrome SlipStream</td><td><span class="tag t-ext">Consistent</span></td>
-    <td><code>0x6cCa90E7…3018</code> confirmed as an Aerodrome/Slipstream <code>CLPool</code> holding 704,586 RSC.
-        DEX-sourced, so external.</td></tr>
-<tr><td>Base balances (Foundation 3,111,295.84; 0x26b610a0 737,911.05; 0xAe823F1b 91,456.33)</td><td><span class="tag t-unk">Drifted</span></td>
-    <td>Live values differ: 2,115,805.84 / 787,485.36 / 1,303,951.66. These are active wallets — not a contradiction,
-        but Base figures need a timestamp attached to be meaningful.</td></tr>
-</tbody>
-</table>
-</div>
-
 <!-- ============================================ -->
 <h2>7. Team and insider control</h2>
 
@@ -656,8 +569,8 @@ treasuries, the foundation and the staking vault.</p>
 
 <h3>7.2 The case for calling these wallets insider-controlled</h3>
 
-<p>Wallet attribution is inference, so here is the evidence tier by tier. I have deliberately <em>not</em> attached
-any individual’s name to any key — nothing on-chain supports that, and ResearchHub’s published team list
+<p>Wallet attribution is inference, and the evidence is set out by tier below. No individual’s name is attached
+to any key — nothing on-chain supports that, and ResearchHub’s published team list
 (Brian Armstrong, co-founder/CEO; Patrick Joyce, co-founder/COO; plus named staff) cannot be mapped to addresses
 from chain data alone.</p>
 
@@ -738,20 +651,20 @@ and Base supply is consistent with withdrawals in the bridge’s challenge windo
 
 <div class="callout warn">
   <div class="h">The float discrepancy worth flagging</div>
-  <p>CoinGecko reports circulating supply of <strong>238,228,884 RSC</strong> and a market cap of ~$67.0M. My
+  <p>CoinGecko reports circulating supply of <strong>238,228,884 RSC</strong> and a market cap of ~$67.0M. The
   residual float after removing every identified treasury, genesis, vesting and vault balance is
   <strong>≈133.5M RSC</strong> — about 56% of the reported figure. At $0.07186 that is a genuine dispersed-float
   value of roughly <strong>$9.6M</strong>, against a headline market cap of $67M. The gap is ~105M RSC that
-  CoinGecko counts as circulating but which sits in wallets I can tie to the genesis mint, the treasuries or their
-  signers. Anyone sizing a position off the quoted market cap is working with a denominator that on-chain data
-  does not support.</p>
+  CoinGecko counts as circulating but which sits in wallets traceable to the genesis mint, the treasuries or their
+  signers. A position sized against the quoted market cap therefore rests on a denominator that on-chain data does not
+  support.</p>
 </div>
 
 <h3>7.4 “Couldn’t the Base address just be a wallet the team controls?” — in plain English</h3>
 
-<p>Fair question, and the right one to press on: if that address were an ordinary wallet, someone would hold its
-password, the 3.32M RSC would be perfectly spendable, and the frozen-funds finding would collapse. Here is why it
-isn’t, without assuming any prior knowledge of how these networks work.</p>
+<p>An address holding tokens with no code on it invites an obvious question: is it simply an ordinary wallet whose
+owner holds the password? If so the 3.32M RSC would be perfectly spendable and there would be no finding here. It is
+not, and the reason does not require any prior knowledge of how these networks work.</p>
 
 <p><strong>There are two ways an address can come into existence.</strong></p>
 <ul>
@@ -764,16 +677,16 @@ isn’t, without assuming any prior knowledge of how these networks work.</p>
   the money.</li>
 </ul>
 
-<p>Looking at an address alone, you cannot tell which kind it is. You tell them apart by asking where the address
-<em>came from</em> — and here we can check, because the Ethereum copy was built in the open. Its construction
-transaction shows it was produced by the standard Safe factory, using the recipe method. So I took that same recipe
-— same factory, same settings, same batch number — and recalculated what address it ought to produce.
-<strong>It produced <code>0x467564…66d3</code>, exactly.</strong></p>
+<p>An address alone does not reveal which kind it is; the distinction lies in where the address <em>came from</em>.
+That is checkable here, because the Ethereum copy was built in the open. Its construction transaction shows it was
+produced by the standard Safe factory using the recipe method. Recalculating the address from that same recipe —
+same factory, same settings, same batch number — reproduces
+<strong><code>0x467564…66d3</code> exactly.</strong></p>
 
-<p>That settles it. The address is the output of a recipe, not the fingerprint of a secret. And this cannot be run
-backwards: finding a secret whose fingerprint happens to land on a recipe’s output is the same problem as guessing
-somebody’s password by chance — roughly a 1 in 10<sup>48</sup> shot, and the assumption the entire system’s security
-rests on. So there is no password for this address. Not lost — <strong>it never existed</strong>.</p>
+<p>The address is therefore the output of a recipe, not the fingerprint of a secret. The calculation cannot be run
+backwards: finding a secret whose fingerprint lands on a recipe's output is equivalent to guessing a password by
+chance — roughly a 1 in 10<sup>48</sup> proposition, and the assumption the entire system's security rests on. No
+password exists for this address, and none ever did.</p>
 
 <h4>Why the money is stuck, and why that is fixable</h4>
 
@@ -782,21 +695,21 @@ put up</strong>. RSC was then sent to what is effectively an empty plot of land.
 because there is nothing there to move them — no code, and no password either.</p>
 
 <p>The fix is simply to <strong>run the same recipe on Base</strong>. The factory it needs is already deployed
-there, byte-for-byte identical — I compared both. Same recipe plus same ingredients gives the same address, so the
+there, byte-for-byte identical. Same recipe plus same ingredients gives the same address, so the
 Safe would materialise directly on top of the tokens already sitting there, and its owners could move them. That is
 one transaction, costing a few dollars of gas.</p>
 
-<p>Two details make this less alarming than it first sounds. It is <strong>permissionless</strong> — anyone can send
-that transaction, not only the team. And it <strong>cannot be hijacked</strong>, because the list of owners is part
-of the recipe: change who owns the Safe and you change the address, so an attacker’s version would land somewhere
-else entirely and touch nothing. The only Safe that can ever appear at that address is the intended one, with the
-original three owners.</p>
+<p>Two properties limit the severity. The transaction is <strong>permissionless</strong> — anyone may send it, not
+only the Safe's owners. And it <strong>cannot be hijacked</strong>: the owner list is part of the recipe, so changing
+who owns the Safe changes the resulting address. An altered version would deploy elsewhere and touch nothing. The
+only Safe that can appear at that address is the one with the original three owners.</p>
 
-<p>So the accurate description is <strong>immobile but cheaply and safely recoverable</strong>, not “lost”. The
-finding that survives is an operational one: five months and 3.3M RSC in, nobody has sent that transaction.</p>
+<p>The accurate description is therefore <strong>immobile but cheaply and safely recoverable</strong> rather than
+lost. What remains is an operational observation: five months and 3.3M RSC after the first deposit, the transaction
+has not been sent.</p>
 
 <div class="callout">
-  <div class="h">The technical version, for readers who want it</div>
+  <div class="h">Technical detail</div>
   <p>Creation tx <code>0x8c06ea48…7de0</code>, sent by KEY-OMEGA to Safe 1.4.1 <code>SafeProxyFactory</code>
   <code>0x4e1DCf7A…ec67</code>, selector <code>0x1688f0b9</code> =
   <code>createProxyWithNonce(address,bytes,uint256)</code> — a CREATE2 deployment. Decoding the calldata gives
@@ -944,10 +857,12 @@ HOT WALLET on Ethereum ──── 10.38M in 21 txs ────►  Base bridg
 
 <p>Where it goes on Base splits into two very different populations. The top three destinations —
 <code>0x9d5025b3…d8b2</code> (3.78M across 19 transfers), <code>0xd90bea2b…4f8f</code> (1.82M) and
-<code>0x97e2ad35…c202f</code> (1.46M) — are all <strong>contracts that now hold zero RSC</strong>. Money went in and
-straight back out, so these are pass-through routers rather than endpoints; 5.06M RSC, over a third of all outflow,
-moved through them. Underneath that sits the long tail: hundreds of wallets receiving a few hundred RSC at a time,
-which is the platform paying its users.</p>
+<code>0x97e2ad35…c202f</code> (1.46M) — are all <strong>contracts that now hold zero RSC</strong>: value passes
+through them rather than settling. Together they account for 5.06M RSC, over a third of all outflow.
+<code>0xd90bea2b…4f8f</code> is a Gnosis Safe whose onward transfers include CoW Protocol's
+<code>GPv2Settlement</code>, so at least part of this leg is on-chain trade execution rather than distribution
+(§8.7). Underneath sits the long tail: hundreds of wallets receiving a few hundred RSC at a time, consistent with
+platform payments to users.</p>
 
 <p>Activity is <strong>declining</strong>, and in the opposite direction to Ethereum. Monthly RSC transfer counts
 peaked at 783 in December 2025 and have fallen steadily since — 389 in January 2026, 273 in March, 253 in June,
@@ -956,9 +871,9 @@ roughly two-thirds from the late-2025 peak, even as the Ethereum wallet had its 
 
 <h4>Two anomalies worth flagging</h4>
 <ul>
-  <li><strong>52.8% of outgoing transfers carry zero value — and they are an attack, not a bug.</strong> 3,738 of
-  7,077 outbound RSC transfers move exactly 0 RSC. My first reading was that these were no-op sweeps or a sloppy
-  batch job; that was wrong. Testing every zero-value destination against the wallet’s real counterparties shows
+  <li><strong>52.8% of outgoing transfers carry zero value, and they originate from a third party rather than from ResearchHub.</strong> 3,738 of
+  7,077 outbound RSC transfers move exactly 0 RSC. Testing every zero-value destination against the wallet's real
+  counterparties shows
   <strong>93.2% share both the first four and the last four hex characters with a genuine payout recipient</strong>
   — for example <code>0x1bf1e632…cbdd307</code> shadowing the real <code>0x1bf12eb1…b7ed307</code>, which received
   113 payments. This is <strong>large-scale address poisoning</strong>: an attacker calls
@@ -976,7 +891,7 @@ roughly two-thirds from the late-2025 peak, even as the Ethereum wallet had its 
   <div class="h">A measurement caveat, and a live-drift warning</div>
   <p>These totals were reconciled against chain state rather than trusted. Two checks were needed. First, the wallet
   makes <strong>self-transfers</strong> — 2 events totalling 135,658 RSC where it is both sender and receiver — which
-  naive accounting counts as inflow and inflates net; they are excluded above. Second, I rebuilt the balance
+  naive accounting counts as inflow and inflates net; they are excluded above. Second, the balance was rebuilt
   cumulatively from the transfer list and compared it to <code>balanceOf</code> at checkpoints across the wallet’s
   life:</p>
   <div class="scroll"><table>
@@ -1001,26 +916,26 @@ roughly two-thirds from the late-2025 peak, even as the Ethereum wallet had its 
   interpretation given in §7.3. Every chain figure in this memo needs a timestamp attached to be meaningful.</p>
 </div>
 
-<h3>8.4 On exchange labels — what I could and could not get</h3>
+<h3>8.4 Identification of exchange-operated addresses</h3>
 
-<p>Named labels (“Coinbase 10”, “Binance Hot Wallet”) would sharpen several attributions in this memo, so it is
-worth being explicit about why none appear.</p>
+<p>Several addresses in this analysis are identified as exchange infrastructure. Because named exchange labels are
+not available from an open source in this environment, the identification rests on observable chain properties. The
+routes considered, and their outcomes, are recorded here so the basis of each attribution is explicit.</p>
 
 <div class="scroll">
 <table>
 <thead><tr><th>Route</th><th>Result</th></tr></thead>
 <tbody>
 <tr><td>Etherscan / Basescan <strong>API</strong> (V2, <code>chainid=1</code> and <code>8453</code>)</td>
-    <td>Reachable, but every call returns <code>Missing/Invalid API Key</code>. The free tier exists but requires
-        registering an account, which I cannot do on your behalf.</td></tr>
+    <td>Reachable, but every call returns <code>Missing/Invalid API Key</code>. The free tier requires
+        an account registration, which was not available in this environment.</td></tr>
 <tr><td>Etherscan / Basescan <strong>web pages</strong></td>
     <td>HTTP 403 with <code>server: cloudflare</code> and <code>cf-mitigated: challenge</code> — an interactive
-        anti-bot challenge. Notably this is <em>not</em> our network policy blocking it: the egress proxy reports a
-        clean <code>200 Connection Established</code> and passes the request through. The block is Etherscan’s.</td></tr>
+        anti-bot challenge. The block originates from the site, not from network policy: the egress proxy returns
+        <code>200 Connection Established</code> and passes the request through.</td></tr>
 <tr><td>Headless Chromium against those pages</td>
-    <td>Abandoned deliberately. Getting through would have meant defeating an anti-automation control the site
-        operator put up on purpose. The data is public and free, but the gate is intentional, and Etherscan
-        publishes a supported API for exactly this use — so the right move is to use that, with a key.</td></tr>
+    <td>Not pursued. The challenge is an access control the site operator applies deliberately, and the same operator
+        publishes a supported API for this purpose. Retrieval via an API key is the appropriate route.</td></tr>
 <tr><td>Blockscout label fields (<code>public_tags</code>, <code>name</code>, metadata proxy)</td>
     <td>Queried on both chains. Effectively empty for this purpose — it returns nothing even for a well-known
         Binance hot wallet used as a control, so its silence carries no information.</td></tr>
@@ -1029,20 +944,20 @@ worth being explicit about why none appear.</p>
 </div>
 
 <div class="callout">
-  <div class="h">What replaced labels — and why it is arguably better</div>
-  <p>Rather than guess at names, exchange-scale addresses in this memo are identified by
-  <strong>behaviour that a label could only summarise anyway</strong>: account nonce, counterparty fan-out and
-  chain footprint. Those are read straight from chain state and cannot be stale or wrong.</p>
+  <div class="h">Basis of identification</div>
+  <p>Exchange-scale addresses are identified by properties read directly from chain state: account nonce,
+  counterparty fan-out and chain footprint. These are objective measures and, unlike a curated label, cannot be
+  stale.</p>
   <p>The numbers are not subtle. <strong>BASE-DESK-C has an account nonce of 5,253,524</strong> — over five million
   transactions sent from one address. BASE-DISTRIBUTOR-A is at 1,926,718, BASE-DISTRIBUTOR-B at 928,464, and
   EXCHANGE-FUNDER at 2,592,304 with zero presence on Ethereum. No individual, fund or market-maker operates at those
   counts; that is centralised-exchange infrastructure, whatever brand sits on top of it. For contrast, ResearchHub’s
   own hot wallet — a genuinely busy operational account — sits at 1,248 on Ethereum and 3,398 on Base, three orders
   of magnitude below.</p>
-  <p>This is why calling those wallets <em>external capital</em> is safe even without a brand name: RSC reaching a
-  depositor through an address that has sent five million transactions did not come from a ResearchHub treasury.
-  <strong>If you supply an Etherscan API key, one key covers both chains via the V2 endpoint and I can attach real
-  names in a single pass</strong> — it would refine the narrative, but it would not move any figure in this memo.</p>
+  <p>The classification of such counterparties as capital originating outside the ResearchHub perimeter follows from
+  this directly: RSC reaching a depositor through an address that has sent millions of transactions did not come from
+  a ResearchHub treasury. Attaching operator names would add descriptive detail but would not alter any figure in
+  this document.</p>
 </div>
 
 <h3>8.5 The four largest Base holders — all exchange infrastructure</h3>
@@ -1064,11 +979,11 @@ exact identification for each of the top four, and the result overturns the natu
 </div>
 
 <div class="callout">
-  <div class="h">The nonce heuristic in §8.4 checks out exactly</div>
-  <p>Before these labels existed I classified addresses as exchange infrastructure purely by transaction count.
-  The labels now confirm it: Coinbase 35 at 5.25M transactions, MEXC 15 at 2.43M, Gate 1 at 1.55M. My previously
-  unnamed <strong>BASE-DESK-C is Coinbase 35</strong> — which means the 462,613.50 RSC it supplied to a staking
-  deposit was a <strong>Coinbase withdrawal</strong>, confirming that deposit as genuinely external (Tier C stands).</p>
+  <div class="h">Corroboration of the identification method</div>
+  <p>The labels align with the transaction-count basis set out in §8.4: Coinbase 35 has sent 5.25M transactions,
+  MEXC 15 2.43M and Gate 1 1.55M. The address referred to elsewhere in this document as BASE-DESK-C is Coinbase 35,
+  which establishes that the 462,613.50 RSC it supplied to a staking deposit was an exchange withdrawal — placing
+  that deposit in the external tier.</p>
 </div>
 
 <h4>Holder #1 is not a whale — it is almost certainly exchange cold storage</h4>
@@ -1098,7 +1013,7 @@ insider-concentration figures in §7.3, where none of these four was ever counte
 
 <h4>Insider traces: none to the exchanges, but one notable treasury→market path</h4>
 
-<p>I checked the ResearchHub side directly rather than inferring. Scanning the complete RSC histories of the
+<p>The ResearchHub side was checked directly. Scanning the complete RSC histories of the
 Base hot wallet (7,569 events) and the Foundation Community Safe (533 events) for any transfer to or from these four
 addresses returns <strong>nothing — zero direct flows in either direction</strong>. Checking the reverse on Ethereum,
 none of the three treasuries has ever sent RSC to an exchange-scale address; every large destination is an internal
@@ -1117,13 +1032,6 @@ somewhere; tracing where is left as an open item.</p>
 
 <h3>8.6 Treasury → exchange: the multi-hop path</h3>
 
-<div class="callout bad">
-  <div class="h">This corrects §8.5</div>
-  <p>§8.5 states that no treasury has ever sent RSC to an exchange-scale address. That is true, and it is also too
-  narrow a test — it only looked at <em>direct</em> transfers. Treasury RSC does reach exchanges, through a
-  consistent multi-hop route. Every hop below was verified against chain state.</p>
-</div>
-
 <p>The route has five legs, and each intermediate address is a single-purpose pass-through that ends at zero:</p>
 
 <div class="flow">TREASURY-OPS (Treasury 3, Ethereum)
@@ -1138,10 +1046,10 @@ Base bridge escrow ──(1–3 min later, relayMessage)──► FOUNDATION-COM
    └── 4,276,710 ──► 0x620c0738 ────────────────────┬── 1,294,445 ──► GATE-FUNNEL  ──► Gate 1
                                                     └──   914,311 ──► MEXC-FUNNEL  ──► MEXC 15</div>
 
-<h4>Verification of the chain you traced</h4>
+<h4>Transaction-level verification</h4>
 <div class="scroll">
 <table>
-<thead><tr><th>Leg</th><th>Claim</th><th>Verified</th></tr></thead>
+<thead><tr><th>Leg</th><th>Amount</th><th>Verification</th></tr></thead>
 <tbody>
 <tr><td>Treasury 3 → bridge (ETH)</td><td>6M + 2M + 2M = 10M</td>
     <td><span class="tag t-ext">Exact</span> <code>0x616fcd56…</code> 6M on 2026-07-21, <code>0x83390ceb…</code> 2M on 2026-05-15, <code>0xe4b969b7…</code> 2M on 2026-04-30 — all <code>execTransaction</code> from <code>0xC4cfa2Bd…81e3</code></td></tr>
@@ -1153,16 +1061,16 @@ Base bridge escrow ──(1–3 min later, relayMessage)──► FOUNDATION-COM
     <td><span class="tag t-ext">Exact</span> that address has exactly 2 events: 1,250,000 in, 1,250,000 out to Coinbase 35</td></tr>
 <tr><td>→ MEXC 15</td><td>2,250,000 via <code>0x3cde3b05…</code></td>
     <td><span class="tag t-ext">Exact</span> 2,250,000 RSC from <code>0x4Bae370A</code> to MEXC 15 on 2026-07-28 — one of nine such transfers</td></tr>
-<tr><td>“0xAe823F1b also funds the 350k stake”</td><td>—</td>
-    <td><span class="tag t-unk">Not found</span> No direct 350,000 transfer from <code>0xAe823F1b</code> to <code>0xFD91745F</code> appears in its outflow list. That link needs re-checking.</td></tr>
+<tr><td>Possible link from <code>0xAe823F1b</code> to the 350,000 RSC pre-launch stake</td><td>—</td>
+    <td><span class="tag t-unk">Not established</span> No direct transfer of 350,000 RSC from <code>0xAe823F1b</code> to <code>0xFD91745F</code> appears in that address’s outflows.</td></tr>
 </tbody>
 </table>
 </div>
 
-<h4>The exchange funnels — and they are bigger than the example</h4>
+<h4>The exchange deposit funnels</h4>
 
-<p>Your trace found one funnel; there are three, each a dedicated single-exchange deposit address that forwards
-<strong>100% of what it receives</strong> and retains nothing:</p>
+<p>Three addresses act as dedicated single-exchange deposit funnels. Each forwards <strong>100% of what it
+receives</strong> to one exchange and retains nothing:</p>
 
 <div class="scroll">
 <table>
@@ -1177,18 +1085,82 @@ Base bridge escrow ──(1–3 min later, relayMessage)──► FOUNDATION-COM
 </div>
 
 <div class="callout warn">
-  <div class="h">What this does and does not show</div>
-  <p><strong>It does show</strong> that roughly <strong>7.92M RSC of treasury lineage has reached MEXC, Gate and
-  Coinbase</strong> through deliberately structured single-purpose hops, and that the routing is not incidental —
-  three separate funnels, one per exchange, each retaining nothing.</p>
-  <p><strong>It does not show a one-way dump.</strong> The flow is partly bidirectional: distributor
+  <div class="h">Interpretation</div>
+  <p>The record establishes that roughly <strong>7.92M RSC of treasury lineage has reached MEXC, Gate and
+  Coinbase</strong> through single-purpose intermediate addresses, and that the routing is structured rather than
+  incidental — three separate funnels, one per exchange, each retaining nothing.</p>
+  <p>It does not establish one-way disposal. The flow is partly bidirectional: distributor
   <code>0x620c0738</code> received <strong>1,788,484 RSC back from MEXC 15</strong>, and MEXC-FUNNEL took 329,998
   from Gate 1. That round-tripping is more consistent with market-making or exchange-side liquidity operations than
-  with pure disposal. Reaching an exchange is not the same as being sold, and I cannot see order books from here —
-  so the honest statement is that treasury-origin RSC is being routed onto exchanges in volume, with intent
-  unresolved. Note also the pattern that would look identical either way: the Foundation Safe is the same entity
-  that staked 1,483,316 RSC into the staking vault (§6), so the same treasury lineage is simultaneously supplying
-  “TVL” and exchange inventory.</p>
+  with disposal. Reaching an exchange is not equivalent to being sold, and order-book data would be required to
+  distinguish the two. The supportable statement is that treasury-origin RSC is routed onto exchanges in volume,
+  with the purpose unresolved on-chain. One structural observation holds under either reading: the Foundation Safe
+  is the same entity that staked 1,483,316 RSC into the staking vault (§6), so a single treasury lineage supplies
+  both the staked balance and exchange inventory.</p>
+</div>
+
+<h3>8.7 Hot-wallet flows since launch, and reconciliation with reported staking totals</h3>
+
+<p>The hot wallet serves two functions at once, which makes its net flow easy to misread. It is the destination for
+<em>small</em> staking deposits (§4), and it is also the wallet from which the platform pays contributors — peer
+reviewers, editors, bounty recipients. Its net movement therefore measures deposits <em>minus</em> distributions,
+not staking demand on its own.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Flow, both chains, 10 Apr – 4 Aug 2026</th><th class="num">RSC</th><th>Character</th></tr></thead>
+<tbody>
+<tr class="sub"><td colspan="3">Inflow — gross 4,795,540</td></tr>
+<tr><td>From treasuries / foundation</td><td class="num">1,000,000</td><td>Direct top-up</td></tr>
+<tr><td>From the Base bridge</td><td class="num">1,200,000</td><td>Internal transfer between the wallet's own two chains</td></tr>
+<tr><td>From all other addresses</td><td class="num">2,595,540</td><td>Includes small staking deposits arriving via the §4 relays</td></tr>
+<tr class="sub"><td colspan="3">Outflow — gross 4,812,653</td></tr>
+<tr><td>To the Base bridge</td><td class="num">1,200,000</td><td>The same internal transfer, other leg</td></tr>
+<tr><td>To a treasury-operations Safe routing into a DEX</td><td class="num">1,818,217</td><td><code>0xd90bea2b…4f8f</code>, a Gnosis Safe that forwards onward including into CoW Protocol's <code>GPv2Settlement</code> — on-chain execution, not contributor payments</td></tr>
+<tr><td>To all other addresses</td><td class="num">1,794,436</td><td>238 recipients, median total 4,051 RSC — the platform payout tail</td></tr>
+<tr class="total"><td>Net change</td><td class="num">−17,113</td><td>The wallet ends the period almost exactly where it started</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Combined balances are <strong>677,632 RSC</strong> (350,372 on Ethereum, 327,260 on Base), consistent with a
+wallet that is swept rather than accumulated.</p>
+
+<h4>Reconciliation with separately reported figures</h4>
+
+<p>An independent summary of these flows, drawn partly from the project's public endowment dashboard, reports
+several figures. Those that can be tested against chain state are set out below, with the measured value beside
+each.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Reported</th><th>Measured on-chain</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>~22M RSC accumulated in the vaults</td><td class="num">21,965,651.18</td><td><span class="tag t-ext">Agrees</span></td></tr>
+<tr><td>~90% of vault transfers traceable to project treasuries</td><td class="num">90.71%</td><td><span class="tag t-ext">Agrees</span></td></tr>
+<tr><td>Hot-wallet balance ~0.7M RSC across two chains</td><td class="num">677,632</td><td><span class="tag t-ext">Agrees</span></td></tr>
+<tr><td>Small deposits to the hot wallet, large to the multisig, one address shared across Ethereum and Base</td><td>Confirmed in §4 and §8</td><td><span class="tag t-ext">Agrees</span></td></tr>
+<tr><td>~8M RSC to exchanges since launch, via the Base bridge from foundation treasuries</td><td class="num">8,348,784 through the three funnels, of which 7,918,746 is treasury lineage</td><td><span class="tag t-ext">Agrees</span></td></tr>
+<tr><td>Hot-wallet turnover since launch ~15M RSC</td><td class="num">4,795,540 in / 4,812,653 out</td><td><span class="tag t-unk">Differs</span> — 15.5M corresponds to the Ethereum wallet's <em>lifetime</em> inflow since May 2024, not to the period since launch</td></tr>
+<tr><td>Gross retail staking through the hot wallet ~7.3M RSC</td><td class="num">2,595,540</td><td><span class="tag t-unk">Differs</span> — this is all non-treasury, non-bridge inflow since launch, so it is an upper bound on retail deposits, not a lower one</td></tr>
+<tr><td>Net dilution via the hot wallet ~7M RSC since launch (~1.75M/month)</td><td class="num">−17,113 net; user-directed net ≈ 1.0M over 3.85 months</td><td><span class="tag t-unk">Differs</span> — ≈265k RSC/month on the widest reading, and the sign reverses to net absorption if the 1.82M DEX-routing transfer is excluded from payouts</td></tr>
+<tr><td>Total stake volume ~29.3M RSC (dashboard)</td><td>Not determinable</td><td><span class="tag t-warn">Unverified</span> — the dashboard renders its figures client-side and returns placeholder values to a direct fetch. On-chain, vault deposits plus all non-treasury hot-wallet inflow since launch total ≈24.6M RSC</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="h">Why the differences arise, and what does not change</div>
+  <p>The three divergences share one root: the hot wallet has a long operating history that predates the staking
+  product by roughly two years, so lifetime turnover and post-launch turnover differ by a factor of about three.
+  Figures drawn from the wallet's full history are not comparable to the staking period.</p>
+  <p>A second source of divergence is that not every outflow from the hot wallet is a contributor payment. The
+  single largest, 1,818,217 RSC, goes to a Gnosis Safe that routes into a DEX settlement contract. Whether that is
+  counted as a distribution materially changes any dilution estimate — including its sign.</p>
+  <p>None of this affects the central findings. The vault total, the 90.7% treasury share, the hot-wallet balance
+  and the ~8M RSC reaching exchanges are all independently confirmed. What the reconciliation changes is the
+  magnitude of ecosystem distribution attributable to the staking period, which on the measured record is materially
+  smaller than reported and close to flat in net terms.</p>
 </div>
 
 <!-- ============================================ -->
@@ -1289,7 +1261,7 @@ address.</p>
   <li><strong>Identify the two disjoint Safes</strong> — <code>0x71028407…6D7f</code> (3-of-8, 6.7M RSC) and
   <code>0xd9C6Ee15…A1Ab</code> (5-of-11, 1.5M RSC). Their governance shape suggests institutional custody; confirming
   whether they are exchanges would materially change the float calculation.
-  <em>Partial progress:</em> the 3-of-8 Safe’s full RSC history is now traced — it was funded entirely by
+  The 3-of-8 Safe's full RSC history is traced: it was funded entirely by
   <code>0xf0940b14…9d9c</code> (7.55M across 2023–24) and pays out only to <code>0x11a45586…b316</code>, with
   <strong>no treasury or signer link to ResearchHub</strong>. It stays in the “not established” tier on current
   evidence; the next step is identifying those two counterparties.</li>
@@ -1298,6 +1270,10 @@ address.</p>
   <li><strong>Confirm the launch tweet contents.</strong> <code>x.com</code> returns HTTP 402 to this environment, so the
   10 April announcement could not be read directly. Everything dated to the launch here comes from on-chain timing
   and the docs, not from the tweet.</li>
+  <li><strong>Reconcile against the endowment dashboard.</strong> The dashboard's reported total stake volume
+  (~29.3M RSC) renders client-side and could not be read directly; on-chain vault deposits plus non-treasury
+  hot-wallet inflow since launch total ≈24.6M RSC. Establishing how the dashboard defines its total would resolve
+  the ≈4.7M gap (§8.7).</li>
   <li><strong>Watch for the first vault outflow.</strong> The moment the ETH Safe’s nonce moves off 0, the redemption
   mechanism becomes observable. That is the single highest-information event to monitor.</li>
   <li><strong>Reconcile against ResearchHub’s reported staking figures</strong> once published — the delta between
@@ -1346,12 +1322,12 @@ read from Ethereum and Base chain state on 2026-08-02 via archive JSON-RPC and t
 aggregator, dashboard or third-party analytics product was used for on-chain facts. USD figures apply CoinGecko’s
 daily close for <code>researchcoin</code> to the UTC date of each transfer — a daily close, not an execution price,
 so per-line values carry intraday error, largest around the volatile 24 April and 3 May prints.
-Wallet nicknames are my own labels describing observed behaviour; they are not ResearchHub designations except where
+Wallet nicknames are descriptive labels applied in this document to observed behaviour; they are not ResearchHub designations except where
 the memo states the address is published in ResearchHub’s documentation. Attribution of wallets to
 <em>the organisation</em> rests on signer overlap, genesis-mint receipt and treasury funding paths, all of which are
-verifiable on-chain; no wallet is attributed to any <em>named individual</em>, because chain data does not support that
-and I have not inferred it. Addresses in the “not established” tier may well turn out to be exchanges or unrelated
-third parties. This is an initial pass — §11 lists what is still open.
+verifiable on-chain. No wallet is attributed to any <em>named individual</em>, because chain data does not support such an
+attribution. Addresses in the “not established” tier may well turn out to be exchanges or unrelated
+third parties. §11 records the questions that remain open.
 </p>
 
 </div>
