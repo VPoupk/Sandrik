@@ -134,6 +134,16 @@ a{color:var(--accent)}
   </div>
 </div>
 
+<p>Sections 2 to 8 establish what the product is and how the wallets behave. <strong>Section 9 rebuilds every RSC
+transfer on both chains since the launch — 544,778 events with no gaps</strong> — and settles three questions the
+wallet-by-wallet view could not. <strong>13,418,254 RSC ($1,234,336)</strong> moved from ResearchHub-funded
+addresses onto Gate, MEXC and Coinbase over four routes, of which <strong>6,934,498 RSC ($670,920)</strong> traces
+to treasury lineage once the Foundation Safe's own external top-up is netted out. Of the RSC bought out of the
+on-chain pools, <strong>70.5% was forwarded to a centralised exchange and 0.4% was staked</strong> — on-chain
+buying in this period was arbitrage, not accumulation. And <strong>92.0% of everything staked was never bought on a
+market</strong> by the wallet that staked it, an independent confirmation of the 90.7% figure above reached by a
+method that shares no intermediate steps with it.</p>
+
 <!-- ============================================ -->
 <h2>1a. The 2020 token generation event — the root of every attribution</h2>
 
@@ -218,7 +228,7 @@ reading this token across two chains.</p>
   <td>The same address on Base</td>
   <td><span class="tag t-ins">Not deployed</span></td>
   <td>On Base that address is <strong>not a contract</strong> — no code, account nonce 0 — yet it holds
-      3,323,117.53 RSC. See §10, entry 1.</td>
+      3,323,117.53 RSC. See §11, entry 1.</td>
 </tr>
 <tr>
   <td>A dedicated staking contract exists</td>
@@ -1080,6 +1090,11 @@ receives</strong> to one exchange and retains nothing:</p>
   with the purpose unresolved on-chain. One structural observation holds under either reading: the Foundation Safe
   is the same entity that staked 1,483,316 RSC into the staking vault (§6), so a single treasury lineage supplies
   both the staked balance and exchange inventory.</p>
+  <p><strong>These three funnels are not the whole route.</strong> Rebuilding the complete two-chain ledger for the
+  period since launch (§9) finds a fourth path — Foundation Safe → <code>0x74f191e4</code> →
+  <code>0x76785f12</code> → Gate 1 — which alone carries more RSC than all three named funnels combined. §9 also
+  establishes that roughly half the Foundation Safe's outbound RSC in this period did not originate with a
+  treasury.</p>
 </div>
 
 <h3>8.6 Hot-wallet flows since launch, and reconciliation with reported staking totals</h3>
@@ -1147,7 +1162,317 @@ each.</p>
 </div>
 
 <!-- ============================================ -->
-<h2>9. Adjacent findings</h2>
+<h2>9. The period flow map — 10 April to 13 August 2026</h2>
+
+<p>Sections 4 to 8 follow individual wallets. This section takes the opposite approach: it reconstructs
+<strong>every RSC transfer on both chains</strong> for the period since launch and asks three questions of the
+complete record — what the ResearchHub complex sent to trading venues, what happened to the RSC that was bought out
+of the on-chain pools, and where the RSC that was staked actually came from.</p>
+
+<div class="callout">
+  <div class="h">Basis and method</div>
+  <p><strong>Ledger.</strong> All ERC-20 <code>Transfer</code> logs for RSC on Ethereum and Base from block
+  24,845,606 / 44,494,927 (10 April 2026 00:00 UTC) to block 25,747,535 / 49,926,012 (13 August 2026 17:16 UTC):
+  <strong>544,778 events</strong>, read directly from <code>eth_getLogs</code> with <strong>no unrecovered block
+  ranges</strong> on either chain. Base timestamps are exact — the chain runs a fixed two-second cadence, verified
+  against sampled blocks at zero drift; Ethereum timestamps were read per block.</p>
+  <p><strong>Pricing.</strong> Every transfer is valued at the CoinGecko hourly RSC/USD point nearest its own
+  timestamp. The series is continuous across the period with no gap larger than one hour. Dollar figures therefore
+  reflect the price at the moment each transfer occurred, not a period average.</p>
+  <p><strong>Provenance.</strong> Where RSC changes hands repeatedly, origin is assigned by proportional mixing: an
+  address that spends pays out of its holdings in the same proportions it received them. Exchanges and AMM pools are
+  treated as terminal — RSC entering one is recorded as an arrival and traced no further, and RSC leaving one starts
+  a new origin, so attribution is never laundered through a venue. Where an address spends more than it received
+  inside the period, the shortfall is attributed to its opening balance and labelled as such. The bridge is modelled
+  as a single pass-through account, so cross-chain movement preserves origin.</p>
+</div>
+
+<h3>9.1 What the ResearchHub complex sent to trading venues</h3>
+
+<p>Two figures answer this, and they differ because they measure different things.</p>
+
+<div class="cards">
+  <div class="card hi">
+    <div class="lab">Gross — moved from complex-funded addresses onto exchanges</div>
+    <div class="val">13,418,254</div>
+    <div class="note">RSC · <strong>$1,234,336</strong> at each transfer's own hourly price<br>15 deposits, 3 exchanges</div>
+  </div>
+  <div class="card hi">
+    <div class="lab">Provenance-adjusted — traceable to treasury lineage</div>
+    <div class="val">6,934,498</div>
+    <div class="note">RSC · <strong>$670,920</strong><br>5,446,374 to exchanges, 1,488,125 into the pools</div>
+  </div>
+  <div class="card">
+    <div class="lab">Share of all fresh supply reaching a venue</div>
+    <div class="val">28.2%</div>
+    <div class="note">Of 24,591,987 RSC ($2,497,120) arriving at exchanges and pools from outside the venue system</div>
+  </div>
+</div>
+
+<h4>The routes</h4>
+
+<p>Every RSC that reached a centralised exchange from a complex-funded address in this period travelled one of four
+routes. Each intermediate address is single-purpose and retains nothing.</p>
+
+<div class="flow">Treasury 1 ──17,000,100 (16 Jul)──► Treasury 3 ──10,000,100 (Apr 30 · May 15 · Jul 21)──► bridge
+                                                                                    │
+                                                    (relayMessage, 1–3 min)         ▼
+                                              FOUNDATION COMMUNITY SAFE (Base) ◄──10,000,100
+                                                     │
+   ROUTE A ──8,289,010 (3 tx, 13–29 May)──► 0x74f191e4 ──┬──► 0x76785f12 ──5,619,519──► GATE 1
+                                                          ├──► 0xcd8d4503 ──  411,795──► COINBASE 35
+                                                          ├──► 0x6f12ae18 ──  401,232──► MEXC 15
+                                                          └──► 0x2a319ca0 ──  401,234──► (not an exchange)
+   ROUTE B ──1,711,000 (2 tx, 21 Jul)─────► 0x0c86ac6c ──┬──► 0x76785f12 ──  651,000──► GATE 1
+                                                          ├──► 0xcd8d4503 ──  401,000──► COINBASE 35
+                                                          └──► 0x6f12ae18 ──  651,000──► MEXC 15
+   ROUTE C ──5,000,000 (2 tx, 28 Jul)─────► 0x48cd88dA ──► DIST-Ae823F1b ──┬──1,250,000──► GATE FUNNEL   ──► GATE 1
+                                                                           ├──1,250,000──► CB FUNNEL     ──► COINBASE 35
+                                                                           └──2,250,000──► MEXC FUNNEL   ──► MEXC 15
+   ROUTE D ── 210,000 (11 Apr) and 322,708 (13 Aug), through the same two funnels</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Deposit address → exchange</th><th class="num">RSC</th><th class="num">USD at transfer time</th><th class="num">Transfers</th><th>Period active</th></tr></thead>
+<tbody>
+<tr><td><code>0x76785f12…5ef6</code> → <strong>Gate 1</strong></td><td class="num">6,270,519</td><td class="num">648,008</td><td class="num">5</td><td>19 May – 23 Jul</td></tr>
+<tr><td>MEXC funnel <code>0x4Bae370A…2cE5</code> → <strong>MEXC 15</strong></td><td class="num">2,572,708</td><td class="num">194,343</td><td class="num">2</td><td>28 Jul, 13 Aug</td></tr>
+<tr><td>Gate funnel <code>0x40a03e42…d671</code> → <strong>Gate 1</strong></td><td class="num">1,460,000</td><td class="num">105,712</td><td class="num">2</td><td>11 Apr, 30 Jul</td></tr>
+<tr><td>Coinbase funnel <code>0xF229E503…D9D8</code> → <strong>Coinbase 35</strong></td><td class="num">1,250,000</td><td class="num">96,616</td><td class="num">1</td><td>28 Jul</td></tr>
+<tr><td><code>0x6f12ae18…5c00</code> → <strong>MEXC 15</strong></td><td class="num">1,052,232</td><td class="num">103,477</td><td class="num">3</td><td>29 May, 21 Jul</td></tr>
+<tr><td><code>0xcd8d4503…bca7</code> → <strong>Coinbase 35</strong></td><td class="num">812,795</td><td class="num">86,180</td><td class="num">2</td><td>18 May, 21 Jul</td></tr>
+<tr class="total"><td>Total onto exchanges</td><td class="num">13,418,254</td><td class="num">1,234,336</td><td class="num">15</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Destination exchange</th><th class="num">RSC</th><th class="num">USD</th><th class="num">Transfers</th></tr></thead>
+<tbody>
+<tr><td><strong>Gate 1</strong></td><td class="num">7,730,519</td><td class="num">753,720</td><td class="num">7</td></tr>
+<tr><td><strong>MEXC 15</strong></td><td class="num">3,624,940</td><td class="num">297,820</td><td class="num">5</td></tr>
+<tr><td><strong>Coinbase 35</strong></td><td class="num">2,062,795</td><td class="num">182,796</td><td class="num">3</td></tr>
+<tr class="total"><td>Total</td><td class="num">13,418,254</td><td class="num">1,234,336</td><td class="num">15</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Route A is the largest and was not visible in §8.5, which mapped only the funnel addresses. The
+<code>0x74f191e4 → 0x76785f12 → Gate 1</code> leg alone carries <strong>more RSC than all three named funnels
+combined</strong>, and its deposits land at 04:52–04:55 UTC on five separate days — a scheduled sweep rather than
+discretionary sends.</p>
+
+<h4>Why the provenance-adjusted figure is half the gross figure</h4>
+
+<div class="callout warn">
+  <div class="h">The Foundation Safe was topped up from outside the complex</div>
+  <p>The Safe funded all three routes, and in this period it received its RSC from two sources of roughly equal
+  size: <strong>10,000,100 RSC bridged in from Treasury 3</strong>, and <strong>9,999,699 RSC received on 29 May
+  2026 from <code>0xe92e6504…a03f</code></strong>, an address with no governance relationship to ResearchHub.
+  Under proportional mixing, roughly half of everything the Safe subsequently sent is therefore <em>not</em>
+  treasury lineage.</p>
+  <p><code>0xe92e6504…a03f</code> is a plain externally-owned account with a Base transaction count of 16,258. It
+  held <strong>6,890,462 RSC at the moment the product launched</strong> and had accumulated 12,250,583 RSC before
+  that, of which <strong>5,190,315 came directly from the four exchanges</strong> (3,848,718 from Gate 1, 866,021
+  from Coinbase 22, 610,781 from Exchange-scale B, 367,409 from Coinbase 35, 107,278 from MEXC 15) and 6,048,271
+  from a single other address. It holds 1,551 RSC today. Its behaviour — assembling inventory across every venue
+  and delivering it in one 10M block — is the profile of a trading or market-making account. Whether it was acting
+  for ResearchHub, and on what terms, is not determinable on-chain, and no payment leg for the 10M transfer is
+  visible in RSC.</p>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Ultimate complex source</th><th class="num">Reached a venue</th><th class="num">USD</th><th class="num">To exchanges</th><th class="num">Into the pools</th></tr></thead>
+<tbody>
+<tr><td>Treasury 1</td><td class="num">4,228,337</td><td class="num">353,464</td><td class="num">3,328,074</td><td class="num">900,264</td></tr>
+<tr><td>Treasury 3</td><td class="num">2,349,267</td><td class="num">288,950</td><td class="num">1,814,501</td><td class="num">534,766</td></tr>
+<tr><td>Gate funnel (RSC returned from Gate 1 and re-sent)</td><td class="num">210,000</td><td class="num">14,890</td><td class="num">210,000</td><td class="num">0</td></tr>
+<tr><td>Distributor <code>0xAe823F1b</code></td><td class="num">74,009</td><td class="num">5,582</td><td class="num">73,554</td><td class="num">455</td></tr>
+<tr><td>Foundation Community Safe (own opening balance)</td><td class="num">52,607</td><td class="num">6,629</td><td class="num">20,004</td><td class="num">32,603</td></tr>
+<tr><td>Hot wallet (own opening balance)</td><td class="num">18,647</td><td class="num">1,227</td><td class="num">105</td><td class="num">18,542</td></tr>
+<tr><td>Signer-staker, Vest-beneficiary 70M, TGE-distributor 700M</td><td class="num">1,630</td><td class="num">179</td><td class="num">135</td><td class="num">1,495</td></tr>
+<tr class="total"><td>All ResearchHub-complex lineage</td><td class="num">6,934,498</td><td class="num">670,920</td><td class="num">5,446,374</td><td class="num">1,488,125</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Sources are the <em>ultimate</em> origin, not the wallet that made the payment. RSC that Treasury 1 sent to the
+hot wallet and the hot wallet then paid to a contributor who sold it appears against Treasury 1, which is why the
+hot wallet's own line is small.</p>
+
+<h4>The other distributions in the same period</h4>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Distributing account</th><th class="num">Paid out in period</th><th class="num">USD</th><th>How much reached a trading venue</th></tr></thead>
+<tbody>
+<tr><td>Hot wallet, to 135 individual recipients</td><td class="num">1,899,394</td><td class="num">191,467</td>
+    <td>41 of those 135 addresses sent RSC to a venue inside the window, <strong>1,161,490 RSC ($120,284)</strong>.
+    That is 61.2% of the amount paid, but it is an upper bound: several of those addresses held RSC before the
+    period and the coins are not necessarily the same ones. Strict proportional attribution puts hot-wallet-origin
+    RSC reaching a venue far lower, because most of what the hot wallet spent had itself just arrived from
+    Treasury 1.</td></tr>
+<tr><td>Treasury 3, direct payments</td><td class="num">1,294,118</td><td class="num">109,747</td>
+    <td>One recipient, <code>0x6b87c4fd…3be6</code>, which forwarded the whole amount to a single address.
+    <strong>None of it reached a trading venue in the period.</strong></td></tr>
+<tr><td>Hot wallet and Foundation Safe, to Endaoment</td><td class="num">2,138,217</td><td class="num">257,163</td>
+    <td><strong>Effectively all of it.</strong> Endaoment sold 2,138,217 RSC into the Base pools through CoW
+    Protocol over the same window (§8.3). This is the one distribution channel with a near-100% pass-through to
+    the market, and it is a disclosed charitable conversion.</td></tr>
+<tr><td>Complex → staking vault relays</td><td class="num">17,532,479</td><td class="num">1,411,224</td>
+    <td>None. The vault has never sent a transfer (§2).</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>9.2 Where the RSC bought out of the on-chain pools went</h3>
+
+<p>Gross flow out of the four RSC pools in the period is <strong>4,382,708,062 RSC</strong>. That number is not a
+measure of demand — <strong>99.0% of it is sold straight back into a pool</strong>, the signature of arbitrage and
+MEV cycling between the two Aerodrome pools, the Uniswap pools and the aggregator routers. Netting that off leaves
+the quantity that genuinely left the pool system.</p>
+
+<div class="cards">
+  <div class="card hi">
+    <div class="lab">Net RSC bought out of the pools</div>
+    <div class="val">44,794,613</div>
+    <div class="note">After removing 4,337,913,450 RSC of pool-to-pool round-tripping (99.0% of gross)</div>
+  </div>
+  <div class="card">
+    <div class="lab">Of that, deposited to a centralised exchange</div>
+    <div class="val">70.5%</div>
+    <div class="note">31,567,788 RSC · <strong>$3,434,587</strong></div>
+  </div>
+  <div class="card">
+    <div class="lab">Of that, staked into the vault</div>
+    <div class="val">0.4%</div>
+    <div class="note">197,141 RSC · $23,636</div>
+  </div>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Where net pool-bought RSC stood at 13 August 2026</th><th class="num">RSC</th><th class="num">USD</th><th class="num">Share</th></tr></thead>
+<tbody>
+<tr><td>Deposited to a centralised exchange</td><td class="num">31,567,788</td><td class="num">3,434,587</td><td class="num">70.5%</td></tr>
+<tr><td class="mono">  → Exchange-scale B</td><td class="num">7,395,502</td><td class="num">830,160</td><td class="num">16.5%</td></tr>
+<tr><td class="mono">  → Coinbase 22</td><td class="num">7,095,532</td><td class="num">789,326</td><td class="num">15.8%</td></tr>
+<tr><td class="mono">  → Coinbase 35</td><td class="num">6,935,046</td><td class="num">716,468</td><td class="num">15.5%</td></tr>
+<tr><td class="mono">  → Gate 1</td><td class="num">6,132,420</td><td class="num">707,245</td><td class="num">13.7%</td></tr>
+<tr><td class="mono">  → MEXC 15</td><td class="num">4,009,289</td><td class="num">391,387</td><td class="num">9.0%</td></tr>
+<tr><td>Still sitting in wallets</td><td class="num">13,029,223</td><td class="num">—</td><td class="num">29.1%</td></tr>
+<tr><td>Staked into the vault</td><td class="num">197,141</td><td class="num">23,636</td><td class="num">0.4%</td></tr>
+<tr class="total"><td>Net bought out of the pools</td><td class="num">44,794,613</td><td colspan="2">—</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">On-chain buying is overwhelmingly the first leg of a cross-venue trade, not accumulation</div>
+  <p>Seven in ten RSC bought out of the pools was moved to a centralised exchange, spread evenly across five
+  exchange wallets. That is the shape of routine arbitrage between the on-chain price and the order books, and it
+  explains why the pools show persistent net outflow while exchange net flow stays flat: the same coins are counted
+  as a DEX purchase and then as a CEX deposit.</p>
+  <p><strong>Almost none of it was staked.</strong> 197,141 RSC — four tenths of one percent of net on-chain buying,
+  and 0.9% of everything deposited into the vault — went from a pool into the staking product. Whatever the
+  on-chain buying in this period was for, it was not to acquire RSC in order to stake it.</p>
+  <p>The 13.03M RSC still held is concentrated: the largest single holder of pool-bought RSC is
+  <code>0x039ac6fb…eb8d</code> with 2,089,584 RSC, followed by <code>0x98f870ab…05a7</code> with 745,598 and
+  <code>0x20fe51a9…3b7a</code> with 558,578. None of these carries an ENS record, an explorer name tag or any
+  relationship to the addresses ResearchHub publishes.</p>
+</div>
+
+<h3>9.3 Where the staked RSC came from</h3>
+
+<p>21,515,651 RSC entered the vault in 17 deposits during the period, worth <strong>$1,783,458</strong> valued at
+the hour of each deposit. Running the provenance model back through every hop gives the following origin split.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Origin of staked RSC</th><th class="num">RSC</th><th class="num">USD</th><th class="num">Share</th></tr></thead>
+<tbody>
+<tr class="sub"><td colspan="4">Sent directly by a ResearchHub-complex wallet</td></tr>
+<tr><td>TGE-distributor 700M <span class="addr">0xB518536B…7D3d</span></td><td class="num">9,998,896</td><td class="num">811,300</td><td class="num">46.5%</td></tr>
+<tr><td>Vest-beneficiary 70M <span class="addr">0x1288d4d0…8D34</span></td><td class="num">5,000,002</td><td class="num">351,663</td><td class="num">23.2%</td></tr>
+<tr><td>Signer-staker <span class="addr">0x3D4B25c3…339C</span></td><td class="num">1,092,537</td><td class="num">101,816</td><td class="num">5.1%</td></tr>
+<tr><td>Foundation Community Safe <span class="addr">0xb280F00E…7E21</span></td><td class="num">769,130</td><td class="num">59,693</td><td class="num">3.6%</td></tr>
+<tr><td>Treasury 3</td><td class="num">667,567</td><td class="num">81,223</td><td class="num">3.1%</td></tr>
+<tr><td>Treasury 1</td><td class="num">4,347</td><td class="num">529</td><td class="num">0.0%</td></tr>
+<tr class="sub"><td colspan="4">Held by the depositor before 10 April 2026 — traced in §6 to its own source</td></tr>
+<tr><td><span class="addr">0x5aa0122f…3fEA</span> — 18 monthly Treasury 3 payments, 2022–2024</td><td class="num">1,000,002</td><td class="num">83,518</td><td class="num">4.6%</td></tr>
+<tr><td><span class="addr">0x7f38aa84…5435</span> — <code>dolosus.eth</code> chain, treasury-downstream</td><td class="num">650,000</td><td class="num">42,849</td><td class="num">3.0%</td></tr>
+<tr><td><span class="addr">0x144985d2…B00d</span> — single 1.6M lump sum from Treasury 2, Sept 2025</td><td class="num">600,701</td><td class="num">81,301</td><td class="num">2.8%</td></tr>
+<tr><td><span class="addr">0x665F3D71…cD4e</span> — <code>fauler.eth</code>, bought on Uniswap V3</td><td class="num">200,000</td><td class="num">28,629</td><td class="num">0.9%</td></tr>
+<tr class="sub"><td colspan="4">Acquired from a market inside the period</td></tr>
+<tr><td>Withdrawn from a centralised exchange</td><td class="num">1,332,063</td><td class="num">116,915</td><td class="num">6.2%</td></tr>
+<tr><td>Bought out of the on-chain pools</td><td class="num">197,141</td><td class="num">23,636</td><td class="num">0.9%</td></tr>
+<tr class="total"><td>All deposits, 10 Apr – 13 Aug 2026</td><td class="num">21,515,651</td><td class="num">1,783,458</td><td class="num">100%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">Result</div>
+  <p><strong>92.0% of the RSC staked in this period was never bought on a market by the wallet that staked it.</strong>
+  81.5% was sent directly by a ResearchHub-complex wallet and staked within minutes of arriving; a further 10.5% was
+  a contributor's own balance, and §6 traces every one of those balances back to treasury compensation — monthly
+  Treasury 3 payments, a Treasury 2 lump sum, or the <code>dolosus.eth</code> chain.</p>
+  <p>The remaining <strong>8.0% — 1,729,204 RSC, $169,180</strong> — is the total that can be tied to a market at
+  any point: 197,141 RSC bought out of the pools during the period, 1,332,063 withdrawn from a centralised
+  exchange, and <code>fauler.eth</code>'s 200,000 RSC Uniswap purchase. The exchange-withdrawal component is an
+  upper bound on purchasing, not proof of it — a withdrawal is indistinguishable on-chain from the return of coins
+  deposited earlier.</p>
+  <p>This is an independent confirmation of §6. That section reached 90.71% treasury-or-insider lineage by tracing
+  each depositor by hand; this section reaches 92.0% by rebuilding the entire two-chain ledger and mixing
+  proportionally. The two methods share no intermediate steps.</p>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Date</th><th>Depositing address</th><th class="num">RSC</th><th class="num">USD</th><th>Where that RSC came from</th></tr></thead>
+<tbody>
+<tr><td class="mono">2026-04-10</td><td class="addr">0xa7234ea4…e75e</td><td class="num">192,984</td><td class="num">12,969</td><td>Withdrawn from Coinbase 22</td></tr>
+<tr><td class="mono">2026-04-10</td><td class="addr">0xe81c64f3…2fa0</td><td class="num">378,659</td><td class="num">25,789</td><td>Withdrawn from Exchange-scale B</td></tr>
+<tr><td class="mono">2026-04-12</td><td class="addr">0xe7900631…9d2d</td><td class="num">400,000</td><td class="num">26,454</td><td><code>dolosus.eth</code> chain — treasury-downstream</td></tr>
+<tr><td class="mono">2026-04-16</td><td class="addr">0xe7900631…9d2d</td><td class="num">250,000</td><td class="num">16,395</td><td><code>dolosus.eth</code> chain — treasury-downstream</td></tr>
+<tr><td class="mono">2026-04-16</td><td class="addr">0xa03bdb65…b9ff</td><td class="num">769,130</td><td class="num">59,693</td><td>Foundation Community Safe</td></tr>
+<tr class="hl"><td class="mono">2026-04-20</td><td class="addr">0x3b1fddbe…9e3f</td><td class="num">5,000,000</td><td class="num">351,662</td><td>Vest-beneficiary 70M — a 2020 mint recipient</td></tr>
+<tr><td class="mono">2026-04-22</td><td class="addr">0x7059d740…85af</td><td class="num">1,000,000</td><td class="num">83,518</td><td>18 monthly Treasury 3 payments, 2022–2024</td></tr>
+<tr><td class="mono">2026-04-24</td><td class="addr">0xe81c64f3…2fa0</td><td class="num">1,092,534</td><td class="num">101,816</td><td>Signer-staker — signs Treasury 3 and the Foundation Safe</td></tr>
+<tr><td class="mono">2026-05-06</td><td class="addr">0x2620c949…ffd6</td><td class="num">325,580</td><td class="num">39,267</td><td>171,634 withdrawn from MEXC 15; 153,946 bought on Aerodrome</td></tr>
+<tr><td class="mono">2026-05-10</td><td class="addr">0x182ec8fb…88c1</td><td class="num">200,000</td><td class="num">28,629</td><td><code>fauler.eth</code> — bought on Uniswap V3</td></tr>
+<tr><td class="mono">2026-05-16</td><td class="addr">0x12ca1c56…51a6</td><td class="num">101,000</td><td class="num">13,670</td><td>Treasury 2 lump sum, Sept 2025</td></tr>
+<tr><td class="mono">2026-05-16</td><td class="addr">0x12ca1c56…51a6</td><td class="num">500,000</td><td class="num">67,672</td><td>Treasury 2 lump sum, Sept 2025</td></tr>
+<tr><td class="mono">2026-05-20</td><td class="addr">0xff05ea60…a576</td><td class="num">714,186</td><td class="num">86,896</td><td>667,567 Treasury 3; 36,104 bought on Aerodrome; remainder mixed</td></tr>
+<tr><td class="mono">2026-06-11</td><td class="addr">0xf293e19c…6665</td><td class="num">462,614</td><td class="num">45,557</td><td>Withdrawn from Coinbase 35</td></tr>
+<tr><td class="mono">2026-06-17</td><td class="addr">0xe63ee808…4f1b</td><td class="num">129,965</td><td class="num">12,161</td><td>122,771 withdrawn from Coinbase 35; 6,059 bought on Aerodrome</td></tr>
+<tr><td class="mono">2026-07-04</td><td class="addr">0x921f2cd6…4e05</td><td class="num">999,000</td><td class="num">92,699</td><td>TGE-distributor 700M — a 2020 mint recipient</td></tr>
+<tr class="hl"><td class="mono">2026-07-07</td><td class="addr">0x921f2cd6…4e05</td><td class="num">9,000,000</td><td class="num">718,610</td><td>TGE-distributor 700M — a 2020 mint recipient</td></tr>
+<tr class="total"><td colspan="2">17 deposits</td><td class="num">21,515,651</td><td class="num">1,783,458</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>9.4 What this section does and does not establish</h3>
+<ul>
+  <li><strong>Reaching an exchange is not selling.</strong> A deposit to an exchange wallet is where on-chain
+  visibility ends. Order-book data would be needed to say whether it was sold, and the companion trading analysis
+  finds exchange net taker flow close to flat over the same window.</li>
+  <li><strong>Proportional mixing is a convention, not a fact about individual coins.</strong> Where an address
+  holds RSC from several sources, no on-chain evidence identifies which specific units it spent. The convention is
+  applied uniformly and the gross figures are reported alongside so both readings are available.</li>
+  <li><strong>Opening balances are attributed to their holder, not traced further back.</strong> Balances held on
+  10 April are labelled as such; for the vault depositors, §6 traces them individually, but for the wider
+  population they are simply "held before the period".</li>
+  <li><strong>The 10M transfer into the Foundation Safe has no visible consideration.</strong> Whether it was a
+  purchase, a return of loaned inventory, or an internal transfer between accounts of the same operator cannot be
+  determined from RSC transfers alone.</li>
+</ul>
+
+<!-- ============================================ -->
+<h2>10. Adjacent findings</h2>
 
 <h3>BASE-DESK — the largest Base holder is not the deposit wallet</h3>
 <p><code>0x901Fc41a…480F</code> holds 15,845,066 RSC, the largest single balance on Base, but it has initiated only
@@ -1190,7 +1515,7 @@ filters by symbol rather than contract address will pick up that fake. All figur
 address.</p>
 
 <!-- ============================================ -->
-<h2>10. Risk register</h2>
+<h2>11. Risk register</h2>
 
 <div class="scroll">
 <table>
@@ -1223,7 +1548,7 @@ address.</p>
   <td><strong>3,484 confirmed poisoning events</strong> (§8.3) impersonating the Base hot wallet, 93.2% of them
       shadowing a real payout recipient by first-4/last-4 hex match. Any user or operator who copies a counterparty
       address out of that wallet’s history risks pasting an attacker’s. Also targets the Base treasury cluster
-      (§9). This is live and worth reporting to the team.</td></tr>
+      (§10). This is live and worth reporting to the team.</td></tr>
 <tr><td>9</td><td>Treasury RSC routed onto exchanges via structured hops</td><td><span class="tag t-unk">Medium</span></td>
   <td>~7.92M RSC of Treasury 3 lineage has reached MEXC, Gate and Coinbase through three dedicated
       single-exchange funnels that retain nothing (§8.6). Flow is partly bidirectional, so this is not evidence of a
@@ -1234,7 +1559,7 @@ address.</p>
 </div>
 
 <!-- ============================================ -->
-<h2>11. Open items for round two</h2>
+<h2>12. Open items for round two</h2>
 <ol>
   <li><strong>Confirm the “funded by Coinbase” claims.</strong> Two remain open: the 2020 ETH funding of the 700M TGE
   wallet (the explorer’s inbound index would not reach back that far in this pass), and the operator behind
@@ -1298,6 +1623,12 @@ address.</p>
 <tr><td>dolosus.eth</td><td class="addr">0xcC5F1f2800Ff0a4DA973f4bC077124d3aB01E21B</td><td>ETH</td><td>ENS-named <em>contract</em>; treasury-downstream; funded the 650k depositor</td></tr>
 <tr><td>fauler.eth</td><td class="addr">0xB2d60143097b4F992BfBE955a22dbb2AcD9a8EAb</td><td>ETH</td><td>Bought 250k RSC on Uniswap V3; funded the only confirmed external ETH deposit</td></tr>
 <tr><td>EXCHANGE-FUNDER</td><td class="addr">0x91d66b38ae24292e9e12dd962bBB3AEcF4Ab769A</td><td>BASE</td><td>2.59M txs, Base-only; gas-funded the Base trader wallets. Exchange infrastructure, operator unconfirmed</td></tr>
+<tr><td>HOP-74f191e4</td><td class="addr">0x74f191E407296AE3F1D464950c77dd9a4D1d1817</td><td>BASE</td><td>Took 8,289,010 RSC from the Foundation Safe in May 2026 and fanned it to four exchange deposit addresses (§9.1)</td></tr>
+<tr><td>HOP-0c86ac6c</td><td class="addr">0x0c86ac6cC34F23eEF0005E13602099d34465ac5b</td><td>BASE</td><td>Same pattern, 1,711,000 RSC on 21 July 2026</td></tr>
+<tr><td>GATE-DEPOSIT</td><td class="addr">0x76785f122ad1c5E18b5e0f8c63FDf35943695eF6</td><td>BASE</td><td>Deposits to Gate 1 only, always 04:52–04:55 UTC; 6,270,519 RSC in the period; retains nothing</td></tr>
+<tr><td>CB-DEPOSIT-2</td><td class="addr">0xcd8d450349861554F886F68c0d0cCf6F8A9dBCa7</td><td>BASE</td><td>Deposits to Coinbase 35 only; 812,795 RSC in the period; retains nothing</td></tr>
+<tr><td>MEXC-DEPOSIT-2</td><td class="addr">0x6f12AE1895C92b318FEbEAaBa89d887c81dd5C00</td><td>BASE</td><td>Deposits to MEXC 15 only; 1,052,232 RSC in the period; retains nothing</td></tr>
+<tr><td>TRADER-e92e6504</td><td class="addr">0xe92E65049b3C2Ca12806E9567b08895118c5a03f</td><td>BASE</td><td>EOA, nonce 16,258. Held 6.89M RSC at launch, sourced 5.19M from the four exchanges pre-launch, and sent 9,999,699 RSC to the Foundation Safe on 29 May 2026. Holds 1,551 today</td></tr>
 <tr><td>Key 1</td><td class="addr">0x12ab259853038a8b542b77d4ebf3af671b7e8e73</td><td>ETH/BASE</td><td>The only key that signs all five core Safes; also paid the first gas into the 70M TGE wallet</td></tr>
 <tr><td>Key 2 / Key 3</td><td class="addr">0xf3bfe6c4…3e3e / 0x67f843da…7985</td><td>ETH</td><td>Co-sign T1, T2 and the staking vault</td></tr>
 <tr><td>DEPOSIT RELAY (×13)</td><td class="addr">ERC1967Proxy → SingleOwnerMSCA</td><td>ETH/BASE</td><td>Single-use ERC-4337 accounts; the app’s per-user deposit addresses</td></tr>
@@ -1316,7 +1647,7 @@ the memo states the address is published in ResearchHub’s documentation. Attri
 <em>the organisation</em> rests on signer overlap, genesis-mint receipt and treasury funding paths, all of which are
 verifiable on-chain. No wallet is attributed to any <em>named individual</em>, because chain data does not support such an
 attribution. Addresses in the “not established” tier may well turn out to be exchanges or unrelated
-third parties. §11 records the questions that remain open.
+third parties. §12 records the questions that remain open.
 </p>
 
 </div>

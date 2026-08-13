@@ -1,0 +1,338 @@
+{
+ "period": {
+  "from": "2026-04-10T00:00:00Z",
+  "to": "2026-08-13T17:16:11Z",
+  "base_blocks": [
+   44494927,
+   49926012
+  ],
+  "eth_blocks": [
+   24845606,
+   25747535
+  ],
+  "transfer_events": 544778,
+  "unrecovered_ranges": 0
+ },
+ "method": "proportional-mixing provenance; exchanges and AMM pools terminal; bridge modelled as one pass-through account; every transfer priced at the nearest CoinGecko hourly RSC/USD point",
+ "q1_complex_to_venues": {
+  "gross_onto_exchanges_rsc": 13418254,
+  "gross_onto_exchanges_usd": 1234336,
+  "deposit_transfers": 15,
+  "routes": [
+   {
+    "route": "0x76785f122ad1c5e18b5e0f8c63fdf35943695ef6 -> Gate 1",
+    "rsc": 6270519,
+    "usd": 648008,
+    "tx": 5
+   },
+   {
+    "route": "0x4bae370a8691bf4d77385fb3bc3895a918012ce5 (MEXC funnel) -> MEXC 15",
+    "rsc": 2572708,
+    "usd": 194343,
+    "tx": 2
+   },
+   {
+    "route": "0x40a03e42e37c7684c9157a4f29676b2a8869d671 (Gate funnel) -> Gate 1",
+    "rsc": 1460000,
+    "usd": 105712,
+    "tx": 2
+   },
+   {
+    "route": "0xf229e503eea4af367ad12fed165628951183d9d8 (Coinbase funnel) -> Coinbase 35",
+    "rsc": 1250000,
+    "usd": 96616,
+    "tx": 1
+   },
+   {
+    "route": "0x6f12ae1895c92b318febeaaba89d887c81dd5c00 -> MEXC 15",
+    "rsc": 1052232,
+    "usd": 103477,
+    "tx": 3
+   },
+   {
+    "route": "0xcd8d450349861554f886f68c0d0ccf6f8a9dbca7 -> Coinbase 35",
+    "rsc": 812795,
+    "usd": 86180,
+    "tx": 2
+   }
+  ],
+  "by_exchange": {
+   "Gate 1": {
+    "rsc": 7730519,
+    "usd": 753720,
+    "tx": 7
+   },
+   "MEXC 15": {
+    "rsc": 3624940,
+    "usd": 297820,
+    "tx": 5
+   },
+   "Coinbase 35": {
+    "rsc": 2062795,
+    "usd": 182796,
+    "tx": 3
+   }
+  },
+  "provenance_adjusted": {
+   "total_rsc": 6934498,
+   "total_usd": 670920,
+   "to_exchanges_rsc": 5446374,
+   "to_exchanges_usd": 496086,
+   "into_pools_rsc": 1488125,
+   "into_pools_usd": 174834,
+   "by_source": {
+    "Treasury 1": {
+     "rsc": 4228337,
+     "usd": 353464
+    },
+    "Treasury 3": {
+     "rsc": 2349267,
+     "usd": 288950
+    },
+    "Gate funnel": {
+     "rsc": 210000,
+     "usd": 14890
+    },
+    "Distributor 0xAe823F1b": {
+     "rsc": 74009,
+     "usd": 5582
+    },
+    "Foundation Community Safe": {
+     "rsc": 52607,
+     "usd": 6629
+    },
+    "Hot wallet": {
+     "rsc": 18647,
+     "usd": 1227
+    },
+    "other complex wallets": {
+     "rsc": 1630,
+     "usd": 179
+    }
+   }
+  },
+  "fresh_supply_all_sources": {
+   "rsc": 24591987,
+   "usd": 2497120,
+   "complex_share_of_rsc": 0.282
+  },
+  "venue_to_venue_recycling": {
+   "rsc": 4442148742,
+   "usd": 459441007
+  },
+  "foundation_safe_topup": {
+   "from": "0xe92e65049b3c2ca12806e9567b08895118c5a03f",
+   "rsc": 9999699,
+   "date": "2026-05-29",
+   "holder_balance_at_launch": 6890462,
+   "preperiod_inflow": 12250583,
+   "preperiod_inflow_from_exchanges": 5190315,
+   "balance_now": 1551,
+   "base_nonce": 16258
+  },
+  "other_distributions": {
+   "hot_wallet_to_individuals": {
+    "rsc": 1899394,
+    "usd": 191467,
+    "recipients": 135,
+    "recipients_that_sent_to_a_venue": 41,
+    "their_venue_sends_rsc": 1161490,
+    "their_venue_sends_usd": 120284,
+    "note": "gross upper bound; several held RSC before the period"
+   },
+   "treasury3_direct": {
+    "rsc": 1294118,
+    "usd": 109747,
+    "recipients": 1,
+    "reached_a_venue_rsc": 0
+   },
+   "to_endaoment": {
+    "rsc": 2138217,
+    "usd": 257163,
+    "sold_into_pools_rsc": 2138217
+   }
+  }
+ },
+ "q2_pool_purchases": {
+  "gross_out_of_pools_rsc": 4382708062,
+  "sold_straight_back_rsc": 4337913450,
+  "round_trip_share": 0.99,
+  "net_bought_rsc": 44794613,
+  "destination": {
+   "centralised_exchange": {
+    "rsc": 31567788,
+    "usd": 3434587,
+    "share": 0.705,
+    "by_exchange": {
+     "Exchange-scale B": {
+      "rsc": 7395502,
+      "usd": 830160
+     },
+     "Coinbase 22": {
+      "rsc": 7095532,
+      "usd": 789326
+     },
+     "Coinbase 35": {
+      "rsc": 6935046,
+      "usd": 716468
+     },
+     "Gate 1": {
+      "rsc": 6132420,
+      "usd": 707245
+     },
+     "MEXC 15": {
+      "rsc": 4009289,
+      "usd": 391387
+     }
+    }
+   },
+   "still_held": {
+    "rsc": 13029223,
+    "share": 0.291
+   },
+   "staked": {
+    "rsc": 197141,
+    "usd": 23636,
+    "share": 0.004
+   }
+  },
+  "largest_holders": [
+   [
+    "0x039ac6fbcebf02b54259bc690e13540693d9eb8d",
+    2089583.5806575585
+   ],
+   [
+    "0x98f870ab30c0530b2e19d1adf5285200f52305a7",
+    745598.0972222994
+   ],
+   [
+    "0x20fe51a9229eef2cf8ad9e89d91cab9312cf3b7a",
+    558578.0291454735
+   ],
+   [
+    "0x17d705eaad033812100b134c116fd8f51df236b5",
+    493881.75754217006
+   ],
+   [
+    "0x970781840e28a9cdf1fb133a67e509bd381fe3ad",
+    456767.2262224791
+   ],
+   [
+    "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251",
+    433929.83846346266
+   ],
+   [
+    "0x55350be122a9271f20a66e3594dab69c673dbfeb",
+    401629.25902697287
+   ],
+   [
+    "0xcb7f29285d3fb721e72c7b9715e7b8576eb74278",
+    269217.90249435353
+   ],
+   [
+    "0x61040e143a77f165ba44543af4a079f2c809d14b",
+    239657.0309588181
+   ],
+   [
+    "0x845ee64654bf279e45e0533a451aa776b02036e0",
+    216303.85216717675
+   ],
+   [
+    "0x13307b8854a95946b54a904100afd0767a7a577b",
+    181425.92397259307
+   ],
+   [
+    "0xc37a22286f3184dd64bddca8de4483a7937bab21",
+    172471.56834021828
+   ],
+   [
+    "0x0aedeed5ad8d45d3d928fb872161efaa559794d1",
+    167509.81936650322
+   ],
+   [
+    "0x2192bc3b4028acc1113f2cd9ac2cba70c36520db",
+    155965.83343456744
+   ],
+   [
+    "0xf0fd51bba6e45834859179923d2c1b793820b99a",
+    148182.62820558122
+   ]
+  ]
+ },
+ "q3_stake_origin": {
+  "total_rsc": 21515651,
+  "total_usd": 1783458,
+  "deposits": 17,
+  "complex_direct": {
+   "rsc": 17532479,
+   "usd": 1411224,
+   "share": 0.815,
+   "by_wallet": {
+    "TGE-distributor 700M": {
+     "rsc": 9998896,
+     "usd": 811300
+    },
+    "Vest-beneficiary 70M": {
+     "rsc": 5000002,
+     "usd": 351663
+    },
+    "Signer-staker": {
+     "rsc": 1092537,
+     "usd": 101816
+    },
+    "Foundation Community Safe": {
+     "rsc": 769130,
+     "usd": 59693
+    },
+    "Treasury 3": {
+     "rsc": 667567,
+     "usd": 81223
+    },
+    "Treasury 1": {
+     "rsc": 4347,
+     "usd": 529
+    }
+   }
+  },
+  "depositor_opening_balance": {
+   "rsc": 2453968,
+   "usd": 236684,
+   "share": 0.114,
+   "detail": {
+    "0x5aa0122f (18 monthly Treasury 3 payments)": {
+     "rsc": 1000002,
+     "usd": 83518
+    },
+    "0x7f38aa84 (dolosus.eth chain, treasury-downstream)": {
+     "rsc": 650000,
+     "usd": 42849
+    },
+    "0x144985d2 (Treasury 2 lump sum Sept 2025)": {
+     "rsc": 600701,
+     "usd": 81301
+    },
+    "0x665f3d71 (fauler.eth, bought on Uniswap V3)": {
+     "rsc": 200000,
+     "usd": 28629
+    }
+   }
+  },
+  "withdrawn_from_cex_in_period": {
+   "rsc": 1332063,
+   "usd": 116915,
+   "share": 0.062,
+   "note": "upper bound on purchasing; a withdrawal is indistinguishable on-chain from the return of coins deposited earlier"
+  },
+  "bought_on_pools_in_period": {
+   "rsc": 197141,
+   "usd": 23636,
+   "share": 0.009
+  },
+  "never_bought_on_a_market_share": 0.92,
+  "market_sourced_total": {
+   "rsc": 1729204,
+   "usd": 169180,
+   "share": 0.08
+  }
+ }
+}
