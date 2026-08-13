@@ -475,9 +475,10 @@ genuinely external participation in this product happened on Base.</p>
       — a market purchase, not a grant. The only ETH-side deposit confirmed as outside capital.</td>
 </tr>
 <tr>
-  <td>BASE-DESK-C <span class="addr">0x1985ea6e…5c87</span></td>
+  <td>COINBASE-35 <span class="addr">0x1985ea6e…5c87</span></td>
   <td class="num">462,613.50</td><td class="num">45,557</td><td class="num">2.1%</td>
-  <td>High-frequency Base trading wallet; principal counterparty of BASE-DESK. Exchange/market-maker profile.</td>
+  <td><span class="tag t-ext">exchange, labelled</span> The address Basescan name-tags <strong>Coinbase 35</strong>
+      (§8.4); account nonce 5,253,555. Capital withdrawn from an exchange, so external by construction.</td>
 </tr>
 <tr>
   <td>BASE-DISTRIBUTOR-B <span class="addr">0x26b610a0…7419</span></td>
@@ -495,10 +496,12 @@ genuinely external participation in this product happened on Base.</p>
   <td>No treasury link found.</td>
 </tr>
 <tr>
-  <td>BASE-DISTRIBUTOR-A <span class="addr">0x739120ad…2360</span></td>
+  <td>COINBASE-22 <span class="addr">0x739120ad…2360</span></td>
   <td class="num">192,984.31</td><td class="num">12,969</td><td class="num">0.9%</td>
-  <td>Distribution wallet: observed sending <em>identical</em> 913,572 RSC tranches to several addresses that now sit in
-      the Base top-25 holders. Suggests one entity operating a wallet cluster.</td>
+  <td><span class="tag t-ext">exchange, labelled</span> Basescan name-tags this address <strong>Coinbase 22</strong>;
+      account nonce 1,931,381 on Base and 0 on Ethereum, the profile of a chain-specific exchange operating wallet.
+      Its identical round-lot tranches to several Base top-25 holders are exchange rebalancing, not a private
+      distribution cluster.</td>
 </tr>
 <tr>
   <td>UNLINKED-E <span class="addr">0x7a81ac54…a144</span></td>
@@ -908,12 +911,31 @@ HOT WALLET on Ethereum ──── 10.38M in 21 txs ────►  Base bridg
                                                                           (median payout ~715 RSC)</div>
 
 <p>Where it goes on Base splits into two very different populations. The top three destinations —
-<code>0x9d5025b3…d8b2</code> (3.78M across 19 transfers), <code>0xd90bea2b…4f8f</code> (1.82M) and
-<code>0x97e2ad35…c202f</code> (1.46M) — are all <strong>contracts that now hold zero RSC</strong>: value passes
-through them rather than settling. Together they account for 5.06M RSC, over a third of all outflow.
-<code>0xd90bea2b…4f8f</code> is a Gnosis Safe whose onward transfers include CoW Protocol's
-<code>GPv2Settlement</code>, so at least part of this leg is on-chain trade execution rather than distribution
-(§8.6). Underneath sits the long tail: hundreds of wallets receiving a few hundred RSC at a time, consistent with
+<code>0x9d5025b3…d8b2</code> (3.78M across 20 transfers), <code>0xd90bea2b…4f8f</code> (1.82M across 8) and
+<code>0x97e2ad35…c202f</code> (1.46M across 10) — all <strong>hold zero RSC today</strong>: value passes through
+them rather than settling. Together they account for 5.06M RSC, over a third of all outflow.</p>
+
+<div class="callout">
+  <div class="h">The two largest are the same counterparty, and it is identified</div>
+  <p><code>0x9d5025b3…d8b2</code> resolves to <strong><code>ndao.eth</code></strong> in both directions of ENS —
+  the reverse record names it, and the forward record for <code>ndao.eth</code> returns the same address.
+  <code>0xd90bea2b…4f8f</code> is a Gnosis Safe v1.4.1 whose <code>getOwners()</code> returns exactly two owners,
+  <code>ndao.eth</code> and <code>admin.ndao.eth</code>, at a threshold of 2. The second address is therefore
+  <em>owned by</em> the first, not a successor to it.</p>
+  <p>Both belong to <strong>Endaoment</strong>, a US 501(c)(3) that operates on-chain donor-advised funds.
+  ResearchHub announced the partnership publicly on 30 April 2025: Endaoment receives RSC as charitable donations,
+  converts it to fiat and pays university research labs as cash gifts. ResearchHub has sent it
+  <strong>6,082,788.53 RSC across 34 transfers</strong> — from the hot wallet and from the Foundation Community
+  Safe — in every one of the 16 consecutive months from April 2025 to July 2026. Endaoment has sold
+  <strong>5,971,609.54 RSC</strong> of that through CoW Protocol in 2,811 fills across 133 days, and holds nothing.
+  These flows are rebuilt from <code>eth_getLogs</code> across the full block range with no unrecovered chunks;
+  inflow and outflow reconcile to a net of exactly zero against a live balance of zero.</p>
+  <p>The third address is separate. <code>0x97e2ad35…c202f</code> carries an EIP-7702 delegation to a Coinbase
+  smart-wallet implementation rather than the MetaMask one <code>ndao.eth</code> uses, has no ENS record, and moved
+  its 1.46M onward through <code>0x41377373…ef9c</code> to <strong>Coinbase 22</strong>.</p>
+</div>
+
+<p>Underneath sits the long tail: hundreds of wallets receiving a few hundred RSC at a time, consistent with
 platform payments to users.</p>
 
 <p>Activity is <strong>declining</strong>, and in the opposite direction to Ethereum. Monthly RSC transfer counts
@@ -1077,7 +1099,7 @@ not staking demand on its own.</p>
 <tr><td>From all other addresses</td><td class="num">2,595,540</td><td>Includes small staking deposits arriving via the §4 relays</td></tr>
 <tr class="sub"><td colspan="3">Outflow — gross 4,812,653</td></tr>
 <tr><td>To the Base bridge</td><td class="num">1,200,000</td><td>The same internal transfer, other leg</td></tr>
-<tr><td>To a treasury-operations Safe routing into a DEX</td><td class="num">1,818,217</td><td><code>0xd90bea2b…4f8f</code>, a Gnosis Safe that forwards onward including into CoW Protocol's <code>GPv2Settlement</code> — on-chain execution, not contributor payments</td></tr>
+<tr><td>Donated to Endaoment</td><td class="num">1,818,217</td><td><code>0xd90bea2b…4f8f</code>, the Gnosis Safe owned by <code>ndao.eth</code> and <code>admin.ndao.eth</code> (§8.3). An external 501(c)(3), not a ResearchHub account: the RSC leaves the complex permanently and is sold through CoW Protocol</td></tr>
 <tr><td>To all other addresses</td><td class="num">1,794,436</td><td>238 recipients, median total 4,051 RSC — the platform payout tail</td></tr>
 <tr class="total"><td>Net change</td><td class="num">−17,113</td><td>The wallet ends the period almost exactly where it started</td></tr>
 </tbody>
@@ -1104,7 +1126,7 @@ each.</p>
 <tr><td>~8M RSC to exchanges since launch, via the Base bridge from foundation treasuries</td><td class="num">8,348,784 through the three funnels, of which 7,918,746 is treasury lineage</td><td><span class="tag t-ext">Agrees</span></td></tr>
 <tr><td>Hot-wallet turnover since launch ~15M RSC</td><td class="num">4,795,540 in / 4,812,653 out</td><td><span class="tag t-unk">Differs</span> — 15.5M corresponds to the Ethereum wallet's <em>lifetime</em> inflow since May 2024, not to the period since launch</td></tr>
 <tr><td>Gross retail staking through the hot wallet ~7.3M RSC</td><td class="num">2,595,540</td><td><span class="tag t-unk">Differs</span> — this is all non-treasury, non-bridge inflow since launch, so it is an upper bound on retail deposits, not a lower one</td></tr>
-<tr><td>Net dilution via the hot wallet ~7M RSC since launch (~1.75M/month)</td><td class="num">−17,113 net; user-directed net ≈ 1.0M over 3.85 months</td><td><span class="tag t-unk">Differs</span> — ≈265k RSC/month on the widest reading, and the sign reverses to net absorption if the 1.82M DEX-routing transfer is excluded from payouts</td></tr>
+<tr><td>Net dilution via the hot wallet ~7M RSC since launch (~1.75M/month)</td><td class="num">−17,113 net; user-directed net ≈ 1.0M over 3.85 months</td><td><span class="tag t-unk">Differs</span> — ≈265k RSC/month on the widest reading. The 1,818,217 RSC to <code>0xd90bea2b…4f8f</code> is a donation to Endaoment, an external 501(c)(3) that sells it (§8.3), so it is a genuine permanent outflow and is counted as distribution here</td></tr>
 <tr><td>Total stake volume ~29.3M RSC (dashboard)</td><td>Not determinable</td><td><span class="tag t-warn">Unverified</span> — the dashboard renders its figures client-side and returns placeholder values to a direct fetch. On-chain, vault deposits plus all non-treasury hot-wallet inflow since launch total ≈24.6M RSC</td></tr>
 </tbody>
 </table>
@@ -1130,9 +1152,11 @@ each.</p>
 <h3>BASE-DESK — the largest Base holder is not the deposit wallet</h3>
 <p><code>0x901Fc41a…480F</code> holds 15,845,066 RSC, the largest single balance on Base, but it has initiated only
 <strong>6 transactions in its life</strong>. Its RSC history is 21 events: large round-lot flows in and out with three
-counterparties (<code>0x1985ea6e…</code>, <code>0x26b610a0…</code>, <code>0x739120ad…</code>) in amounts like
-807,608.99 / 916,006.87 / 755,845.41 RSC. That is an OTC or market-making relationship, not user deposits. Two of
-those same counterparties later appear as depositors into the staking vault.</p>
+counterparties in amounts like 807,608.99 / 916,006.87 / 755,845.41 RSC. Two of the three now carry explorer name
+tags — <code>0x1985ea6e…</code> is <strong>Coinbase 35</strong> and <code>0x739120ad…</code> is
+<strong>Coinbase 22</strong> — so this is an exchange's own cold-storage relationship rather than user deposits or
+a private desk. The address itself carries no published label; the reading rests on its counterparties and on a
+lifetime transaction count of six.</p>
 
 <h3>Address-poisoning against the ResearchHub cluster</h3>
 <p>BASE-DESK has received three zero-value transfers from <code>0x198566394a02488e1cf7529d4bcc39b1a7ef5c87</code> —
@@ -1216,9 +1240,10 @@ address.</p>
   wallet (the explorer’s inbound index would not reach back that far in this pass), and the operator behind
   EXCHANGE-FUNDER <code>0x91d66b38…769A</code>. Neither changes any classification — both wallets are already
   categorised on other evidence — but naming the exchange would sharpen the Base story.</li>
-  <li><strong>The remaining Tier C Base wallets</strong> (~0.8M RSC across UNLINKED-D/E/F and the two distributors)
-  still deserve a full crawl to confirm they are market participants rather than a single clustered operator — the
-  identical 913,572 RSC tranches from BASE-DISTRIBUTOR-A are the loose thread.</li>
+  <li><strong>The remaining Tier C Base wallets</strong> (~0.8M RSC across UNLINKED-D/E/F) still deserve a full
+  crawl to confirm they are market participants. The clustered-operator concern that previously attached to the two
+  distributors is closed: both carry exchange name tags — <code>0x1985ea6e…</code> is Coinbase 35 and
+  <code>0x739120ad…</code> is Coinbase 22 — so the identical round-lot tranches are exchange rebalancing.</li>
   <li><strong>Identify the two disjoint Safes</strong> — <code>0x71028407…6D7f</code> (3-of-8, 6.7M RSC) and
   <code>0xd9C6Ee15…A1Ab</code> (5-of-11, 1.5M RSC). Their governance shape suggests institutional custody; confirming
   whether they are exchanges would materially change the float calculation.
@@ -1262,8 +1287,11 @@ address.</p>
 <tr><td>MONTHLY-RETAINER WALLET</td><td class="addr">0x5aa0122f52d42BEdaFbc194bE0e0fD0A0D1F3fEA</td><td>ETH</td><td>18 monthly Treasury-3 payments 2022–2024; staked 1.1M</td></tr>
 <tr><td>LUMP-SUM GRANTEE</td><td class="addr">0x144985d2a125c7E4d2Fa9098C3523aD4B0C5B00d</td><td>ETH</td><td>Single 1.6M lump sum from Treasury 2, Sept 2025; staked 601k</td></tr>
 <tr><td>BASE-DESK</td><td class="addr">0x901Fc41a79024017D84a29aabb8A47A9eCDb480F</td><td>BASE</td><td>Largest Base holder; 6 lifetime txs; OTC-shaped flows</td></tr>
-<tr><td>BASE-DESK-C</td><td class="addr">0x1985EA6E9c68E1C272d8209f3B478AC2Fdb25c87</td><td>BASE</td><td>BASE-DESK’s main counterparty; also staked 462k</td></tr>
-<tr><td>BASE-DISTRIBUTOR-A</td><td class="addr">0x739120aDe7Ed878FcA5bBdB806263a8258Fe2360</td><td>BASE</td><td>Fans out identical 913,572 RSC tranches to a wallet cluster</td></tr>
+<tr><td>COINBASE-35</td><td class="addr">0x1985EA6E9c68E1C272d8209f3B478AC2Fdb25c87</td><td>BASE</td><td>Basescan name tag “Coinbase 35”; BASE-DESK’s main counterparty; funded a 462k vault deposit</td></tr>
+<tr><td>COINBASE-22</td><td class="addr">0x739120aDe7Ed878FcA5bBdB806263a8258Fe2360</td><td>BASE</td><td>Basescan name tag “Coinbase 22”; nonce 1,931,381 on Base, 0 on Ethereum; the identical round-lot tranches are exchange rebalancing</td></tr>
+<tr><td>ENDAOMENT — <code>ndao.eth</code></td><td class="addr">0x9d5025b327e6b863E5050141c987d988c07fD8b2</td><td>BASE / ETH</td><td>ENS resolves both ways; owner #1 of the Endaoment Safe. Largest lifetime destination of hot-wallet RSC</td></tr>
+<tr><td>ENDAOMENT SAFE</td><td class="addr">0xd90BEA2b00b81a0c35DEC7223fB1f20034674f8F</td><td>BASE</td><td>Gnosis Safe 2-of-2 owned by <code>ndao.eth</code> and <code>admin.ndao.eth</code>; sold 5.97M RSC via CoW Protocol</td></tr>
+<tr><td>ENDAOMENT — <code>admin.ndao.eth</code></td><td class="addr">0xa41406F86cC65063C25021422e2ee8E93e680b4c</td><td>BASE / ETH</td><td>ENS resolves both ways; owner #2 of the Endaoment Safe. Never held RSC</td></tr>
 <tr><td>BASE-DISTRIBUTOR-B</td><td class="addr">0x26b610A059dE2488EbE3E0edA02ae17907917419</td><td>BASE</td><td>Many-to-one aggregation profile</td></tr>
 <tr><td>TREASURY-DISTRIBUTOR</td><td class="addr">0x76835CA5Ebc7935CedBB1e0AA3d322e704b1b7B1</td><td>ETH</td><td>Took 69.61M from Treasuries 1 and 2 and fanned it out over ~2,800 txs; holds 0 today; feeds dolosus.eth and 0x29E46015</td></tr>
 <tr><td>VESTING-70M</td><td class="addr">0x8bbB6c4B6dE838dF0e6ceED5d32C20b44Ee8ea02</td><td>ETH</td><td>Held the original 70M grant; clawed 53.96M back to Treasury 2 on 2022-01-04</td></tr>

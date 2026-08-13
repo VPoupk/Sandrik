@@ -101,7 +101,7 @@ a{color:var(--accent)}
     Subject: <code>0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</code> on Ethereum and Base<br>
     Period: first outbound payment 2024-05 (Ethereum) / 2024-12 (Base) through 2026-08-04<br>
     Sources: Ethereum and Base chain state via archive JSON-RPC; Blockscout transfer indexes; recipient balances
-    read directly with <code>balanceOf</code>
+    read directly with <code>balanceOf</code>; ENS forward and reverse records; public explorer name tags
   </div>
 </header>
 
@@ -135,16 +135,17 @@ a{color:var(--accent)}
 payment is 850 RSC and 94% of all payments are under 10,000 RSC, yet 0.31% of transfers carry 36.1% of the value.
 <strong>Retention is low</strong>: 73.4% of recipients hold no RSC at all today, and only 13.9% of everything
 distributed still sits with the address it was paid to. And <strong>the largest non-bridge flows do not go to
-individuals at all</strong> — they run through a three-address pipeline that ends at a decentralised-exchange
-settlement contract.</p>
+individuals at all</strong> — the two biggest destinations are both controlled by <strong>Endaoment</strong>, the
+US 501(c)(3) donor-advised-fund platform ResearchHub publicly partnered with in April 2025, which receives RSC as
+charitable donations and sells it on-chain to convert it to cash for university labs (§5).</p>
 
 <!-- ============================================ -->
 <h2>2. The 1,818,217 RSC recipient</h2>
 
 <p>The single largest non-bridge destination in the hot wallet's history is
-<code>0xd90bea2b00b81a0c35dec7223fb1f20034674f8f</code>, a Gnosis Safe. It received
-<strong>1,818,216.85 RSC across 8 transfers</strong>. Prior payments to the same address do exist, but they are an
-order of magnitude smaller — the total is dominated by one transfer.</p>
+<code>0xd90bea2b00b81a0c35dec7223fb1f20034674f8f</code>, a Gnosis Safe <strong>owned by Endaoment</strong>
+(§5). It received <strong>1,818,216.85 RSC across 8 transfers</strong>. Prior payments to the same address do exist,
+but they are an order of magnitude smaller — the total is dominated by one transfer.</p>
 
 <div class="scroll">
 <table>
@@ -197,8 +198,8 @@ to the Base bridge — the wallet moving its own funds between its two chains, n
 </div>
 
 <p><strong>Only two payments above 500,000 RSC in the wallet's entire life went to something other than the bridge
-— and both went into the same pipeline</strong>, described in §5. There is no population of large individual
-recipients; there is one route.</p>
+— and both went to the same counterparty</strong>, identified in §5. There is no population of large individual
+recipients; there is one large recipient.</p>
 
 <!-- ============================================ -->
 <h2>3. The distribution census</h2>
@@ -318,67 +319,217 @@ contributor payments are made.</p>
   <p>"Sold" is not directly observable on-chain. What is observable is that <strong>15.99M RSC no longer sits at the
   address it was paid to</strong>, and where the next hop went for the largest recipients.</p>
   <p>Tracing the 70 largest recipients — 13.91M RSC, 75% of everything distributed — gives
-  <strong>≥3.48M RSC sent directly to decentralised-exchange venues</strong> (CoW Protocol settlement, Aerodrome
-  and Uniswap pools) and <strong>129,965 RSC deposited directly to a centralised exchange</strong>. The remaining
-  21.9M of onward movement goes to addresses that are neither, which for the top recipients means intermediate hops
-  of the kind documented in the on-chain memo's exchange-funnel section. <strong>A precise total sold is therefore
-  not determinable</strong>; the defensible statement is that at least 3.6M RSC reached a trading venue in one hop,
-  and that 86.1% of everything distributed has left the recipient address.</p>
+  <strong>≥8.38M RSC sent directly to decentralised-exchange venues</strong> (CoW Protocol settlement, Aerodrome
+  and Uniswap pools) and <strong>129,965 RSC deposited directly to a centralised exchange</strong>. Of that
+  DEX total, <strong>5,971,610 RSC is Endaoment's liquidation programme</strong> (§5), measured from chain logs
+  rather than an explorer index. The remainder of onward movement goes to addresses that are neither, which for the
+  top recipients means intermediate hops of the kind documented in the on-chain memo's exchange-funnel section.
+  <strong>A precise total sold is therefore not determinable</strong>; the defensible statement is that at least
+  8.5M RSC reached a trading venue in one hop, and that 86.1% of everything distributed has left the recipient
+  address.</p>
 </div>
 
 <!-- ============================================ -->
-<h2>5. The outlier pipeline</h2>
+<h2>5. The largest destinations, identified</h2>
 
-<p>The three largest non-bridge recipients are not separate destinations. They form a single chain, and it
-terminates at a decentralised exchange rather than at a person.</p>
+<p>The two largest non-bridge destinations are not separate counterparties and are not ResearchHub-operated. Both
+are controlled by <strong>Endaoment</strong>, a US 501(c)(3) public charity that runs on-chain donor-advised funds.
+The third-largest is unrelated to them and terminates at a Coinbase-labelled address.</p>
 
-<div class="flow">HOT WALLET ──3,779,121 (19 transfers, Apr 2025 – Mar 2026)──►  OUTLIER-2  0x9d5025b3…d8b2
-FOUNDATION SAFE ──480,851 (6 transfers, Jun 2025 – Jun 2026)──►     (EIP-7702 delegated account)
-                                                                          │
-                                                          4,148,793 (19 transfers)
-                                                                          ▼
-HOT WALLET ──1,818,217 (8 transfers, Apr – Jul 2026)────────────►  OUTLIER-1  0xd90bea2b…4f8f
-exchange-scale wallet ──823,569 (1 transfer)────────────────────►     (Gnosis Safe)
-                                                                          │
-                                            ≥1,074,703 across 293 transfers│──►  CoW Protocol GPv2Settlement
-                                                        823,569, 1 transfer│──►  EOA 0x3a236910…d1bd
+<div class="callout">
+  <div class="h">The identification, and how it is established</div>
+  <p><strong><code>0x9d5025b3…d8b2</code> is <code>ndao.eth</code>.</strong> The ENS reverse record resolves to that
+  name and the forward record for <code>ndao.eth</code> resolves back to the same address, so the pairing is
+  confirmed in both directions rather than merely asserted by one side. <code>0xa41406f8…80b4c</code> resolves
+  the same way to <code>admin.ndao.eth</code>.</p>
+  <p><strong><code>0xd90bea2b…4f8f</code> is a Gnosis Safe v1.4.1 whose two owners are exactly those two
+  addresses</strong>, with a threshold of 2. Reading <code>getOwners()</code> and <code>getThreshold()</code> on the
+  Safe returns <code>[0x9d5025b3…d8b2, 0xa41406f8…80b4c]</code> and <code>2</code>. The relationship between the two
+  largest recipients is therefore ownership, not succession: one is a signer on the other.</p>
+  <p><strong>ResearchHub and Endaoment announced this arrangement publicly on 30 April 2025.</strong> Endaoment
+  provides the IRS-compliant infrastructure to receive RSC donations, convert them to fiat and transfer the proceeds
+  to university research labs as cash gifts. The on-chain behaviour below matches that description in every
+  respect.</p>
+</div>
 
-HOT WALLET ──1,459,882 (10 transfers, Aug – Oct 2025)───────────►  OUTLIER-3  0x97e2ad35…c202f
-                                                    1,459,902, 7 transfers │──►  EOA 0x41377373…ef9c</div>
+<div class="flow">  RESEARCHHUB                          ENDAOMENT                              MARKET
+  ───────────                          ─────────                              ──────
+
+  hot wallet ────3,783,721 (20 tx)────►  ndao.eth  0x9d5025b3…d8b2
+  Foundation Safe ──480,851 (6 tx)────►  EIP-7702 account · Safe owner #1
+                                             │
+                                             │  4,153,393 (20 tx)
+                                             ▼
+  hot wallet ────1,818,217 (8 tx)─────►  ENDAOMENT SAFE  0xd90bea2b…4f8f ──5,971,610──►  CoW Protocol
+                                         Gnosis Safe 2-of-2                (2,811 fills)  GPv2Settlement
+                                         ndao.eth + admin.ndao.eth  │
+                                                                    ├──823,569──►  Coinbase deposit addr
+                                                                    │              └─►  Coinbase 22
+                                                                    ◄──823,569 back, 41 h later──┘
+
+  ResearchHub → Endaoment: 6,082,788.53 RSC · 34 transfers · 16 of 16 months · both accounts hold 0 today
+
+
+  ── separate, and not Endaoment ───────────────────────────────────────────────────────────────────────
+  hot wallet ──1,459,882 (10 tx)──►  0x97e2ad35…c202f ──1,459,902──►  0x41377373…ef9c ──1,459,358──►  Coinbase 22</div>
 
 <div class="scroll">
 <table>
-<thead><tr><th>Address</th><th>Type</th><th class="num">From hot wallet</th><th>Active</th><th>Onward destination</th></tr></thead>
+<thead><tr><th>Address</th><th>What it is</th><th class="num">Received from ResearchHub</th><th>Active</th><th>Onward destination</th></tr></thead>
 <tbody>
-<tr><td><strong>OUTLIER-2</strong><br><span class="addr">0x9d5025b327e6b863e5050141c987d988c07fd8b2</span></td>
-    <td>EOA with an EIP-7702 delegation to a MetaMask smart-account implementation</td>
-    <td class="num">3,779,121</td><td>2025-04-10 → 2026-03-14</td>
-    <td>4,148,793 RSC to OUTLIER-1; holds nothing</td></tr>
-<tr><td><strong>OUTLIER-1</strong><br><span class="addr">0xd90bea2b00b81a0c35dec7223fb1f20034674f8f</span></td>
-    <td>Gnosis Safe</td>
+<tr><td><code>ndao.eth</code><br><span class="addr">0x9d5025b327e6b863e5050141c987d988c07fd8b2</span></td>
+    <td>Endaoment's operating account. EOA with an EIP-7702 delegation to a MetaMask smart-account
+    implementation (<code>0x63c0c19a…e32b</code>), on both Ethereum and Base</td>
+    <td class="num">4,264,572</td><td>2025-04-10 → 2026-06-03</td>
+    <td>4,153,393 RSC to the Endaoment Safe; 142,999 to five other addresses; holds nothing</td></tr>
+<tr><td><strong>Endaoment Safe</strong><br><span class="addr">0xd90bea2b00b81a0c35dec7223fb1f20034674f8f</span></td>
+    <td>Gnosis Safe v1.4.1 (SafeL2 <code>0x29fcb43b…c762</code>), 2-of-2, owners <code>ndao.eth</code> and
+    <code>admin.ndao.eth</code>, Safe transaction nonce 148. Base only</td>
     <td class="num">1,818,217</td><td>2026-04-24 → 2026-07-26</td>
-    <td>≥1,074,703 RSC to CoW Protocol settlement across 293 transfers; 823,569 to an EOA</td></tr>
-<tr><td><strong>OUTLIER-3</strong><br><span class="addr">0x97e2ad35911a856c205ebeda1d3e339b7b0c202f</span></td>
-    <td>Contract</td>
-    <td class="num">1,459,882</td><td>2025-08-08 → 2025-10-01</td>
-    <td>1,459,902 RSC to a single EOA in 7 transfers; holds nothing</td></tr>
+    <td>5,971,610 RSC to CoW Protocol settlement across 2,811 fills; 823,569 to a Coinbase deposit address;
+    holds nothing</td></tr>
+<tr><td><span class="addr">0x97e2ad35911a856c205ebeda1d3e339b7b0c202f</span></td>
+    <td><span class="tag t-warn">not Endaoment</span> EOA with an EIP-7702 delegation to a Coinbase smart-wallet
+    implementation (<code>0x7702cb55…176c</code>). No ENS record, no published identity</td>
+    <td class="num">1,459,882</td><td>2025-08-08 → 2025-10-14</td>
+    <td>1,459,902 RSC to <code>0x41377373…ef9c</code>, which forwarded 1,459,358 to <strong>Coinbase 22</strong>;
+    holds nothing</td></tr>
 </tbody>
 </table>
 </div>
 
-<h4>The handover</h4>
-<p>The two large Base recipients do not overlap in time. OUTLIER-2 receives from the hot wallet between April 2025
-and <strong>14 March 2026</strong>, then stops. OUTLIER-1 receives its first payment on <strong>24 April 2026</strong>
-and continues through July. OUTLIER-2's own balance then flows into OUTLIER-1. The pattern is consistent with one
-operational function being rotated onto a new address shortly after the staking product launched, rather than with
-two unrelated counterparties.</p>
+<h3>5.1 The donation programme</h3>
 
-<h4>A fourth pattern worth noting</h4>
+<p>ResearchHub has sent Endaoment <strong>6,082,788.53 RSC across 34 transfers</strong> between 10 April 2025 and
+26 July 2026 — <strong>a payment in every one of those 16 consecutive months</strong>. It is the longest-running
+and largest single relationship in the distributing wallets' history.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Source</th><th>Destination</th><th class="num">Transfers</th><th class="num">RSC</th><th>Period</th></tr></thead>
+<tbody>
+<tr><td>Hot wallet <code>0x7F57d306…10cb</code></td><td><code>ndao.eth</code></td><td class="num">20</td><td class="num">3,783,720.68</td><td>2025-04-10 → 2026-03-14</td></tr>
+<tr><td>Hot wallet <code>0x7F57d306…10cb</code></td><td>Endaoment Safe</td><td class="num">8</td><td class="num">1,818,216.85</td><td>2026-04-24 → 2026-07-26</td></tr>
+<tr><td>Foundation Community Safe <code>0xB280f00e…7E21</code></td><td><code>ndao.eth</code></td><td class="num">6</td><td class="num">480,851.00</td><td>2025-06-19 → 2026-06-03</td></tr>
+<tr class="total"><td colspan="2">All ResearchHub → Endaoment</td><td class="num">34</td><td class="num">6,082,788.53</td><td>16 of 16 months</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Month</th><th class="num">Donated (RSC)</th><th class="num">Sold via CoW (RSC)</th><th class="num">Fills</th></tr></thead>
+<tbody>
+<tr><td class="mono">2025-04</td><td class="num">95,821.99</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td class="mono">2025-05</td><td class="num">174,306.98</td><td class="num">123,886.10</td><td class="num">38</td></tr>
+<tr><td class="mono">2025-06</td><td class="num">46,601.00</td><td class="num">95,914.89</td><td class="num">33</td></tr>
+<tr><td class="mono">2025-07</td><td class="num">421,067.96</td><td class="num">405,817.97</td><td class="num">72</td></tr>
+<tr><td class="mono">2025-08</td><td class="num">922,568.97</td><td class="num">906,426.09</td><td class="num">383</td></tr>
+<tr><td class="mono">2025-09</td><td class="num">98,619.93</td><td class="num">83,498.65</td><td class="num">32</td></tr>
+<tr><td class="mono">2025-10</td><td class="num">20,524.99</td><td class="num">52,789.13</td><td class="num">18</td></tr>
+<tr><td class="mono">2025-11</td><td class="num">486,149.97</td><td class="num">92,054.98</td><td class="num">74</td></tr>
+<tr><td class="mono">2025-12</td><td class="num">455,024.99</td><td class="num">849,119.98</td><td class="num">457</td></tr>
+<tr><td class="mono">2026-01</td><td class="num">449,999.99</td><td class="num">449,999.99</td><td class="num">60</td></tr>
+<tr><td class="mono">2026-02</td><td class="num">261,143.97</td><td class="num">261,143.97</td><td class="num">35</td></tr>
+<tr><td class="mono">2026-03</td><td class="num">512,740.94</td><td class="num">512,740.94</td><td class="num">193</td></tr>
+<tr><td class="mono">2026-04</td><td class="num">223,672.98</td><td class="num">162,011.78</td><td class="num">134</td></tr>
+<tr class="hl"><td class="mono">2026-05</td><td class="num">1,217,940.97</td><td class="num">1,241,550.13</td><td class="num">765</td></tr>
+<tr><td class="mono">2026-06</td><td class="num">380,039.96</td><td class="num">418,092.00</td><td class="num">466</td></tr>
+<tr><td class="mono">2026-07</td><td class="num">316,562.94</td><td class="num">316,562.94</td><td class="num">51</td></tr>
+<tr class="total"><td>Total</td><td class="num">6,082,788.53</td><td class="num">5,971,609.54</td><td class="num">2,811</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>From January 2026 onward the two columns match to the cent in four of seven months. Endaoment is not holding a
+position: it liquidates each donation, and by mid-2026 it does so within the same calendar month it arrives.</p>
+
+<h3>5.2 How the RSC is disposed of</h3>
+
+<p>Every RSC that has entered the Endaoment complex has left it. Both accounts hold <strong>zero RSC</strong>
+today, and the two sides of the ledger balance exactly.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Into the Endaoment complex</th><th class="num">RSC</th><th>Out of the Endaoment complex</th><th class="num">RSC</th></tr></thead>
+<tbody>
+<tr><td>ResearchHub hot wallet</td><td class="num">5,601,937.53</td><td>CoW Protocol <code>GPv2Settlement</code> (2,811 fills)</td><td class="num">5,971,609.54</td></tr>
+<tr><td>Foundation Community Safe</td><td class="num">480,851.00</td><td>Coinbase deposit address <code>0x3a236910…d1bd</code></td><td class="num">823,568.96</td></tr>
+<tr><td>Returned from <strong>Coinbase 22</strong></td><td class="num">823,568.95</td><td>Four other addresses</td><td class="num">111,178.98</td></tr>
+<tr><td>Round-trip via <code>0xd8bab8c0…ab13</code></td><td class="num">31,819.99</td><td>Round-trip via <code>0xd8bab8c0…ab13</code></td><td class="num">31,819.99</td></tr>
+<tr class="total"><td>Total in</td><td class="num">6,938,177.47</td><td>Total out</td><td class="num">6,938,177.47</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The disposal method is <strong>CoW Protocol</strong>, a batch-auction trading protocol: <strong>5,971,609.54 RSC
+across 2,811 separate fills on 133 distinct days</strong>, from 27 May 2025 — seventeen days after the first
+donation — through 27 July 2026. The median fill is 1,654 RSC and the largest is 60,903 RSC. That is the profile of
+an automated, size-limited sell programme rather than block disposal.</p>
+
+<div class="callout">
+  <div class="h">These sales land in the same pools this analysis already measures</div>
+  <p>CoW routes orders to whatever venue offers the best price. Sampling 25 of the 2,811 fills and reading their
+  transaction receipts, <strong>24 contain a swap against one of the three tracked RSC pools</strong> — the two
+  Aerodrome concentrated-liquidity pools and the Uniswap V3 1% pool. The Endaoment liquidation is therefore already
+  inside the on-chain trading dataset, counted as taker sell-side flow.</p>
+</div>
+
+<h4>The Coinbase round trip</h4>
+<p>One outflow did not go to a DEX. On 5 August 2025 the Safe sent <strong>823,568.96 RSC</strong> to
+<code>0x3a236910…d1bd</code>, which forwarded the identical amount to <strong>Coinbase 22</strong> nine minutes
+later — the signature of a Coinbase deposit address being swept. Forty-one hours after that,
+<strong>Coinbase 22 sent 823,568.95 RSC back to the Safe</strong>, and the balance was subsequently sold through
+CoW like everything else. The round trip is unambiguous on-chain; whether it was a rejected deposit, a returned
+transfer or a deliberate withdrawal is not.</p>
+
+<h3>5.3 What this does to on-chain net flow</h3>
+
+<p>Because the liquidation runs through the tracked pools, its effect on measured on-chain flow can be isolated.
+Endaoment sold <strong>3,362,102 RSC</strong> into those pools during 2026 to date — 3.66% of all taker sell-side
+RSC. Set against <em>net</em> flow, the weight is different.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Window</th><th class="num">DEX net (RSC)</th><th class="num">Endaoment sold</th><th class="num">% of sell-side</th><th class="num">DEX net excluding Endaoment</th></tr></thead>
+<tbody>
+<tr><td>1 Jan – 12 Aug 2026 (YTD)</td><td class="num">−3,208,333</td><td class="num">3,362,102</td><td class="num">3.66%</td><td class="num">+153,769</td></tr>
+<tr><td>1 Jan – 9 Apr (pre-launch)</td><td class="num">−352,274</td><td class="num">1,223,885</td><td class="num">5.75%</td><td class="num">+871,611</td></tr>
+<tr><td>10 Apr – 12 Aug (post-launch)</td><td class="num">−2,856,059</td><td class="num">2,138,217</td><td class="num">3.03%</td><td class="num">−717,842</td></tr>
+<tr><td>16 Apr – 12 May (the rally)</td><td class="num">+1,161,274</td><td class="num">261,947</td><td class="num">1.14%</td><td class="num">+1,423,221</td></tr>
+<tr><td>13 May – 30 Jun (after the rally)</td><td class="num">−1,807,348</td><td class="num">1,559,707</td><td class="num">6.40%</td><td class="num">−247,641</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">One charity's disposals account for essentially all of the year's negative on-chain net flow</div>
+  <p>Decentralised-exchange net flow for RSC is <strong>−3,208,333 RSC</strong> year to date. Endaoment sold
+  <strong>3,362,102 RSC</strong> over the same period. Removing those sales and holding everything else constant
+  turns the year's on-chain net flow <strong>slightly positive, at +153,769 RSC</strong>. In the 13 May – 30 June
+  window the same adjustment takes net flow from −1,807,348 to −247,641.</p>
+  <p>This is a static attribution: it subtracts one participant's flow without modelling how other participants
+  would have behaved in its absence. It does not claim the price would have been higher. What it establishes is
+  that the year's on-chain selling pressure is not anonymous — it is a named charity converting donations to cash
+  under a publicly announced arrangement, and it is large enough to account for the whole of the net figure.</p>
+</div>
+
+<h3>5.4 The third-largest destination is not Endaoment</h3>
+
+<p><code>0x97e2ad35…c202f</code> shares the surface characteristics of <code>ndao.eth</code> — an EOA carrying an
+EIP-7702 delegation — but the implementation it points at is a <strong>Coinbase</strong> smart-wallet contract
+(<code>0x7702cb55…176c</code>), not the MetaMask contract <code>ndao.eth</code> uses, and it has no ENS record. It
+received 1,459,882 RSC from the hot wallet in ten transfers between August and October 2025 and forwarded
+1,459,902 RSC to <code>0x41377373…ef9c</code>, which passed <strong>1,459,358 RSC to Coinbase 22</strong> in two
+transfers, retaining 544. Its identity is not established; its destination is.</p>
+
+<h3>5.5 A fourth pattern worth noting</h3>
 <p><code>0x4bdcf665…e68c</code> received 867,017 RSC in a distinctly programmatic sequence: near-daily payments of
 49,999.99, 74,999.99 and 99,999.98 RSC through late September and October 2025. Unlike the others,
 <strong>it still holds 866,265 RSC — essentially everything it was ever paid</strong>, making it the largest
 genuine holder among all hot-wallet recipients. Round-number amounts on a daily cadence, then no disposal, reads as
-a scheduled internal transfer or an escrow arrangement rather than a contributor payment.</p>
+a scheduled internal transfer or an escrow arrangement rather than a contributor payment. Searching for the address
+off-chain returns nothing, and it carries no ENS record or explorer name tag.</p>
 
 <!-- ============================================ -->
 <h2>6. Links to other wallets in the RSC structure</h2>
@@ -392,17 +543,17 @@ vesting contracts and the labelled exchange wallets.</p>
   <p><strong>12 of 896 recipient-chain pairs match a known address, and between them they received 43,632 RSC</strong>
   — under a quarter of one percent of everything distributed. Most are payments of a few hundred RSC, consistent
   with ordinary platform activity rather than with treasury movement.</p>
-  <p>The exception is at the pipeline. <strong>OUTLIER-2 received 480,851 RSC directly from the Foundation
+  <p>The exception is Endaoment. <strong><code>ndao.eth</code> received 480,851 RSC directly from the Foundation
   Community Safe</strong> across six transfers between June 2025 and June 2026 — including 300,000 RSC on
-  2026-06-03. That is a direct funding link between the project's own multisig and the largest non-bridge
-  destination of hot-wallet funds, independent of the hot wallet itself.</p>
+  2026-06-03. The project's own multisig donates to the charity alongside the hot wallet, so the relationship is
+  funded from two ResearchHub accounts rather than one.</p>
 </div>
 
 <div class="scroll">
 <table>
 <thead><tr><th>Recipient</th><th>Known role</th><th class="num">Received from hot wallet</th><th class="num">Currently holds</th></tr></thead>
 <tbody>
-<tr><td><span class="addr">0x9d5025b3…d8b2</span></td><td>OUTLIER-2 — also funded 480,851 RSC by the Foundation Community Safe</td><td class="num">3,779,121</td><td class="num">0</td></tr>
+<tr><td><code>ndao.eth</code> <span class="addr">0x9d5025b3…d8b2</span></td><td>Endaoment — also donated 480,851 RSC by the Foundation Community Safe</td><td class="num">3,783,721</td><td class="num">0</td></tr>
 <tr><td><code>dolosus.eth</code> <span class="addr">0xcC5F1f28…E21B</span></td><td>Supplied the wallet behind a 650,000 RSC staking deposit; treasury-downstream</td><td class="num">40,555</td><td class="num">36,312</td></tr>
 <tr><td><span class="addr">0x5aa0122f…3fea</span></td><td>Staking depositor (1,100,000 RSC), funded by Treasury 3</td><td class="num">633</td><td class="num">619,882</td></tr>
 <tr><td><span class="addr">0xcad41a2e…9ce1</span></td><td>Funder of the above depositor</td><td class="num">674</td><td class="num">433,981</td></tr>
@@ -416,7 +567,7 @@ vesting contracts and the labelled exchange wallets.</p>
 
 <p>Read carefully, the pattern is that <strong>the hot wallet's payment population is largely disjoint from the
 staking and treasury population</strong>. Where the two do meet, the amounts are trivial — a few hundred RSC — with
-the single exception of the Foundation Safe's direct funding of OUTLIER-2. The large holders in the right-hand
+the single exception of the Foundation Safe's direct donations to Endaoment. The large holders in the right-hand
 column above hold their RSC because a treasury funded them separately, not because the hot wallet paid them.</p>
 
 <!-- ============================================ -->
@@ -518,12 +669,18 @@ overlap materially at the top even though their payment patterns differ.</p>
   recipient who sold from one who moved funds to another wallet they control, and it does not capture RSC that was
   received, spent, and later re-acquired.</li>
   <li><strong>Onward-destination tracing covers the 70 largest recipients</strong> (13.91M RSC, 75% of distributed
-  value), not the full population. Two of those traces hit the 300-event page limit and are lower bounds; the CoW
-  Protocol figure for OUTLIER-1 rises from 895,069 to 1,074,703 when the sample is widened, so it should be read as
-  a floor.</li>
-  <li><strong>Address roles are inferred from behaviour and contract type.</strong> No recipient is attributed to a
-  named individual or organisation beyond the labelled exchange wallets and the addresses ResearchHub publishes
-  itself.</li>
+  value), not the full population. Where an explorer index was used, the figure is a lower bound; the Endaoment
+  totals in §5 are not — they were rebuilt directly from <code>eth_getLogs</code> over the full block range with no
+  unrecovered chunks, and both accounts reconcile to a net of exactly zero against their live
+  <code>balanceOf</code>. That rebuild raised the measured CoW Protocol total from 5,791,973 RSC in the explorer
+  index to <strong>5,971,610 RSC</strong> on chain.</li>
+  <li><strong>Address roles are inferred from behaviour and contract type</strong>, except where an independent
+  identifier exists. Two identifications in §5 do not rest on inference: <code>ndao.eth</code> and
+  <code>admin.ndao.eth</code> are established by bidirectional ENS resolution plus Safe ownership, and
+  <strong>Coinbase 22</strong> by the public name tag on that address. Attempting the same off-chain search for
+  <code>0x901Fc41a…480F</code>, <code>0x4bdcf665…e68c</code>, <code>0xB518536B…7d3d</code>,
+  <code>0x1288d4d0…8d34</code>, <code>0x97e2ad35…c202f</code> and the staking vault returned nothing indexed. An
+  address is identifiable off-chain only when someone has published it; silence is not evidence either way.</li>
 </ul>
 
 <p class="footnote">

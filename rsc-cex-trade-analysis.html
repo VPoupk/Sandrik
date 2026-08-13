@@ -147,7 +147,9 @@ looks like. §11 sets this out in full.</p>
 
 <p>Measured directionally, every flow runs the same way. <strong>The ResearchHub complex sent 4.96M RSC to
 exchanges and received 1.04M back</strong> — a net delivery of 3.92M. The Base pools <strong>absorbed 2.86M RSC
-net</strong>. Exchange net taker flow was +310,313 RSC on 245M RSC of turnover, i.e. flat.</p>
+net</strong>, of which <strong>2.14M is one identified seller</strong>: Endaoment, the 501(c)(3) ResearchHub donates
+RSC to, liquidating those donations to fund university labs (§8.4). Exchange net taker flow was +310,313 RSC on
+245M RSC of turnover, i.e. flat.</p>
 
 <p><strong>That does not settle the question, and this document does not claim it does.</strong> A buyer working
 passive limit orders is filled by aggressive sellers, so their accumulation prints as taker <em>selling</em> — and
@@ -797,7 +799,7 @@ and the DEX share correspondingly lower — see §2.</p>
 
 <p>April is the only month with materially positive net on-chain buying (+$88,573) and it is the month the product
 launched. Every month from May onward is net on-chain selling. The August DEX share of 82.8% is an artefact of the
-CEX dataset ending on 2 August while the chain scan runs to the 12th.</p>
+CEX dataset ending on 2 August while the chain scan runs to the 12th. Section 8.4 identifies who the seller is.</p>
 
 <h4>Method</h4>
 <p>Swaps were read from the pools' <code>Swap</code> logs. The RSC leg of each swap gives direction — RSC leaving
@@ -806,6 +808,60 @@ notional. Because the pools are WETH-paired, DEX notionals are independent of th
 this document. Liquidity additions and removals do not emit <code>Swap</code> and are therefore excluded by
 construction. Block timestamps are interpolated across Base's fixed two-second cadence between measured endpoints,
 so day boundaries carry at most a few minutes of uncertainty.</p>
+
+<h3>8.4 The on-chain seller is identified, and it is a charity</h3>
+
+<p>The negative on-chain net flow from May onward is not anonymous. A single participant —
+<strong>Endaoment</strong>, the US 501(c)(3) donor-advised-fund platform ResearchHub publicly partnered with on
+30 April 2025 — accounts for essentially all of it.</p>
+
+<p>ResearchHub donates RSC to Endaoment from its distributing wallet and its Foundation Safe:
+<strong>6,082,788.53 RSC across 34 transfers</strong> between April 2025 and July 2026, in every one of those 16
+consecutive months. Endaoment's mandate is to convert those donations to cash and pay university research labs,
+and that is what the chain shows: <strong>5,971,609.54 RSC sold through CoW Protocol in 2,811 fills across 133
+days</strong>, median fill 1,654 RSC. Both of its addresses hold zero RSC today, and its inflows and outflows
+reconcile to exactly zero. The identification rests on bidirectional ENS resolution (<code>ndao.eth</code>) and on
+the Safe's own <code>getOwners()</code>; the flow figures are rebuilt from <code>eth_getLogs</code> across the full
+block range with no unrecovered chunks. The full derivation is in the distribution memo.</p>
+
+<div class="callout">
+  <div class="h">These sales are inside this dataset already</div>
+  <p>CoW Protocol routes to the best available venue. Sampling 25 of the 2,811 fills and reading their receipts,
+  <strong>24 contain a swap against one of the three pools measured in §8</strong>. The charity's liquidation is
+  therefore already counted here as taker sell-side flow — it is not an additional, unmeasured source of supply.</p>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Month</th><th class="num">DEX net (RSC)</th><th class="num">Endaoment sold (RSC)</th><th class="num">Share of sell-side</th><th class="num">DEX net excluding Endaoment</th></tr></thead>
+<tbody>
+<tr><td>2026-01</td><td class="num pos">+142,820</td><td class="num">450,000</td><td class="num">7.6%</td><td class="num pos">+592,820</td></tr>
+<tr><td>2026-02</td><td class="num pos">+295,474</td><td class="num">261,144</td><td class="num">6.3%</td><td class="num pos">+556,618</td></tr>
+<tr><td>2026-03</td><td class="num neg">−818,986</td><td class="num">512,741</td><td class="num">12.2%</td><td class="num neg">−306,246</td></tr>
+<tr class="sub"><td colspan="5">▼ staking launched 10 April 2026</td></tr>
+<tr><td>2026-04</td><td class="num pos">+763,461</td><td class="num">162,012</td><td class="num">0.8%</td><td class="num pos">+925,473</td></tr>
+<tr><td>2026-05</td><td class="num neg">−875,450</td><td class="num">1,241,550</td><td class="num">6.8%</td><td class="num pos">+366,100</td></tr>
+<tr><td>2026-06</td><td class="num neg">−667,972</td><td class="num">418,092</td><td class="num">2.3%</td><td class="num neg">−249,880</td></tr>
+<tr><td>2026-07</td><td class="num neg">−1,350,366</td><td class="num">316,563</td><td class="num">2.2%</td><td class="num neg">−1,033,803</td></tr>
+<tr><td>2026-08 (partial)</td><td class="num neg">−697,313</td><td class="num">0</td><td class="num">0.0%</td><td class="num neg">−697,313</td></tr>
+<tr class="total"><td>YTD</td><td class="num neg">−3,208,333</td><td class="num">3,362,102</td><td class="num">3.66%</td><td class="num pos">+153,769</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">Removing the charity flips the year's on-chain net flow positive</div>
+  <p>Decentralised-exchange net flow for RSC is <strong>−3,208,333 RSC</strong> year to date. Endaoment sold
+  <strong>3,362,102 RSC</strong> over the same period — 3.66% of all taker sell-side RSC, but more than the whole of
+  the net figure. Subtracting it and holding everything else constant leaves <strong>+153,769 RSC</strong>: the
+  on-chain market is, net of the donation programme, roughly balanced to slightly bid for the year.</p>
+  <p>The same adjustment applied to May turns −875,450 into +366,100, and to the 13 May – 30 June stretch turns
+  −1,807,348 into −247,641. During the rally itself the charity was only 1.14% of sell-side and net flow was
+  already strongly positive, so it does not explain the rally — it explains the drift afterwards.</p>
+  <p>This is a static attribution. It subtracts one participant's flow without modelling how the rest of the market
+  would have behaved in its absence, and it does not assert that the price would have been higher. What it
+  establishes is that the year's on-chain selling pressure has a named, disclosed, non-speculative source.</p>
+</div>
 
 <!-- ============================================ -->
 <h2>9. Newsflow correlation</h2>
@@ -956,6 +1012,11 @@ maker hedging genuine off-market sales, so <strong>it does not discriminate betw
   exchanges, 2.86M RSC net absorbed by the Base pools, and 86.1% of everything the hot wallet distributed no longer
   held by its recipient. Against that, on-chain buying during the rally was 1.16M RSC, and net exchange flow was
   flat on 245M RSC of turnover.</p>
+  <p>One component of that supply now has a name. <strong>2.14M of the 2.86M RSC absorbed by the Base pools since
+  launch is Endaoment</strong>, the charity ResearchHub donates to, liquidating those donations to fund university
+  labs (§8.4). Net of it, post-launch on-chain net flow is −717,842 RSC rather than −2,856,059, and the year as a
+  whole turns positive. That reclassifies part of the sell-side from unattributed supply to a disclosed programme;
+  it does not change the quantity of RSC reaching the market.</p>
   <p><strong>The data does not show a buy-side programme of the size the staked total would imply, and it does not
   need one</strong> — the tokens came from inventory, not from the market. What the data cannot say is whether
   anyone paid for them.</p>
@@ -976,6 +1037,13 @@ absorbed by the Base pools, and exchange net taker flow of +310,313 RSC on 245M 
 <p>There <em>was</em> real buying: 1,161,274 RSC removed net from the pools during the April–May rally, which is
 why the price roughly doubled. It amounts to about 5% of the staked quantity and it fully reversed, leaving RSC at
 $0.0687 — below where the window opened and 39% down on the year.</p>
+
+<p>The reversal has an identified seller. <strong>Endaoment — the 501(c)(3) ResearchHub donates RSC to, so that it
+can be converted to cash for university labs — sold 3,362,102 RSC on-chain during 2026, against a full-year DEX net
+of −3,208,333 RSC</strong> (§8.4). Removing it leaves the year's on-chain net flow slightly positive. The charity
+was only 1.14% of sell-side during the rally itself, so it did not cause the rally; it is the dominant identified
+seller in the months that followed. This is an attribution of who was selling, not a claim about where the price
+would otherwise have gone.</p>
 
 <p>Two things remain outside the reach of any public dataset, and no amount of further chain work will settle them:
 whether purchasers paid real money off-market, and whether RSC was repurchased inside exchange accounts without
