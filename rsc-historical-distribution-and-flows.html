@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ResearchCoin (RSC) — Historical Distribution and Flows</title>
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#ffffff; --ink:#1a1a1a; --muted:#5c5c5c; --line:#e3e0da;
+  --accent:#2f5d50; --accent-soft:#e8f0ed; --warn:#8a4b12; --warn-soft:#fbf0e3;
+  --bad:#8f2d2d; --bad-soft:#fbeaea; --good:#2c5f35; --good-soft:#e9f2ea;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --s1:#2a78d6; --s2:#c2701c; --s3:#8a4f9e; --grid:#e6e3dd;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#14171a;--panel:#1c2024;--ink:#e9e6e1;--muted:#9aa0a6;--line:#2e343a;
+  --accent:#7fc0aa;--accent-soft:#1e2b27;--warn:#e0a86a;--warn-soft:#2b2318;
+  --bad:#e58b8b;--bad-soft:#2c1d1d;--good:#8dc99a;--good-soft:#1b2a1e;
+  --s1:#3987e5;--s2:#c87f2c;--s3:#a077d6;--grid:#2b3137;}
+}
+:root[data-theme="dark"]{--bg:#14171a;--panel:#1c2024;--ink:#e9e6e1;--muted:#9aa0a6;--line:#2e343a;
+  --accent:#7fc0aa;--accent-soft:#1e2b27;--warn:#e0a86a;--warn-soft:#2b2318;
+  --bad:#e58b8b;--bad-soft:#2c1d1d;--good:#8dc99a;--good-soft:#1b2a1e;
+  --s1:#3987e5;--s2:#c87f2c;--s3:#a077d6;--grid:#2b3137;}
+:root[data-theme="light"]{--bg:#fbfaf8;--panel:#ffffff;--ink:#1a1a1a;--muted:#5c5c5c;--line:#e3e0da;
+  --accent:#2f5d50;--accent-soft:#e8f0ed;--warn:#8a4b12;--warn-soft:#fbf0e3;
+  --bad:#8f2d2d;--bad-soft:#fbeaea;--good:#2c5f35;--good-soft:#e9f2ea;
+  --s1:#2a78d6;--s2:#c2701c;--s3:#8a4f9e;--grid:#e6e3dd;}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  overflow-x:hidden;}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 22px 90px}
+header.doc{border-bottom:3px solid var(--accent);padding-bottom:22px;margin-bottom:34px}
+.kicker{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-size:clamp(26px,4.4vw,40px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:16px;max-width:72ch;margin:0}
+.meta{margin-top:18px;font:12px/1.6 var(--mono);color:var(--muted)}
+h2{font-size:clamp(19px,2.6vw,25px);margin:52px 0 6px;letter-spacing:-.01em;padding-top:14px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:30px 0 8px}
+h4{font-size:14px;margin:22px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+p{margin:11px 0}
+code,.mono{font-family:var(--mono);font-size:.87em}
+.addr{font-family:var(--mono);font-size:.8em;word-break:break-all;color:var(--muted)}
+.tag{display:inline-block;font:600 10px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:4px;white-space:nowrap;vertical-align:middle}
+.t-ext{background:var(--good-soft);color:var(--good)}
+.t-unk{background:var(--warn-soft);color:var(--warn)}
+.t-ins{background:var(--bad-soft);color:var(--bad)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px;margin:26px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 17px}
+.card .lab{font:600 10px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card .val{font-size:26px;font-weight:680;letter-spacing:-.02em;margin:7px 0 3px}
+.card .note{font-size:12.5px;color:var(--muted);line-height:1.45}
+.card.hi{border-color:var(--accent);background:var(--accent-soft)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:18px 0;
+  border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:640px}
+th{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+  font:600 10.5px/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+tr.total td{font-weight:700;background:var(--accent-soft);border-top:2px solid var(--accent)}
+tr.sub td{background:var(--bg);font-weight:600}
+tr.hl td{background:var(--bad-soft)}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);
+  padding:14px 16px;border-radius:0 8px 8px 0;margin:20px 0}
+.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+.callout.bad{border-color:var(--bad);background:var(--bad-soft)}
+.callout .h{font-weight:700;margin-bottom:5px;font-size:14.5px}
+.callout p{margin:6px 0;font-size:14.5px}
+.flow{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;margin:18px 0;
+  font:12px/1.65 var(--mono);white-space:pre;overflow-x:auto;color:var(--ink)}
+figure{margin:22px 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 14px 8px}
+figcaption{font-size:13px;color:var(--muted);margin:2px 6px 12px;line-height:1.5}
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart .grid{stroke:var(--grid);stroke-width:1}
+.chart .evt{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3;opacity:.7}
+.chart .axl{fill:var(--muted);font:11px var(--mono)}
+.chart .axt{fill:var(--ink);font:600 11.5px var(--mono);letter-spacing:.03em}
+.chart .axv{fill:var(--muted);font:10.5px var(--mono)}
+.chart .axs{fill:var(--muted);font:11px var(--mono)}
+.chart .evtlab{fill:var(--muted);font:600 10px var(--mono)}
+ul,ol{margin:11px 0;padding-left:22px}
+li{margin:6px 0}
+.footnote{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:34px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="doc">
+  <div class="kicker">ResearchCoin · historical distribution and flows</div>
+  <h1>Where all 1,000,000,000 RSC went, who sold it, and who bought it</h1>
+  <p class="sub">A complete reconstruction of every RSC transfer on Ethereum and Base from the 2020 token
+  generation event to 13 August 2026 — 1,379,897 transfers across 118,494 addresses — classified into holder
+  cohorts and valued at the price prevailing on the day of each transfer.</p>
+  <div class="meta">
+    Token: <code>0xD101dCC414F310268c37eEb4cD376CcFA507F571</code> (Ethereum) ·
+    <code>0xFbB75A59193A3525a8825BeBe7D4b56899E2f7e1</code> (Base)<br>
+    Period: 2020-08-01 (genesis mint) → 2026-08-13 · Sources: archive JSON-RPC on both chains;
+    Coinbase Exchange, Gate.io, MEXC and Kraken candle APIs; Uniswap and Aerodrome pool logs; ENS records
+  </div>
+</header>
+
+<h2>1. Summary</h2>
+
+<div class="cards">
+  <div class="card hi">
+    <div class="lab">Still held by ResearchHub wallets</div>
+    <div class="val">869.6M</div>
+    <div class="note">87.0% of the 1B supply sits in the treasuries, the genesis wallets, the vesting escrows and the staking vault</div>
+  </div>
+  <div class="card">
+    <div class="lab">Ever distributed outside the complex</div>
+    <div class="val">235.1M</div>
+    <div class="note"><strong>$49,110,083</strong> at the price on each transfer date · 8,331 transfers</div>
+  </div>
+  <div class="card hi">
+    <div class="lab">Sold by ResearchHub wallets, all time</div>
+    <div class="val">23.9M</div>
+    <div class="note"><strong>$3,069,912</strong> · 40 transfers to exchanges and pools since 2022</div>
+  </div>
+  <div class="card">
+    <div class="lab">Bought back by those same wallets</div>
+    <div class="val">8.06M</div>
+    <div class="note"><strong>$2,209,390</strong> · net position −15.9M RSC, −$860,522</div>
+  </div>
+</div>
+
+<p>Three findings frame everything below.</p>
+
+<p><strong>The distribution is small relative to the supply, and concentrated.</strong> In six years the
+ResearchHub complex has released 235.1M RSC — 23.5% of the supply — and 87.0% of the total still sits in wallets
+it controls. Of what was released, <strong>46.5M went to 21 large one-off allocations</strong>, 35.4M to 39
+addresses on a recurring monthly schedule, 42.5M to 1,347 one-off grantees, and only 9.7M to the 651 addresses that
+look like ordinary platform reward recipients.</p>
+
+<p><strong>Direct selling by ResearchHub wallets is modest in dollars and heavily concentrated in 2026.</strong>
+23,916,405 RSC has moved from a complex wallet to an exchange or a pool across the token's life, worth
+<strong>$3,069,912</strong> at the prices that prevailed on those days. Two thirds of the quantity — 15.6M RSC —
+moved in 2026 alone, but because the price had already fallen it raised only $1.44M. The complex bought 8.06M RSC
+back for $2.21M over the same span, so <strong>net disposal is 15.9M RSC and $860,522</strong>.</p>
+
+<p><strong>The people who received RSC sold most of it, and the ones paid a salary sold the most.</strong> The
+39 recurring-compensation wallets received 35.4M RSC and have sent 22.0M to trading venues, realising
+<strong>$4,962,841</strong> — more than double what the complex itself realised. The 1,347 one-off grantees sold
+22.6M for $4,205,317. Across every cohort, <strong>only 100.7M RSC of the 235.1M distributed is still held by the
+address that received it</strong>.</p>
+
+<div class="callout warn">
+  <div class="h">One attribution this analysis could not support</div>
+  <p>The wallet that took 70,000,000 RSC directly from the genesis mint,
+  <code>0x1288d4d0…8D34</code>, is sometimes assumed to belong to Brian Armstrong, who co-founded ResearchHub and
+  is CEO of Coinbase. <strong>Nothing on-chain supports that.</strong> The address has no ENS record and no
+  explorer name tag. <code>barmstrong.eth</code> resolves to <code>0x5b76f5b8…a1f0</code>, which has received a
+  lifetime total of <strong>1 RSC</strong> across twelve dust transfers from a single spam address and holds that
+  1 RSC today; it has never transacted with <code>0x1288d4d0…8D34</code> or with any ResearchHub wallet. The 70M
+  wallet is treated in this document as an unnamed genesis recipient, which is what the evidence shows.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>2. Method, sources and definitions</h2>
+
+<div class="callout">
+  <div class="h">How the ledger was built</div>
+  <p><strong>Transfers.</strong> Every ERC-20 <code>Transfer</code> log for RSC on Ethereum from the deployment
+  block 10,570,723 (1 August 2020) and on Base from block 12,647,115 (2 April 2024), through 13 August 2026 —
+  <strong>1,379,897 events, with no unrecovered block ranges on either chain</strong>. 30,233 of those are
+  zero-value transfers from address-poisoning activity and are excluded from every figure.</p>
+  <p><strong>Time.</strong> Base runs an exact two-second cadence — verified at zero drift against six anchors
+  spanning its entire life — so block times there are arithmetic. Ethereum block times are interpolated between
+  7,590 sampled blocks, two thousand blocks apart.</p>
+  <p><strong>Price.</strong> A single daily RSC/USD series covering 2,129 calendar days from 17 October 2020.
+  Listed days use the venue close, preferring Coinbase, then Gate.io, then MEXC. Days before the first exchange
+  listing use the median RSC/WETH rate implied by that day's Uniswap swaps on Ethereum, multiplied by the ETH/USD
+  close. Over the 622 days where both are available the two methods differ by a median of 2.6%. The series
+  independently reproduces CoinGecko's all-time high — it peaks at <strong>$1.49 on 3 January 2025</strong> against
+  CoinGecko's $1.51 on 4 January — and its 2022 low of $0.0037 matches CoinGecko's $0.0031 all-time low.</p>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Term</th><th>Definition used throughout</th></tr></thead>
+<tbody>
+<tr><td><strong>The complex</strong></td><td>26 addresses: the three treasuries, the Foundation Community Safe, the hot wallet, the three genesis recipients that still act as company wallets, the vesting escrows, the distributor and hop wallets, the three exchange deposit funnels, and the staking vault. Listed in full in §11.</td></tr>
+<tr><td><strong>A sale</strong></td><td>RSC arriving at a labelled centralised-exchange wallet, at an AMM pool, or at a DEX router or settlement contract. Per the brief, every transfer to an exchange is counted as a sale, valued at that day's price. This is an upper bound: a deposit is not proof of execution.</td></tr>
+<tr><td><strong>A purchase</strong></td><td>RSC leaving one of those venues into a wallet that is not itself a venue. Valued the same way. Also an upper bound — an exchange withdrawal is indistinguishable on-chain from the return of coins deposited earlier.</td></tr>
+<tr><td><strong>Cohort</strong></td><td>Assigned mechanically from each address's funding history, not by judgement. The rules are in §4.</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ============================================ -->
+<h2>3. The genesis distribution, and what became of it</h2>
+
+<p>The entire supply was created in eight transfers on <strong>1 August 2020</strong>. Three addresses took
+99.25% of it.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Genesis recipient</th><th class="num">RSC</th><th class="num">Share</th><th>What it did next</th></tr></thead>
+<tbody>
+<tr><td><span class="addr">0xB518536B…7D3d</span></td><td class="num">700,000,000</td><td class="num">70.00%</td>
+    <td>Forwarded 640,000,001 onward, principally into Treasury 2, and still holds <strong>60,000,000</strong>. Signs both Treasury 1 and Treasury 2.</td></tr>
+<tr><td><span class="addr">0xE3648e99…dBe0</span> — Treasury 2</td><td class="num">222,480,000</td><td class="num">22.25%</td>
+    <td>Received a further 763.4M over the years and has paid out 688.0M. Holds <strong>297,839,108</strong>.</td></tr>
+<tr><td><span class="addr">0x1288d4d0…8D34</span></td><td class="num">70,000,000</td><td class="num">7.00%</td>
+    <td>Routed the grant into a vesting escrow and has received it back in tranches since. Lifetime receipts 86,041,667; holds <strong>8,090,687</strong>.</td></tr>
+<tr><td><span class="addr">0x8b2864a6…71b3</span></td><td class="num">2,500,000</td><td class="num">0.25%</td><td>Three sibling wallets of identical size, funded in the same transaction batch.</td></tr>
+<tr><td><span class="addr">0x95cccfee…877c</span></td><td class="num">2,500,000</td><td class="num">0.25%</td><td></td></tr>
+<tr><td><span class="addr">0x385ee67b…0177</span></td><td class="num">2,500,000</td><td class="num">0.25%</td><td></td></tr>
+<tr><td><span class="addr">0xc46fca82…d96d</span></td><td class="num">10,000</td><td class="num">0.00%</td><td>Test transfers.</td></tr>
+<tr><td><span class="addr">0x76835CA5…b7B1</span> — treasury distributor</td><td class="num">10,000</td><td class="num">0.00%</td><td>Later moved 72.9M through itself and holds nothing.</td></tr>
+<tr class="total"><td>Total minted</td><td class="num">1,000,000,000</td><td class="num">100%</td><td>No RSC has ever been minted since</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Treasury 1 was not a mint recipient. It appears later, receives 584,004,133 RSC from the genesis cluster and
+has paid out 128,329,500, leaving <strong>455,674,633</strong> — the single largest RSC balance in existence. Six
+years after the mint, the money is still where it started.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Where the supply sits today</th><th class="num">RSC</th><th class="num">Share of supply</th></tr></thead>
+<tbody>
+<tr><td>Treasury 1</td><td class="num">455,674,633</td><td class="num">45.6%</td></tr>
+<tr><td>Treasury 2</td><td class="num">297,839,108</td><td class="num">29.8%</td></tr>
+<tr><td>Genesis wallet <span class="addr">0xB518536B…7D3d</span></td><td class="num">60,000,000</td><td class="num">6.0%</td></tr>
+<tr><td>Staking vault</td><td class="num">21,965,651</td><td class="num">2.2%</td></tr>
+<tr><td>Treasury 3 · <code>researchhubfoundation.eth</code></td><td class="num">14,092,043</td><td class="num">1.4%</td></tr>
+<tr><td>Genesis wallet <span class="addr">0x1288d4d0…8D34</span></td><td class="num">8,090,687</td><td class="num">0.8%</td></tr>
+<tr><td>All other complex wallets</td><td class="num">11,892,973</td><td class="num">1.2%</td></tr>
+<tr class="total"><td>Complex and vault combined</td><td class="num">869,555,095</td><td class="num">87.0%</td></tr>
+<tr><td>Everyone else</td><td class="num">130,444,905</td><td class="num">13.0%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">Treasury 3 is confirmed by an independent record</div>
+  <p><code>0xC4cfa2Bd…81e3</code> reverse-resolves in ENS to <strong><code>researchhubfoundation.eth</code></strong>.
+  That is a registry record set by the address's own controller, independent of ResearchHub's documentation, and it
+  corroborates the identification of the day-to-day paying treasury used throughout this analysis.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>4. The holder taxonomy</h2>
+
+<p>Every address that has ever touched RSC is assigned to one cohort by a mechanical rule applied to its funding
+history. No address is classified by judgement, and the rules are applied in the order below.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Cohort</th><th>Rule</th><th class="num">Addresses</th></tr></thead>
+<tbody>
+<tr><td><strong>The complex</strong></td><td>The 26 named ResearchHub wallets and the staking vault</td><td class="num">27</td></tr>
+<tr><td><strong>Large allocations</strong></td><td>≥1M RSC received, majority from the complex, in six or fewer complex transfers — investors, founders' allocations and standalone grants</td><td class="num">21</td></tr>
+<tr><td><strong>Staking relays</strong></td><td>Same profile, but ≥90% of the outflow goes to the staking vault — ERC-4337 relay accounts, not holders</td><td class="num">3</td></tr>
+<tr><td><strong>Recurring compensation</strong></td><td>Six or more transfers from Treasury 3 or the treasury distributor with a median gap of 20–45 days — the shape of salaries, retainers and stipends</td><td class="num">39</td></tr>
+<tr><td><strong>One-off grantees</strong></td><td>Majority-funded by the complex, but under 1M RSC and without a monthly cadence</td><td class="num">1,347</td></tr>
+<tr><td><strong>Bounty &amp; platform rewards</strong></td><td>Majority-funded by the hot wallet — the account that pays reviewers, editors and bounty winners</td><td class="num">651</td></tr>
+<tr><td><strong>Endowment</strong></td><td>The two Endaoment addresses, <code>ndao.eth</code> and its Gnosis Safe</td><td class="num">2</td></tr>
+<tr><td><strong>Market participants</strong></td><td>Everyone else — wallets funded principally by a pool, an exchange or another market participant</td><td class="num">116,347</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>A recurring-compensation classification identifies a payment <em>pattern</em>, not a job title. It is
+consistent with salaried staff, long-running editors, retained contractors and programme grantees alike, and
+chain data cannot separate them.</p>
+
+<h3>4.1 What the complex handed out, by destination</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Destination cohort</th><th class="num">RSC</th><th class="num">USD at the time</th><th class="num">Transfers</th><th class="num">Addresses</th></tr></thead>
+<tbody>
+<tr><td>Large allocations</td><td class="num">46,475,863</td><td class="num">14,155,553</td><td class="num">193</td><td class="num">21</td></tr>
+<tr><td>The Base bridge (internal, not a distribution)</td><td class="num">42,990,992</td><td class="num">15,483,822</td><td class="num">42</td><td class="num">1</td></tr>
+<tr><td>One-off grantees</td><td class="num">42,454,549</td><td class="num">5,561,957</td><td class="num">2,449</td><td class="num">1,347</td></tr>
+<tr><td>Recurring compensation</td><td class="num">35,411,220</td><td class="num">2,451,949</td><td class="num">772</td><td class="num">39</td></tr>
+<tr class="hl"><td>Trading venues — sold by the complex itself</td><td class="num">23,916,405</td><td class="num">3,069,912</td><td class="num">40</td><td class="num">6</td></tr>
+<tr><td>Staking relays (onward to the vault)</td><td class="num">16,094,626</td><td class="num">1,283,788</td><td class="num">24</td><td class="num">3</td></tr>
+<tr><td>Market participants</td><td class="num">11,903,153</td><td class="num">1,968,502</td><td class="num">780</td><td class="num">318</td></tr>
+<tr><td>Bounty &amp; platform rewards</td><td class="num">9,737,732</td><td class="num">3,628,977</td><td class="num">3,997</td><td class="num">651</td></tr>
+<tr><td>Endowment (Endaoment)</td><td class="num">6,082,789</td><td class="num">1,505,622</td><td class="num">34</td><td class="num">2</td></tr>
+<tr class="total"><td>Everything the complex ever sent out</td><td class="num">235,067,329</td><td class="num">49,110,083</td><td class="num">8,331</td><td class="num">—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The dollar column is the value <em>on the day of each transfer</em>, not today. It is why 9.7M RSC of bounty
+payments is worth more ($3.63M) than 35.4M RSC of recurring compensation ($2.45M): the salary payments were
+largely made in 2022, when RSC traded near a cent, while the bounty flow is concentrated in 2024–2026 at ten to a
+hundred times that price.</p>
+
+<!-- ============================================ -->
+<h2>5. What each cohort did with it</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Cohort</th><th class="num">Addresses</th><th class="num">Received from the complex</th><th class="num">USD at the time</th><th class="num">Still held today</th><th class="num">Retention</th></tr></thead>
+<tbody>
+<tr><td>Large allocations</td><td class="num">21</td><td class="num">46,475,863</td><td class="num">14,155,553</td><td class="num">2,727,979</td><td class="num">5.9%</td></tr>
+<tr><td>Recurring compensation</td><td class="num">39</td><td class="num">35,411,220</td><td class="num">2,451,949</td><td class="num">7,676,701</td><td class="num">21.7%</td></tr>
+<tr><td>One-off grantees</td><td class="num">1,347</td><td class="num">42,454,549</td><td class="num">5,561,957</td><td class="num">5,597,158</td><td class="num">13.2%</td></tr>
+<tr><td>Bounty &amp; platform rewards</td><td class="num">651</td><td class="num">9,737,732</td><td class="num">3,628,977</td><td class="num">2,334,603</td><td class="num">24.0%</td></tr>
+<tr><td>Endowment (Endaoment)</td><td class="num">2</td><td class="num">6,082,789</td><td class="num">1,505,622</td><td class="num">0</td><td class="num">0.0%</td></tr>
+<tr><td>Staking relays</td><td class="num">3</td><td class="num">16,094,626</td><td class="num">1,283,788</td><td class="num">0</td><td class="num">0.0%</td></tr>
+<tr><td>Market participants</td><td class="num">116,347</td><td class="num">11,903,153</td><td class="num">1,968,502</td><td class="num">82,364,113</td><td class="num">—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Market participants hold 82.4M RSC against only 11.9M received from the complex, because their stock was
+bought rather than granted. For every other cohort the received figure is the whole story, and the retention
+column is the answer to what they did with it.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Cohort</th><th class="num">Sold to a venue</th><th class="num">USD realised</th><th class="num">→ exchanges</th><th class="num">→ pools &amp; routers</th><th class="num">Bought back</th><th class="num">USD spent</th></tr></thead>
+<tbody>
+<tr><td>Recurring compensation</td><td class="num">21,951,489</td><td class="num">4,962,841</td><td class="num">0</td><td class="num">21,951,489</td><td class="num">8,879,377</td><td class="num">2,371,118</td></tr>
+<tr><td>One-off grantees</td><td class="num">22,646,834</td><td class="num">4,205,317</td><td class="num">1,717,756</td><td class="num">20,929,078</td><td class="num">925,013</td><td class="num">271,445</td></tr>
+<tr><td>Large allocations</td><td class="num">9,672,674</td><td class="num">665,342</td><td class="num">0</td><td class="num">9,672,674</td><td class="num">586,589</td><td class="num">127,456</td></tr>
+<tr><td>Endowment (Endaoment)</td><td class="num">5,971,610</td><td class="num">1,401,823</td><td class="num">0</td><td class="num">5,971,610</td><td class="num">823,569</td><td class="num">481,541</td></tr>
+<tr><td>Bounty &amp; platform rewards</td><td class="num">4,455,150</td><td class="num">1,830,017</td><td class="num">194,203</td><td class="num">4,260,947</td><td class="num">413,547</td><td class="num">147,755</td></tr>
+<tr class="total"><td>All recipient cohorts</td><td class="num">64,697,757</td><td class="num">13,065,340</td><td class="num">1,911,959</td><td class="num">62,785,798</td><td class="num">11,628,095</td><td class="num">3,399,315</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout bad">
+  <div class="h">The recipients realised four times what the company did</div>
+  <p>ResearchHub's own wallets sold 23.9M RSC for <strong>$3.07M</strong> across the token's life. The people and
+  entities it paid sold <strong>64.7M RSC for $13.07M</strong> over the same period — and the two cohorts closest
+  to the organisation, recurring compensation and one-off grantees, account for $9.17M of that on their own.</p>
+  <p>Almost all of it went through pools and DEX aggregators rather than exchange deposits: <strong>62.8M of the
+  64.7M</strong>. That is what the on-chain sell-side of this token has consisted of.</p>
+  <p>The same cohorts also bought 11.6M RSC back for $3.40M, so their net realisation is <strong>53.1M RSC and
+  $9.67M</strong>. The recurring-compensation cohort is the most active on both sides — 22.0M sold and 8.9M
+  bought — which is the profile of wallets being actively traded, not simply drained.</p>
+</div>
+
+<h3>5.1 The large-allocation cohort, wallet by wallet</h3>
+
+<p>Twenty-one addresses received 46.5M RSC in one-off allocations. None carries an ENS name or an explorer label,
+so none can be attributed to a named person or fund from public records. What can be shown is the size, the date
+and the disposal.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Address</th><th class="num">From the complex</th><th class="num">USD at the time</th><th class="num">Sold</th><th class="num">USD realised</th><th class="num">Still held</th><th>First seen</th></tr></thead>
+<tbody>
+<tr><td><span class="addr">0xe4758f76…aa7f</span></td><td class="num">10,000,000</td><td class="num">6,849,883</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2024-11-24</td></tr>
+<tr><td><span class="addr">0xdfb1fb21…1d58</span></td><td class="num">6,718,750</td><td class="num">243,052</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2021-12-22</td></tr>
+<tr><td><span class="addr">0xa0ed916a…87ef</span></td><td class="num">3,600,000</td><td class="num">1,747,463</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2024-05-20</td></tr>
+<tr><td><span class="addr">0x78512797…986d</span></td><td class="num">2,365,304</td><td class="num">789,123</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2025-10-10</td></tr>
+<tr><td><span class="addr">0x8ae505f6…0430</span></td><td class="num">2,078,869</td><td class="num">45,129</td><td class="num">2,025,337</td><td class="num">39,274</td><td class="num">0</td><td class="mono">2022-02-09</td></tr>
+<tr><td><span class="addr">0x79aa5bc6…b77e</span></td><td class="num">2,000,000</td><td class="num">233,200</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2026-01-01</td></tr>
+<tr><td><span class="addr">0x6b87c4fd…3be6</span></td><td class="num">1,710,785</td><td class="num">284,323</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2024-06-15</td></tr>
+<tr><td><span class="addr">0x28b00283…6957</span></td><td class="num">1,634,436</td><td class="num">17,588</td><td class="num">1,535,436</td><td class="num">16,398</td><td class="num">0</td><td class="mono">2022-02-18</td></tr>
+<tr><td><span class="addr">0xe2e69dce…d53f</span></td><td class="num">1,618,373</td><td class="num">203,491</td><td class="num">0</td><td class="num">0</td><td class="num">10</td><td class="mono">2025-11-28</td></tr>
+<tr><td><span class="addr">0x144985d2…B00d</span></td><td class="num">1,600,403</td><td class="num">1,014,172</td><td class="num">0</td><td class="num">0</td><td class="num">833,503</td><td class="mono">2025-09-01</td></tr>
+<tr><td><span class="addr">0xc5396a2c…eab1</span></td><td class="num">1,588,983</td><td class="num">96,186</td><td class="num">1,533,833</td><td class="num">84,119</td><td class="num">63,422</td><td class="mono">2021-12-03</td></tr>
+<tr><td><span class="addr">0x97e2ad35…c202f</span></td><td class="num">1,459,882</td><td class="num">790,987</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2025-08-08</td></tr>
+<tr><td><span class="addr">0x41aa5237…1c37</span></td><td class="num">1,431,299</td><td class="num">10,511</td><td class="num">1,216,237</td><td class="num">338,077</td><td class="num">0</td><td class="mono">2022-05-10</td></tr>
+<tr><td><span class="addr">0xa02306eb…239c</span></td><td class="num">1,402,250</td><td class="num">664</td><td class="num">1,272,250</td><td class="num">9,927</td><td class="num">0</td><td class="mono">2020-12-02</td></tr>
+<tr><td><span class="addr">0xb504d897…e2b5</span></td><td class="num">1,384,520</td><td class="num">473,910</td><td class="num">676,177</td><td class="num">116,361</td><td class="num">133,343</td><td class="mono">2023-08-24</td></tr>
+<tr><td><span class="addr">0x061c4e17…2c06</span></td><td class="num">1,245,279</td><td class="num">15,021</td><td class="num">1,013,511</td><td class="num">10,826</td><td class="num">1,436</td><td class="mono">2022-02-22</td></tr>
+<tr><td><span class="addr">0x617b1b78…30c6</span></td><td class="num">1,101,942</td><td class="num">841</td><td class="num">281,042</td><td class="num">4,375</td><td class="num">0</td><td class="mono">2020-12-24</td></tr>
+<tr><td><span class="addr">0x8ec66b4b…cea2</span></td><td class="num">1,057,292</td><td class="num">377,038</td><td class="num">0</td><td class="num">0</td><td class="num">1,057,292</td><td class="mono">2024-05-23</td></tr>
+<tr><td><span class="addr">0xd7f79e95…06ef</span></td><td class="num">960,618</td><td class="num">502,992</td><td class="num">0</td><td class="num">0</td><td class="num">638,972</td><td class="mono">2023-07-21</td></tr>
+<tr><td><span class="addr">0x61dde504…222a</span></td><td class="num">766,878</td><td class="num">125,024</td><td class="num">57,851</td><td class="num">34,758</td><td class="num">0</td><td class="mono">2022-02-08</td></tr>
+<tr><td><span class="addr">0x17f65421…f98f</span></td><td class="num">750,000</td><td class="num">334,956</td><td class="num">61,000</td><td class="num">11,228</td><td class="num">0</td><td class="mono">2024-04-12</td></tr>
+<tr class="total"><td>21 addresses</td><td class="num">46,475,863</td><td class="num">14,155,553</td><td class="num">9,672,674</td><td class="num">665,342</td><td class="num">2,727,979</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">Two distinct patterns, split almost exactly at the start of 2023</div>
+  <p><strong>The early cohort sold directly, and sold cheaply.</strong> The nine wallets first funded before 2023
+  received 17,968,686 RSC worth $554,016 at the time, and sold 8,935,497 of it for $537,753 — realising almost
+  the whole grant value into a market where RSC traded between a tenth of a cent and four cents.</p>
+  <p><strong>The later cohort barely touches a venue directly.</strong> The twelve wallets first funded from 2023
+  onward received 28,507,177 RSC worth <strong>$13,601,537</strong> — 96% of the cohort's dollar value — and show
+  only 737,177 RSC of transfers to any trading venue. Yet most of them hold nothing today. The RSC left by
+  onward transfer to another wallet, and the disposal happens one hop further out.</p>
+  <p>The clearest case is the largest allocation ever made: <strong>10,000,000 RSC to
+  <code>0xe4758f76…aa7f</code> on 24 November 2024</strong>, three weeks before the all-time high, worth
+  $6,849,883 at the time. That wallet holds nothing. It sent 5,749,990 to <code>0xd8d6ffe3…3cef0</code> and
+  4,000,010 to <code>0xecd3b4b7…d2b9</code> — and <code>0xecd3b4b7…d2b9</code> exists for one purpose: it has
+  received 10,340,428 RSC from those two addresses and a third, and forwarded <strong>every one of them to
+  Gate.io across 71 transfers</strong>, retaining nothing.</p>
+  <p>Not every large allocation is external. <code>0xdfb1fb21…1d58</code>'s 6,718,750 RSC went straight back to
+  Treasury 2 and a treasury signer — an internal round trip that the mechanical rule cannot distinguish from a
+  grant, and that should not be read as a distribution to a third party.</p>
+</div>
+
+<h3>5.2 Recurring compensation — the largest realised proceeds of any cohort</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Wallet</th><th class="num">Received from the complex</th><th class="num">USD at the time</th><th class="num">Sold</th><th class="num">USD realised</th><th class="num">Still held</th><th>First paid</th></tr></thead>
+<tbody>
+<tr><td><span class="addr">0x72f2c4dd…fb53</span></td><td class="num">4,171,526</td><td class="num">392,376</td><td class="num">2,561,060</td><td class="num">2,006,600</td><td class="num">0</td><td class="mono">2022-02-07</td></tr>
+<tr><td><span class="addr">0x29e46015…11ee</span></td><td class="num">3,557,688</td><td class="num">248,753</td><td class="num">2,435,517</td><td class="num">536,612</td><td class="num">93,320</td><td class="mono">2022-01-07</td></tr>
+<tr><td><span class="addr">0x22ed75a8…36ac</span></td><td class="num">1,971,962</td><td class="num">66,061</td><td class="num">1,457,095</td><td class="num">98,160</td><td class="num">560,000</td><td class="mono">2022-02-08</td></tr>
+<tr><td><span class="addr">0x77de633b…599d</span></td><td class="num">1,927,329</td><td class="num">175,719</td><td class="num">0</td><td class="num">0</td><td class="num">1,947,329</td><td class="mono">2020-10-02</td></tr>
+<tr><td><code>dolosus.eth</code> <span class="addr">0xcC5F1f28…E21B</span></td><td class="num">1,851,731</td><td class="num">84,042</td><td class="num">763,059</td><td class="num">93,132</td><td class="num">36,312</td><td class="mono">2022-07-28</td></tr>
+<tr><td><span class="addr">0xd6c8eb06…2cd8</span></td><td class="num">1,302,028</td><td class="num">10,739</td><td class="num">1,303,063</td><td class="num">10,094</td><td class="num">0</td><td class="mono">2022-05-16</td></tr>
+<tr><td><span class="addr">0xbbc46ebb…f685</span></td><td class="num">1,297,005</td><td class="num">235,868</td><td class="num">1,749,522</td><td class="num">205,093</td><td class="num">577,171</td><td class="mono">2023-01-19</td></tr>
+<tr><td><span class="addr">0xc6b13459…72b0</span></td><td class="num">1,246,400</td><td class="num">20,655</td><td class="num">559,290</td><td class="num">381,523</td><td class="num">647,010</td><td class="mono">2022-02-03</td></tr>
+<tr><td><span class="addr">0x1eb8f260…a3e7</span></td><td class="num">1,219,890</td><td class="num">13,996</td><td class="num">81,995</td><td class="num">37,297</td><td class="num">683,790</td><td class="mono">2022-02-28</td></tr>
+<tr><td><span class="addr">0x5aa0122f…3fEA</span></td><td class="num">1,148,133</td><td class="num">63,314</td><td class="num">0</td><td class="num">0</td><td class="num">620,032</td><td class="mono">2022-10-03</td></tr>
+<tr><td><span class="addr">0x81aa4f3b…a03e</span></td><td class="num">1,130,000</td><td class="num">10,895</td><td class="num">874,403</td><td class="num">109,038</td><td class="num">0</td><td class="mono">2022-04-19</td></tr>
+<tr><td><span class="addr">0xdc966812…ba63</span></td><td class="num">1,096,750</td><td class="num">12,693</td><td class="num">831,750</td><td class="num">322,524</td><td class="num">265,000</td><td class="mono">2022-02-09</td></tr>
+<tr class="total"><td>All 39 recurring-compensation wallets</td><td class="num">35,411,220</td><td class="num">2,451,949</td><td class="num">21,951,489</td><td class="num">4,962,841</td><td class="num">7,676,701</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Several of these wallets sold more RSC than they were ever paid, because they also bought: the cohort acquired
+8,879,377 RSC from venues for $2,371,118 alongside its 21,951,489 RSC of sales. The top wallet,
+<code>0x72f2c4dd…fb53</code>, was paid 4.17M RSC worth $392,376 across 2022–2024 and realised
+<strong>$2,006,600</strong> — a fivefold gain on the value at the time of payment, achieved by holding through the
+2024–25 rally rather than selling on receipt.</p>
+
+<!-- ============================================ -->
+<h2>6. Insider selling — the complete historical ledger</h2>
+
+<p>Every transfer from one of the 27 complex wallets to a centralised exchange, an AMM pool or a DEX router, over
+the token's whole life. Forty transfers, valued at the price on the day each one settled.</p>
+
+<div class="cards">
+  <div class="card hi">
+    <div class="lab">Sold by ResearchHub wallets, all time</div>
+    <div class="val">23,916,405</div>
+    <div class="note">RSC · <strong>$3,069,912</strong> · 40 transfers · 2.4% of supply</div>
+  </div>
+  <div class="card">
+    <div class="lab">Bought back</div>
+    <div class="val">8,056,625</div>
+    <div class="note">RSC · <strong>$2,209,390</strong> · 77 transfers</div>
+  </div>
+  <div class="card">
+    <div class="lab">Net disposal</div>
+    <div class="val">−15,859,780</div>
+    <div class="note">RSC · <strong>−$860,522</strong> net of purchases</div>
+  </div>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Complex wallet</th><th>Destination</th><th class="num">RSC</th><th class="num">USD at the time</th><th class="num">Transfers</th></tr></thead>
+<tbody>
+<tr><td>Treasury 3 · <code>researchhubfoundation.eth</code></td><td>Uniswap V3 1% (Ethereum)</td><td class="num">6,404,728</td><td class="num">726,495</td><td class="num">8</td></tr>
+<tr><td>Gate deposit <span class="addr">0x76785f12…5eF6</span></td><td>Gate.io</td><td class="num">6,270,519</td><td class="num">630,520</td><td class="num">5</td></tr>
+<tr><td>MEXC funnel <span class="addr">0x4Bae370A…2cE5</span></td><td>MEXC</td><td class="num">4,667,046</td><td class="num">515,006</td><td class="num">10</td></tr>
+<tr><td>Gate funnel <span class="addr">0x40a03e42…d671</span></td><td>Gate.io</td><td class="num">2,754,445</td><td class="num">451,753</td><td class="num">7</td></tr>
+<tr><td>Coinbase funnel <span class="addr">0xF229E503…D9D8</span></td><td>Coinbase</td><td class="num">1,250,000</td><td class="num">100,125</td><td class="num">1</td></tr>
+<tr><td>MEXC deposit <span class="addr">0x6f12ae18…5C00</span></td><td>MEXC</td><td class="num">1,052,232</td><td class="num">105,540</td><td class="num">3</td></tr>
+<tr><td>Coinbase deposit <span class="addr">0xcd8d4503…bCa7</span></td><td>Coinbase</td><td class="num">812,795</td><td class="num">87,601</td><td class="num">2</td></tr>
+<tr><td>Foundation Community Safe</td><td>Uniswap V3 1% (Base)</td><td class="num">422,631</td><td class="num">345,487</td><td class="num">1</td></tr>
+<tr><td>Foundation Community Safe</td><td>Aerodrome ts200 (Base)</td><td class="num">282,009</td><td class="num">107,386</td><td class="num">3</td></tr>
+<tr class="total"><td colspan="2">All complex selling, 2020–2026</td><td class="num">23,916,405</td><td class="num">3,069,912</td><td class="num">40</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Year</th><th class="num">RSC sold</th><th class="num">USD at the time</th><th class="num">Transfers</th><th class="num">Average price realised</th></tr></thead>
+<tbody>
+<tr><td class="mono">2022</td><td class="num">1,866,697</td><td class="num">11,171</td><td class="num">2</td><td class="num">$0.0060</td></tr>
+<tr><td class="mono">2023</td><td class="num">4,459,620</td><td class="num">689,135</td><td class="num">5</td><td class="num">$0.1545</td></tr>
+<tr><td class="mono">2024</td><td class="num">501,041</td><td class="num">371,675</td><td class="num">2</td><td class="num">$0.7418</td></tr>
+<tr><td class="mono">2025</td><td class="num">1,516,454</td><td class="num">557,897</td><td class="num">9</td><td class="num">$0.3679</td></tr>
+<tr class="hl"><td class="mono">2026</td><td class="num">15,572,593</td><td class="num">1,440,034</td><td class="num">22</td><td class="num">$0.0925</td></tr>
+<tr class="total"><td>All time</td><td class="num">23,916,405</td><td class="num">3,069,912</td><td class="num">40</td><td class="num">$0.1284</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="h">The selling accelerated as the price fell</div>
+  <p>65.1% of all RSC the complex has ever sold moved in 2026, at an average realised price of
+  <strong>$0.0925</strong> — an eighth of the $0.7418 it achieved on much smaller volume in 2024. Had the 2026
+  quantity been sold at 2024 prices it would have raised $11.6M rather than $1.44M.</p>
+  <p>There is no year in which the complex sold materially into strength. The single best-timed disposal was
+  422,631 RSC into the Base Uniswap pool on <strong>7 April 2024 at $0.8175</strong>, raising $345,487 — more
+  than the whole of 2026 raised from thirty-five times the quantity.</p>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Largest single disposals</th><th>Date</th><th class="num">RSC</th><th class="num">Price</th><th class="num">USD</th></tr></thead>
+<tbody>
+<tr><td>Treasury 3 → Uniswap V3 1% (Ethereum)</td><td class="mono">2023-12-07</td><td class="num">1,000,000</td><td class="num">$0.5287</td><td class="num">528,679</td></tr>
+<tr><td>Foundation Safe → Uniswap V3 1% (Base)</td><td class="mono">2024-04-07</td><td class="num">422,631</td><td class="num">$0.8175</td><td class="num">345,487</td></tr>
+<tr><td>Gate funnel → Gate.io</td><td class="mono">2025-09-05</td><td class="num">514,345</td><td class="num">$0.4779</td><td class="num">245,805</td></tr>
+<tr><td>Gate deposit → Gate.io</td><td class="mono">2026-05-31</td><td class="num">2,000,000</td><td class="num">$0.1033</td><td class="num">206,600</td></tr>
+<tr><td>MEXC funnel → MEXC</td><td class="mono">2026-07-28</td><td class="num">2,250,000</td><td class="num">$0.0801</td><td class="num">180,225</td></tr>
+<tr><td>Gate deposit → Gate.io</td><td class="mono">2026-05-19</td><td class="num">1,383,340</td><td class="num">$0.1209</td><td class="num">167,246</td></tr>
+<tr><td>Gate deposit → Gate.io</td><td class="mono">2026-06-12</td><td class="num">1,236,179</td><td class="num">$0.0965</td><td class="num">119,291</td></tr>
+<tr><td>Coinbase funnel → Coinbase</td><td class="mono">2026-07-28</td><td class="num">1,250,000</td><td class="num">$0.0801</td><td class="num">100,125</td></tr>
+<tr><td>Gate funnel → Gate.io</td><td class="mono">2026-07-30</td><td class="num">1,250,000</td><td class="num">$0.0725</td><td class="num">90,625</td></tr>
+<tr><td>Treasury 3 → Uniswap V3 1% (Ethereum)</td><td class="mono">2023-11-29</td><td class="num">300,000</td><td class="num">$0.2800</td><td class="num">84,008</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>6.1 The complex also buys</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Complex wallet</th><th>Source</th><th class="num">RSC</th><th class="num">USD at the time</th><th class="num">Transfers</th></tr></thead>
+<tbody>
+<tr><td>Distributor <span class="addr">0x620c0738…7EeB</span></td><td>MEXC</td><td class="num">2,538,481</td><td class="num">273,548</td><td class="num">15</td></tr>
+<tr><td>Treasury 3</td><td>DEX routers</td><td class="num">2,453,593</td><td class="num">1,112,683</td><td class="num">22</td></tr>
+<tr><td>Treasury 3</td><td>Uniswap V3 1% (Ethereum)</td><td class="num">651,914</td><td class="num">195,438</td><td class="num">2</td></tr>
+<tr><td>Foundation Community Safe</td><td>DEX routers</td><td class="num">619,142</td><td class="num">294,699</td><td class="num">15</td></tr>
+<tr><td>Foundation Community Safe</td><td>Aerodrome ts200</td><td class="num">588,223</td><td class="num">115,293</td><td class="num">11</td></tr>
+<tr><td>MEXC funnel</td><td>Gate.io</td><td class="num">329,998</td><td class="num">44,983</td><td class="num">4</td></tr>
+<tr><td>Distributor <span class="addr">0xAe823F1b…DCf3</span></td><td>Gate.io</td><td class="num">322,830</td><td class="num">19,371</td><td class="num">2</td></tr>
+<tr><td>Foundation Community Safe</td><td>Uniswap V3 1% (Base)</td><td class="num">320,111</td><td class="num">125,163</td><td class="num">1</td></tr>
+<tr><td>Others</td><td>Gate.io, Coinbase, exchange-scale B</td><td class="num">232,333</td><td class="num">28,212</td><td class="num">5</td></tr>
+<tr class="total"><td colspan="2">All complex buying</td><td class="num">8,056,625</td><td class="num">2,209,390</td><td class="num">77</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The buying is not symmetrical with the selling. It cost <strong>$2,209,390</strong> to reacquire 8.06M RSC —
+an average of $0.274 per token, more than double the $0.128 average at which the complex sold. Two thirds of the
+purchase value went through DEX routers into Treasury 3 and the Foundation Safe during 2023–2025, when RSC was
+expensive; the selling is concentrated in 2026, when it was cheap. On a net basis the complex has released 15.9M
+RSC and taken in <strong>$860,522</strong> more than it spent.</p>
+
+<!-- ============================================ -->
+<h2>7. Buying — where market-bought RSC ends up</h2>
+
+<p>Applying the mirror of the sale rule: RSC leaving an exchange, a pool or a router into a wallet that is not
+itself a venue is a purchase, valued at that day's price.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>All wallets outside the complex, 2020–2026</th><th class="num">RSC</th><th class="num">USD at the time</th></tr></thead>
+<tbody>
+<tr><td>Bought from exchanges, pools and routers</td><td class="num">770,502,027</td><td class="num">243,584,023</td></tr>
+<tr><td>Sold to exchanges, pools and routers</td><td class="num">800,234,176</td><td class="num">248,321,401</td></tr>
+<tr class="total"><td>Net</td><td class="num">−29,732,149</td><td class="num">−4,737,378</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Gross figures on this scale are dominated by arbitrage: the same RSC is bought out of one pool and sold into
+another many times over, so 770M of "buying" against a 1B supply reflects turnover, not accumulation. The net is
+the meaningful number, and over six years it is <strong>−29.7M RSC and −$4.74M</strong> — the market as a whole
+has been a net seller by a small margin, which is the arithmetic counterpart of the complex and its recipients
+being net distributors.</p>
+
+<h3>7.1 Notable single purchases that stuck</h3>
+
+<p>Filtered to first-time purchases where the buying wallet still holds at least half the quantity today — that
+is, purchases that were not immediately recycled.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Date</th><th>Buyer</th><th>Source</th><th class="num">RSC</th><th class="num">Price</th><th class="num">USD</th><th class="num">Holds today</th></tr></thead>
+<tbody>
+<tr><td class="mono">2025-09-21</td><td class="addr">0xd151e906…ba93</td><td>Coinbase</td><td class="num">289,681</td><td class="num">$0.5756</td><td class="num">166,740</td><td class="num">290,538</td></tr>
+<tr><td class="mono">2025-07-30</td><td class="addr">0x149d1d39…c54e</td><td>DEX router</td><td class="num">177,410</td><td class="num">$0.7276</td><td class="num">129,083</td><td class="num">234,258</td></tr>
+<tr><td class="mono">2024-03-30</td><td class="addr">0x1594c830…56a8</td><td>DEX router</td><td class="num">190,000</td><td class="num">$0.6526</td><td class="num">123,984</td><td class="num">1,116,760</td></tr>
+<tr><td class="mono">2025-09-18</td><td class="addr">0xcb2f853d…dfe1</td><td>DEX router</td><td class="num">156,724</td><td class="num">$0.6338</td><td class="num">99,332</td><td class="num">247,895</td></tr>
+<tr><td class="mono">2024-11-18</td><td class="addr">0x88529d22…71cb</td><td>DEX router</td><td class="num">80,360</td><td class="num">$0.9712</td><td class="num">78,049</td><td class="num">481,073</td></tr>
+<tr><td class="mono">2025-10-12</td><td class="addr">0xc37a2228…ab21</td><td>Aerodrome ts200</td><td class="num">176,652</td><td class="num">$0.4151</td><td class="num">73,328</td><td class="num">314,195</td></tr>
+<tr><td class="mono">2024-04-14</td><td class="addr">0xd4402526…44bf</td><td>DEX router</td><td class="num">109,410</td><td class="num">$0.6648</td><td class="num">72,730</td><td class="num">356,259</td></tr>
+<tr><td class="mono">2024-11-27</td><td class="addr">0x9aa0c1e7…8b20</td><td>DEX router</td><td class="num">82,213</td><td class="num">$0.8261</td><td class="num">67,916</td><td class="num">227,606</td></tr>
+<tr><td class="mono">2026-06-06</td><td class="addr">0x845ee646…36e0</td><td>Coinbase</td><td class="num">501,542</td><td class="num">$0.1268</td><td class="num">63,596</td><td class="num">560,684</td></tr>
+<tr><td class="mono">2026-07-22</td><td class="addr">0x4b5c7108…34f6</td><td>Coinbase</td><td class="num">616,029</td><td class="num">$0.0937</td><td class="num">57,722</td><td class="num">1,028,695</td></tr>
+<tr><td class="mono">2024-12-02</td><td class="addr">0x55a4777b…5552</td><td>Uniswap V3 1% (Ethereum)</td><td class="num">53,327</td><td class="num">$1.0293</td><td class="num">54,889</td><td class="num">98,335</td></tr>
+<tr><td class="mono">2024-02-19</td><td class="addr">0x4b851fbd…cba1</td><td>Uniswap V3 1% (Ethereum)</td><td class="num">95,131</td><td class="num">$0.5030</td><td class="num">47,851</td><td class="num">731,035</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Two of these are not outsiders. <code>0x1594c830…56a8</code> and <code>0x29e46015…11ee</code> are both in the
+recurring-compensation cohort — wallets that receive monthly payments from Treasury 3 <em>and</em> buy RSC on the
+open market. The largest sticky purchase of all, 190,000 RSC for $123,984 in March 2024, was made by a wallet on
+ResearchHub's own payroll.</p>
+
+<div class="callout">
+  <div class="h">The buy side is small, retail-sized and dominated by the 2024–25 window</div>
+  <p>No single purchase in the token's history exceeds <strong>$170,000</strong>. Eight of the twelve largest
+  sticky purchases were made between February 2024 and December 2025, at prices between $0.41 and $1.03 — the
+  period during which RSC traded above 40 cents. The three 2026 entries are larger in RSC terms and far smaller in
+  dollars, which is the same pattern the complex's own selling shows: quantity has moved to 2026, value has not.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>8. Venue timeline and volume growth</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Date</th><th>Event</th><th>How it was established</th></tr></thead>
+<tbody>
+<tr><td class="mono">2020-08-01</td><td>Token generation event — 1,000,000,000 RSC minted in eight transfers</td><td>Chain: eight transfers from the zero address, Ethereum block 10,570,723 onward</td></tr>
+<tr><td class="mono">2020-10-17</td><td>First on-chain trade — Uniswap V2 RSC/WETH</td><td>Chain: first <code>Swap</code> log in the V2 pair <code>0x4de126d4…38c5</code></td></tr>
+<tr><td class="mono">2022-04-14</td><td>Uniswap V3 1% pool becomes the main Ethereum venue</td><td>Chain: first swap in <code>0xec206137…0970</code></td></tr>
+<tr><td class="mono">2024-04-02</td><td>RSC deployed on Base</td><td>Chain: contract creation at Base block 12,647,115</td></tr>
+<tr><td class="mono">2024-11-29</td><td><strong>Gate.io</strong> — first centralised listing</td><td>Earliest daily candle returned by the Gate.io API</td></tr>
+<tr><td class="mono">2025-07-25</td><td>Coinbase adds RSC to its listing roadmap</td><td>Press reporting; price rose sharply on the announcement</td></tr>
+<tr><td class="mono">2025-07-31</td><td><strong>Coinbase</strong> trading opens</td><td>Earliest Coinbase Exchange candle, matching the announced date exactly</td></tr>
+<tr><td class="mono">2025-09-23</td><td><strong>MEXC</strong></td><td>Earliest MEXC candle</td></tr>
+<tr><td class="mono">2025-11-17</td><td><strong>Kraken</strong></td><td>Earliest Kraken candle, matching the announced date exactly</td></tr>
+<tr><td class="mono">2026-04-10</td><td>Stake-to-fund product launches</td><td>Chain: first deposits into the staking vault</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Coinbase listed RSC while its chief executive was a co-founder of ResearchHub; the exchange stated publicly
+that the asset went through its standard Digital Asset Support Group review and that Coinbase is unaffiliated
+with the project. That is a disclosure, not a chain fact, and is recorded here as context for the volume step
+that follows.</p>
+
+<figure>
+<figcaption><strong>RSC price on a log scale, from the first on-chain trade to today.</strong> Six years span four orders of magnitude: a tenth of a cent in 2020, an all-time high of $1.49 on 3 January 2025, and $0.055 today. Dashed lines mark the first trade on each venue.</figcaption>
+<svg viewBox="0 0 900 274" class="chart" role="img" aria-label="RSC price, log scale, August 2020 to August 2026, with venue listing dates"><text x="62" y="18" class="axt">RSC price, USD · log scale</text><line x1="62" y1="203.3" x2="880" y2="203.3" class="grid"/><text x="54" y="206.8" class="axl" text-anchor="end">$0.001</text><line x1="62" y1="150.8" x2="880" y2="150.8" class="grid"/><text x="54" y="154.3" class="axl" text-anchor="end">$0.01</text><line x1="62" y1="98.3" x2="880" y2="98.3" class="grid"/><text x="54" y="101.8" class="axl" text-anchor="end">$0.1</text><line x1="62" y1="45.8" x2="880" y2="45.8" class="grid"/><text x="54" y="49.3" class="axl" text-anchor="end">$1</text><line x1="32.4" y1="30" x2="32.4" y2="240" class="evt"/><text x="36.4" y="41" class="evtlab" text-anchor="start">TGE · 1B minted</text><line x1="62.0" y1="30" x2="62.0" y2="240" class="evt"/><text x="66.0" y="54" class="evtlab" text-anchor="start">Uniswap V2</text><line x1="640.1" y1="30" x2="640.1" y2="240" class="evt"/><text x="644.1" y="41" class="evtlab" text-anchor="start">Gate.io</text><line x1="733.9" y1="30" x2="733.9" y2="240" class="evt"/><text x="729.9" y="67" class="evtlab" text-anchor="end">Coinbase</text><line x1="754.7" y1="30" x2="754.7" y2="240" class="evt"/><text x="750.7" y="80" class="evtlab" text-anchor="end">MEXC</text><line x1="775.8" y1="30" x2="775.8" y2="240" class="evt"/><text x="771.8" y="93" class="evtlab" text-anchor="end">Kraken</text><line x1="831.2" y1="30" x2="831.2" y2="240" class="evt"/><text x="827.2" y="106" class="evtlab" text-anchor="end">stake-to-fund</text><polyline points="62.0,101.8 62.4,101.8 62.8,101.8 63.2,101.8 63.5,101.8 63.9,101.8 64.3,101.8 64.7,101.8 65.1,101.8 65.5,101.8 65.8,101.8 66.2,101.8 66.6,101.8 67.0,101.8 67.4,101.8 67.8,173.0 68.2,173.0 68.5,170.0 68.9,166.8 69.3,165.3 69.7,165.3 70.1,169.4 70.5,169.4 70.8,174.8 71.2,174.8 71.6,174.8 72.0,174.8 72.4,172.0 72.8,180.0 73.1,197.4 73.5,199.3 73.9,189.8 74.3,189.8 74.7,183.7 75.1,183.7 75.5,183.7 75.8,183.7 76.2,183.7 76.6,183.7 77.0,183.7 77.4,185.0 77.8,185.0 78.1,222.2 78.5,222.2 78.9,222.2 79.3,222.2 79.7,222.2 80.1,222.2 80.5,222.2 80.8,213.9 81.2,213.9 81.6,213.9 82.0,216.2 82.4,217.0 82.8,233.8 83.1,233.8 83.5,231.0 83.9,227.3 84.3,227.3 84.7,227.3 85.1,227.3 85.4,227.3 85.8,227.3 86.2,227.3 86.6,227.3 87.0,227.3 87.4,227.3 87.8,227.3 88.1,227.3 88.5,227.3 88.9,227.3 89.3,227.3 89.7,227.3 90.1,227.3 90.4,227.3 90.8,227.3 91.2,227.3 91.6,227.3 92.0,227.3 92.4,227.3 92.8,227.3 93.1,227.3 93.5,227.3 93.9,227.3 94.3,227.3 94.7,227.3 95.1,227.3 95.4,227.3 95.8,227.3 96.2,227.3 96.6,227.3 97.0,227.3 97.4,227.3 97.7,227.3 98.1,227.3 98.5,227.3 98.9,227.3 99.3,227.3 99.7,227.3 100.1,227.3 100.4,227.3 100.8,227.3 101.2,227.3 101.6,227.3 102.0,227.3 102.4,227.3 102.7,227.3 103.1,227.3 103.5,227.3 103.9,227.3 104.3,227.3 104.7,227.3 105.1,227.3 105.4,227.3 105.8,227.3 106.2,227.3 106.6,227.3 107.0,227.3 107.4,227.3 107.7,227.3 108.1,227.3 108.5,227.3 108.9,227.3 109.3,227.3 109.7,227.3 110.0,227.3 110.4,227.3 110.8,227.3 111.2,227.3 111.6,227.3 112.0,227.3 112.4,227.3 112.7,227.3 113.1,227.3 113.5,227.3 113.9,227.3 114.3,227.3 114.7,227.3 115.0,227.3 115.4,227.3 115.8,227.3 116.2,227.3 116.6,227.3 117.0,227.3 117.4,227.3 117.7,227.3 118.1,227.3 118.5,227.3 118.9,227.3 119.3,227.3 119.7,227.3 120.0,227.3 120.4,227.3 120.8,227.3 121.2,227.3 121.6,193.5 122.0,168.2 122.4,168.2 122.7,168.2 123.1,168.2 123.5,168.2 123.9,168.2 124.3,168.2 124.7,168.2 125.0,168.2 125.4,168.2 125.8,168.2 126.2,168.2 126.6,168.2 127.0,168.2 127.3,168.2 127.7,168.2 128.1,168.2 128.5,168.2 128.9,168.2 129.3,123.3 129.7,138.0 130.0,132.5 130.4,130.9 130.8,135.3 131.2,133.3 131.6,133.3 132.0,139.0 132.3,139.0 132.7,139.0 133.1,139.0 133.5,139.0 133.9,139.0 134.3,139.0 134.7,144.1 135.0,144.1 135.4,144.1 135.8,144.1 136.2,144.1 136.6,144.1 137.0,144.1 137.3,144.1 137.7,144.1 138.1,139.5 138.5,133.3 138.9,133.3 139.3,133.3 139.6,134.4 140.0,134.4 140.4,134.4 140.8,134.4 141.2,134.4 141.6,134.4 142.0,124.9 142.3,124.9 142.7,124.9 143.1,126.0 143.5,123.2 143.9,121.3 144.3,121.3 144.6,121.3 145.0,133.0 145.4,126.2 145.8,126.2 146.2,126.0 146.6,122.6 147.0,127.2 147.3,127.4 147.7,130.5 148.1,130.5 148.5,130.5 148.9,130.9 149.3,132.4 149.6,132.4 150.0,134.5 150.4,134.1 150.8,133.1 151.2,133.1 151.6,133.3 151.9,133.3 152.3,130.3 152.7,130.3 153.1,135.3 153.5,135.3 153.9,136.2 154.3,135.9 154.6,130.7 155.0,131.0 155.4,131.0 155.8,131.0 156.2,137.4 156.6,138.5 156.9,147.4 157.3,147.4 157.7,134.6 158.1,141.4 158.5,139.1 158.9,139.1 159.3,139.8 159.6,141.7 160.0,141.7 160.4,145.2 160.8,141.6 161.2,139.1 161.6,140.1 161.9,140.1 162.3,138.5 162.7,143.0 163.1,137.0 163.5,143.4 163.9,140.5 164.2,140.5 164.6,140.5 165.0,140.5 165.4,143.0 165.8,143.0 166.2,143.0 166.6,141.9 166.9,145.2 167.3,144.5 167.7,140.4 168.1,146.2 168.5,146.9 168.9,160.3 169.2,148.2 169.6,150.3 170.0,147.8 170.4,147.3 170.8,147.3 171.2,151.2 171.6,147.7 171.9,147.7 172.3,146.3 172.7,145.3 173.1,144.3 173.5,144.3 173.9,146.7 174.2,141.7 174.6,143.0 175.0,143.0 175.4,150.8 175.8,149.4 176.2,147.1 176.6,147.1 176.9,146.9 177.3,144.9 177.7,149.2 178.1,149.2 178.5,149.2 178.9,149.2 179.2,149.2 179.6,148.3 180.0,147.6 180.4,146.1 180.8,146.1 181.2,145.4 181.5,145.4 181.9,145.4 182.3,145.4 182.7,145.4 183.1,145.4 183.5,145.8 183.9,145.8 184.2,145.8 184.6,145.8 185.0,145.8 185.4,145.8 185.8,145.8 186.2,145.8 186.5,145.8 186.9,145.8 187.3,137.4 187.7,148.4 188.1,135.5 188.5,135.5 188.9,135.5 189.2,142.6 189.6,142.6 190.0,142.6 190.4,142.6 190.8,142.6 191.2,142.6 191.5,142.6 191.9,142.6 192.3,142.6 192.7,142.6 193.1,142.6 193.5,142.3 193.8,142.3 194.2,142.3 194.6,142.3 195.0,142.3 195.4,142.3 195.8,142.3 196.2,142.3 196.5,142.3 196.9,142.3 197.3,142.3 197.7,142.3 198.1,142.3 198.5,142.3 198.8,136.7 199.2,136.7 199.6,136.7 200.0,136.7 200.4,136.7 200.8,136.2 201.2,136.2 201.5,136.2 201.9,136.2 202.3,136.2 202.7,136.2 203.1,130.6 203.5,130.6 203.8,130.6 204.2,127.8 204.6,127.8 205.0,125.0 205.4,125.0 205.8,124.8 206.1,124.8 206.5,124.8 206.9,124.8 207.3,124.8 207.7,124.8 208.1,124.8 208.5,124.8 208.8,124.8 209.2,129.9 209.6,129.9 210.0,129.9 210.4,129.9 210.8,135.7 211.1,135.7 211.5,135.7 211.9,135.7 212.3,135.7 212.7,130.8 213.1,130.8 213.5,130.8 213.8,130.8 214.2,130.8 214.6,130.8 215.0,130.8 215.4,124.9 215.8,121.2 216.1,121.2 216.5,109.3 216.9,109.3 217.3,109.3 217.7,109.3 218.1,113.2 218.5,111.6 218.8,103.7 219.2,106.3 219.6,121.2 220.0,112.0 220.4,117.8 220.8,112.2 221.1,114.3 221.5,107.7 221.9,99.3 222.3,113.5 222.7,113.5 223.1,113.5 223.4,113.5 223.8,113.5 224.2,113.5 224.6,111.1 225.0,115.4 225.4,115.4 225.8,115.4 226.1,115.4 226.5,115.4 226.9,121.2 227.3,121.2 227.7,121.2 228.1,121.2 228.4,121.2 228.8,129.3 229.2,129.3 229.6,129.3 230.0,129.3 230.4,129.3 230.8,129.3 231.1,129.3 231.5,129.3 231.9,129.3 232.3,129.3 232.7,129.3 233.1,129.3 233.4,129.3 233.8,127.7 234.2,127.7 234.6,127.7 235.0,121.7 235.4,121.7 235.7,125.0 236.1,125.0 236.5,125.0 236.9,125.0 237.3,125.0 237.7,125.0 238.1,125.0 238.4,125.0 238.8,125.0 239.2,125.0 239.6,130.9 240.0,130.9 240.4,130.9 240.7,126.8 241.1,126.8 241.5,126.8 241.9,126.8 242.3,126.8 242.7,126.8 243.1,123.5 243.4,123.5 243.8,123.5 244.2,123.5 244.6,123.5 245.0,123.5 245.4,123.5 245.7,123.5 246.1,121.1 246.5,131.1 246.9,133.7 247.3,136.7 247.7,134.2 248.0,134.5 248.4,128.2 248.8,128.2 249.2,132.5 249.6,133.3 250.0,135.5 250.4,132.6 250.7,132.1 251.1,134.5 251.5,144.3 251.9,146.6 252.3,140.8 252.7,135.3 253.0,127.9 253.4,137.9 253.8,131.8 254.2,135.9 254.6,135.9 255.0,133.7 255.4,125.8 255.7,126.8 256.1,126.9 256.5,126.9 256.9,130.6 257.3,126.8 257.7,127.1 258.0,127.1 258.4,129.6 258.8,129.6 259.2,132.2 259.6,133.6 260.0,133.0 260.3,133.0 260.7,128.7 261.1,129.1 261.5,129.0 261.9,128.0 262.3,130.7 262.7,129.7 263.0,133.7 263.4,129.7 263.8,123.5 264.2,126.7 264.6,121.3 265.0,126.8 265.3,130.4 265.7,130.0 266.1,127.5 266.5,127.8 266.9,126.9 267.3,127.2 267.7,129.9 268.0,132.0 268.4,127.7 268.8,126.8 269.2,127.4 269.6,126.4 270.0,126.2 270.3,131.4 270.7,134.1 271.1,131.8 271.5,131.8 271.9,134.3 272.3,133.2 272.7,132.2 273.0,131.5 273.4,131.4 273.8,132.1 274.2,133.2 274.6,131.6 275.0,131.9 275.3,130.1 275.7,133.0 276.1,133.0 276.5,133.0 276.9,133.3 277.3,132.5 277.6,129.1 278.0,131.3 278.4,132.4 278.8,131.8 279.2,132.5 279.6,135.1 280.0,134.7 280.3,135.9 280.7,141.0 281.1,138.1 281.5,141.6 281.9,141.6 282.3,142.5 282.6,141.4 283.0,140.4 283.4,144.2 283.8,143.3 284.2,144.3 284.6,142.3 285.0,143.1 285.3,144.3 285.7,144.3 286.1,145.4 286.5,144.6 286.9,144.6 287.3,146.9 287.6,148.6 288.0,147.8 288.4,145.6 288.8,142.5 289.2,142.5 289.6,146.1 289.9,146.1 290.3,147.4 290.7,147.7 291.1,146.5 291.5,146.6 291.9,146.6 292.3,148.6 292.6,148.6 293.0,148.6 293.4,164.8 293.8,153.1 294.2,164.5 294.6,164.5 294.9,153.2 295.3,158.7 295.7,155.1 296.1,157.8 296.5,157.8 296.9,152.6 297.3,152.6 297.6,158.9 298.0,154.2 298.4,151.1 298.8,152.1 299.2,152.1 299.6,152.1 299.9,152.1 300.3,152.1 300.7,164.5 301.1,163.3 301.5,163.3 301.9,163.3 302.2,163.3 302.6,163.3 303.0,164.7 303.4,157.4 303.8,155.8 304.2,155.1 304.6,156.6 304.9,159.3 305.3,160.2 305.7,157.7 306.1,157.7 306.5,155.5 306.9,155.3 307.2,157.6 307.6,152.1 308.0,153.0 308.4,169.7 308.8,169.7 309.2,159.2 309.6,165.2 309.9,165.2 310.3,167.8 310.7,153.6 311.1,149.7 311.5,156.7 311.9,168.3 312.2,158.4 312.6,160.8 313.0,154.9 313.4,163.8 313.8,157.5 314.2,158.3 314.5,156.8 314.9,156.6 315.3,156.6 315.7,153.1 316.1,152.9 316.5,150.1 316.9,152.7 317.2,152.3 317.6,155.0 318.0,158.3 318.4,158.3 318.8,158.3 319.2,152.1 319.5,149.6 319.9,154.8 320.3,155.5 320.7,155.3 321.1,155.3 321.5,155.3 321.9,153.3 322.2,154.2 322.6,157.6 323.0,157.8 323.4,160.2 323.8,157.2 324.2,157.2 324.5,157.8 324.9,157.8 325.3,157.8 325.7,157.8 326.1,157.8 326.5,157.6 326.9,157.8 327.2,158.7 327.6,160.1 328.0,160.1 328.4,158.2 328.8,159.3 329.2,160.7 329.5,161.7 329.9,160.0 330.3,162.2 330.7,161.9 331.1,160.2 331.5,161.7 331.8,160.2 332.2,160.6 332.6,162.0 333.0,161.0 333.4,162.5 333.8,164.1 334.2,164.1 334.5,165.0 334.9,165.0 335.3,165.0 335.7,165.0 336.1,165.0 336.5,165.0 336.8,165.0 337.2,165.0 337.6,165.0 338.0,165.9 338.4,166.5 338.8,166.5 339.2,166.5 339.5,169.5 339.9,169.5 340.3,170.3 340.7,170.3 341.1,170.3 341.5,168.3 341.8,166.1 342.2,167.7 342.6,167.7 343.0,166.2 343.4,166.2 343.8,167.4 344.1,167.4 344.5,168.1 344.9,168.1 345.3,168.1 345.7,168.1 346.1,164.9 346.5,163.8 346.8,163.8 347.2,162.9 347.6,166.1 348.0,164.6 348.4,164.6 348.8,166.3 349.1,165.5 349.5,165.1 349.9,166.5 350.3,167.1 350.7,165.7 351.1,165.2 351.5,168.6 351.8,164.8 352.2,165.2 352.6,165.3 353.0,166.6 353.4,166.7 353.8,166.7 354.1,166.7 354.5,166.5 354.9,166.5 355.3,164.4 355.7,166.0 356.1,167.6 356.4,167.6 356.8,167.6 357.2,167.6 357.6,166.0 358.0,166.6 358.4,167.9 358.8,153.7 359.1,158.2 359.5,158.2 359.9,153.2 360.3,152.9 360.7,153.8 361.1,153.8 361.4,154.7 361.8,156.2 362.2,159.4 362.6,159.4 363.0,159.4 363.4,159.4 363.8,159.4 364.1,160.7 364.5,160.8 364.9,160.9 365.3,160.7 365.7,160.7 366.1,164.6 366.4,164.6 366.8,166.1 367.2,166.8 367.6,167.7 368.0,167.7 368.4,167.7 368.8,167.7 369.1,167.7 369.5,168.9 369.9,173.4 370.3,172.2 370.7,172.2 371.1,170.4 371.4,171.4 371.8,171.4 372.2,170.7 372.6,170.7 373.0,170.7 373.4,170.4 373.7,170.4 374.1,170.4 374.5,170.4 374.9,170.6 375.3,169.8 375.7,169.8 376.1,169.1 376.4,167.6 376.8,166.4 377.2,164.1 377.6,164.1 378.0,163.1 378.4,164.4 378.7,164.4 379.1,164.4 379.5,162.4 379.9,162.4 380.3,162.4 380.7,162.8 381.1,161.3 381.4,161.3 381.8,161.3 382.2,162.5 382.6,162.5 383.0,163.1 383.4,163.8 383.7,163.8 384.1,159.9 384.5,159.1 384.9,156.8 385.3,157.9 385.7,158.5 386.0,156.0 386.4,156.5 386.8,158.7 387.2,158.0 387.6,158.0 388.0,157.9 388.4,157.9 388.7,157.9 389.1,156.7 389.5,149.2 389.9,153.9 390.3,153.9 390.7,156.8 391.0,157.6 391.4,155.3 391.8,156.5 392.2,157.0 392.6,157.0 393.0,159.1 393.4,157.9 393.7,156.1 394.1,154.8 394.5,153.2 394.9,152.3 395.3,152.8 395.7,152.6 396.0,152.6 396.4,152.1 396.8,152.4 397.2,152.3 397.6,152.7 398.0,153.3 398.3,153.2 398.7,160.0 399.1,156.2 399.5,152.8 399.9,153.3 400.3,153.3 400.7,156.3 401.0,154.9 401.4,155.2 401.8,156.3 402.2,155.0 402.6,155.0 403.0,154.4 403.3,155.8 403.7,155.8 404.1,155.8 404.5,157.5 404.9,156.6 405.3,156.6 405.7,156.7 406.0,156.7 406.4,156.7 406.8,156.7 407.2,161.7 407.6,160.0 408.0,158.2 408.3,155.8 408.7,157.5 409.1,156.8 409.5,156.2 409.9,156.2 410.3,156.2 410.6,160.2 411.0,160.2 411.4,158.7 411.8,158.7 412.2,157.4 412.6,157.4 413.0,159.8 413.3,160.9 413.7,160.9 414.1,160.9 414.5,161.9 414.9,161.5 415.3,160.5 415.6,159.1 416.0,159.8 416.4,157.9 416.8,157.9 417.2,157.9 417.6,159.2 418.0,159.2 418.3,158.0 418.7,155.1 419.1,154.9 419.5,153.1 419.9,153.0 420.3,153.5 420.6,153.5 421.0,153.5 421.4,153.5 421.8,153.5 422.2,153.9 422.6,153.6 423.0,153.9 423.3,152.3 423.7,152.3 424.1,150.4 424.5,150.9 424.9,150.9 425.3,150.9 425.6,150.9 426.0,150.9 426.4,150.4 426.8,150.4 427.2,152.2 427.6,152.2 427.9,152.5 428.3,149.4 428.7,150.6 429.1,147.3 429.5,146.1 429.9,147.4 430.3,146.3 430.6,143.3 431.0,142.3 431.4,145.3 431.8,143.6 432.2,144.8 432.6,156.6 432.9,151.1 433.3,149.7 433.7,147.8 434.1,147.8 434.5,147.8 434.9,147.8 435.3,141.0 435.6,140.0 436.0,139.6 436.4,140.9 436.8,139.6 437.2,138.3 437.6,137.3 437.9,137.6 438.3,137.6 438.7,137.1 439.1,136.9 439.5,138.5 439.9,138.3 440.2,138.3 440.6,138.3 441.0,137.6 441.4,137.6 441.8,136.5 442.2,135.8 442.6,135.8 442.9,135.8 443.3,137.3 443.7,136.5 444.1,137.2 444.5,137.5 444.9,137.8 445.2,137.0 445.6,136.0 446.0,133.2 446.4,132.8 446.8,130.6 447.2,129.6 447.6,130.3 447.9,130.7 448.3,133.3 448.7,134.6 449.1,133.9 449.5,132.9 449.9,131.7 450.2,132.1 450.6,131.7 451.0,131.1 451.4,131.9 451.8,132.1 452.2,131.0 452.5,131.5 452.9,131.0 453.3,131.2 453.7,132.6 454.1,132.6 454.5,132.7 454.9,133.1 455.2,133.3 455.6,135.4 456.0,135.9 456.4,135.8 456.8,135.8 457.2,136.7 457.5,137.7 457.9,138.3 458.3,139.8 458.7,140.5 459.1,140.4 459.5,142.2 459.9,142.2 460.2,142.7 460.6,143.6 461.0,144.5 461.4,143.1 461.8,143.1 462.2,143.5 462.5,142.5 462.9,142.7 463.3,142.7 463.7,142.5 464.1,141.6 464.5,141.9 464.8,141.0 465.2,141.3 465.6,141.8 466.0,141.8 466.4,141.8 466.8,141.8 467.2,139.5 467.5,138.1 467.9,138.1 468.3,138.1 468.7,138.7 469.1,140.4 469.5,140.6 469.8,140.6 470.2,139.7 470.6,138.9 471.0,139.4 471.4,139.9 471.8,139.9 472.2,139.3 472.5,139.0 472.9,139.1 473.3,138.4 473.7,138.4 474.1,138.2 474.5,138.5 474.8,139.4 475.2,140.4 475.6,140.0 476.0,139.1 476.4,139.2 476.8,138.6 477.2,139.1 477.5,139.1 477.9,139.1 478.3,139.1 478.7,139.8 479.1,139.1 479.5,142.6 479.8,142.6 480.2,142.6 480.6,143.3 481.0,143.9 481.4,143.7 481.8,143.4 482.1,143.4 482.5,142.9 482.9,143.9 483.3,143.9 483.7,143.9 484.1,142.6 484.5,143.9 484.8,141.8 485.2,141.8 485.6,140.5 486.0,139.5 486.4,139.7 486.8,140.3 487.1,140.3 487.5,145.6 487.9,142.3 488.3,142.8 488.7,141.9 489.1,142.4 489.5,140.7 489.8,141.4 490.2,138.1 490.6,137.3 491.0,135.0 491.4,134.8 491.8,131.5 492.1,130.0 492.5,130.9 492.9,94.7 493.3,105.7 493.7,118.4 494.1,110.1 494.4,104.5 494.8,106.9 495.2,106.1 495.6,93.6 496.0,87.6 496.4,85.9 496.8,85.0 497.1,84.5 497.5,87.6 497.9,90.2 498.3,89.6 498.7,85.5 499.1,77.8 499.4,74.8 499.8,73.1 500.2,75.6 500.6,71.3 501.0,68.1 501.4,56.7 501.8,55.1 502.1,57.4 502.5,60.3 502.9,63.1 503.3,60.7 503.7,58.5 504.1,60.8 504.4,59.8 504.8,61.2 505.2,54.7 505.6,59.1 506.0,64.0 506.4,66.9 506.7,66.5 507.1,70.0 507.5,65.9 507.9,67.4 508.3,64.6 508.7,66.9 509.1,68.9 509.4,69.1 509.8,67.9 510.2,67.5 510.6,68.4 511.0,67.1 511.4,69.9 511.7,68.0 512.1,67.6 512.5,69.4 512.9,69.3 513.3,69.1 513.7,70.8 514.1,71.7 514.4,70.9 514.8,70.7 515.2,69.7 515.6,65.0 516.0,63.7 516.4,66.8 516.7,68.0 517.1,69.7 517.5,69.6 517.9,68.0 518.3,71.0 518.7,71.1 519.0,71.2 519.4,72.0 519.8,72.4 520.2,73.3 520.6,75.2 521.0,74.4 521.4,72.5 521.7,71.1 522.1,71.2 522.5,68.6 522.9,70.3 523.3,71.0 523.7,71.7 524.0,72.6 524.4,72.3 524.8,74.2 525.2,73.4 525.6,73.8 526.0,73.9 526.4,72.7 526.7,72.5 527.1,72.4 527.5,73.7 527.9,70.3 528.3,64.6 528.7,63.9 529.0,64.7 529.4,64.8 529.8,67.0 530.2,67.2 530.6,64.2 531.0,61.5 531.4,62.3 531.7,63.9 532.1,66.1 532.5,67.1 532.9,63.8 533.3,63.3 533.7,63.2 534.0,59.5 534.4,58.4 534.8,60.6 535.2,61.2 535.6,61.6 536.0,60.8 536.3,60.8 536.7,64.0 537.1,63.5 537.5,64.8 537.9,67.4 538.3,64.8 538.7,68.5 539.0,67.7 539.4,69.5 539.8,68.7 540.2,67.7 540.6,68.9 541.0,70.1 541.3,66.4 541.7,68.4 542.1,71.1 542.5,69.4 542.9,65.6 543.3,69.6 543.7,70.5 544.0,69.7 544.4,67.0 544.8,66.0 545.2,65.9 545.6,64.8 546.0,63.6 546.3,55.5 546.7,55.9 547.1,56.5 547.5,57.4 547.9,57.8 548.3,57.4 548.6,55.5 549.0,54.4 549.4,50.4 549.8,48.5 550.2,52.6 550.6,51.9 551.0,51.5 551.3,56.3 551.7,59.0 552.1,55.1 552.5,54.1 552.9,56.5 553.3,56.9 553.6,56.4 554.0,56.8 554.4,57.0 554.8,56.2 555.2,55.7 555.6,56.5 556.0,59.7 556.3,60.1 556.7,62.4 557.1,63.6 557.5,62.1 557.9,63.8 558.3,65.6 558.6,66.8 559.0,66.6 559.4,64.5 559.8,62.4 560.2,64.7 560.6,64.4 560.9,65.3 561.3,65.5 561.7,65.5 562.1,66.6 562.5,67.7 562.9,67.3 563.3,67.8 563.6,69.0 564.0,68.5 564.4,67.8 564.8,66.4 565.2,68.1 565.6,69.6 565.9,64.1 566.3,64.4 566.7,67.4 567.1,68.6 567.5,68.4 567.9,70.6 568.3,69.8 568.6,69.8 569.0,70.9 569.4,72.8 569.8,73.0 570.2,72.3 570.6,70.8 570.9,70.2 571.3,72.6 571.7,75.9 572.1,77.1 572.5,75.5 572.9,76.0 573.2,76.7 573.6,77.8 574.0,77.7 574.4,77.2 574.8,76.7 575.2,78.5 575.6,77.6 575.9,74.4 576.3,74.4 576.7,76.1 577.1,77.6 577.5,78.3 577.9,78.4 578.2,79.1 578.6,82.4 579.0,82.9 579.4,85.2 579.8,84.2 580.2,83.8 580.6,83.4 580.9,82.9 581.3,83.9 581.7,85.3 582.1,85.3 582.5,86.4 582.9,86.5 583.2,89.1 583.6,90.7 584.0,88.8 584.4,90.0 584.8,89.1 585.2,91.2 585.6,91.4 585.9,91.8 586.3,90.6 586.7,90.8 587.1,90.9 587.5,86.8 587.9,87.3 588.2,87.4 588.6,87.1 589.0,86.8 589.4,87.1 589.8,86.6 590.2,86.3 590.5,87.4 590.9,89.0 591.3,89.2 591.7,88.2 592.1,89.3 592.5,88.8 592.9,86.6 593.2,86.2 593.6,79.4 594.0,78.0 594.4,76.8 594.8,80.4 595.2,82.4 595.5,84.4 595.9,84.1 596.3,85.2 596.7,81.2 597.1,79.3 597.5,78.1 597.9,79.8 598.2,78.3 598.6,76.9 599.0,75.8 599.4,75.6 599.8,74.1 600.2,73.2 600.5,72.1 600.9,71.0 601.3,73.9 601.7,72.7 602.1,71.4 602.5,68.5 602.8,69.2 603.2,69.7 603.6,70.8 604.0,72.5 604.4,72.0 604.8,71.0 605.2,71.9 605.5,73.0 605.9,76.7 606.3,76.6 606.7,77.6 607.1,78.3 607.5,78.9 607.8,82.1 608.2,80.7 608.6,79.3 609.0,78.4 609.4,76.3 609.8,77.1 610.2,75.8 610.5,75.2 610.9,76.5 611.3,77.5 611.7,77.7 612.1,77.2 612.5,78.2 612.8,77.5 613.2,78.7 613.6,80.2 614.0,79.9 614.4,78.9 614.8,78.4 615.1,80.6 615.5,76.9 615.9,76.3 616.3,76.1 616.7,76.0 617.1,75.2 617.5,75.2 617.8,76.8 618.2,76.2 618.6,75.4 619.0,75.1 619.4,76.0 619.8,77.6 620.1,77.9 620.5,79.0 620.9,81.1 621.3,80.9 621.7,80.8 622.1,81.2 622.5,79.4 622.8,79.0 623.2,80.0 623.6,80.4 624.0,79.9 624.4,78.2 624.8,75.5 625.1,77.8 625.5,79.1 625.9,80.1 626.3,80.3 626.7,80.6 627.1,80.9 627.5,80.4 627.8,80.2 628.2,78.6 628.6,78.9 629.0,80.2 629.4,80.4 629.8,80.9 630.1,79.2 630.5,81.4 630.9,81.1 631.3,78.9 631.7,75.9 632.1,71.1 632.4,69.3 632.8,67.4 633.2,67.1 633.6,68.2 634.0,67.8 634.4,60.4 634.8,58.2 635.1,54.9 635.5,50.3 635.9,46.5 636.3,52.1 636.7,55.5 637.1,52.4 637.4,55.3 637.8,56.5 638.2,54.4 638.6,52.1 639.0,54.2 639.4,50.2 639.8,49.4 640.1,51.6 640.5,51.2 640.9,45.3 641.3,45.1 641.7,48.0 642.1,48.0 642.4,47.4 642.8,43.9 643.2,44.7 643.6,46.8 644.0,49.8 644.4,50.5 644.7,46.1 645.1,46.6 645.5,46.2 645.9,45.2 646.3,43.8 646.7,41.4 647.1,42.9 647.4,45.6 647.8,46.1 648.2,44.5 648.6,47.0 649.0,48.1 649.4,44.4 649.7,46.3 650.1,47.3 650.5,47.4 650.9,45.7 651.3,43.6 651.7,44.0 652.1,45.2 652.4,45.3 652.8,43.3 653.2,41.7 653.6,36.7 654.0,36.8 654.4,38.1 654.7,40.6 655.1,44.3 655.5,44.7 655.9,46.6 656.3,47.0 656.7,46.5 657.0,46.1 657.4,47.5 657.8,45.8 658.2,43.0 658.6,44.5 659.0,44.1 659.4,47.7 659.7,49.4 660.1,47.8 660.5,49.3 660.9,49.1 661.3,53.1 661.7,55.2 662.0,54.9 662.4,54.8 662.8,56.7 663.2,57.2 663.6,56.9 664.0,57.4 664.4,56.6 664.7,57.6 665.1,63.6 665.5,56.1 665.9,59.1 666.3,59.7 666.7,60.9 667.0,62.1 667.4,62.1 667.8,63.1 668.2,63.7 668.6,62.9 669.0,61.9 669.3,62.9 669.7,62.0 670.1,59.6 670.5,59.7 670.9,59.3 671.3,64.7 671.7,64.4 672.0,64.2 672.4,65.5 672.8,64.9 673.2,65.7 673.6,72.3 674.0,71.7 674.3,74.9 674.7,72.8 675.1,70.7 675.5,71.3 675.9,65.2 676.3,70.3 676.7,71.5 677.0,68.8 677.4,67.5 677.8,70.5 678.2,70.6 678.6,72.8 679.0,78.9 679.3,74.1 679.7,74.1 680.1,75.2 680.5,74.6 680.9,70.9 681.3,72.8 681.7,73.0 682.0,73.1 682.4,72.0 682.8,71.4 683.2,72.2 683.6,72.5 684.0,72.5 684.3,71.4 684.7,71.1 685.1,71.6 685.5,71.8 685.9,74.3 686.3,74.4 686.6,74.9 687.0,75.4 687.4,74.9 687.8,80.3 688.2,78.8 688.6,77.2 689.0,78.1 689.3,80.8 689.7,80.2 690.1,81.7 690.5,77.7 690.9,79.4 691.3,77.7 691.6,74.2 692.0,78.5 692.4,77.8 692.8,78.3 693.2,78.4 693.6,77.7 694.0,77.9 694.3,77.5 694.7,78.4 695.1,77.7 695.5,75.2 695.9,72.7 696.3,73.5 696.6,72.4 697.0,72.8 697.4,75.1 697.8,76.3 698.2,76.7 698.6,75.4 698.9,73.3 699.3,72.1 699.7,73.3 700.1,75.2 700.5,74.2 700.9,73.9 701.3,74.6 701.6,70.7 702.0,68.6 702.4,62.6 702.8,62.0 703.2,61.5 703.6,58.3 703.9,58.8 704.3,60.2 704.7,59.0 705.1,59.6 705.5,57.8 705.9,57.5 706.3,57.7 706.6,57.2 707.0,56.5 707.4,57.7 707.8,59.5 708.2,59.8 708.6,60.1 708.9,59.2 709.3,61.4 709.7,62.4 710.1,65.4 710.5,65.9 710.9,65.8 711.2,66.1 711.6,66.4 712.0,67.5 712.4,69.0 712.8,68.1 713.2,64.9 713.6,65.0 713.9,62.0 714.3,61.1 714.7,60.9 715.1,64.0 715.5,64.8 715.9,64.8 716.2,65.0 716.6,64.5 717.0,64.1 717.4,65.0 717.8,64.8 718.2,65.0 718.6,67.5 718.9,69.0 719.3,64.8 719.7,65.3 720.1,65.9 720.5,66.4 720.9,67.8 721.2,66.0 721.6,66.0 722.0,67.2 722.4,68.4 722.8,66.3 723.2,68.4 723.5,69.6 723.9,69.3 724.3,68.3 724.7,68.7 725.1,68.5 725.5,67.5 725.9,63.6 726.2,62.0 726.6,62.4 727.0,61.6 727.4,62.3 727.8,61.0 728.2,60.8 728.5,67.2 728.9,65.7 729.3,66.4 729.7,66.8 730.1,68.3 730.5,66.7 730.9,67.7 731.2,66.6 731.6,59.9 732.0,54.6 732.4,53.2 732.8,55.4 733.2,55.6 733.5,53.1 733.9,59.3 734.3,59.9 734.7,55.3 735.1,57.7 735.5,58.1 735.9,60.3 736.2,61.2 736.6,58.0 737.0,57.9 737.4,57.7 737.8,55.1 738.2,54.0 738.5,52.6 738.9,55.0 739.3,57.7 739.7,58.0 740.1,58.8 740.5,57.7 740.8,58.7 741.2,63.0 741.6,62.5 742.0,64.2 742.4,55.2 742.8,58.8 743.2,58.8 743.5,60.7 743.9,60.3 744.3,60.3 744.7,60.7 745.1,61.9 745.5,61.9 745.8,62.9 746.2,64.3 746.6,63.4 747.0,61.3 747.4,62.6 747.8,62.6 748.2,62.7 748.5,62.3 748.9,62.3 749.3,61.9 749.7,61.2 750.1,60.0 750.5,57.3 750.8,58.5 751.2,58.9 751.6,59.3 752.0,55.1 752.4,56.6 752.8,56.2 753.1,58.2 753.5,58.3 753.9,58.4 754.3,59.5 754.7,60.3 755.1,61.2 755.5,63.2 755.8,63.4 756.2,63.4 756.6,63.6 757.0,61.7 757.4,63.3 757.8,62.1 758.1,60.9 758.5,61.1 758.9,61.7 759.3,62.6 759.7,61.7 760.1,64.1 760.5,63.8 760.8,64.2 761.2,69.2 761.6,73.3 762.0,65.9 762.4,64.0 762.8,66.2 763.1,67.5 763.5,70.8 763.9,70.2 764.3,70.3 764.7,66.9 765.1,69.1 765.4,70.3 765.8,71.1 766.2,70.8 766.6,70.5 767.0,70.5 767.4,69.0 767.8,69.7 768.1,70.5 768.5,71.7 768.9,73.4 769.3,72.7 769.7,73.5 770.1,74.8 770.4,77.6 770.8,78.6 771.2,74.6 771.6,75.3 772.0,72.4 772.4,74.8 772.8,72.1 773.1,71.0 773.5,73.0 773.9,74.1 774.3,76.3 774.7,80.0 775.1,78.2 775.4,79.5 775.8,78.9 776.2,77.1 776.6,78.2 777.0,79.2 777.4,81.2 777.8,82.1 778.1,81.1 778.5,80.1 778.9,79.7 779.3,79.2 779.7,79.4 780.1,79.0 780.4,79.3 780.8,79.5 781.2,80.4 781.6,79.9 782.0,79.2 782.4,80.3 782.7,83.0 783.1,84.6 783.5,86.0 783.9,85.0 784.3,83.7 784.7,84.6 785.1,85.1 785.4,85.6 785.8,84.9 786.2,85.8 786.6,87.7 787.0,88.2 787.4,89.7 787.7,90.2 788.1,89.2 788.5,88.5 788.9,88.4 789.3,89.2 789.7,89.3 790.1,90.3 790.4,90.3 790.8,91.9 791.2,92.1 791.6,92.2 792.0,92.2 792.4,93.1 792.7,95.6 793.1,94.8 793.5,92.9 793.9,92.8 794.3,92.7 794.7,90.9 795.0,88.9 795.4,90.9 795.8,90.6 796.2,89.9 796.6,91.5 797.0,90.6 797.4,90.4 797.7,89.9 798.1,89.7 798.5,90.2 798.9,90.5 799.3,90.2 799.7,90.5 800.0,91.1 800.4,92.7 800.8,92.2 801.2,93.3 801.6,93.8 802.0,93.9 802.4,95.1 802.7,94.5 803.1,94.7 803.5,95.5 803.9,96.6 804.3,97.2 804.7,97.3 805.0,98.1 805.4,97.7 805.8,98.6 806.2,99.8 806.6,102.3 807.0,97.9 807.3,97.2 807.7,97.1 808.1,98.1 808.5,98.9 808.9,100.3 809.3,99.5 809.7,98.6 810.0,98.5 810.4,98.6 810.8,98.4 811.2,98.7 811.6,98.8 812.0,100.3 812.3,100.7 812.7,100.4 813.1,100.5 813.5,101.1 813.9,100.7 814.3,97.6 814.7,96.8 815.0,98.3 815.4,98.0 815.8,98.0 816.2,97.7 816.6,98.2 817.0,98.0 817.3,99.4 817.7,100.6 818.1,101.3 818.5,102.1 818.9,101.7 819.3,101.2 819.6,100.7 820.0,101.2 820.4,100.6 820.8,101.1 821.2,101.0 821.6,100.0 822.0,101.4 822.3,102.3 822.7,104.7 823.1,104.2 823.5,104.2 823.9,104.5 824.3,104.1 824.6,102.9 825.0,102.6 825.4,105.4 825.8,107.0 826.2,107.0 826.6,107.2 827.0,109.4 827.3,111.3 827.7,109.8 828.1,110.4 828.5,109.9 828.9,107.5 829.3,108.9 829.6,110.8 830.0,108.9 830.4,97.0 830.8,105.4 831.2,104.4 831.6,107.1 832.0,107.8 832.3,108.5 832.7,108.5 833.1,107.9 833.5,104.0 833.9,104.9 834.3,106.6 834.6,106.8 835.0,104.9 835.4,104.2 835.8,102.2 836.2,92.7 836.6,99.4 836.9,100.3 837.3,100.3 837.7,100.8 838.1,99.8 838.5,100.4 838.9,97.5 839.3,98.2 839.6,88.0 840.0,89.7 840.4,93.3 840.8,93.8 841.2,94.4 841.6,95.0 841.9,89.0 842.3,90.1 842.7,89.4 843.1,87.3 843.5,89.7 843.9,90.1 844.3,89.1 844.6,90.6 845.0,91.5 845.4,94.3 845.8,94.0 846.2,94.0 846.6,93.9 846.9,93.8 847.3,96.9 847.7,96.6 848.1,95.3 848.5,95.6 848.9,96.2 849.2,97.9 849.6,97.2 850.0,96.1 850.4,96.7 850.8,97.6 851.2,99.1 851.6,97.8 851.9,100.8 852.3,102.0 852.7,103.3 853.1,92.9 853.5,94.6 853.9,96.0 854.2,98.3 854.6,100.0 855.0,98.6 855.4,99.1 855.8,97.7 856.2,97.6 856.6,97.4 856.9,98.5 857.3,100.2 857.7,101.5 858.1,104.2 858.5,102.6 858.9,103.2 859.2,103.6 859.6,104.3 860.0,104.2 860.4,103.6 860.8,104.8 861.2,103.6 861.5,103.5 861.9,104.1 862.3,104.5 862.7,102.5 863.1,101.4 863.5,99.8 863.9,100.3 864.2,103.4 864.6,103.3 865.0,103.6 865.4,103.4 865.8,103.3 866.2,102.9 866.5,102.9 866.9,102.9 867.3,103.3 867.7,103.2 868.1,102.8 868.5,104.1 868.9,104.4 869.2,103.4 869.6,103.3 870.0,99.4 870.4,99.7 870.8,99.8 871.2,101.1 871.5,102.7 871.9,102.7 872.3,103.1 872.7,103.8 873.1,103.4 873.5,105.2 873.8,105.6 874.2,106.2 874.6,107.0 875.0,106.8 875.4,106.8 875.8,105.7 876.2,106.1 876.5,106.9 876.9,107.5 877.3,107.7 877.7,107.1 878.1,108.3 878.5,108.8 878.8,109.6 879.2,110.0 879.6,110.7 880.0,112.0" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round"/><text x="91.2" y="258.0" class="axl" text-anchor="middle">2021</text><text x="231.5" y="258.0" class="axl" text-anchor="middle">2022</text><text x="371.8" y="258.0" class="axl" text-anchor="middle">2023</text><text x="512.1" y="258.0" class="axl" text-anchor="middle">2024</text><text x="652.8" y="258.0" class="axl" text-anchor="middle">2025</text><text x="793.1" y="258.0" class="axl" text-anchor="middle">2026</text><text x="62" y="273.0" class="axs">dashed lines mark the first trade on each venue</text></svg>
+</figure>
+
+<figure>
+<figcaption><strong>Monthly turnover by venue type.</strong> The two biggest months sit on either side of the first exchange listing: November 2024, when the on-chain pools were the whole market, and August 2025, the first full month on Coinbase.</figcaption>
+<svg viewBox="0 0 900 262" class="chart" role="img" aria-label="Monthly RSC trading volume by venue type, 2024 to 2026"><text x="62" y="14" class="axt">Monthly RSC trading volume, USD</text><line x1="62" y1="168.5" x2="880" y2="168.5" class="grid"/><text x="54" y="172.0" class="axl" text-anchor="end">$10M</text><line x1="62" y1="121.0" x2="880" y2="121.0" class="grid"/><text x="54" y="124.5" class="axl" text-anchor="end">$20M</text><line x1="62" y1="73.5" x2="880" y2="73.5" class="grid"/><text x="54" y="77.0" class="axl" text-anchor="end">$30M</text><line x1="62" y1="26.0" x2="880" y2="26.0" class="grid"/><text x="54" y="29.5" class="axl" text-anchor="end">$40M</text><line x1="62" y1="216" x2="880" y2="216" class="grid"/><rect x="66.9" y="176.2" width="15.8" height="39.8" rx="3" fill="var(--s3)"/><rect x="92.4" y="170.1" width="15.8" height="45.9" rx="3" fill="var(--s3)"/><rect x="118.0" y="158.9" width="15.8" height="57.1" rx="3" fill="var(--s3)"/><rect x="143.5" y="163.1" width="15.8" height="52.9" rx="3" fill="var(--s3)"/><rect x="169.1" y="201.2" width="15.8" height="14.8" rx="3" fill="var(--s3)"/><rect x="194.7" y="204.1" width="15.8" height="11.9" rx="3" fill="var(--s3)"/><rect x="220.2" y="206.9" width="15.8" height="9.1" rx="3" fill="var(--s3)"/><rect x="245.8" y="202.6" width="15.8" height="13.4" rx="3" fill="var(--s3)"/><rect x="271.4" y="206.9" width="15.8" height="9.1" rx="3" fill="var(--s3)"/><rect x="296.9" y="210.7" width="15.8" height="5.3" rx="3" fill="var(--s3)"/><rect x="322.5" y="99.4" width="15.8" height="116.6" rx="3" fill="var(--s3)"/><rect x="322.5" y="86.8" width="15.8" height="11.1" rx="3" fill="var(--s2)"/><text x="330.4" y="80.3" class="axv" text-anchor="middle">$27M</text><rect x="348.0" y="119.4" width="15.8" height="96.6" rx="3" fill="var(--s3)"/><rect x="348.0" y="94.6" width="15.8" height="23.3" rx="3" fill="var(--s2)"/><text x="356.0" y="88.1" class="axv" text-anchor="middle">$25M</text><rect x="373.6" y="148.0" width="15.8" height="68.0" rx="3" fill="var(--s3)"/><rect x="373.6" y="121.5" width="15.8" height="25.1" rx="3" fill="var(--s2)"/><rect x="399.2" y="200.1" width="15.8" height="15.9" rx="3" fill="var(--s3)"/><rect x="399.2" y="191.3" width="15.8" height="7.4" rx="3" fill="var(--s2)"/><rect x="424.7" y="208.3" width="15.8" height="7.7" rx="3" fill="var(--s3)"/><rect x="424.7" y="204.1" width="15.8" height="2.7" rx="3" fill="var(--s2)"/><rect x="450.3" y="210.8" width="15.8" height="5.2" rx="3" fill="var(--s3)"/><rect x="450.3" y="205.4" width="15.8" height="3.8" rx="3" fill="var(--s2)"/><rect x="475.9" y="202.0" width="15.8" height="14.0" rx="3" fill="var(--s3)"/><rect x="475.9" y="194.0" width="15.8" height="6.6" rx="3" fill="var(--s2)"/><rect x="501.4" y="209.5" width="15.8" height="6.5" rx="3" fill="var(--s3)"/><rect x="501.4" y="200.2" width="15.8" height="7.8" rx="3" fill="var(--s2)"/><rect x="527.0" y="193.6" width="15.8" height="22.4" rx="3" fill="var(--s3)"/><rect x="527.0" y="167.2" width="15.8" height="24.8" rx="3" fill="var(--s2)"/><rect x="527.0" y="160.8" width="15.8" height="5.0" rx="3" fill="var(--s1)"/><rect x="552.5" y="192.9" width="15.8" height="23.1" rx="3" fill="var(--s3)"/><rect x="552.5" y="165.1" width="15.8" height="26.3" rx="3" fill="var(--s2)"/><rect x="552.5" y="41.3" width="15.8" height="122.3" rx="3" fill="var(--s1)"/><text x="560.5" y="34.8" class="axv" text-anchor="middle">$36M</text><rect x="578.1" y="186.2" width="15.8" height="29.8" rx="3" fill="var(--s3)"/><rect x="578.1" y="174.0" width="15.8" height="10.7" rx="3" fill="var(--s2)"/><rect x="578.1" y="140.0" width="15.8" height="32.5" rx="3" fill="var(--s1)"/><rect x="603.7" y="173.5" width="15.8" height="42.5" rx="3" fill="var(--s3)"/><rect x="603.7" y="150.8" width="15.8" height="21.3" rx="3" fill="var(--s2)"/><rect x="603.7" y="126.1" width="15.8" height="23.2" rx="3" fill="var(--s1)"/><rect x="629.2" y="208.4" width="15.8" height="7.6" rx="3" fill="var(--s3)"/><rect x="629.2" y="186.0" width="15.8" height="20.9" rx="3" fill="var(--s2)"/><rect x="629.2" y="174.6" width="15.8" height="10.0" rx="3" fill="var(--s1)"/><rect x="654.8" y="201.8" width="15.8" height="14.2" rx="3" fill="var(--s3)"/><rect x="654.8" y="186.6" width="15.8" height="13.7" rx="3" fill="var(--s2)"/><rect x="654.8" y="177.6" width="15.8" height="7.5" rx="3" fill="var(--s1)"/><rect x="680.4" y="203.2" width="15.8" height="12.8" rx="3" fill="var(--s3)"/><rect x="680.4" y="187.9" width="15.8" height="13.8" rx="3" fill="var(--s2)"/><rect x="680.4" y="179.3" width="15.8" height="7.1" rx="3" fill="var(--s1)"/><rect x="705.9" y="211.5" width="15.8" height="4.5" rx="3" fill="var(--s3)"/><rect x="705.9" y="198.9" width="15.8" height="11.1" rx="3" fill="var(--s2)"/><rect x="705.9" y="194.4" width="15.8" height="3.0" rx="3" fill="var(--s1)"/><rect x="731.5" y="212.5" width="15.8" height="3.5" rx="3" fill="var(--s3)"/><rect x="731.5" y="200.3" width="15.8" height="10.7" rx="3" fill="var(--s2)"/><rect x="731.5" y="196.3" width="15.8" height="2.5" rx="3" fill="var(--s1)"/><rect x="757.0" y="182.4" width="15.8" height="33.6" rx="3" fill="var(--s3)"/><rect x="757.0" y="161.6" width="15.8" height="19.3" rx="3" fill="var(--s2)"/><rect x="757.0" y="127.3" width="15.8" height="32.8" rx="3" fill="var(--s1)"/><rect x="782.6" y="183.2" width="15.8" height="32.8" rx="3" fill="var(--s3)"/><rect x="782.6" y="158.5" width="15.8" height="23.2" rx="3" fill="var(--s2)"/><rect x="782.6" y="130.6" width="15.8" height="26.4" rx="3" fill="var(--s1)"/><rect x="808.2" y="198.6" width="15.8" height="17.4" rx="3" fill="var(--s3)"/><rect x="808.2" y="165.2" width="15.8" height="31.8" rx="3" fill="var(--s2)"/><rect x="808.2" y="138.0" width="15.8" height="25.7" rx="3" fill="var(--s1)"/><rect x="833.7" y="203.2" width="15.8" height="12.8" rx="3" fill="var(--s3)"/><rect x="833.7" y="182.8" width="15.8" height="18.9" rx="3" fill="var(--s2)"/><rect x="833.7" y="172.0" width="15.8" height="9.4" rx="3" fill="var(--s1)"/><rect x="859.3" y="211.2" width="15.8" height="4.8" rx="3" fill="var(--s3)"/><rect x="859.3" y="200.2" width="15.8" height="9.5" rx="3" fill="var(--s2)"/><rect x="859.3" y="195.9" width="15.8" height="2.8" rx="3" fill="var(--s1)"/><text x="74.8" y="233.0" class="axl" text-anchor="middle">2024-01</text><text x="228.2" y="233.0" class="axl" text-anchor="middle">2024-07</text><text x="381.5" y="233.0" class="axl" text-anchor="middle">2025-01</text><text x="534.9" y="233.0" class="axl" text-anchor="middle">2025-07</text><text x="688.3" y="233.0" class="axl" text-anchor="middle">2026-01</text><text x="841.7" y="233.0" class="axl" text-anchor="middle">2026-07</text><rect x="62" y="247" width="10" height="10" rx="3" fill="var(--s1)"/><text x="78" y="256" class="axs">Coinbase</text><rect x="182" y="247" width="10" height="10" rx="3" fill="var(--s2)"/><text x="198" y="256" class="axs">Gate · MEXC · Kraken</text><rect x="382" y="247" width="10" height="10" rx="3" fill="var(--s3)"/><text x="398" y="256" class="axs">on-chain pools</text></svg>
+</figure>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Period</th><th class="num">Average monthly volume</th><th class="num">Peak month</th><th>Character</th></tr></thead>
+<tbody>
+<tr><td>2024 before any CEX listing (Jan–Oct)</td><td class="num">$5,459,883</td><td class="num">$12.0M (Mar 2024)</td><td>On-chain only, entirely Ethereum pools</td></tr>
+<tr><td>Gate.io era (Nov 2024 – Jul 2025)</td><td class="num">$11,004,558</td><td class="num">$26.9M (Nov 2024)</td><td>The DeSci rally; Gate is 24% of it, the pools 75%</td></tr>
+<tr><td>Post-Coinbase (Aug 2025 – Aug 2026)</td><td class="num">$12,559,477</td><td class="num">$36.1M (Aug 2025)</td><td>Four exchanges plus Base pools; Coinbase leads</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">The listings changed the venue mix more than the total</div>
+  <p>Average monthly turnover roughly doubled from the pre-listing period to today, but the two largest months in
+  the token's history sit on either side of the first listing: <strong>$26.9M in November 2024</strong>, before any
+  exchange carried RSC, and <strong>$36.1M in August 2025</strong>, the first full month on Coinbase. The
+  November 2024 peak was driven entirely by Ethereum pool trading during the DeSci narrative; the August 2025 peak
+  was 71% Coinbase.</p>
+  <p>What the listings durably changed is where trading happens. In 2024 the on-chain pools were the market. By
+  mid-2026 the four exchanges carry roughly two thirds of turnover and the pools one third, and the total has
+  settled at $8–18M a month against a $13M market capitalisation.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>9. What the whole picture adds up to</h2>
+
+<div class="flow">                        1,000,000,000 RSC minted, 1 August 2020
+                                        │
+        ┌───────────────────────────────┴───────────────────────────────┐
+        ▼                                                               ▼
+  STILL IN THE COMPLEX                                        EVER DISTRIBUTED
+  869,555,095  (87.0%)                                        235,067,329  ($49.1M at the time)
+  treasuries, genesis wallets,                                        │
+  vesting escrows, staking vault             ┌────────────────────────┼────────────────────────┐
+        │                                    ▼                        ▼                        ▼
+        │  sold 23,916,405 ($3.07M)   RECIPIENT WALLETS       SOLD BY THE COMPLEX      INTERNAL / BRIDGE
+        │  bought 8,056,625 ($2.21M)  168,159,932              23,916,405               42,990,992
+        ▼                             2,381 addresses          ($3,069,912)             (not a distribution)
+   NET −15,859,780 RSC                       │
+        −$860,522                            │  sold 64,697,757 RSC for $13,065,340
+                                             │  bought back 11,628,095 for $3,399,315
+                                             ▼
+                                   still held 18,336,441 RSC
+                                   by the addresses that received it</div>
+
+<div class="callout">
+  <div class="h">Three statements the data supports without qualification</div>
+  <p><strong>1. The float is small and the concentration is unchanged since 2020.</strong> 87.0% of RSC has never
+  left ResearchHub's own wallets. The two treasuries alone hold 75.4% of the supply. Six years of distribution
+  moved 23.5% of the token, and most of that has since been sold on.</p>
+  <p><strong>2. Recipients realised four times what the issuer did.</strong> $13,065,340 for the cohorts that were
+  paid, against $3,069,912 for the complex — and the two groups closest to the organisation, monthly-paid wallets
+  and one-off grantees, account for $9,168,158 of the recipient total on their own.</p>
+  <p><strong>3. Nothing on either side is large in dollar terms.</strong> The complex's entire six-year disposal
+  raised $3.07M gross, $860,522 net of its own purchases. The largest single purchase anyone has ever made is
+  $166,740. Against a $13M market capitalisation and $8–18M of monthly turnover, this is a small, thin market in
+  which the largest holder has barely participated.</p>
+</div>
+
+<h3>9.1 Where the sold RSC ended up, by venue</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Venue</th><th class="num">Received from the complex</th><th class="num">Received from recipient cohorts</th><th class="num">Combined USD at the time</th></tr></thead>
+<tbody>
+<tr><td>Uniswap V3 1% (Ethereum)</td><td class="num">6,404,728</td><td class="num">—</td><td class="num">726,495</td></tr>
+<tr><td>Gate.io</td><td class="num">9,024,964</td><td class="num">—</td><td class="num">1,082,273</td></tr>
+<tr><td>MEXC</td><td class="num">5,719,278</td><td class="num">—</td><td class="num">620,546</td></tr>
+<tr><td>Coinbase</td><td class="num">2,062,795</td><td class="num">—</td><td class="num">187,726</td></tr>
+<tr><td>Base pools (Uniswap, Aerodrome)</td><td class="num">704,640</td><td class="num">—</td><td class="num">452,873</td></tr>
+<tr class="sub"><td>Complex total</td><td class="num">23,916,405</td><td class="num">—</td><td class="num">3,069,912</td></tr>
+<tr><td>Pools and DEX routers</td><td class="num">—</td><td class="num">62,785,798</td><td class="num">—</td></tr>
+<tr><td>Centralised exchanges</td><td class="num">—</td><td class="num">1,911,959</td><td class="num">—</td></tr>
+<tr class="sub"><td>Recipient-cohort total</td><td class="num">—</td><td class="num">64,697,757</td><td class="num">13,065,340</td></tr>
+<tr class="total"><td>All insider-side selling, 2020–2026</td><td colspan="2" class="num">88,614,162</td><td class="num">16,135,252</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Combining the issuer and everyone it ever paid gives <strong>88,614,162 RSC sold for $16,135,252</strong> over
+six years — 8.9% of the supply, and 37.7% of everything ever distributed. Against that, the same population bought
+back 19,684,720 RSC for $5,608,705, giving a net insider-side disposal of <strong>68,929,442 RSC and
+$10,526,547</strong>.</p>
+
+<!-- ============================================ -->
+<h2>10. What this document does not establish</h2>
+<ul>
+  <li><strong>A deposit to an exchange is not a proven sale.</strong> The brief asks that every transfer to an
+  exchange be counted as one, and that convention is applied throughout, but on-chain visibility ends at the
+  exchange wallet. Some of the 23.9M attributed to the complex may have been collateral, market-making inventory
+  or a transfer between the project's own exchange accounts.</li>
+  <li><strong>An exchange withdrawal is not a proven purchase.</strong> The same limit applies in reverse, which
+  is why buy-side figures are described as upper bounds.</li>
+  <li><strong>Cohorts are behavioural, not contractual.</strong> "Recurring compensation" identifies a monthly
+  payment cadence. It cannot distinguish an employee from a contractor, a grant programme or a retained advisor,
+  and no wallet in this document is attributed to a named person.</li>
+  <li><strong>The 70M genesis wallet is unattributed.</strong> There is no on-chain, ENS or public-label evidence
+  connecting <code>0x1288d4d0…8D34</code> to Brian Armstrong or to any other individual, and
+  <code>barmstrong.eth</code> has never held a meaningful RSC balance. Any such attribution would have to come
+  from a source outside the chain.</li>
+  <li><strong>Pre-listing prices are derived, not quoted.</strong> For the 1,015 days before the first exchange
+  listing, price comes from the median RSC/WETH rate implied by that day's Uniswap swaps. On thin days that rate
+  can be wide; the median absolute divergence against Gate.io over the 622 overlapping days is 2.6%, and the p90
+  is 7.7%.</li>
+  <li><strong>Onward transfers are not traced past the first hop in the cohort tables.</strong> Where a wallet
+  passes RSC to another non-venue wallet that then sells, §5 shows the first wallet as "not sold". The largest
+  such case is set out explicitly in §5.1, but there will be others below the reporting threshold.</li>
+  <li><strong>Gross venue flow is inflated by arbitrage</strong> and is reported only as a net figure in §7 for
+  that reason.</li>
+</ul>
+
+<!-- ============================================ -->
+<h2>11. The complex — the 27 addresses treated as ResearchHub</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Address</th><th>Role</th><th>Basis</th></tr></thead>
+<tbody>
+<tr><td class="addr">0x5222FF25F4DFC02d173C2cbd2055EE1D35f291F1</td><td>Treasury 1</td><td>ResearchHub docs; largest RSC balance in existence</td></tr>
+<tr><td class="addr">0xE3648e99B6E68A09e28428790D12B357f081dBe0</td><td>Treasury 2</td><td>ResearchHub docs; 222.48M direct from the genesis mint</td></tr>
+<tr><td class="addr">0xC4cfa2BdAE08416312fAa0B72758E1F3750f81e3</td><td>Treasury 3</td><td><strong>ENS reverse record <code>researchhubfoundation.eth</code></strong> plus ResearchHub docs</td></tr>
+<tr><td class="addr">0xb280F00E70F28E8Ce38C40826270DE7e1B327E21</td><td>Foundation Community Safe</td><td>ResearchHub docs</td></tr>
+<tr><td class="addr">0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</td><td>Hot wallet</td><td>ResearchHub docs; the reward-paying account</td></tr>
+<tr><td class="addr">0x467564DCCE90FB21153adfa69c48A3Be235d66D3</td><td>Staking vault</td><td>Terminal destination of every stake-to-fund deposit; has never sent a transfer</td></tr>
+<tr><td class="addr">0xB518536B67720D9D61f5250cAF5c0494fC087D3d</td><td>Genesis recipient, 700M</td><td>Direct mint recipient; signs Treasury 1 and Treasury 2</td></tr>
+<tr><td class="addr">0x1288d4d08C3e79b81C2DB1CE459AE374fC978D34</td><td>Genesis recipient, 70M</td><td>Direct mint recipient; beneficiary of a vesting escrow. <strong>Unattributed</strong></td></tr>
+<tr><td class="addr">0x76835CA5Ebc7935CedBB1e0AA3d322e704b1b7B1</td><td>Treasury distributor</td><td>Moved 72.9M from the treasuries and holds nothing</td></tr>
+<tr><td class="addr">0x12ab259853038A8b542b77d4Ebf3aF671b7E8e73</td><td>Allocation wallet, 44.96M</td><td>44.96M from Treasury 2, routed into a vesting escrow</td></tr>
+<tr><td class="addr">0x67f843da03cB988B38a648D3FccdE1DB7Cb27985</td><td>Signer / allocation, 19.7M</td><td>Signs Treasuries 1 and 2; cycled 12.5M through a vesting escrow</td></tr>
+<tr><td class="addr">0xafDb8502C2d012c3E9306445f012b4A2D30de860</td><td><code>researchhub.eth</code></td><td>ENS forward record; received 11.72M from a vesting escrow in 2020–22</td></tr>
+<tr><td class="addr">0x8bbB6c4B6dE838df0e6ceED5d32C20b44Ee8ea02</td><td>Vesting escrow (70M)</td><td>Verified contract named <code>Vesting</code></td></tr>
+<tr><td class="addr">0x4Df3043C103A1Dc0A80a408F04a2A37f5b0Eb662</td><td>TokenVesting (43.96M)</td><td>Verified contract named <code>TokenVesting</code></td></tr>
+<tr><td class="addr">0xEE8d932A66AdA39e4Ef08046734f601d04B6A3dA</td><td>TokenVesting (12.5M)</td><td>Verified contract named <code>TokenVesting</code></td></tr>
+<tr><td class="addr">0x3D4B25c3E9FB5B159d932945cB74c5DF33dF339C</td><td>Signer-staker</td><td>Signs Treasury 3 and the Foundation Safe</td></tr>
+<tr><td class="addr">0xAe823F1b7a5BA8FF4C28e33fB01A5fD35B35DCf3</td><td>Distributor</td><td>Single-purpose relay between the Foundation Safe and the exchange funnels</td></tr>
+<tr><td class="addr">0x48cd88dAd57234afA2Ed9C277648916E51E006Ee</td><td>Hop</td><td>Pure pass-through: 5,000,000 in, 5,000,000 out</td></tr>
+<tr><td class="addr">0x620c073866CBEa4Fc23202CA2fe99507b72e7EeB</td><td>Distributor</td><td>Single-purpose relay</td></tr>
+<tr><td class="addr">0x74f191E407296AE3F1D464950c77dd9a4D1d1817</td><td>Hop</td><td>Took 8.29M from the Foundation Safe and fanned it to exchange deposit addresses</td></tr>
+<tr><td class="addr">0x0c86ac6cC34F23eEF0005E13602099d34465ac5b</td><td>Hop</td><td>Same pattern, 1.71M</td></tr>
+<tr><td class="addr">0x4Bae370A8691bF4d77385fB3bC3895a918012cE5</td><td>MEXC funnel</td><td>Forwards 100% of receipts to MEXC, retains nothing</td></tr>
+<tr><td class="addr">0x40a03e42e37C7684c9157A4f29676b2A8869d671</td><td>Gate funnel</td><td>Forwards 100% of receipts to Gate.io, retains nothing</td></tr>
+<tr><td class="addr">0xF229E503eea4Af367AD12FEd165628951183D9d8</td><td>Coinbase funnel</td><td>Two events: 1.25M in, 1.25M out to Coinbase</td></tr>
+<tr><td class="addr">0x76785f122ad1c5E18b5e0f8c63FDf35943695eF6</td><td>Gate deposit address</td><td>Deposits to Gate.io only, always 04:52–04:55 UTC, retains nothing</td></tr>
+<tr><td class="addr">0xcd8d450349861554F886F68c0d0cCf6F8A9dBCa7</td><td>Coinbase deposit address</td><td>Deposits to Coinbase only, retains nothing</td></tr>
+<tr><td class="addr">0x6f12AE1895C92b318FEbEAaBa89d887c81dd5C00</td><td>MEXC deposit address</td><td>Deposits to MEXC only, retains nothing</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="footnote">
+Built from 1,379,897 RSC <code>Transfer</code> events read directly from Ethereum and Base archive nodes between
+the token's deployment blocks and 13 August 2026, with no unrecovered block ranges on either chain. 30,233
+zero-value transfers arising from address-poisoning activity are excluded from every figure. Prices are a daily
+series spanning 2,129 calendar days, assembled from Coinbase Exchange, Gate.io and MEXC candles where a venue
+existed and from Ethereum Uniswap swap logs valued in ETH before that; it reproduces CoinGecko's published
+all-time high to within 1.4%. Every dollar figure is the value on the day of the transfer concerned, never a
+current or average price. Balances were read from chain state at the time of writing and will drift.
+</p>
+
+</div>
+</body>
+</html>
