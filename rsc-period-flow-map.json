@@ -966,5 +966,199 @@
    "net_paid_to_users": -8601437,
    "note": "closing 655,752 reconciles exactly against balanceOf at the launch block on three independent archive nodes"
   }
+ },
+ "q5_market_bought_staking_timing": {
+  "price": {
+   "twap_usd": 0.09309,
+   "open": 0.073,
+   "close": 0.05971,
+   "high": 0.17473,
+   "high_at": "2026-05-08T19:00:00Z",
+   "low": 0.05891,
+   "median": 0.08509
+  },
+  "gross_market_bought_staking": {
+   "vault_pool": {
+    "rsc": 197141,
+    "usd": 23636
+   },
+   "vault_cex": {
+    "rsc": 1332063,
+    "usd": 116915
+   },
+   "vault_total": {
+    "rsc": 1529203,
+    "usd": 140550,
+    "share_of_vault": 0.071
+   },
+   "hot_pool": {
+    "rsc": 666769,
+    "usd": 62702
+   },
+   "hot_cex": {
+    "rsc": 664364,
+    "usd": 58894
+   },
+   "hot_total": {
+    "rsc": 1331133,
+    "usd": 121596,
+    "share_of_route": 0.495
+   },
+   "combined": {
+    "rsc": 2860336,
+    "usd": 262146
+   },
+   "already_inside_dex_flow_rsc": 863910,
+   "exchange_withdrawals_rsc": 1996427,
+   "excluded_prelaunch_purchase": {
+    "who": "fauler.eth",
+    "rsc": 200000,
+    "staked_at_usd": 0.14315,
+    "combined_including": {
+     "rsc": 3060336,
+     "usd": 290775
+    }
+   }
+  },
+  "vwap": {
+   "market_sourced_vault_deposits": 0.09191,
+   "treasury_sourced_vault_deposits": 0.0822,
+   "hot_wallet_all_deposits": 0.0882,
+   "hot_wallet_market_portion": 0.09065,
+   "direct_acquisitions_by_staking_wallets": 0.08418,
+   "note": "period time-weighted average price is 0.09309"
+  },
+  "vault_market_deposits": [
+   {
+    "at": "2026-04-10T18:23:25Z",
+    "depositor": "0xa7234ea40958f5a811d63a9a87ef69a44ad3e75e",
+    "market_rsc": 192984.31,
+    "price_usd": 0.0672,
+    "usd": 12969.01
+   },
+   {
+    "at": "2026-04-10T20:02:27Z",
+    "depositor": "0xe81c64f3b501df1a222f4ecaebf868ccbf532fa0",
+    "market_rsc": 378658.6,
+    "price_usd": 0.06811,
+    "usd": 25789.35
+   },
+   {
+    "at": "2026-05-06T16:03:31Z",
+    "depositor": "0x2620c949b5904b8fe7204a832587052ae1d8ffd6",
+    "market_rsc": 325580.0,
+    "price_usd": 0.12061,
+    "usd": 39267.08
+   },
+   {
+    "at": "2026-05-16T12:49:23Z",
+    "depositor": "0x12ca1c56db8c4a2334ba0e57d2ac8c21b75f51a6",
+    "market_rsc": 70.93,
+    "price_usd": 0.13534,
+    "usd": 9.6
+   },
+   {
+    "at": "2026-05-16T12:51:23Z",
+    "depositor": "0x12ca1c56db8c4a2334ba0e57d2ac8c21b75f51a6",
+    "market_rsc": 70.93,
+    "price_usd": 0.13534,
+    "usd": 9.6
+   },
+   {
+    "at": "2026-05-20T16:19:19Z",
+    "depositor": "0xff05ea6097ca8aa61f1976baf867b1a80104a576",
+    "market_rsc": 39729.94,
+    "price_usd": 0.12167,
+    "usd": 4833.98
+   },
+   {
+    "at": "2026-06-11T23:20:35Z",
+    "depositor": "0xf293e19cf2a3e30252459a20b6e91a8eac496665",
+    "market_rsc": 462613.5,
+    "price_usd": 0.09848,
+    "usd": 45557.46
+   },
+   {
+    "at": "2026-06-17T11:12:25Z",
+    "depositor": "0xe63ee808d4984cfd7e115fd370dc39506ae74f1b",
+    "market_rsc": 129462.3,
+    "price_usd": 0.09357,
+    "usd": 12114.21
+   },
+   {
+    "at": "2026-07-04T19:54:11Z",
+    "depositor": "0x921f2cd63eb8a10bf1c0186277b0578af5ca4e05",
+    "market_rsc": 103.62,
+    "price_usd": 0.09279,
+    "usd": 9.62
+   }
+  ],
+  "monthly": {
+   "2026-04": {
+    "avg_price": 0.08048,
+    "vault": 571643,
+    "hot": 329753,
+    "combined": 901396
+   },
+   "2026-05": {
+    "avg_price": 0.12509,
+    "vault": 365452,
+    "hot": 184964,
+    "combined": 550415
+   },
+   "2026-06": {
+    "avg_price": 0.09136,
+    "vault": 592076,
+    "hot": 533085,
+    "combined": 1125161
+   },
+   "2026-07": {
+    "avg_price": 0.082,
+    "vault": 104,
+    "hot": 250549,
+    "combined": 250653
+   },
+   "2026-08": {
+    "avg_price": 0.06714,
+    "vault": 0,
+    "hot": 32781,
+    "combined": 32781
+   }
+  },
+  "acquisitions_direct_from_a_venue": {
+   "count": 35,
+   "wallets": 18,
+   "rsc": 1508088,
+   "usd": 126946,
+   "vwap": 0.08418,
+   "vs_period_twap": -0.096,
+   "by_month": {
+    "2026-04": {
+     "rsc": 685029,
+     "vwap": 0.06796,
+     "month_avg_price": 0.08048
+    },
+    "2026-05": {
+     "rsc": 12329,
+     "vwap": 0.11432,
+     "month_avg_price": 0.12509
+    },
+    "2026-06": {
+     "rsc": 759328,
+     "vwap": 0.09885,
+     "month_avg_price": 0.09136
+    },
+    "2026-07": {
+     "rsc": 32768,
+     "vwap": 0.08069,
+     "month_avg_price": 0.082
+    },
+    "2026-08": {
+     "rsc": 18634,
+     "vwap": 0.06882,
+     "month_avg_price": 0.06714
+    }
+   }
+  }
  }
 }
