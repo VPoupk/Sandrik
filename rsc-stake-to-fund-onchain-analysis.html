@@ -108,14 +108,14 @@ a{color:var(--accent)}
     <div class="note">$1,824,823, each deposit priced at its own hour · 19 deposits, both chains<br><strong>Measured directly</strong></div>
   </div>
   <div class="card">
-    <div class="lab">Total inflow incl. hot-wallet route</div>
-    <div class="val">≈24.6M</div>
-    <div class="note">Adds 2,595,540 RSC of non-treasury, non-bridge hot-wallet inflow since launch — the route small deposits take (§4)<br><strong>Upper bound</strong></div>
+    <div class="lab">Total identified on-chain</div>
+    <div class="val">24.66M</div>
+    <div class="note">Adds 2,693,554 RSC deposited into the hot wallet by 95 individuals since launch (§9.4)<br><strong>Measured directly</strong></div>
   </div>
-  <div class="card">
-    <div class="lab">Endowment dashboard figure</div>
-    <div class="val">≈29.3M</div>
-    <div class="note">Self-reported total stake volume; the page renders client-side and could not be read directly<br><strong>Unverified</strong></div>
+  <div class="card hi">
+    <div class="lab">Reported total stake volume</div>
+    <div class="val">29.3M</div>
+    <div class="note">Confirmed by the team. 84.2% is identified on-chain; the 4.64–5.25M residual has no matching transfer on either chain (§9.4)</div>
   </div>
   <div class="card">
     <div class="lab">Since Apr 10 launch</div>
@@ -1142,7 +1142,7 @@ each.</p>
 <tr><td>Hot-wallet turnover since launch ~15M RSC</td><td class="num">4,795,540 in / 4,812,653 out</td><td><span class="tag t-unk">Differs</span> — 15.5M corresponds to the Ethereum wallet's <em>lifetime</em> inflow since May 2024, not to the period since launch</td></tr>
 <tr><td>Gross retail staking through the hot wallet ~7.3M RSC</td><td class="num">2,595,540</td><td><span class="tag t-unk">Differs</span> — this is all non-treasury, non-bridge inflow since launch, so it is an upper bound on retail deposits, not a lower one</td></tr>
 <tr><td>Net dilution via the hot wallet ~7M RSC since launch (~1.75M/month)</td><td class="num">−17,113 net; user-directed net ≈ 1.0M over 3.85 months</td><td><span class="tag t-unk">Differs</span> — ≈265k RSC/month on the widest reading. The 1,818,217 RSC to <code>0xd90bea2b…4f8f</code> is a donation to Endaoment, an external 501(c)(3) that sells it (§8.3), so it is a genuine permanent outflow and is counted as distribution here</td></tr>
-<tr><td>Total stake volume ~29.3M RSC (dashboard)</td><td>Not determinable</td><td><span class="tag t-warn">Unverified</span> — the dashboard renders its figures client-side and returns placeholder values to a direct fetch. On-chain, vault deposits plus all non-treasury hot-wallet inflow since launch total ≈24.6M RSC</td></tr>
+<tr><td>Total stake volume ~29.3M RSC</td><td class="num">24,659,205 identified on-chain</td><td><span class="tag t-ext">Confirmed by the team</span> — the vault holds 21,965,651 and individuals deposited 2,693,554 into the hot wallet since launch, together 84.2% of the reported figure. The 4.64–5.25M residual has no matching transfer on either chain and is consistent with stakes placed against balances already credited on the platform (§9.4)</td></tr>
 </tbody>
 </table>
 </div>
@@ -1165,9 +1165,10 @@ each.</p>
 <h2>9. The period flow map — 10 April to 13 August 2026</h2>
 
 <p>Sections 4 to 8 follow individual wallets. This section takes the opposite approach: it reconstructs
-<strong>every RSC transfer on both chains</strong> for the period since launch and asks three questions of the
+<strong>every RSC transfer on both chains</strong> for the period since launch and asks four questions of the
 complete record — what the ResearchHub complex sent to trading venues, what happened to the RSC that was bought out
-of the on-chain pools, and where the RSC that was staked actually came from.</p>
+of the on-chain pools, where the RSC that was staked actually came from, and how the reported 29.3M total
+reconciles against what the chain shows.</p>
 
 <div class="callout">
   <div class="h">Basis and method</div>
@@ -1455,7 +1456,196 @@ the hour of each deposit. Running the provenance model back through every hop gi
 </table>
 </div>
 
-<h3>9.4 What this section does and does not establish</h3>
+<h3>9.4 The hot-wallet staking route — reconciling to the reported 29.3M</h3>
+
+<p>ResearchHub reports total stake volume of <strong>29.3M RSC</strong>. The staking vault holds 21,965,651. The
+difference is not held by a second vault: there is no other never-sending Safe, and a systematic sweep of the period
+ledger for addresses behaving like deposit collectors — twelve or more distinct senders, retail-sized median
+receipt — returns <strong>exactly one</strong> ResearchHub address, the hot wallet. Everything else that matches
+the shape is a DEX router, an MEV contract or a batch-transfer utility.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Reconciling 29.3M</th><th class="num">RSC</th><th class="num">Share</th><th>Basis</th></tr></thead>
+<tbody>
+<tr><td>Staking vault <code>0x467564DC…66D3</code>, all time, both chains</td><td class="num">21,965,651</td><td class="num">75.0%</td><td>19 deposits, read from chain state</td></tr>
+<tr><td>Deposits by individuals into the hot wallet since launch</td><td class="num">2,693,554</td><td class="num">9.2%</td><td>246 transfers from 95 addresses</td></tr>
+<tr class="sub"><td>Identified on-chain</td><td class="num">24,659,205</td><td class="num">84.2%</td><td>—</td></tr>
+<tr class="hl"><td><strong>Residual with no matching on-chain transfer</strong></td><td class="num">4,640,795</td><td class="num">15.8%</td><td>See below</td></tr>
+<tr class="total"><td>Reported total stake volume</td><td class="num">29,300,000</td><td class="num">100%</td><td>Confirmed by the team</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The residual widens to <strong>5,250,425 RSC</strong> if the 609,630 RSC sent to the hot wallet by addresses that
+also made a large vault deposit is treated as test transfers rather than as separate stakes — a distinction the
+chain cannot settle. The defensible range for RSC staked without any on-chain transfer is therefore
+<strong>4.64M to 5.25M, or 15.8% to 17.9% of the reported total</strong>.</p>
+
+<div class="callout">
+  <div class="h">What the residual is, on the evidence available</div>
+  <p>Section 2 established that there is no staking contract — the product is a custodial ledger, and a stake is a
+  database entry rather than a token movement. That has a direct consequence: <strong>a user whose RSC is already
+  credited to their ResearchHub account can stake it without any transaction appearing on either chain.</strong>
+  Only a user funding a stake from an outside wallet has to send RSC anywhere.</p>
+  <p>The hot wallet's complete pre-launch history supports this. From its first transfer to 9 April 2026 it
+  received 25,098,813 RSC and sent 24,443,061, closing at 655,752 — a figure that reconciles exactly against the
+  balance read from three independent archive nodes. Of that, it <strong>paid individuals 11,477,280 RSC while
+  receiving 2,875,843 from them</strong>, a net 8,601,437 RSC paid out to users over the wallet's life. It is a
+  reward-distribution account, not a custody vault, and the balances it owes users have never been segregated
+  on-chain.</p>
+  <p>This is an inference from structure, not a measurement. Chain data cannot see a database, so the residual
+  cannot be confirmed or refuted on-chain. What can be said is that the on-chain record accounts for 84.2% of the
+  reported figure and that the remainder is consistent with internal stakes, which is what a custodial design
+  produces.</p>
+</div>
+
+<h4>Who the hot-wallet stakers are</h4>
+
+<div class="cards">
+  <div class="card hi">
+    <div class="lab">Deposits into the hot wallet since launch</div>
+    <div class="val">2,693,554</div>
+    <div class="note">RSC · <strong>$237,567</strong> at each transfer's own hourly price<br>246 transfers, 95 addresses</div>
+  </div>
+  <div class="card">
+    <div class="lab">Median deposit</div>
+    <div class="val">1,434 RSC</div>
+    <div class="note">≈$127. 169 of 246 transfers are under 10,000 RSC</div>
+  </div>
+  <div class="card">
+    <div class="lab">Depositors that have had any RSC back</div>
+    <div class="val">0 of 95</div>
+    <div class="note">The hot wallet has never sent RSC to an address that deposited into it</div>
+  </div>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Deposit size band</th><th class="num">Transfers</th><th class="num">RSC</th><th class="num">USD</th></tr></thead>
+<tbody>
+<tr><td>Under 100</td><td class="num">40</td><td class="num">1,455</td><td class="num">144</td></tr>
+<tr><td>100 – 1,000</td><td class="num">65</td><td class="num">23,710</td><td class="num">2,184</td></tr>
+<tr><td>1,000 – 10,000</td><td class="num">64</td><td class="num">230,059</td><td class="num">21,889</td></tr>
+<tr><td>10,000 – 100,000</td><td class="num">74</td><td class="num">2,073,678</td><td class="num">189,072</td></tr>
+<tr><td>100,000 and above</td><td class="num">3</td><td class="num">364,653</td><td class="num">24,278</td></tr>
+<tr class="total"><td>All</td><td class="num">246</td><td class="num">2,693,554</td><td class="num">237,567</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Month</th><th class="num">RSC deposited</th><th class="num">USD</th><th class="num">Transfers</th><th class="num">Distinct addresses</th></tr></thead>
+<tbody>
+<tr><td class="mono">2026-04</td><td class="num">1,230,619</td><td class="num">93,665</td><td class="num">79</td><td class="num">41</td></tr>
+<tr><td class="mono">2026-05</td><td class="num">341,791</td><td class="num">43,308</td><td class="num">58</td><td class="num">29</td></tr>
+<tr><td class="mono">2026-06</td><td class="num">695,285</td><td class="num">67,250</td><td class="num">46</td><td class="num">20</td></tr>
+<tr><td class="mono">2026-07</td><td class="num">370,282</td><td class="num">29,653</td><td class="num">38</td><td class="num">17</td></tr>
+<tr><td class="mono">2026-08 (to the 13th)</td><td class="num">55,577</td><td class="num">3,691</td><td class="num">25</td><td class="num">16</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Participation peaks in the launch month and declines: 41 distinct addresses in April against 16 in the first
+half of August. The ten largest depositors carry 74% of the total.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Largest hot-wallet stakers</th><th class="num">RSC</th><th class="num">USD</th><th class="num">Transfers</th><th>Where their RSC came from</th></tr></thead>
+<tbody>
+<tr><td class="addr">0x20e43f86…461b</td><td class="num">433,406</td><td class="num">36,063</td><td class="num">22</td><td>216,045 bought on Aerodrome; remainder from an own wallet</td></tr>
+<tr><td class="addr">0x99e9d3b1…6254</td><td class="num">278,965</td><td class="num">26,749</td><td class="num">16</td><td>161,922 bought on Aerodrome; 17,268 from Treasury 1 lineage</td></tr>
+<tr><td class="addr">0xf293e19c…6665</td><td class="num">246,566</td><td class="num">24,965</td><td class="num">6</td><td>Withdrawn from Coinbase 22 and Coinbase 35. Also staked 462,614 into the vault</td></tr>
+<tr><td class="addr">0xa7234ea4…e75e</td><td class="num">239,691</td><td class="num">15,764</td><td class="num">3</td><td>101,043 withdrawn from Coinbase 35. Also staked 192,984 into the vault</td></tr>
+<tr><td class="addr">0xa0de3e10…0469</td><td class="num">201,434</td><td class="num">15,188</td><td class="num">5</td><td>Entirely from one own wallet held before the period</td></tr>
+<tr><td class="addr">0x69c5c49a…6e5c</td><td class="num">186,665</td><td class="num">14,013</td><td class="num">9</td><td>128,362 from an own wallet; 20,748 bought on Aerodrome</td></tr>
+<tr><td class="addr">0x7c6dd803…cada</td><td class="num">118,683</td><td class="num">10,680</td><td class="num">23</td><td>82,414 bought on Aerodrome</td></tr>
+<tr><td class="addr">0xb9f73375…37f6</td><td class="num">115,525</td><td class="num">9,069</td><td class="num">11</td><td>Withdrawn from Gate 1 and Coinbase 35</td></tr>
+<tr><td class="addr">0xec63b282…cadd</td><td class="num">92,440</td><td class="num">10,530</td><td class="num">2</td><td>From two own wallets held before the period</td></tr>
+<tr><td class="addr">0xbaa31edd…ccbd</td><td class="num">78,339</td><td class="num">12,614</td><td class="num">4</td><td>59,338 from an own wallet; 19,001 bought on Aerodrome</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">This population bought its RSC; the vault population did not</div>
+  <p>Running the same provenance model over the 2,693,554 RSC deposited into the hot wallet gives an origin split
+  that is close to the inverse of the vault's.</p>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Origin of hot-wallet stake deposits</th><th class="num">RSC</th><th class="num">USD</th><th class="num">Share</th><th class="num">Vault, for comparison</th></tr></thead>
+<tbody>
+<tr><td>The depositor's own balance held before 10 April</td><td class="num">1,275,163</td><td class="num">106,786</td><td class="num">47.3%</td><td class="num">11.4%</td></tr>
+<tr><td>Bought on the on-chain pools inside the period</td><td class="num">666,769</td><td class="num">62,702</td><td class="num">24.8%</td><td class="num">0.9%</td></tr>
+<tr><td>Withdrawn from a centralised exchange inside the period</td><td class="num">664,364</td><td class="num">58,894</td><td class="num">24.7%</td><td class="num">6.2%</td></tr>
+<tr><td>Paid out earlier by a ResearchHub wallet</td><td class="num">87,259</td><td class="num">9,185</td><td class="num">3.2%</td><td class="num">81.5%</td></tr>
+<tr class="total"><td>Acquired from a market inside the period</td><td class="num">1,331,133</td><td class="num">121,596</td><td class="num">49.5%</td><td class="num">7.1%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>Half of the hot-wallet route is market-sourced RSC.</strong> In absolute terms it is small — 1,331,133
+RSC, about $121,600 — but it is the clearest evidence of outside participation anywhere in this product, and it is
+the mirror image of the vault, where 92.0% never touched a market. The two routes are used by two different
+populations: the vault by treasury-funded wallets in six- and seven-figure amounts, the hot wallet by 95 addresses
+at a median of 1,434 RSC.</p>
+
+<h4>Eleven addresses used both routes, and always in the same order</h4>
+
+<p>Eleven of the 95 also deposited into the vault, together sending 609,630 RSC to the hot wallet and 20,986,686
+to the vault. <strong>In all eleven cases the hot-wallet transfer came first</strong>, between 4 minutes and 34
+days ahead of the vault deposit. For five of them the hot-wallet leg is 100–3,200 RSC against a six- or
+seven-figure vault deposit, which is the test-then-principal choreography described in §4. For the other six the
+hot-wallet leg is itself substantial — <code>0xf293e19c</code> sent 246,566 and <code>0xa7234ea4</code> 239,691 —
+and reads as a real deposit rather than a test.</p>
+
+<h4>Where the deposits end up</h4>
+
+<p>The hot wallet's balance is 631,695 RSC at the period end against 2,693,554 RSC of deposits received, so it is
+plainly not the resting place. Mixing its holdings proportionally across every outbound transfer in the period
+gives the destinations below.</p>
+
+<div class="flow">                     opening balance 655,752
+                                 │
+  95 depositors ──2,693,554──►   │   ◄──1,000,000── Treasury 1
+                             HOT WALLET  ◄──1,200,000── bridge (its own other chain)
+                                 │
+        ┌────────────────────────┼────────────────────────┬─────────────────────┐
+        ▼                        ▼                        ▼                     ▼
+  1,899,394 paid out       1,818,217 donated        1,200,000 bridged     631,695 retained
+  to 135 individual        to ENDAOMENT             back to its own       at period end
+  wallets                  │                        other chain
+                           ▼
+                    sold via CoW Protocol
+                    into the Base pools
+
+  OF THE 2,693,554 DEPOSITED BY INDIVIDUALS:
+     1,007,688  (37.4%)  →  paid out to other individual wallets
+       677,425  (25.1%)  →  donated to Endaoment, and sold on-chain
+       505,043  (18.8%)  →  bridged between the wallet's own two chains
+       503,398  (18.7%)  →  still in the hot wallet
+             0  ( 0.0%)  →  the staking vault</div>
+
+<div class="callout bad">
+  <div class="h">Stakes taken through the hot wallet are not segregated, and are spent</div>
+  <p><strong>Not one RSC of the 2,693,554 deposited by individuals has been forwarded to the staking vault.</strong>
+  The deposits are mixed with treasury top-ups and with the wallet's own balance, and then spent: 37.4% went out as
+  payments to other individual wallets, and a further 25.1% was donated to Endaoment, which sells everything it
+  receives through CoW Protocol (§8.3). On a proportional basis, <strong>677,425 RSC of depositor money has been
+  converted to cash by a third party</strong>.</p>
+  <p>The corresponding obligation to those 95 depositors exists only as a platform balance. Redemption is
+  untested in both directions: the vault has never sent a transfer, and the hot wallet has never returned RSC to
+  any address that deposited into it.</p>
+  <p>None of this is evidence of misappropriation — commingled operating floats are ordinary in custodial
+  products, and the donations are a disclosed programme. It does mean the on-chain assets backing a hot-wallet
+  stake are neither identifiable nor ring-fenced, which is a materially different position from the vault, where
+  the balance is at least visible and immobile.</p>
+</div>
+
+<h3>9.5 What this section does and does not establish</h3>
 <ul>
   <li><strong>Reaching an exchange is not selling.</strong> A deposit to an exchange wallet is where on-chain
   visibility ends. Order-book data would be needed to say whether it was sold, and the companion trading analysis
@@ -1469,6 +1659,16 @@ the hour of each deposit. Running the provenance model back through every hop gi
   <li><strong>The 10M transfer into the Foundation Safe has no visible consideration.</strong> Whether it was a
   purchase, a return of loaned inventory, or an internal transfer between accounts of the same operator cannot be
   determined from RSC transfers alone.</li>
+  <li><strong>The residual between 29.3M and the on-chain total is an inference.</strong> Chain data cannot observe
+  a database. That 4.64–5.25M of reported stake volume has no on-chain footprint is measured; that it corresponds to
+  stakes placed against balances already credited on the platform is the reading most consistent with a custodial
+  design, and it is not independently verifiable. The alternative — that the reported figure counts something the
+  chain does not represent at all, such as re-stakes or accrued yield — is equally unfalsifiable here, and only
+  ResearchHub's own accounting can separate the two.</li>
+  <li><strong>Whether a hot-wallet transfer is a stake cannot be read from the chain.</strong> A deposit into the
+  hot wallet credits a platform balance; whether that balance was then staked, spent on a bounty or left idle is a
+  database fact. The 2,693,554 RSC figure is therefore an upper bound on hot-wallet staking and a lower bound on
+  hot-wallet deposits.</li>
 </ul>
 
 <!-- ============================================ -->
@@ -1536,6 +1736,17 @@ address.</p>
 <tr><td>4</td><td>No staking contract at all</td><td><span class="tag t-unk">High</span></td>
   <td>Yield, lockups and redemption are enforced by ResearchHub’s database, not by code. Docs confirm “principal is
       revocable”. Depositors hold a claim on the company, not a contract position.</td></tr>
+<tr><td>4b</td><td>Stakes taken through the hot wallet are commingled and spent</td><td><span class="tag t-ins">High</span></td>
+  <td>95 individuals deposited <strong>2,693,554 RSC</strong> into the hot wallet since launch. None of it was
+      forwarded to the vault. It was mixed with treasury top-ups and spent: 37.4% paid out to other individual
+      wallets and 25.1% donated to Endaoment, which sells what it receives. On a proportional basis
+      <strong>677,425 RSC of depositor money has been liquidated by a third party</strong>, and 18.7% remains in
+      the wallet. Unlike the vault balance, the assets backing these stakes are neither identifiable nor
+      ring-fenced. <strong>No depositor has ever received RSC back from the hot wallet.</strong> (§9.4)</td></tr>
+<tr><td>4c</td><td>15.8–17.9% of reported stake volume has no on-chain footprint</td><td><span class="tag t-unk">Medium</span></td>
+  <td>Of the 29.3M reported, 24,659,205 is identified on-chain. The 4.64–5.25M residual has no matching transfer on
+      either chain, which is what a custodial ledger produces when users stake balances already credited to their
+      account. It is not independently verifiable from chain data in either direction. (§9.4)</td></tr>
 <tr><td>5</td><td>TVL is overwhelmingly internal</td><td><span class="tag t-unk">High</span></td>
   <td>90.7% of staked RSC traces to ResearchHub treasuries, the 2020 mint or multisig signers — 98.9% on Ethereum.
       Headline TVL is not a demand signal.</td></tr>

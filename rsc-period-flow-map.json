@@ -334,5 +334,637 @@
    "usd": 169180,
    "share": 0.08
   }
+ },
+ "q4_hot_wallet_stake_route": {
+  "reconciliation": {
+   "reported_total_rsc": 29300000,
+   "vault_all_time_rsc": 21965651,
+   "hot_wallet_individual_deposits_rsc": 2693554,
+   "identified_on_chain_rsc": 24659205,
+   "identified_share": 0.842,
+   "residual_rsc": 4640795,
+   "residual_upper_rsc": 5250425,
+   "residual_upper_basis": "treats the 609,630 RSC sent by addresses that also made a vault deposit as test transfers rather than separate stakes"
+  },
+  "depositors": {
+   "count": 95,
+   "transfers": 246,
+   "rsc": 2693554,
+   "usd": 237567,
+   "median_transfer_rsc": 1434,
+   "received_rsc_back": 0,
+   "never_touched_the_vault": {
+    "addresses": 84,
+    "rsc": 2083924
+   },
+   "used_both_routes": {
+    "addresses": 11,
+    "hot_wallet_rsc": 609630,
+    "vault_rsc": 20986686,
+    "hot_wallet_leg_first": "11 of 11"
+   },
+   "size_bands": {
+    "<100": {
+     "tx": 40,
+     "rsc": 1455,
+     "usd": 144
+    },
+    "100-1k": {
+     "tx": 65,
+     "rsc": 23710,
+     "usd": 2184
+    },
+    "1k-10k": {
+     "tx": 64,
+     "rsc": 230059,
+     "usd": 21889
+    },
+    "10k-100k": {
+     "tx": 74,
+     "rsc": 2073678,
+     "usd": 189072
+    },
+    ">=100k": {
+     "tx": 3,
+     "rsc": 364653,
+     "usd": 24278
+    }
+   },
+   "by_month": {
+    "2026-04": {
+     "rsc": 1230619,
+     "usd": 93665,
+     "tx": 79,
+     "addresses": 41
+    },
+    "2026-05": {
+     "rsc": 341791,
+     "usd": 43308,
+     "tx": 58,
+     "addresses": 29
+    },
+    "2026-06": {
+     "rsc": 695285,
+     "usd": 67250,
+     "tx": 46,
+     "addresses": 20
+    },
+    "2026-07": {
+     "rsc": 370282,
+     "usd": 29653,
+     "tx": 38,
+     "addresses": 17
+    },
+    "2026-08": {
+     "rsc": 55577,
+     "usd": 3691,
+     "tx": 25,
+     "addresses": 16
+    }
+   },
+   "list": {
+    "0x20e43f866130189d4589a6dd4025a8a08463461b": {
+     "rsc": 433405.88,
+     "usd": 36062.63,
+     "transfers": 22
+    },
+    "0x99e9d3b16a99ae986d1e7c74953468cf47a86254": {
+     "rsc": 278965.0,
+     "usd": 26749.23,
+     "transfers": 16
+    },
+    "0xf293e19cf2a3e30252459a20b6e91a8eac496665": {
+     "rsc": 246566.48,
+     "usd": 24964.67,
+     "transfers": 6
+    },
+    "0xa7234ea40958f5a811d63a9a87ef69a44ad3e75e": {
+     "rsc": 239690.72,
+     "usd": 15764.08,
+     "transfers": 3
+    },
+    "0xa0de3e1087b180740f11883508c24555b9cd0469": {
+     "rsc": 201433.77,
+     "usd": 15187.58,
+     "transfers": 5
+    },
+    "0x69c5c49a60455c13210fbefcdcd5c8d3b4af6e5c": {
+     "rsc": 186664.52,
+     "usd": 14012.79,
+     "transfers": 9
+    },
+    "0x7c6dd803115a693a62ad892e57a9fd6060b7cada": {
+     "rsc": 118683.36,
+     "usd": 10679.93,
+     "transfers": 23
+    },
+    "0xb9f733751ec2b10fff7367d1d6429488c0a737f6": {
+     "rsc": 115525.14,
+     "usd": 9069.1,
+     "transfers": 11
+    },
+    "0xec63b282d411607ffbb5b1e0693453aaec9ccadd": {
+     "rsc": 92440.12,
+     "usd": 10529.55,
+     "transfers": 2
+    },
+    "0xbaa31edddeaa5f6fdebe6bede31ab7c52b89ccbd": {
+     "rsc": 78339.22,
+     "usd": 12613.89,
+     "transfers": 4
+    },
+    "0x973342adf59ac43dc5842c79a818bd568b008a48": {
+     "rsc": 67461.31,
+     "usd": 5230.45,
+     "transfers": 2
+    },
+    "0xe52196714c31da42ccfcc4e817bdcc0a780c975b": {
+     "rsc": 61595.73,
+     "usd": 5333.04,
+     "transfers": 1
+    },
+    "0x30bf609f2ee95eff9958f861a3a07a5067067da6": {
+     "rsc": 52739.63,
+     "usd": 5544.31,
+     "transfers": 2
+    },
+    "0xe790063187acf38ef487cfb856b353ad2d5b9d2d": {
+     "rsc": 51100.0,
+     "usd": 3306.09,
+     "transfers": 2
+    },
+    "0xbe645050439f9c909b3ec290ed6b80fadf0c90c0": {
+     "rsc": 50108.59,
+     "usd": 4773.9,
+     "transfers": 15
+    },
+    "0x10ee1a8742d6b236710a0157a7cd593c08186792": {
+     "rsc": 45960.85,
+     "usd": 4487.98,
+     "transfers": 3
+    },
+    "0xa3684ecee6d74fb5a0d07a777a36baca1a469fe6": {
+     "rsc": 40200.0,
+     "usd": 4493.48,
+     "transfers": 3
+    },
+    "0xff05ea6097ca8aa61f1976baf867b1a80104a576": {
+     "rsc": 31340.0,
+     "usd": 2915.25,
+     "transfers": 3
+    },
+    "0xc57ad4abd98f287a9efd76f7c9926e19318ab435": {
+     "rsc": 25365.67,
+     "usd": 1984.8,
+     "transfers": 1
+    },
+    "0xdd8a8ad1a7dc45fa7589f0237ea3ebb9c36c1146": {
+     "rsc": 25000.0,
+     "usd": 1874.59,
+     "transfers": 1
+    },
+    "0xe81c64f3b501df1a222f4ecaebf868ccbf532fa0": {
+     "rsc": 24429.52,
+     "usd": 1691.23,
+     "transfers": 2
+    },
+    "0xa3c3d6e649d63efdae21c7da8539b0db5389254c": {
+     "rsc": 24183.06,
+     "usd": 1644.19,
+     "transfers": 1
+    },
+    "0xbcfbf04f5ab2b3e5d1af868e1c31983ba2cdbdb1": {
+     "rsc": 23545.0,
+     "usd": 2177.11,
+     "transfers": 2
+    },
+    "0xfb0b92c51c4fed1d9019f2356f8aac0d6af495f6": {
+     "rsc": 22550.38,
+     "usd": 2056.99,
+     "transfers": 4
+    },
+    "0xb01d524afe812f4fec9f59e742f19b10b63cd723": {
+     "rsc": 19700.01,
+     "usd": 2126.68,
+     "transfers": 1
+    },
+    "0xf965cdf1fc21f7fa7d14d9a99f1358921a07e963": {
+     "rsc": 16173.67,
+     "usd": 1041.43,
+     "transfers": 1
+    },
+    "0xb554e3b025f6ac14e31f49b1120fd31ab6cd8599": {
+     "rsc": 10709.25,
+     "usd": 721.02,
+     "transfers": 2
+    },
+    "0x2620c949b5904b8fe7204a832587052ae1d8ffd6": {
+     "rsc": 10100.0,
+     "usd": 1243.39,
+     "transfers": 2
+    },
+    "0x09cffdfa97ced30301e7997de7f4b70cdf24a266": {
+     "rsc": 9058.93,
+     "usd": 587.93,
+     "transfers": 1
+    },
+    "0x2cb10e4ee51aafd1caefdcaa1a0bfb74d711d466": {
+     "rsc": 8100.0,
+     "usd": 872.21,
+     "transfers": 1
+    },
+    "0x40d119f131b26d8781a1b2e06a1ab9e686f27584": {
+     "rsc": 7000.0,
+     "usd": 750.4,
+     "transfers": 1
+    },
+    "0x2980b0885a936af4d5074605ac36516905434f10": {
+     "rsc": 6461.03,
+     "usd": 454.21,
+     "transfers": 1
+    },
+    "0xfd6e47a9c36d3ceebfd8f173fb4fc0dc08a3d3b5": {
+     "rsc": 6418.98,
+     "usd": 541.76,
+     "transfers": 1
+    },
+    "0x784405ed52f1e146c23c46ff951ada524f904754": {
+     "rsc": 5358.7,
+     "usd": 555.08,
+     "transfers": 1
+    },
+    "0xda60b30e1f08e81fa587a940ef867629848978f7": {
+     "rsc": 4999.98,
+     "usd": 525.59,
+     "transfers": 1
+    },
+    "0x1f306cd127af1d2cc7272027e466d07ad47903d6": {
+     "rsc": 4324.86,
+     "usd": 414.14,
+     "transfers": 10
+    },
+    "0x061b4025ba5792d34b8f8761b09be014a5b5458e": {
+     "rsc": 4316.35,
+     "usd": 343.47,
+     "transfers": 3
+    },
+    "0x12ca1c56db8c4a2334ba0e57d2ac8c21b75f51a6": {
+     "rsc": 3200.0,
+     "usd": 389.99,
+     "transfers": 4
+    },
+    "0x84e550bec8603b95d956b884b53a41cec57beb11": {
+     "rsc": 2687.77,
+     "usd": 190.57,
+     "transfers": 2
+    },
+    "0x30a1d467076713d0883a16f48e8275cb006fc745": {
+     "rsc": 2427.96,
+     "usd": 193.16,
+     "transfers": 3
+    },
+    "0x6f2e4825d86aaa36f839cc53a1519fc015fcfc99": {
+     "rsc": 2181.0,
+     "usd": 268.59,
+     "transfers": 1
+    },
+    "0x9a9a778460326be459f33825ee60e2528914645c": {
+     "rsc": 2093.3,
+     "usd": 193.6,
+     "transfers": 1
+    },
+    "0xaf3456720ea75332d39050a0ec4a59afad544d70": {
+     "rsc": 2000.0,
+     "usd": 179.78,
+     "transfers": 1
+    },
+    "0x00834866500a5e4bd393b0cf2cc824405205f9d0": {
+     "rsc": 2000.0,
+     "usd": 133.82,
+     "transfers": 1
+    },
+    "0x166c290e34f000306e81e0009b892399bdc1823b": {
+     "rsc": 1958.48,
+     "usd": 207.72,
+     "transfers": 1
+    },
+    "0x5e4ec2d483a56b2a2c02fb39b57839b02be19b8e": {
+     "rsc": 1841.63,
+     "usd": 247.96,
+     "transfers": 1
+    },
+    "0x0cf7a6c413b6aae1bccf1551e398b79fd516b519": {
+     "rsc": 1500.0,
+     "usd": 134.77,
+     "transfers": 1
+    },
+    "0xc3c92560ce7bb3c263af7369783812db363322e2": {
+     "rsc": 1482.23,
+     "usd": 136.32,
+     "transfers": 1
+    },
+    "0xeff009e6e2155953a7891b183b33677ba7818976": {
+     "rsc": 1287.53,
+     "usd": 189.15,
+     "transfers": 1
+    },
+    "0x6fd46ff4985f8bba60c0862feb87726ffea06bd5": {
+     "rsc": 1255.26,
+     "usd": 100.98,
+     "transfers": 1
+    },
+    "0x0c2b1a8f5dda02f1e56d4a011e34bc95889cf62b": {
+     "rsc": 1200.0,
+     "usd": 85.35,
+     "transfers": 3
+    },
+    "0x921f2cd63eb8a10bf1c0186277b0578af5ca4e05": {
+     "rsc": 1103.63,
+     "usd": 102.41,
+     "transfers": 2
+    },
+    "0x3b1fddbee392f62d3bc54ef93e2a5d55f89e9e3f": {
+     "rsc": 1000.0,
+     "usd": 70.33,
+     "transfers": 1
+    },
+    "0x7059d740d6087c907b90349f13e29b558dca85af": {
+     "rsc": 1000.0,
+     "usd": 83.52,
+     "transfers": 1
+    },
+    "0xdfa4a42e6c0d5a82222604e0605c7e8dbf54795b": {
+     "rsc": 1000.0,
+     "usd": 95.17,
+     "transfers": 1
+    },
+    "0x1a5d4c472eb08446944a0b84d1bdebe9380ad267": {
+     "rsc": 1000.0,
+     "usd": 119.92,
+     "transfers": 2
+    },
+    "0x136f73fed7a363d2f37f23d8e998d8641803633a": {
+     "rsc": 980.97,
+     "usd": 75.84,
+     "transfers": 1
+    },
+    "0xd13f85763d21bbf65cfa23f3101da43d92480b00": {
+     "rsc": 900.0,
+     "usd": 107.53,
+     "transfers": 1
+    },
+    "0xbfd3ab65a0fd396123e6fa06dbd2f414859c3f6a": {
+     "rsc": 838.26,
+     "usd": 98.75,
+     "transfers": 1
+    },
+    "0x04be7f63d6316ff296c0bce77a0f46f690926747": {
+     "rsc": 831.02,
+     "usd": 75.82,
+     "transfers": 1
+    },
+    "0xa2d445800053be20216a940a8882f3321e883f07": {
+     "rsc": 767.67,
+     "usd": 49.45,
+     "transfers": 1
+    },
+    "0x253df44265321c367359cef6321b4485d458f675": {
+     "rsc": 757.48,
+     "usd": 77.95,
+     "transfers": 1
+    },
+    "0x981cfca7149b3a25b46c7f7a7a38473367181b86": {
+     "rsc": 740.07,
+     "usd": 98.68,
+     "transfers": 1
+    },
+    "0x3b59dd64ed555f074b09c22f5ed8fa5b1d5257e5": {
+     "rsc": 738.73,
+     "usd": 98.45,
+     "transfers": 1
+    },
+    "0x86cdcc69af06e46e9e07af4d7e9dcb79a7792cd5": {
+     "rsc": 613.64,
+     "usd": 49.56,
+     "transfers": 1
+    },
+    "0x617a6ce59cba0e354c037afbb642c10d2e4f4b5d": {
+     "rsc": 500.0,
+     "usd": 57.38,
+     "transfers": 1
+    },
+    "0x56aee201c9069ec6bf2db22207aba09840526486": {
+     "rsc": 425.26,
+     "usd": 43.51,
+     "transfers": 1
+    },
+    "0xded1eed1073549a20575ac989abbf13fc8eca02d": {
+     "rsc": 385.71,
+     "usd": 35.23,
+     "transfers": 1
+    },
+    "0xd8f779cabc4f145a0fb52d2f3e01cadbf54ea6b2": {
+     "rsc": 311.54,
+     "usd": 20.72,
+     "transfers": 4
+    },
+    "0xbeccfb602eb4c3a2acea410f8721785d1fa6266a": {
+     "rsc": 288.24,
+     "usd": 35.02,
+     "transfers": 1
+    },
+    "0xd46869a134a043a67be8adbab982c31ee14c09c3": {
+     "rsc": 250.32,
+     "usd": 22.0,
+     "transfers": 1
+    },
+    "0x104faa858754290f3087f35219fe31d2360bf4e4": {
+     "rsc": 246.78,
+     "usd": 16.38,
+     "transfers": 1
+    },
+    "0x6284c2bd001346a215a7651c915ddd7aa97b3e89": {
+     "rsc": 200.0,
+     "usd": 13.36,
+     "transfers": 1
+    },
+    "0x53421c2e6929d49bd636fcc0124b3c2954bb6aaf": {
+     "rsc": 156.0,
+     "usd": 18.82,
+     "transfers": 2
+    },
+    "0x9ba2beef3ce1aa4749b8c65089ad1eee24931d2c": {
+     "rsc": 155.0,
+     "usd": 12.99,
+     "transfers": 2
+    },
+    "0x2960af82f50efa853aae1a9ffac6f4ab71dcb05c": {
+     "rsc": 145.43,
+     "usd": 9.79,
+     "transfers": 1
+    },
+    "0xda5f013d12e4acd0d321d190454b0904fca8355d": {
+     "rsc": 139.85,
+     "usd": 9.9,
+     "transfers": 1
+    },
+    "0x5af1223b5f51ac3a80000d2777a461dfbfea96d6": {
+     "rsc": 108.92,
+     "usd": 11.55,
+     "transfers": 1
+    },
+    "0xf943fc9bfa89008467d21c577ac8e1349336bfd3": {
+     "rsc": 100.66,
+     "usd": 9.04,
+     "transfers": 1
+    },
+    "0xa03bdb65c71119d2aa0ef7c2e3e2a6f88c2fb9ff": {
+     "rsc": 100.0,
+     "usd": 7.64,
+     "transfers": 1
+    },
+    "0x59b02c2df7ffe23c9055b85f8ffdb425de7f3c3c": {
+     "rsc": 78.1,
+     "usd": 7.18,
+     "transfers": 1
+    },
+    "0xaf728dd6a02adf83f3da77aff2b5bf8bbfdc4e10": {
+     "rsc": 70.0,
+     "usd": 9.36,
+     "transfers": 2
+    },
+    "0xdc90791f5548ec2052daa85bf43e07e50342f03d": {
+     "rsc": 67.11,
+     "usd": 9.12,
+     "transfers": 2
+    },
+    "0x8520dfc81eaf9290f6b4a949794279515e27c17c": {
+     "rsc": 60.0,
+     "usd": 8.2,
+     "transfers": 1
+    },
+    "0x1b0ef978b88ee12a760dfe3dc57f0038c3a222cc": {
+     "rsc": 50.0,
+     "usd": 3.43,
+     "transfers": 1
+    },
+    "0x6945b358a984790f973ea64af4ce12e17ad7f2c4": {
+     "rsc": 49.94,
+     "usd": 4.33,
+     "transfers": 1
+    },
+    "0xd719549dcd9cea53155b412541afba0277da9615": {
+     "rsc": 47.26,
+     "usd": 4.6,
+     "transfers": 1
+    },
+    "0xf1dd7747f390c7dbb0c5e4fd82ee518038678705": {
+     "rsc": 45.0,
+     "usd": 5.04,
+     "transfers": 1
+    },
+    "0xd4be78fdcf350495474ec21da77e81ffdee8eccc": {
+     "rsc": 44.04,
+     "usd": 2.99,
+     "transfers": 1
+    },
+    "0xdf9f6800df959946ddf9aec8702e1603347f50f3": {
+     "rsc": 31.28,
+     "usd": 2.77,
+     "transfers": 1
+    },
+    "0xbe0cef4965666b7b5185947079501a9370a8d004": {
+     "rsc": 28.0,
+     "usd": 2.0,
+     "transfers": 1
+    },
+    "0x12f7f4e809ba772a42f657e4941146afab2fcefc": {
+     "rsc": 26.51,
+     "usd": 2.55,
+     "transfers": 1
+    },
+    "0xab69f4f3657876fc98d90804b04a25d76138f97f": {
+     "rsc": 18.21,
+     "usd": 1.09,
+     "transfers": 2
+    },
+    "0xafc3678aba9e8e6c9a0a5b5fb38be6f55dd43c0d": {
+     "rsc": 12.97,
+     "usd": 1.15,
+     "transfers": 1
+    },
+    "0x72bd19ece1d935c9c4a5c4ea53d8f7c2a2241032": {
+     "rsc": 10.0,
+     "usd": 0.69,
+     "transfers": 2
+    }
+   }
+  },
+  "deposit_provenance": {
+   "own_balance_before_10_apr": {
+    "rsc": 1275163,
+    "usd": 106786,
+    "share": 0.473
+   },
+   "bought_on_the_pools": {
+    "rsc": 666769,
+    "usd": 62702,
+    "share": 0.248
+   },
+   "withdrawn_from_a_cex": {
+    "rsc": 664364,
+    "usd": 58894,
+    "share": 0.247
+   },
+   "paid_out_earlier_by_researchhub": {
+    "rsc": 87259,
+    "usd": 9185,
+    "share": 0.032
+   },
+   "market_sourced_in_period": {
+    "rsc": 1331133,
+    "usd": 121596,
+    "share": 0.495
+   }
+  },
+  "where_deposits_end_up": {
+   "paid_out_to_individual_wallets": {
+    "rsc": 1007688,
+    "usd": 98382,
+    "share": 0.374
+   },
+   "donated_to_endaoment_and_sold": {
+    "rsc": 677425,
+    "usd": 74155,
+    "share": 0.251
+   },
+   "bridged_internally": {
+    "rsc": 505043,
+    "usd": 71973,
+    "share": 0.188
+   },
+   "still_in_the_hot_wallet": {
+    "rsc": 503398,
+    "share": 0.187
+   },
+   "forwarded_to_the_staking_vault": {
+    "rsc": 0,
+    "share": 0.0
+   },
+   "hot_wallet_opening_balance_rsc": 655752,
+   "hot_wallet_closing_balance_rsc": 631695
+  },
+  "hot_wallet_lifetime_to_9_apr_2026": {
+   "inflow_total": 25098813,
+   "inflow_complex": 13040920,
+   "inflow_bridge": 9182050,
+   "inflow_users": 2875843,
+   "outflow_total": 24443061,
+   "outflow_users": 11477280,
+   "outflow_bridge": 9182050,
+   "outflow_endaoment": 3783721,
+   "net_paid_to_users": -8601437,
+   "note": "closing 655,752 reconciles exactly against balanceOf at the launch block on three independent archive nodes"
+  }
  }
 }
