@@ -720,9 +720,11 @@ profile of an automated book that has widened its participation, not of new natu
 <table>
 <thead><tr><th>Earlier position</th><th>Now</th></tr></thead>
 <tbody>
-<tr><td>Taker direction inferred with a tick rule on public trade feeds.</td>
-    <td>Superseded for MEXC. The exchange's own aggressor flag was validated against 97,404 book-matched prints
-    and is used directly. Classification error on this venue is now effectively zero.</td></tr>
+<tr><td>The trade tape's <code>side</code> field was taken to mark the aggressor on the strength of the data
+    guide, and the earlier document listed that as one of its genuine limits.</td>
+    <td>No longer an assumption for MEXC. The flag was tested against the book on 97,404 prints and confirmed:
+    <code>isBuySide = true</code> lands at or above the offer 6.6 times as often as at or below the bid. The
+    caveat stands for the other venues, whose books were not supplied.</td></tr>
 <tr><td>The passive-buy ceiling could only be bounded, not measured.</td>
     <td>Measured for MEXC: aggressive buying exceeded aggressive selling by 1,180,872 RSC — 0.58% of volume —
     over the whole period, with no month outside ±$55,000. But see §4: on this venue the figure is weak

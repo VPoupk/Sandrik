@@ -210,9 +210,23 @@ to 17 August 2026 — 463,786 book snapshots and 1,267,501 trades — is analyse
 <strong>“What the MEXC book shows, and what it cannot”</strong>, which supersedes this section for that venue
 and supplies the 199-day pre-launch baseline missing here. Every CEX figure below should still be read as
 excluding MEXC for that period. Every headline figure in this document therefore uses the
-three continuously-covered venues only. That is a conservative choice in the right direction: MEXC is large
-(<strong>40.7% of notional</strong> in the window where it does exist), so excluding it understates total turnover —
-but including it would only make $1.8M a <em>smaller</em> share of volume, not a more visible one. For completeness,
+three continuously-covered venues only.</p>
+
+<div class="callout warn">
+  <div class="h">The exclusion turns out to have been the right call for a second reason</div>
+  <p>This section originally justified dropping MEXC as merely conservative — it is 40.7% of notional in the
+  window where it does exist, so excluding it understates total turnover, while including it would only make
+  $1.8M a <em>smaller</em> share of volume, not a more visible one. The full MEXC tape shows the exclusion was
+  substantively correct, not just cautious. From the September 2025 listing to the end of March 2026 that venue
+  printed <strong>3,143 trades a day</strong> almost regardless of what was traded — 128 in every hour of the
+  UTC day, with no session structure and a coefficient of variation of 0.01 across the whole of March. That
+  rate times the mean print accounts for <strong>97% of its pre-launch turnover</strong>. Adding MEXC to the
+  denominator before April 2026 would have inflated it with volume that does not represent interest. The
+  pattern breaks in April 2026, so MEXC notional inside this document's 25 June – 2 August window is far less
+  affected. Details in <strong>“What the MEXC book shows, and what it cannot”</strong>, §3.2.</p>
+</div>
+
+<p> For completeness,
 across <em>all four</em> venues over 25 Jun – 2 Aug, net taker flow is <strong>+$195,829</strong> — still nowhere
 near the figure under test.</p>
 
@@ -743,7 +757,9 @@ from Base logs — 1,017 block ranges covering 9.66M blocks, <strong>with no unr
 <p>The DEX share is remarkably stable at roughly a third across every window, and the single Aerodrome tick-200 pool
 is <strong>larger than Kraken and comparable to Gate.io</strong>. Any statement about "the RSC market" that omits it
 is missing a third of the turnover. CEX figures here exclude MEXC before 25 June, so the true CEX total is higher
-and the DEX share correspondingly lower — see §2.</p>
+and the DEX share correspondingly lower — see §2. That correction is smaller than it looks: most of MEXC's
+pre-April 2026 turnover is produced at a fixed rate rather than by demand, so the DEX share of <em>real</em>
+turnover is closer to the figure shown here than to the MEXC-inclusive one.</p>
 
 <h3>8.2 Net flow, and what it says about the rally</h3>
 
@@ -904,7 +920,13 @@ was not this announcement, and the announcement itself produced no durable bid.<
   min/max timestamps do not prove an unbroken interval. Every continuous venue shows trades on all 214 days, which
   is good evidence but not a guarantee against intra-day gaps.</li>
   <li><strong>Taker side is aggressor side.</strong> Restating the §3 caveat because it is the one genuine limit on
-  the flow argument — the price and on-chain evidence carry the conclusion, not net taker flow alone.</li>
+  the flow argument — the price and on-chain evidence carry the conclusion, not net taker flow alone. This has since
+  been verified directly for MEXC, whose order book was obtained afterwards: the flag was tested against the book on
+  97,404 prints and holds. It remains an assumption for Coinbase, Gate.io and Kraken, whose books were not supplied.</li>
+  <li><strong>Reported volume is not the same as interest.</strong> The full MEXC record shows that venue printing a
+  fixed 3,143 trades a day with no session structure until April 2026, accounting for 97% of its pre-launch turnover.
+  Nothing comparable was testable on the other three venues without their order books, so every share-of-volume and
+  volume-normalised figure in this document should be read as measuring reported turnover, not demand.</li>
   <li><strong>Nothing here shows intent.</strong> The tape shows what traded. It cannot distinguish market-making
   from distribution, or identify who was on either side of any trade.</li>
 </ul>
@@ -1073,9 +1095,14 @@ Built from 731,862 individual trade records across five files. One row = one exe
 Unix microseconds UTC; <code>price</code> and <code>amount</code> parsed per the supplied schema, with
 <code>notional = price × amount</code> computed in each instrument's native quote currency before any aggregation.
 Headline aggregates use the three venues with continuous coverage (Coinbase, Gate.io, Kraken USD) and treat USDT as
-USD-equivalent; Kraken's EUR book (~1.3% of notional) and MEXC (no data before 25 June) are excluded from
-before/after comparisons and reported separately where relevant. Prices quoted are Coinbase closes unless stated.
-Per-day aggregates are exported alongside this document as <code>rsc-cex-daily-aggregates.json</code>.
+USD-equivalent; Kraken's EUR book (~1.3% of notional) and MEXC (no data before 25 June <em>in this dataset</em>)
+are excluded from before/after comparisons and reported separately where relevant. Prices quoted are Coinbase
+closes unless stated. Per-day aggregates are exported alongside this document as
+<code>rsc-cex-daily-aggregates.json</code>. MEXC's full order book and trade history — 23 September 2025 to
+17 August 2026, 463,786 book snapshots and 1,267,501 trades — was sourced after this document was written and is
+analysed separately in <strong>“What the MEXC book shows, and what it cannot”</strong>, with companion data in
+<code>rsc-mexc-daily-series.json</code>, <code>rsc-mexc-block-episodes.json</code> and
+<code>rsc-mexc-onchain-flows.json</code>.
 </p>
 
 </div>
