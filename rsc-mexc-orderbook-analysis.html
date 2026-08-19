@@ -113,9 +113,9 @@ li{margin:6px 0}
     <div class="note">median across the 199 days before the endowment launched. After it, <strong>$2,982</strong>. That is the whole visible book, both sides</div>
   </div>
   <div class="card">
-    <div class="lab">Net aggressive flow, 11 months</div>
-    <div class="val">+0.58%</div>
-    <div class="note">203,738,831 RSC changed hands; buyers took <strong>1,180,872 RSC</strong> more than sellers — <strong>$54,433</strong> on $22.9M of turnover</div>
+    <div class="lab">Trades printed per day, Oct–Mar</div>
+    <div class="val">3,143</div>
+    <div class="note">to within ±5% on 81% of days, and <strong>128 an hour in every hour of the UTC day</strong> — the rate is generated, not observed</div>
   </div>
   <div class="card hi">
     <div class="lab">Sent by ResearchHub to MEXC</div>
@@ -140,15 +140,21 @@ liquidity in total</strong>. On 28 July 2026, when ResearchHub sent 2,250,000 RS
 the entire visible book was worth <strong>$1,752</strong>. The deposit was roughly a hundred times the market
 it was sent into.</p>
 
-<p><strong>Nobody is winning the tape.</strong> Aggressive buying exceeded aggressive selling by 1,180,872 RSC
-over eleven months — 0.58% of volume. No single month deviates by more than $55,000 in either direction.
-On a venue where the median trade is <strong>$14.70</strong> and 98.4% of prints are under $50, that balance
-is the signature of an automated book, not of a market resolving a directional flow.</p>
+<p><strong>Most of the volume is manufactured.</strong> From the listing to the end of March 2026 the venue
+printed 3,143 trades a day, almost regardless of what was traded — a coefficient of variation of
+<strong>0.01 across the whole of March</strong>, sixteen times steadier than the volume beneath it. Broken down by hour, March 2026
+shows <strong>128 trades in every single hour of the UTC day</strong>, with no session structure at all.
+Multiplying that rate by the mean print of $19.35 accounts for <strong>97% of pre-launch turnover</strong>.
+The prints are real executions; the rate is a scheduler. Reported MEXC volume before April 2026 is not a
+measure of interest, and neither is anything derived from it — including the net aggressive flow of +0.58%,
+which a flat generator produces by construction.</p>
 
 <p><strong>The order book does answer the question it was fetched to answer</strong> — it just does not answer
 it in ResearchHub's favour or against it. Exactly one on-chain deposit can be matched to a resting offer with
-certainty, and that deposit came from Gate.io. ResearchHub's own deposits leave no book footprint at all. That
-is a real finding, and §6.2 sets out precisely what it does and does not license anyone to conclude.</p>
+certainty, and that deposit came from Gate.io; every one of the twenty largest fills against it settles on-chain
+within 19 to 149 seconds, to the token. ResearchHub's own deposits leave no book footprint at all, and no
+matching outflow either. That is a real finding, and §6.2 sets out precisely what it does and does not license
+anyone to conclude.</p>
 
 <div class="callout warn">
   <div class="h">What the absence of a footprint does not prove</div>
@@ -297,9 +303,72 @@ The most repeated notional sizes are $1 (70,480 prints), $3 (66,779), $4 (58,169
 <p>This matters for a specific reason. The daily volume is 26 times the entire visible book, which on a market
 with genuine two-sided interest would imply constant replenishment by real participants. A distribution this
 concentrated in sub-$50 prints, combined with net aggressive flow pinned within 0.6% of zero for eleven straight
-months, is more consistent with a market-making programme recycling inventory than with 1.27 million
-independent decisions. That is an inference about the venue, not a finding about ResearchHub, and it is
-recorded here because it bounds how much any volume-based conclusion is worth.</p>
+months, points instead to a market-making programme recycling inventory. The next section establishes that
+directly.</p>
+
+
+<h3>3.2 The trade count is generated, not observed</h3>
+
+<p>The size distribution above suggests an automated book. The timing of the prints settles it.</p>
+
+<p>From the listing until the end of March 2026 the venue printed <strong>3,143 trades a day</strong>, and
+almost nothing else. 81% of days between October and February fall within ±5% of that figure; 95% fall within
+±15%. In March 2026 the daily count ranges from 3,018 to 3,169 across the whole month — a
+<strong>coefficient of variation of 0.01</strong> — while the daily RSC volume over the same month has a
+coefficient of variation of 0.16, sixteen times larger. The number of trades is not responding to the amount
+being traded.</p>
+
+<figure>
+<svg viewBox="0 0 900 342" class="chart" role="img" aria-label="Daily trade count and daily volume on MEXC. The trade count is pinned near 3,100 a day until April 2026 while volume varies widely."><line x1="561.1" y1="30" x2="561.1" y2="298" class="evt"/><text x="565.1" y="41" class="evtlab">stake-to-fund</text><text x="66" y="18" class="axt">Trades printed per day</text><line x1="66" y1="148.0" x2="882" y2="148.0" class="grid"/><text x="58" y="151.5" class="axl" text-anchor="end">0k</text><line x1="66" y1="115.2" x2="882" y2="115.2" class="grid"/><text x="58" y="118.7" class="axl" text-anchor="end">5k</text><line x1="66" y1="82.4" x2="882" y2="82.4" class="grid"/><text x="58" y="85.9" class="axl" text-anchor="end">10k</text><line x1="66" y1="49.7" x2="882" y2="49.7" class="grid"/><text x="58" y="53.2" class="axl" text-anchor="end">15k</text><polyline points="66.0,103.7 68.5,125.0 71.0,124.9 73.5,125.9 76.0,126.5 78.4,124.5 80.9,123.3 83.4,124.7 85.9,125.9 88.4,126.5 90.9,126.7 93.4,126.8 95.9,126.7 98.3,127.2 100.8,124.5 103.3,126.6 105.8,127.5 108.3,119.4 110.8,116.8 113.3,118.6 115.8,124.4 118.2,124.9 120.7,126.5 123.2,124.1 125.7,126.6 128.2,127.5 130.7,124.0 133.2,124.7 135.7,125.9 138.1,125.8 140.6,127.1 143.1,126.9 145.6,127.2 148.1,124.9 150.6,126.7 153.1,127.1 155.6,124.6 158.0,125.7 160.5,125.4 163.0,127.2 165.5,127.4 168.0,125.3 170.5,122.1 173.0,125.2 175.5,126.8 178.0,126.4 180.4,127.4 182.9,119.6 185.4,127.4 187.9,127.1 190.4,127.4 192.9,126.7 195.4,125.9 197.9,125.8 200.3,127.1 202.8,127.2 205.3,125.5 207.8,127.6 210.3,127.1 212.8,126.7 215.3,127.1 217.8,127.6 220.2,127.1 222.7,126.8 225.2,127.3 227.7,127.0 230.2,127.2 232.7,127.7 235.2,127.8 237.7,127.7 240.1,127.4 242.6,127.9 245.1,127.7 247.6,127.1 250.1,127.7 252.6,126.3 255.1,127.6 257.6,127.3 260.0,127.5 262.5,127.8 265.0,127.5 267.5,127.4 270.0,126.9 272.5,126.8 275.0,127.7 277.5,127.2 280.0,127.7 282.4,127.6 284.9,127.7 287.4,127.9 289.9,127.3 292.4,127.7 294.9,123.8 297.4,127.7 299.9,127.3 302.3,127.7 304.8,127.7 307.3,127.8 309.8,127.6 312.3,126.8 314.8,127.6 317.3,127.6 319.8,127.3 322.2,127.8 324.7,127.3 327.2,126.1 329.7,127.4 332.2,128.1 334.7,128.3 337.2,128.0 339.7,127.9 342.1,128.1 344.6,128.5 347.1,127.7 349.6,128.2 352.1,127.9 354.6,127.9 357.1,128.2 359.6,128.5 362.0,127.7 364.5,127.7 367.0,127.9 369.5,128.3 372.0,128.1 374.5,128.0 377.0,128.0 379.5,128.2 382.0,127.7 384.4,127.8 386.9,127.8 389.4,128.1 391.9,128.4 394.4,128.2 396.9,127.2 399.4,126.3 401.9,126.9 404.3,127.2 406.8,127.6 409.3,127.7 411.8,127.4 414.3,127.8 416.8,127.5 419.3,127.2 421.8,127.9 424.2,127.8 426.7,127.8 429.2,127.9 431.7,127.8 434.2,127.7 436.7,127.7 439.2,127.6 441.7,127.9 444.1,127.9 446.6,126.8 449.1,127.9 451.6,127.7 454.1,127.5 456.6,127.8 459.1,127.8 461.6,127.8 464.0,127.8 466.5,128.0 469.0,127.7 471.5,127.8 474.0,127.9 476.5,127.6 479.0,127.8 481.5,127.6 484.0,128.2 486.4,127.8 488.9,127.9 491.4,127.4 493.9,127.9 496.4,127.9 498.9,127.8 501.4,127.8 503.9,127.5 506.3,127.8 508.8,127.9 511.3,127.9 513.8,127.9 516.3,127.2 518.8,127.7 521.3,127.8 523.8,127.7 526.2,127.6 528.7,127.7 531.2,127.6 533.7,127.5 536.2,127.3 538.7,127.7 541.2,127.6 543.7,127.8 546.1,126.7 548.6,127.8 551.1,127.7 553.6,127.7 556.1,112.3 558.6,121.5 561.1,124.4 563.6,126.9 566.0,126.6 568.5,126.6 571.0,126.1 573.5,126.8 576.0,125.1 578.5,127.5 581.0,127.0 583.5,127.5 586.0,125.6 588.4,127.5 590.9,127.4 593.4,109.6 595.9,110.6 598.4,114.1 600.9,126.7 603.4,127.1 605.9,127.4 608.3,125.6 610.8,80.9 613.3,124.5 615.8,109.2 618.3,107.8 620.8,122.9 623.3,124.7 625.8,125.3 628.2,126.6 630.7,106.1 633.2,125.2 635.7,127.1 638.2,124.4 640.7,125.9 643.2,125.6 645.7,126.7 648.1,126.6 650.6,127.1 653.1,126.0 655.6,126.3 658.1,127.5 660.6,127.9 663.1,126.8 665.6,124.3 668.0,123.0 670.5,123.1 673.0,124.0 675.5,126.3 678.0,126.4 680.5,121.3 683.0,125.2 685.5,126.5 688.0,127.1 690.4,103.2 692.9,110.2 695.4,110.0 697.9,120.8 700.4,107.8 702.9,41.4 705.4,101.8 707.9,91.7 710.3,104.2 712.8,124.3 715.3,126.8 717.8,124.9 720.3,79.0 722.8,60.1 725.3,44.6 727.8,52.7 730.2,124.0 732.7,82.3 735.2,110.5 737.7,91.4 740.2,106.1 742.7,125.6 745.2,125.6 747.7,115.7 750.1,116.4 752.6,114.9 755.1,118.8 757.6,126.2 760.1,126.6 762.6,121.1 765.1,126.1 767.6,127.5 770.0,102.4 772.5,126.7 775.0,120.6 777.5,127.2 780.0,121.9 782.5,127.8 785.0,128.0 787.5,127.9 790.0,123.7 792.4,122.7 794.9,127.6 797.4,106.7 799.9,37.3 802.4,104.0 804.9,125.1 807.4,106.5 809.9,110.5 812.3,87.8 814.8,86.6 817.3,110.4 819.8,119.3 822.3,125.1 824.8,127.3 827.3,127.5 829.8,127.7 832.2,118.8 834.7,114.4 837.2,125.0 839.7,119.4 842.2,126.4 844.7,117.8 847.2,123.3 849.7,122.1 852.1,122.7 854.6,124.0 857.1,124.4 859.6,125.1 862.1,124.2 864.6,124.5 867.1,124.5 869.6,100.0 872.0,103.8 874.5,114.5 877.0,122.5 879.5,122.6 882.0,130.5" fill="none" stroke="var(--s1)" stroke-width="1.5" stroke-linejoin="round"/><text x="272.5" y="118.7" class="axv" text-anchor="middle">flat at ~3,100/day for six months</text><text x="66" y="178" class="axt">RSC traded per day</text><line x1="66" y1="298.0" x2="882" y2="298.0" class="grid"/><text x="58" y="301.5" class="axl" text-anchor="end">0M</text><line x1="66" y1="268.0" x2="882" y2="268.0" class="grid"/><text x="58" y="271.5" class="axl" text-anchor="end">1M</text><line x1="66" y1="238.0" x2="882" y2="238.0" class="grid"/><text x="58" y="241.5" class="axl" text-anchor="end">2M</text><line x1="66" y1="208.0" x2="882" y2="208.0" class="grid"/><text x="58" y="211.5" class="axl" text-anchor="end">3M</text><polyline points="66.0,288.5 68.5,293.8 71.0,293.4 73.5,294.1 76.0,293.9 78.4,292.7 80.9,292.7 83.4,292.0 85.9,293.6 88.4,294.0 90.9,294.2 93.4,294.1 95.9,293.9 98.3,294.3 100.8,292.6 103.3,293.9 105.8,294.0 108.3,290.1 110.8,277.8 113.3,289.4 115.8,292.7 118.2,292.4 120.7,293.5 123.2,292.4 125.7,292.6 128.2,293.2 130.7,291.8 133.2,292.3 135.7,292.5 138.1,292.5 140.6,292.7 143.1,292.6 145.6,292.9 148.1,292.0 150.6,292.7 153.1,292.6 155.6,291.1 158.0,291.5 160.5,291.8 163.0,292.1 165.5,292.1 168.0,290.6 170.5,287.0 173.0,290.8 175.5,292.0 178.0,291.6 180.4,291.9 182.9,291.4 185.4,292.7 187.9,292.4 190.4,292.2 192.9,291.0 195.4,288.8 197.9,290.2 200.3,289.0 202.8,289.9 205.3,288.8 207.8,290.7 210.3,290.3 212.8,288.6 215.3,287.5 217.8,289.1 220.2,289.4 222.7,290.5 225.2,289.5 227.7,285.8 230.2,289.6 232.7,291.1 235.2,289.3 237.7,289.6 240.1,288.9 242.6,289.6 245.1,288.9 247.6,289.2 250.1,289.3 252.6,286.7 255.1,288.2 257.6,289.2 260.0,288.7 262.5,289.0 265.0,287.9 267.5,288.8 270.0,287.8 272.5,287.8 275.0,286.9 277.5,284.9 280.0,286.8 282.4,286.3 284.9,286.6 287.4,286.9 289.9,286.3 292.4,286.1 294.9,285.0 297.4,285.7 299.9,286.0 302.3,285.2 304.8,284.9 307.3,285.3 309.8,285.4 312.3,283.1 314.8,282.9 317.3,283.4 319.8,284.6 322.2,284.9 324.7,284.7 327.2,283.5 329.7,285.7 332.2,285.8 334.7,286.5 337.2,285.4 339.7,285.6 342.1,285.5 344.6,285.2 347.1,284.0 349.6,286.1 352.1,285.4 354.6,286.7 357.1,287.5 359.6,286.1 362.0,284.1 364.5,284.0 367.0,285.4 369.5,284.7 372.0,283.5 374.5,283.0 377.0,284.5 379.5,283.9 382.0,282.3 384.4,282.5 386.9,281.2 389.4,279.9 391.9,282.1 394.4,281.0 396.9,279.2 399.4,277.1 401.9,277.6 404.3,279.7 406.8,281.8 409.3,282.1 411.8,280.9 414.3,281.9 416.8,280.1 419.3,278.8 421.8,281.3 424.2,281.2 426.7,280.9 429.2,281.5 431.7,281.1 434.2,281.5 436.7,280.3 439.2,280.0 441.7,280.3 444.1,279.5 446.6,279.3 449.1,280.1 451.6,280.4 454.1,282.6 456.6,282.2 459.1,280.7 461.6,281.5 464.0,282.4 466.5,282.6 469.0,281.9 471.5,281.1 474.0,280.8 476.5,279.0 479.0,278.5 481.5,278.6 484.0,279.7 486.4,278.9 488.9,279.4 491.4,279.7 493.9,280.0 496.4,279.5 498.9,277.5 501.4,279.7 503.9,277.7 506.3,277.6 508.8,275.8 511.3,277.4 513.8,275.7 516.3,273.6 518.8,276.1 521.3,277.2 523.8,277.4 526.2,271.7 528.7,273.9 531.2,273.0 533.7,272.1 536.2,269.8 538.7,270.6 541.2,268.4 543.7,270.1 546.1,268.1 548.6,272.3 551.1,271.4 553.6,269.8 556.1,265.6 558.6,273.1 561.1,270.6 563.6,273.1 566.0,271.8 568.5,271.4 571.0,270.0 573.5,270.0 576.0,272.4 578.5,274.7 581.0,273.8 583.5,274.6 586.0,275.0 588.4,275.2 590.9,275.2 593.4,275.3 595.9,271.4 598.4,270.4 600.9,279.1 603.4,279.3 605.9,278.8 608.3,277.1 610.8,268.0 613.3,279.5 615.8,275.5 618.3,275.1 620.8,282.8 623.3,280.6 625.8,281.4 628.2,282.5 630.7,273.6 633.2,287.0 635.7,285.7 638.2,286.6 640.7,286.8 643.2,285.2 645.7,286.3 648.1,284.8 650.6,285.4 653.1,284.9 655.6,283.6 658.1,282.9 660.6,284.4 663.1,280.4 665.6,277.9 668.0,275.7 670.5,275.1 673.0,278.8 675.5,281.3 678.0,278.1 680.5,251.3 683.0,280.9 685.5,279.8 688.0,281.4 690.4,246.1 692.9,254.0 695.4,249.8 697.9,271.7 700.4,248.7 702.9,221.5 705.4,265.6 707.9,257.5 710.3,271.1 712.8,274.9 715.3,280.2 717.8,276.8 720.3,252.8 722.8,234.7 725.3,233.9 727.8,235.1 730.2,278.1 732.7,260.6 735.2,272.2 737.7,263.0 740.2,265.0 742.7,275.3 745.2,275.6 747.7,270.8 750.1,270.0 752.6,269.1 755.1,267.5 757.6,275.6 760.1,275.5 762.6,270.9 765.1,275.3 767.6,277.6 770.0,265.3 772.5,278.8 775.0,268.2 777.5,275.8 780.0,271.4 782.5,277.0 785.0,277.4 787.5,278.1 790.0,276.3 792.4,276.4 794.9,277.3 797.4,262.8 799.9,196.6 802.4,267.1 804.9,274.2 807.4,272.8 809.9,276.2 812.3,250.7 814.8,250.7 817.3,273.6 819.8,276.8 822.3,277.4 824.8,276.4 827.3,277.3 829.8,277.0 832.2,273.3 834.7,271.5 837.2,274.9 839.7,271.5 842.2,274.0 844.7,272.1 847.2,273.4 849.7,271.0 852.1,272.4 854.6,271.7 857.1,272.5 859.6,272.6 862.1,272.4 864.6,272.6 867.1,273.0 869.6,211.2 872.0,246.5 874.5,255.4 877.0,268.4 879.5,267.6 882.0,282.4" fill="none" stroke="var(--s2)" stroke-width="1.5" stroke-linejoin="round"/><text x="85.9" y="316.0" class="axl" text-anchor="middle">2025-10</text><text x="237.7" y="316.0" class="axl" text-anchor="middle">2025-12</text><text x="391.9" y="316.0" class="axl" text-anchor="middle">2026-02</text><text x="538.7" y="316.0" class="axl" text-anchor="middle">2026-04</text><text x="690.4" y="316.0" class="axl" text-anchor="middle">2026-06</text><text x="842.2" y="316.0" class="axl" text-anchor="middle">2026-08</text><text x="66" y="334.0" class="axs">both panels share one time axis</text></svg>
+<figcaption><strong>Figure 4.</strong> Trades per day against RSC per day, on one time axis. The count sits on
+a flat line near 3,100 for six months while volume rises steadily and spikes repeatedly. From April 2026 the
+line breaks and starts tracking the volume beneath it.</figcaption>
+</figure>
+
+<p>The intraday shape is more conclusive still. Every real market has sessions — Asian, European and American
+hours produce a pronounced daily rhythm in trade counts. Taking the median number of trades in each hour of the
+UTC day across a whole month:</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Month</th><th class="num">Quietest hour</th><th class="num">Busiest hour</th><th class="num">Ratio</th><th class="num">Variation across the 24 hours</th></tr></thead>
+<tbody>
+<tr><td>October 2025</td><td class="num">128</td><td class="num">138</td><td class="num">1.08</td><td class="num">0.022</td></tr>
+<tr class="hl"><td>March 2026</td><td class="num">127</td><td class="num">128</td><td class="num">1.01</td><td class="num">0.002</td></tr>
+<tr><td>June 2026</td><td class="num">130</td><td class="num">202</td><td class="num">1.55</td><td class="num">0.115</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>In March 2026 this market printed <strong>128 trades in every hour of every day</strong> — 127 in one of
+them — with no session structure whatsoever. On a sampled day, 1,439 of the 1,440 minutes contain at least one
+trade. A market does not do this. A scheduler does.</p>
+
+<figure>
+<svg viewBox="0 0 900 246" class="chart" role="img" aria-label="Median trades per hour of the UTC day, for three months. March 2026 is a flat line at 128 an hour."><text x="66" y="18" class="axt">Median trades printed in each hour of the UTC day</text><line x1="66" y1="180.0" x2="882" y2="180.0" class="grid"/><text x="58" y="183.5" class="axl" text-anchor="end">0</text><line x1="66" y1="145.9" x2="882" y2="145.9" class="grid"/><text x="58" y="149.4" class="axl" text-anchor="end">50</text><line x1="66" y1="111.8" x2="882" y2="111.8" class="grid"/><text x="58" y="115.3" class="axl" text-anchor="end">100</text><line x1="66" y1="77.7" x2="882" y2="77.7" class="grid"/><text x="58" y="81.2" class="axl" text-anchor="end">150</text><line x1="66" y1="43.6" x2="882" y2="43.6" class="grid"/><text x="58" y="47.1" class="axl" text-anchor="end">200</text><polyline points="66.0,92.0 101.5,92.7 137.0,92.0 172.4,92.0 207.9,92.0 243.4,92.7 278.9,90.0 314.3,92.7 349.8,92.0 385.3,92.7 420.8,89.3 456.3,91.4 491.7,88.6 527.2,89.3 562.7,90.7 598.2,91.4 633.7,88.6 669.1,87.3 704.6,91.4 740.1,91.4 775.6,85.9 811.0,89.3 846.5,88.6 882.0,92.7" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><polyline points="66.0,92.7 101.5,92.7 137.0,92.7 172.4,92.7 207.9,92.7 243.4,92.7 278.9,92.7 314.3,92.7 349.8,92.7 385.3,92.7 420.8,92.7 456.3,92.7 491.7,92.7 527.2,92.7 562.7,92.7 598.2,92.7 633.7,92.7 669.1,92.7 704.6,92.7 740.1,92.7 775.6,92.7 811.0,92.7 846.5,92.7 882.0,93.4" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><polyline points="66.0,84.2 101.5,80.8 137.0,77.0 172.4,87.3 207.9,91.4 243.4,89.7 278.9,85.2 314.3,85.2 349.8,81.5 385.3,77.4 420.8,84.5 456.3,88.6 491.7,79.4 527.2,76.0 562.7,82.8 598.2,77.4 633.7,63.4 669.1,74.3 704.6,74.7 740.1,51.1 775.6,63.4 811.0,42.3 846.5,74.7 882.0,82.2" fill="none" stroke="var(--s3)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><text x="66.0" y="198.0" class="axl" text-anchor="middle">00:00</text><text x="172.4" y="198.0" class="axl" text-anchor="middle">03:00</text><text x="278.9" y="198.0" class="axl" text-anchor="middle">06:00</text><text x="385.3" y="198.0" class="axl" text-anchor="middle">09:00</text><text x="491.7" y="198.0" class="axl" text-anchor="middle">12:00</text><text x="598.2" y="198.0" class="axl" text-anchor="middle">15:00</text><text x="704.6" y="198.0" class="axl" text-anchor="middle">18:00</text><text x="811.0" y="198.0" class="axl" text-anchor="middle">21:00</text><rect x="66" y="213" width="10" height="10" rx="3" fill="var(--s1)"/><text x="82" y="222" class="axs">October 2025</text><rect x="246" y="213" width="10" height="10" rx="3" fill="var(--s2)"/><text x="262" y="222" class="axs">March 2026</text><rect x="426" y="213" width="10" height="10" rx="3" fill="var(--s3)"/><text x="442" y="222" class="axs">June 2026</text><text x="66" y="242.0" class="axs">a real market has sessions; March 2026 has none</text></svg>
+<figcaption><strong>Figure 5.</strong> Median trades per hour of the UTC day. October 2025 is nearly flat,
+March 2026 is a straight line, and by June 2026 a genuine session profile has appeared, peaking in the
+European and American afternoon.</figcaption>
+</figure>
+
+<div class="callout bad">
+  <div class="h">What this does to the volume figures</div>
+  <p>Multiplying the 3,143/day baseline by the mean pre-launch print of $19.35 gives <strong>$60,805 a day
+  against actual turnover of $62,434 — 97%</strong>. Before the endowment launched, essentially the whole of
+  MEXC's reported RSC turnover is accounted for by a constant-rate process. Only <strong>3.7% of prints in
+  that period sit above the baseline at all</strong>, and the days that do are the ones with identifiable
+  real events: listing day (6,755 trades), and 10, 11 and 12 October 2025 — the three days of the Gate.io
+  block described in §5.1.</p>
+  <p>After April 2026 the discipline breaks. A third of prints sit above baseline, the daily count becomes
+  volatile, and a session profile appears. Whatever else the endowment did, real trading arrived on this venue
+  around the time it launched.</p>
+</div>
+
+<p>This does not mean the tape is fiction. The trades are real executions between real accounts, and §5.1 shows
+individual fills settling on-chain within a minute. It means the <em>rate</em> is set by a process rather than
+by demand, that reported volume on this venue is close to meaningless as a measure of interest before April
+2026, and that any statistic derived from volume — including the net aggressive flow in §4 — describes the
+generator far more than it describes the market.</p>
 
 <!-- ============================================ -->
 <h2>4. Net buyer or net seller: what the tape says</h2>
@@ -345,8 +414,17 @@ sit, not by the balance of the takers.</p>
 <p>Dollar turnover is flat — between $1.5M and $3.4M every month for eleven months. The rising RSC volume is
 the falling price, not growing interest. And <strong>net aggressive flow never leaves the band ±$55,000</strong>
 in any month, in either direction, through a listing, an 89% decline, a product launch and an 83% intraday
-rally. A directional seller working 5.7M RSC through this tape would have to be almost perfectly matched by a
-directional buyer, every month, for the net to stay this flat.</p>
+rally.</p>
+
+<div class="callout warn">
+  <div class="h">Read this figure narrowly</div>
+  <p>§3.2 shows that before April 2026 roughly 97% of this venue's turnover is produced at a constant rate of
+  3,143 trades a day. A generator that recycles inventory is <em>flat by construction</em> — it has to be, or
+  it accumulates a position — so a net aggressive flow of +0.58% is close to what that process alone would
+  produce. <strong>The flatness is therefore weak evidence about real supply and demand, not strong evidence
+  that they were balanced.</strong> It does still bound the visible directional flow: no participant took a
+  large one-way position through this tape without it showing, and none did.</p>
+</div>
 <!-- ============================================ -->
 <h2>5. Matching on-chain amounts to the order book</h2>
 
@@ -647,7 +725,13 @@ profile of an automated book that has widened its participation, not of new natu
     and is used directly. Classification error on this venue is now effectively zero.</td></tr>
 <tr><td>The passive-buy ceiling could only be bounded, not measured.</td>
     <td>Measured for MEXC: aggressive buying exceeded aggressive selling by 1,180,872 RSC — 0.58% of volume —
-    over the whole period, with no month outside ±$55,000.</td></tr>
+    over the whole period, with no month outside ±$55,000. But see §4: on this venue the figure is weak
+    evidence, because the process producing the volume is flat by construction.</td></tr>
+<tr><td>MEXC turnover was treated as market interest and used to weight venue comparisons.</td>
+    <td><span class="tag t-ins">changed</span> Before April 2026, 97% of this venue's turnover is produced at a
+    fixed rate of 3,143 trades a day, with 128 prints in every hour of the UTC day and no session structure.
+    MEXC volume from that period should not be read as interest, and any share-of-volume figure that includes
+    it is inflated.</td></tr>
 <tr><td>MEXC was excluded from before-and-after comparisons for want of pre-June-2026 data.</td>
     <td>The full listing history is now available. §7 replaces that gap with 199 days of pre-launch baseline
     on a single continuous book.</td></tr>
@@ -677,9 +761,10 @@ fill-versus-pull test in §5.3 therefore understates cancellation activity, and 
 transfers between MEXC accounts, are outside every dataset used here.</li>
 <li><strong>2.8% of elapsed time falls inside gaps</strong> in the book file — 72 hours in January 2026,
 43 in December 2025, 31 in March 2026. No episode discussed here falls in a gap.</li>
-<li><strong>The wash-trading inference in §3.1 is circumstantial.</strong> Sub-$50 prints dominating an
-automated venue is consistent with a market-making programme and also with genuine retail flow on a venue with
-low fees. It is recorded to bound the weight of volume-based conclusions, not as a finding.</li>
+<li><strong>§3.2 shows the trade <em>rate</em> is generated; it does not identify who generates it.</strong>
+Exchange-run market-making programmes are ordinary and disclosed at many venues. The finding is that reported
+volume before April 2026 cannot be read as interest — not that any particular party manufactured it, and not
+that the executions are fictitious.</li>
 </ul>
 
 <!-- ============================================ -->
