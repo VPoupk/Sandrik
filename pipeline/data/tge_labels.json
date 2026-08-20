@@ -1,0 +1,40 @@
+{
+ "0x60841137b1ddc612e6ea4f5b358c91ba6159d529": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53494
+ },
+ "0x544c21e196b3a1d7667d192fd18799cb91b5f6e9": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54080
+ },
+ "0xbe00326ac9e7f7d070464908ee29c6366c6fc382": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54079
+ },
+ "0xbf0dd1768cfeff0f1a04d6728bc1f568733c5748": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [
+   "PancakeSwap User"
+  ],
+  "is_contract": false,
+  "bytes": 54079
+ }
+}

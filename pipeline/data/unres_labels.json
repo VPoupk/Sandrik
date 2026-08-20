@@ -1,0 +1,36 @@
+{
+ "0x6596da8b65995d5feacff8c2936f0b7a2051b0d0": {
+  "ok": true,
+  "entity": "Gate.io. Gas Fee_1",
+  "entity_tags": [
+   "Exchange: Gate.io. Gas Fee_1"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 54848
+ },
+ "0xee41d6528b3e1fdb71ddb214a771a28f25d8b206": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53124
+ },
+ "0x2a500f79c651759f12e67fedb7748ef2449590cf": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 53437
+ },
+ "0x31a65fc856140183af8a742b81f726acd06bc203": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52781
+ }
+}
