@@ -165,10 +165,11 @@ small { font-size:10px; }
 <header>
   <h1>AKEDO (AKE) — Consolidated On-Chain Forensic Report</h1>
   <div class="subtitle">BNB Smart Chain · every figure re-derived from block-explorer-level RPC data · every USD value priced at the CoinGecko daily average for the date of that specific transfer</div>
+  <div class="subtitle" style="margin-top:6px;color:var(--danger)"><strong>§0 carries the 20 August re-parse: no pool movement in 11.8 days, but 7.77bn ($53.17M) repositioned by dormant holders on 14 August and 400.0mn ($2.10M) reached Gate.io through an insider-adjacent chain.</strong></div>
   <div class="meta">
     <div class="meta-item">Contract <span><a href="https://bscscan.com/token/0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db">0x2c3a8ee9…2C412F7Db</a></span></div>
-    <div class="meta-item">Chain head <span>114,777,002</span></div>
-    <div class="meta-item">As of <span>2026-08-08 17:29 UTC</span></div>
+    <div class="meta-item">Chain re-parsed to <span>117,047,856 · 2026-08-20 13:25 UTC</span></div>
+    <div class="meta-item">Detailed sections as of <span>114,777,002 · 2026-08-08 17:29 UTC</span></div>
     <div class="meta-item">TGE <span>2025-08-21</span></div>
     <div class="meta-item">Total supply <span>100bn AKE</span></div>
   </div>
@@ -300,6 +301,178 @@ small { font-size:10px; }
       <li>April's Alpha flow is reported <strong>gross in, gross out and net</strong>. The earlier "18.47bn into Alpha" figure
         was gross inflow; Alpha paid out 14.19bn in the same month, so it accumulated 4.58bn, not 18.47bn.</li>
     </ul>
+  </div>
+</div>
+<!-- ===================== UPDATE TO 20 AUG ===================== -->
+<div class="section" style="border-color:rgba(239,68,68,0.45)">
+  <h2>0 · Update — Chain Re-Parsed to 20 August 2026</h2>
+
+  <div class="alert alert-info" style="margin-bottom:14px">
+    <strong>What this section is.</strong> The detailed analysis in §1–§14 is anchored to block 114,777,002
+    (8 Aug 2026 17:29 UTC). Rather than restate every figure in the body and risk introducing errors, the chain has been
+    re-parsed forward to block <strong>117,047,856 (20 Aug 2026 13:25 UTC)</strong> — 2,270,854 new blocks, 11.8 days — and
+    only what <em>changed</em> is reported here. Every figure below is newly read from the chain. Where a section number is
+    cited, that section's own figures still carry their 8 August as-of date.
+  </div>
+
+  <div class="alert alert-green" style="margin-bottom:14px">
+    <strong>Question 1 — new flows out of team-controlled pools: NONE. Not one token.</strong>
+    A complete scan of every Transfer touching the eight allocation pools over the 11.8-day gap returns
+    <strong>zero transfers</strong>, and all eight <code>balanceOf</code> readings are identical to the wei against
+    8 August. Team Pool 1 still holds 1.1414bn, Team Pool 2 still holds 13.0000bn, the Investors Pool still holds
+    14.3671bn. The pools have been completely still since 26 July 2026 — nearly four weeks.
+  </div>
+
+  <div class="alert alert-danger" style="margin-bottom:14px">
+    <strong>Question 2 — exchange deposits from insider-linked wallets: yes, one clean chain, and something larger
+    alongside it.</strong> The direct answer is <strong>400.0mn AKE ($2,098,203)</strong> that reached Gate.io on 13–14
+    August through a wallet OKLink tags "Gate.io. User" — August's single largest exchange deposit. But the bigger event is
+    that <strong>three dormant large holders moved 7,767.8mn ($53.17M) on 14 August</strong>, the day the price began a 2.6×
+    run, into three freshly-created unlabelled wallets that are still holding. That is repositioning, not selling — but it is
+    the first movement from any of them since they were funded.
+  </div>
+
+  <div class="grid-3" style="margin-bottom:14px">
+    <div class="stat-box"><div class="stat-box-label">Out of the pools, 8–20 Aug</div>
+      <div class="stat-box-value" style="color:var(--green)">0</div>
+      <div class="stat-box-sub">zero transfers, balances unchanged to the wei</div></div>
+    <div class="stat-box"><div class="stat-box-label">Repositioned by dormant holders</div>
+      <div class="stat-box-value" style="color:var(--danger)">7.77bn</div>
+      <div class="stat-box-sub">$53.17M on 14 Aug, into 3 fresh wallets</div></div>
+    <div class="stat-box"><div class="stat-box-label">Sold to non-Binance exchanges</div>
+      <div class="stat-box-value" style="color:var(--warn)">973.8mn</div>
+      <div class="stat-box-sub">$6,360,471 across 134 depositors</div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>The price moved 2.6× inside the window — which is why the dollar figures matter more than the token counts</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      AKE went from $0.00406342 on 13 August to <strong>$0.01044757 on 15 August</strong> and sits at $0.00843145 on
+      20 August. Every USD figure in this section is the CoinGecko daily average for that transfer's own date; the price
+      series was refreshed for 8–20 August before anything was valued, because the previous series ended on 8 August and
+      would have priced the entire window at a stale $0.00455.
+    </p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Date</th><th class="num">Deposited to non-Binance exchanges</th><th class="num">USD at that day's price</th><th class="num">AKE price</th></tr></thead>
+      <tbody>
+        <tr><td>2026-08-09</td><td class="num">10.1mn</td><td class="num">$39,799</td><td class="num">$0.00393016</td></tr>
+        <tr><td>2026-08-10</td><td class="num">20.7mn</td><td class="num">$86,285</td><td class="num">$0.00415855</td></tr>
+        <tr><td>2026-08-11</td><td class="num">16.6mn</td><td class="num">$65,642</td><td class="num">$0.00395249</td></tr>
+        <tr><td>2026-08-12</td><td class="num">4.9mn</td><td class="num">$20,789</td><td class="num">$0.00425490</td></tr>
+        <tr style="background:rgba(239,68,68,0.10)"><td><strong>2026-08-13</strong></td><td class="num"><strong>339.2mn</strong></td><td class="num"><strong>$1,378,350</strong></td><td class="num">$0.00406342</td></tr>
+        <tr style="background:rgba(239,68,68,0.12)"><td><strong>2026-08-14</strong></td><td class="num"><strong>322.9mn</strong></td><td class="num"><strong>$2,209,915</strong></td><td class="num">$0.00684485 <span style="color:var(--danger)">↑</span></td></tr>
+        <tr style="background:rgba(245,158,11,0.08)"><td>2026-08-15</td><td class="num">83.9mn</td><td class="num">$876,434</td><td class="num"><strong>$0.01044757</strong> — peak</td></tr>
+        <tr><td>2026-08-16</td><td class="num">81.9mn</td><td class="num">$832,386</td><td class="num">$0.01016098</td></tr>
+        <tr><td>2026-08-17</td><td class="num">35.8mn</td><td class="num">$352,175</td><td class="num">$0.00982440</td></tr>
+        <tr><td>2026-08-18</td><td class="num">16.0mn</td><td class="num">$141,454</td><td class="num">$0.00885865</td></tr>
+        <tr><td>2026-08-19</td><td class="num">19.3mn</td><td class="num">$173,438</td><td class="num">$0.00898258</td></tr>
+        <tr><td>2026-08-20</td><td class="num">21.3mn</td><td class="num">$179,385</td><td class="num">$0.00843145</td></tr>
+      </tbody>
+      <tfoot><tr><td><strong>8–20 Aug TOTAL</strong></td><td class="num"><strong>973.8mn</strong></td>
+        <td class="num"><strong>$6,360,471</strong></td><td class="num">134 depositors</td></tr></tfoot>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">
+      68% of the window's tokens went to exchanges on 13–14 August, the two days immediately before the peak.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>The 14 August repositioning — three dormant holders, 7.77bn, all still held</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      Each of these had received a large balance and never sent a token. On 14 August all three emptied into a
+      freshly-created, unlabelled address. None of the three destinations has sent anything onward, so under this report's
+      rules <strong>this is a hold, not a sale</strong> — but it is the first movement any of them has made, and it happened
+      on the day the price doubled.
+    </p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Source wallet</th><th class="num">Moved</th><th class="num">USD at 14 Aug</th><th>Destination</th><th class="num">Destination balance now</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(239,68,68,0.10)">
+          <td class="addr">0x93fc44cac166647fa7c2e014b47b9e25c1f987d7<br>
+              <span style="color:var(--danger);font-size:11px">gas chain runs back to Alpha Feeder E</span></td>
+          <td class="num"><strong>4,232.7mn</strong></td><td class="num"><strong>$28,972,323</strong></td>
+          <td class="addr">0xca9a3c9542761e8d1c0a3d7691baad0447637401<br><span style="color:var(--muted);font-size:11px">no explorer label</span></td>
+          <td class="num">4,232.7mn</td></tr>
+        <tr><td class="addr">0xfd543380531b2d4ca4b8d41577e4c48f5d34d5f1</td>
+          <td class="num">1,950.7mn</td><td class="num">$13,351,979</td>
+          <td class="addr">0xd128dde920a9f09a366506e9ce46b8b38d4691fc<br><span style="color:var(--muted);font-size:11px">no explorer label</span></td>
+          <td class="num">1,950.7mn</td></tr>
+        <tr><td class="addr">0x33ab2b0c6908e472cb9f5b04e6d2a1e7e9220b4a</td>
+          <td class="num">1,584.4mn</td><td class="num">$10,845,309</td>
+          <td class="addr">0x422a4d476b14eb9c7326cc0ae5cd762bbf0576d9<br><span style="color:var(--muted);font-size:11px">no explorer label</span></td>
+          <td class="num">1,584.4mn</td></tr>
+      </tbody>
+      <tfoot><tr><td><strong>TOTAL</strong></td><td class="num"><strong>7,767.8mn</strong></td>
+        <td class="num"><strong>$53,169,611</strong></td><td>three fresh wallets</td>
+        <td class="num"><strong>7,767.8mn</strong> — none moved on</td></tr></tfoot>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">
+      The first row is the one that matters for the insider question. <code>0x93fc44ca…</code> was gas-funded by
+      <code>0xe043ae76…</code>, which was itself gas-funded by <strong>Alpha Feeder E</strong>
+      (<code>0x6449b24d…</code>) — one of the five wallets that pushed 18.41bn into Binance Alpha in April and 2,962.5mn into
+      Alpha custody in the five days before the 8 July airdrop (§8, §10). It sent 4,232.7mn — more than the 3,738.0mn it held
+      on 8 August, so it received a further ~495mn in between and then emptied.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>The one insider-adjacent chain that actually reached an exchange</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Step</th><th>Date</th><th>Address</th><th class="num">AKE</th><th class="num">USD</th></tr></thead>
+      <tbody>
+        <tr><td>1 — dormant holder empties</td><td>2026-08-13</td>
+            <td class="addr">0x1d2ce507ca0b86cb04a26ab6d295130634b0023a<br><span style="color:var(--muted);font-size:11px">held 400.0mn untouched since Dec 2025</span></td>
+            <td class="num">400.0mn</td><td class="num">$1,625,364</td></tr>
+        <tr style="background:rgba(239,68,68,0.08)"><td>2 — into a Gate-tagged wallet</td><td>2026-08-13</td>
+            <td class="addr">0x3357eea2079395a2143062522185c24bb645f6c9<br><span style="color:var(--danger);font-size:11px">OKLink entity tag: "Gate.io. User"</span></td>
+            <td class="num">400.0mn</td><td class="num">—</td></tr>
+        <tr style="background:rgba(239,68,68,0.10)"><td>3a — deposited to Gate.io</td><td>2026-08-13</td>
+            <td class="addr">0x0d0707963952f2fba59dd06f2b425ace40b492fe — Gate.io. DepositAndWithdraw_1</td>
+            <td class="num">230.0mn</td><td class="num">$934,590</td></tr>
+        <tr style="background:rgba(239,68,68,0.10)"><td>3b — remainder next day, into the spike</td><td>2026-08-14</td>
+            <td class="addr">0x0d0707963952f2fba59dd06f2b425ace40b492fe — Gate.io. DepositAndWithdraw_1</td>
+            <td class="num">170.0mn</td><td class="num">$1,163,613</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="3"><strong>Total reaching Gate.io — August's single largest deposit</strong></td>
+        <td class="num"><strong>400.0mn</strong></td><td class="num"><strong>$2,098,203</strong></td></tr></tfoot>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">
+      Both intermediate wallets are now at zero. Separately, watched wallets sent a further <strong>4.8mn ($22,012)</strong>
+      directly to non-Binance exchanges across the window — trivial, and mostly Kraken-tagged addresses moving between their
+      own wallets. <strong>None of the ten KuCoin-funded <code>userWithdraw()</code> wallets and none of the fifteen
+      22-July-cluster wallets sent anything anywhere.</strong> Those 25 wallets, holding 12.90bn, remain untouched.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Supply reconciliation, restated at 20 August</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Category</th><th class="num">20 Aug 2026</th><th class="num">8 Aug 2026</th><th class="num">Change</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(59,130,246,0.06)"><td><strong>Ordinary wallets</strong></td>
+            <td class="num"><strong>66.0878bn</strong></td><td class="num">63.9844bn</td><td class="num" style="color:var(--accent)">+2.1034bn</td></tr>
+        <tr><td><strong>Akedo allocation pools</strong></td><td class="num"><strong>29.2636bn</strong></td>
+            <td class="num">29.2636bn</td><td class="num"><span class="badge badge-green">unchanged</span></td></tr>
+        <tr><td>Binance</td><td class="num">3.1557bn</td><td class="num">4.2556bn</td><td class="num">−1.0999bn</td></tr>
+        <tr><td>Non-Binance exchanges</td><td class="num">1.4372bn</td><td class="num">2.4232bn</td><td class="num">−0.9860bn</td></tr>
+        <tr><td>DEX liquidity pools</td><td class="num">0.0549bn</td><td class="num">0.0708bn</td><td class="num">−0.0159bn</td></tr>
+        <tr><td>Routers and aggregators</td><td class="num">0.0009bn</td><td class="num">0.0024bn</td><td class="num">−0.0015bn</td></tr>
+      </tbody>
+      <tfoot><tr><td><strong>TOTAL</strong></td><td class="num"><strong>100.0000bn</strong></td>
+        <td class="num"><strong>100.0000bn</strong></td><td class="num">closes exactly</td></tr></tfoot>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">
+      Exchanges paid out more than they took in across the window — non-Binance venues fell 0.99bn and Binance fell 1.10bn,
+      while ordinary wallets absorbed 2.10bn. On the balance evidence the last twelve days were <em>net accumulation by
+      wallets</em>, not distribution by them, even though 973.8mn of gross deposits happened inside it.
+    </p>
+  </div>
+
+  <div class="alert alert-warn" style="margin-bottom:0">
+    <strong>What to watch.</strong> Three unlabelled wallets now hold 7.77bn between them ($65.5M at the 20 August price)
+    and have never transacted; the 25 clustered wallets from §9 hold a further 12.90bn and have never transacted. That is
+    <strong>20.67bn — 20.7% of total supply — sitting in wallets with no explorer identity, one hop from an exchange</strong>.
+    None of it has been sold. The 14 August repositioning is the first sign of any of it becoming active.
   </div>
 </div>
 <!-- ===================== METHOD ===================== -->

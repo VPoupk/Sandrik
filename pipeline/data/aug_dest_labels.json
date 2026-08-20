@@ -1,0 +1,36 @@
+{
+ "0xca9a3c9542761e8d1c0a3d7691baad0447637401": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52718
+ },
+ "0xd128dde920a9f09a366506e9ce46b8b38d4691fc": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52717
+ },
+ "0x422a4d476b14eb9c7326cc0ae5cd762bbf0576d9": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52718
+ },
+ "0x3357eea2079395a2143062522185c24bb645f6c9": {
+  "ok": true,
+  "entity": "Gate.io. User",
+  "entity_tags": [
+   "Exchange: Gate.io. User"
+  ],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 54091
+ }
+}
