@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AKEDO (AKE) — The 21 August Team Pool Release</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --card2: #1a2235;
+    --border: #1e2d45;
+    --accent: #3b82f6;
+    --accent2: #8b5cf6;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --green: #10b981;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --highlight: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, sans-serif; font-size: 14px; line-height: 1.6; }
+
+  /* Layout */
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+
+  /* Header */
+  header { border-bottom: 1px solid var(--border); padding: 20px 0 16px; margin-bottom: 28px; }
+  header h1 { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -0.3px; }
+  header .subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  header .meta { display: flex; gap: 20px; margin-top: 12px; flex-wrap: wrap; }
+  header .meta-item { font-size: 12px; color: var(--muted); }
+  header .meta-item span { color: var(--text); font-weight: 600; }
+
+  /* Section headers */
+  h2 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  h2::before { content: ""; width: 3px; height: 18px; background: var(--accent); border-radius: 2px; flex-shrink: 0; }
+  h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+  .section { margin-bottom: 28px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+  .section > h2:first-child { margin-top: 0; }
+  /* nested cards inside a section panel: drop the heavy chrome so panels don't double-box */
+  .section .card { background: var(--card2); border-color: var(--border); }
+
+  /* Grid layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .card-value { font-size: 24px; font-weight: 700; color: var(--text); }
+  .card-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th { background: var(--card2); color: var(--muted); font-weight: 600; text-align: left; padding: 9px 12px; white-space: nowrap; border-bottom: 1px solid var(--border); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(59,130,246,0.04); }
+  tr:last-child td { border-bottom: none; }
+
+  /* Badges & tags */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge-blue { background: rgba(59,130,246,0.15); color: #93c5fd; }
+  .badge-purple { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+  .badge-green { background: rgba(16,185,129,0.12); color: #6ee7b7; }
+  .badge-yellow { background: rgba(245,158,11,0.15); color: #fcd34d; }
+  .badge-red { background: rgba(239,68,68,0.15); color: #fca5a5; }
+  .badge-gray { background: rgba(100,116,139,0.15); color: #94a3b8; }
+  .badge-orange { background: rgba(249,115,22,0.15); color: #fdba74; }
+
+  /* Bubble map */
+  .bubble-container { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .bubble-grid { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; justify-content: center; padding: 10px 0; }
+  .bubble { border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: default; position: relative; transition: transform 0.2s; flex-shrink: 0; }
+  .bubble:hover { transform: scale(1.05); z-index: 10; }
+  .bubble-label { text-align: center; font-size: 10px; font-weight: 700; color: white; line-height: 1.2; padding: 2px; }
+  .bubble-pct { font-size: 9px; color: rgba(255,255,255,0.7); }
+  .bubble-tip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #1e293b; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; white-space: nowrap; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 100; }
+  .bubble:hover .bubble-tip { opacity: 1; }
+
+  /* Flow/connection indicator */
+  .flow-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .flow-row:last-child { border-bottom: none; }
+  .flow-from { color: var(--accent); font-family: monospace; font-size: 11px; }
+  .flow-arrow { color: var(--green); font-size: 14px; }
+  .flow-to { color: var(--highlight); font-family: monospace; font-size: 11px; }
+  .flow-amount { margin-left: auto; font-weight: 600; color: var(--text); font-size: 12px; white-space: nowrap; }
+
+  /* Wallet detail cards */
+  .wallet-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .wallet-header { background: var(--card2); padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
+  .wallet-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .wallet-body { padding: 14px 16px; }
+  .wallet-addr { font-family: monospace; font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .wallet-stat { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .wallet-stat:last-child { border-bottom: none; }
+  .wallet-stat-label { color: var(--muted); font-size: 12px; }
+  .wallet-stat-value { font-weight: 600; font-size: 12px; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; padding: 0 0 16px 14px; }
+  .timeline-dot { position: absolute; left: -17px; top: 4px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid; }
+  .timeline-date { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .timeline-text { font-size: 12.5px; color: var(--text); }
+  .timeline-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* Progress bar */
+  .progress-bar { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; }
+
+  /* Alert box */
+  .alert { border-radius: 8px; padding: 12px 14px; font-size: 12.5px; line-height: 1.5; margin-bottom: 16px; }
+  .alert-warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); color: var(--warn); }
+  .alert-danger { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); color: var(--danger); }
+  .alert-info { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25); color: var(--accent); }
+  .alert-green { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); color: var(--green); }
+  .alert strong { font-weight: 700; }
+
+  /* Mono addr */
+  .addr { font-family: monospace; font-size: 11px; color: var(--muted); }
+  .addr-full { font-family: monospace; font-size: 11px; color: #60a5fa; word-break: break-all; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Red flag indicator */
+  .flag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--danger); font-weight: 600; }
+  .flag::before { content: "⚠"; }
+
+  /* Tokenomics bar chart */
+  .tok-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .tok-name { width: 200px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+  .tok-bar-wrap { flex: 1; }
+  .tok-pct { width: 50px; text-align: right; font-size: 12px; font-weight: 600; color: var(--text); flex-shrink: 0; }
+  .tok-remaining { width: 90px; text-align: right; font-size: 11px; color: var(--muted); flex-shrink: 0; }
+
+  /* Summary stat row */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .stat-box-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .stat-box-value { font-size: 20px; font-weight: 700; color: var(--text); }
+  .stat-box-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: monospace; font-size: 11px; background: var(--card2); padding: 1px 5px; border-radius: 3px; color: #93c5fd; }
+</style>
+<style>
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+@media(max-width:800px) { .grid-3 { grid-template-columns:1fr; } }
+.stat-box-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+.stat-box-value { font-size:18px; font-weight:700; color:var(--text); }
+.stat-box-sub { font-size:11px; color:var(--muted); margin-top:3px; }
+tfoot tr td { font-size:12px; border-top:2px solid var(--border); }
+small { font-size:10px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>AKEDO (AKE) — The 21 August Team Pool Release</h1>
+  <div class="subtitle">2,567.8333mn AKE out of Team Pool 2 (Early Contributors) · a proxy upgrade 22 seconds earlier · 14 brand-new recipient wallets · every figure read from the chain at block 117,266,413</div>
+  <div class="meta">
+    <div class="meta-item">Chain head <span>117,266,413 · 2026-08-21 16:45 UTC</span></div>
+    <div class="meta-item">Released <span>2,567.8333mn AKE</span></div>
+    <div class="meta-item">Value <span>$21,593,062</span></div>
+    <div class="meta-item">Recipients <span>14, all new</span></div>
+  </div>
+</header>
+
+<div class="section" style="border-color:rgba(239,68,68,0.5)">
+  <h2>1 · What Happened</h2>
+
+  <div class="alert alert-danger" style="margin-bottom:14px">
+    <strong>The team allocation moved for the second time, and it used the same mechanism as June and July: the contract's
+    code was replaced first.</strong> At 15:29:13 UTC on 21 August 2026 the Gnosis Safe upgraded Team Pool 2's
+    implementation. <strong>Twenty-two seconds later</strong>, at 15:29:35, it called a function that did not exist in the
+    previous code and pushed <strong>2,567.8333mn AKE ($21,593,062)</strong> to fourteen addresses that had never held a
+    token, never sent a transaction, and hold no BNB to this day. None of the other seven pools was touched.
+  </div>
+
+  <div class="grid-3" style="margin-bottom:14px">
+    <div class="stat-box"><div class="stat-box-label">Released from Team Pool 2</div>
+      <div class="stat-box-value" style="color:var(--danger)">2,567.8mn</div>
+      <div class="stat-box-sub">$21,593,062 at the hourly price</div></div>
+    <div class="stat-box"><div class="stat-box-label">Upgrade → payout gap</div>
+      <div class="stat-box-value" style="color:var(--danger)">22 sec</div>
+      <div class="stat-box-sub">June's equivalent gap was 24 seconds</div></div>
+    <div class="stat-box"><div class="stat-box-label">Recipients that have ever transacted</div>
+      <div class="stat-box-value" style="color:var(--warn)">0 of 14</div>
+      <div class="stat-box-sub">combined nonce zero, zero BNB</div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>The sequence, to the second</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Time (UTC)</th><th>Block</th><th>What</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(239,68,68,0.10)">
+          <td><strong>2026-08-21 15:29:13</strong></td><td class="num">117,256,240</td>
+          <td><strong>Team Pool 2 implementation replaced.</strong> <code>0x6d9a94e4…65721e1b</code> →
+              <code>0x25f7708c863da41431739ce90fa0d47f00cabc3e</code>, emitting <code>Upgraded(address)</code>.
+              Sent through the Safe via <code>execTransaction</code> (<code>0x6a761202</code>).<br>
+              <span style="color:var(--muted);font-size:11px">tx 0x22fefdb9fc110f6c96b9f4a62a9a66cb5cc31e95e3d7bcbaf8b66b4903b7152a</span></td></tr>
+        <tr style="background:rgba(239,68,68,0.14)">
+          <td><strong>2026-08-21 15:29:35</strong></td><td class="num">117,256,289</td>
+          <td><strong>2,567.8333mn AKE pushed to 14 addresses in one transaction</strong>, calling selector
+              <code>0xe0dc37a3</code> on the pool — a function <em>added</em> by the upgrade 22 seconds earlier. Also sent
+              through the Safe.<br>
+              <span style="color:var(--muted);font-size:11px">tx 0xa9bebc9557550e7452b011470ee09e1c8e2cb897e3c44513d5be3eac32b1e173 · 30 logs · 532,766 gas</span></td></tr>
+        <tr><td>as at head</td><td class="num">117,266,413</td>
+          <td>Implementation still <code>0x25f7708c…</code> — <strong>not reverted</strong>, unlike the June episode.
+              Pool balance 13.0000bn → <strong>10.4322bn</strong>.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>What the new code actually changed</h3>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:10px">
+      Function selectors were extracted from the deployed bytecode of both implementations and compared. The upgrade is not
+      cosmetic: it removes the withdrawal path used on 26 July and installs a batch-payout path in its place.
+    </p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Implementation</th><th class="num">Size</th><th><code>userWithdraw()</code><br><small style="font-weight:400;text-transform:none">0xa646f9ad</small></th><th><code>0xe0dc37a3</code><br><small style="font-weight:400;text-transform:none">the batch function used</small></th></tr></thead>
+      <tbody>
+        <tr><td><code>0x6d9a94e4…65721e1b</code> — in force 25 Jul – 21 Aug</td><td class="num">11,754 B</td>
+            <td><span class="badge badge-red">PRESENT</span></td><td><span class="badge badge-gray">absent</span></td></tr>
+        <tr style="background:rgba(239,68,68,0.09)"><td><code>0x25f7708c…f00cabc3e</code> — installed 15:29:13</td><td class="num">11,619 B</td>
+            <td><span class="badge badge-gray">removed</span></td><td><span class="badge badge-red">ADDED</span></td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">
+      Six selectors were added (<code>0x36118805</code>, <code>0x611c5e56</code>, <code>0x6565b806</code>,
+      <code>0xb03611b6</code>, <code>0xda414317</code>, <code>0xe0dc37a3</code>) and eleven removed, including
+      <code>userWithdraw()</code>. The call that moved the tokens carries a single argument — an array of 14
+      <code>(address, uint256)</code> structs — decoded directly from the transaction calldata, and the decoded amounts match
+      the fourteen Transfer logs exactly.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Who signed it</h3>
+    <p style="font-size:12px;color:var(--muted);line-height:1.8">
+      Both transactions were executed by <code>0xa79cc05c2ce2950549dfdfeb2ab462ab0be626b3</code>, which is a confirmed owner
+      of the Safe at <code>0x551a841742733bef96646b44e3475ce6a01da5eb</code> — read live from the contract, threshold
+      <strong>3 of 4</strong>, owners <code>0x28b78a61…</code>, <code>0xd3adb370…</code>, <code>0x88f4b387…</code> and
+      <code>0xa79cc05c…</code>. <code>Team Pool 2.owner()</code> returns that Safe, so the Safe is entitled to upgrade it.
+      Worth noting: the July upgrades were submitted by a <em>different</em> owner, <code>0x88f4b387…</code>. This is the
+      first appearance of <code>0xa79cc05c…</code> as the submitting signer in this analysis.
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>2 · Against the Published Vesting Schedule</h2>
+
+  <div class="alert alert-danger" style="margin-bottom:14px">
+    <strong>Early Contributors have now taken 4.568bn against 2.143bn vested — 2.13× entitlement.</strong> Akedo's
+    whitepaper gives this allocation a <strong>6-month cliff and then linear release over 42 months</strong>. The cliff
+    expired 21 February 2026, so exactly six of the forty-two months had elapsed on 21 August 2026.
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <div class="table-wrap"><table>
+      <thead><tr><th>Early Contributors (Team Pool 2)</th><th class="num">AKE</th></tr></thead>
+      <tbody>
+        <tr><td>Allocation at launch</td><td class="num">15.000bn</td></tr>
+        <tr><td>Vested by 21 Aug 2026 — 6 of 42 months after the cliff</td><td class="num">2.143bn</td></tr>
+        <tr><td>Withdrawn 26 July 2026</td><td class="num">2.000bn</td></tr>
+        <tr style="background:rgba(239,68,68,0.10)"><td><strong>Withdrawn 21 August 2026</strong></td><td class="num"><strong>2.568bn</strong></td></tr>
+        <tr><td><strong>Total withdrawn</strong></td><td class="num"><strong>4.568bn</strong></td></tr>
+        <tr style="background:rgba(239,68,68,0.12)"><td><strong>Excess over entitlement</strong></td>
+            <td class="num"><strong>+2.425bn</strong> · <span class="badge badge-red">2.13×</span></td></tr>
+        <tr><td>Balance remaining in the pool</td><td class="num">10.432bn</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">
+      In the main report this allocation was the one that looked compliant — 2.000bn withdrawn against 1.995bn vested, a
+      ratio of 1.00×. That is no longer true. The 21 August release moves Early Contributors from the cleanest line in the
+      vesting table to the second-worst after Advisors.
+    </p>
+  </div>
+
+  <div class="alert alert-warn" style="margin-bottom:0">
+    <strong>The counter-argument, stated fairly.</strong> The fourteen amounts are not round numbers — 787.5mn, 495.0mn,
+    266.6667mn, 160.7143mn, 68.4524mn — and several are exact thirds or sevenths. That is the arithmetic of per-beneficiary
+    vesting schedules being computed and paid out, not of an arbitrary raid. It is entirely possible this is a genuine
+    distribution to fourteen team members under terms that differ from the published ones. What the chain shows is that the
+    <em>total</em> exceeds the published schedule by 2.425bn, and that the contract had to be rewritten before it could pay.
+  </div>
+</div>
+
+<div class="section">
+  <h2>3 · The Fourteen Recipients</h2>
+
+  <div class="alert alert-info" style="margin-bottom:14px">
+    <strong>Every one of them is a blank address.</strong> All fourteen are EOAs with <strong>nonce 0</strong> — none has
+    ever sent a transaction of any kind. All hold <strong>zero BNB</strong>, so none can currently move the tokens without
+    being funded first. Each has exactly <strong>one AKE receipt in its entire history</strong>, dated 21 August 2026, and
+    each still holds the full amount. No explorer label of any kind attaches to any of them.
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Recipients, largest first</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Address</th><th class="num">Received</th><th class="num">USD at 15:29</th><th class="num">Share</th><th class="num">Holds now</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="addr">0x5f0d3013be85db860b641ef06a25209f1b4bdd3d</td><td class="num">787.5000mn</td><td class="num">$6,622,134</td><td class="num">30.7%</td><td class="num">787.5000mn</td></tr>
+        <tr><td>2</td><td class="addr">0x8c5ac872bd27e36c89baea1dc4e30c3f6f84e12c</td><td class="num">495.0000mn</td><td class="num">$4,162,484</td><td class="num">19.3%</td><td class="num">495.0000mn</td></tr>
+        <tr><td>3</td><td class="addr">0x1a89580552bf2cb200fdc7b286c48bb5e4c8b7d3</td><td class="num">266.6667mn</td><td class="num">$2,242,416</td><td class="num">10.4%</td><td class="num">266.6667mn</td></tr>
+        <tr><td>4</td><td class="addr">0xf3bfbe73ac660ee858a734510f75b33cc7ada0b6</td><td class="num">236.2500mn</td><td class="num">$1,986,640</td><td class="num">9.2%</td><td class="num">236.2500mn</td></tr>
+        <tr><td>5</td><td class="addr">0x49d19f7e0e3910b5aed943191ebb4e294b155f08</td><td class="num">160.7143mn</td><td class="num">$1,351,456</td><td class="num">6.3%</td><td class="num">160.7143mn</td></tr>
+        <tr><td>6</td><td class="addr">0x43055a9aeade0121fa5a84aa0981109dcd572ab7</td><td class="num">160.4167mn</td><td class="num">$1,348,953</td><td class="num">6.2%</td><td class="num">160.4167mn</td></tr>
+        <tr><td>7</td><td class="addr">0x419b73b20023f25845cdc3b88afeabe767ef1931</td><td class="num">117.8333mn</td><td class="num">$990,867</td><td class="num">4.6%</td><td class="num">117.8333mn</td></tr>
+        <tr><td>8</td><td class="addr">0xe2017853d1164d28f8f72ab748989ec7408c5126</td><td class="num">83.3333mn</td><td class="num">$700,755</td><td class="num">3.2%</td><td class="num">83.3333mn</td></tr>
+        <tr><td>9</td><td class="addr">0xe8daec92cc2d1fc1a785ea16d3a01ea21a561403</td><td class="num">68.4524mn</td><td class="num">$575,620</td><td class="num">2.7%</td><td class="num">68.4524mn</td></tr>
+        <tr><td>10</td><td class="addr">0x1a1aab602f79968918a89f65c015fa6384a9564f</td><td class="num">50.0000mn</td><td class="num">$420,453</td><td class="num">1.9%</td><td class="num">50.0000mn</td></tr>
+        <tr><td>11</td><td class="addr">0x6faf6b92e237ae5abb2aaf3bfd3bda3026e9cab0</td><td class="num">41.6667mn</td><td class="num">$350,377</td><td class="num">1.6%</td><td class="num">41.6667mn</td></tr>
+        <tr><td>12</td><td class="addr">0xa16a5f3badbf829fe21ab07673072c52e8c3c551</td><td class="num">41.6667mn</td><td class="num">$350,377</td><td class="num">1.6%</td><td class="num">41.6667mn</td></tr>
+        <tr><td>13</td><td class="addr">0x0fd6e7e2349bc9eed730d623d16bae2cf760e714</td><td class="num">33.3333mn</td><td class="num">$280,302</td><td class="num">1.3%</td><td class="num">33.3333mn</td></tr>
+        <tr><td>14</td><td class="addr">0x95d6dc1bf3dd32512b07ce2c0d4b65f9eb6f1b09</td><td class="num">25.0000mn</td><td class="num">$210,226</td><td class="num">1.0%</td><td class="num">25.0000mn</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2"><strong>TOTAL</strong></td><td class="num"><strong>2,567.8333mn</strong></td>
+        <td class="num"><strong>$21,593,062</strong></td><td class="num">100%</td><td class="num"><strong>2,567.8333mn</strong></td></tr></tfoot>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">
+      Priced at the CoinGecko hourly rate interpolated to the payout block's own timestamp: <strong>$0.00840906</strong>
+      at 15:29:36 UTC. The daily average for 21 August is $0.00842363, which would give $21,630,470 — a 0.2% difference, so
+      unlike the July deposits the choice of method barely matters here.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h3>Cross-checks — every set built in this analysis, run against all fourteen</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Test</th><th class="num">Hits</th></tr></thead>
+      <tbody>
+        <tr><td>Previously received from any allocation pool, at any time</td><td class="num"><span class="badge badge-green">0 of 14</span></td></tr>
+        <tr><td>Present in the top-400 holder list as at 8 Aug 2026</td><td class="num"><span class="badge badge-green">0 of 14</span></td></tr>
+        <tr><td>Among the 413 wallets that sold to an exchange after the July unlocks</td><td class="num"><span class="badge badge-green">0 of 14</span></td></tr>
+        <tr><td>A known exchange, Binance, DEX-pool or router address</td><td class="num"><span class="badge badge-green">0 of 14</span></td></tr>
+        <tr><td>In the named 2025–26 insider chain (Mega Forwarder, Cold Hold, Alpha Feeders, Whale Insider, Pool Drain Wallets…)</td><td class="num"><span class="badge badge-green">0 of 14</span></td></tr>
+        <tr><td>In the 22-July or KuCoin-funded <code>userWithdraw()</code> gas clusters</td><td class="num"><span class="badge badge-green">0 of 14</span></td></tr>
+        <tr><td>On the node-buyback eligibility list</td><td class="num"><span class="badge badge-green">0 of 14</span></td></tr>
+        <tr><td>Carries any OKLink entity tag</td><td class="num"><span class="badge badge-green">0 of 14</span></td></tr>
+        <tr><td>Has ever received BNB from anyone</td><td class="num"><span class="badge badge-green">0 of 14</span></td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">
+      This is a clean negative result across the board. These wallets are not recycled from any earlier phase of the
+      distribution — they were created for this payment. <strong>That also means first-gas tracing cannot cluster them
+      yet:</strong> with zero BNB there is no funding transaction to follow. The moment any of them is funded, that funder
+      becomes the strongest available controller evidence, and it is the single thing most worth watching.
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>4 · Everything Else That Moved, 20–21 August</h2>
+
+  <div class="alert alert-green" style="margin-bottom:14px">
+    <strong>Nothing else of consequence.</strong> Across the 218,557 new blocks, the only pool activity anywhere is this one
+    Team Pool 2 transaction. The other seven pools show <strong>zero transfers and unchanged implementations</strong>.
+    Exchange flow was trivial: <strong>23.8mn AKE</strong> reached all non-Binance exchanges combined, and 2.4mn reached
+    Binance venues.
+  </div>
+
+  <div class="grid-2" style="margin-bottom:12px">
+    <div class="card" style="background:var(--card)">
+      <h3>Exchange deposits in the window</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Venue</th><th class="num">AKE</th></tr></thead>
+        <tbody>
+          <tr><td>Gate.io. DepositAndWithdraw_1</td><td class="num">12.3mn</td></tr>
+          <tr><td>Kraken. DepositAndWithdraw_6</td><td class="num">5.2mn</td></tr>
+          <tr><td>KuCoin. DepositAndWithdraw_3</td><td class="num">4.7mn</td></tr>
+          <tr><td>MEXC. DepositAndWithdraw_4</td><td class="num">1.7mn</td></tr>
+          <tr><td>Binance venues (reported separately)</td><td class="num">2.4mn</td></tr>
+        </tbody>
+        <tfoot><tr><td><strong>Non-Binance total</strong></td><td class="num"><strong>23.8mn</strong></td></tr></tfoot>
+      </table></div>
+      <p style="font-size:11px;color:var(--muted);margin-top:8px">
+        <strong>None of it came from the fourteen recipients</strong> — they hold everything and have no BNB to move it with.
+      </p>
+    </div>
+    <div class="card" style="background:var(--card)">
+      <h3>Supply restated at block 117,266,413</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Category</th><th class="num">21 Aug</th><th class="num">20 Aug</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ordinary wallets</strong></td><td class="num"><strong>68.6561bn</strong></td><td class="num">66.0878bn</td></tr>
+          <tr><td><strong>Allocation pools</strong></td><td class="num"><strong>26.6957bn</strong></td><td class="num">29.2636bn</td></tr>
+          <tr><td>Binance</td><td class="num">3.1457bn</td><td class="num">3.1557bn</td></tr>
+          <tr><td>Non-Binance exchanges</td><td class="num">1.4459bn</td><td class="num">1.4372bn</td></tr>
+          <tr><td>DEX pools</td><td class="num">0.0556bn</td><td class="num">0.0708bn</td></tr>
+          <tr><td>Routers</td><td class="num">0.0009bn</td><td class="num">0.0009bn</td></tr>
+        </tbody>
+        <tfoot><tr><td><strong>TOTAL</strong></td><td class="num"><strong>100.0000bn</strong></td><td class="num">100.0000bn</td></tr></tfoot>
+      </table></div>
+      <p style="font-size:11px;color:var(--muted);margin-top:8px">
+        The 2.568bn moved straight from the pool column into the wallet column. Cumulative pool withdrawals now stand at
+        <strong>52.504bn — 52.50% of total supply</strong>.
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The three episodes side by side</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Episode</th><th>Pool(s)</th><th class="num">Moved</th><th>Mechanism</th><th class="num">Upgrade → use</th><th>Reverted?</th></tr></thead>
+      <tbody>
+        <tr><td>19 Jun 2026</td><td>Investors</td><td class="num">4,073.4mn</td><td><code>adminTransfer</code> added by upgrade</td><td class="num">24 sec</td><td>Yes — 8m44s later</td></tr>
+        <tr><td>22 + 26 Jul 2026</td><td>Nodes 1/2/3, Investors, Team 1, Team 2</td><td class="num">30,408.4mn</td><td>claim path, then <code>userWithdraw()</code></td><td class="num">hours – 1 day</td><td>No</td></tr>
+        <tr style="background:rgba(239,68,68,0.10)"><td><strong>21 Aug 2026</strong></td><td><strong>Team 2 only</strong></td><td class="num"><strong>2,567.8mn</strong></td>
+            <td>batch payout <code>0xe0dc37a3</code> added by upgrade, <code>userWithdraw()</code> removed</td>
+            <td class="num"><strong>22 sec</strong></td><td>No — still live</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px">
+      Three for three: on every occasion the team allocation has moved, the contract's code was changed immediately
+      beforehand to add the function that moved it. None of the three was announced on any Akedo channel.
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>5 · Method, and What This Does Not Establish</h2>
+  <div class="grid-2" style="margin-bottom:12px">
+    <div class="card" style="background:var(--card)">
+      <h3>How this was produced</h3>
+      <ul style="font-size:12px;color:var(--muted);padding-left:18px;line-height:1.8">
+        <li>Timestamp grid extended to the new head and validated against three freshly read blocks — maximum drift 1 second — before any date was assigned.</li>
+        <li>CoinGecko hourly price series refreshed through 21 Aug 16:46 UTC before anything was valued; the previous series ended 20 Aug and would have mispriced the payout.</li>
+        <li>Every Transfer touching the eight pools across blocks 117,047,857 – 117,266,413, topic-filtered on both sender and recipient position.</li>
+        <li>ERC1967 implementation slot read at both ends for all eight pools, then binary-searched to the exact upgrade block for the one that changed.</li>
+        <li>Function selectors extracted from deployed bytecode of both implementations and diffed; the payout calldata decoded directly and checked against the fourteen Transfer logs.</li>
+        <li>Safe owners and threshold, pool <code>owner()</code>, and every recipient's balance, nonce, BNB and code read live at head.</li>
+      </ul>
+    </div>
+    <div class="card" style="background:var(--card)">
+      <h3>What is not claimed</h3>
+      <ul style="font-size:12px;color:var(--muted);padding-left:18px;line-height:1.8">
+        <li><strong>Not that this is theft or a raid.</strong> The Safe is the pool's legitimate owner and was entitled to upgrade it. The amounts look like computed vesting entitlements.</li>
+        <li><strong>Not that the recipients are insiders.</strong> They are unlabelled and unconnected to every set tested. They may simply be team members' fresh wallets.</li>
+        <li><strong>Not who controls the Safe.</strong> Four owner addresses are known; no identity attaches to any of them.</li>
+        <li><strong>Not that the excess is a breach of contract.</strong> A whitepaper schedule is a statement of intent; the comparison shows published terms against on-chain behaviour, nothing more.</li>
+        <li>Recipient clustering is <strong>impossible for now</strong> — with zero BNB there is no first-gas transaction to trace. This is the open question, not a finding.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert alert-warn" style="margin-bottom:0">
+    <strong>What to watch next.</strong> Three things would change the reading materially: <strong>(1)</strong> whoever funds
+    these fourteen wallets with BNB — that funder is the first real clustering signal and would immediately show whether they
+    are independent or one operator; <strong>(2)</strong> whether any of the 2.568bn reaches an exchange, which under this
+    analysis's rules converts a hold into a sale; and <strong>(3)</strong> whether the new implementation is reverted, as the
+    June one was, or left in place with the batch-payout function live for future releases.
+  </div>
+</div>
+
+</div>
+</body>
+</html>

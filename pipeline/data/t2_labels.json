@@ -1,0 +1,114 @@
+{
+ "0x0fd6e7e2349bc9eed730d623d16bae2cf760e714": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52056
+ },
+ "0x1a1aab602f79968918a89f65c015fa6384a9564f": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52056
+ },
+ "0x1a89580552bf2cb200fdc7b286c48bb5e4c8b7d3": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52455
+ },
+ "0x419b73b20023f25845cdc3b88afeabe767ef1931": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52455
+ },
+ "0x43055a9aeade0121fa5a84aa0981109dcd572ab7": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52056
+ },
+ "0x49d19f7e0e3910b5aed943191ebb4e294b155f08": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52454
+ },
+ "0x5f0d3013be85db860b641ef06a25209f1b4bdd3d": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52454
+ },
+ "0x6faf6b92e237ae5abb2aaf3bfd3bda3026e9cab0": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52455
+ },
+ "0x8c5ac872bd27e36c89baea1dc4e30c3f6f84e12c": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52455
+ },
+ "0x95d6dc1bf3dd32512b07ce2c0d4b65f9eb6f1b09": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52056
+ },
+ "0xa16a5f3badbf829fe21ab07673072c52e8c3c551": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52454
+ },
+ "0xe2017853d1164d28f8f72ab748989ec7408c5126": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52454
+ },
+ "0xe8daec92cc2d1fc1a785ea16d3a01ea21a561403": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52454
+ },
+ "0xf3bfbe73ac660ee858a734510f75b33cc7ada0b6": {
+  "ok": true,
+  "entity": null,
+  "entity_tags": [],
+  "property_tags": [],
+  "is_contract": false,
+  "bytes": 52454
+ }
+}
