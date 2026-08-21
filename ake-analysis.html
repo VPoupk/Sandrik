@@ -324,9 +324,11 @@ small { font-size:10px; }
   </div>
 
   <div class="alert alert-danger" style="margin-bottom:14px">
-    <strong>Question 2 — exchange deposits from insider-linked wallets: yes, one clean chain, and something larger
-    alongside it.</strong> (The post-unlock sales total has also been corrected — see the note at the end of this section.) The direct answer is <strong>400.0mn AKE ($2,098,203)</strong> that reached Gate.io on 13–14
-    August through a wallet OKLink tags "Gate.io. User" — August's single largest exchange deposit. But the bigger event is
+    <strong>Question 2 — exchange deposits from insider-linked wallets: on the evidence, none.</strong>
+    (The post-unlock sales total has also been corrected — see the note at the end of this section.) August's single largest
+    exchange deposit — <strong>400.0mn AKE ($2,098,203)</strong> reaching Gate.io on 13–14 August — is <em>not</em>
+    insider-linked: the tokens were withdrawn from <strong>KuCoin on 6 August</strong> and held seven days, so it is
+    exchange-to-exchange float. The bigger event is
     that <strong>three dormant large holders moved 7,767.8mn ($53.17M) on 14 August</strong>, the day the price began a 2.6×
     run, into three freshly-created unlabelled wallets that are still holding. That is repositioning, not selling — but it is
     the first movement from any of them since they were funded.
@@ -451,12 +453,12 @@ small { font-size:10px; }
   </div>
 
   <div class="card" style="margin-bottom:12px">
-    <h3>The one insider-adjacent chain that actually reached an exchange</h3>
+    <h3>August's largest single exchange deposit — and why it is <em>not</em> insider-linked</h3>
     <div class="table-wrap"><table>
       <thead><tr><th>Step</th><th>Date</th><th>Address</th><th class="num">AKE</th><th class="num">USD</th></tr></thead>
       <tbody>
-        <tr><td>1 — dormant holder empties</td><td>2026-08-13</td>
-            <td class="addr">0x1d2ce507ca0b86cb04a26ab6d295130634b0023a<br><span style="color:var(--muted);font-size:11px">held 400.0mn untouched since Dec 2025</span></td>
+        <tr><td>1 — seven-day holder empties</td><td>2026-08-13</td>
+            <td class="addr">0x1d2ce507ca0b86cb04a26ab6d295130634b0023a<br><span style="color:var(--muted);font-size:11px">received the 400.0mn from <strong>KuCoin</strong> on 6 Aug 2026; balance was zero before that</span></td>
             <td class="num">400.0mn</td><td class="num">$1,625,364</td></tr>
         <tr style="background:rgba(239,68,68,0.08)"><td>2 — into a Gate-tagged wallet</td><td>2026-08-13</td>
             <td class="addr">0x3357eea2079395a2143062522185c24bb645f6c9<br><span style="color:var(--danger);font-size:11px">OKLink entity tag: "Gate.io. User"</span></td>
@@ -472,7 +474,12 @@ small { font-size:10px; }
         <td class="num"><strong>400.0mn</strong></td><td class="num"><strong>$2,098,203</strong></td></tr></tfoot>
     </table></div>
     <p style="font-size:11px;color:var(--muted);margin-top:10px">
-      Both intermediate wallets are now at zero. Separately, watched wallets sent a further <strong>4.8mn ($22,012)</strong>
+      Both intermediate wallets are now at zero. <strong>Correction:</strong> an earlier edition of this section described
+      <code>0x1d2ce507…</code> as a dormant holder sitting on 400.0mn since December 2025 and called this "the one
+      insider-adjacent chain that reached an exchange". That was wrong. December 2025 is when the wallet was first funded
+      with <em>gas</em>; its AKE balance was zero as late as 6 August 2026 and the 400.0mn arrived that day from
+      <code>KuCoin. DepositAndWithdraw_3</code>. The chain is KuCoin → seven days → Gate.io, which is exchange float, not
+      allocation supply. Separately, watched wallets sent a further <strong>4.8mn ($22,012)</strong>
       directly to non-Binance exchanges across the window — trivial, and mostly Kraken-tagged addresses moving between their
       own wallets. <strong>None of the ten KuCoin-funded <code>userWithdraw()</code> wallets and none of the fifteen
       22-July-cluster wallets sent anything anywhere.</strong> Those 25 wallets, holding 12.90bn, remain untouched.
