@@ -330,9 +330,14 @@ small { font-size:10px; }
       <br><br>
       That change was <em>not</em> an upgrade. The implementation was identical at the block before and the block after
       (<code>0x4b569675…</code> both sides). It was a plain setter — selector <code>0xdace4557</code>, called directly on the
-      pool by the deployer EOA <code>0x6468cce9…ce2eac2</code>, emitting a schedule-change event. So both levers exist and
-      both have been used: <strong>eleven implementation swaps</strong> on the Investors Pool since launch, and a separate
-      owner-only setter that can rewrite the schedule in storage at any time.
+      pool by the deployer EOA <code>0x6468cce9…ce2eac2</code>, emitting a schedule-change event.
+      <br><br>
+      A scan for that event across all eight pools over the token's entire life returns <strong>exactly seven emissions</strong>.
+      Six are launch-day configuration — Investors, Team 1, Team 2 and Nodes 1/2/3 set within
+      <strong>fourteen seconds of each other at 12:59 UTC on 20 August 2025</strong>, the day before TGE. The seventh is the
+      18 November change. So <strong>the schedule has been rewritten exactly once since launch, on one pool</strong>, and
+      every one of the seven calls came from the same deployer EOA. Both levers exist and both have been used:
+      <strong>eleven implementation swaps</strong> on the Investors Pool, and one schedule rewrite.
       <br><br>
       <strong>The schedule edit does not explain the over-withdrawal, and should not be presented as if it does.</strong>
       Pushing the start three days <em>later</em> reduces what is claimable, not increases it. The mechanism behind the
