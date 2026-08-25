@@ -305,19 +305,52 @@ small { font-size:10px; }
 </div>
 <!-- ===================== UPDATE TO 20 AUG ===================== -->
 <div class="section" style="border-color:rgba(239,68,68,0.45)">
-  <h2>0 · Update — Chain Re-Parsed to 20 August 2026</h2>
+  <h2>0 · Update — Chain Re-Parsed to 25 August 2026</h2>
+
+  <div class="alert alert-danger" style="margin-bottom:14px">
+    <strong>Update to 25 August 2026, block 117,948,265 — and the answer to §0's first question has changed.</strong>
+    On <strong>21 August at 15:29:35 UTC the team allocation moved</strong>: Team Pool 2 (Early Contributors) released
+    <strong>2,567.8333mn AKE ($21,593,062)</strong> to fourteen brand-new wallets, twenty-two seconds after the Safe replaced
+    the pool's implementation with one containing the batch-payout function that moved it. Early Contributors have now taken
+    4.568bn against 2.143bn vested — <strong>2.13× entitlement</strong>, where the main report's §3 still shows this
+    allocation as the compliant one at 1.00×. Full analysis in the companion document
+    <em>The 21 August Team Pool Release</em>.
+    <br><br>
+    <strong>Since then — 21 Aug 16:45 to 25 Aug 06:01 — nothing further has moved out of any pool</strong>, and none of the
+    fourteen recipients has sent a token: combined nonce 0, zero BNB, still holding all 2,567.8333mn between them.
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h3>Is the unlock schedule in the contract, or imposed off-chain?</h3>
+    <p style="color:var(--muted);font-size:12px;line-height:1.8">
+      It is <strong>on-chain state</strong>, and it is <strong>mutable by the owner without any code change</strong>. Each
+      pool stores a vesting start timestamp readable through selector <code>0x251c1aa3</code>. Seven of the eight read
+      <strong>2025-08-21 10:00 UTC</strong> — TGE — and have never changed. The exception is the Investors Pool, whose start
+      was moved to <strong>2025-08-24 10:00 UTC</strong> at block 68,594,684 on <strong>18 November 2025</strong>.
+      <br><br>
+      That change was <em>not</em> an upgrade. The implementation was identical at the block before and the block after
+      (<code>0x4b569675…</code> both sides). It was a plain setter — selector <code>0xdace4557</code>, called directly on the
+      pool by the deployer EOA <code>0x6468cce9…ce2eac2</code>, emitting a schedule-change event. So both levers exist and
+      both have been used: <strong>eleven implementation swaps</strong> on the Investors Pool since launch, and a separate
+      owner-only setter that can rewrite the schedule in storage at any time.
+      <br><br>
+      <strong>The schedule edit does not explain the over-withdrawal, and should not be presented as if it does.</strong>
+      Pushing the start three days <em>later</em> reduces what is claimable, not increases it. The mechanism behind the
+      excess is the code swaps documented in §4 — functions added that move tokens without consulting the schedule at all.
+    </p>
+  </div>
 
   <div class="alert alert-info" style="margin-bottom:14px">
     <strong>What this section is.</strong> The detailed analysis in §1–§14 is anchored to block 114,777,002
     (8 Aug 2026 17:29 UTC). Rather than restate every figure in the body and risk introducing errors, the chain has been
-    re-parsed forward to block <strong>117,047,856 (20 Aug 2026 13:25 UTC)</strong> — 2,270,854 new blocks, 11.8 days — and
-    only what <em>changed</em> is reported here. Every figure below is newly read from the chain. Where a section number is
+    re-parsed forward to block <strong>117,948,265 (25 Aug 2026 06:01 UTC)</strong> and only what <em>changed</em> is reported here. The 8–20 August figures below are retained as they were; the 21–25 August additions are in the two panels above. Every figure below is newly read from the chain. Where a section number is
     cited, that section's own figures still carry their 8 August as-of date.
   </div>
 
   <div class="alert alert-green" style="margin-bottom:14px">
-    <strong>Question 1 — new flows out of team-controlled pools: NONE. Not one token.</strong>
-    A complete scan of every Transfer touching the eight allocation pools over the 11.8-day gap returns
+    <strong>Question 1, as at 20 August — no flows out of any pool.</strong> <em>(Superseded on 21 August: see the panel
+    above. This paragraph describes the 8–20 August window only.)</em>
+    A complete scan of every Transfer touching the eight allocation pools over that 11.8-day gap returns
     <strong>zero transfers</strong>, and all eight <code>balanceOf</code> readings are identical to the wei against
     8 August. Team Pool 1 still holds 1.1414bn, Team Pool 2 still holds 13.0000bn, the Investors Pool still holds
     14.3671bn. The pools have been completely still since 26 July 2026 — nearly four weeks.
