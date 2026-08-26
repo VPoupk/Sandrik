@@ -8,3 +8,7 @@ pipeline/data/master_may.json
 pipeline/data/master_jul19_26.json
 pipeline/data/master_recent.json
 pipeline/data/pool_out_checkpoint.json
+
+# Scratch staging file, rewritten by every probe_scan run; its contents are
+# whatever the last probe happened to stage, so it is not a meaningful record.
+pipeline/data/venues_probe.json
