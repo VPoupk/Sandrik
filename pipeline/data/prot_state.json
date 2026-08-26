@@ -1,0 +1,92 @@
+{
+ "0x9e229b12cc9081d6a510b29ccbd6311743e277ed": {
+  "bal": "1270830618836898668117450",
+  "contract": false,
+  "nonce": 1125
+ },
+ "0xa4b86771606e366af4afb8c67e62f03fa26f654f": {
+  "bal": "2944126717762269822075341",
+  "contract": false,
+  "nonce": 650
+ },
+ "0xba6ffb31cca9dbbc29a028f236346ab43bc4c985": {
+  "bal": "0",
+  "contract": false,
+  "nonce": 53
+ },
+ "0x653dd7677aea3030eab68c97ed3594bacf560158": {
+  "bal": "519419073420000000000000",
+  "contract": true,
+  "nonce": 1
+ },
+ "0x7c5874a11b4dd3aba411fa8b942ae90d1d662705": {
+  "bal": "1509660000000000000000000",
+  "contract": false,
+  "nonce": 610
+ },
+ "0x40a1fe393a7f566f27df6ace18e6773be844dafc": {
+  "bal": "0",
+  "contract": true,
+  "nonce": 1
+ },
+ "0x66b44ce21a6819f90b49bf48bbd2f0c1f6fc378b": {
+  "bal": "0",
+  "contract": true,
+  "nonce": 1
+ },
+ "0xf09541b6bd516f3436291b399245e5e48cb14e9f": {
+  "bal": "8271508667631748848122882",
+  "contract": true,
+  "nonce": 1
+ },
+ "0x12d2b8ac38c59758a062a9f757f2740461779439": {
+  "bal": "1667725490394453676984300",
+  "contract": false,
+  "nonce": 1241812
+ },
+ "0x4e7ed91e702ef2ff0c58e251c6e20d1dc1e31a5f": {
+  "bal": "693846399683755016678864",
+  "contract": true,
+  "nonce": 1
+ },
+ "0x7977f3e8e063a4ee95b5f396d63485dbdea4515d": {
+  "bal": "0",
+  "contract": true,
+  "nonce": 1
+ },
+ "0xd62e4abfffd6ad9a28eaa2144c6bac65c618f97a": {
+  "bal": "558497523786599944249140",
+  "contract": true,
+  "nonce": 1
+ },
+ "0xb3e17d2ebbd710be53ecd8e8727337a8dd792811": {
+  "bal": "113404518609321404695221",
+  "contract": true,
+  "nonce": 1
+ },
+ "0x3fbd89d8c57fced7bfccb20931de1e17e3750071": {
+  "bal": "380711857786616478442160",
+  "contract": true,
+  "nonce": 1
+ },
+ "0xbd97306a087ed0c46b783cfbfdcdc6c12c7a2866": {
+  "bal": "1299972025083971578601832",
+  "contract": false,
+  "nonce": 3242248
+ },
+ "0x231cbd7d0b540f74fe264c13302a20057b0a5e52": {
+  "bal": "0",
+  "contract": false,
+  "nonce": 51
+ },
+ "0xe48ebd633200108085ab7413d38af7ac894bcb65": {
+  "bal": "0",
+  "contract": false,
+  "nonce": 14770
+ },
+ "0x9f2fa8543a0458c5e33c83693f5889237a8fec60": {
+  "bal": "0",
+  "contract": false,
+  "nonce": 9429
+ }
+}
