@@ -329,42 +329,82 @@ w(f'''<div class="section" id="s2"><h2>2 · Daily tracker — price, volume, tur
 amber where daily turnover exceeded 3× the {len(daily)}-day median of {med_t:.3f}. Dashed verticals mark the
 events described in §3–§6.</p>
 {svg}
-<div class="note">Turnover here is reported volume ÷ market capitalisation, both from CoinGecko.
-<b>vol ÷ on-chain</b> is reported volume divided by the dollar value of AKE that actually crossed an exchange
-custody wallet on-chain that day, priced at the day's close. A high ratio means the reported volume was
-booked somewhere the chain cannot see — internal exchange matching. It is a ratio, not an accusation:
-centralised order books legitimately produce volume without on-chain settlement. It becomes interesting
-when it moves together with the market-maker actions in §4.</div>
+<div class="note"><b>Turnover</b> is reported volume ÷ market capitalisation, both from CoinGecko.
+<b>DEX $</b> is AKE crossing the 19 enumerated on-chain pools that day, priced at the close, with same-day
+liquidity mints netted out so a sell wall being <em>placed</em> is not counted as volume. <b>CEX $</b> is AKE
+crossing an exchange custody wallet. <b>Coverage</b> is (DEX + CEX) ÷ reported volume — the share of the
+day's claimed trading that actually settled somewhere visible.<br><br>
+Coverage cuts both ways and neither direction is an accusation on its own. <b>Below ~0.15</b> the reported
+volume had almost no on-chain counterpart: it was matched inside a centralised book, which is normal in
+itself and interesting only when it coincides with the operator actions in §4. <b>Above 1.0</b> means
+on-chain movement exceeded reported trading — unlock distributions and wallet migrations moving tokens that
+were never traded. The median across the window is {statistics.median([x['cov'] for x in daily]):.2f}.</div>
 
 <table class="dense" style="margin-top:14px"><thead><tr>
-<th>Date</th><th class="num">Close</th><th class="num">Volume</th><th class="num">Mkt cap</th>
-<th class="num">Turnover</th><th class="num">CEX flow</th><th class="num">Binance flow</th>
-<th class="num">On-chain $</th><th class="num">vol ÷ on-chain</th><th>Event</th></tr></thead><tbody>''')
+<th>Date</th><th class="num">Close</th><th class="num">Volume</th><th class="num">Turnover</th>
+<th class="num">DEX $</th><th class="num">CEX $</th><th class="num">On-chain $</th>
+<th class="num">Coverage</th><th>Event</th></tr></thead><tbody>''')
 
+med_cov = statistics.median([x['cov'] for x in daily])
 for r in daily:
     cls = ''
     if r['turn'] > 3 * med_t:
         cls = 'hi'
+    if r['cov'] < 0.15:
+        cls = 'hi2'
     if r['d'] in EVENTS:
         cls = 'hi2'
     ev = EVENTS.get(r['d'], '')
-    ratio = f'{r["ratio"]:,.1f}×' if r['ratio'] else '—'
+    ccol = 'var(--danger)' if r['cov'] < 0.15 else ('var(--muted)' if r['cov'] > 1.5 else 'var(--text)')
     w(f'<tr class="{cls}"><td>{r["d"]}</td><td class="num">{usd(r["p"],8)}</td>'
-      f'<td class="num">{usd(r["vol"])}</td><td class="num">{usd(r["mc"])}</td>'
+      f'<td class="num">{usd(r["vol"])}</td>'
       f'<td class="num"><b>{r["turn"]:.2f}×</b></td>'
-      f'<td class="num">{(r["cin"]+r["cout"])/1e6:,.0f}mn</td>'
-      f'<td class="num">{(r["bin"]+r["bout"])/1e6:,.0f}mn</td>'
-      f'<td class="num">{usd(r["onchain_usd"])}</td><td class="num">{ratio}</td>'
+      f'<td class="num">{usd(r["dex_usd"])}</td>'
+      f'<td class="num">{usd((r["cin"]+r["cout"]+r["bin"]+r["bout"])*r["p"])}</td>'
+      f'<td class="num">{usd(r["onchain_total"])}</td>'
+      f'<td class="num" style="color:{ccol}"><b>{r["cov"]:.2f}</b></td>'
       f'<td style="font-size:11px;color:var(--warn)">{ev}</td></tr>')
 w('</tbody></table>')
 
+low = sorted([r for r in daily if r['vol'] > 10e6], key=lambda x: x['cov'])[:6]
 w(f'''<div class="alert alert-warn" style="margin-top:14px">
 <strong>Six consecutive days of turnover above 2.5×.</strong> 16–21 July printed
 {" / ".join(f"{r['turn']:.2f}" for r in daily if '2026-07-16' <= r['d'] <= '2026-07-21')}.
 On 18 July the token reported {usd(next(r['vol'] for r in daily if r['d']=='2026-07-18'))} of volume against a
 {usd(next(r['mc'] for r in daily if r['d']=='2026-07-18'))} market capitalisation. For scale, the June median
 turnover was {statistics.median([r['turn'] for r in jun]):.3f}.
-</div></div>''')
+</div>
+
+<h3 style="margin-top:18px">Where the reported volume had no on-chain counterpart</h3>
+<p style="font-size:12.5px;margin-bottom:10px">The six lowest-coverage days among those reporting more than
+$10M of volume. On these days the chain shows a small fraction of what was claimed to have traded.</p>
+<table class="dense"><thead><tr><th>Date</th><th class="num">Reported volume</th>
+<th class="num">Settled on-chain</th><th class="num">Coverage</th><th class="num">Turnover</th>
+<th>What else happened that day</th></tr></thead><tbody>''')
+LOWNOTE = {'2026-07-25': 'peak of the July run — price +9.6%, the highest volume print of the whole window',
+           '2026-08-15': 'day after the all-time high; price −0.5% on $115M claimed',
+           '2026-07-28': 'price +28.5% on the day',
+           '2026-08-30': 'day after the 20.87bn migration; price −27.6%',
+           '2026-07-08': 'price −35% crash day',
+           '2026-08-03': 'price −19.5% on the day',
+           '2026-07-26': 'price reaches $0.00306 — the top of the sell-wall ladder; every ask now filled',
+           '2026-07-21': 'third day of the sell-wall ladder filling'}
+for r in low:
+    w(f'<tr class="hi2"><td>{r["d"]}</td><td class="num">{usd(r["vol"])}</td>'
+      f'<td class="num">{usd(r["onchain_total"])}</td>'
+      f'<td class="num" style="color:var(--danger)"><b>{r["cov"]:.2f}</b></td>'
+      f'<td class="num">{r["turn"]:.2f}×</td>'
+      f'<td style="font-size:11.5px">{LOWNOTE.get(r["d"],"")}</td></tr>')
+w(f'''</tbody></table>
+<div class="alert alert-danger" style="margin-top:12px"><strong>25 July is the outlier of the whole window.</strong>
+The token reported <b>{usd(next(r['vol'] for r in daily if r['d']=='2026-07-25'))}</b> — the largest single
+day in these 93 — while <b>{usd(next(r['onchain_total'] for r in daily if r['d']=='2026-07-25'))}</b> settled
+on-chain across every pool and every exchange wallet combined. <b>Coverage 0.05.</b> Turnover that day was
+{next(r['turn'] for r in daily if r['d']=='2026-07-25'):.2f}× the market capitalisation. Two days earlier the
+operator placed its last two sell walls, at $0.002456–$0.029516 and $0.002460–$0.002952; the next day price
+closed at $0.00305960, above the top of the $0.001–$0.003 ladder, so every ask in it had filled. The price
+kept rising afterwards and did not peak until 15 August.</div>
+</div>''')
 print('sec2 ok')
 
 # ---- 3 THE SWEEP
@@ -501,10 +541,11 @@ w(f'''<h3 style="margin-top:18px">What the turnover number means</h3>
 <h3>Where that volume was not</h3>
 <p style="font-size:12.5px">On 25 July the token reported
 {usd(next(r['vol'] for r in daily if r['d']=='2026-07-25'))} of volume while only
-{usd(next(r['onchain_usd'] for r in daily if r['d']=='2026-07-25'))} of AKE crossed an exchange custody wallet
-on-chain — a ratio of <b>{next(r['ratio'] for r in daily if r['d']=='2026-07-25'):.0f}×</b>. On 23–24 July the
-ratio was under 1×, meaning on-chain settlement <em>exceeded</em> reported volume, which is what genuine
-deposit-and-withdraw activity around an unlock looks like.</p>
+{usd(next(r['onchain_total'] for r in daily if r['d']=='2026-07-25'))} settled on-chain across every pool and
+exchange wallet — <b>coverage {next(r['cov'] for r in daily if r['d']=='2026-07-25'):.2f}</b>, the lowest of
+the window. On 23 July coverage was {next(r['cov'] for r in daily if r['d']=='2026-07-23'):.2f} and on 24 July
+{next(r['cov'] for r in daily if r['d']=='2026-07-24'):.2f}: on-chain settlement <em>exceeded</em> reported
+volume, which is what an unlock distribution moving tokens that were never traded looks like.</p>
 <p style="font-size:12.5px;margin-top:8px">Neither reading is proof on its own. Together with a sell ladder
 placed by one operator on the same days, they describe a market being made rather than one clearing.</p>
 </div></div>
@@ -954,8 +995,8 @@ per-wallet sum produces is <em>not</em> used anywhere here; §3 uses the termina
 <li><b>Control.</b> Common funding, shared gas dispensers and synchronised timing are strong circumstantial
 evidence of one operator. They are not proof, and this document does not claim it.</li>
 <li><b>Off-chain trading.</b> Selling on a centralised order book from inventory deposited weeks earlier
-leaves no footprint in the window it happens. §2's vol ÷ on-chain ratio measures that gap; it does not fill
-it.</li>
+leaves no footprint in the window it happens. §2's coverage ratio measures the size of that gap; it does not
+say what filled it.</li>
 <li><b>Intent.</b> Range orders, liquidity withdrawals and treasury-funded liquidity all have ordinary
 explanations. Where a reading cuts both ways the document gives both.</li>
 <li><b>The 6.968bn branch</b> from the 11.65bn hub has not been walked. It is the largest unresolved item on
