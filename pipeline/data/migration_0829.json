@@ -71,7 +71,6 @@
   "0xc432cb918ede4ac2fb2eb0116cde085f0eb206f9",
   "0xc765a438ca4992024cca7996dc651a7f70071775",
   "0xc80ae5a4757ae9f69fc0a437c14cce484cab4588",
-  "0xc882b111a75c0c657fc507c04fbfcd2cc984f071",
   "0xc8995feb91aeb0892a9865d5654ee9aab6c61237",
   "0xcb9437a4f799b1adbdc811dbe399b9caaa96567a",
   "0xce3d53f99f3983fa590d2f27e4cfe9ebc73068c3",
@@ -108,7 +107,6 @@
   "0x0647c6244b2b37adf87be30528ed7091dd776ff3",
   "0x08595dd229ef5b5ad1d35fdb7a3f4af6150cfa1c",
   "0x0a81dc505e1ca8ede37f91fa5150aafb092d3bab",
-  "0x0d0707963952f2fba59dd06f2b425ace40b492fe",
   "0x130230babff4347be881995568be2a9662b222cd",
   "0x143943adcc80bc0e3241bbbf54a111552537cd3c",
   "0x165f2ee8e615afa4303765aba26794a1e6ba25a4",
@@ -200,5 +198,6 @@
   "0xfa16597ed78c8216c81c915c33f3a386eb379064",
   "0xfc800b8127ce99711736fbbfe18138e6a8d754d2",
   "0xff5ebf5ac01564b6ef8b5e004c6026a2b9b4cca3"
- ]
+ ],
+ "note": "Gate.io Cold Wallet_1 and Gate.io DepositAndWithdraw_1 removed: they entered this list only because their 116.22mn internal transfer on 29 Aug 04:59 passed the >=100mn filter used to build it. They are exchange wallets, not part of the sweep."
 }
