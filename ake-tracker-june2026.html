@@ -185,7 +185,7 @@
   market-maker behaviour, cross-referenced against reported volume</div>
   <div class="meta">
     <div class="meta-item">Token <span>AKEDO (AKE) · 0x2c3a8ee9…2C412F7Db · BSC</span></div>
-    <div class="meta-item">Chain read to <span>block 119,317,203 · 01 Sep 2026 09:12:04 UTC</span></div>
+    <div class="meta-item">Chain read to <span>block 119,889,855 · 04 Sep 2026 08:52:16 UTC</span></div>
     <div class="meta-item">Window <span>2026-06-01 → 2026-09-01 (93 days)</span></div>
     <div class="meta-item">Sources <span>NodeReal archive RPC · OKLink labels · CoinGecko</span></div>
   </div>
@@ -197,11 +197,12 @@
 <a href="#s4">4 · Market-maker range orders vs the July volume spike</a>
 <a href="#s5">5 · The 26 August liquidity withdrawal</a>
 <a href="#s6">6 · The 27 August re-entry, funded by Team Pool 2</a>
-<a href="#s7">7 · Post-unlock selling, 22 July – 20 August</a>
-<a href="#s8">8 · The insider chain behind the market maker</a>
-<a href="#s9">9 · Allocation-pool release calendar</a>
-<a href="#s10">10 · Cluster and wallet registry</a>
-<a href="#s11">11 · Method, and what this does not show</a>
+<a href="#s7">7 · September — the 1.5bn release and a new Safe</a>
+<a href="#s8">8 · Post-unlock selling, 22 July – 20 August</a>
+<a href="#s9">9 · The insider chain behind the market maker</a>
+<a href="#s10">10 · Allocation-pool release calendar</a>
+<a href="#s11">11 · Cluster and wallet registry</a>
+<a href="#s12">12 · Method, and what this does not show</a>
 </div></div>
 <div class="section" id="s1"><h2>1 · What changed, in one screen</h2>
 <div class="stat-grid">
@@ -220,9 +221,15 @@
   <div class="stat-box"><div class="stat-box-label">Liquidity pulled 26 Aug</div>
     <div class="stat-box-value">1,093.61 BNB</div>
     <div class="stat-box-sub">+ 11.58mn AKE · ≈$853,552</div></div>
+  <div class="stat-box"><div class="stat-box-label">3 Sep team release</div>
+    <div class="stat-box-value" style="color:var(--warn)">1,500.00mn</div>
+    <div class="stat-box-sub">Team Pool 2 · 3 wallets · still untouched</div></div>
+  <div class="stat-box"><div class="stat-box-label">4 Sep off Binance</div>
+    <div class="stat-box-value" style="color:var(--danger)">423.03mn</div>
+    <div class="stat-box-sub">into a Safe deployed 2h earlier</div></div>
   <div class="stat-box"><div class="stat-box-label">Price now</div>
-    <div class="stat-box-value">$0.00888234</div>
-    <div class="stat-box-sub">-42.2% from $0.01536079 ATH (14 Aug)</div></div>
+    <div class="stat-box-value">$0.01360726</div>
+    <div class="stat-box-sub">-62.6% from $0.03637560 ATH (14 Aug)</div></div>
 </div>
 
 <div class="alert alert-danger" style="margin-top:16px">
@@ -233,7 +240,7 @@ that had never transacted before and have not moved since. The two figures diffe
 <b>100 AKE</b> across 5,879 wallets. None of it touched an exchange.
 </div>
 
-<h3 style="margin-top:18px">The six things worth knowing</h3>
+<h3 style="margin-top:18px">The nine things worth knowing</h3>
 <table><thead><tr><th style="width:26px">#</th><th>Finding</th><th style="width:150px">Evidence</th></tr></thead><tbody>
 <tr><td>1</td><td><b>The entire 22 July node unlock has been consolidated into 98 fresh wallets.</b>
   5,879 claimant wallets → 98 hubs (~60 claimants each) → 98 never-used wallets. Completed 29 Aug.</td>
@@ -253,13 +260,13 @@ that had never transacted before and have not moved since. The two figures diffe
   supply now sits in the AKE/WBNB pool as liquidity.</td><td class="num">§6</td></tr>
 <tr><td>6</td><td><b>The market maker is downstream of the deployer's launch-day distribution.</b>
   Deployer → 13.800bn → 11.650bn hub → 100.00mn → the wallet that has run the pool's book since
-  21 August 2025.</td><td class="num">§8</td></tr>
+  21 August 2025.</td><td class="num">§9</td></tr>
 </tbody></table>
 </div>
 <div class="section" id="s2"><h2>2 · Daily tracker — price, volume, turnover, on-chain flow</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Blue line: AKE close, log scale. Bars: reported 24h volume,
 amber where daily turnover exceeded 3× the 93-day median of 0.148. Dashed verticals mark the
-events described in §3–§6.</p>
+events described in §3–§7.</p>
 <svg class="spark" viewBox="0 0 1140 190" preserveAspectRatio="none" role="img" aria-label="AKE daily close on a log scale with reported volume bars, June to September 2026"><rect width="1140" height="190" fill="#0d1424"/><line x1="257.3" y1="8" x2="257.3" y2="176" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,3" opacity=".55"/><line x1="574.3" y1="8" x2="574.3" y2="176" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,3" opacity=".55"/><line x1="644.7" y1="8" x2="644.7" y2="176" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,3" opacity=".55"/><line x1="691.7" y1="8" x2="691.7" y2="176" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,3" opacity=".55"/><line x1="914.7" y1="8" x2="914.7" y2="176" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,3" opacity=".55"/><line x1="996.9" y1="8" x2="996.9" y2="176" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,3" opacity=".55"/><line x1="1055.6" y1="8" x2="1055.6" y2="176" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,3" opacity=".55"/><line x1="1090.8" y1="8" x2="1090.8" y2="176" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,3" opacity=".55"/><rect x="43.0" y="175.7" width="6" height="0.3" fill="#1e3a5f" opacity="0.7"/><rect x="54.7" y="175.6" width="6" height="0.4" fill="#1e3a5f" opacity="0.7"/><rect x="66.5" y="175.5" width="6" height="0.5" fill="#1e3a5f" opacity="0.7"/><rect x="78.2" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="90.0" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="101.7" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="113.4" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="125.2" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="136.9" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="148.7" y="175.6" width="6" height="0.4" fill="#1e3a5f" opacity="0.7"/><rect x="160.4" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="172.1" y="175.5" width="6" height="0.5" fill="#1e3a5f" opacity="0.7"/><rect x="183.9" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="195.6" y="175.6" width="6" height="0.4" fill="#1e3a5f" opacity="0.7"/><rect x="207.3" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="219.1" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="230.8" y="175.0" width="6" height="1.0" fill="#1e3a5f" opacity="0.7"/><rect x="242.6" y="175.1" width="6" height="0.9" fill="#1e3a5f" opacity="0.7"/><rect x="254.3" y="175.1" width="6" height="0.9" fill="#1e3a5f" opacity="0.7"/><rect x="266.0" y="175.2" width="6" height="0.8" fill="#1e3a5f" opacity="0.7"/><rect x="277.8" y="174.4" width="6" height="1.6" fill="#1e3a5f" opacity="0.7"/><rect x="289.5" y="174.6" width="6" height="1.4" fill="#1e3a5f" opacity="0.7"/><rect x="301.3" y="175.1" width="6" height="0.9" fill="#1e3a5f" opacity="0.7"/><rect x="313.0" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="324.7" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="336.5" y="175.2" width="6" height="0.8" fill="#1e3a5f" opacity="0.7"/><rect x="348.2" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="360.0" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="371.7" y="175.2" width="6" height="0.8" fill="#1e3a5f" opacity="0.7"/><rect x="383.4" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="395.2" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="406.9" y="175.2" width="6" height="0.8" fill="#1e3a5f" opacity="0.7"/><rect x="418.7" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="430.4" y="174.5" width="6" height="1.5" fill="#1e3a5f" opacity="0.7"/><rect x="442.1" y="173.5" width="6" height="2.5" fill="#f59e0b" opacity="0.85"/><rect x="453.9" y="174.8" width="6" height="1.2" fill="#1e3a5f" opacity="0.7"/><rect x="465.6" y="175.2" width="6" height="0.8" fill="#1e3a5f" opacity="0.7"/><rect x="477.3" y="171.2" width="6" height="4.8" fill="#f59e0b" opacity="0.85"/><rect x="489.1" y="174.7" width="6" height="1.3" fill="#1e3a5f" opacity="0.7"/><rect x="500.8" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="512.6" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="524.3" y="175.0" width="6" height="1.0" fill="#1e3a5f" opacity="0.7"/><rect x="536.0" y="175.3" width="6" height="0.7" fill="#1e3a5f" opacity="0.7"/><rect x="547.8" y="175.4" width="6" height="0.6" fill="#1e3a5f" opacity="0.7"/><rect x="559.5" y="173.4" width="6" height="2.6" fill="#f59e0b" opacity="0.85"/><rect x="571.3" y="139.0" width="6" height="37.0" fill="#f59e0b" opacity="0.85"/><rect x="583.0" y="137.1" width="6" height="38.9" fill="#f59e0b" opacity="0.85"/><rect x="594.7" y="91.8" width="6" height="84.2" fill="#f59e0b" opacity="0.85"/><rect x="606.5" y="81.6" width="6" height="94.4" fill="#f59e0b" opacity="0.85"/><rect x="618.2" y="121.9" width="6" height="54.1" fill="#f59e0b" opacity="0.85"/><rect x="630.0" y="147.6" width="6" height="28.4" fill="#f59e0b" opacity="0.85"/><rect x="641.7" y="165.8" width="6" height="10.2" fill="#1e3a5f" opacity="0.7"/><rect x="653.4" y="151.7" width="6" height="24.3" fill="#f59e0b" opacity="0.85"/><rect x="665.2" y="77.1" width="6" height="98.9" fill="#f59e0b" opacity="0.85"/><rect x="676.9" y="32.0" width="6" height="144.0" fill="#f59e0b" opacity="0.85"/><rect x="688.7" y="160.8" width="6" height="15.2" fill="#1e3a5f" opacity="0.7"/><rect x="700.4" y="169.0" width="6" height="7.0" fill="#1e3a5f" opacity="0.7"/><rect x="712.1" y="140.9" width="6" height="35.1" fill="#f59e0b" opacity="0.85"/><rect x="723.9" y="167.5" width="6" height="8.5" fill="#1e3a5f" opacity="0.7"/><rect x="735.6" y="162.2" width="6" height="13.8" fill="#1e3a5f" opacity="0.7"/><rect x="747.3" y="165.6" width="6" height="10.4" fill="#1e3a5f" opacity="0.7"/><rect x="759.1" y="166.4" width="6" height="9.6" fill="#1e3a5f" opacity="0.7"/><rect x="770.8" y="153.0" width="6" height="23.0" fill="#1e3a5f" opacity="0.7"/><rect x="782.6" y="149.6" width="6" height="26.4" fill="#1e3a5f" opacity="0.7"/><rect x="794.3" y="166.9" width="6" height="9.1" fill="#1e3a5f" opacity="0.7"/><rect x="806.0" y="171.3" width="6" height="4.7" fill="#1e3a5f" opacity="0.7"/><rect x="817.8" y="171.3" width="6" height="4.7" fill="#1e3a5f" opacity="0.7"/><rect x="829.5" y="172.3" width="6" height="3.7" fill="#1e3a5f" opacity="0.7"/><rect x="841.3" y="173.5" width="6" height="2.5" fill="#1e3a5f" opacity="0.7"/><rect x="853.0" y="173.7" width="6" height="2.3" fill="#1e3a5f" opacity="0.7"/><rect x="864.7" y="172.9" width="6" height="3.1" fill="#1e3a5f" opacity="0.7"/><rect x="876.5" y="173.2" width="6" height="2.8" fill="#1e3a5f" opacity="0.7"/><rect x="888.2" y="173.1" width="6" height="2.9" fill="#1e3a5f" opacity="0.7"/><rect x="900.0" y="174.0" width="6" height="2.0" fill="#1e3a5f" opacity="0.7"/><rect x="911.7" y="122.9" width="6" height="53.1" fill="#f59e0b" opacity="0.85"/><rect x="923.4" y="100.8" width="6" height="75.2" fill="#f59e0b" opacity="0.85"/><rect x="935.2" y="154.6" width="6" height="21.4" fill="#1e3a5f" opacity="0.7"/><rect x="946.9" y="166.9" width="6" height="9.1" fill="#1e3a5f" opacity="0.7"/><rect x="958.7" y="167.9" width="6" height="8.1" fill="#1e3a5f" opacity="0.7"/><rect x="970.4" y="168.0" width="6" height="8.0" fill="#1e3a5f" opacity="0.7"/><rect x="982.1" y="171.2" width="6" height="4.8" fill="#1e3a5f" opacity="0.7"/><rect x="993.9" y="171.9" width="6" height="4.1" fill="#1e3a5f" opacity="0.7"/><rect x="1005.6" y="172.4" width="6" height="3.6" fill="#1e3a5f" opacity="0.7"/><rect x="1017.3" y="171.3" width="6" height="4.7" fill="#1e3a5f" opacity="0.7"/><rect x="1029.1" y="173.6" width="6" height="2.4" fill="#1e3a5f" opacity="0.7"/><rect x="1040.8" y="173.8" width="6" height="2.2" fill="#1e3a5f" opacity="0.7"/><rect x="1052.6" y="172.4" width="6" height="3.6" fill="#1e3a5f" opacity="0.7"/><rect x="1064.3" y="165.0" width="6" height="11.0" fill="#1e3a5f" opacity="0.7"/><rect x="1076.0" y="161.1" width="6" height="14.9" fill="#1e3a5f" opacity="0.7"/><rect x="1087.8" y="137.2" width="6" height="38.8" fill="#1e3a5f" opacity="0.7"/><rect x="1099.5" y="144.3" width="6" height="31.7" fill="#1e3a5f" opacity="0.7"/><rect x="1111.3" y="172.4" width="6" height="3.6" fill="#1e3a5f" opacity="0.7"/><rect x="1123.0" y="161.4" width="6" height="14.6" fill="#1e3a5f" opacity="0.7"/><path d="M46.0,141.8 L57.7,139.9 L69.5,143.2 L81.2,143.6 L93.0,147.2 L104.7,148.9 L116.4,149.2 L128.2,145.1 L139.9,146.2 L151.7,150.1 L163.4,149.0 L175.1,148.5 L186.9,148.7 L198.6,149.1 L210.3,145.5 L222.1,143.6 L233.8,137.3 L245.6,141.2 L257.3,142.4 L269.0,141.8 L280.8,131.8 L292.5,133.5 L304.3,137.8 L316.0,140.1 L327.7,136.9 L339.5,136.9 L351.2,137.9 L363.0,140.0 L374.7,136.5 L386.4,137.2 L398.2,136.1 L409.9,136.7 L421.7,134.1 L433.4,131.4 L445.1,143.5 L456.9,144.9 L468.6,144.6 L480.3,160.4 L492.1,161.2 L503.8,160.9 L515.6,161.0 L527.3,159.2 L539.0,161.2 L550.8,162.0 L562.5,161.8 L574.3,114.9 L586.0,100.0 L597.7,87.3 L609.5,75.4 L621.2,75.8 L633.0,81.4 L644.7,81.5 L656.4,81.0 L668.2,66.9 L679.9,63.5 L691.7,59.6 L703.4,58.8 L715.1,49.6 L726.9,49.0 L738.6,51.6 L750.3,45.5 L762.1,46.6 L773.8,35.2 L785.6,43.1 L797.3,46.1 L809.0,47.2 L820.8,49.4 L832.5,48.6 L844.3,50.0 L856.0,50.5 L867.7,48.4 L879.5,50.2 L891.2,47.5 L903.0,49.2 L914.7,30.5 L926.4,14.0 L938.2,15.7 L949.9,16.9 L961.7,20.5 L973.4,20.0 L985.1,21.6 L996.9,22.0 L1008.6,23.2 L1020.3,21.4 L1032.1,22.2 L1043.8,21.8 L1055.6,21.7 L1067.3,26.0 L1079.0,30.0 L1090.8,12.0 L1102.5,23.9 L1114.3,24.6 L1126.0,20.4" fill="none" stroke="#3b82f6" stroke-width="1.8"/><text x="4" y="16" fill="#64748b" font-size="9">$0.01119</text><text x="4" y="170" fill="#64748b" font-size="9">$0.00019</text></svg>
 <div class="note"><b>Turnover</b> is reported volume ÷ market capitalisation, both from CoinGecko.
 <b>DEX $</b> is AKE crossing the 19 enumerated on-chain pools that day, priced at the close, with same-day
@@ -573,7 +580,7 @@ placed by one operator on the same days, they describe a market being made rathe
 Placing range orders is ordinary market-making, and a project having a market maker is ordinary. Three things
 here are not ordinary: the walls were funded with AKE and no quote asset, so they could only ever sell; they
 were laid immediately before and during a 16× price move; and the operator behind them traces to the
-deployer's launch-day distribution (§8). The gross 3.82bn placed is an upper bound on selling, not a
+deployer's launch-day distribution (§9). The gross 3.82bn placed is an upper bound on selling, not a
 figure — the same tokens were withdrawn and re-placed at new ranges repeatedly. Netting the position manager
 against the pools gives <b>+88.41mn AKE</b> actually delivered to the market across both operator wallets over
 their whole lives; the current operator net sold <b>148.71mn</b> while its predecessor net bought
@@ -645,7 +652,7 @@ coming back untraded. Calling the whole figure a sale would be wrong.</div>
 Active liquidity <code>L</code> held at ~98,400 through the entire break, so no tick-crossing regime change:
 the V3 virtual reserves at the pre-break price were <b>335 BNB / 28.9mn AKE ≈ $234,275 a side</b>. The
 arithmetic says 74.1 BNB walks the price −39.3%; 64.5 were measured. AKE's on-chain book at the touch is about
-a quarter of a million dollars against a $884M FDV.</div>
+a quarter of a million dollars against a $1,362M FDV.</div>
 
 <h3 style="margin-top:16px">Depth before and after</h3>
 <table class="dense"><thead><tr><th>Measure</th><th class="num">26 Aug 13:52</th><th class="num">27 Aug 06:02</th>
@@ -739,7 +746,150 @@ market maker pulled out and the price broke 39%, is a different thing. What is e
 from Team Pool 2, the timing was 26 minutes end to end, and the wallet that placed it was funded by the same
 dispenser that funds the rest of this cluster.</div>
 </div>
-<div class="section" id="s7"><h2>7 · Post-unlock selling, 22 July – 20 August</h2>
+<div class="section" id="s7"><h2>7 · September — the 1.5bn release and a new Safe</h2>
+
+<h3>3 September, 02:58:10 UTC — Team Pool 2 releases another 1,500.00mn</h3>
+<p style="font-size:12.5px;margin-bottom:10px">One transaction, three transfers of exactly
+500,000,000&nbsp;&times;&nbsp;10<sup>18</sup>, routed the same way as the 21 August release: through the
+3-of-4 Gnosis Safe <a class="addr-full" href="https://bscscan.com/address/0x551a841742733bef96646b44e3475ce6a01da5eb" target="_blank" rel="noopener">0x551a8417…a5eb</a> using
+<code>execTransaction</code> (<code>0x6a761202</code>), submitted by owner
+<a class="addr-full" href="https://bscscan.com/address/0xa79cc05c2ce2950549dfdfeb2ab462ab0be626b3" target="_blank" rel="noopener">0xa79cc05c…26b3</a>, calling the batch payout
+<code>0xe0dc37a3</code> on Team Pool 2.</p>
+<div class="note" style="margin-bottom:12px">tx <a class="addr-full" href="https://bscscan.com/tx/0x69f7d0dd70013fec41e3a8199857be24d1e70b9faf19e9f8d4b4d187866c616d" target="_blank" rel="noopener">0x69f7d0dd7001…</a>
+&nbsp;·&nbsp; block 119,650,955</div>
+<table class="dense"><thead><tr><th>Recipient</th><th class="num">Received</th><th class="num">Holds now</th>
+<th class="num">Nonce</th><th class="num">BNB</th><th>Status</th></tr></thead><tbody>
+<tr class="hi2"><td><a class="addr-full" href="https://bscscan.com/address/0x4367fc88f25c2a9515c54e48876d36623c36ef6d" target="_blank" rel="noopener">0x4367fc88…ef6d</a></td><td class="num">500.00mn</td>
+  <td class="num">500.00mn</td><td class="num">0</td><td class="num">0</td>
+  <td style="color:var(--muted)">cannot move — no gas</td></tr>
+<tr class="hi2"><td><a class="addr-full" href="https://bscscan.com/address/0x4d14eb59004f3deff7f3d518e969fa288af36099" target="_blank" rel="noopener">0x4d14eb59…6099</a></td><td class="num">500.00mn</td>
+  <td class="num">500.00mn</td><td class="num">0</td><td class="num">0</td>
+  <td style="color:var(--muted)">cannot move — no gas</td></tr>
+<tr class="hi2"><td><a class="addr-full" href="https://bscscan.com/address/0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00" target="_blank" rel="noopener">0xdc775543…0d00</a></td><td class="num">500.00mn</td>
+  <td class="num">500.00mn</td><td class="num">0</td><td class="num">0</td>
+  <td style="color:var(--muted)">cannot move — no gas</td></tr>
+</tbody></table>
+<div class="note">All three are fresh EOAs that have never transacted and hold no BNB. None appears in any known
+set — not the 21 August cohort, not the 29 August sweep, no explorer label. Team Pool 2 fell
+<b>10.4322bn &rarr; 8.9322bn</b>. The release is <b>10.0%</b> of the pool&rsquo;s original 15bn,
+<b>14.4%</b> of what remained, <b>6.58%</b> of circulating, and <b>$20,410,890</b>
+at spot. The two 26 July releases used direct <code>userWithdraw()</code> calls instead; since 21 August
+every release has gone through this Safe with this signer.</div>
+
+<h3 style="margin-top:18px">4 September — 423.03mn leaves Binance into a Safe created two hours earlier</h3>
+<div class="alert alert-danger">Between <b>07:07:36 and 08:29:40 on 4 September</b>, three freshly gas-funded
+EOAs each drew a tranche from Binance Hot Wallet_4, sent a 0-value test, forwarded the whole balance, and
+emptied. All of it — <b>423.03mn AKE, $5,756,279 at spot</b> — is now held by
+one contract that has sent nothing.</div>
+<table class="dense"><thead><tr><th>Time UTC</th><th class="num">Amount</th><th>Pass-through EOA</th>
+<th>Gas funded by</th></tr></thead><tbody>
+<tr><td>07:07:36 &rarr; 07:37:23</td><td class="num">153.83mn</td>
+  <td><a class="addr-full" href="https://bscscan.com/address/0x8c7aa7e9494c19745623ede7d34eab9b2ea36c66" target="_blank" rel="noopener">0x8c7aa7e9…6c66</a></td>
+  <td><a class="addr-full" href="https://bscscan.com/address/0xdc7bd4219a7dd616540df63ecf173227297011f5" target="_blank" rel="noopener">0xdc7bd421…11f5</a></td></tr>
+<tr><td>07:48:01 &rarr; 07:58:55</td><td class="num">153.83mn</td>
+  <td><a class="addr-full" href="https://bscscan.com/address/0x8cde138124dd0472b1f46a5b5a0c1335cf8350c8" target="_blank" rel="noopener">0x8cde1381…50c8</a></td>
+  <td><a class="addr-full" href="https://bscscan.com/address/0xeaff4c2e5124a9334cf4bb193f8b586fdbf2aaa6" target="_blank" rel="noopener">0xeaff4c2e…aaa6</a></td></tr>
+<tr class="hi2"><td>08:21:35 &rarr; 08:29:40</td><td class="num">115.37mn</td>
+  <td><a class="addr-full" href="https://bscscan.com/address/0x9d1c3c1fec14ac71969e83be28c45156e87cccb2" target="_blank" rel="noopener">0x9d1c3c1f…ccb2</a></td>
+  <td><a class="addr-full" href="https://bscscan.com/address/0xe7569e846b5b884bc2f5fb4d408bc05351eb5f4c" target="_blank" rel="noopener">0xe7569e84…5f4c</a> <b style="color:var(--danger)">— an owner of the
+      receiving Safe</b></td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>Total into <a class="addr-full" href="https://bscscan.com/address/0x808e6d72d37619d7ecb3fc6efc8f13bd37c46755" target="_blank" rel="noopener">0x808e6d72…6755</a></b></td>
+  <td class="num"><b>423.03mn</b></td><td colspan="2"></td></tr>
+</tbody></table>
+
+<h3 style="margin-top:16px">What the receiving contract is</h3>
+<div class="grid2">
+<div class="card" style="background:var(--card2);padding:14px;border-radius:8px;border:1px solid var(--border)">
+<h3>0x808e6d72…6755</h3>
+<dl class="kv">
+<dt>Type</dt><dd>Gnosis Safe proxy, 171 bytes</dd>
+<dt>Threshold</dt><dd>3 of 4</dd>
+<dt>Deployed</dt><dd>4 Sep 2026 04:56:37, block 119,858,453</dd>
+<dt>First inflow</dt><dd>2h 11m later</dd>
+<dt>Holds</dt><dd>423.03mn AKE</dd>
+<dt>Sent</dt><dd>nothing</dd>
+<dt>masterCopy</dt><dd>0x29fcb43b — the standard Safe implementation</dd>
+</dl></div>
+<div class="card" style="background:var(--card2);padding:14px;border-radius:8px;border:1px solid var(--border)">
+<h3>It is <em>not</em> the AKEDO team Safe</h3>
+<p style="font-size:12.5px">Same 3-of-4 shape and the same masterCopy — but that implementation is shared by
+every Safe on BSC, so it carries no information. <b>Zero owner overlap</b> with
+<a class="addr-full" href="https://bscscan.com/address/0x551a841742733bef96646b44e3475ce6a01da5eb" target="_blank" rel="noopener">0x551a8417…a5eb</a>, and none of the four new owners appears in any known set
+or holds any AKE.</p>
+<p style="font-size:11.5px;color:var(--muted);margin-top:8px">Owners:
+<a class="addr-full" href="https://bscscan.com/address/0xa2173f629417e948e9e92588061a7c74728916ed" target="_blank" rel="noopener">0xa2173f62…16ed</a>,
+<a class="addr-full" href="https://bscscan.com/address/0xe7569e846b5b884bc2f5fb4d408bc05351eb5f4c" target="_blank" rel="noopener">0xe7569e84…5f4c</a>,
+<a class="addr-full" href="https://bscscan.com/address/0x0916a851ad3b8d694cb6a6d81ecad17eb3e64e23" target="_blank" rel="noopener">0x0916a851…4e23</a>,
+<a class="addr-full" href="https://bscscan.com/address/0x8508312202dec3756efb16c018c1b6aaa989172f" target="_blank" rel="noopener">0x85083122…172f</a></p>
+</div></div>
+<div class="alert alert-info" style="margin-top:12px"><strong>What is established, and what is not.</strong>
+Established: a Safe was created, and two hours later 423.03mn AKE was withdrawn from Binance and consolidated
+into it through three single-use wallets, one of which was gas-funded by that Safe&rsquo;s own signer — so the
+Safe operator controlled the routing. Not established: who those four keys belong to. There is no on-chain
+link to the AKEDO team Safe, the deployer chain, or the market-maker cluster. Tokens moving <em>off</em> an
+exchange into multisig custody is the opposite of a distribution, and is what an OTC purchase, a treasury
+transfer or a custody migration all look like.</div>
+
+<h3 style="margin-top:18px">A 100.00mn venue switch, 2–3 September</h3>
+<p style="font-size:12.5px"><a class="addr-full" href="https://bscscan.com/address/0x025315786d51cdfae43a4e830c6fe6fd0eb34737" target="_blank" rel="noopener">0x02531578…4737</a> sent <b>100.00mn</b> to a
+Gate.io user wallet at 2 Sep 23:06:12, received <b>exactly 100.00mn back</b> at 3 Sep 08:15:35, then routed it
+to <b>KuCoin</b> nine minutes later through <a class="addr-full" href="https://bscscan.com/address/0x59ca8bf29778c146017a0d513ab388a40ca16d84" target="_blank" rel="noopener">0x59ca8bf2…6d84</a> as a
+<b>1.00mn test followed by 99.00mn</b>. Under the accounting rule this books as a sale into a non-Binance
+exchange, but the shape is a venue change rather than a liquidation: the same round number went out, came
+back, and went somewhere else.</p>
+
+<h3 style="margin-top:18px">2 September — a 4.9&times; spike on a book that had gone 88% thinner</h3>
+<p style="font-size:12.5px;margin-bottom:10px">This is the clearest demonstration in the whole window of the
+structural point in &sect;5, and it happened in one evening. Reconstructed from the pool&rsquo;s own
+<code>Swap</code> events in 15-minute buckets.</p>
+<table class="dense"><thead><tr><th>UTC</th><th class="num">Open</th><th class="num">High</th>
+<th class="num">Low</th><th class="num">Close</th><th class="num">Swaps</th><th class="num">Active L</th>
+<th>What is happening</th></tr></thead><tbody>
+<tr><td>02 Sep 13:30</td><td class="num">$0.00917</td><td class="num">$0.00997</td><td class="num">$0.00912</td>
+  <td class="num">$0.00992</td><td class="num">2,128</td><td class="num">809,161</td>
+  <td>move begins, book intact</td></tr>
+<tr><td>02 Sep 17:30</td><td class="num">$0.01483</td><td class="num">$0.01574</td><td class="num">$0.01471</td>
+  <td class="num">$0.01557</td><td class="num">3,257</td><td class="num">809,133</td>
+  <td>approaching the top of the range</td></tr>
+<tr class="hi2"><td>02 Sep 17:45</td><td class="num">$0.01557</td><td class="num">$0.01609</td>
+  <td class="num">$0.01457</td><td class="num">$0.01540</td><td class="num">4,045</td>
+  <td class="num" style="color:var(--danger)"><b>98,396</b></td>
+  <td><b>price exits the range — 710,736 of liquidity stops counting</b></td></tr>
+<tr><td>02 Sep 19:15</td><td class="num">$0.01926</td><td class="num">$0.02131</td><td class="num">$0.01896</td>
+  <td class="num">$0.01946</td><td class="num">10,349</td><td class="num">98,350</td>
+  <td>accelerating on the thin book</td></tr>
+<tr><td>02 Sep 20:00</td><td class="num">$0.01987</td><td class="num">$0.02153</td><td class="num">$0.01737</td>
+  <td class="num">$0.01962</td><td class="num">16,172</td><td class="num">98,401</td>
+  <td>peak activity — 16,172 swaps in 15 minutes</td></tr>
+<tr class="hi"><td>02 Sep 21:30</td><td class="num">$0.02305</td>
+  <td class="num" style="color:var(--warn)"><b>$0.04469</b></td><td class="num">$0.02280</td>
+  <td class="num">$0.03657</td><td class="num">8,104</td><td class="num">98,350</td>
+  <td><b>the spike</b></td></tr>
+<tr class="hi2"><td>02 Sep 21:45</td><td class="num">$0.03636</td><td class="num">$0.03637</td>
+  <td class="num" style="color:var(--danger)"><b>$0.01647</b></td><td class="num">$0.01750</td>
+  <td class="num">14,226</td><td class="num">98,350</td>
+  <td><b>&minus;55% in one bucket</b></td></tr>
+<tr class="hi3"><td>03 Sep 02:30</td><td class="num">$0.01532</td><td class="num">$0.01556</td>
+  <td class="num">$0.01428</td><td class="num">$0.01483</td><td class="num">3,876</td>
+  <td class="num" style="color:var(--green)"><b>809,122</b></td>
+  <td>price back inside the range — liquidity returns</td></tr>
+</tbody></table>
+<div class="alert alert-warn" style="margin-top:12px"><strong>The pool printed $0.04468663 — above the
+recorded all-time high.</strong> CoinGecko lists the ATH as $0.03637560 on 2 September and its
+hourly volume-weighted series peaks at $0.02026916, so the top tick is a real on-chain event that the VWAP
+smooths away. An earlier draft of this section said the pool never approached the high; that was an artefact
+of sampling price every ~10,000 blocks, and the swap-by-swap reconstruction above corrects it.</div>
+<div class="alert alert-danger" style="margin-top:10px"><strong>The whole parabola happened while the market
+maker&rsquo;s liquidity was out of range.</strong> At 17:45 price crossed tick &minus;107,212, the top of the
+27 August positions. Above that level those positions hold no AKE, and active liquidity is <b>88% thinner</b>
+— 98,350 against 809,133. The run to $0.0447 and the 55% retrace fifteen minutes later both took place on the
+residual book. Liquidity returned only at 02:30 the next morning, when price fell back through the tick.</div>
+<div class="note">Nothing was withdrawn — every Mint and Burn in the window is retail-scale, L values of 3 to
+6,000. This is a range boundary being crossed, not an operator acting. The exposure it creates is real
+nonetheless, and price sits +18.7% below that boundary in AKE/BNB terms
+right now.</div>
+</div>
+<div class="section" id="s8"><h2>8 · Post-unlock selling, 22 July – 20 August</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Carried forward from the post-unlock study, re-stated here for
 continuity. Every deposit is priced at the CoinGecko <b>hourly</b> rate interpolated to the block's own
 timestamp, never a flat price. The accounting rule is the one set for this work: a transfer to any exchange
@@ -792,7 +942,7 @@ $5,011,878</b> from one insider-chain wallet.
 The bulk of the rest is exchange-to-exchange float: tokens withdrawn from Kraken or KuCoin and deposited to
 Gate.io or MEXC by wallets that hold nothing and exist only to route.</div>
 </div>
-<div class="section" id="s8"><h2>8 · The insider chain behind the market maker</h2>
+<div class="section" id="s9"><h2>9 · The insider chain behind the market maker</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Verified against the deployer's own launch transaction rather
 than any prior document. In a single block on <b>16 Aug 2025 21:06</b> the deployer
 <a class="addr-full" href="https://bscscan.com/address/0x6468cce97a300ff9d02d4cad0d3e097cace2eac2" target="_blank" rel="noopener">0x6468cce9…eac2</a> sent 13 transfers summing to exactly
@@ -848,7 +998,7 @@ liquidity story.</div>
 counts; the dispenser has 12.1 million. That reads as professional market-making infrastructure, not wallets
 spun up for this token. None of them carries an OKLink entity label.</div>
 </div>
-<div class="section" id="s9"><h2>9 · Allocation-pool release calendar</h2>
+<div class="section" id="s10"><h2>10 · Allocation-pool release calendar</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Every transfer out of the eight allocation pools since
 1 June 2026, from the full pool-flow scan. Balances are direct <code>balanceOf</code> reads at the head block.</p>
 <table class="dense"><thead><tr><th>Date</th><th class="num">Released</th><th class="num">Recipients</th>
@@ -860,7 +1010,7 @@ spun up for this token. None of them carries an OKLink entity label.</div>
 <tr class="hi"><td>2026-08-21</td><td class="num"><b>2.568bn</b></td><td class="num">14</td><td style="font-size:11px">Team Pool 2 2.568bn</td><td class="num">$0.00852339</td><td class="num">$21,886,640</td></tr>
 <tr style="border-top:2px solid var(--border)"><td><b>Total since 1 Jun 2026</b></td>
 <td class="num"><b>37.050bn</b></td>
-<td class="num"><b>6,250</b></td><td colspan="3"></td></tr></tbody></table>
+<td class="num"><b>6,253</b></td><td colspan="3"></td></tr></tbody></table>
 
 <h3 style="margin-top:16px">Pool balances at the head block</h3>
 <table class="dense"><thead><tr><th>Pool</th><th class="num">Original allocation</th>
@@ -868,20 +1018,20 @@ spun up for this token. None of them carries an OKLink entity label.</div>
 </tr></thead><tbody>
 <tr><td>Investors Pool <a class="addr-full" href="https://bscscan.com/address/0x27333bd8c321a263b0565e69eea3b736b9d1f42c" target="_blank" rel="noopener">0x27333bd8…f42c</a></td><td class="num">25.000bn</td><td class="num">14.3671bn</td><td class="num">10.633bn</td><td class="num">42.5%</td></tr>
 <tr><td>Nodes Pool 3 <a class="addr-full" href="https://bscscan.com/address/0xaf66503770451c83a4f12a1146a32271893508ce" target="_blank" rel="noopener">0xaf665037…08ce</a></td><td class="num">16.000bn</td><td class="num">0.0000mn</td><td class="num">16.000bn</td><td class="num">100.0%</td></tr>
-<tr><td>Team Pool 2 <a class="addr-full" href="https://bscscan.com/address/0xd229b65d50e412cc3c394233e7a53a1dac4da457" target="_blank" rel="noopener">0xd229b65d…a457</a></td><td class="num">15.000bn</td><td class="num">10.4322bn</td><td class="num">4.568bn</td><td class="num">30.5%</td></tr>
+<tr><td>Team Pool 2 <a class="addr-full" href="https://bscscan.com/address/0xd229b65d50e412cc3c394233e7a53a1dac4da457" target="_blank" rel="noopener">0xd229b65d…a457</a></td><td class="num">15.000bn</td><td class="num">8.9322bn</td><td class="num">6.068bn</td><td class="num">40.5%</td></tr>
 <tr><td>Nodes Pool 1 <a class="addr-full" href="https://bscscan.com/address/0xb7c7786b6ca1130584f005e9c86554114b7fad62" target="_blank" rel="noopener">0xb7c7786b…ad62</a></td><td class="num">8.000bn</td><td class="num">642.2005mn</td><td class="num">7.358bn</td><td class="num">92.0%</td></tr>
 <tr><td>Nodes Pool 2 <a class="addr-full" href="https://bscscan.com/address/0xd2f72669e560c7ecd3c681612963990ef6f1981b" target="_blank" rel="noopener">0xd2f72669…981b</a></td><td class="num">7.500bn</td><td class="num">11.0000mn</td><td class="num">7.489bn</td><td class="num">99.9%</td></tr>
 <tr><td>Team Pool 1 (Advisors) <a class="addr-full" href="https://bscscan.com/address/0x9009342f6d3b2f685fc9f5fe4dc9d3e30ed0e248" target="_blank" rel="noopener">0x9009342f…e248</a></td><td class="num">5.000bn</td><td class="num">1.1414bn</td><td class="num">3.859bn</td><td class="num">77.2%</td></tr>
 <tr><td>KOL Pool <a class="addr-full" href="https://bscscan.com/address/0xbd6ae2b2a7414934327e2a7da1a8691c792f9ad5" target="_blank" rel="noopener">0xbd6ae2b2…9ad5</a></td><td class="num">1.700bn</td><td class="num">73.9000mn</td><td class="num">1.626bn</td><td class="num">95.7%</td></tr>
 <tr><td>Community Pool <a class="addr-full" href="https://bscscan.com/address/0x6b394c413d60b2aadb37a907a73a6f9a91c35015" target="_blank" rel="noopener">0x6b394c41…5015</a></td><td class="num">1.000bn</td><td class="num">27.8925mn</td><td class="num">972.107mn</td><td class="num">97.2%</td></tr>
 <tr style="border-top:2px solid var(--border)"><td><b>Total</b></td>
-<td class="num"><b>79.2bn</b></td><td class="num"><b>26.696bn</b></td>
-<td class="num"><b>52.504bn</b></td>
-<td class="num"><b>66.3%</b></td></tr></tbody></table>
+<td class="num"><b>79.2bn</b></td><td class="num"><b>25.196bn</b></td>
+<td class="num"><b>54.004bn</b></td>
+<td class="num"><b>68.2%</b></td></tr></tbody></table>
 <div class="note">No allocation pool has moved a token since 21 August 2026 — verified by direct balance read
 at every head block since. The 22 July release is the one that matters for §3.</div>
 </div>
-<div class="section" id="s10"><h2>10 · Cluster and wallet registry</h2>
+<div class="section" id="s11"><h2>11 · Cluster and wallet registry</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Every wallet named in this document, with its full address and
 what the chain shows it doing. Nicknames are functional descriptions assigned here, not on-chain labels — none
 of these addresses carries an OKLink entity tag except the exchange venues.</p>
@@ -919,7 +1069,7 @@ of these addresses carries an OKLink entity tag except the exchange venues.</p>
   <td class="num">8.3bn</td>
   <td>pass-through, hold nothing</td></tr>
 </tbody></table></div>
-<div class="section" id="s11"><h2>11 · Method, and what this does not show</h2>
+<div class="section" id="s12"><h2>12 · Method, and what this does not show</h2>
 <div class="grid2">
 <div>
 <h3>How the numbers were produced</h3>
@@ -961,11 +1111,11 @@ WAF. Every label used is OKLink's, and every raw fact is from the node directly.
 <div class="alert alert-info" style="margin-top:14px"><strong>Verification.</strong> Each scan writes a
 checkpointed JSON under <code>pipeline/data/</code> and the generator for this page reads those files rather
 than any typed-in figure, so re-running it after a fresh scan regenerates every number on this page.
-Chain read to block <b>119,317,203</b>, <b>01 Sep 2026 09:12:04 UTC</b>.</div>
+Chain read to block <b>119,889,855</b>, <b>04 Sep 2026 08:52:16 UTC</b>.</div>
 </div>
 
 <footer style="border-top:1px solid var(--border);margin-top:28px;padding:16px 0;color:var(--muted);font-size:11.5px">
-AKE Activity Tracker · window 2026-06-01 → 2026-09-01 · generated from pipeline/data at block 119,317,203 ·
+AKE Activity Tracker · window 2026-06-01 → 2026-09-01 · generated from pipeline/data at block 119,889,855 ·
 figures in AKE unless marked; mn = million, bn = billion
 </footer>
 </div>

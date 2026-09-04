@@ -232,11 +232,12 @@ w('''<div class="section"><h2>Contents</h2><div class="tocgrid">
 <a href="#s4">4 · Market-maker range orders vs the July volume spike</a>
 <a href="#s5">5 · The 26 August liquidity withdrawal</a>
 <a href="#s6">6 · The 27 August re-entry, funded by Team Pool 2</a>
-<a href="#s7">7 · Post-unlock selling, 22 July – 20 August</a>
-<a href="#s8">8 · The insider chain behind the market maker</a>
-<a href="#s9">9 · Allocation-pool release calendar</a>
-<a href="#s10">10 · Cluster and wallet registry</a>
-<a href="#s11">11 · Method, and what this does not show</a>
+<a href="#s7">7 · September — the 1.5bn release and a new Safe</a>
+<a href="#s8">8 · Post-unlock selling, 22 July – 20 August</a>
+<a href="#s9">9 · The insider chain behind the market maker</a>
+<a href="#s10">10 · Allocation-pool release calendar</a>
+<a href="#s11">11 · Cluster and wallet registry</a>
+<a href="#s12">12 · Method, and what this does not show</a>
 </div></div>''')
 
 # ---- 1 EXEC
@@ -259,6 +260,12 @@ w(f'''<div class="section" id="s1"><h2>1 · What changed, in one screen</h2>
   <div class="stat-box"><div class="stat-box-label">Liquidity pulled 26 Aug</div>
     <div class="stat-box-value">1,093.61 BNB</div>
     <div class="stat-box-sub">+ {mn(11.579e24)} AKE · ≈{usd(1093.61*BNBUSD + 11.579e6*0.00888)}</div></div>
+  <div class="stat-box"><div class="stat-box-label">3 Sep team release</div>
+    <div class="stat-box-value" style="color:var(--warn)">1,500.00mn</div>
+    <div class="stat-box-sub">Team Pool 2 · 3 wallets · still untouched</div></div>
+  <div class="stat-box"><div class="stat-box-label">4 Sep off Binance</div>
+    <div class="stat-box-value" style="color:var(--danger)">423.03mn</div>
+    <div class="stat-box-sub">into a Safe deployed 2h earlier</div></div>
   <div class="stat-box"><div class="stat-box-label">Price now</div>
     <div class="stat-box-value">{usd(mkt['current_price']['usd'],8)}</div>
     <div class="stat-box-sub">{mkt['ath_change_percentage']['usd']:+.1f}% from {usd(mkt['ath']['usd'],8)} ATH (14 Aug)</div></div>
@@ -272,7 +279,7 @@ that had never transacted before and have not moved since. The two figures diffe
 <b>100 AKE</b> across {J22_RECIP:,} wallets. None of it touched an exchange.
 </div>
 
-<h3 style="margin-top:18px">The six things worth knowing</h3>
+<h3 style="margin-top:18px">The nine things worth knowing</h3>
 <table><thead><tr><th style="width:26px">#</th><th>Finding</th><th style="width:150px">Evidence</th></tr></thead><tbody>
 <tr><td>1</td><td><b>The entire 22 July node unlock has been consolidated into 98 fresh wallets.</b>
   {J22_RECIP:,} claimant wallets → 98 hubs (~60 claimants each) → 98 never-used wallets. Completed 29 Aug.</td>
@@ -292,7 +299,7 @@ that had never transacted before and have not moved since. The two figures diffe
   supply now sits in the AKE/WBNB pool as liquidity.</td><td class="num">§6</td></tr>
 <tr><td>6</td><td><b>The market maker is downstream of the deployer's launch-day distribution.</b>
   Deployer → 13.800bn → 11.650bn hub → 100.00mn → the wallet that has run the pool's book since
-  21 August 2025.</td><td class="num">§8</td></tr>
+  21 August 2025.</td><td class="num">§9</td></tr>
 </tbody></table>
 </div>''')
 print('sec1 ok')
@@ -327,7 +334,7 @@ svg = (f'<svg class="spark" viewBox="0 0 {W_} {H_}" preserveAspectRatio="none" r
 w(f'''<div class="section" id="s2"><h2>2 · Daily tracker — price, volume, turnover, on-chain flow</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Blue line: AKE close, log scale. Bars: reported 24h volume,
 amber where daily turnover exceeded 3× the {len(daily)}-day median of {med_t:.3f}. Dashed verticals mark the
-events described in §3–§6.</p>
+events described in §3–§7.</p>
 {svg}
 <div class="note"><b>Turnover</b> is reported volume ÷ market capitalisation, both from CoinGecko.
 <b>DEX $</b> is AKE crossing the 19 enumerated on-chain pools that day, priced at the close, with same-day
@@ -554,7 +561,7 @@ placed by one operator on the same days, they describe a market being made rathe
 Placing range orders is ordinary market-making, and a project having a market maker is ordinary. Three things
 here are not ordinary: the walls were funded with AKE and no quote asset, so they could only ever sell; they
 were laid immediately before and during a 16× price move; and the operator behind them traces to the
-deployer's launch-day distribution (§8). The gross {mn(ASK_TOT,2)} placed is an upper bound on selling, not a
+deployer's launch-day distribution (§9). The gross {mn(ASK_TOT,2)} placed is an upper bound on selling, not a
 figure — the same tokens were withdrawn and re-placed at new ranges repeatedly. Netting the position manager
 against the pools gives <b>+88.41mn AKE</b> actually delivered to the market across both operator wallets over
 their whole lives; the current operator net sold <b>148.71mn</b> while its predecessor net bought
@@ -741,10 +748,157 @@ dispenser that funds the rest of this cluster.</div>
 </div>''')
 print('sec6 ok')
 
+# ---- 7 SEPTEMBER DEVELOPMENTS
+NEWSAFE = '0x808e6d72d37619d7ecb3fc6efc8f13bd37c46755'
+w(f'''<div class="section" id="s7"><h2>7 · September — the 1.5bn release and a new Safe</h2>
+
+<h3>3 September, 02:58:10 UTC — Team Pool 2 releases another 1,500.00mn</h3>
+<p style="font-size:12.5px;margin-bottom:10px">One transaction, three transfers of exactly
+500,000,000&nbsp;&times;&nbsp;10<sup>18</sup>, routed the same way as the 21 August release: through the
+3-of-4 Gnosis Safe {bsc('0x551a841742733bef96646b44e3475ce6a01da5eb')} using
+<code>execTransaction</code> (<code>0x6a761202</code>), submitted by owner
+{bsc('0xa79cc05c2ce2950549dfdfeb2ab462ab0be626b3')}, calling the batch payout
+<code>0xe0dc37a3</code> on Team Pool 2.</p>
+<div class="note" style="margin-bottom:12px">tx {bsctx('0x69f7d0dd70013fec41e3a8199857be24d1e70b9faf19e9f8d4b4d187866c616d')}
+&nbsp;·&nbsp; block 119,650,955</div>
+<table class="dense"><thead><tr><th>Recipient</th><th class="num">Received</th><th class="num">Holds now</th>
+<th class="num">Nonce</th><th class="num">BNB</th><th>Status</th></tr></thead><tbody>
+<tr class="hi2"><td>{bsc('0x4367fc88f25c2a9515c54e48876d36623c36ef6d')}</td><td class="num">500.00mn</td>
+  <td class="num">500.00mn</td><td class="num">0</td><td class="num">0</td>
+  <td style="color:var(--muted)">cannot move — no gas</td></tr>
+<tr class="hi2"><td>{bsc('0x4d14eb59004f3deff7f3d518e969fa288af36099')}</td><td class="num">500.00mn</td>
+  <td class="num">500.00mn</td><td class="num">0</td><td class="num">0</td>
+  <td style="color:var(--muted)">cannot move — no gas</td></tr>
+<tr class="hi2"><td>{bsc('0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00')}</td><td class="num">500.00mn</td>
+  <td class="num">500.00mn</td><td class="num">0</td><td class="num">0</td>
+  <td style="color:var(--muted)">cannot move — no gas</td></tr>
+</tbody></table>
+<div class="note">All three are fresh EOAs that have never transacted and hold no BNB. None appears in any known
+set — not the 21 August cohort, not the 29 August sweep, no explorer label. Team Pool 2 fell
+<b>10.4322bn &rarr; 8.9322bn</b>. The release is <b>10.0%</b> of the pool&rsquo;s original 15bn,
+<b>14.4%</b> of what remained, <b>6.58%</b> of circulating, and <b>{usd(1.5e9*mkt['current_price']['usd'])}</b>
+at spot. The two 26 July releases used direct <code>userWithdraw()</code> calls instead; since 21 August
+every release has gone through this Safe with this signer.</div>
+
+<h3 style="margin-top:18px">4 September — 423.03mn leaves Binance into a Safe created two hours earlier</h3>
+<div class="alert alert-danger">Between <b>07:07:36 and 08:29:40 on 4 September</b>, three freshly gas-funded
+EOAs each drew a tranche from Binance Hot Wallet_4, sent a 0-value test, forwarded the whole balance, and
+emptied. All of it — <b>423.03mn AKE, {usd(423.03e6*mkt['current_price']['usd'])} at spot</b> — is now held by
+one contract that has sent nothing.</div>
+<table class="dense"><thead><tr><th>Time UTC</th><th class="num">Amount</th><th>Pass-through EOA</th>
+<th>Gas funded by</th></tr></thead><tbody>
+<tr><td>07:07:36 &rarr; 07:37:23</td><td class="num">153.83mn</td>
+  <td>{bsc('0x8c7aa7e9494c19745623ede7d34eab9b2ea36c66')}</td>
+  <td>{bsc('0xdc7bd4219a7dd616540df63ecf173227297011f5')}</td></tr>
+<tr><td>07:48:01 &rarr; 07:58:55</td><td class="num">153.83mn</td>
+  <td>{bsc('0x8cde138124dd0472b1f46a5b5a0c1335cf8350c8')}</td>
+  <td>{bsc('0xeaff4c2e5124a9334cf4bb193f8b586fdbf2aaa6')}</td></tr>
+<tr class="hi2"><td>08:21:35 &rarr; 08:29:40</td><td class="num">115.37mn</td>
+  <td>{bsc('0x9d1c3c1fec14ac71969e83be28c45156e87cccb2')}</td>
+  <td>{bsc('0xe7569e846b5b884bc2f5fb4d408bc05351eb5f4c')} <b style="color:var(--danger)">— an owner of the
+      receiving Safe</b></td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>Total into {bsc(NEWSAFE)}</b></td>
+  <td class="num"><b>423.03mn</b></td><td colspan="2"></td></tr>
+</tbody></table>
+
+<h3 style="margin-top:16px">What the receiving contract is</h3>
+<div class="grid2">
+<div class="card" style="background:var(--card2);padding:14px;border-radius:8px;border:1px solid var(--border)">
+<h3>{sh(NEWSAFE)}</h3>
+<dl class="kv">
+<dt>Type</dt><dd>Gnosis Safe proxy, 171 bytes</dd>
+<dt>Threshold</dt><dd>3 of 4</dd>
+<dt>Deployed</dt><dd>4 Sep 2026 04:56:37, block 119,858,453</dd>
+<dt>First inflow</dt><dd>2h 11m later</dd>
+<dt>Holds</dt><dd>423.03mn AKE</dd>
+<dt>Sent</dt><dd>nothing</dd>
+<dt>masterCopy</dt><dd>0x29fcb43b — the standard Safe implementation</dd>
+</dl></div>
+<div class="card" style="background:var(--card2);padding:14px;border-radius:8px;border:1px solid var(--border)">
+<h3>It is <em>not</em> the AKEDO team Safe</h3>
+<p style="font-size:12.5px">Same 3-of-4 shape and the same masterCopy — but that implementation is shared by
+every Safe on BSC, so it carries no information. <b>Zero owner overlap</b> with
+{bsc('0x551a841742733bef96646b44e3475ce6a01da5eb')}, and none of the four new owners appears in any known set
+or holds any AKE.</p>
+<p style="font-size:11.5px;color:var(--muted);margin-top:8px">Owners:
+{bsc('0xa2173f629417e948e9e92588061a7c74728916ed')},
+{bsc('0xe7569e846b5b884bc2f5fb4d408bc05351eb5f4c')},
+{bsc('0x0916a851ad3b8d694cb6a6d81ecad17eb3e64e23')},
+{bsc('0x8508312202dec3756efb16c018c1b6aaa989172f')}</p>
+</div></div>
+<div class="alert alert-info" style="margin-top:12px"><strong>What is established, and what is not.</strong>
+Established: a Safe was created, and two hours later 423.03mn AKE was withdrawn from Binance and consolidated
+into it through three single-use wallets, one of which was gas-funded by that Safe&rsquo;s own signer — so the
+Safe operator controlled the routing. Not established: who those four keys belong to. There is no on-chain
+link to the AKEDO team Safe, the deployer chain, or the market-maker cluster. Tokens moving <em>off</em> an
+exchange into multisig custody is the opposite of a distribution, and is what an OTC purchase, a treasury
+transfer or a custody migration all look like.</div>
+
+<h3 style="margin-top:18px">A 100.00mn venue switch, 2–3 September</h3>
+<p style="font-size:12.5px">{bsc('0x025315786d51cdfae43a4e830c6fe6fd0eb34737')} sent <b>100.00mn</b> to a
+Gate.io user wallet at 2 Sep 23:06:12, received <b>exactly 100.00mn back</b> at 3 Sep 08:15:35, then routed it
+to <b>KuCoin</b> nine minutes later through {bsc('0x59ca8bf29778c146017a0d513ab388a40ca16d84')} as a
+<b>1.00mn test followed by 99.00mn</b>. Under the accounting rule this books as a sale into a non-Binance
+exchange, but the shape is a venue change rather than a liquidation: the same round number went out, came
+back, and went somewhere else.</p>
+
+<h3 style="margin-top:18px">2 September — a 4.9&times; spike on a book that had gone 88% thinner</h3>
+<p style="font-size:12.5px;margin-bottom:10px">This is the clearest demonstration in the whole window of the
+structural point in &sect;5, and it happened in one evening. Reconstructed from the pool&rsquo;s own
+<code>Swap</code> events in 15-minute buckets.</p>
+<table class="dense"><thead><tr><th>UTC</th><th class="num">Open</th><th class="num">High</th>
+<th class="num">Low</th><th class="num">Close</th><th class="num">Swaps</th><th class="num">Active L</th>
+<th>What is happening</th></tr></thead><tbody>
+<tr><td>02 Sep 13:30</td><td class="num">$0.00917</td><td class="num">$0.00997</td><td class="num">$0.00912</td>
+  <td class="num">$0.00992</td><td class="num">2,128</td><td class="num">809,161</td>
+  <td>move begins, book intact</td></tr>
+<tr><td>02 Sep 17:30</td><td class="num">$0.01483</td><td class="num">$0.01574</td><td class="num">$0.01471</td>
+  <td class="num">$0.01557</td><td class="num">3,257</td><td class="num">809,133</td>
+  <td>approaching the top of the range</td></tr>
+<tr class="hi2"><td>02 Sep 17:45</td><td class="num">$0.01557</td><td class="num">$0.01609</td>
+  <td class="num">$0.01457</td><td class="num">$0.01540</td><td class="num">4,045</td>
+  <td class="num" style="color:var(--danger)"><b>98,396</b></td>
+  <td><b>price exits the range — 710,736 of liquidity stops counting</b></td></tr>
+<tr><td>02 Sep 19:15</td><td class="num">$0.01926</td><td class="num">$0.02131</td><td class="num">$0.01896</td>
+  <td class="num">$0.01946</td><td class="num">10,349</td><td class="num">98,350</td>
+  <td>accelerating on the thin book</td></tr>
+<tr><td>02 Sep 20:00</td><td class="num">$0.01987</td><td class="num">$0.02153</td><td class="num">$0.01737</td>
+  <td class="num">$0.01962</td><td class="num">16,172</td><td class="num">98,401</td>
+  <td>peak activity — 16,172 swaps in 15 minutes</td></tr>
+<tr class="hi"><td>02 Sep 21:30</td><td class="num">$0.02305</td>
+  <td class="num" style="color:var(--warn)"><b>$0.04469</b></td><td class="num">$0.02280</td>
+  <td class="num">$0.03657</td><td class="num">8,104</td><td class="num">98,350</td>
+  <td><b>the spike</b></td></tr>
+<tr class="hi2"><td>02 Sep 21:45</td><td class="num">$0.03636</td><td class="num">$0.03637</td>
+  <td class="num" style="color:var(--danger)"><b>$0.01647</b></td><td class="num">$0.01750</td>
+  <td class="num">14,226</td><td class="num">98,350</td>
+  <td><b>&minus;55% in one bucket</b></td></tr>
+<tr class="hi3"><td>03 Sep 02:30</td><td class="num">$0.01532</td><td class="num">$0.01556</td>
+  <td class="num">$0.01428</td><td class="num">$0.01483</td><td class="num">3,876</td>
+  <td class="num" style="color:var(--green)"><b>809,122</b></td>
+  <td>price back inside the range — liquidity returns</td></tr>
+</tbody></table>
+<div class="alert alert-warn" style="margin-top:12px"><strong>The pool printed $0.04468663 — above the
+recorded all-time high.</strong> CoinGecko lists the ATH as {usd(mkt['ath']['usd'],8)} on 2 September and its
+hourly volume-weighted series peaks at $0.02026916, so the top tick is a real on-chain event that the VWAP
+smooths away. An earlier draft of this section said the pool never approached the high; that was an artefact
+of sampling price every ~10,000 blocks, and the swap-by-swap reconstruction above corrects it.</div>
+<div class="alert alert-danger" style="margin-top:10px"><strong>The whole parabola happened while the market
+maker&rsquo;s liquidity was out of range.</strong> At 17:45 price crossed tick &minus;107,212, the top of the
+27 August positions. Above that level those positions hold no AKE, and active liquidity is <b>88% thinner</b>
+— 98,350 against 809,133. The run to $0.0447 and the 55% retrace fifteen minutes later both took place on the
+residual book. Liquidity returned only at 02:30 the next morning, when price fell back through the tick.</div>
+<div class="note">Nothing was withdrawn — every Mint and Burn in the window is retail-scale, L values of 3 to
+6,000. This is a range boundary being crossed, not an operator acting. The exposure it creates is real
+nonetheless, and price sits {100*(1.0001**(-107212 + 108930)-1):+.1f}% below that boundary in AKE/BNB terms
+right now.</div>
+</div>''')
+print('sec7 ok')
+
 # ---- 7 POST-UNLOCK SELLING
 GROUPS = clu['groups']; DET = clu['detail']
 TOT_A = int(clu['total_ake']); TOT_U = clu['total_usd']
-w(f'''<div class="section" id="s7"><h2>7 · Post-unlock selling, 22 July – 20 August</h2>
+w(f'''<div class="section" id="s8"><h2>8 · Post-unlock selling, 22 July – 20 August</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Carried forward from the post-unlock study, re-stated here for
 continuity. Every deposit is priced at the CoinGecko <b>hourly</b> rate interpolated to the block's own
 timestamp, never a flat price. The accounting rule is the one set for this work: a transfer to any exchange
@@ -788,7 +942,7 @@ Gate.io or MEXC by wallets that hold nothing and exist only to route.</div>
 </div>''')
 
 # ---- 8 INSIDER CHAIN
-w(f'''<div class="section" id="s8"><h2>8 · The insider chain behind the market maker</h2>
+w(f'''<div class="section" id="s9"><h2>9 · The insider chain behind the market maker</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Verified against the deployer's own launch transaction rather
 than any prior document. In a single block on <b>16 Aug 2025 21:06</b> the deployer
 {bsc('0x6468cce97a300ff9d02d4cad0d3e097cace2eac2')} sent 13 transfers summing to exactly
@@ -875,7 +1029,7 @@ bal_now = {}
 for a in PADDR:
     bal_now[a] = int(rpc('eth_call', [{'to':AKE,'data':'0x70a08231'+'0'*24+a[2:]}, hex(HEAD)]), 16)
 
-w(f'''<div class="section" id="s9"><h2>9 · Allocation-pool release calendar</h2>
+w(f'''<div class="section" id="s10"><h2>10 · Allocation-pool release calendar</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Every transfer out of the eight allocation pools since
 1 June 2026, from the full pool-flow scan. Balances are direct <code>balanceOf</code> reads at the head block.</p>
 <table class="dense"><thead><tr><th>Date</th><th class="num">Released</th><th class="num">Recipients</th>
@@ -937,7 +1091,7 @@ REG = [
 ]
 BADGE = {'insider': 'flag', 'insider-linked': 'flag', 'team supply': 'warn', 'unresolved': 'muted',
          'infrastructure': 'muted', 'venue': 'ok'}
-w('''<div class="section" id="s10"><h2>10 · Cluster and wallet registry</h2>
+w('''<div class="section" id="s11"><h2>11 · Cluster and wallet registry</h2>
 <p style="font-size:12.5px;margin-bottom:12px">Every wallet named in this document, with its full address and
 what the chain shows it doing. Nicknames are functional descriptions assigned here, not on-chain labels — none
 of these addresses carries an OKLink entity tag except the exchange venues.</p>
@@ -967,7 +1121,7 @@ w(f'''<tr class="hi2"><td><b>22 Jul node-unlock sweep</b></td><td class="num">{J
 </tbody></table></div>''')
 
 # ---- 11 METHOD
-w(f'''<div class="section" id="s11"><h2>11 · Method, and what this does not show</h2>
+w(f'''<div class="section" id="s12"><h2>12 · Method, and what this does not show</h2>
 <div class="grid2">
 <div>
 <h3>How the numbers were produced</h3>
