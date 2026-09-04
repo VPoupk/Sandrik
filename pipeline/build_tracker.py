@@ -753,6 +753,42 @@ print('sec6 ok')
 
 # ---- 7 SEPTEMBER DEVELOPMENTS
 NEWSAFE = '0x808e6d72d37619d7ecb3fc6efc8f13bd37c46755'
+# live state at the head, so the section cannot go stale against the chain
+import urllib.request as _u, time as _t
+_RPC = 'https://bsc-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3'
+_AKE = '0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db'
+
+
+def _rpc(m, pr, tries=6):
+    for i in range(tries):
+        try:
+            r = _u.Request(_RPC, data=json.dumps({'jsonrpc': '2.0', 'id': 1, 'method': m,
+                                                  'params': pr}).encode(),
+                           headers={'Content-Type': 'application/json'})
+            j = json.loads(_u.urlopen(r, timeout=60).read())
+            if 'error' in j:
+                raise RuntimeError(j['error'])
+            return j['result']
+        except Exception:
+            if i == tries - 1:
+                raise
+            _t.sleep(1.5 * 1.7 ** i)
+
+
+def live(a):
+    b = int(_rpc('eth_call', [{'to': _AKE, 'data': '0x70a08231' + '0'*24 + a[2:]}, hex(HEAD)]), 16)
+    n = int(_rpc('eth_getTransactionCount', [a, 'latest']), 16)
+    g = int(_rpc('eth_getBalance', [a, 'latest']), 16)
+    return b, n, g
+
+
+SEP3 = ['0x4367fc88f25c2a9515c54e48876d36623c36ef6d',
+        '0x4d14eb59004f3deff7f3d518e969fa288af36099',
+        '0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00']
+SEP3_LIVE = {a: live(a) for a in SEP3}
+SAFE_LIVE = live(NEWSAFE)
+T2_LIVE = live('0xd229b65d50e412cc3c394233e7a53a1dac4da457')
+print('live state read')
 w(f'''<div class="section" id="s7"><h2>7 · September — the 1.5bn release and a new Safe</h2>
 
 <h3>3 September, 02:58:10 UTC — Team Pool 2 releases another 1,500.00mn</h3>
@@ -767,18 +803,20 @@ w(f'''<div class="section" id="s7"><h2>7 · September — the 1.5bn release and 
 <table class="dense"><thead><tr><th>Recipient</th><th class="num">Received</th><th class="num">Holds now</th>
 <th class="num">Nonce</th><th class="num">BNB</th><th>Status</th></tr></thead><tbody>
 <tr class="hi2"><td>{bsc('0x4367fc88f25c2a9515c54e48876d36623c36ef6d')}</td><td class="num">500.00mn</td>
-  <td class="num">500.00mn</td><td class="num">0</td><td class="num">0</td>
-  <td style="color:var(--muted)">cannot move — no gas</td></tr>
+  <td class="num">{mn(SEP3_LIVE['0x4367fc88f25c2a9515c54e48876d36623c36ef6d'][0])}</td><td class="num">{SEP3_LIVE['0x4367fc88f25c2a9515c54e48876d36623c36ef6d'][1]}</td>
+  <td class="num">{SEP3_LIVE['0x4367fc88f25c2a9515c54e48876d36623c36ef6d'][2]/1e18:,.4f}</td>
+  <td style="color:var(--muted)">{'cannot move — no gas' if SEP3_LIVE['0x4367fc88f25c2a9515c54e48876d36623c36ef6d'][2]==0 else 'gas funded'}</td></tr>
 <tr class="hi2"><td>{bsc('0x4d14eb59004f3deff7f3d518e969fa288af36099')}</td><td class="num">500.00mn</td>
-  <td class="num">500.00mn</td><td class="num">0</td><td class="num">0</td>
-  <td style="color:var(--muted)">cannot move — no gas</td></tr>
+  <td class="num">{mn(SEP3_LIVE['0x4d14eb59004f3deff7f3d518e969fa288af36099'][0])}</td><td class="num">{SEP3_LIVE['0x4d14eb59004f3deff7f3d518e969fa288af36099'][1]}</td>
+  <td class="num">{SEP3_LIVE['0x4d14eb59004f3deff7f3d518e969fa288af36099'][2]/1e18:,.4f}</td>
+  <td style="color:var(--muted)">{'cannot move — no gas' if SEP3_LIVE['0x4d14eb59004f3deff7f3d518e969fa288af36099'][2]==0 else 'gas funded'}</td></tr>
 <tr class="hi2"><td>{bsc('0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00')}</td><td class="num">500.00mn</td>
-  <td class="num">500.00mn</td><td class="num">0</td><td class="num">0</td>
-  <td style="color:var(--muted)">cannot move — no gas</td></tr>
+  <td class="num">{mn(SEP3_LIVE['0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00'][0])}</td><td class="num">{SEP3_LIVE['0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00'][1]}</td>
+  <td class="num">{SEP3_LIVE['0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00'][2]/1e18:,.4f}</td>
+  <td style="color:var(--muted)">{'cannot move — no gas' if SEP3_LIVE['0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00'][2]==0 else 'gas funded'}</td></tr>
 </tbody></table>
 <div class="note">All three are fresh EOAs that have never transacted and hold no BNB. None appears in any known
-set — not the 21 August cohort, not the 29 August sweep, no explorer label. Team Pool 2 fell
-<b>10.4322bn &rarr; 8.9322bn</b>. The release is <b>10.0%</b> of the pool&rsquo;s original 15bn,
+set — not the 21 August cohort, not the 29 August sweep, no explorer label. Team Pool 2 fell <b>10.4322bn &rarr; {mn(T2_LIVE[0],4)}</b>. The release is <b>10.0%</b> of the pool&rsquo;s original 15bn,
 <b>14.4%</b> of what remained, <b>6.58%</b> of circulating, and <b>{usd(1.5e9*mkt['current_price']['usd'])}</b>
 at spot. The two 26 July releases used direct <code>userWithdraw()</code> calls instead; since 21 August
 every release has gone through this Safe with this signer.</div>
@@ -813,8 +851,8 @@ one contract that has sent nothing.</div>
 <dt>Threshold</dt><dd>3 of 4</dd>
 <dt>Deployed</dt><dd>4 Sep 2026 04:56:37, block 119,858,453</dd>
 <dt>First inflow</dt><dd>2h 11m later</dd>
-<dt>Holds</dt><dd>423.03mn AKE</dd>
-<dt>Sent</dt><dd>nothing</dd>
+<dt>Holds</dt><dd>{mn(SAFE_LIVE[0])} AKE</dd>
+<dt>Sent</dt><dd>{'nothing' if SAFE_LIVE[0] >= 423.03e24*0.999 else 'has moved — re-check'}</dd>
 <dt>masterCopy</dt><dd>0x29fcb43b — the standard Safe implementation</dd>
 </dl></div>
 <div class="card" style="background:var(--card2);padding:14px;border-radius:8px;border:1px solid var(--border)">

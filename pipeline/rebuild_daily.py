@@ -106,9 +106,27 @@ def main():
               open(D + 'daily_series.json', 'w'))
     print(f'\ndaily_series: {len(day)} exchange days, {len(pool)} pool days')
 
+    # ---- DEX throughput, rebuilt from its own segments (never merged in place:
+    # two queued jobs once both merged the same segment and doubled 1-4 Sep)
+    dseg = []
+    dday = collections.defaultdict(lambda: [0, 0])
+    for f in sorted(glob.glob(D + 'dex_jun_sep.json') + glob.glob(D + 'dex_sep.json')
+                    + glob.glob(D + 'dex_s1[0-9].json')):
+        c = json.load(open(f))
+        dseg.append((c['from'], c['last_block']))
+        for v, cps in c['agg'].items():
+            for p_, dd in cps.items():
+                for d, q in dd.items():
+                    dday[d][0] += int(q[0]); dday[d][1] += int(q[1])
+    if not check_tiling('dex segments', dseg, head):
+        print('\nrefusing to write: fill the gaps and re-run')
+        sys.exit(1)
+    dexd = {d: [str(v[0]), str(v[1])] for d, v in dday.items()}
+    json.dump(dexd, open(D + 'dex_daily.json', 'w'))
+    print(f'dex_daily: {len(dexd)} days')
+
     # ---- merged tracker series
     cg = json.load(open(D + 'cg_daily_pv.json'))
-    dexd = json.load(open(D + 'dex_daily.json'))
     rng = json.load(open(D + 'range_pcs.json'))
     mintday = collections.Counter()
     for bn, tl, tu, liq, a0, a1, tx in rng['rows']:
