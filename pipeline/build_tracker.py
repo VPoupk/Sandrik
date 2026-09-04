@@ -890,8 +890,8 @@ maker&rsquo;s liquidity was out of range.</strong> At 17:45 price crossed tick &
 residual book. Liquidity returned only at 02:30 the next morning, when price fell back through the tick.</div>
 <div class="note">Nothing was withdrawn — every Mint and Burn in the window is retail-scale, L values of 3 to
 6,000. This is a range boundary being crossed, not an operator acting. The exposure it creates is real
-nonetheless, and price sits {100*(1.0001**(-107212 + 108930)-1):+.1f}% below that boundary in AKE/BNB terms
-right now.</div>
+nonetheless: the boundary sits {100*(1.0001**(-107212 + 108930)-1):.1f}% above the current price in AKE/BNB
+terms, so a rally of that size takes the book back to 98,350 again.</div>
 </div>''')
 print('sec7 ok')
 
