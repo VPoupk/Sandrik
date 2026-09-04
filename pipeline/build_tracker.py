@@ -268,7 +268,7 @@ w(f'''<div class="section" id="s1"><h2>1 · What changed, in one screen</h2>
     <div class="stat-box-sub">into a Safe deployed 2h earlier</div></div>
   <div class="stat-box"><div class="stat-box-label">Price now</div>
     <div class="stat-box-value">{usd(mkt['current_price']['usd'],8)}</div>
-    <div class="stat-box-sub">{mkt['ath_change_percentage']['usd']:+.1f}% from {usd(mkt['ath']['usd'],8)} ATH (14 Aug)</div></div>
+    <div class="stat-box-sub">{mkt['ath_change_percentage']['usd']:+.1f}% from {usd(mkt['ath']['usd'],8)} ATH (2 Sep)</div></div>
 </div>
 
 <div class="alert alert-danger" style="margin-top:16px">
@@ -389,13 +389,16 @@ $10M of volume. On these days the chain shows a small fraction of what was claim
 <th class="num">Settled on-chain</th><th class="num">Coverage</th><th class="num">Turnover</th>
 <th>What else happened that day</th></tr></thead><tbody>''')
 LOWNOTE = {'2026-07-25': 'peak of the July run — price +9.6%, the highest volume print of the whole window',
-           '2026-08-15': 'day after the all-time high; price −0.5% on $115M claimed',
+           '2026-08-15': 'the 14–15 Aug run, then the high of the time; price −0.5% on $115M claimed',
            '2026-07-28': 'price +28.5% on the day',
            '2026-08-30': 'day after the 20.87bn migration; price −27.6%',
            '2026-07-08': 'price −35% crash day',
            '2026-08-03': 'price −19.5% on the day',
            '2026-07-26': 'price reaches $0.00306 — the top of the sell-wall ladder; every ask now filled',
-           '2026-07-21': 'third day of the sell-wall ladder filling'}
+           '2026-07-21': 'third day of the sell-wall ladder filling',
+           '2026-09-04': '423.03mn withdrawn from Binance into a new multisig — see §7',
+           '2026-09-02': 'the $0.04469 spike, on a book 88% thinner — see §7',
+           '2026-09-03': 'Team Pool 2 releases 1,500.00mn — see §7'}
 for r in low:
     w(f'<tr class="hi2"><td>{r["d"]}</td><td class="num">{usd(r["vol"])}</td>'
       f'<td class="num">{usd(r["onchain_total"])}</td>'
@@ -542,7 +545,7 @@ w(f'''<h3 style="margin-top:18px">What the turnover number means</h3>
 <dt>18 Jul</dt><dd style="color:var(--warn)">{next(r['turn'] for r in daily if r['d']=='2026-07-18'):.2f}×</dd>
 <dt>19 Jul</dt><dd style="color:var(--warn)">{next(r['turn'] for r in daily if r['d']=='2026-07-19'):.2f}×</dd>
 <dt>25 Jul</dt><dd style="color:var(--warn)">{next(r['turn'] for r in daily if r['d']=='2026-07-25'):.2f}×</dd>
-<dt>14 Aug (ATH run)</dt><dd>{next(r['turn'] for r in daily if r['d']=='2026-08-14'):.2f}×</dd>
+<dt>14 Aug (Aug high)</dt><dd>{next(r['turn'] for r in daily if r['d']=='2026-08-14'):.2f}×</dd>
 </dl></div>
 <div class="card" style="background:var(--card2);padding:14px;border-radius:8px;border:1px solid var(--border)">
 <h3>Where that volume was not</h3>
