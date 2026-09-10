@@ -350,6 +350,24 @@ column is the answer to what they did with it.</p>
 <p>Twenty-one addresses received 46.5M RSC in one-off allocations. None carries an ENS name or an explorer label,
 so none can be attributed to a named person or fund from public records. What can be shown is the size, the date
 and the disposal.</p>
+<div class="callout warn">
+  <div class="h">Correction — the "Sold" column in this table understates disposal</div>
+  <p>"Sold" here counts RSC arriving at an exchange <strong>directly from the address named</strong>. Later
+  tracing showed that several of these wallets deposit through an intermediate address instead, which this test
+  does not follow, so their disposal is recorded as zero when it was not.</p>
+  <p>The verified instance is <span class="addr">0x78512797…986d</span>. It received 1,075,269 RSC on
+  11 November 2025 and <strong>33 minutes later sent 500,000 RSC to <span class="addr">0x8955b5f3…91a3</span>,
+  which passed the whole 500,000 to Coinbase's hot wallet in the same block window</strong> — a disposal the
+  table shows as 0. The three rows above it show 0 on the same test and have not been re-traced.</p>
+  <p>Two of these wallets are also not beneficiaries at all. <span class="addr">0x78512797…986d</span> and
+  <span class="addr">0xe4758f76…aa7f</span> are pass-through conduits that forward what they receive and hold
+  nothing, of the same shape as the exchange-inventory relays documented in
+  <strong>“What the MEXC book shows, and what it cannot”</strong>, §6.2 — a single release from a ResearchHub
+  wallet, split onward to exchange deposit addresses within minutes. Treating their 12,365,304 RSC as a one-off
+  allocation to a holder is wrong. <strong>The cohort totals in §1 and §5 have not been recomputed for
+  this</strong>, and the 46.5M one-off-allocation figure should be read as including at least 12.4M that is
+  market plumbing rather than a grant to anyone.</p>
+</div>
 
 <div class="scroll">
 <table>
