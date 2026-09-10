@@ -120,7 +120,7 @@ li{margin:6px 0}
   <div class="card hi">
     <div class="lab">Sent by ResearchHub to MEXC</div>
     <div class="val">5.72M</div>
-    <div class="note"><strong>$612,228</strong> across 13 deposits · none of it ever appeared as a resting offer</div>
+    <div class="note"><strong>$612,228</strong> across 13 deposits · <strong>86% traced</strong> to allocations split across three exchanges at once</div>
   </div>
   <div class="card">
     <div class="lab">Largest offer ever shown</div>
@@ -156,13 +156,15 @@ within 19 to 149 seconds, to the token. ResearchHub's own deposits leave no book
 matching outflow either. That is a real finding, and §6.2 sets out precisely what it does and does not license
 anyone to conclude.</p>
 
-<div class="callout warn">
-  <div class="h">What the absence of a footprint does not prove</div>
-  <p>ResearchHub's 5,719,278 RSC of MEXC deposits never appear as a large offer in the book. That rules out
-  <em>block</em> distribution on this venue. It does <strong>not</strong> rule out selling: 5.72M RSC is 5.6%
-  of the aggressive buying the tape carried over the same period, and an order sliced into $14 pieces would be
-  indistinguishable from the surrounding churn. The honest statement is that the coins were not sold in a way
-  that this data can see, and that no alternative venue or custodial ledger is visible from here.</p>
+<div class="callout">
+  <div class="h">Why the deposits leave no footprint</div>
+  <p>ResearchHub's 5,719,278 RSC of MEXC deposits never appear as a large offer in the book, and following them
+  backwards on-chain explains it. <strong>86% of them are one leg of a single allocation split across MEXC, Gate
+  and Coinbase within minutes</strong>, in fixed proportions, each preceded by a 10 or 100 RSC test transfer.
+  The 2,250,000 RSC of 28 July is 45% of a 5,000,000 RSC release that reached three exchanges inside two
+  minutes and reconciles to the token. These are inventory placements, not decisions to sell into a particular
+  venue — which is why no offer of matching size ever appeared and why no matching outflow followed. §6.2 sets
+  out the chains; §6.3 sets out what they still do not settle.</p>
 </div>
 
 <!-- ============================================ -->
@@ -359,9 +361,12 @@ European and American afternoon.</figcaption>
   that period sit above the baseline at all</strong>, and the days that do are the ones with identifiable
   real events: listing day (6,755 trades), and 10, 11 and 12 October 2025 — the three days of the Gate.io
   block described in §5.1.</p>
-  <p>After April 2026 the discipline breaks. A third of prints sit above baseline, the daily count becomes
-  volatile, and a session profile appears. Whatever else the endowment did, real trading arrived on this venue
-  around the time it launched.</p>
+  <p>After April 2026 real trading arrives — but the generator does not stop. The floor is the durable fact
+  here: across all 327 full days the count falls below 95% of 3,143 on exactly <strong>two</strong>, both
+  before April 2026, and never once afterwards. The 10th percentile of the daily count is 3,062 before 8 April
+  and 3,146 after. <strong>81.1% of every print in the eleven months sits at or below that constant floor</strong>;
+  the other 18.9% is additive on top of it — 3.0% of prints before 8 April 2026 and 34.7% after. The generator
+  runs at the same rate throughout, and genuine trading is a layer above it rather than a replacement for it.</p>
 </div>
 
 <p>This does not mean the tape is fiction. The trades are real executions between real accounts, and §5.1 shows
@@ -664,17 +669,101 @@ chain cannot distinguish those. What it does exclude is a block sale to a counte
 which is the pattern the one identifiable block in this dataset actually followed.</p>
 
 <div class="callout">
-  <div class="h">The three readings this leaves open</div>
-  <p><strong>The coins were not sold.</strong> Consistent with the exchange's RSC balance growing by 4,904,564
-  over the period while ResearchHub deposited 5,719,278 net of withdrawals — the exchange gained almost exactly
-  what ResearchHub put in, and every other depositor was net flat. This is the reading the data most naturally
-  supports, but exchange hot-wallet balances aggregate all users and cannot separate them.</p>
-  <p><strong>They were sold in slices.</strong> 5.72M RSC is 5.6% of the aggressive buying the tape carried;
-  spread across eleven months in $14 pieces it would be invisible. Nothing here excludes this, and the flat net
-  aggressive flow neither supports nor refutes it.</p>
-  <p><strong>They were moved on.</strong> Sold for another asset, transferred to another MEXC account, or
-  withdrawn to a chain not covered here. Only 2,538,481 RSC came back on-chain, so 3.18M is unaccounted for
-  in either direction.</p>
+  <div class="h">Resolved: the deposits are inventory placement, not sales</div>
+  <p>Following each deposit backwards on-chain settles the question this section originally left open. Every
+  ResearchHub transfer into MEXC that could be traced is <strong>one leg of a single allocation split across
+  several exchanges within minutes</strong>. 4,902,260 of the 5,719,278 RSC — <strong>86%</strong> — resolves
+  to a chain of this shape, and the untraced remainder is only untraced because those block windows were not
+  pulled, not because the chain breaks.</p>
+</div>
+
+<div class="flow">28 July 2026, all times UTC
+
+16:37:32   Foundation Safe ──────►  relay 0x48cd88dA              10 RSC   (test first)
+20:52:00   Foundation Safe ──────►  relay 0x48cd88dA       4,999,990 RSC
+21:11:02   relay 0x48cd88dA ─────►  distributor 0xAe823F1b 4,999,990 RSC
+                                          │
+21:22:36                                  ├──►  Gate deposit        1,250,000
+21:22:56                                  ├──►  Coinbase deposit    1,250,000
+21:23:08                                  ├──►  0xe2e69dce            250,000
+21:24:52                                  └──►  MEXC deposit       2,250,000
+                                                       │
+21:28:34   Coinbase deposit ─────►  COINBASE hot wallet     1,250,000
+21:30:18   MEXC deposit ─────────►  MEXC hot wallet         2,250,000</div>
+
+<p>The 2,250,000 RSC that §3 measured against a $1,752 order book was never destined for that book alone. It
+is 45% of a 5,000,000 RSC allocation that reached three exchanges inside two minutes, the whole of it
+reconciling to the token. The same shape appears on 21 July — 1,710,900 RSC out, then 651,000 to MEXC,
+650,000 to Gate and 401,000 to Coinbase inside six minutes — and on 29 May, 28 January, 25 November and
+18 February. Test transfers of 10 or 100 RSC precede the bulk every time.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Allocation</th><th class="num">RSC released</th><th class="num">MEXC</th><th class="num">Gate</th><th class="num">Coinbase</th><th class="num">Elsewhere</th><th class="num">Reconciled</th></tr></thead>
+<tbody>
+<tr><td>2025-11-25</td><td class="num">1,000,000</td><td class="num">300,000</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">30%</td></tr>
+<tr><td>2026-01-20</td><td class="num">1,499,990</td><td class="num">250,000</td><td class="num">250,000</td><td class="num">—</td><td class="num">—</td><td class="num">33%</td></tr>
+<tr><td>2026-02-18</td><td class="num">749,990</td><td class="num">749,990</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">100%</td></tr>
+<tr><td>2026-04-01</td><td class="num">300,038</td><td class="num">300,038</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">100%</td></tr>
+<tr><td>2026-05-29</td><td class="num">6,493,000</td><td class="num">401,232</td><td class="num">2,000,000</td><td class="num">—</td><td class="num">400,000</td><td class="num">43%</td></tr>
+<tr><td>2026-07-21</td><td class="num">1,710,900</td><td class="num">651,000</td><td class="num">650,000</td><td class="num">401,000</td><td class="num">—</td><td class="num">99%</td></tr>
+<tr class="hl"><td>2026-07-28</td><td class="num">4,999,990</td><td class="num">2,250,000</td><td class="num">1,250,000</td><td class="num">1,250,000</td><td class="num">250,000</td><td class="num">100%</td></tr>
+<tr class="total"><td>Traced</td><td class="num">16,753,908</td><td class="num">4,902,260</td><td class="num">4,150,000</td><td class="num">1,651,000</td><td class="num">650,000</td><td class="num">68%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Two things follow. <strong>MEXC takes 43% of the venue-bound total</strong> — the largest single share, on the
+venue with the thinnest book of the three, which is a deliberate allocation rather than an accident of size. And
+<strong>the standing convention that an exchange deposit is a sale does not survive contact with this
+evidence</strong>. These transfers place inventory on venues simultaneously and in fixed proportions; they are
+not a decision to sell into any one of them. The convention remains a defensible upper bound, but for this
+period it is an upper bound with a known and large slack.</p>
+
+<div class="callout warn">
+  <div class="h">What still is not settled</div>
+  <p>Inventory placed on an exchange can be sold from it afterwards, and nothing on-chain sees that. What the
+  tracing establishes is the <em>purpose of the transfer</em>, not the fate of the coins. The supporting
+  evidence for the coins not having been sold on MEXC remains what §5 and §6.2 measured: no offer of matching
+  size ever appeared, and outflow after the 2,250,000 deposit rose only 32% above its ten-month baseline while
+  the exchange's balance grew by 2,275,462.</p>
+</div>
+
+
+<h3>6.3 What the allocations do not explain</h3>
+
+<p>Having a dated list of inventory releases makes it possible to test whether they drive the venue's price and
+volume. Mostly they do not, and that is worth stating as plainly as the positive result above.</p>
+
+<p class="axs" style="color:var(--muted);font-size:13px">The releases used below are the fifteen outflows of
+100,000 RSC or more from the Foundation Community Safe <span class="addr">0xb280F00E…7E21</span> on Base and
+from Treasury 3 <span class="addr">0xC4cfa2Bd…81e3</span> on Ethereum, between 24 November 2024 and 20 August
+2026. Each was read from the chain directly; every date, amount and recipient below is verifiable on a block
+explorer.</p>
+
+<p><strong>The volatility bursts are not allocation-driven.</strong> Of the 22 largest days by trading above the
+generator's floor, <strong>2 fall on a day with an allocation or an exchange deposit</strong>. Events of that
+kind occur on 19 of 327 days — a 6% base rate — so 2 of 22 is 9%, which is nothing. The bursts cluster in June
+and July 2026, and the largest of them (6 June, 16,262 prints and a 52.9% move; 15 July, 16,893 prints) have no
+on-chain counterpart at all. The same holds for price: of the fourteen largest daily moves in the eleven
+months, <strong>one</strong> — 23 April 2026, +27.5% — falls on an allocation day.</p>
+
+<p><strong>The floor does not scale with inventory either.</strong> Allocations range from 300,038 to 6,493,000
+RSC and the count stays at 3,143 a day through all of them. Whatever sets the generator's rate, it is a fixed
+parameter rather than a function of how much inventory is on the venue.</p>
+
+<div class="callout warn">
+  <div class="h">One pattern that is suggestive but not established</div>
+  <p>Ten of the eleven allocations with forward data are followed by a seven-day decline. The median seven-day
+  return after an allocation is <strong>−16.2%</strong> against <strong>−5.6%</strong> across all days; a
+  permutation test over 20,000 random draws of eleven days gives <strong>p = 0.004</strong>, and matching on
+  trailing seven-day momentum leaves it at p = 0.006. Allocations also tend to <em>follow</em> strength — median
+  thirty-day return before one is +5.5% against −22.5% on all days.</p>
+  <p><strong>This should not yet be believed.</strong> Four horizons were tested and only one is significant:
+  1-day gives p = 0.371, 14-day p = 0.112, 30-day p = 0.150. A real effect would normally decay smoothly across
+  horizons rather than appear at seven days and vanish on either side of it, and a sign test on the same eleven
+  observations gives p = 0.076. With n = 11 in a market that fell 89% over the period, this is a hypothesis for
+  a future out-of-sample test, not a finding.</p>
 </div>
 
 <!-- ============================================ -->
@@ -738,8 +827,10 @@ profile of an automated book that has widened its participation, not of new natu
     <td>The full listing history is now available. §7 replaces that gap with 199 days of pre-launch baseline
     on a single continuous book.</td></tr>
 <tr><td>Deposits to exchanges were valued as sales at the price on the deposit date, per the standing brief.</td>
-    <td>Unchanged as a convention — but for MEXC the upper-bound nature of it is now demonstrated rather than
-    asserted. 2,538,481 RSC came back out, and no deposit is visible as an offer.</td></tr>
+    <td><span class="tag t-ins">changed</span> Still a defensible upper bound, but now one with known and large
+    slack. 86% of the MEXC deposits are legs of allocations split across three exchanges simultaneously and in
+    fixed proportions — inventory placement rather than a decision to sell into any one venue. 2,538,481 RSC
+    also came back out, and no deposit is visible as an offer.</td></tr>
 <tr><td>Price is treated as an exogenous mark for valuing transfers.</td>
     <td>Qualified. A single order that never traded moved this venue's mid 14.4% in 28 minutes. Prices marked
     against MEXC carry that fragility.</td></tr>
@@ -761,6 +852,8 @@ fill-versus-pull test in §5.3 therefore understates cancellation activity, and 
 8 April is an upper bound on how much of that block traded.</li>
 <li><strong>Exchange-internal balances are opaque.</strong> Coins already on MEXC before 23 September 2025, and
 transfers between MEXC accounts, are outside every dataset used here.</li>
+<li><strong>Tracing establishes purpose, not outcome.</strong> The chains in §6.2 show what each transfer was
+for. Inventory placed on an exchange can still be sold from it afterwards, and no on-chain record sees that.</li>
 <li><strong>2.8% of elapsed time falls inside gaps</strong> in the book file — 72 hours in January 2026,
 43 in December 2025, 31 in March 2026. No episode discussed here falls in a gap.</li>
 <li><strong>§3.2 shows the trade <em>rate</em> is generated; it does not identify who generates it.</strong>
@@ -791,6 +884,10 @@ that the executions are fictitious.</li>
   <p><strong>Block detection.</strong> Every level of ≥50,000 RSC across all ladders, grouped by price, then
   grouped into episodes separated by more than 30 minutes. Fill share is aggressive volume printed during the
   episode divided by the reduction in the level's size.</p>
+  <p><strong>Allocation tracing.</strong> RSC <code>Transfer</code> logs on Base pulled in tight windows around
+  each Foundation Safe outflow and followed hop by hop to the exchange hot wallets. Amounts reconcile to the
+  token at every step. The four Ethereum transfers and one Base transfer supplied as OTC references were read
+  from their receipts directly.</p>
 </div>
 
 <div class="footnote">
