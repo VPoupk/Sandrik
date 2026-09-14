@@ -1,0 +1,149 @@
+{
+ "proxy": "0x27333bd8c321a263b0565e69eea3b736b9d1f42c",
+ "unlock_time_slot3": 1756029600,
+ "unlock_time_utc": "2025-08-24 10:00:00 UTC",
+ "period_seconds": 2592000,
+ "cliff_periods": 3,
+ "schedule_boundaries": {
+  "0": "2025-08-24 10:00:00 UTC",
+  "1": "2025-09-23 10:00:00 UTC",
+  "2": "2025-10-23 10:00:00 UTC",
+  "3": "2025-11-22 10:00:00 UTC",
+  "4": "2025-12-22 10:00:00 UTC",
+  "5": "2026-01-21 10:00:00 UTC",
+  "6": "2026-02-20 10:00:00 UTC",
+  "7": "2026-03-22 10:00:00 UTC",
+  "8": "2026-04-21 10:00:00 UTC",
+  "9": "2026-05-21 10:00:00 UTC",
+  "10": "2026-06-20 10:00:00 UTC",
+  "11": "2026-07-20 10:00:00 UTC",
+  "12": "2026-08-19 10:00:00 UTC",
+  "13": "2026-09-18 10:00:00 UTC",
+  "14": "2026-10-18 10:00:00 UTC",
+  "15": "2026-11-17 10:00:00 UTC",
+  "16": "2026-12-17 10:00:00 UTC"
+ },
+ "periods_with_investor_claims": [
+  3,
+  4,
+  5,
+  6
+ ],
+ "eras": [
+  {
+   "from": "2025-08-21",
+   "to": "2025-11-21",
+   "selector": "0xf17e48ec",
+   "name": "adminTransfer(address,uint256)",
+   "caller": "deployer EOA 0x6468cce9",
+   "calls": 4
+  },
+  {
+   "from": "2025-11-22",
+   "to": "2026-03-11",
+   "selector": "0xac694711",
+   "name": "investor self-claim (signature unresolved)",
+   "caller": "each investor EOA",
+   "calls": 65,
+   "note": "periods n=3..6 only; first claim of each period within minutes of 10:00 UTC"
+  },
+  {
+   "from": "2026-06-19",
+   "to": "2026-06-19",
+   "selector": "0xf17e48ec",
+   "name": "adminTransfer re-added then removed",
+   "caller": "deployer EOA",
+   "calls": 1,
+   "note": "added 16:00:17, used 16:00:41 for 4.0734bn, removed 16:09:01"
+  },
+  {
+   "from": "2026-07-26",
+   "to": "2026-07-26",
+   "selector": "0xa646f9ad",
+   "name": "userWithdraw()",
+   "caller": "4 EOAs",
+   "calls": 4,
+   "note": "selector added 25 Jul with the same upgrade that moved ownership to the Safe"
+  }
+ ],
+ "placeholder_reverts": {
+  "Investors Pool": {
+   "string": "fix",
+   "introduced_block": 87414304,
+   "introduced_utc": "2026-03-19 01:49:25",
+   "still_present": true
+  },
+  "Team Pool 1": {
+   "string": "lock",
+   "introduced_block": 92315796,
+   "introduced_utc": "2026-04-13 15:06:27",
+   "still_present": true
+  },
+  "Team Pool 2": {
+   "string": "lock",
+   "introduced_block": 92316071,
+   "introduced_utc": "2026-04-13 15:08:31",
+   "still_present": true
+  },
+  "KOL Pool": {
+   "string": "lock",
+   "introduced_block": 92316421,
+   "introduced_utc": "2026-04-13 15:11:09",
+   "still_present": true
+  },
+  "Nodes Pool 1": {
+   "string": "lock",
+   "introduced_block": 92316972,
+   "introduced_utc": "2026-04-13 15:15:17",
+   "removed_block": 111404345,
+   "removed_utc": "2026-07-22 03:39:25"
+  },
+  "Nodes Pool 2": {
+   "string": "lock",
+   "introduced_block": 92317002,
+   "introduced_utc": "2026-04-13 15:15:31",
+   "removed_block": 111404393,
+   "removed_utc": "2026-07-22 03:39:47"
+  },
+  "Nodes Pool 3": {
+   "string": "lock",
+   "introduced_block": 92317023,
+   "introduced_utc": "2026-04-13 15:15:40",
+   "removed_block": 111404437,
+   "removed_utc": "2026-07-22 03:40:06"
+  },
+  "Community Pool": {
+   "string": "lock",
+   "introduced_block": 105170576,
+   "introduced_utc": "2026-06-19 16:02:12",
+   "still_present": true
+  }
+ },
+ "owner_history": [
+  {
+   "from_block": 57840400,
+   "owner": "0x6468cce97a300ff9d02d4cad0d3e097cace2eac2",
+   "kind": "deployer EOA"
+  },
+  {
+   "from_block": 112047462,
+   "owner": "0x551a841742733bef96646b44e3475ce6a01da5eb",
+   "kind": "Gnosis Safe 3-of-4",
+   "utc": "2026-07-25 12:05:39"
+  }
+ ],
+ "schedule_setter": "0xdace4557 setUnlockTime(uint256)",
+ "unlock_time_changes": [
+  {
+   "utc": "2025-08-21 (approx)",
+   "value": 1755770400,
+   "decoded": "2025-08-21 10:00:00 UTC"
+  },
+  {
+   "utc": "2025-11-18 06:25:26",
+   "value": 1756029600,
+   "decoded": "2025-08-24 10:00:00 UTC",
+   "note": "+3 days; the only amendment"
+  }
+ ]
+}
