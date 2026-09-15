@@ -1,0 +1,83 @@
+{
+ "question": "Did the 19 Jun / 25 Jul 2026 upgrades change the Investors Pool unlock timing?",
+ "answer": "No. The boundary arithmetic is structurally identical between the implementation under which claims demonstrably worked and the one live now.",
+ "evidence": {
+  "anchor_slot3": {
+   "value": 1756029600,
+   "utc": "2025-08-24 10:00:00",
+   "writes_ever": 2,
+   "write_dates": [
+    "2025-08-20 12:59:31",
+    "2025-11-18 06:25:26"
+   ],
+   "writes_in_2026": 0,
+   "method": "recursive bisection of eth_getStorageAt over 57,840,341 -> head"
+  },
+  "period_constant": {
+   "value": 2592000,
+   "occurrences_per_impl": 1,
+   "impls_checked": 8,
+   "other_durations_found": 0
+  },
+  "arithmetic_opcodes": {
+   "reference_impl": "0x4b569675380e19d2819e629ec8a2c43a30a59947",
+   "reference_offset": 4175,
+   "current_impl": "0x00445d6c82de5fe7773ffc1f03b346b020bfc9cc",
+   "current_offset": 5447,
+   "sequence": "JUMPDEST / PUSH1 0 / PUSH1 3 / SLOAD / DUP4 / PUSH2 <helper> / SWAP2 / SWAP1 / PUSH2 <sub-helper> / JUMP / JUMPDEST / SWAP1 / POP / PUSH1 0 / PUSH3 0x278d00 / DUP3 / PUSH2 <helper> / SWAP2 / SWAP1 / PUSH2 <div-helper> / JUMP / JUMPDEST / SWAP1 / POP / PUSH1 3 / DUP2 / LT / PUSH2 <target> / JUMPI",
+   "identical_apart_from": "internal jump targets, which differ only because the code moved",
+   "reads": "storage slot 3",
+   "divides_by": 2592000,
+   "cliff_check": "PUSH1 3 / LT \u2014 periods must be >= 3"
+  },
+  "independent_corroboration": {
+   "source": "Akedo_confirmed_historical_claimability_2026-09-14.xlsx (third party)",
+   "investors_tranches_listed": 10,
+   "boundaries": [
+    "2025-11-22",
+    "2025-12-22",
+    "2026-01-21",
+    "2026-02-20",
+    "2026-03-22",
+    "2026-04-21",
+    "2026-05-21",
+    "2026-06-20",
+    "2026-07-20",
+    "2026-08-19"
+   ],
+   "all_at": "10:00:00 UTC",
+   "matches_my_n": "n=3..12 exactly, including through the Jun and Jul implementations",
+   "config_changes_sheet_investors_rows": 2,
+   "config_change_dates": [
+    "2025-08-20 12:59:31",
+    "2025-11-18 06:25:26"
+   ],
+   "note": "their Config Changes sheet lists NO Investors schedule change after 18 Nov 2025; it classifies the Jun/Jul events as implementation address changes, i.e. code not config"
+  },
+  "failed_call_evidence": [
+   {
+    "utc": "2026-03-22 10:19:11",
+    "tx": "0x947eb760773d87037e2f2028e4c4efa81d1eb8b52e6a96dc1e359c05e127c766",
+    "caller": "0x5a6eeb042afc115f0b0189964d4b99a28a6cdb06",
+    "revert": "fix",
+    "note": "a repeat claimant, 19 minutes after the 22 Mar boundary"
+   },
+   {
+    "utc": "2026-04-22 16:52:06",
+    "tx": "0xc5135ae75572a5700236e859b212a5e3f451b22e5300846f1d8f2efd2cfed866",
+    "caller": "0xe98907c8315a36ce1d475fa5e93f440cb2591ac1",
+    "revert": "fix"
+   },
+   {
+    "utc": "2026-01-08 17:32:30",
+    "tx": "0x7b36b7902e0953681011ed2f830b3c4c19e71b2d378769794d358518687eceb5",
+    "caller": "0xcb75b1b9c552ee62658fdb13676f0aa91d3dc0e4",
+    "revert": "No unlock amount",
+    "note": "mid-period under the working implementation \u2014 the normal response"
+   }
+  ]
+ },
+ "next_boundary_utc": "2026-09-18 10:00:00",
+ "is_21_sep_a_boundary": false,
+ "caveat": "The arithmetic being intact means the boundary computes the same. It does not mean a claim will succeed: 0xac694711 still reverts \"fix\" unconditionally."
+}
