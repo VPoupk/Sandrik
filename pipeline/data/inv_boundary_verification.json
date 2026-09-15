@@ -1,0 +1,17 @@
+{
+ "verified_at_block": 121996677,
+ "verified_at_utc": "2026-09-15 08:20:57",
+ "unlock_time": 1756029600,
+ "unlock_time_utc": "2025-08-24 10:00:00",
+ "slot3_changes_ever": 2,
+ "slot3_last_change_utc": "2025-11-18 06:25:26",
+ "period": 2592000,
+ "period_in_every_impl": true,
+ "impl": "0x00445d6c82de5fe7773ffc1f03b346b020bfc9cc",
+ "impl_unchanged_since": "2026-07-25 12:05:39",
+ "owner": "0x551a841742733bef96646b44e3475ce6a01da5eb",
+ "owner_changed_utc": "2026-07-18 09:23:59",
+ "balance_wei": "14367143155000000000000000006",
+ "next_boundary_utc": "2026-09-18 10:00:00",
+ "sep21_is_a_boundary": false
+}

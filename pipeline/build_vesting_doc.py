@@ -450,11 +450,16 @@ after</b>.</p>
 <tr><td class="mono">16:00:17</td><td class="num">105,170,321</td><td>—</td>
   <td>deployer upgrades to {bsc('0x27e8d745358b5f9929571f63ac03aa465f4888c4')} —
       <b>adminTransfer added</b></td></tr>
-<tr class="hi2"><td class="mono">16:00:41</td><td class="num">105,170,374</td><td><b>+24s</b></td>
+<tr><td class="mono">16:00:38</td><td class="num">105,170,367</td><td>+21s</td>
+  <td>deployer upgrades to <b>the same implementation again</b> — a repeat of the call above</td></tr>
+<tr class="hi2"><td class="mono">16:00:41</td><td class="num">105,170,374</td><td><b>+3s</b></td>
   <td><b>adminTransfer called — 4.0734bn out</b></td></tr>
 <tr><td class="mono">16:09:01</td><td class="num">105,171,484</td><td>+8m 20s</td>
   <td>deployer upgrades to {bsc('0x30d691a6441831fdbe863dd73cf44a5a56295ac9')} —
       <b>adminTransfer removed</b></td></tr>
+<tr class="hi3"><td class="mono">16:24:52</td><td class="num">105,173,600</td><td>+15m 51s</td>
+  <td><b>2.0734bn came back in</b> — so the net movement that afternoon was 2.0000bn out,
+      not 4.0734bn</td></tr>
 </tbody></table>
 <div class="note">Both upgrades sent by the deployer EOA {bsc(DEPLOYER)} directly to the proxy via
 <code>upgradeToAndCall</code> (<code>0x4f1ef286</code>).</div>
@@ -462,10 +467,13 @@ after</b>.</p>
 <h3 style="margin-top:18px">25–26 July 2026 — the same shape, through the Safe</h3>
 <table class="dense"><thead><tr><th>Time (UTC)</th><th class="num">Block</th>
 <th>What happened</th></tr></thead><tbody>
+<tr class="hi"><td class="mono">18 Jul 09:23:59</td><td class="num">110,682,684</td>
+  <td>the deployer calls <code>transferOwnership</code> (<code>0xf2fde38b</code>) directly on the proxy —
+      <b>ownership moves to the Safe</b> {bsc(SAFE)}, on its own, a week before the upgrade below</td></tr>
 <tr><td class="mono">25 Jul 12:05:39</td><td class="num">112,047,462</td>
   <td>Safe owner {bsc('0x88f4b387eab71497e312663ac8b4aada6aa2ef8e')} executes an upgrade to
-      {bsc('0x00445d6c82de5fe7773ffc1f03b346b020bfc9cc')} — <b>userWithdraw() added</b>, and ownership
-      moves from the deployer EOA to the Safe in the same step</td></tr>
+      {bsc('0x00445d6c82de5fe7773ffc1f03b346b020bfc9cc')} through the Safe — <b>userWithdraw() added</b>.
+      Ownership had already moved; this step only changed the code</td></tr>
 <tr class="hi2"><td class="mono">26 Jul 13:43:05</td><td class="num">112,252,392</td>
   <td>userWithdraw() — 1.2904bn</td></tr>
 <tr class="hi2"><td class="mono">26 Jul 14:50:05</td><td class="num">112,261,325</td>
@@ -569,6 +577,43 @@ w(f'''</tbody></table></div>
 release on or after {ut(NEXT_T, '%d %b')} requires the owner Safe
 {bsc(SAFE)} to send a transaction. The date does not cause it.</div>
 </div></div>
+
+<h3 style="margin-top:18px">Verification — has the boundary been moved?</h3>
+<p style="font-size:12.5px;margin-bottom:10px">The anchor was shifted once before, on 18 Nov 2025, by exactly
+three days. A repeat would move the next boundary from 18 to 21 September. Four independent tests, all run
+against the live chain at block {HEAD:,}:</p>
+<table class="dense"><thead><tr><th>Test</th><th>Method</th><th>Result</th></tr></thead><tbody>
+<tr class="hi3"><td><b>Has slot 3 changed?</b></td>
+  <td>recursive bisection of <code>eth_getStorageAt</code> over the pool's entire life,
+      57,840,341 → {HEAD:,}</td>
+  <td><b>Exactly 2 changes ever</b>, both in 2025: 20 Aug 2025 12:59:31 (0 → 21 Aug) and
+      18 Nov 2025 06:25:26 (→ 24 Aug). <b>Nothing in 2026.</b></td></tr>
+<tr class="hi3"><td><b>Has the 30-day period changed?</b></td>
+  <td>exact PUSH-encoding count of 2592000 and ten other candidate durations, in all eight
+      implementations</td>
+  <td><b>2592000 appears exactly once in every version</b>, Aug 2025 through the current one. No 7-, 31-,
+      60-, 90-, 180- or 365-day constant appears in any version.</td></tr>
+<tr class="hi3"><td><b>Any other storage change?</b></td>
+  <td>bisection of slots 0,1,2,4,5,6,7,8, the ERC1967 admin slot, and the OpenZeppelin v5 Ownable,
+      Initializable and ReentrancyGuard namespaced slots, across all of 2026</td>
+  <td><b>Zero changes</b> in every one of them. The only 2026 writes anywhere in the contract's storage
+      are the implementation pointer and the owner.</td></tr>
+<tr class="hi3"><td><b>Any upgrade since?</b></td>
+  <td>all <code>Upgraded</code> events 2026, plus bisection of the ERC1967 implementation slot from
+      112,047,463 to head</td>
+  <td><b>No change for 52 days.</b> The contract has run {bsc('0x00445d6c82de5fe7773ffc1f03b346b020bfc9cc')}
+      since 25 Jul 2026 12:05:39.</td></tr>
+</tbody></table>
+<div class="alert alert-ok" style="margin-top:12px;background:rgba(16,185,129,.08);
+border:1px solid rgba(16,185,129,.25);color:var(--green);border-radius:8px;padding:12px 14px;font-size:12.5px">
+<strong>The boundary has not been moved.</strong> For the next boundary to fall on 21 September the anchor
+would have to read <b>1756288800</b> (27 Aug 2025 10:00 UTC). It reads <b>{LIVE_UNLOCK}</b>
+({ut(LIVE_UNLOCK)} UTC), the same value it has held since 18 November 2025, and
+<code>unlockTime()</code>, <code>getUnlockTime()</code> and raw slot 3 all agree.
+<b>n=13 is {ut(UNLOCK + 13*PERIOD)} UTC.</b></div>
+<div class="note">Token movements are equally quiet: the pool's last transfer in either direction was
+<b>26 Jul 2026 14:50:48 UTC</b>. Pool-flow coverage is continuous from the token's deployment to the head
+block with no gaps, so that is a complete statement, not an absence of data.</div>
 
 <div class="alert alert-warn" style="margin-top:14px"><strong>So: is the next unlock knowable?</strong>
 The <em>date</em> is, exactly, and has been computable since launch. The <em>event</em> is not. Before

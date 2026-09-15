@@ -63,7 +63,7 @@
    "name": "userWithdraw()",
    "caller": "4 EOAs",
    "calls": 4,
-   "note": "selector added 25 Jul with the same upgrade that moved ownership to the Safe"
+   "note": "selector added by the 25 Jul upgrade; ownership had moved to the Safe on 18 Jul"
   }
  ],
  "placeholder_reverts": {
@@ -126,10 +126,12 @@
    "kind": "deployer EOA"
   },
   {
-   "from_block": 112047462,
+   "from_block": 110682684,
    "owner": "0x551a841742733bef96646b44e3475ce6a01da5eb",
    "kind": "Gnosis Safe 3-of-4",
-   "utc": "2026-07-25 12:05:39"
+   "utc": "2026-07-18 09:23:59",
+   "tx": "0x9593cd5040f878580d1b904b368891e4426cafe600a65ec2e3ce8d43e827cf49",
+   "via": "transferOwnership(0xf2fde38b) called directly by the deployer, not bundled with an upgrade"
   }
  ],
  "schedule_setter": "0xdace4557 setUnlockTime(uint256)",
