@@ -119,13 +119,13 @@ li{margin:6px 0}
   </div>
   <div class="card hi">
     <div class="lab">Sold by ResearchHub wallets, all time</div>
-    <div class="val">23.9M</div>
-    <div class="note"><strong>$3,069,912</strong> · 40 transfers to exchanges and pools since 2022</div>
+    <div class="val">39.4M</div>
+    <div class="note"><strong>$6,242,151</strong> · direct and through conduit wallets · the direct-only figure is $1,179,367</div>
   </div>
   <div class="card">
     <div class="lab">Bought back by those same wallets</div>
-    <div class="val">8.06M</div>
-    <div class="note"><strong>$2,209,390</strong> · net position −15.9M RSC, −$860,522</div>
+    <div class="val">5.01M</div>
+    <div class="note"><strong>$1,902,498</strong> · net position −34.4M RSC, <strong>+$4,339,653 realised</strong></div>
   </div>
 </div>
 
@@ -137,11 +137,18 @@ it controls. Of what was released, <strong>46.5M went to 21 large one-off alloca
 addresses on a recurring monthly schedule, 42.5M to 1,347 one-off grantees, and only 9.7M to the 651 addresses that
 look like ordinary platform reward recipients.</p>
 
-<p><strong>Direct selling by ResearchHub wallets is modest in dollars and heavily concentrated in 2026.</strong>
-23,916,405 RSC has moved from a complex wallet to an exchange or a pool across the token's life, worth
-<strong>$3,069,912</strong> at the prices that prevailed on those days. Two thirds of the quantity — 15.6M RSC —
-moved in 2026 alone, but because the price had already fallen it raised only $1.44M. The complex bought 8.06M RSC
-back for $2.21M over the same span, so <strong>net disposal is 15.9M RSC and $860,522</strong>.</p>
+<p><strong>Selling by ResearchHub is larger than the one-hop test showed, and it happened earlier.</strong>
+Counting only transfers that went straight from a ResearchHub wallet to a venue gives 7,109,368 RSC and
+$1,179,367. Following the money through <em>conduits</em> — wallets that took RSC in and passed 95% or more of
+it on — raises that to <strong>39,449,129 RSC and $6,242,151</strong>, and moves the weight of it into
+<strong>2023 and 2024</strong>, when the price was between $0.15 and $0.74. The 2026 flows that dominated the
+earlier version of this document were market-maker inventory placement, not ResearchHub selling.</p>
+
+<p><strong>Eleven wallets previously counted as ResearchHub are not ResearchHub.</strong> They are the
+venue-facing side of three successive market-making arrangements, and they account for
+<strong>61.6%</strong> of the RSC in the old selling headline. Separating them also changes the purchase
+figure: most of the "buyback" was a market maker withdrawing its own inventory from its own exchange accounts,
+not anyone buying RSC. §4a identifies the operators; §6 rebuilds the ledger.</p>
 
 <p><strong>The people who received RSC sold most of it, and the ones paid a salary sold the most.</strong> The
 39 recurring-compensation wallets received 35.4M RSC and have sent 22.0M to trading venues, realising
@@ -256,7 +263,7 @@ history. No address is classified by judgement, and the rules are applied in the
 <table>
 <thead><tr><th>Cohort</th><th>Rule</th><th class="num">Addresses</th></tr></thead>
 <tbody>
-<tr><td><strong>The complex</strong></td><td>The 26 named ResearchHub wallets and the staking vault</td><td class="num">27</td></tr>
+<tr><td><strong>The complex</strong></td><td>The named ResearchHub wallets and the staking vault. <strong>Eleven venue-facing wallets previously counted here have been moved out</strong> — see §4a.</td><td class="num">16</td></tr><tr class="hl"><td><strong>Market-maker infrastructure</strong></td><td>Relays, distributors, exchange funnels and exchange deposit addresses operated on the other side of a market-making arrangement. Not ResearchHub. Split into three operators in §4a</td><td class="num">11</td></tr>
 <tr><td><strong>Large allocations</strong></td><td>≥1M RSC received, majority from the complex, in six or fewer complex transfers — investors, founders' allocations and standalone grants</td><td class="num">21</td></tr>
 <tr><td><strong>Staking relays</strong></td><td>Same profile, but ≥90% of the outflow goes to the staking vault — ERC-4337 relay accounts, not holders</td><td class="num">3</td></tr>
 <tr><td><strong>Recurring compensation</strong></td><td>Six or more transfers from Treasury 3 or the treasury distributor with a median gap of 20–45 days — the shape of salaries, retainers and stipends</td><td class="num">39</td></tr>
@@ -271,6 +278,54 @@ history. No address is classified by judgement, and the rules are applied in the
 <p>A recurring-compensation classification identifies a payment <em>pattern</em>, not a job title. It is
 consistent with salaried staff, long-running editors, retained contractors and programme grantees alike, and
 chain data cannot separate them.</p>
+
+
+<h3>4a. The market makers, separated from ResearchHub</h3>
+
+<p>Eleven wallets previously counted inside "the complex" are not ResearchHub. They sit on the venue-facing side
+of a market-making arrangement: RSC arrives from the Foundation Community Safe in a discrete release, is split
+across exchanges within minutes, and inventory comes back the same way. Treating them as ResearchHub attributed
+their trading to the issuer. They are separated here, and the on-chain record splits them into distinct
+operators.</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Operator</th><th>Route</th><th>Active</th><th class="num">RSC onto venues</th><th>Wallets</th></tr></thead>
+<tbody>
+<tr><td><strong>Operator 1</strong><br><span class="axs">the 2024 mandate</span></td>
+    <td>Safe → <span class="addr">0xe4758f76</span> → <span class="addr">0xd8d6ffe3</span> / <span class="addr">0xecd3b4b7</span> → Gate.io</td>
+    <td>Nov 2024 – May 2026</td><td class="num">10,340,428</td>
+    <td>Settles out through <span class="addr">0xe92e6504</span>, which returned 9,999,699 RSC to the Safe on 29 May 2026</td></tr>
+<tr><td><strong>Operator 2</strong><br><span class="axs">the "funnel" route</span></td>
+    <td>Safe → relay <span class="addr">0x620c0738</span> / <span class="addr">0x48cd88dA</span> → distributor <span class="addr">0xAe823F1b</span> → the three <em>funnels</em> → MEXC, Gate, Coinbase</td>
+    <td>Sep 2025 – Sep 2026</td><td class="num">10,103,729</td>
+    <td>MEXC funnel <span class="addr">0x4Bae370A</span>, Gate funnel <span class="addr">0x40a03e42</span>, Coinbase funnel <span class="addr">0xF229E503</span></td></tr>
+<tr><td><strong>Operator 3</strong><br><span class="axs">the "deposit address" route</span></td>
+    <td>Safe → relay <span class="addr">0x74f191e4</span> / <span class="addr">0x0c86ac6c</span> → the three <em>deposit addresses</em> → Gate, MEXC, Coinbase</td>
+    <td>May 2026 – Aug 2026</td><td class="num">10,502,353</td>
+    <td>Gate <span class="addr">0x76785f12</span>, MEXC <span class="addr">0x6f12ae18</span>, Coinbase <span class="addr">0xcd8d4503</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="h">What separates operator 2 from operator 3, on chain</div>
+  <p>The two sets of venue-facing wallets are <strong>completely disjoint in who feeds them</strong>. The three
+  funnels are fed only by distributor <span class="addr">0xAe823F1b</span> and relay
+  <span class="addr">0x620c0738</span>. The three deposit addresses are fed only by relays
+  <span class="addr">0x74f191e4</span> and <span class="addr">0x0c86ac6c</span>. No wallet appears on both
+  sides, and the deposit-address route opens on <strong>18 May 2026</strong>, nine days before operator 1
+  returns its position. Each operator runs its own parallel plumbing to the same three exchanges.</p>
+  <p>The wallets are also grouped by how ResearchHub funds them: four addresses were funded together in a single
+  10 RSC test transaction on 13 May 2026, and three more in a single 100 RSC test on 13 August 2026 followed by
+  3,000,000 / 3,000,000 / 4,000,000 RSC in one transaction on 17 August. Co-funding in one transaction is the
+  clearest grouping signal the chain offers.</p>
+</div>
+
+<p><strong>Where this is uncertain.</strong> The chain shows three disjoint routing structures with distinct
+active windows. It does not name the firms behind them, and it cannot rule out one firm running two structures
+or a structure being handed over. The August 2026 trio is treated here as part of operator 3's arrangement on
+timing alone, and that is the weakest of the three groupings.</p>
 
 <h3>4.1 What the complex handed out, by destination</h3>
 
@@ -370,33 +425,8 @@ and the disposal.</p>
 </div>
 
 <div class="scroll">
-<table>
-<thead><tr><th>Address</th><th class="num">From the complex</th><th class="num">USD at the time</th><th class="num">Sold</th><th class="num">USD realised</th><th class="num">Still held</th><th>First seen</th></tr></thead>
-<tbody>
-<tr><td><span class="addr">0xe4758f76…aa7f</span></td><td class="num">10,000,000</td><td class="num">6,849,883</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2024-11-24</td></tr>
-<tr><td><span class="addr">0xdfb1fb21…1d58</span></td><td class="num">6,718,750</td><td class="num">243,052</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2021-12-22</td></tr>
-<tr><td><span class="addr">0xa0ed916a…87ef</span></td><td class="num">3,600,000</td><td class="num">1,747,463</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2024-05-20</td></tr>
-<tr><td><span class="addr">0x78512797…986d</span></td><td class="num">2,365,304</td><td class="num">789,123</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2025-10-10</td></tr>
-<tr><td><span class="addr">0x8ae505f6…0430</span></td><td class="num">2,078,869</td><td class="num">45,129</td><td class="num">2,025,337</td><td class="num">39,274</td><td class="num">0</td><td class="mono">2022-02-09</td></tr>
-<tr><td><span class="addr">0x79aa5bc6…b77e</span></td><td class="num">2,000,000</td><td class="num">233,200</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2026-01-01</td></tr>
-<tr><td><span class="addr">0x6b87c4fd…3be6</span></td><td class="num">1,710,785</td><td class="num">284,323</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2024-06-15</td></tr>
-<tr><td><span class="addr">0x28b00283…6957</span></td><td class="num">1,634,436</td><td class="num">17,588</td><td class="num">1,535,436</td><td class="num">16,398</td><td class="num">0</td><td class="mono">2022-02-18</td></tr>
-<tr><td><span class="addr">0xe2e69dce…d53f</span></td><td class="num">1,618,373</td><td class="num">203,491</td><td class="num">0</td><td class="num">0</td><td class="num">10</td><td class="mono">2025-11-28</td></tr>
-<tr><td><span class="addr">0x144985d2…B00d</span></td><td class="num">1,600,403</td><td class="num">1,014,172</td><td class="num">0</td><td class="num">0</td><td class="num">833,503</td><td class="mono">2025-09-01</td></tr>
-<tr><td><span class="addr">0xc5396a2c…eab1</span></td><td class="num">1,588,983</td><td class="num">96,186</td><td class="num">1,533,833</td><td class="num">84,119</td><td class="num">63,422</td><td class="mono">2021-12-03</td></tr>
-<tr><td><span class="addr">0x97e2ad35…c202f</span></td><td class="num">1,459,882</td><td class="num">790,987</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="mono">2025-08-08</td></tr>
-<tr><td><span class="addr">0x41aa5237…1c37</span></td><td class="num">1,431,299</td><td class="num">10,511</td><td class="num">1,216,237</td><td class="num">338,077</td><td class="num">0</td><td class="mono">2022-05-10</td></tr>
-<tr><td><span class="addr">0xa02306eb…239c</span></td><td class="num">1,402,250</td><td class="num">664</td><td class="num">1,272,250</td><td class="num">9,927</td><td class="num">0</td><td class="mono">2020-12-02</td></tr>
-<tr><td><span class="addr">0xb504d897…e2b5</span></td><td class="num">1,384,520</td><td class="num">473,910</td><td class="num">676,177</td><td class="num">116,361</td><td class="num">133,343</td><td class="mono">2023-08-24</td></tr>
-<tr><td><span class="addr">0x061c4e17…2c06</span></td><td class="num">1,245,279</td><td class="num">15,021</td><td class="num">1,013,511</td><td class="num">10,826</td><td class="num">1,436</td><td class="mono">2022-02-22</td></tr>
-<tr><td><span class="addr">0x617b1b78…30c6</span></td><td class="num">1,101,942</td><td class="num">841</td><td class="num">281,042</td><td class="num">4,375</td><td class="num">0</td><td class="mono">2020-12-24</td></tr>
-<tr><td><span class="addr">0x8ec66b4b…cea2</span></td><td class="num">1,057,292</td><td class="num">377,038</td><td class="num">0</td><td class="num">0</td><td class="num">1,057,292</td><td class="mono">2024-05-23</td></tr>
-<tr><td><span class="addr">0xd7f79e95…06ef</span></td><td class="num">960,618</td><td class="num">502,992</td><td class="num">0</td><td class="num">0</td><td class="num">638,972</td><td class="mono">2023-07-21</td></tr>
-<tr><td><span class="addr">0x61dde504…222a</span></td><td class="num">766,878</td><td class="num">125,024</td><td class="num">57,851</td><td class="num">34,758</td><td class="num">0</td><td class="mono">2022-02-08</td></tr>
-<tr><td><span class="addr">0x17f65421…f98f</span></td><td class="num">750,000</td><td class="num">334,956</td><td class="num">61,000</td><td class="num">11,228</td><td class="num">0</td><td class="mono">2024-04-12</td></tr>
-<tr class="total"><td>21 addresses</td><td class="num">46,475,863</td><td class="num">14,155,553</td><td class="num">9,672,674</td><td class="num">665,342</td><td class="num">2,727,979</td><td>—</td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Address</th><th class="num">From the complex</th><th class="num">USD at the time</th><th class="num">Sold direct</th><th class="num">USD realised</th><th class="num">Sold through conduits</th><th class="num">USD realised</th><th class="num">Still held</th><th class="num">First seen</th></tr></thead><tbody><tr class="hl"><td><span class="addr">0xe4758f76…aa7f</span></td><td class="num">10,000,000</td><td class="num">6,849,883</td><td class="num">0</td><td class="num">0</td><td class="num">6,259,017</td><td class="num">$4,344,759</td><td class="num">0</td><td class="num">2024-11-24</td></tr><tr><td><span class="addr">0xdfb1fb21…1d58</span></td><td class="num">6,718,750</td><td class="num">243,052</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">$0</td><td class="num">0</td><td class="num">2021-12-22</td></tr><tr class="hl"><td><span class="addr">0xa0ed916a…87ef</span></td><td class="num">3,600,000</td><td class="num">1,747,463</td><td class="num">0</td><td class="num">0</td><td class="num">1,491,319</td><td class="num">$449,607</td><td class="num">0</td><td class="num">2024-05-20</td></tr><tr class="hl"><td><span class="addr">0x78512797…986d</span></td><td class="num">2,365,304</td><td class="num">789,123</td><td class="num">0</td><td class="num">0</td><td class="num">500,000</td><td class="num">$151,650</td><td class="num">0</td><td class="num">2025-10-10</td></tr><tr><td><span class="addr">0x8ae505f6…0430</span></td><td class="num">2,078,869</td><td class="num">45,129</td><td class="num">2,025,337</td><td class="num">39,274</td><td class="num">89,958</td><td class="num">$1,875</td><td class="num">0</td><td class="num">2022-02-09</td></tr><tr><td><span class="addr">0x79aa5bc6…b77e</span></td><td class="num">2,000,000</td><td class="num">233,200</td><td class="num">0</td><td class="num">0</td><td class="num">51,440</td><td class="num">$6,976</td><td class="num">0</td><td class="num">2026-01-01</td></tr><tr><td><span class="addr">0x6b87c4fd…3be6</span></td><td class="num">1,710,785</td><td class="num">284,323</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">$0</td><td class="num">0</td><td class="num">2024-06-15</td></tr><tr><td><span class="addr">0x28b00283…6957</span></td><td class="num">1,634,436</td><td class="num">17,588</td><td class="num">1,535,436</td><td class="num">16,398</td><td class="num">89,691</td><td class="num">$16,768</td><td class="num">0</td><td class="num">2022-02-18</td></tr><tr><td><span class="addr">0xe2e69dce…d53f</span></td><td class="num">1,618,373</td><td class="num">203,491</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">$0</td><td class="num">10</td><td class="num">2025-11-28</td></tr><tr><td><span class="addr">0x144985d2…B00d</span></td><td class="num">1,600,403</td><td class="num">1,014,172</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">$0</td><td class="num">833,503</td><td class="num">2025-09-01</td></tr><tr><td><span class="addr">0xc5396a2c…eab1</span></td><td class="num">1,588,983</td><td class="num">96,186</td><td class="num">1,533,833</td><td class="num">84,119</td><td class="num">6</td><td class="num">$3</td><td class="num">63,422</td><td class="num">2021-12-03</td></tr><tr class="hl"><td><span class="addr">0x97e2ad35…c202f</span></td><td class="num">1,459,882</td><td class="num">790,987</td><td class="num">0</td><td class="num">0</td><td class="num">1,459,358</td><td class="num">$935,368</td><td class="num">0</td><td class="num">2025-08-08</td></tr><tr class="hl"><td><span class="addr">0x41aa5237…1c37</span></td><td class="num">1,431,299</td><td class="num">10,511</td><td class="num">1,216,237</td><td class="num">338,077</td><td class="num">445,065</td><td class="num">$282,702</td><td class="num">0</td><td class="num">2022-05-10</td></tr><tr><td><span class="addr">0xa02306eb…239c</span></td><td class="num">1,402,250</td><td class="num">664</td><td class="num">1,272,250</td><td class="num">9,927</td><td class="num">924,935</td><td class="num">$59,783</td><td class="num">0</td><td class="num">2020-12-02</td></tr><tr><td><span class="addr">0xb504d897…e2b5</span></td><td class="num">1,384,520</td><td class="num">473,910</td><td class="num">676,177</td><td class="num">116,361</td><td class="num">0</td><td class="num">$0</td><td class="num">133,343</td><td class="num">2023-08-24</td></tr><tr><td><span class="addr">0x061c4e17…2c06</span></td><td class="num">1,245,279</td><td class="num">15,021</td><td class="num">1,013,511</td><td class="num">10,826</td><td class="num">0</td><td class="num">$0</td><td class="num">1,436</td><td class="num">2022-02-22</td></tr><tr><td><span class="addr">0x617b1b78…30c6</span></td><td class="num">1,101,942</td><td class="num">841</td><td class="num">281,042</td><td class="num">4,375</td><td class="num">200,900</td><td class="num">$1,138</td><td class="num">0</td><td class="num">2020-12-24</td></tr><tr><td><span class="addr">0x8ec66b4b…cea2</span></td><td class="num">1,057,292</td><td class="num">377,038</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">$0</td><td class="num">1,057,292</td><td class="num">2024-05-23</td></tr><tr><td><span class="addr">0xd7f79e95…06ef</span></td><td class="num">960,618</td><td class="num">502,992</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">$0</td><td class="num">638,972</td><td class="num">2023-07-21</td></tr><tr class="hl"><td><span class="addr">0x61dde504…222a</span></td><td class="num">766,878</td><td class="num">125,024</td><td class="num">57,851</td><td class="num">34,758</td><td class="num">709,027</td><td class="num">$515,888</td><td class="num">0</td><td class="num">2022-02-08</td></tr><tr><td><span class="addr">0x17f65421…f98f</span></td><td class="num">750,000</td><td class="num">334,956</td><td class="num">61,000</td><td class="num">11,228</td><td class="num">0</td><td class="num">$0</td><td class="num">0</td><td class="num">2024-04-12</td></tr><tr class="total"><td>21 addresses</td><td class="num">46,475,863</td><td class="num">14,155,553</td><td class="num">9,672,674</td><td class="num">$665,333</td><td class="num">12,220,716</td><td class="num">$6,766,517</td><td class="num">2,727,979</td><td class="num">—</td></tr></tbody></table>
+<div class="callout warn"><div class="h">Why this total differs from the cohort line in §6.2</div><p>Two of these 21 wallets — <span class="addr">0xe4758f76…aa7f</span> and <span class="addr">0x78512797…986d</span> — are market-maker conduits rather than allocation holders, and §6.2 counts them under the market-maker heading. Excluding them, the twenty-one-wallet conduit total of <strong>12,220,716 RSC / $6,766,517</strong> falls to the <strong>5,461,699 RSC / $2,270,107</strong> shown there. The difference is almost entirely the 24 November 2024 mandate described in §6.4.</p></div>
 </div>
 
 <div class="callout">
@@ -420,6 +450,7 @@ and the disposal.</p>
 </div>
 
 <h3>5.2 Recurring compensation — the largest realised proceeds of any cohort</h3>
+<div class="callout warn"><div class="h">Conduit extension barely moves this cohort</div><p>Running the same conduit test over the twelve wallets tabulated here adds only <strong>299,998 RSC and $52,323</strong> to their disposal. Unlike the large-allocation cohort, these wallets sell from their own address: 97% of what they put on a venue goes there directly. The cohort totals in the last row remain the document's original one-hop figures across all 39 wallets, of which only these twelve are itemised — the other 27 are not individually identified anywhere in this document.</p></div>
 
 <div class="scroll">
 <table>
@@ -451,112 +482,170 @@ and the disposal.</p>
 <!-- ============================================ -->
 <h2>6. Insider selling — the complete historical ledger</h2>
 
-<p>Every transfer from one of the 27 complex wallets to a centralised exchange, an AMM pool or a DEX router, over
-the token's whole life. Forty transfers, valued at the price on the day each one settled.</p>
-
-<div class="cards">
-  <div class="card hi">
-    <div class="lab">Sold by ResearchHub wallets, all time</div>
-    <div class="val">23,916,405</div>
-    <div class="note">RSC · <strong>$3,069,912</strong> · 40 transfers · 2.4% of supply</div>
-  </div>
-  <div class="card">
-    <div class="lab">Bought back</div>
-    <div class="val">8,056,625</div>
-    <div class="note">RSC · <strong>$2,209,390</strong> · 77 transfers</div>
-  </div>
-  <div class="card">
-    <div class="lab">Net disposal</div>
-    <div class="val">−15,859,780</div>
-    <div class="note">RSC · <strong>−$860,522</strong> net of purchases</div>
-  </div>
+<div class="callout bad">
+  <div class="h">This section has been rebuilt. Two things were wrong with the earlier version.</div>
+  <p><strong>It counted only the last hop.</strong> A transfer was a sale only if it went from a complex wallet
+  straight to a venue. Where RSC was passed to a wallet that did nothing but forward it onward, the disposal
+  disappeared from the ledger — §5.1 flagged this in prose for the largest case, but no total reflected it. Extending the test through conduits — wallets that took RSC in and passed 95% or
+  more of it on — raises what the ResearchHub complex itself put on the market from <strong>$1,179,367 to
+  $6,242,151</strong>.</p>
+  <p><strong>It treated market-maker plumbing as ResearchHub.</strong> Eleven of the 27 wallets previously called
+  "the complex" are venue-facing relays and deposit addresses operated on the other side of a market-making
+  arrangement. They are now a separate class (§4a). <strong>70% of the RSC in the old headline was theirs, not
+  ResearchHub's.</strong></p>
 </div>
+
+<h3>6.1 Splitting the old headline</h3>
+
+<p>The figure previously published as "sold by ResearchHub wallets, all time" was
+<strong>23,916,405 RSC · $3,069,912 · 40 transfers</strong>. Holding the method fixed and only separating the
+entities:</p>
 
 <div class="scroll">
 <table>
-<thead><tr><th>Complex wallet</th><th>Destination</th><th class="num">RSC</th><th class="num">USD at the time</th><th class="num">Transfers</th></tr></thead>
+<thead><tr><th>Who actually sent it to the venue</th><th class="num">RSC</th><th class="num">USD at the time</th><th class="num">Share</th></tr></thead>
 <tbody>
-<tr><td>Treasury 3 · <code>researchhubfoundation.eth</code></td><td>Uniswap V3 1% (Ethereum)</td><td class="num">6,404,728</td><td class="num">726,495</td><td class="num">8</td></tr>
-<tr><td>Gate deposit <span class="addr">0x76785f12…5eF6</span></td><td>Gate.io</td><td class="num">6,270,519</td><td class="num">630,520</td><td class="num">5</td></tr>
-<tr><td>MEXC funnel <span class="addr">0x4Bae370A…2cE5</span></td><td>MEXC</td><td class="num">4,667,046</td><td class="num">515,006</td><td class="num">10</td></tr>
-<tr><td>Gate funnel <span class="addr">0x40a03e42…d671</span></td><td>Gate.io</td><td class="num">2,754,445</td><td class="num">451,753</td><td class="num">7</td></tr>
-<tr><td>Coinbase funnel <span class="addr">0xF229E503…D9D8</span></td><td>Coinbase</td><td class="num">1,250,000</td><td class="num">100,125</td><td class="num">1</td></tr>
-<tr><td>MEXC deposit <span class="addr">0x6f12ae18…5C00</span></td><td>MEXC</td><td class="num">1,052,232</td><td class="num">105,540</td><td class="num">3</td></tr>
-<tr><td>Coinbase deposit <span class="addr">0xcd8d4503…bCa7</span></td><td>Coinbase</td><td class="num">812,795</td><td class="num">87,601</td><td class="num">2</td></tr>
-<tr><td>Foundation Community Safe</td><td>Uniswap V3 1% (Base)</td><td class="num">422,631</td><td class="num">345,487</td><td class="num">1</td></tr>
-<tr><td>Foundation Community Safe</td><td>Aerodrome ts200 (Base)</td><td class="num">282,009</td><td class="num">107,386</td><td class="num">3</td></tr>
-<tr class="total"><td colspan="2">All complex selling, 2020–2026</td><td class="num">23,916,405</td><td class="num">3,069,912</td><td class="num">40</td></tr>
+<tr><td><strong>ResearchHub's own wallets</strong> — Treasury 3 and the Foundation Community Safe, into Uniswap and Aerodrome</td><td class="num">7,109,368</td><td class="num">$1,179,367</td><td class="num">38.4%</td></tr>
+<tr class="hl"><td><strong>Market-maker infrastructure</strong> — the three exchange funnels and the three exchange deposit addresses</td><td class="num">16,807,037</td><td class="num">$1,890,545</td><td class="num">61.6%</td></tr>
+<tr class="total"><td>As previously published</td><td class="num">23,916,405</td><td class="num">$3,069,912</td><td class="num">100%</td></tr>
 </tbody>
 </table>
 </div>
 
+<p>Measured over their whole lives rather than only the portion sourced from ResearchHub, those same
+market-maker wallets moved <strong>20,606,082 RSC worth $2,098,771</strong> onto venues. The extra 3.8M never
+came from ResearchHub at all — it is inventory the operator brought from elsewhere.</p>
+
+<h3>6.2 Following the money through conduits</h3>
+
+<p>A conduit is defined mechanically: a wallet that received at least 10,000 RSC and passed on
+<strong>95% or more</strong> of everything it received. 4,144 addresses across both chains meet it. Attribution
+runs pro-rata through at most two of them, and every arrival is valued at the RSC/USD close on the day it
+settled. Wallets that kept a material part of what they received are <em>not</em> conduits, so a grantee who
+sold their own grant is never counted against ResearchHub.</p>
+
+<div class="cards">
+  <div class="card hi">
+    <div class="lab">ResearchHub complex · direct only</div>
+    <div class="val">$1,179,367</div>
+    <div class="note">7,109,368 RSC — the old measure</div>
+  </div>
+  <div class="card hi">
+    <div class="lab">ResearchHub complex · through conduits</div>
+    <div class="val">$6,242,151</div>
+    <div class="note">39,449,129 RSC — <strong>5.3× the old figure</strong></div>
+  </div>
+  <div class="card">
+    <div class="lab">Market-maker wallets, all in</div>
+    <div class="val">$7,799,170</div>
+    <div class="note">31,916,252 RSC across the infrastructure and the counterparty wallets it settles to</div>
+  </div>
+  <div class="card">
+    <div class="lab">Everything reaching a venue within two hops</div>
+    <div class="val">$20,485,150</div>
+    <div class="note">98,910,908 RSC, all origins, priced on each arrival date</div>
+  </div>
+</div>
+
 <div class="scroll">
 <table>
-<thead><tr><th>Year</th><th class="num">RSC sold</th><th class="num">USD at the time</th><th class="num">Transfers</th><th class="num">Average price realised</th></tr></thead>
+<thead><tr><th>Origin</th><th class="num">Direct RSC</th><th class="num">Direct USD</th><th class="num">Via conduits RSC</th><th class="num">Via conduits USD</th><th class="num">Total USD</th></tr></thead>
 <tbody>
-<tr><td class="mono">2022</td><td class="num">1,866,697</td><td class="num">11,171</td><td class="num">2</td><td class="num">$0.0060</td></tr>
-<tr><td class="mono">2023</td><td class="num">4,459,620</td><td class="num">689,135</td><td class="num">5</td><td class="num">$0.1545</td></tr>
-<tr><td class="mono">2024</td><td class="num">501,041</td><td class="num">371,675</td><td class="num">2</td><td class="num">$0.7418</td></tr>
-<tr><td class="mono">2025</td><td class="num">1,516,454</td><td class="num">557,897</td><td class="num">9</td><td class="num">$0.3679</td></tr>
-<tr class="hl"><td class="mono">2026</td><td class="num">15,572,593</td><td class="num">1,440,034</td><td class="num">22</td><td class="num">$0.0925</td></tr>
-<tr class="total"><td>All time</td><td class="num">23,916,405</td><td class="num">3,069,912</td><td class="num">40</td><td class="num">$0.1284</td></tr>
+<tr><td><strong>ResearchHub complex</strong> (16 wallets)</td><td class="num">7,109,368</td><td class="num">$1,179,367</td><td class="num">32,339,761</td><td class="num">$5,062,784</td><td class="num">$6,242,151</td></tr>
+<tr><td>Market-maker infrastructure (11 wallets)</td><td class="num">20,606,082</td><td class="num">$2,098,771</td><td class="num">1,672,554</td><td class="num">$207,964</td><td class="num">$2,306,735</td></tr>
+<tr class="hl"><td>Market-maker counterparty wallets</td><td class="num">0</td><td class="num">$0</td><td class="num">9,637,615</td><td class="num">$5,492,435</td><td class="num">$5,492,435</td></tr>
+<tr><td>Cohort 5.1 — large allocations</td><td class="num">9,672,674</td><td class="num">$665,333</td><td class="num">5,461,699</td><td class="num">$2,270,107</td><td class="num">$2,935,441</td></tr>
+<tr><td>Cohort 5.2 — recurring compensation <span class="axs">(12 of 39 wallets)</span></td><td class="num">12,111,156</td><td class="num">$3,456,064</td><td class="num">299,998</td><td class="num">$52,323</td><td class="num">$3,508,387</td></tr>
+<tr class="total"><td>All origins</td><td class="num">49,499,280</td><td class="num">$7,399,535</td><td class="num">49,411,628</td><td class="num">$13,085,614</td><td class="num">$20,485,150</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>6.3 ResearchHub's own disposal, by year</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Year</th><th class="num">Direct RSC</th><th class="num">Direct USD</th><th class="num">Through conduits RSC</th><th class="num">Through conduits USD</th><th class="num">Total USD</th></tr></thead>
+<tbody>
+<tr><td>2020</td><td class="num">0</td><td class="num">$0</td><td class="num">168,960</td><td class="num">$193</td><td class="num">$193</td></tr>
+<tr><td>2021</td><td class="num">0</td><td class="num">$0</td><td class="num">2,182,256</td><td class="num">$46,343</td><td class="num">$46,343</td></tr>
+<tr><td>2022</td><td class="num">1,866,697</td><td class="num">$11,171</td><td class="num">9,460,069</td><td class="num">$131,641</td><td class="num">$142,812</td></tr>
+<tr class="hl"><td>2023</td><td class="num">4,459,620</td><td class="num">$689,135</td><td class="num">14,003,911</td><td class="num">$2,001,746</td><td class="num">$2,690,881</td></tr>
+<tr class="hl"><td>2024</td><td class="num">501,041</td><td class="num">$371,675</td><td class="num">4,108,187</td><td class="num">$2,177,232</td><td class="num">$2,548,907</td></tr>
+<tr><td>2025</td><td class="num">282,009</td><td class="num">$107,386</td><td class="num">1,135,214</td><td class="num">$595,544</td><td class="num">$702,929</td></tr>
+<tr><td>2026</td><td class="num">0</td><td class="num">$0</td><td class="num">1,281,163</td><td class="num">$110,086</td><td class="num">$110,086</td></tr>
+<tr class="total"><td>All time</td><td class="num">7,109,368</td><td class="num">$1,179,367</td><td class="num">32,339,761</td><td class="num">$5,062,784</td><td class="num">$6,242,151</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The earlier version of this section concluded that "the selling accelerated as the price fell" and that
+"65.1% of all RSC the complex has ever sold moved in 2026". <strong>Both statements were artefacts of the
+one-hop test.</strong> Once conduits are followed, ResearchHub's own disposal is concentrated in
+<strong>2023 and 2024 — $5.24M of the $6.24M lifetime total, 84%</strong> — which is when the price was
+between $0.15 and $0.74. The 2026 flows that dominated the old table were market-maker inventory placement,
+not ResearchHub selling, and they are now attributed accordingly.</p>
+
+<h3>6.4 The largest conduit routes</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>Origin</th><th>Venue reached</th><th class="num">RSC</th><th class="num">USD at the time</th></tr></thead>
+<tbody>
+<tr class="hl"><td>Market-maker allocation of 24 Nov 2024 <span class="addr">0xe4758f76…aa7f</span></td><td>Gate.io</td><td class="num">6,259,017</td><td class="num">$4,344,759</td></tr>
+<tr><td>Treasury distributor</td><td>Uniswap V3 1% (Ethereum)</td><td class="num">11,645,870</td><td class="num">$2,177,879</td></tr>
+<tr><td>Treasury distributor</td><td>Uniswap V2 router</td><td class="num">9,810,338</td><td class="num">$942,128</td></tr>
+<tr><td>Cohort 5.1 <span class="addr">0x97e2ad35…202f</span></td><td>Coinbase 22</td><td class="num">1,459,358</td><td class="num">$935,368</td></tr>
+<tr><td>Wallet that returned 9,999,699 RSC to the Safe on 29 May 2026</td><td>Gate.io</td><td class="num">2,222,191</td><td class="num">$877,871</td></tr>
+<tr><td>Cohort 5.1 <span class="addr">0x61dde504…222a</span></td><td>Coinbase 22</td><td class="num">709,027</td><td class="num">$515,888</td></tr>
+<tr><td>Cohort 5.1 <span class="addr">0xa0ed916a…87ef</span></td><td>Uniswap V3 1% (Base)</td><td class="num">1,491,319</td><td class="num">$449,607</td></tr>
+<tr><td>Hot wallet</td><td>Uniswap V2 router</td><td class="num">447,200</td><td class="num">$280,389</td></tr>
 </tbody>
 </table>
 </div>
 
 <div class="callout warn">
-  <div class="h">The selling accelerated as the price fell</div>
-  <p>65.1% of all RSC the complex has ever sold moved in 2026, at an average realised price of
-  <strong>$0.0925</strong> — an eighth of the $0.7418 it achieved on much smaller volume in 2024. Had the 2026
-  quantity been sold at 2024 prices it would have raised $11.6M rather than $1.44M.</p>
-  <p>There is no year in which the complex sold materially into strength. The single best-timed disposal was
-  422,631 RSC into the Base Uniswap pool on <strong>7 April 2024 at $0.8175</strong>, raising $345,487 — more
-  than the whole of 2026 raised from thirty-five times the quantity.</p>
+  <div class="h">The single largest disposal in the token's history was described but never counted</div>
+  <p>On 24 November 2024 the Foundation Community Safe released <strong>9,999,999 RSC</strong> to
+  <span class="addr">0xe4758f76…aa7f</span>. That wallet held nothing: it split the balance to
+  <span class="addr">0xd8d6ffe3…3cef</span> (5,749,990) and <span class="addr">0xecd3b4b7…d2b9</span>
+  (4,000,010). Five days later <span class="addr">0xecd3b4b7…d2b9</span> began depositing to Gate.io, and over
+  71 deposits between 29 November 2024 and May 2026 it sent <strong>10,340,428 RSC worth $6,136,007</strong>
+  there — <strong>$3,101,608 of it in November 2024 alone, at an average of $0.7754</strong>, into the rally
+  that preceded the January 2025 all-time high. Pro-rata attribution assigns <strong>6,259,017 RSC and
+  $4,344,759</strong> of that to the original allocation; the rest came from other inventory the same operator
+  routed through the wallet.</p>
+  <p><strong>§5.1 already described this chain</strong> — it named both onward wallets, the 10,340,428 RSC total and the 71 Gate.io transfers, and said in terms that "the disposal happens one hop further out". What it never did was <em>price</em> that flow or carry it into any total. The §5.1 table still shows this wallet as <strong>sold 0, USD realised 0</strong>, and the lifetime selling headline excluded it entirely. The contribution here is the valuation and the inclusion, not the discovery.</p>
 </div>
+
+<h3>6.5 Purchases, and what most of them actually are</h3>
+
+<p>The earlier version reported that the complex "bought back" <strong>8,056,625 RSC for $2,209,390</strong>
+and set a net disposal of −15,859,780 RSC and −$860,522. Separating the entities shows that a large part of
+that was never a purchase.</p>
 
 <div class="scroll">
 <table>
-<thead><tr><th>Largest single disposals</th><th>Date</th><th class="num">RSC</th><th class="num">Price</th><th class="num">USD</th></tr></thead>
+<thead><tr><th>RSC leaving a venue into…</th><th class="num">RSC</th><th class="num">USD at the time</th><th>What it is</th></tr></thead>
 <tbody>
-<tr><td>Treasury 3 → Uniswap V3 1% (Ethereum)</td><td class="mono">2023-12-07</td><td class="num">1,000,000</td><td class="num">$0.5287</td><td class="num">528,679</td></tr>
-<tr><td>Foundation Safe → Uniswap V3 1% (Base)</td><td class="mono">2024-04-07</td><td class="num">422,631</td><td class="num">$0.8175</td><td class="num">345,487</td></tr>
-<tr><td>Gate funnel → Gate.io</td><td class="mono">2025-09-05</td><td class="num">514,345</td><td class="num">$0.4779</td><td class="num">245,805</td></tr>
-<tr><td>Gate deposit → Gate.io</td><td class="mono">2026-05-31</td><td class="num">2,000,000</td><td class="num">$0.1033</td><td class="num">206,600</td></tr>
-<tr><td>MEXC funnel → MEXC</td><td class="mono">2026-07-28</td><td class="num">2,250,000</td><td class="num">$0.0801</td><td class="num">180,225</td></tr>
-<tr><td>Gate deposit → Gate.io</td><td class="mono">2026-05-19</td><td class="num">1,383,340</td><td class="num">$0.1209</td><td class="num">167,246</td></tr>
-<tr><td>Gate deposit → Gate.io</td><td class="mono">2026-06-12</td><td class="num">1,236,179</td><td class="num">$0.0965</td><td class="num">119,291</td></tr>
-<tr><td>Coinbase funnel → Coinbase</td><td class="mono">2026-07-28</td><td class="num">1,250,000</td><td class="num">$0.0801</td><td class="num">100,125</td></tr>
-<tr><td>Gate funnel → Gate.io</td><td class="mono">2026-07-30</td><td class="num">1,250,000</td><td class="num">$0.0725</td><td class="num">90,625</td></tr>
-<tr><td>Treasury 3 → Uniswap V3 1% (Ethereum)</td><td class="mono">2023-11-29</td><td class="num">300,000</td><td class="num">$0.2800</td><td class="num">84,008</td></tr>
+<tr><td><strong>ResearchHub complex</strong></td><td class="num">5,007,679</td><td class="num">$1,902,498</td><td>Genuine open-market buying — Treasury 3 and the Foundation Safe through DEX routers and pools</td></tr>
+<tr class="hl"><td>Market-maker infrastructure</td><td class="num">4,140,956</td><td class="num">$378,644</td><td><strong>Not a purchase.</strong> Inventory the operator withdrew from its own exchange accounts — 3,257,325 RSC of it back from MEXC into relay <span class="addr">0x620c0738…7EeB</span></td></tr>
+<tr class="hl"><td>Market-maker counterparty wallets</td><td class="num">7,119,504</td><td class="num">$2,021,349</td><td><strong>Not a purchase.</strong> An operator unwinding a position across Gate, MEXC, Coinbase and one exchange-scale wallet, immediately before returning 9,999,699 RSC to the Foundation Safe on 29 May 2026</td></tr>
+<tr><td>Cohort recipients</td><td class="num">8,381,430</td><td class="num">$1,900,065</td><td>Allocation and compensation wallets buying on the open market, mostly through 2024–25</td></tr>
 </tbody>
 </table>
 </div>
 
-<h3>6.1 The complex also buys</h3>
-
-<div class="scroll">
-<table>
-<thead><tr><th>Complex wallet</th><th>Source</th><th class="num">RSC</th><th class="num">USD at the time</th><th class="num">Transfers</th></tr></thead>
-<tbody>
-<tr><td>Distributor <span class="addr">0x620c0738…7EeB</span></td><td>MEXC</td><td class="num">2,538,481</td><td class="num">273,548</td><td class="num">15</td></tr>
-<tr><td>Treasury 3</td><td>DEX routers</td><td class="num">2,453,593</td><td class="num">1,112,683</td><td class="num">22</td></tr>
-<tr><td>Treasury 3</td><td>Uniswap V3 1% (Ethereum)</td><td class="num">651,914</td><td class="num">195,438</td><td class="num">2</td></tr>
-<tr><td>Foundation Community Safe</td><td>DEX routers</td><td class="num">619,142</td><td class="num">294,699</td><td class="num">15</td></tr>
-<tr><td>Foundation Community Safe</td><td>Aerodrome ts200</td><td class="num">588,223</td><td class="num">115,293</td><td class="num">11</td></tr>
-<tr><td>MEXC funnel</td><td>Gate.io</td><td class="num">329,998</td><td class="num">44,983</td><td class="num">4</td></tr>
-<tr><td>Distributor <span class="addr">0xAe823F1b…DCf3</span></td><td>Gate.io</td><td class="num">322,830</td><td class="num">19,371</td><td class="num">2</td></tr>
-<tr><td>Foundation Community Safe</td><td>Uniswap V3 1% (Base)</td><td class="num">320,111</td><td class="num">125,163</td><td class="num">1</td></tr>
-<tr><td>Others</td><td>Gate.io, Coinbase, exchange-scale B</td><td class="num">232,333</td><td class="num">28,212</td><td class="num">5</td></tr>
-<tr class="total"><td colspan="2">All complex buying</td><td class="num">8,056,625</td><td class="num">2,209,390</td><td class="num">77</td></tr>
-</tbody>
-</table>
+<div class="callout">
+  <div class="h">The revised net position</div>
+  <p>ResearchHub's own wallets put <strong>39,449,129 RSC worth $6,242,151</strong> onto venues and took
+  <strong>5,007,679 RSC worth $1,902,498</strong> back off them. The net is <strong>−34,441,450 RSC and
+  +$4,339,653 realised</strong>, against the previously published −15,859,780 RSC and −$860,522. The sign on
+  the dollar figure flips: on the old measure ResearchHub appeared to have spent $860,522 more buying than it
+  raised selling; on this one it raised $4.34M net.</p>
+  <p>The market-maker side is the mirror image — it is the party doing the large-volume venue selling, and its
+  "purchases" are its own inventory coming home.</p>
 </div>
-
-<p>The buying is not symmetrical with the selling. It cost <strong>$2,209,390</strong> to reacquire 8.06M RSC —
-an average of $0.274 per token, more than double the $0.128 average at which the complex sold. Two thirds of the
-purchase value went through DEX routers into Treasury 3 and the Foundation Safe during 2023–2025, when RSC was
-expensive; the selling is concentrated in 2026, when it was cheap. On a net basis the complex has released 15.9M
-RSC and taken in <strong>$860,522</strong> more than it spent.</p>
 
 <!-- ============================================ -->
 <h2>7. Buying — where market-bought RSC ends up</h2>
@@ -767,41 +856,10 @@ $10,526,547</strong>.</p>
 </ul>
 
 <!-- ============================================ -->
-<h2>11. The complex — the 27 addresses treated as ResearchHub</h2>
+<h2>11. The complex — the 16 addresses treated as ResearchHub, and the 11 that are not</h2>
 
 <div class="scroll">
-<table>
-<thead><tr><th>Address</th><th>Role</th><th>Basis</th></tr></thead>
-<tbody>
-<tr><td class="addr">0x5222FF25F4DFC02d173C2cbd2055EE1D35f291F1</td><td>Treasury 1</td><td>ResearchHub docs; largest RSC balance in existence</td></tr>
-<tr><td class="addr">0xE3648e99B6E68A09e28428790D12B357f081dBe0</td><td>Treasury 2</td><td>ResearchHub docs; 222.48M direct from the genesis mint</td></tr>
-<tr><td class="addr">0xC4cfa2BdAE08416312fAa0B72758E1F3750f81e3</td><td>Treasury 3</td><td><strong>ENS reverse record <code>researchhubfoundation.eth</code></strong> plus ResearchHub docs</td></tr>
-<tr><td class="addr">0xb280F00E70F28E8Ce38C40826270DE7e1B327E21</td><td>Foundation Community Safe</td><td>ResearchHub docs</td></tr>
-<tr><td class="addr">0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</td><td>Hot wallet</td><td>ResearchHub docs; the reward-paying account</td></tr>
-<tr><td class="addr">0x467564DCCE90FB21153adfa69c48A3Be235d66D3</td><td>Staking vault</td><td>Terminal destination of every stake-to-fund deposit; has never sent a transfer</td></tr>
-<tr><td class="addr">0xB518536B67720D9D61f5250cAF5c0494fC087D3d</td><td>Genesis recipient, 700M</td><td>Direct mint recipient; signs Treasury 1 and Treasury 2</td></tr>
-<tr><td class="addr">0x1288d4d08C3e79b81C2DB1CE459AE374fC978D34</td><td>Genesis recipient, 70M</td><td>Direct mint recipient; beneficiary of a vesting escrow. <strong>Unattributed</strong></td></tr>
-<tr><td class="addr">0x76835CA5Ebc7935CedBB1e0AA3d322e704b1b7B1</td><td>Treasury distributor</td><td>Moved 72.9M from the treasuries and holds nothing</td></tr>
-<tr><td class="addr">0x12ab259853038A8b542b77d4Ebf3aF671b7E8e73</td><td>Allocation wallet, 44.96M</td><td>44.96M from Treasury 2, routed into a vesting escrow</td></tr>
-<tr><td class="addr">0x67f843da03cB988B38a648D3FccdE1DB7Cb27985</td><td>Signer / allocation, 19.7M</td><td>Signs Treasuries 1 and 2; cycled 12.5M through a vesting escrow</td></tr>
-<tr><td class="addr">0xafDb8502C2d012c3E9306445f012b4A2D30de860</td><td><code>researchhub.eth</code></td><td>ENS forward record; received 11.72M from a vesting escrow in 2020–22</td></tr>
-<tr><td class="addr">0x8bbB6c4B6dE838df0e6ceED5d32C20b44Ee8ea02</td><td>Vesting escrow (70M)</td><td>Verified contract named <code>Vesting</code></td></tr>
-<tr><td class="addr">0x4Df3043C103A1Dc0A80a408F04a2A37f5b0Eb662</td><td>TokenVesting (43.96M)</td><td>Verified contract named <code>TokenVesting</code></td></tr>
-<tr><td class="addr">0xEE8d932A66AdA39e4Ef08046734f601d04B6A3dA</td><td>TokenVesting (12.5M)</td><td>Verified contract named <code>TokenVesting</code></td></tr>
-<tr><td class="addr">0x3D4B25c3E9FB5B159d932945cB74c5DF33dF339C</td><td>Signer-staker</td><td>Signs Treasury 3 and the Foundation Safe</td></tr>
-<tr><td class="addr">0xAe823F1b7a5BA8FF4C28e33fB01A5fD35B35DCf3</td><td>Distributor</td><td>Single-purpose relay between the Foundation Safe and the exchange funnels</td></tr>
-<tr><td class="addr">0x48cd88dAd57234afA2Ed9C277648916E51E006Ee</td><td>Hop</td><td>Pure pass-through: 5,000,000 in, 5,000,000 out</td></tr>
-<tr><td class="addr">0x620c073866CBEa4Fc23202CA2fe99507b72e7EeB</td><td>Distributor</td><td>Single-purpose relay</td></tr>
-<tr><td class="addr">0x74f191E407296AE3F1D464950c77dd9a4D1d1817</td><td>Hop</td><td>Took 8.29M from the Foundation Safe and fanned it to exchange deposit addresses</td></tr>
-<tr><td class="addr">0x0c86ac6cC34F23eEF0005E13602099d34465ac5b</td><td>Hop</td><td>Same pattern, 1.71M</td></tr>
-<tr><td class="addr">0x4Bae370A8691bF4d77385fB3bC3895a918012cE5</td><td>MEXC funnel</td><td>Forwards 100% of receipts to MEXC, retains nothing</td></tr>
-<tr><td class="addr">0x40a03e42e37C7684c9157A4f29676b2A8869d671</td><td>Gate funnel</td><td>Forwards 100% of receipts to Gate.io, retains nothing</td></tr>
-<tr><td class="addr">0xF229E503eea4Af367AD12FEd165628951183D9d8</td><td>Coinbase funnel</td><td>Two events: 1.25M in, 1.25M out to Coinbase</td></tr>
-<tr><td class="addr">0x76785f122ad1c5E18b5e0f8c63FDf35943695eF6</td><td>Gate deposit address</td><td>Deposits to Gate.io only, always 04:52–04:55 UTC, retains nothing</td></tr>
-<tr><td class="addr">0xcd8d450349861554F886F68c0d0cCf6F8A9dBCa7</td><td>Coinbase deposit address</td><td>Deposits to Coinbase only, retains nothing</td></tr>
-<tr><td class="addr">0x6f12AE1895C92b318FEbEAaBa89d887c81dd5C00</td><td>MEXC deposit address</td><td>Deposits to MEXC only, retains nothing</td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Address</th><th>Role</th><th>Basis</th></tr></thead><tbody><tr class="sub"><td colspan="3"><strong>ResearchHub — 16 addresses</strong></td></tr><tr><td><code>0x5222FF25F4DFC02d173C2cbd2055EE1D35f291F1</code></td><td>Treasury 1</td><td>ResearchHub docs; largest RSC balance in existence</td></tr><tr><td><code>0xE3648e99B6E68A09e28428790D12B357f081dBe0</code></td><td>Treasury 2</td><td>ResearchHub docs; 222.48M direct from the genesis mint</td></tr><tr><td><code>0xC4cfa2BdAE08416312fAa0B72758E1F3750f81e3</code></td><td>Treasury 3</td><td><strong>ENS reverse record <code>researchhubfoundation.eth</code></strong> plus ResearchHub docs</td></tr><tr><td><code>0xb280F00E70F28E8Ce38C40826270DE7e1B327E21</code></td><td>Foundation Community Safe</td><td>ResearchHub docs</td></tr><tr><td><code>0x7F57d306a9422ee8175aDc25898B1b2EBF1010cb</code></td><td>Hot wallet</td><td>ResearchHub docs; the reward-paying account</td></tr><tr><td><code>0x467564DCCE90FB21153adfa69c48A3Be235d66D3</code></td><td>Staking vault</td><td>Terminal destination of every stake-to-fund deposit; has never sent a transfer</td></tr><tr><td><code>0xB518536B67720D9D61f5250cAF5c0494fC087D3d</code></td><td>Genesis recipient, 700M</td><td>Direct mint recipient; signs Treasury 1 and Treasury 2</td></tr><tr><td><code>0x1288d4d08C3e79b81C2DB1CE459AE374fC978D34</code></td><td>Genesis recipient, 70M</td><td>Direct mint recipient; beneficiary of a vesting escrow. <strong>Unattributed</strong></td></tr><tr><td><code>0x76835CA5Ebc7935CedBB1e0AA3d322e704b1b7B1</code></td><td>Treasury distributor</td><td>Moved 72.9M from the treasuries and holds nothing</td></tr><tr><td><code>0x12ab259853038A8b542b77d4Ebf3aF671b7E8e73</code></td><td>Allocation wallet, 44.96M</td><td>44.96M from Treasury 2, routed into a vesting escrow</td></tr><tr><td><code>0x67f843da03cB988B38a648D3FccdE1DB7Cb27985</code></td><td>Signer / allocation, 19.7M</td><td>Signs Treasuries 1 and 2; cycled 12.5M through a vesting escrow</td></tr><tr><td><code>0xafDb8502C2d012c3E9306445f012b4A2D30de860</code></td><td><code>researchhub.eth</code></td><td>ENS forward record; received 11.72M from a vesting escrow in 2020–22</td></tr><tr><td><code>0x8bbB6c4B6dE838df0e6ceED5d32C20b44Ee8ea02</code></td><td>Vesting escrow (70M)</td><td>Verified contract named <code>Vesting</code></td></tr><tr><td><code>0x4Df3043C103A1Dc0A80a408F04a2A37f5b0Eb662</code></td><td>TokenVesting (43.96M)</td><td>Verified contract named <code>TokenVesting</code></td></tr><tr><td><code>0xEE8d932A66AdA39e4Ef08046734f601d04B6A3dA</code></td><td>TokenVesting (12.5M)</td><td>Verified contract named <code>TokenVesting</code></td></tr><tr><td><code>0x3D4B25c3E9FB5B159d932945cB74c5DF33dF339C</code></td><td>Signer-staker</td><td>Signs Treasury 3 and the Foundation Safe</td></tr><tr class="sub"><td colspan="3"><strong>Market-maker infrastructure — 11 addresses, moved out of the complex (see §4a)</strong></td></tr><tr><td><code>0xAe823F1b7a5BA8FF4C28e33fB01A5fD35B35DCf3</code></td><td>Distributor</td><td>Single-purpose relay between the Foundation Safe and the exchange funnels</td></tr><tr><td><code>0x48cd88dAd57234afA2Ed9C277648916E51E006Ee</code></td><td>Hop</td><td>Pure pass-through: 5,000,000 in, 5,000,000 out</td></tr><tr><td><code>0x620c073866CBEa4Fc23202CA2fe99507b72e7EeB</code></td><td>Distributor</td><td>Single-purpose relay</td></tr><tr><td><code>0x74f191E407296AE3F1D464950c77dd9a4D1d1817</code></td><td>Hop</td><td>Took 8.29M from the Foundation Safe and fanned it to exchange deposit addresses</td></tr><tr><td><code>0x0c86ac6cC34F23eEF0005E13602099d34465ac5b</code></td><td>Hop</td><td>Same pattern, 1.71M</td></tr><tr><td><code>0x4Bae370A8691bF4d77385fB3bC3895a918012cE5</code></td><td>MEXC funnel</td><td>Forwards 100% of receipts to MEXC, retains nothing</td></tr><tr><td><code>0x40a03e42e37C7684c9157A4f29676b2A8869d671</code></td><td>Gate funnel</td><td>Forwards 100% of receipts to Gate.io, retains nothing</td></tr><tr><td><code>0xF229E503eea4Af367AD12FEd165628951183D9d8</code></td><td>Coinbase funnel</td><td>Two events: 1.25M in, 1.25M out to Coinbase</td></tr><tr><td><code>0x76785f122ad1c5E18b5e0f8c63FDf35943695eF6</code></td><td>Gate deposit address</td><td>Deposits to Gate.io only, always 04:52–04:55 UTC, retains nothing</td></tr><tr><td><code>0xcd8d450349861554F886F68c0d0cCf6F8A9dBCa7</code></td><td>Coinbase deposit address</td><td>Deposits to Coinbase only, retains nothing</td></tr><tr><td><code>0x6f12AE1895C92b318FEbEAaBa89d887c81dd5C00</code></td><td>MEXC deposit address</td><td>Deposits to MEXC only, retains nothing</td></tr></tbody></table>
 </div>
 
 <p class="footnote">
