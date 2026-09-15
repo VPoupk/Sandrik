@@ -1,0 +1,41 @@
+RSC — SECTION 5.2 COHORT: RECURRING COMPENSATION
+Source: rsc-historical-distribution-and-flows.html, section 5.2
+
+SCOPE WARNING: the cohort has 39 addresses (35,411,220 RSC in total). The doc TABULATES
+ONLY THE 12 LARGEST, and those 12 are what this file contains. The remaining 27 are not
+individually listed anywhere in the doc and recovering them needs a full re-scan of every
+outflow from Treasury 3 and the treasury distributor. Say the word and I will do it.
+
+COHORT RULE (mechanical, applied to funding history; no judgement):
+  Six or more transfers received from Treasury 3 (researchhubfoundation.eth) or the
+  treasury distributor, with a MEDIAN GAP OF 20-45 DAYS — the shape of a salary, retainer
+  or stipend. Applied after the large-allocation rule.
+
+CAVEATS CARRIED FROM THE DOC:
+  * This identifies a PAYMENT PATTERN, not a job title. It is equally consistent with
+    salaried staff, long-running editors, retained contractors and programme grantees.
+    Chain data cannot separate them.
+  * Several of these wallets sold more RSC than they were ever paid, because they also
+    bought on the open market: the cohort acquired 8,879,377 RSC from venues for
+    $2,371,118 alongside 21,951,489 RSC of sales.
+
+Addresses recovered from chain by scanning each wallet's first-paid date and matching the
+truncated form in the doc, then verified against the doc's "still held" figure. Balances
+re-read 2026-09-15.
+
+FULL ADDRESS                                | COMMENT
+--------------------------------------------+------------------------------------------------
+0x72f2c4dd290d1c08d5763c812028655cbde3fb53 | recv 4,171,526 RSC ($392,376) from the complex, first 2022-02-07; sold 2,561,060 for $2,006,600; holds nothing
+0x29e46015ccfe13cfe8dc96d75760a6290df311ee | recv 3,557,688 RSC ($248,753) from the complex, first 2022-01-07; sold 2,435,517 for $536,612; holds 93,320; balance now 116,650 — paid again since the 13 Aug ledger cutoff
+0x22ed75a850bb9a8346fe71c8c94c6ec5d1ec36ac | recv 1,971,962 RSC ($66,061) from the complex, first 2022-02-08; sold 1,457,095 for $98,160; holds 560,000
+0x77de633b1b50b1070bb91cff1603b6f6247b599d | recv 1,927,329 RSC ($175,719) from the complex, first 2020-10-02; no direct exchange transfers recorded; holds 1,947,329
+0xcc5f1f2800ff0a4da973f4bc077124d3ab01e21b | dolosus.eth recv 1,851,731 RSC ($84,042) from the complex, first 2022-07-28; sold 763,059 for $93,132; holds 36,312; balance now 46,312 — paid again since the 13 Aug ledger cutoff
+0xd6c8eb063cf8bf83eed41d4d6d13ad6c4c362cd8 | recv 1,302,028 RSC ($10,739) from the complex, first 2022-05-16; sold 1,303,063 for $10,094; holds nothing
+0xbbc46ebb02b0a1b565e35db75a1691dccf93f685 | recv 1,297,005 RSC ($235,868) from the complex, first 2023-01-19; sold 1,749,522 for $205,093; holds 577,171
+0xc6b1345971f49b7164fd892e9dd4ba8f409172b0 | recv 1,246,400 RSC ($20,655) from the complex, first 2022-02-03; sold 559,290 for $381,523; holds 647,010
+0x1eb8f260d5e0311f396e076ae2cb4eebfb17a3e7 | recv 1,219,890 RSC ($13,996) from the complex, first 2022-02-28; sold 81,995 for $37,297; holds 683,790
+0x5aa0122f52d42bedafbc194be0e0fd0a0d1f3fea | recv 1,148,133 RSC ($63,314) from the complex, first 2022-10-03; no direct exchange transfers recorded; holds 620,032
+0x81aa4f3b7e2c17a2e98170136f175d842b5fa03e | recv 1,130,000 RSC ($10,895) from the complex, first 2022-04-19; sold 874,403 for $109,038; holds nothing
+0xdc9668127d4a47c7c0a4a8d0eb1cdc00fcfeba63 | recv 1,096,750 RSC ($12,693) from the complex, first 2022-02-09; sold 831,750 for $322,524; holds 265,000
+
+-- 12 addresses --

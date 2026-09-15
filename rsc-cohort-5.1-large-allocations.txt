@@ -1,0 +1,46 @@
+RSC — SECTION 5.1 COHORT: LARGE ALLOCATIONS
+Source: rsc-historical-distribution-and-flows.html, section 5.1 (21 addresses, 46,475,863 RSC)
+
+COHORT RULE (mechanical, applied to funding history; no judgement):
+  >=1M RSC received, majority from the ResearchHub complex, in six or fewer complex
+  transfers. Applied after the complex itself and before the staking-relay rule, so any
+  wallet sending >=90% of its outflow to the staking vault is excluded (those 3 are a
+  separate cohort). Reads as investors, founders' allocations and standalone grants.
+
+CAVEATS CARRIED FROM THE DOC:
+  * No address here carries an ENS name or explorer label. None is attributed to a named
+    person or fund. Size, date and disposal are all that is shown.
+  * "Sold" counts RSC arriving at an exchange DIRECTLY from the address named. Deposits
+    made via an intermediate wallet are not followed, so some zeros understate disposal.
+  * At least two entries are market plumbing rather than grants to a holder (flagged below).
+
+Addresses recovered from chain by scanning each wallet's first-seen date and matching the
+truncated form in the doc; 31 of 33 verified against the doc's "still held" figure to the
+token, the other two now hold MORE after a further payroll cycle. Balances re-read
+2026-09-15.
+
+FULL ADDRESS                                | COMMENT
+--------------------------------------------+------------------------------------------------
+0xe4758f7695359de463bd29719f3c5a9c29b2aa7f | recv 10,000,000 RSC ($6,849,883) from the complex, first 2024-11-24; no direct exchange transfers recorded; holds nothing; pass-through conduit, not a beneficiary — forwards what it receives, holds nothing (see doc correction)
+0xdfb1fb219d2610a4784a7ddc31d9bac72aae1d58 | recv 6,718,750 RSC ($243,052) from the complex, first 2021-12-22; no direct exchange transfers recorded; holds nothing
+0xa0ed916ae9bf1c1b976eabfe0d2334548d7487ef | recv 3,600,000 RSC ($1,747,463) from the complex, first 2024-05-20; no direct exchange transfers recorded; holds nothing
+0x78512797c137c6ad590af90943543457d74d986d | recv 2,365,304 RSC ($789,123) from the complex, first 2025-10-10; no direct exchange transfers recorded; holds nothing; pass-through conduit — sent 500,000 on to Coinbase via 0x8955b5f3 33 min after receipt; doc's Sold column shows 0 because it counts only direct exchange transfers
+0x8ae505f6f7f0ebebaff8d458ea93b13db46f0430 | recv 2,078,869 RSC ($45,129) from the complex, first 2022-02-09; sold 2,025,337 for $39,274; holds nothing
+0x79aa5bc65439a46b227789b85b408cb8a2d9b77e | recv 2,000,000 RSC ($233,200) from the complex, first 2026-01-01; no direct exchange transfers recorded; holds nothing
+0x6b87c4fd959d924e3d9fbe072a065aa8533d3be6 | recv 1,710,785 RSC ($284,323) from the complex, first 2024-06-15; no direct exchange transfers recorded; holds nothing; recipient of two OTC transfers from Treasury 3 on Ethereum (416,667 on 2024-06-15; 1,294,018 on 2026-04-23)
+0x28b0028364dd5eff098826e7a0ea9e1a19636957 | recv 1,634,436 RSC ($17,588) from the complex, first 2022-02-18; sold 1,535,436 for $16,398; holds nothing
+0xe2e69dcee5ffb5fc7254f0cad06d8adb75bbd53f | recv 1,618,373 RSC ($203,491) from the complex, first 2025-11-28; no direct exchange transfers recorded; holds 10; also appears downstream of the 28 Jul 2026 multi-venue inventory split (250,000 leg)
+0x144985d2a125c7e4d2fa9098c3523ad4b0c5b00d | recv 1,600,403 RSC ($1,014,172) from the complex, first 2025-09-01; no direct exchange transfers recorded; holds 833,503
+0xc5396a2cd42152bcc095615d9a25f4eda471eab1 | recv 1,588,983 RSC ($96,186) from the complex, first 2021-12-03; sold 1,533,833 for $84,119; holds 63,422
+0x97e2ad35911a856c205ebeda1d3e339b7b0c202f | recv 1,459,882 RSC ($790,987) from the complex, first 2025-08-08; no direct exchange transfers recorded; holds nothing
+0x41aa5237be9fdc1f0624191e40f3446c87d11c37 | recv 1,431,299 RSC ($10,511) from the complex, first 2022-05-10; sold 1,216,237 for $338,077; holds nothing
+0xa02306eb1de5e47e763d2065d53d55e386d0239c | recv 1,402,250 RSC ($664) from the complex, first 2020-12-02; sold 1,272,250 for $9,927; holds nothing
+0xb504d897011ffce1453c40ff7d5fe1dd7acde2b5 | recv 1,384,520 RSC ($473,910) from the complex, first 2023-08-24; sold 676,177 for $116,361; holds 133,343
+0x061c4e17328b34992a78e6905bd6bbaa94bd2c06 | recv 1,245,279 RSC ($15,021) from the complex, first 2022-02-22; sold 1,013,511 for $10,826; holds 1,436
+0x617b1b780103e7a2a32d081cd78e3185792030c6 | recv 1,101,942 RSC ($841) from the complex, first 2020-12-24; sold 281,042 for $4,375; holds nothing
+0x8ec66b4bf554c3c426e1be987a598024f43fcea2 | recv 1,057,292 RSC ($377,038) from the complex, first 2024-05-23; no direct exchange transfers recorded; holds 1,057,292
+0xd7f79e953221d1baab2bb5aa551457a01ae306ef | recv 960,618 RSC ($502,992) from the complex, first 2023-07-21; no direct exchange transfers recorded; holds 638,972
+0x61dde50436bde769fe77dc8b55a664bfb3a7222a | recv 766,878 RSC ($125,024) from the complex, first 2022-02-08; sold 57,851 for $34,758; holds nothing
+0x17f65421090a033f42341771a85b7cede5bcf98f | recv 750,000 RSC ($334,956) from the complex, first 2024-04-12; sold 61,000 for $11,228; holds nothing
+
+-- 21 addresses --
