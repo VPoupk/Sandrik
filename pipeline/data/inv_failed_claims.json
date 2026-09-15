@@ -1,0 +1,50 @@
+{
+ "note": "Failed member-claim calls flagged in a separately compiled workbook supplied by the user, each re-verified here directly against a BSC archive node: receipt status read and revert reason replayed by eth_call at the transaction's own block. Nothing from the workbook is carried over unverified.",
+ "proxy": "0x27333bd8c321a263b0565e69eea3b736b9d1f42c",
+ "rows": [
+  {
+   "label": "n=4 window, working implementation",
+   "tx": "0x7b36b7902e0953681011ed2f830b3c4c19e71b2d378769794d358518687eceb5",
+   "block": 74521659,
+   "when_utc": "2026-01-08 17:32:30",
+   "from": "0xcb75b1b9c552ee62658fdb13676f0aa91d3dc0e4",
+   "selector": "0xac694711",
+   "status": "0x0",
+   "revert": "No unlock amount",
+   "to_is_investors_pool": true
+  },
+  {
+   "label": "n=6 window, working implementation",
+   "tx": "0xde9cccac1b6b40c60b18688c52624d51838b9de15064935c287cdaba4d25be85",
+   "block": 83120998,
+   "when_utc": "2026-02-24 16:24:37",
+   "from": "0x0963f206a7173ad0ea86abdf86e1d1a4ddc1c2cc",
+   "selector": "0xac694711",
+   "status": "0x0",
+   "revert": "No unlock amount",
+   "to_is_investors_pool": true
+  },
+  {
+   "label": "n=7, 19 min after the boundary",
+   "tx": "0x947eb760773d87037e2f2028e4c4efa81d1eb8b52e6a96dc1e359c05e127c766",
+   "block": 88058029,
+   "when_utc": "2026-03-22 10:19:11",
+   "from": "0x5a6eeb042afc115f0b0189964d4b99a28a6cdb06",
+   "selector": "0xac694711",
+   "status": "0x0",
+   "revert": "fix",
+   "to_is_investors_pool": true
+  },
+  {
+   "label": "n=8 window, gutted implementation",
+   "tx": "0xc5135ae75572a5700236e859b212a5e3f451b22e5300846f1d8f2efd2cfed866",
+   "block": 94055526,
+   "when_utc": "2026-04-22 16:52:06",
+   "from": "0xe98907c8315a36ce1d475fa5e93f440cb2591ac1",
+   "selector": "0xac694711",
+   "status": "0x0",
+   "revert": "fix",
+   "to_is_investors_pool": true
+  }
+ ]
+}

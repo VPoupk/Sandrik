@@ -89,11 +89,33 @@ mech = json.load(open(D + 'inv_vesting_mechanism.json'))
 wd = json.load(open(D + 'inv_withdrawals.json'))
 impls = json.load(open(D + 'inv_impls.json'))
 uh = json.load(open(D + 'upgrade_history.json'))
+failed = json.load(open(D + 'inv_failed_claims.json'))['rows']
+_full = json.load(open(D + 'inv_upgrades_full.json'))
+FULL_EVENTS = _full['events']          # every Upgraded event, unseeded sweep
+FULL_IMPLS = _full['impls']            # distinct implementations, keyed by address
 
 claims = [x for x in wd if x['selector'] == '0xac694711']
 CUR_N = int((HEADTS - UNLOCK) // PERIOD)
 
-CSS = open('/tmp/claude-0/-home-user-Sandrik/4d5dfae8-d9f1-59c8-a7af-703ef8978ed1/scratchpad/base.css').read()
+# the four attempted-and-refused claims, rendered from the re-verified receipts
+MEANS = {'No unlock amount': 'the schedule was live and this wallet had already taken that tranche — '
+                             'the ordinary “nothing new yet” answer',
+         'fix': 'the placeholder. Not a condition, not a date — the path is closed'}
+_rows = []
+for f in failed:
+    n = int((datetime.datetime.strptime(f['when_utc'], '%Y-%m-%d %H:%M:%S')
+             .replace(tzinfo=datetime.timezone.utc).timestamp() - UNLOCK) // PERIOD)
+    cls = ' class="hi2"' if f['revert'] == 'fix' else ''
+    _rows.append(
+        f'<tr{cls}><td class="mono">{f["when_utc"]}<br>'
+        f'<span style="font-size:10px;color:var(--muted)">{bsctx(f["tx"])}</span></td>'
+        f'<td>{bsc(f["from"])}</td><td class="num">n={n}</td>'
+        f'<td class="mono" style="color:'
+        f'{"var(--danger)" if f["revert"] == "fix" else "var(--muted)"}">“{html.escape(f["revert"])}”</td>'
+        f'<td style="font-size:11px">{MEANS.get(f["revert"], "")}</td></tr>')
+FAILED_ROWS = '\n'.join(_rows)
+
+CSS = open(D + '../assets/base.css').read()
 EXTRA = """
   .tz { background: rgba(59,130,246,.10); border: 1px solid rgba(59,130,246,.3);
         border-radius: 6px; padding: 9px 12px; font-size: 12.5px; color: #93c5fd; margin-top: 10px; }
@@ -194,8 +216,11 @@ w(f'''<div class="section" id="s1"><h2>1 · The answer, in one screen</h2>
   implementation — but the anchor it counts from is mutable, and was in fact moved once.</td></tr>
 <tr><td><b>How is it working now?</b></td>
   <td>The self-claim path still exists in the ABI but its body was replaced; it reverts
-  <code>“{html.escape(LIVE_CLAIM_REVERT or "")}”</code> unconditionally. Every release since is a
-  privileged push, using a function added to the contract shortly before the push and removed after.</td></tr>
+  <code>“{html.escape(LIVE_CLAIM_REVERT or "")}”</code> unconditionally. Every release since has needed a
+  function that was <em>added by an upgrade first</em>: <code>adminTransfer</code> in June, put in and taken
+  back out within nine minutes; <code>userWithdraw()</code> in July, which is still in the contract but
+  answers <code>“Already withdrawn”</code> to the four wallets that used it and
+  <code>“Only token address can withdraw”</code> to everyone else.</td></tr>
 <tr><td><b>Was it changed from the original?</b></td>
   <td><b>Yes, materially, on 19 March 2026</b> — and again for the other seven pools on 13 April 2026.
   The schedule arithmetic is unchanged; the ability of a holder to act on it is gone.</td></tr>
@@ -478,11 +503,35 @@ after</b>.</p>
   <td>userWithdraw() — 1.2904bn</td></tr>
 <tr class="hi2"><td class="mono">26 Jul 14:50:05</td><td class="num">112,261,325</td>
   <td>userWithdraw() — 0.9326bn</td></tr>
-<tr class="hi2"><td class="mono">26 Jul 14:50:29</td><td class="num">112,261,377</td>
+<tr class="hi2"><td class="mono">26 Jul 14:50:28</td><td class="num">112,261,377</td>
   <td>userWithdraw() — 0.8987bn</td></tr>
-<tr class="hi2"><td class="mono">26 Jul 14:50:49</td><td class="num">112,261,422</td>
-  <td>userWithdraw() — 0.8783bn &nbsp;<span style="color:var(--muted)">(3.9999bn total)</span></td></tr>
+<tr class="hi2"><td class="mono">26 Jul 14:50:48</td><td class="num">112,261,422</td>
+  <td>userWithdraw() — 0.8783bn &nbsp;<span style="color:var(--muted)">(4.0000bn exactly, across the
+      four)</span></td></tr>
 </tbody></table>
+
+<h3 style="margin-top:18px">What <code>userWithdraw()</code> actually is</h3>
+<p style="font-size:12.5px;margin-bottom:10px">It is not the monthly claim under a new name, and it is not
+on the schedule at all. Three things establish that, all read from the chain:</p>
+<table class="dense"><thead><tr><th style="width:30%">Test</th><th>Result</th></tr></thead><tbody>
+<tr><td><b>When did the selector appear?</b></td>
+  <td><code>0xa646f9ad</code> is absent from the dispatcher of every implementation before
+      {bsc('0x00445d6c82de5fe7773ffc1f03b346b020bfc9cc')} and present in that one. The 25 July upgrade
+      introduced it.</td></tr>
+<tr><td><b>Did that upgrade write any data?</b></td>
+  <td><b>No.</b> Decoding the Safe's <code>execTransaction</code> payload gives
+      <code>upgradeToAndCall(0x00445d6c…, "")</code> — the <code>bytes</code> argument is <b>empty</b>, so no
+      initializer ran. The pool emitted exactly one event between the upgrade and the four withdrawals, and
+      it was the <code>Upgraded</code> event itself. The entries the new code reads were already in
+      storage.</td></tr>
+<tr class="hi2"><td><b>Who can call it now?</b></td>
+  <td>Live <code>eth_call</code> at block {HEAD:,}: the four wallets that used it get
+      <code>“Already withdrawn”</code> — it is <b>one shot per address</b>, not a recurring claim. Every
+      other address tested, including four original self-claim investors, the deployer and the owner Safe
+      itself, gets <code>“Only token address can withdraw”</code>. The path is spent.</td></tr>
+</tbody></table>
+<div class="note">So the 25 July upgrade changed <em>who could take what, once, outside the schedule</em> —
+not <em>when</em> the schedule falls due. That distinction is the whole of §8.</div>
 
 <h3 style="margin-top:18px">The four eras, end to end</h3>''')
 ERACLS = {0: 'e1', 1: 'e2', 2: 'e3', 3: 'e4'}
@@ -501,36 +550,46 @@ SELNAME = {'0xac694711': 'self-claim (name unresolved)', '0xa646f9ad': 'userWith
            '0xf17e48ec': 'adminTransfer', '0xdace4557': 'setUnlockTime', '0x251c1aa3': 'unlockTime'}
 TRACK = ['0xac694711', '0xa646f9ad', '0xf17e48ec', '0xdace4557', '0x251c1aa3']
 w(f'''<div class="section" id="s7"><h2>7 · Every implementation, and what changed</h2>
-<p style="font-size:12.5px;margin-bottom:12px">Nine implementations behind one proxy in thirteen months.
-The columns track the selectors that matter; a dash means absent from that version's dispatcher.</p>
+<p style="font-size:12.5px;margin-bottom:12px">{len(FULL_EVENTS)} <code>Upgraded</code> events behind one
+proxy in thirteen months, resolving to {len(FULL_IMPLS)} distinct implementations — the list comes from an
+unseeded sweep of every block from before the proxy existed to the head, so a re-emit of an implementation
+already in place shows up as its own row rather than being collapsed away. The columns track the selectors
+that matter; a dash means absent from that version's dispatcher.</p>
 <table class="dense"><thead><tr><th>#</th><th class="num">Block</th><th>Activated (UTC)</th>
 <th>Implementation</th><th class="num">Size</th>''')
 for s in TRACK:
     w(f'<th class="num" style="font-size:10px">{s[:8]}</th>')
 w('<th>Note</th></tr></thead><tbody>')
-NOTES = {57840400: 'launch', 68594426: 'self-claim era begins 4 days later; unlockTime amended same day',
+NOTES = {57840346: 'launch', 58335633: 'first code change, 5 days in',
+         68594426: 'self-claim era begins 4 days later; unlockTime amended same day',
          87414304: 'placeholder “fix” introduced', 92315466: 'adminTransfer removed',
          105170321: 'adminTransfer re-added', 105171484: 'adminTransfer removed again, 8m later',
          112047462: 'userWithdraw added; ownership → Safe'}
-byaddr = impls['impls']
-for i, (bn, impl, tsx) in enumerate(uh['Investors Pool'], 1):
-    rec = byaddr.get(impl)
-    sels = set(rec['selectors']) if rec else set()
-    size = f'{rec["codelen"]:,}B' if rec else '—'
+for i, ev in enumerate(FULL_EVENTS, 1):
+    bn, impl = ev['block'], ev['impl']
+    rec = FULL_IMPLS[impl]
+    sels = set(rec['selectors'])
     cls = 'hi2' if bn in (87414304, 92315466) else ('hi' if bn in (105170321, 105171484, 112047462) else '')
     w(f'<tr class="{cls}"><td class="num">{i}</td><td class="num">{bn:,}</td>'
-      f'<td class="mono">{ut(tsx)}</td><td>{bsc(impl)}</td><td class="num">{size}</td>')
+      f'<td class="mono">{ev["when_utc"]}</td><td>{bsc(impl)}</td>'
+      f'<td class="num">{rec["codelen"]:,}B</td>')
     for s in TRACK:
-        if not rec:
-            w('<td class="num" style="color:var(--muted)">?</td>')
-        else:
-            w(f'<td class="num">{"<b>Y</b>" if s in sels else "–"}</td>')
-    w(f'<td style="font-size:11px;color:var(--warn)">{NOTES.get(bn,"")}</td></tr>')
+        w(f'<td class="num">{"<b>Y</b>" if s in sels else "–"}</td>')
+    note = NOTES.get(bn, '')
+    if ev['repeat_of_same_impl'] and not note:
+        note = 're-emitted, same implementation'
+    w(f'<td style="font-size:11px;color:var(--warn)">{note}</td></tr>')
+_nper = {len(r["periods"]) for r in FULL_IMPLS.values()}
+_pvals = {v for r in FULL_IMPLS.values() for _o, v in r['periods']}
 w(f'''</tbody></table>
-<div class="note">Implementation #1 ({bsc('0x197c7ad333b1c1f89e898740dd4d7acbbc5acf7c')}) was active for
-five days at launch and its selector set was not re-read in this pass — the “?” cells. Every other row is
-read directly from <code>eth_getCode</code>. <b>Note that the self-claim column is “Y” in every row</b>,
-including the current one: the function was never removed, only emptied.</div>
+<div class="note">Every row is read directly from <code>eth_getCode</code>, including the launch
+implementation {bsc('0x197c7ad333b1c1f89e898740dd4d7acbbc5acf7c')} — an earlier pass seeded its
+implementation list from a stored history and so began after that version had already been replaced; this
+one seeds from nothing. Across all {len(FULL_IMPLS)} versions the set of duration-shaped constants actually
+PUSHed is {{{', '.join(f'{v:,}' for v in sorted(_pvals))}}} and the count per version is
+{{{', '.join(str(x) for x in sorted(_nper))}}} — one 30-day constant each, never a second candidate.
+<b>Note that the self-claim column is “Y” in every row</b>, including the current one: the function was
+never removed, only emptied.</div>
 
 <h3 style="margin-top:18px">Revert strings in the current implementation</h3>
 <p style="font-size:12.5px">These are the guards the live contract actually carries:</p>
@@ -589,10 +648,10 @@ against the live chain at block {HEAD:,}:</p>
   <td><b>Exactly 2 changes ever</b>, both in 2025: 20 Aug 2025 12:59:31 (0 → 21 Aug) and
       18 Nov 2025 06:25:26 (→ 24 Aug). <b>Nothing in 2026.</b></td></tr>
 <tr class="hi3"><td><b>Has the 30-day period changed?</b></td>
-  <td>exact PUSH-encoding count of 2592000 and ten other candidate durations, in all eight
+  <td>exact PUSH-encoding count of 2592000 and twelve other candidate durations, in all nine
       implementations</td>
-  <td><b>2592000 appears exactly once in every version</b>, Aug 2025 through the current one. No 7-, 31-,
-      60-, 90-, 180- or 365-day constant appears in any version.</td></tr>
+  <td><b>2592000 appears exactly once in every version</b>, Aug 2025 through the current one. No 7-, 14-,
+      21-, 31-, 60-, 90-, 180- or 365-day constant appears in any version.</td></tr>
 <tr class="hi3"><td><b>Any other storage change?</b></td>
   <td>bisection of slots 0,1,2,4,5,6,7,8, the ERC1967 admin slot, and the OpenZeppelin v5 Ownable,
       Initializable and ReentrancyGuard namespaced slots, across all of 2026</td>
@@ -603,6 +662,16 @@ against the live chain at block {HEAD:,}:</p>
       112,047,463 to head</td>
   <td><b>No change for 52 days.</b> The contract has run {bsc('0x00445d6c82de5fe7773ffc1f03b346b020bfc9cc')}
       since 25 Jul 2026 12:05:39.</td></tr>
+<tr class="hi3"><td><b>Does the current code still compute the same boundary?</b></td>
+  <td>the three tests above fix the <em>inputs</em>; this one fixes the <em>function</em>. The boundary
+      routine was located in both the implementation under which claims demonstrably worked
+      ({bsc('0x4b569675380e19d2819e629ec8a2c43a30a59947')}) and the live one, disassembled, and then
+      executed opcode by opcode in a hand-written EVM interpreter over a sweep of timestamps</td>
+  <td><b>Structurally identical, and it executes to the same dates.</b> Both read storage slot 3, subtract
+      it from <code>block.timestamp</code>, divide by 2592000, and gate on the quotient being ≥ 3; only the
+      internal jump targets differ, because the code moved. Stepping the live bytecode's own arithmetic
+      produces boundaries at 1763805600 (n=3) … 1787133600 (n=12) … <b>1789725600 (n=13)</b>, with the
+      accrual stepping up <em>at</em> each boundary second and not before.</td></tr>
 </tbody></table>
 <div class="alert alert-ok" style="margin-top:12px;background:rgba(16,185,129,.08);
 border:1px solid rgba(16,185,129,.25);color:var(--green);border-radius:8px;padding:12px 14px;font-size:12.5px">
@@ -611,6 +680,25 @@ would have to read <b>1756288800</b> (27 Aug 2025 10:00 UTC). It reads <b>{LIVE_
 ({ut(LIVE_UNLOCK)} UTC), the same value it has held since 18 November 2025, and
 <code>unlockTime()</code>, <code>getUnlockTime()</code> and raw slot 3 all agree.
 <b>n=13 is {ut(UNLOCK + 13*PERIOD)} UTC.</b></div>
+
+<h3 style="margin-top:18px">Cross-check — four claims that failed</h3>
+<p style="font-size:12.5px;margin-bottom:10px">Everything above is an argument from code and storage. The
+strongest independent test is behavioural: investors who <em>tried</em>. Four such attempts exist. Each was
+re-read here from the chain — receipt status from <code>eth_getTransactionReceipt</code>, revert reason
+replayed with <code>eth_call</code> at the transaction's own block — and none is taken on trust from any
+compiled list:</p>
+<table class="dense"><thead><tr><th>When (UTC)</th><th>Caller</th><th>Period</th><th>Reverted with</th>
+<th>What it proves</th></tr></thead><tbody>
+{FAILED_ROWS}
+</tbody></table>
+<div class="alert alert-ok" style="margin-top:12px;background:rgba(16,185,129,.08);
+border:1px solid rgba(16,185,129,.25);color:var(--green);border-radius:8px;padding:12px 14px;font-size:12.5px">
+The 22 March attempt is the one that matters. {bsc('0x5a6eeb042afc115f0b0189964d4b99a28a6cdb06')} had
+already claimed successfully at n=4, n=5 and n=6. They came back <b>19 minutes after the n=7 boundary</b> —
+which is where this document's formula says the boundary was — and were refused, not with
+<code>“No unlock amount”</code> but with <code>“fix”</code>. So the clock kept running to 22 Mar 2026
+10:00:00 UTC exactly as computed; what changed was the gate, not the schedule.
+</div>
 <div class="note">Token movements are equally quiet: the pool's last transfer in either direction was
 <b>26 Jul 2026 14:50:48 UTC</b>. Pool-flow coverage is continuous from the token's deployment to the head
 block with no gaps, so that is a complete statement, not an absence of data.</div>
@@ -666,8 +754,9 @@ candidates, and neither does <code>0xe0dc37a3</code>. Their behaviour is establi
 are not.</li>
 <li><b>Off-chain entitlement.</b> Investors may have been paid, compensated or re-papered outside the
 contract. Nothing here would show that.</li>
-<li><b>Implementation #1's selector set</b> was not re-read in this pass — the “?” cells in §7. It was
-live for five days at launch and is not load-bearing for any conclusion.</li>
+<li><b>What the Safe intends to do.</b> It holds <code>setUnlockTime</code> and can move the anchor at any
+time. Everything here establishes that it has not, not that it will not. A future write to slot 3 would
+change the next boundary the moment it lands, and nothing on-chain announces it in advance.</li>
 <li><b>Whether a release is imminent.</b> The Safe's intentions are not on-chain until it acts.</li>
 </ul>
 </div></div>

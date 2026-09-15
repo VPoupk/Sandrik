@@ -1,0 +1,103 @@
+{
+ "note": "Live eth_call probe of the two withdraw paths in the current Investors Pool implementation 0x00445d6c, from real historical callers. userWithdraw() was introduced by the 25 Jul 2026 upgrade and is not on the monthly schedule: it answers \"Already withdrawn\" to the four wallets that used it on 26 Jul and \"Only token address can withdraw\" to everyone else tested, including the owner Safe. The monthly self-claim path answers \"fix\" to everyone.",
+ "proxy": "0x27333bd8c321a263b0565e69eea3b736b9d1f42c",
+ "head": 122000491,
+ "rows": [
+  {
+   "label": "26 Jul userWithdraw caller 1",
+   "address": "0x7986fa5f64a0997f3b50990f2ba64f81d829ff9c",
+   "userWithdraw": {
+    "ok": false,
+    "revert": "Already withdrawn"
+   },
+   "self_claim": {
+    "ok": false,
+    "revert": "fix"
+   }
+  },
+  {
+   "label": "26 Jul userWithdraw caller 2",
+   "address": "0x86ea348705c21fe04ed58061878b9bb507868dd4",
+   "userWithdraw": {
+    "ok": false,
+    "revert": "Already withdrawn"
+   },
+   "self_claim": {
+    "ok": false,
+    "revert": "fix"
+   }
+  },
+  {
+   "label": "26 Jul userWithdraw caller 3",
+   "address": "0xc970decb237c291b255b16884b9707c357250b26",
+   "userWithdraw": {
+    "ok": false,
+    "revert": "Already withdrawn"
+   },
+   "self_claim": {
+    "ok": false,
+    "revert": "fix"
+   }
+  },
+  {
+   "label": "26 Jul userWithdraw caller 4",
+   "address": "0xac7aea82b35320dd050c79e413234423894a321a",
+   "userWithdraw": {
+    "ok": false,
+    "revert": "Already withdrawn"
+   },
+   "self_claim": {
+    "ok": false,
+    "revert": "fix"
+   }
+  },
+  {
+   "label": "self-claimant, n=4/5/6",
+   "address": "0x5a6eeb042afc115f0b0189964d4b99a28a6cdb06",
+   "userWithdraw": {
+    "ok": false,
+    "revert": "Only token address can withdraw"
+   },
+   "self_claim": {
+    "ok": false,
+    "revert": "fix"
+   }
+  },
+  {
+   "label": "self-claimant, largest",
+   "address": "0xea3b7dfb150ce3dbca57e6d53cbe6b0cb7b7307c",
+   "userWithdraw": {
+    "ok": false,
+    "revert": "Only token address can withdraw"
+   },
+   "self_claim": {
+    "ok": false,
+    "revert": "fix"
+   }
+  },
+  {
+   "label": "the owner Safe",
+   "address": "0x551a841742733bef96646b44e3475ce6a01da5eb",
+   "userWithdraw": {
+    "ok": false,
+    "revert": "Only token address can withdraw"
+   },
+   "self_claim": {
+    "ok": false,
+    "revert": "fix"
+   }
+  },
+  {
+   "label": "the deployer",
+   "address": "0x6468cce97a300ff9d02d4cad0d3e097cace2eac2",
+   "userWithdraw": {
+    "ok": false,
+    "revert": "Only token address can withdraw"
+   },
+   "self_claim": {
+    "ok": false,
+    "revert": "fix"
+   }
+  }
+ ]
+}
