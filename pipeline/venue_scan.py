@@ -14,7 +14,11 @@ Aggregation, so checkpoints stay small and per-date pricing stays exact:
         out = venue SENT to counterparty
 Plus every individual transfer >= BIG kept in full for citation.
 
-Usage: venue_scan.py <from> <to> <ckpt_name> [big_mn]
+Usage: venue_scan.py <from> <to> <ckpt_name> [big_mn] [venue_file]
+  venue_file defaults to venues_scan.json (the CEX/Binance registry). Pass
+  ake_pools.json to run the same gap-free logic over the DEX pools instead;
+  the output shape is identical, which is what lets rebuild_daily.py tile
+  venue_s* and dex_* segments with the same check.
 Data-only: writes to pipeline/data and pipeline/logs only. Never HTML, never git.
 """
 import json, urllib.request, time, os, sys, datetime, bisect, collections
@@ -29,8 +33,9 @@ CKPT = 'pipeline/data/%s.json' % sys.argv[3]
 BIG  = int(float(sys.argv[4]) * 1e6 * 10**18) if len(sys.argv) > 4 else 5_000_000 * 10**18
 STEP = 49_999
 
-VENUES = json.load(open('pipeline/data/venues_scan.json'))
-VSET   = set(VENUES)
+VFILE  = sys.argv[5] if len(sys.argv) > 5 else 'venues_scan.json'
+VENUES = json.load(open('pipeline/data/' + VFILE))
+VSET   = set(a.lower() for a in VENUES)
 PAD    = ['0x' + '0' * 24 + a[2:] for a in sorted(VSET)]
 
 TS  = json.load(open('pipeline/data/blk_ts.json'))
