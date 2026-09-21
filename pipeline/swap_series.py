@@ -94,9 +94,19 @@ def main():
     if os.path.exists(CKPT):
         c = json.load(open(CKPT))
         if c.get('pool') == POOL and c.get('from') == A and c.get('to') == B:
-            buck = {int(k): v for k, v in c['buckets'].items()}
+            # The wei-sized accumulators are written as strings so JSON keeps
+            # them exact. Without converting them back, the first swap after a
+            # resume tries to add an int to a str and the whole scan dies —
+            # which is exactly what happened on the 4-13 September window.
+            WEI = (4, 5, 6, 7, 11)
+            buck = {}
+            for k, v in c['buckets'].items():
+                v = list(v)
+                for i in WEI:
+                    v[i] = int(v[i])
+                buck[int(k)] = v
             start = c['last_block'] + 1
-            print('resume at %d' % start, flush=True)
+            print('resume at %d (%d buckets restored)' % (start, len(buck)), flush=True)
 
     print('swap series %s  %d -> %d  bucket=%ds' % (POOL, A, B, BUCK), flush=True)
     b = start
