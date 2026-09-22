@@ -1,0 +1,83 @@
+{
+ "method": "Each step found by bisecting balanceOf on the chain, then reading the transfer log at the block the balance changed. Verified independently of the one-hop follow.",
+ "days": {
+  "2026-06-19": {
+   "net": "2000000000000000000000000000",
+   "sold": "2000000000000000000000000000",
+   "holding": "0",
+   "hops_to_exchange": 4,
+   "venue": "Gate.io DepositAndWithdraw_1",
+   "sold_on": "2026-07-23 18:03:46",
+   "trail": [
+    {
+     "when": "2026-06-19 16:00:41",
+     "from": "Investors Pool",
+     "to": "0xf23abe615b96badcf5e46d390d0697d433986aa4",
+     "amount": "4073428631000000000000000000",
+     "note": "the release"
+    },
+    {
+     "when": "2026-06-19 16:24:52",
+     "from": "0xf23abe615b96badcf5e46d390d0697d433986aa4",
+     "to": "Investors Pool",
+     "amount": "2073428631000000000000000000",
+     "note": "returned 24 minutes later \u2014 net release is 2.0000bn"
+    },
+    {
+     "when": "2026-06-20 10:19:33",
+     "from": "0xf23abe615b96badcf5e46d390d0697d433986aa4",
+     "to": "0xa074027a3bb55b6f01989e20202f532894d7d97c",
+     "amount": "1999999000000000000000000000",
+     "note": "hop 2, the next morning"
+    },
+    {
+     "when": "2026-07-15 07:51\u201313:00",
+     "from": "0xa074027a3bb55b6f01989e20202f532894d7d97c",
+     "to": "0x7476c568d6fc88a7ad6944a6f9fb1b5d725a58e1",
+     "amount": "1999998000000000000000000000",
+     "note": "hop 3, in four tranches of 0.5, 0.25, 0.25 and 1.0bn, 25 days later"
+    },
+    {
+     "when": "2026-07-23 18:03:46",
+     "from": "0x7476c568d6fc88a7ad6944a6f9fb1b5d725a58e1",
+     "to": "0x0d0707963952f2fba59dd06f2b425ace40b492fe",
+     "amount": "2000000000000000000000000000",
+     "note": "hop 4 \u2014 Gate.io DepositAndWithdraw_1. This is a sale."
+    }
+   ]
+  },
+  "2026-07-26": {
+   "net": "9540000000000000000000000000",
+   "sold": "0",
+   "holding": "9540000000000000000000000000",
+   "hops_to_exchange": null,
+   "note": "no recipient has made any onward transfer"
+  },
+  "2026-08-21": {
+   "net": "2567833333000000000000000000",
+   "sold": "0",
+   "holding": "2567833333000000000000000000",
+   "hops_to_exchange": null,
+   "note": "138.45mn moved on 27 August to two wallets; both still hold it, so the trail ends there without reaching an exchange"
+  },
+  "2026-09-03": {
+   "net": "1500000000000000000000000000",
+   "sold": "0",
+   "holding": "1500000000000000000000000000",
+   "hops_to_exchange": null,
+   "note": "no recipient has made any onward transfer"
+  },
+  "2026-09-21": {
+   "net": "2884440475840000000000000000",
+   "sold": "0",
+   "holding": "2884440475840000000000000000",
+   "hops_to_exchange": null,
+   "note": "no recipient has made any onward transfer"
+  }
+ },
+ "totals": {
+  "net_walked": "18492273808840000000000000000",
+  "sold": "2000000000000000000000000000",
+  "pct_sold": 10.81532763723153
+ }
+}

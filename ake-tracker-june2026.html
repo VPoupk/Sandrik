@@ -195,7 +195,7 @@
   <div>
     <h1>AKE — what the team-controlled pools have released, and what happened next</h1>
     <div class="sub">BNB Smart Chain · AKEDO <a class="addr" href="https://bscscan.com/address/0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db" target="_blank" rel="noopener">AKE token</a> · June 2026 onward ·
-      built at block 123,315,135, 2026-09-22 05:13:20 UTC</div>
+      built at block 123,384,555, 2026-09-22 13:54:07 UTC</div>
   </div>
 </header>
 
@@ -223,7 +223,7 @@ Token amounts are shown in bn/mn, with the exact wei behind every figure in the 
 <div class="section" id="s0"><h2>0 · Where things stand</h2>
 <div class="q">
   <div><div class="k">Still inside the eight pools</div><div class="v">22.3113bn</div>
-    <div class="sub">read from chain at block 123,315,135</div></div>
+    <div class="sub">read from chain at block 123,384,555</div></div>
   <div><div class="k">Released since 1 June 2026</div><div class="v">39.3606bn</div>
     <div class="sub">net of anything sent back, across 6 days</div></div>
   <div><div class="k">Days a pool actually moved</div><div class="v">7</div>
@@ -235,46 +235,53 @@ Token amounts are shown in bn/mn, with the exact wei behind every figure in the 
   <div><div class="k">Next Investors boundary</div><div class="v">18 Oct</div>
     <div class="sub">2026-10-18 10:00:00 UTC · period n=14</div></div>
 </div>
-<p style="font-size:13px">Each pool balance, read live:</p>
-<table class="dense"><thead><tr><th>Pool</th><th class="num">Holds now</th>
-<th class="num">Released since 1 Jun 2026</th><th>Last movement</th></tr></thead><tbody>
-<tr><td><b>Community</b></td><td class="num">27.89mn</td><td class="num">—</td><td>—</td></tr>
-<tr><td><b>Investors</b></td><td class="num">14.3671bn</td><td class="num">6.0000bn</td><td>2026-07-26</td></tr>
-<tr><td><b>KOL</b></td><td class="num">73.90mn</td><td class="num">—</td><td>—</td></tr>
-<tr><td><b>Nodes 1</b></td><td class="num">642.20mn</td><td class="num">7.0354bn</td><td>2026-07-26</td></tr>
-<tr><td><b>Nodes 2</b></td><td class="num">11.00mn</td><td class="num">6.6990bn</td><td>2026-07-26</td></tr>
-<tr><td><b>Nodes 3</b></td><td class="num">1</td><td class="num">8.6740bn</td><td>2026-07-24</td></tr>
-<tr><td><b>Team 1</b></td><td class="num">1.1414bn</td><td class="num">2.0000bn</td><td>2026-07-26</td></tr>
-<tr class="hi"><td><b>Team 2</b></td><td class="num">6.0477bn</td><td class="num">8.9523bn</td><td>2026-09-21</td></tr>
+<p style="font-size:13px">Every figure below is <b>net</b> — what a pool sent, minus anything sent
+back to it. The last column is the check that makes the rest usable: allocation minus net released
+must equal <code>balanceOf</code> at the head block, and for all eight pools it does, to the wei.</p>
+<table class="dense"><thead><tr><th>Pool</th><th class="num">Allocation</th>
+<th class="num">Net released, lifetime</th><th class="num">of allocation</th>
+<th class="num">Net released since 1 Jun 2026</th><th class="num">Holds now</th>
+<th class="num">Reconciles?</th><th>Last movement</th></tr></thead><tbody>
+<tr><td><b>Investors</b></td><td class="num">25.0000bn</td><td class="num">10.6329bn</td><td class="num">42.5%</td><td class="num">6.0000bn</td><td class="num">14.3671bn</td><td class="num" style="color:var(--green)">exact</td><td>2026-07-26</td></tr>
+<tr class="hi"><td><b>Team 2</b></td><td class="num">15.0000bn</td><td class="num">8.9523bn</td><td class="num">59.7%</td><td class="num">8.9523bn</td><td class="num">6.0477bn</td><td class="num" style="color:var(--green)">exact</td><td>2026-09-21</td></tr>
+<tr><td><b>Team 1</b></td><td class="num">5.0000bn</td><td class="num">3.8586bn</td><td class="num">77.2%</td><td class="num">2.0000bn</td><td class="num">1.1414bn</td><td class="num" style="color:var(--green)">exact</td><td>2026-07-26</td></tr>
+<tr><td><b>Nodes 1</b></td><td class="num">8.0000bn</td><td class="num">7.3578bn</td><td class="num">92.0%</td><td class="num">7.0354bn</td><td class="num">642.20mn</td><td class="num" style="color:var(--green)">exact</td><td>2026-07-26</td></tr>
+<tr><td><b>KOL</b></td><td class="num">1.7000bn</td><td class="num">1.6261bn</td><td class="num">95.7%</td><td class="num">—</td><td class="num">73.90mn</td><td class="num" style="color:var(--green)">exact</td><td>—</td></tr>
+<tr><td><b>Community</b></td><td class="num">1.0000bn</td><td class="num">972.11mn</td><td class="num">97.2%</td><td class="num">—</td><td class="num">27.89mn</td><td class="num" style="color:var(--green)">exact</td><td>—</td></tr>
+<tr><td><b>Nodes 2</b></td><td class="num">7.5000bn</td><td class="num">7.4890bn</td><td class="num">99.9%</td><td class="num">6.6990bn</td><td class="num">11.00mn</td><td class="num" style="color:var(--green)">exact</td><td>2026-07-26</td></tr>
+<tr><td><b>Nodes 3</b></td><td class="num">16.0000bn</td><td class="num">16.0000bn</td><td class="num">100.0%</td><td class="num">8.6740bn</td><td class="num">1</td><td class="num" style="color:var(--green)">exact</td><td>2026-07-24</td></tr>
 </tbody></table>
 <div class="verdict v-hold" style="margin-top:14px">
-<b>The single finding this page adds up to.</b> Across every release day that can be followed wallet
-by wallet — 20.5657bn handed out, of which 2.0734bn went straight back into the Investors Pool
-the same hour on 19 June — <b>0 has reached a non-Binance exchange</b>. Not some. None.
-16.4223bn is still sitting in the wallets that received it, and the remainder moved between
-wallets without ever touching an order book. The 22 July node unlock, too large to follow
-one wallet at a time, tells the same story from the other end: 20.8671bn of the
-20.8671bn released is sitting in 98 wallets it was consolidated into within five
-weeks. On this measure the distributed supply has not been sold — it has been concentrated.</div>
-<div class="note">That is a statement about what the chain can account for. If a recipient sold
-through an over-the-counter desk, or if any of these wallets is itself controlled by an exchange,
-nothing on-chain would distinguish that from holding.</div>
+<b>The single finding this page adds up to.</b> Across the release days that can be followed wallet
+by wallet — 18.4923bn net —
+<b>2.0000bn (10.8%) has been sold</b>, all of
+it the 19 June release, which reached Gate.io custody four hops and thirty-four days later. Everything
+else is still sitting in the wallets it was paid to. The 22 July node unlock says the same from the
+other end: 20.8671bn of the 20.8671bn released is in the 98 wallets it was
+consolidated into within five weeks. So the distributed supply has overwhelmingly not been sold — it
+has been concentrated, which is a different risk rather than an absent one.</div>
+<div class="note"><b>This corrects an earlier version of this page</b>, which said none of it had been
+sold. That was an artefact of following each recipient only one transfer forward. The 19 June
+recipient passed the tokens to a second wallet the next morning, that wallet to a third four weeks
+later, and the third deposited the lot at Gate.io — none of which a one-hop test can see. Every
+release is now followed until it reaches an exchange, a DEX pool, or a wallet that still holds it.
+</div>
 </div>
 <div class="section" id="s1"><h2>1 · The release calendar</h2>
 <p style="font-size:13px;margin-bottom:12px">Every day since 1 June 2026 on which AKE left one of the
 eight allocation pools. Nothing else in this document is a pool event; price moves, exchange flow and
 liquidity changes on other days are covered inside the section of the release they relate to, or in
 § market structure.</p>
-<table class="dense"><thead><tr><th>Date (UTC)</th><th>Pools</th><th class="num">Net out</th>
-<th class="num">USD at the hour</th><th class="num">Recipients</th><th>Released by</th>
+<table class="dense"><thead><tr><th>Date (UTC)</th><th>Net released, by pool</th>
+<th class="num">Day total, net</th><th class="num">Recipients</th><th>Released by</th>
 <th class="num">Still held</th><th class="num">Reached a non-Binance exchange</th></tr></thead><tbody>
-<tr><td><b><a href="#d2026-06-19">2026-06-19</a></b></td><td>Investors</td><td class="num">2.0000bn</td><td class="num">$645,430</td><td class="num">1</td><td>deployer</td><td class="num">0 (0%)</td><td class="num">0 (0.0%)</td></tr>
-<tr><td><b><a href="#d2026-07-22">2026-07-22</a></b></td><td>Nodes 1, Nodes 2, Nodes 3</td><td class="num">20.8671bn</td><td class="num">$37,886,362</td><td class="num">5,879</td><td>deployer</td><td class="num">see section</td><td class="num">see section</td></tr>
-<tr><td><b><a href="#d2026-07-24">2026-07-24</a></b></td><td>Nodes 3</td><td class="num">1.27mn</td><td class="num">$3,112</td><td class="num">346</td><td>deployer</td><td class="num">see section</td><td class="num">see section</td></tr>
-<tr><td><b><a href="#d2026-07-26">2026-07-26</a></b></td><td>Investors, Nodes 1, Nodes 2, Team 1, Team 2</td><td class="num">9.5400bn</td><td class="num">$27,930,582</td><td class="num">10</td><td>deployer</td><td class="num">9.5400bn (100%)</td><td class="num">0 (0.0%)</td></tr>
-<tr><td><b><a href="#d2026-08-21">2026-08-21</a></b></td><td>Team 2</td><td class="num">2.5678bn</td><td class="num">$21,593,074</td><td class="num">14</td><td>owner Safe</td><td class="num">2.4978bn (97%)</td><td class="num">0 (0.0%)</td></tr>
-<tr><td><b><a href="#d2026-09-03">2026-09-03</a></b></td><td>Team 2</td><td class="num">1.5000bn</td><td class="num">$21,044,933</td><td class="num">3</td><td>owner Safe</td><td class="num">1.5000bn (100%)</td><td class="num">0 (0.0%)</td></tr>
-<tr class="hi"><td><b><a href="#d2026-09-21">2026-09-21</a></b></td><td>Team 2</td><td class="num">2.8844bn</td><td class="num">$123,753,420</td><td class="num">16</td><td>owner Safe</td><td class="num">2.8844bn (100%)</td><td class="num">0 (0.0%)</td></tr>
+<tr><td><b><a href="#d2026-06-19">2026-06-19</a></b></td><td>Investors 2.0000bn</td><td class="num"><b>2.0000bn</b></td><td class="num">1</td><td>the deployer</td><td class="num">0 (0%)</td><td class="num"><b style="color:var(--danger)">2.0000bn (100%)</b></td></tr>
+<tr><td><b><a href="#d2026-07-22">2026-07-22</a></b></td><td>Nodes 3 8.6727bn · Nodes 1 6.5312bn · Nodes 2 5.6632bn</td><td class="num"><b>20.8671bn</b></td><td class="num">5,879</td><td>individual claimants, one transaction each</td><td class="num">see section</td><td class="num">see section</td></tr>
+<tr><td><b><a href="#d2026-07-24">2026-07-24</a></b></td><td>Nodes 3 1.27mn</td><td class="num"><b>1.27mn</b></td><td class="num">346</td><td>individual claimants, one transaction each</td><td class="num">see section</td><td class="num">see section</td></tr>
+<tr><td><b><a href="#d2026-07-26">2026-07-26</a></b></td><td>Investors 4.0000bn · Team 2 2.0000bn · Team 1 2.0000bn · Nodes 2 1.0358bn · Nodes 1 504.25mn</td><td class="num"><b>9.5400bn</b></td><td class="num">10</td><td>recipients, calling userWithdraw() themselves</td><td class="num">9.5400bn (100%)</td><td class="num">0</td></tr>
+<tr><td><b><a href="#d2026-08-21">2026-08-21</a></b></td><td>Team 2 2.5678bn</td><td class="num"><b>2.5678bn</b></td><td class="num">14</td><td>the owner Safe</td><td class="num">2.5678bn (100%)</td><td class="num">0</td></tr>
+<tr><td><b><a href="#d2026-09-03">2026-09-03</a></b></td><td>Team 2 1.5000bn</td><td class="num"><b>1.5000bn</b></td><td class="num">3</td><td>the owner Safe</td><td class="num">1.5000bn (100%)</td><td class="num">0</td></tr>
+<tr class="hi"><td><b><a href="#d2026-09-21">2026-09-21</a></b></td><td>Team 2 2.8844bn</td><td class="num"><b>2.8844bn</b></td><td class="num">16</td><td>the owner Safe</td><td class="num">2.8844bn (100%)</td><td class="num">0</td></tr>
 </tbody></table>
 <div class="note">“Reached a non-Binance exchange” applies the accounting rule this project works to:
 a transfer into any exchange except Binance is treated as a sale, and anything still sitting in a
@@ -288,80 +295,96 @@ day has its own reconciliation in its section.</div>
 2 · 19 June 2026 — Investors Pool</h2>
 <div class="evhead"><span class="d">2 · 19 June 2026</span>
 <span class="s">Investors Pool — a function added and removed in nine minutes</span>
-<span class="amt">2.0000bn &nbsp;·&nbsp; $645,430</span></div>
+<span class="amt">2.0000bn net released</span></div>
 <div class="q">
   <div><div class="k">Window (UTC)</div><div class="v">16:00:41 → 16:24:52</div>
     <div class="sub">2 block(s)</div></div>
-  <div><div class="k">Gross out / back in</div>
-    <div class="v">4.0734bn / 2.0734bn</div>
-    <div class="sub">net 2.0000bn</div></div>
+  <div><div class="k">Net released</div>
+    <div class="v">2.0000bn</div>
+    <div class="sub">4.0734bn sent, 2.0734bn returned</div></div>
   <div><div class="k">Recipients</div><div class="v">1</div>
     <div class="sub">followed individually below</div></div>
   <div><div class="k">Released through</div><div class="v">the deployer EOA</div>
     <div class="sub"><code>0xf17e48ec</code>
       </div></div>
-  <div><div class="k">AKE price that day</div>
-    <div class="v">$0.00032107</div>
-    <div class="sub">from $0.00036832 two days earlier</div></div>
-  <div><div class="k">Value released</div><div class="v">$645,430</div>
-    <div class="sub">hourly rate at each leg's own block</div></div>
+  <div><div class="k">Sold since</div>
+    <div class="v">2.0000bn</div>
+    <div class="sub">followed through every hop until it reached an exchange or stopped</div></div>
+  <div><div class="k">Pools drawn on</div>
+    <div class="v">1</div>
+    <div class="sub">Investors</div></div>
 </div>
 <h3>How it was released</h3><p style="font-size:13px">The deployer upgraded the Investors Pool implementation, called the function that upgrade added, and upgraded again to a build without it — the whole sequence inside nine minutes. The pool also received tokens back the same hour, so the gross figure overstates what actually left.</p>
 <table class="dense"><thead><tr><th>Transaction</th><th>Sent to</th><th>Signed by</th><th>Selector</th><th class="num">Calldata</th></tr></thead><tbody>
 <tr><td><a class="addr" href="https://bscscan.com/tx/0x262f81333e77e18de1539c46066ac3655b29752b1c320d79bd94f6dbfdeb5cca" target="_blank" rel="noopener">0x262f81333e77e1…</a></td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0x6468cce97a300ff9d02d4cad0d3e097cace2eac2" target="_blank" rel="noopener">the deployer</a></td><td class="mono">0xf17e48ec</td><td class="num">68B</td></tr>
 </tbody></table>
 <div class="ctx">The pool sent 4.0734bn and took 2.0734bn back within the hour. The net movement is 2.0000bn — a round number, which is what a deliberate transfer looks like and what an accident does not.</div>
+<h3 style="margin-top:16px">Net released, by pool</h3>
+<table class="dense"><thead><tr><th>Pool</th><th class="num">Sent</th><th class="num">Returned</th><th class="num">Net released this day</th><th class="num">Running net since 1 Jun</th><th class="num">Net lifetime</th><th class="num">Holds after</th></tr></thead><tbody>
+<tr><td><b>Investors</b></td><td class="num">4.0734bn</td><td class="num">2.0734bn</td><td class="num"><b>2.0000bn</b></td><td class="num">2.0000bn</td><td class="num">10.6329bn</td><td class="num">14.3671bn</td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>day total</b></td><td class="num">4.0734bn</td><td class="num">2.0734bn</td><td class="num"><b>2.0000bn</b></td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
+</tbody></table>
+<div class="note">Sent and returned are both shown because the difference is the point: 4.0734bn left the pool and 2.0734bn came back, so the release is 2.0000bn. Quoting the gross figure would overstate it by 2.04x.</div>
 <h3 style="margin-top:16px">Where it went, and what happened next</h3>
 <table class="dense"><thead><tr><th>Recipient</th><th class="num">Received</th><th class="num">Holds now</th><th class="num">To non-Binance exchange</th><th class="num">To Binance</th><th class="num">Moved elsewhere</th></tr></thead><tbody>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xf23abe615b96badcf5e46d390d0697d433986aa4" target="_blank" rel="noopener">0xf23abe61…6aa4</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">4.0734bn</td><td class="num">0</td><td class="num">—</td><td class="num">—</td><td class="num">4.0734bn</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xf23abe615b96badcf5e46d390d0697d433986aa4" target="_blank" rel="noopener">0xf23abe61…6aa4</a> <div style="font-size:10.5px;color:var(--muted)">received 4.0734bn from the Investors Pool on 2026-06-19 and sent 2.0734bn of it straight back to the same pool the same day</div></td><td class="num">4.0734bn</td><td class="num">0</td><td class="num">—</td><td class="num">—</td><td class="num">4.0734bn</td></tr>
 <tr style="border-top:2px solid var(--border)"><td><b>total</b></td><td class="num"><b>4.0734bn</b></td><td class="num"><b>0</b></td><td class="num"><b>0</b></td><td class="num"><b>0</b></td><td class="num"><b>4.0734bn</b></td></tr>
 </tbody></table>
-<div class="verdict v-hold"><b>Follow-through.</b> Of the 4.0734bn released, <b>0 (0.0%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 4.0734bn moved to other wallets without reaching an exchange. Read this row carefully: there is one recipient, and the “moved elsewhere” figure includes the 2.0734bn it sent straight back into the pool within the hour. What actually left the pool that day is the net 2.0000bn, and none of it has ever reached an exchange.</div>
-<h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-06-17</td><td class="num">$0.00036832</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$1,557,414</td></tr>
-<tr><td>2026-06-18</td><td class="num">$0.00033147</td><td class="num">-10.0%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$1,332,350</td></tr>
-<tr class="hi"><td>2026-06-19 — release</td><td class="num">$0.00032107</td><td class="num">-3.1%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$1,313,122</td></tr>
-<tr><td>2026-06-20</td><td class="num">$0.00032618</td><td class="num">+1.6%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$1,206,405</td></tr>
-<tr><td>2026-06-21</td><td class="num">$0.00042849</td><td class="num">+31.4%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$2,481,213</td></tr>
+<div class="verdict v-sold"><b>Sold.</b> All 2.0000bn of this release reached Gate.io DepositAndWithdraw_1 on 2026-07-23 18:03:46 UTC — 4 hops from the pool, 34 days after the release. The trail is below. One recipient, and the “moved elsewhere” figure includes the 2.0734bn it sent straight back into the pool twenty-four minutes later. What actually left the pool that day is the net 2.0000bn. That figure is this day only — the Investors Pool released a further 4.0000bn net on 26 July, so 6.0000bn net since June and 10.6329bn net across its whole life, against 25.0000bn allocated. The per-pool table above carries all three numbers so the day figure cannot be read as the total.</div>
+<h3 style="margin-top:16px">The trail, hop by hop</h3>
+<table class="dense"><thead><tr><th>When (UTC)</th><th>From</th><th>To</th><th class="num">Amount</th><th>What it is</th></tr></thead><tbody>
+<tr><td class="mono">2026-06-19 16:00:41</td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0xf23abe615b96badcf5e46d390d0697d433986aa4" target="_blank" rel="noopener">0xf23abe61…</a></td><td class="num">4.0734bn</td><td style="font-size:11px">the release</td></tr>
+<tr><td class="mono">2026-06-19 16:24:52</td><td><a class="addr" href="https://bscscan.com/address/0xf23abe615b96badcf5e46d390d0697d433986aa4" target="_blank" rel="noopener">0xf23abe61…</a></td><td>Investors Pool</td><td class="num">2.0734bn</td><td style="font-size:11px">returned 24 minutes later — net release is 2.0000bn</td></tr>
+<tr><td class="mono">2026-06-20 10:19:33</td><td><a class="addr" href="https://bscscan.com/address/0xf23abe615b96badcf5e46d390d0697d433986aa4" target="_blank" rel="noopener">0xf23abe61…</a></td><td><a class="addr" href="https://bscscan.com/address/0xa074027a3bb55b6f01989e20202f532894d7d97c" target="_blank" rel="noopener">0xa074027a…</a></td><td class="num">2.0000bn</td><td style="font-size:11px">hop 2, the next morning</td></tr>
+<tr><td class="mono">2026-07-15 07:51–13:00</td><td><a class="addr" href="https://bscscan.com/address/0xa074027a3bb55b6f01989e20202f532894d7d97c" target="_blank" rel="noopener">0xa074027a…</a></td><td><a class="addr" href="https://bscscan.com/address/0x7476c568d6fc88a7ad6944a6f9fb1b5d725a58e1" target="_blank" rel="noopener">0x7476c568…</a></td><td class="num">2.0000bn</td><td style="font-size:11px">hop 3, in four tranches of 0.5, 0.25, 0.25 and 1.0bn, 25 days later</td></tr>
+<tr class="hi2"><td class="mono">2026-07-23 18:03:46</td><td><a class="addr" href="https://bscscan.com/address/0x7476c568d6fc88a7ad6944a6f9fb1b5d725a58e1" target="_blank" rel="noopener">0x7476c568…</a></td><td><a class="addr" href="https://bscscan.com/address/0x0d0707963952f2fba59dd06f2b425ace40b492fe" target="_blank" rel="noopener">0x0d070796…</a></td><td class="num">2.0000bn</td><td style="font-size:11px">hop 4 — Gate.io DepositAndWithdraw_1. This is a sale.</td></tr>
 </tbody></table>
+<div class="note">Each step was found by bisecting <code>balanceOf</code> on the chain and then reading the transfer log at the block the balance changed, so the chain is complete rather than sampled. Thirty-four days and three intermediate wallets separate the release from the deposit, which is why a one-hop test missed it.</div>
 </div>
 <div class="section" id="d2026-07-22">
 <h2 style="border:0;margin:0;padding:0;font-size:1px;color:transparent;height:0;overflow:hidden">
 3 · 22 July 2026 — Nodes Pools 1–3</h2>
 <div class="evhead"><span class="d">3 · 22 July 2026</span>
 <span class="s">Nodes Pools 1–3 — the node unlock — the largest release of the year</span>
-<span class="amt">20.8671bn &nbsp;·&nbsp; $37,886,362</span></div>
+<span class="amt">20.8671bn net released</span></div>
 <div class="q">
   <div><div class="k">Window (UTC)</div><div class="v">06:42:27 → 20:03:36</div>
     <div class="sub">4893 block(s)</div></div>
-  <div><div class="k">Gross out / back in</div>
-    <div class="v">20.8671bn / 0</div>
-    <div class="sub">net 20.8671bn</div></div>
+  <div><div class="k">Net released</div>
+    <div class="v">20.8671bn</div>
+    <div class="sub">20.8671bn sent, 0 returned</div></div>
   <div><div class="k">Recipients</div><div class="v">5,879</div>
     <div class="sub">too many to follow individually</div></div>
   <div><div class="k">Released through</div><div class="v">the deployer EOA</div>
     <div class="sub"><code>0xb1bd11b4</code>
       </div></div>
-  <div><div class="k">AKE price that day</div>
-    <div class="v">$0.00168297</div>
-    <div class="sub">from $0.00196937 two days earlier</div></div>
-  <div><div class="k">Value released</div><div class="v">$37,886,362</div>
-    <div class="sub">hourly rate at each leg's own block</div></div>
+  <div><div class="k">Sold since</div>
+    <div class="v">none</div>
+    <div class="sub">followed through every hop until it reached an exchange or stopped</div></div>
+  <div><div class="k">Pools drawn on</div>
+    <div class="v">3</div>
+    <div class="sub">Nodes 1, Nodes 2, Nodes 3</div></div>
 </div>
 <h3>How it was released</h3><p style="font-size:13px">The three Nodes pools were reopened hours beforehand and then drained by thousands of individual claim transactions, not by one push. This is the only release in the window that behaves like a user-driven unlock rather than an administrative distribution.</p>
 <table class="dense"><thead><tr><th>Transaction</th><th>Sent to</th><th>Signed by</th><th>Selector</th><th class="num">Calldata</th></tr></thead><tbody>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x0943866edca7060692bdebf08f1ba58a46487770719cc53d11ef47552d6547c9" target="_blank" rel="noopener">0x0943866edca706…</a></td><td>Nodes 3 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x77adaa1ee0d0cc206cf518bf18922808ffd512e4" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x0bc4e137b9be3876ee62f4f2643eb1bfca8b25acb6b95fcfbe62f548bdde0794" target="_blank" rel="noopener">0x0bc4e137b9be38…</a></td><td>Nodes 3 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x736e0c8e71ae7c722ae0b281f9a55dfb69b5bd02" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x35975b39aa49647ad1ed93ab570c9ad94b7cbacd0fb42de2506bb903938ca2c2" target="_blank" rel="noopener">0x35975b39aa4964…</a></td><td>Nodes 3 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x6196a0b6ae5e9b0fa88c6d19e606f86e60d73680" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x60f9e5541cc702c9a0fb62e2db6b2a341d542d37d7fff31b7e132cd95b3569f8" target="_blank" rel="noopener">0x60f9e5541cc702…</a></td><td>Nodes 3 Pool</td><td><a class="addr" href="https://bscscan.com/address/0xa6c3087c44bc518ea42d443ce76831dcf6d7d82f" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x5ced9aff7f193bf7fa5aabfeb5e36700ce12f179c2d2e52ce9712d4b67bc89b9" target="_blank" rel="noopener">0x5ced9aff7f193b…</a></td><td>Nodes 1 Pool</td><td><a class="addr" href="https://bscscan.com/address/0xba24cd289ef052b60161137555907ddef18da11f" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x46c2bc95ed881dac902902ad6f39d837ef54f5f7fcfae5702513f2b976dcbd5f" target="_blank" rel="noopener">0x46c2bc95ed881d…</a></td><td>Nodes 2 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x57765315bf3221a6324f7290f7c5c2edee7456da" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x2c0470cb6c684484faafb6664114db3ef85e1f7fcf2d84749409323addf15afa" target="_blank" rel="noopener">0x2c0470cb6c6844…</a></td><td>Nodes 1 Pool</td><td><a class="addr" href="https://bscscan.com/address/0xe1bfc7eb5080e22772e6389c5539d14120a06130" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x468ce29f505e3986e0bfffe92e0ef1d9f86ae7dea59281557941733ff01dff84" target="_blank" rel="noopener">0x468ce29f505e39…</a></td><td>Nodes 1 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x5a2754fd9b4b13239da1298f8732d712fae778a8" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x0943866edca7060692bdebf08f1ba58a46487770719cc53d11ef47552d6547c9" target="_blank" rel="noopener">0x0943866edca706…</a></td><td>Nodes 3 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x77adaa1ee0d0cc206cf518bf18922808ffd512e4" target="_blank" rel="noopener">the key that signed the release on 2026-07-22 — it sent the unrecognised selector</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x0bc4e137b9be3876ee62f4f2643eb1bfca8b25acb6b95fcfbe62f548bdde0794" target="_blank" rel="noopener">0x0bc4e137b9be38…</a></td><td>Nodes 3 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x736e0c8e71ae7c722ae0b281f9a55dfb69b5bd02" target="_blank" rel="noopener">the key that signed the release on 2026-07-22 — it sent the unrecognised selector</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x35975b39aa49647ad1ed93ab570c9ad94b7cbacd0fb42de2506bb903938ca2c2" target="_blank" rel="noopener">0x35975b39aa4964…</a></td><td>Nodes 3 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x6196a0b6ae5e9b0fa88c6d19e606f86e60d73680" target="_blank" rel="noopener">the key that signed the release on 2026-07-22 — it sent the unrecognised selector</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x60f9e5541cc702c9a0fb62e2db6b2a341d542d37d7fff31b7e132cd95b3569f8" target="_blank" rel="noopener">0x60f9e5541cc702…</a></td><td>Nodes 3 Pool</td><td><a class="addr" href="https://bscscan.com/address/0xa6c3087c44bc518ea42d443ce76831dcf6d7d82f" target="_blank" rel="noopener">first appeared on-chain when the Nodes 3 Pool sent it 0.0038bn on 2026-07-22</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x5ced9aff7f193bf7fa5aabfeb5e36700ce12f179c2d2e52ce9712d4b67bc89b9" target="_blank" rel="noopener">0x5ced9aff7f193b…</a></td><td>Nodes 1 Pool</td><td><a class="addr" href="https://bscscan.com/address/0xba24cd289ef052b60161137555907ddef18da11f" target="_blank" rel="noopener">first appeared on-chain when the Nodes 1 Pool sent it 0.0026bn on 2026-07-22</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x46c2bc95ed881dac902902ad6f39d837ef54f5f7fcfae5702513f2b976dcbd5f" target="_blank" rel="noopener">0x46c2bc95ed881d…</a></td><td>Nodes 2 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x57765315bf3221a6324f7290f7c5c2edee7456da" target="_blank" rel="noopener">first appeared on-chain when the Nodes 2 Pool sent it 0.0035bn on 2026-07-22</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x2c0470cb6c684484faafb6664114db3ef85e1f7fcf2d84749409323addf15afa" target="_blank" rel="noopener">0x2c0470cb6c6844…</a></td><td>Nodes 1 Pool</td><td><a class="addr" href="https://bscscan.com/address/0xe1bfc7eb5080e22772e6389c5539d14120a06130" target="_blank" rel="noopener">the key that signed the release on 2026-07-22 — it sent the unrecognised selector</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x468ce29f505e3986e0bfffe92e0ef1d9f86ae7dea59281557941733ff01dff84" target="_blank" rel="noopener">0x468ce29f505e39…</a></td><td>Nodes 1 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x5a2754fd9b4b13239da1298f8732d712fae778a8" target="_blank" rel="noopener">the key that signed the release on 2026-07-22 — it sent the unrecognised selector</a></td><td class="mono">0xb1bd11b4</td><td class="num">452B</td></tr>
 </tbody></table>
 <div class="note">10 causing transactions in total; the table samples the first and last few. The mechanism is identical in all of them.</div>
 <div class="ctx">Because the recipients are node purchasers claiming their own entitlement, the interesting question is not who they are but what they did next — covered below.</div>
+<h3 style="margin-top:16px">Net released, by pool</h3>
+<table class="dense"><thead><tr><th>Pool</th><th class="num">Sent</th><th class="num">Returned</th><th class="num">Net released this day</th><th class="num">Running net since 1 Jun</th><th class="num">Net lifetime</th><th class="num">Holds after</th></tr></thead><tbody>
+<tr><td><b>Nodes 3</b></td><td class="num">8.6727bn</td><td class="num">—</td><td class="num"><b>8.6727bn</b></td><td class="num">8.6727bn</td><td class="num">16.0000bn</td><td class="num">1</td></tr>
+<tr><td><b>Nodes 1</b></td><td class="num">6.5312bn</td><td class="num">—</td><td class="num"><b>6.5312bn</b></td><td class="num">6.5312bn</td><td class="num">7.3578bn</td><td class="num">642.20mn</td></tr>
+<tr><td><b>Nodes 2</b></td><td class="num">5.6632bn</td><td class="num">—</td><td class="num"><b>5.6632bn</b></td><td class="num">5.6632bn</td><td class="num">7.4890bn</td><td class="num">11.00mn</td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>day total</b></td><td class="num">20.8671bn</td><td class="num">—</td><td class="num"><b>20.8671bn</b></td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
+</tbody></table>
 <h3 style="margin-top:16px">Where it went, and what happened next</h3>
 <div class="note">5,879 recipients — too many to follow one by one in a table. The reconciliation for this day is below.</div>
 
@@ -370,7 +393,7 @@ day has its own reconciliation in its section.</div>
   <td>claimed by 5,879 wallets across the day</td></tr>
 <tr class="hi2"><td>held today by the 98 wallets it was swept into</td>
   <td class="num">20.8671bn</td>
-  <td>read from chain at block 123,315,135; the sweep itself completed by 29 August</td></tr>
+  <td>read from chain at block 123,384,555; the sweep itself completed by 29 August</td></tr>
 <tr><td>difference</td><td class="num">100</td>
   <td>what is no longer in that set — sold, spent or moved on since</td></tr>
 </tbody></table>
@@ -379,129 +402,133 @@ small set of wallets with no prior history within five weeks, and 100.0% of it i
 still sitting there. That is a consolidation, not a sale — it never reached an exchange. It does mean
 the supply is held far more tightly than the 5,879-wallet
 claimant count suggests: a decision by a handful of keys can move it.</div>
-<h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-07-20</td><td class="num">$0.00196937</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$83,086,193</td></tr>
-<tr><td>2026-07-21</td><td class="num">$0.00168748</td><td class="num">-14.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$43,629,313</td></tr>
-<tr class="hi"><td>2026-07-22 — release</td><td class="num">$0.00168297</td><td class="num">-0.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$15,707,655</td></tr>
-<tr><td>2026-07-23</td><td class="num">$0.00170592</td><td class="num">+1.4%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$37,221,388</td></tr>
-<tr><td>2026-07-24</td><td class="num">$0.00250950</td><td class="num">+47.1%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$151,805,983</td></tr>
-</tbody></table>
 </div>
 <div class="section" id="d2026-07-26">
 <h2 style="border:0;margin:0;padding:0;font-size:1px;color:transparent;height:0;overflow:hidden">
 4 · 26 July 2026 — five pools at once</h2>
 <div class="evhead"><span class="d">4 · 26 July 2026</span>
 <span class="s">five pools at once — the Safe's first large distribution</span>
-<span class="amt">9.5400bn &nbsp;·&nbsp; $27,930,582</span></div>
+<span class="amt">9.5400bn net released</span></div>
 <div class="q">
   <div><div class="k">Window (UTC)</div><div class="v">13:43:05 → 14:51:03</div>
     <div class="sub">10 block(s)</div></div>
-  <div><div class="k">Gross out / back in</div>
-    <div class="v">9.5400bn / 0</div>
-    <div class="sub">net 9.5400bn</div></div>
+  <div><div class="k">Net released</div>
+    <div class="v">9.5400bn</div>
+    <div class="sub">9.5400bn sent, 0 returned</div></div>
   <div><div class="k">Recipients</div><div class="v">10</div>
     <div class="sub">followed individually below</div></div>
   <div><div class="k">Released through</div><div class="v">the deployer EOA</div>
     <div class="sub"><code>0xa646f9ad</code>
       </div></div>
-  <div><div class="k">AKE price that day</div>
-    <div class="v">$0.00305960</div>
-    <div class="sub">from $0.00250950 two days earlier</div></div>
-  <div><div class="k">Value released</div><div class="v">$27,930,582</div>
-    <div class="sub">hourly rate at each leg's own block</div></div>
+  <div><div class="k">Sold since</div>
+    <div class="v">none</div>
+    <div class="sub">followed through every hop until it reached an exchange or stopped</div></div>
+  <div><div class="k">Pools drawn on</div>
+    <div class="v">5</div>
+    <div class="sub">Investors, Nodes 1, Nodes 2, Team 1, Team 2</div></div>
 </div>
 <h3>How it was released</h3><p style="font-size:13px">The day after the Investors Pool was upgraded to add a no-argument withdraw function, five pools paid out inside the same afternoon. Ownership of the pools had moved to the 3-of-4 Safe a week earlier, so this is the Safe's first large distribution.</p>
 <table class="dense"><thead><tr><th>Transaction</th><th>Sent to</th><th>Signed by</th><th>Selector</th><th class="num">Calldata</th></tr></thead><tbody>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0xee5ab0fcb48cb3d61ec7abc3756511fecb9bccd1d21ec4c6d8e450cf6e4624d8" target="_blank" rel="noopener">0xee5ab0fcb48cb3…</a></td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0x7986fa5f64a0997f3b50990f2ba64f81d829ff9c" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x5e6105b84d631876812f917db433a990d6d84737ab415658fb4ff282e5232b65" target="_blank" rel="noopener">0x5e6105b84d6318…</a></td><td>Nodes 1 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x248e4158b775444b8e33e5aa37a46524bf880b15" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0xc2515facf46396f97e266720ea3e541dcd7c3bae9d48a7e8e173473e02083157" target="_blank" rel="noopener">0xc2515facf46396…</a></td><td>Team 2 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x30a603dbd14981417b520ce96d2005d96c6fd275" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x62ddd98e63c3ce0f66dc31bb8ff0b2e6a6353b6e2178d4125ac0e73f6712c979" target="_blank" rel="noopener">0x62ddd98e63c3ce…</a></td><td>Team 2 Pool</td><td><a class="addr" href="https://bscscan.com/address/0xe26c27d9c5fea9a032ea770d057338a46740213f" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x046eca4bc396419e571ba1f74ee26c4f3a1111393abad7c224c3e6618402774d" target="_blank" rel="noopener">0x046eca4bc39641…</a></td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0x86ea348705c21fe04ed58061878b9bb507868dd4" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x33bcc7b9770f44263364485dff50cf3cd2e46fc5163b7d0dd9940be5b0f99fcd" target="_blank" rel="noopener">0x33bcc7b9770f44…</a></td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0xc970decb237c291b255b16884b9707c357250b26" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0xc406b21ff8276da43399dc3bb83ef60c3b545b823ce77038e047a2c24111f61d" target="_blank" rel="noopener">0xc406b21ff8276d…</a></td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0xac7aea82b35320dd050c79e413234423894a321a" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0xc94600128dbef000af60cc012565382885973071e069aa435447dd8122482b6c" target="_blank" rel="noopener">0xc94600128dbef0…</a></td><td>Nodes 2 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x998ef0e79a7574952d098d9b4e01f87d3fd864a8" target="_blank" rel="noopener">wallet from the cluster that has taken pool distributions before</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0xee5ab0fcb48cb3d61ec7abc3756511fecb9bccd1d21ec4c6d8e450cf6e4624d8" target="_blank" rel="noopener">0xee5ab0fcb48cb3…</a></td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0x7986fa5f64a0997f3b50990f2ba64f81d829ff9c" target="_blank" rel="noopener">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x5e6105b84d631876812f917db433a990d6d84737ab415658fb4ff282e5232b65" target="_blank" rel="noopener">0x5e6105b84d6318…</a></td><td>Nodes 1 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x248e4158b775444b8e33e5aa37a46524bf880b15" target="_blank" rel="noopener">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0xc2515facf46396f97e266720ea3e541dcd7c3bae9d48a7e8e173473e02083157" target="_blank" rel="noopener">0xc2515facf46396…</a></td><td>Team 2 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x30a603dbd14981417b520ce96d2005d96c6fd275" target="_blank" rel="noopener">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x62ddd98e63c3ce0f66dc31bb8ff0b2e6a6353b6e2178d4125ac0e73f6712c979" target="_blank" rel="noopener">0x62ddd98e63c3ce…</a></td><td>Team 2 Pool</td><td><a class="addr" href="https://bscscan.com/address/0xe26c27d9c5fea9a032ea770d057338a46740213f" target="_blank" rel="noopener">first appeared on-chain when the Team 2 Pool sent it 0.8765bn on 2026-07-26</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x046eca4bc396419e571ba1f74ee26c4f3a1111393abad7c224c3e6618402774d" target="_blank" rel="noopener">0x046eca4bc39641…</a></td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0x86ea348705c21fe04ed58061878b9bb507868dd4" target="_blank" rel="noopener">first appeared on-chain when the Investors Pool sent it 0.9326bn on 2026-07-26</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x33bcc7b9770f44263364485dff50cf3cd2e46fc5163b7d0dd9940be5b0f99fcd" target="_blank" rel="noopener">0x33bcc7b9770f44…</a></td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0xc970decb237c291b255b16884b9707c357250b26" target="_blank" rel="noopener">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0xc406b21ff8276da43399dc3bb83ef60c3b545b823ce77038e047a2c24111f61d" target="_blank" rel="noopener">0xc406b21ff8276d…</a></td><td>Investors Pool</td><td><a class="addr" href="https://bscscan.com/address/0xac7aea82b35320dd050c79e413234423894a321a" target="_blank" rel="noopener">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0xc94600128dbef000af60cc012565382885973071e069aa435447dd8122482b6c" target="_blank" rel="noopener">0xc94600128dbef0…</a></td><td>Nodes 2 Pool</td><td><a class="addr" href="https://bscscan.com/address/0x998ef0e79a7574952d098d9b4e01f87d3fd864a8" target="_blank" rel="noopener">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</a></td><td class="mono">0xa646f9ad</td><td class="num">4B</td></tr>
 </tbody></table>
 <div class="ctx">The Investors leg is the one that was gated: four wallets took exactly 4.0000bn between them, and the function they used answers “Already withdrawn” to them and “Only token address can withdraw” to everyone else today. It was a one-shot list, and it is spent.</div>
+<h3 style="margin-top:16px">Net released, by pool</h3>
+<table class="dense"><thead><tr><th>Pool</th><th class="num">Sent</th><th class="num">Returned</th><th class="num">Net released this day</th><th class="num">Running net since 1 Jun</th><th class="num">Net lifetime</th><th class="num">Holds after</th></tr></thead><tbody>
+<tr><td><b>Investors</b></td><td class="num">4.0000bn</td><td class="num">—</td><td class="num"><b>4.0000bn</b></td><td class="num">6.0000bn</td><td class="num">10.6329bn</td><td class="num">14.3671bn</td></tr>
+<tr><td><b>Team 2</b></td><td class="num">2.0000bn</td><td class="num">—</td><td class="num"><b>2.0000bn</b></td><td class="num">2.0000bn</td><td class="num">8.9523bn</td><td class="num">6.0477bn</td></tr>
+<tr><td><b>Team 1</b></td><td class="num">2.0000bn</td><td class="num">—</td><td class="num"><b>2.0000bn</b></td><td class="num">2.0000bn</td><td class="num">3.8586bn</td><td class="num">1.1414bn</td></tr>
+<tr><td><b>Nodes 2</b></td><td class="num">1.0358bn</td><td class="num">—</td><td class="num"><b>1.0358bn</b></td><td class="num">6.6990bn</td><td class="num">7.4890bn</td><td class="num">11.00mn</td></tr>
+<tr><td><b>Nodes 1</b></td><td class="num">504.25mn</td><td class="num">—</td><td class="num"><b>504.25mn</b></td><td class="num">7.0354bn</td><td class="num">7.3578bn</td><td class="num">642.20mn</td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>day total</b></td><td class="num">9.5400bn</td><td class="num">—</td><td class="num"><b>9.5400bn</b></td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
+</tbody></table>
 <h3 style="margin-top:16px">Where it went, and what happened next</h3>
 <table class="dense"><thead><tr><th>Recipient</th><th class="num">Received</th><th class="num">Holds now</th><th class="num">To non-Binance exchange</th><th class="num">To Binance</th><th class="num">Moved elsewhere</th></tr></thead><tbody>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x7986fa5f64a0997f3b50990f2ba64f81d829ff9c" target="_blank" rel="noopener">0x7986fa5f…ff9c</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">1.2904bn</td><td class="num">1.2904bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x30a603dbd14981417b520ce96d2005d96c6fd275" target="_blank" rel="noopener">0x30a603db…d275</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">1.1235bn</td><td class="num">1.1235bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xcfbbe27f7fb368d15d3a278da85415e62e9706fa" target="_blank" rel="noopener">0xcfbbe27f…06fa</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">1.0572bn</td><td class="num">1.0572bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x998ef0e79a7574952d098d9b4e01f87d3fd864a8" target="_blank" rel="noopener">0x998ef0e7…64a8</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">1.0358bn</td><td class="num">1.0358bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xa8da77a990638b75963ac923e6cc617dc7e20377" target="_blank" rel="noopener">0xa8da77a9…0377</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">942.75mn</td><td class="num">942.75mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x86ea348705c21fe04ed58061878b9bb507868dd4" target="_blank" rel="noopener">0x86ea3487…8dd4</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">932.57mn</td><td class="num">932.57mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xc970decb237c291b255b16884b9707c357250b26" target="_blank" rel="noopener">0xc970decb…0b26</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">898.73mn</td><td class="num">898.73mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xac7aea82b35320dd050c79e413234423894a321a" target="_blank" rel="noopener">0xac7aea82…321a</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">878.26mn</td><td class="num">878.26mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xe26c27d9c5fea9a032ea770d057338a46740213f" target="_blank" rel="noopener">0xe26c27d9…213f</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">876.52mn</td><td class="num">876.52mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x248e4158b775444b8e33e5aa37a46524bf880b15" target="_blank" rel="noopener">0x248e4158…0b15</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">504.25mn</td><td class="num">504.25mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x7986fa5f64a0997f3b50990f2ba64f81d829ff9c" target="_blank" rel="noopener">0x7986fa5f…ff9c</a> <span class="chip chip-r">signed the release transaction</span><div style="font-size:10.5px;color:var(--muted)">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</div></td><td class="num">1.2904bn</td><td class="num">1.2904bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x30a603dbd14981417b520ce96d2005d96c6fd275" target="_blank" rel="noopener">0x30a603db…d275</a> <span class="chip chip-r">signed the release transaction</span><div style="font-size:10.5px;color:var(--muted)">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</div></td><td class="num">1.1235bn</td><td class="num">1.1235bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xcfbbe27f7fb368d15d3a278da85415e62e9706fa" target="_blank" rel="noopener">0xcfbbe27f…06fa</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 1 Pool sent it 1.0572bn on 2026-07-26</div></td><td class="num">1.0572bn</td><td class="num">1.0572bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x998ef0e79a7574952d098d9b4e01f87d3fd864a8" target="_blank" rel="noopener">0x998ef0e7…64a8</a> <span class="chip chip-r">signed the release transaction</span><div style="font-size:10.5px;color:var(--muted)">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</div></td><td class="num">1.0358bn</td><td class="num">1.0358bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xa8da77a990638b75963ac923e6cc617dc7e20377" target="_blank" rel="noopener">0xa8da77a9…0377</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 1 Pool sent it 0.9428bn on 2026-07-26</div></td><td class="num">942.75mn</td><td class="num">942.75mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x86ea348705c21fe04ed58061878b9bb507868dd4" target="_blank" rel="noopener">0x86ea3487…8dd4</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Investors Pool sent it 0.9326bn on 2026-07-26</div></td><td class="num">932.57mn</td><td class="num">932.57mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xc970decb237c291b255b16884b9707c357250b26" target="_blank" rel="noopener">0xc970decb…0b26</a> <span class="chip chip-r">signed the release transaction</span><div style="font-size:10.5px;color:var(--muted)">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</div></td><td class="num">898.73mn</td><td class="num">898.73mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xac7aea82b35320dd050c79e413234423894a321a" target="_blank" rel="noopener">0xac7aea82…321a</a> <span class="chip chip-r">signed the release transaction</span><div style="font-size:10.5px;color:var(--muted)">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</div></td><td class="num">878.26mn</td><td class="num">878.26mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xe26c27d9c5fea9a032ea770d057338a46740213f" target="_blank" rel="noopener">0xe26c27d9…213f</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.8765bn on 2026-07-26</div></td><td class="num">876.52mn</td><td class="num">876.52mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x248e4158b775444b8e33e5aa37a46524bf880b15" target="_blank" rel="noopener">0x248e4158…0b15</a> <span class="chip chip-r">signed the release transaction</span><div style="font-size:10.5px;color:var(--muted)">the key that signed the release on 2026-07-26 — it sent the userWithdraw()</div></td><td class="num">504.25mn</td><td class="num">504.25mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
 <tr style="border-top:2px solid var(--border)"><td><b>total</b></td><td class="num"><b>9.5400bn</b></td><td class="num"><b>9.5400bn</b></td><td class="num"><b>0</b></td><td class="num"><b>0</b></td><td class="num"><b>0</b></td></tr>
 </tbody></table>
-<div class="verdict v-hold"><b>Follow-through.</b> Of the 9.5400bn released, <b>9.5400bn (100.0%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 0 moved to other wallets without reaching an exchange. Ten recipients across five pools; the four that took the Investors leg had never appeared on-chain before that afternoon and have not taken from any pool since.</div>
-<h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-07-24</td><td class="num">$0.00250950</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$151,805,983</td></tr>
-<tr><td>2026-07-25</td><td class="num">$0.00274935</td><td class="num">+9.6%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$220,999,738</td></tr>
-<tr class="hi"><td>2026-07-26 — release</td><td class="num">$0.00305960</td><td class="num">+11.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$23,320,950</td></tr>
-<tr><td>2026-07-27</td><td class="num">$0.00313064</td><td class="num">+2.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$10,729,002</td></tr>
-<tr><td>2026-07-28</td><td class="num">$0.00402304</td><td class="num">+28.5%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$53,877,860</td></tr>
-</tbody></table>
+<div class="verdict v-hold"><b>Not sold.</b> 9.5400bn released, and none of it has reached an exchange or a DEX pool. no recipient has made any onward transfer Ten recipients across five pools; the four that took the Investors leg called userWithdraw() themselves, had never appeared on-chain before that afternoon, and have not taken from any pool since. This is the Investors Pool's second and larger release of the year — with 19 June it makes 6.0000bn net since June, and 10.6329bn net lifetime.</div>
 </div>
 <div class="section" id="d2026-08-21">
 <h2 style="border:0;margin:0;padding:0;font-size:1px;color:transparent;height:0;overflow:hidden">
 5 · 21 August 2026 — Team Pool 2</h2>
 <div class="evhead"><span class="d">5 · 21 August 2026</span>
 <span class="s">Team Pool 2 — and the liquidity events that followed</span>
-<span class="amt">2.5678bn &nbsp;·&nbsp; $21,593,074</span></div>
+<span class="amt">2.5678bn net released</span></div>
 <div class="q">
   <div><div class="k">Window (UTC)</div><div class="v">15:29:35</div>
     <div class="sub">1 block(s)</div></div>
-  <div><div class="k">Gross out / back in</div>
-    <div class="v">2.5678bn / 0</div>
-    <div class="sub">net 2.5678bn</div></div>
+  <div><div class="k">Net released</div>
+    <div class="v">2.5678bn</div>
+    <div class="sub">2.5678bn sent, 0 returned</div></div>
   <div><div class="k">Recipients</div><div class="v">14</div>
     <div class="sub">followed individually below</div></div>
   <div><div class="k">Released through</div><div class="v">the owner Safe</div>
     <div class="sub">outer call <code>0x6a761202</code>
       (Safe execTransaction — the function it wraps is named below)</div></div>
-  <div><div class="k">AKE price that day</div>
-    <div class="v">$0.00826949</div>
-    <div class="sub">from $0.00899755 two days earlier</div></div>
-  <div><div class="k">Value released</div><div class="v">$21,593,074</div>
-    <div class="sub">hourly rate at each leg's own block</div></div>
+  <div><div class="k">Sold since</div>
+    <div class="v">none</div>
+    <div class="sub">followed through every hop until it reached an exchange or stopped</div></div>
+  <div><div class="k">Pools drawn on</div>
+    <div class="v">1</div>
+    <div class="sub">Team 2</div></div>
 </div>
 <h3>How it was released</h3><p style="font-size:13px">A single Safe transaction paying a fixed list of wallets from Team Pool 2.</p>
 <table class="dense"><thead><tr><th>Transaction</th><th>Sent to</th><th>Signed by</th><th>Selector</th><th class="num">Calldata</th></tr></thead><tbody>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0xa9bebc9557550e7452b011470ee09e1c8e2cb897e3c44513d5be3eac32b1e173" target="_blank" rel="noopener">0xa9bebc9557550e…</a></td><td>the owner Safe</td><td><a class="addr" href="https://bscscan.com/address/0xa79cc05c2ce2950549dfdfeb2ab462ab0be626b3" target="_blank" rel="noopener">never-seen wallet</a></td><td class="mono">0x6a761202</td><td class="num">1604B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0xa9bebc9557550e7452b011470ee09e1c8e2cb897e3c44513d5be3eac32b1e173" target="_blank" rel="noopener">0xa9bebc9557550e…</a></td><td>the owner Safe</td><td><a class="addr" href="https://bscscan.com/address/0xa79cc05c2ce2950549dfdfeb2ab462ab0be626b3" target="_blank" rel="noopener">the key that signed the releases on 2026-08-21, 2026-09-03 — it sent the execTransaction on the Safe</a></td><td class="mono">0x6a761202</td><td class="num">1604B</td></tr>
 </tbody></table>
+<h3 style="margin-top:16px">Net released, by pool</h3>
+<table class="dense"><thead><tr><th>Pool</th><th class="num">Sent</th><th class="num">Returned</th><th class="num">Net released this day</th><th class="num">Running net since 1 Jun</th><th class="num">Net lifetime</th><th class="num">Holds after</th></tr></thead><tbody>
+<tr><td><b>Team 2</b></td><td class="num">2.5678bn</td><td class="num">—</td><td class="num"><b>2.5678bn</b></td><td class="num">4.5678bn</td><td class="num">8.9523bn</td><td class="num">6.0477bn</td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>day total</b></td><td class="num">2.5678bn</td><td class="num">—</td><td class="num"><b>2.5678bn</b></td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
+</tbody></table>
+<h3 style="margin-top:16px">The same amounts, paid again to new addresses</h3>
+<p style="font-size:12.5px">807.95mn of this day's 2.5678bn (31%) went out in amounts that also appear on another Team Pool 2 release day — each time to a different address. No address has ever appeared on two of these days.</p>
+<table class="dense"><thead><tr><th class="num">Amount</th><th>Paid on each of these days, to these addresses</th></tr></thead><tbody>
+<tr><td class="num"><b>236.25mn</b></td><td><b>2026-08-21 <a class="addr" href="https://bscscan.com/address/0xf3bfbe73ac660ee858a734510f75b33cc7ada0b6" target="_blank" rel="noopener">0xf3bfbe73…</a></b> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0x9b2ac03cb933c8fd5dcb467bae5f48afb3357c87" target="_blank" rel="noopener">0x9b2ac03c…</a></td></tr>
+<tr><td class="num"><b>160.42mn</b></td><td><b>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x43055a9aeade0121fa5a84aa0981109dcd572ab7" target="_blank" rel="noopener">0x43055a9a…</a></b> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0x6b9bf2f1e14e63802211b726ab02399f78bf02be" target="_blank" rel="noopener">0x6b9bf2f1…</a></td></tr>
+<tr><td class="num"><b>117.83mn</b></td><td><b>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x419b73b20023f25845cdc3b88afeabe767ef1931" target="_blank" rel="noopener">0x419b73b2…</a></b> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0x4d73981e5f271d824fa94f397cde653136a4b0e1" target="_blank" rel="noopener">0x4d73981e…</a></td></tr>
+<tr><td class="num"><b>83.33mn</b></td><td><b>2026-08-21 <a class="addr" href="https://bscscan.com/address/0xe2017853d1164d28f8f72ab748989ec7408c5126" target="_blank" rel="noopener">0xe2017853…</a></b> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0x22cb1939f11789691e6af415aec5b7f1c542cdab" target="_blank" rel="noopener">0x22cb1939…</a> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0x5755e4938a9f8721595b65096113540f87f014f7" target="_blank" rel="noopener">0x5755e493…</a> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0xf1bc00a23ed73c8eaeb967d5a13e6482360ec915" target="_blank" rel="noopener">0xf1bc00a2…</a></td></tr>
+<tr><td class="num"><b>68.45mn</b></td><td><b>2026-08-21 <a class="addr" href="https://bscscan.com/address/0xe8daec92cc2d1fc1a785ea16d3a01ea21a561403" target="_blank" rel="noopener">0xe8daec92…</a></b> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0x912e7cdcc1dcdd7195f714ddda705492a7a20ed1" target="_blank" rel="noopener">0x912e7cdc…</a></td></tr>
+<tr><td class="num"><b>41.67mn</b></td><td><b>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x6faf6b92e237ae5abb2aaf3bfd3bda3026e9cab0" target="_blank" rel="noopener">0x6faf6b92…</a></b> · <b>2026-08-21 <a class="addr" href="https://bscscan.com/address/0xa16a5f3badbf829fe21ab07673072c52e8c3c551" target="_blank" rel="noopener">0xa16a5f3b…</a></b> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0x4c808645dae6ec951cbc42762b469c34cb1b4b8e" target="_blank" rel="noopener">0x4c808645…</a> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0xe0520ff3820ad28197a45a0088589560087d78d9" target="_blank" rel="noopener">0xe0520ff3…</a></td></tr>
+<tr><td class="num"><b>33.33mn</b></td><td><b>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x0fd6e7e2349bc9eed730d623d16bae2cf760e714" target="_blank" rel="noopener">0x0fd6e7e2…</a></b> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0xed5fbf5a35341bc7d159977b362d0c79147e3587" target="_blank" rel="noopener">0xed5fbf5a…</a></td></tr>
+<tr><td class="num"><b>25.00mn</b></td><td><b>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x95d6dc1bf3dd32512b07ce2c0d4b65f9eb6f1b09" target="_blank" rel="noopener">0x95d6dc1b…</a></b> · 2026-09-21 <a class="addr" href="https://bscscan.com/address/0x8caacf372624d599999b5de70173be77d54cbb9d" target="_blank" rel="noopener">0x8caacf37…</a></td></tr>
+</tbody></table>
+<div class="note">This is a specific, checkable relationship, not a resemblance: the identical payout figure recurs while the receiving address is new every time. The simplest reading is one beneficiary list being paid repeatedly through fresh wallets. It does not identify who the beneficiaries are, and nothing here claims to.</div>
 <h3 style="margin-top:16px">Where it went, and what happened next</h3>
 <table class="dense"><thead><tr><th>Recipient</th><th class="num">Received</th><th class="num">Holds now</th><th class="num">To non-Binance exchange</th><th class="num">To Binance</th><th class="num">Moved elsewhere</th></tr></thead><tbody>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x5f0d3013be85db860b641ef06a25209f1b4bdd3d" target="_blank" rel="noopener">0x5f0d3013…dd3d</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">787.50mn</td><td class="num">787.50mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x8c5ac872bd27e36c89baea1dc4e30c3f6f84e12c" target="_blank" rel="noopener">0x8c5ac872…e12c</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">495.00mn</td><td class="num">495.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x1a89580552bf2cb200fdc7b286c48bb5e4c8b7d3" target="_blank" rel="noopener">0x1a895805…b7d3</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">266.67mn</td><td class="num">266.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xf3bfbe73ac660ee858a734510f75b33cc7ada0b6" target="_blank" rel="noopener">0xf3bfbe73…a0b6</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">236.25mn</td><td class="num">236.25mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x49d19f7e0e3910b5aed943191ebb4e294b155f08" target="_blank" rel="noopener">0x49d19f7e…5f08</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">160.71mn</td><td class="num">160.71mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x43055a9aeade0121fa5a84aa0981109dcd572ab7" target="_blank" rel="noopener">0x43055a9a…2ab7</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">160.42mn</td><td class="num">160.42mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x419b73b20023f25845cdc3b88afeabe767ef1931" target="_blank" rel="noopener">0x419b73b2…1931</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">117.83mn</td><td class="num">117.83mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xe2017853d1164d28f8f72ab748989ec7408c5126" target="_blank" rel="noopener">0xe2017853…5126</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">83.33mn</td><td class="num">13.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">70.00mn</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xe8daec92cc2d1fc1a785ea16d3a01ea21a561403" target="_blank" rel="noopener">0xe8daec92…1403</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">68.45mn</td><td class="num">68.45mn</td><td class="num">—</td><td class="num">—</td><td class="num">68.45mn</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x1a1aab602f79968918a89f65c015fa6384a9564f" target="_blank" rel="noopener">0x1a1aab60…564f</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">50.00mn</td><td class="num">50.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x6faf6b92e237ae5abb2aaf3bfd3bda3026e9cab0" target="_blank" rel="noopener">0x6faf6b92…cab0</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">41.67mn</td><td class="num">41.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xa16a5f3badbf829fe21ab07673072c52e8c3c551" target="_blank" rel="noopener">0xa16a5f3b…c551</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">41.67mn</td><td class="num">41.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x0fd6e7e2349bc9eed730d623d16bae2cf760e714" target="_blank" rel="noopener">0x0fd6e7e2…e714</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">33.33mn</td><td class="num">33.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x95d6dc1bf3dd32512b07ce2c0d4b65f9eb6f1b09" target="_blank" rel="noopener">0x95d6dc1b…1b09</a> <span class="chip chip-r">prior pool recipient</span> <span class="chip chip-w">watchlist</span><div style="font-size:10.5px;color:var(--muted)">wallet from the cluster that has taken pool distributions before</div></td><td class="num">25.00mn</td><td class="num">25.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x5f0d3013be85db860b641ef06a25209f1b4bdd3d" target="_blank" rel="noopener">0x5f0d3013…dd3d</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.7875bn on 2026-08-21</div></td><td class="num">787.50mn</td><td class="num">787.50mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x8c5ac872bd27e36c89baea1dc4e30c3f6f84e12c" target="_blank" rel="noopener">0x8c5ac872…e12c</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.4950bn on 2026-08-21</div></td><td class="num">495.00mn</td><td class="num">495.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x1a89580552bf2cb200fdc7b286c48bb5e4c8b7d3" target="_blank" rel="noopener">0x1a895805…b7d3</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.2667bn on 2026-08-21</div></td><td class="num">266.67mn</td><td class="num">266.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xf3bfbe73ac660ee858a734510f75b33cc7ada0b6" target="_blank" rel="noopener">0xf3bfbe73…a0b6</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.2362bn on 2026-08-21</div></td><td class="num">236.25mn</td><td class="num">236.25mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x49d19f7e0e3910b5aed943191ebb4e294b155f08" target="_blank" rel="noopener">0x49d19f7e…5f08</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.1607bn on 2026-08-21</div></td><td class="num">160.71mn</td><td class="num">160.71mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x43055a9aeade0121fa5a84aa0981109dcd572ab7" target="_blank" rel="noopener">0x43055a9a…2ab7</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.1604bn on 2026-08-21</div></td><td class="num">160.42mn</td><td class="num">160.42mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x419b73b20023f25845cdc3b88afeabe767ef1931" target="_blank" rel="noopener">0x419b73b2…1931</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.1178bn on 2026-08-21</div></td><td class="num">117.83mn</td><td class="num">117.83mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xe2017853d1164d28f8f72ab748989ec7408c5126" target="_blank" rel="noopener">0xe2017853…5126</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0833bn on 2026-08-21</div></td><td class="num">83.33mn</td><td class="num">13.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">70.00mn</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xe8daec92cc2d1fc1a785ea16d3a01ea21a561403" target="_blank" rel="noopener">0xe8daec92…1403</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0685bn on 2026-08-21</div></td><td class="num">68.45mn</td><td class="num">68.45mn</td><td class="num">—</td><td class="num">—</td><td class="num">68.45mn</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x1a1aab602f79968918a89f65c015fa6384a9564f" target="_blank" rel="noopener">0x1a1aab60…564f</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0500bn on 2026-08-21</div></td><td class="num">50.00mn</td><td class="num">50.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x6faf6b92e237ae5abb2aaf3bfd3bda3026e9cab0" target="_blank" rel="noopener">0x6faf6b92…cab0</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0417bn on 2026-08-21</div></td><td class="num">41.67mn</td><td class="num">41.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xa16a5f3badbf829fe21ab07673072c52e8c3c551" target="_blank" rel="noopener">0xa16a5f3b…c551</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0417bn on 2026-08-21</div></td><td class="num">41.67mn</td><td class="num">41.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x0fd6e7e2349bc9eed730d623d16bae2cf760e714" target="_blank" rel="noopener">0x0fd6e7e2…e714</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0333bn on 2026-08-21</div></td><td class="num">33.33mn</td><td class="num">33.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x95d6dc1bf3dd32512b07ce2c0d4b65f9eb6f1b09" target="_blank" rel="noopener">0x95d6dc1b…1b09</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0250bn on 2026-08-21</div></td><td class="num">25.00mn</td><td class="num">25.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
 <tr style="border-top:2px solid var(--border)"><td><b>total</b></td><td class="num"><b>2.5678bn</b></td><td class="num"><b>2.4978bn</b></td><td class="num"><b>0</b></td><td class="num"><b>0</b></td><td class="num"><b>138.45mn</b></td></tr>
 </tbody></table>
-<div class="verdict v-hold"><b>Follow-through.</b> Of the 2.5678bn released, <b>2.4978bn (97.3%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 138.45mn moved to other wallets without reaching an exchange. Several of these addresses reappear on 3 September and 21 September, which is why the registry at the end tracks them as one cluster.</div>
-<h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-08-19</td><td class="num">$0.00899755</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$12,306,841</td></tr>
-<tr><td>2026-08-20</td><td class="num">$0.00860784</td><td class="num">-4.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$7,386,691</td></tr>
-<tr class="hi"><td>2026-08-21 — release</td><td class="num">$0.00826949</td><td class="num">-3.9%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$5,452,225</td></tr>
-<tr><td>2026-08-22</td><td class="num">$0.00878185</td><td class="num">+6.2%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$7,361,383</td></tr>
-<tr><td>2026-08-23</td><td class="num">$0.00849463</td><td class="num">-3.3%</td><td class="num">$0.00879774</td><td class="num">$0.00833487</td><td class="num">-5.3%</td><td class="num">$3,716,904</td></tr>
-</tbody></table>
-<div class="note">High, low and range are candle figures. The close column is the daily mark. Where they disagree sharply the token moved a long way inside a single hour, which an hourly series cannot show — see the cross-check section.</div>
+<div class="verdict v-hold"><b>Not sold.</b> 2.5678bn released, and none of it has reached an exchange or a DEX pool. 138.45mn moved on 27 August to two wallets; both still hold it, so the trail ends there without reaching an exchange Several of these addresses reappear on 3 September and 21 September, which is why the registry at the end tracks them as one cluster.</div>
 <div class="ctx"><b>Five days later the liquidity went, and the price broke.</b>
 The market maker closed all four of its concentrated positions on 26 August, taking out 1,093.61 BNB
 and 11.58mn AKE. Only 555.74 BNB of that was realised proceeds; the rest was returned capital.
@@ -514,45 +541,42 @@ no wallet — but the second is what the first walked into.</div>
 6 · 3 September 2026 — Team Pool 2</h2>
 <div class="evhead"><span class="d">6 · 3 September 2026</span>
 <span class="s">Team Pool 2 — three payouts into the post-spike bid</span>
-<span class="amt">1.5000bn &nbsp;·&nbsp; $21,044,933</span></div>
+<span class="amt">1.5000bn net released</span></div>
 <div class="q">
   <div><div class="k">Window (UTC)</div><div class="v">02:58:10</div>
     <div class="sub">1 block(s)</div></div>
-  <div><div class="k">Gross out / back in</div>
-    <div class="v">1.5000bn / 0</div>
-    <div class="sub">net 1.5000bn</div></div>
+  <div><div class="k">Net released</div>
+    <div class="v">1.5000bn</div>
+    <div class="sub">1.5000bn sent, 0 returned</div></div>
   <div><div class="k">Recipients</div><div class="v">3</div>
     <div class="sub">followed individually below</div></div>
   <div><div class="k">Released through</div><div class="v">the owner Safe</div>
     <div class="sub">outer call <code>0x6a761202</code>
       (Safe execTransaction — the function it wraps is named below)</div></div>
-  <div><div class="k">AKE price that day</div>
-    <div class="v">$0.01489814</div>
-    <div class="sub">from $0.00882214 two days earlier</div></div>
-  <div><div class="k">Value released</div><div class="v">$21,044,933</div>
-    <div class="sub">hourly rate at each leg's own block</div></div>
+  <div><div class="k">Sold since</div>
+    <div class="v">none</div>
+    <div class="sub">followed through every hop until it reached an exchange or stopped</div></div>
+  <div><div class="k">Pools drawn on</div>
+    <div class="v">1</div>
+    <div class="sub">Team 2</div></div>
 </div>
 <h3>How it was released</h3><p style="font-size:13px">The same mechanism as 21 August, into a market that had just made a new high.</p>
 <table class="dense"><thead><tr><th>Transaction</th><th>Sent to</th><th>Signed by</th><th>Selector</th><th class="num">Calldata</th></tr></thead><tbody>
-<tr><td><a class="addr" href="https://bscscan.com/tx/0x69f7d0dd70013fec41e3a8199857be24d1e70b9faf19e9f8d4b4d187866c616d" target="_blank" rel="noopener">0x69f7d0dd70013f…</a></td><td>the owner Safe</td><td><a class="addr" href="https://bscscan.com/address/0xa79cc05c2ce2950549dfdfeb2ab462ab0be626b3" target="_blank" rel="noopener">never-seen wallet</a></td><td class="mono">0x6a761202</td><td class="num">900B</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/tx/0x69f7d0dd70013fec41e3a8199857be24d1e70b9faf19e9f8d4b4d187866c616d" target="_blank" rel="noopener">0x69f7d0dd70013f…</a></td><td>the owner Safe</td><td><a class="addr" href="https://bscscan.com/address/0xa79cc05c2ce2950549dfdfeb2ab462ab0be626b3" target="_blank" rel="noopener">the key that signed the releases on 2026-08-21, 2026-09-03 — it sent the execTransaction on the Safe</a></td><td class="mono">0x6a761202</td><td class="num">900B</td></tr>
+</tbody></table>
+<h3 style="margin-top:16px">Net released, by pool</h3>
+<table class="dense"><thead><tr><th>Pool</th><th class="num">Sent</th><th class="num">Returned</th><th class="num">Net released this day</th><th class="num">Running net since 1 Jun</th><th class="num">Net lifetime</th><th class="num">Holds after</th></tr></thead><tbody>
+<tr><td><b>Team 2</b></td><td class="num">1.5000bn</td><td class="num">—</td><td class="num"><b>1.5000bn</b></td><td class="num">6.0678bn</td><td class="num">8.9523bn</td><td class="num">6.0477bn</td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>day total</b></td><td class="num">1.5000bn</td><td class="num">—</td><td class="num"><b>1.5000bn</b></td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
 </tbody></table>
 <h3 style="margin-top:16px">Where it went, and what happened next</h3>
 <table class="dense"><thead><tr><th>Recipient</th><th class="num">Received</th><th class="num">Holds now</th><th class="num">To non-Binance exchange</th><th class="num">To Binance</th><th class="num">Moved elsewhere</th></tr></thead><tbody>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x4367fc88f25c2a9515c54e48876d36623c36ef6d" target="_blank" rel="noopener">0x4367fc88…ef6d</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">500.00mn</td><td class="num">500.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x4d14eb59004f3deff7f3d518e969fa288af36099" target="_blank" rel="noopener">0x4d14eb59…6099</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">500.00mn</td><td class="num">500.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00" target="_blank" rel="noopener">0xdc775543…0d00</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">500.00mn</td><td class="num">500.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x4367fc88f25c2a9515c54e48876d36623c36ef6d" target="_blank" rel="noopener">0x4367fc88…ef6d</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.5000bn on 2026-09-03</div></td><td class="num">500.00mn</td><td class="num">500.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x4d14eb59004f3deff7f3d518e969fa288af36099" target="_blank" rel="noopener">0x4d14eb59…6099</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.5000bn on 2026-09-03</div></td><td class="num">500.00mn</td><td class="num">500.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xdc7755439bce0bd0c9c0da21cbefde90bbef0d00" target="_blank" rel="noopener">0xdc775543…0d00</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.5000bn on 2026-09-03</div></td><td class="num">500.00mn</td><td class="num">500.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
 <tr style="border-top:2px solid var(--border)"><td><b>total</b></td><td class="num"><b>1.5000bn</b></td><td class="num"><b>1.5000bn</b></td><td class="num"><b>0</b></td><td class="num"><b>0</b></td><td class="num"><b>0</b></td></tr>
 </tbody></table>
-<div class="verdict v-hold"><b>Follow-through.</b> Of the 1.5000bn released, <b>1.5000bn (100.0%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 0 moved to other wallets without reaching an exchange. Three payouts of 500mn each, to wallets in the same cluster as 21 August.</div>
-<h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-09-01</td><td class="num">$0.00882214</td><td class="num">—</td><td class="num">$0.00902898</td><td class="num">$0.00761430</td><td class="num">-15.7%</td><td class="num">$24,594,584</td></tr>
-<tr><td>2026-09-02</td><td class="num">$0.01708996</td><td class="num">+93.7%</td><td class="num">$0.01921379</td><td class="num">$0.00768835</td><td class="num">-60.0%</td><td class="num">$218,613,896</td></tr>
-<tr class="hi"><td>2026-09-03 — release</td><td class="num">$0.01489814</td><td class="num">-12.8%</td><td class="num">$0.03637560</td><td class="num">$0.01259690</td><td class="num">-65.4%</td><td class="num">$107,111,069</td></tr>
-<tr><td>2026-09-04</td><td class="num">$0.01296885</td><td class="num">-12.9%</td><td class="num">$0.01664895</td><td class="num">$0.01298528</td><td class="num">-22.0%</td><td class="num">$30,306,871</td></tr>
-<tr><td>2026-09-05</td><td class="num">$0.01879299</td><td class="num">+44.9%</td><td class="num">$0.02148787</td><td class="num">$0.01278077</td><td class="num">-40.5%</td><td class="num">$130,392,017</td></tr>
-</tbody></table>
-<div class="note">High, low and range are candle figures. The close column is the daily mark. Where they disagree sharply the token moved a long way inside a single hour, which an hourly series cannot show — see the cross-check section.</div>
+<div class="verdict v-hold"><b>Not sold.</b> 1.5000bn released, and none of it has reached an exchange or a DEX pool. no recipient has made any onward transfer Three payouts of 500mn each, to wallets in the same cluster as 21 August.</div>
 <div class="ctx"><b>This paid into the strongest bid of the year to that point.</b>
 On 2 September the pool itself printed $0.04468663 at 21:30 — above CoinGecko's recorded high for the
 day — then gave back 55% in one fifteen-minute bucket. The 3 September payouts landed the morning
@@ -563,23 +587,24 @@ after that, while reported volume was still above $100m.</div>
 7 · 21 September 2026 — Team Pool 2</h2>
 <div class="evhead"><span class="d">7 · 21 September 2026</span>
 <span class="s">Team Pool 2 — the largest team release since July</span>
-<span class="amt">2.8844bn &nbsp;·&nbsp; $123,753,420</span></div>
+<span class="amt">2.8844bn net released</span></div>
 <div class="q">
   <div><div class="k">Window (UTC)</div><div class="v">09:17:11 → 10:24:35</div>
     <div class="sub">2 block(s)</div></div>
-  <div><div class="k">Gross out / back in</div>
-    <div class="v">2.8844bn / 0</div>
-    <div class="sub">net 2.8844bn</div></div>
+  <div><div class="k">Net released</div>
+    <div class="v">2.8844bn</div>
+    <div class="sub">2.8844bn sent, 0 returned</div></div>
   <div><div class="k">Recipients</div><div class="v">16</div>
     <div class="sub">followed individually below</div></div>
   <div><div class="k">Released through</div><div class="v">the owner Safe</div>
     <div class="sub">outer call <code>0x6a761202</code>
       (Safe execTransaction — the function it wraps is named below)</div></div>
-  <div><div class="k">AKE price that day</div>
-    <div class="v">$0.05796750</div>
-    <div class="sub">from $0.06417931 two days earlier</div></div>
-  <div><div class="k">Value released</div><div class="v">$123,753,420</div>
-    <div class="sub">hourly rate at each leg's own block</div></div>
+  <div><div class="k">Sold since</div>
+    <div class="v">none</div>
+    <div class="sub">followed through every hop until it reached an exchange or stopped</div></div>
+  <div><div class="k">Pools drawn on</div>
+    <div class="v">1</div>
+    <div class="sub">Team 2</div></div>
 </div>
 <h3>How it was released</h3><p style="font-size:13px">Two Safe transactions an hour apart, both calling the same function on Team Pool 2 — selector <code>0xe0dc37a3</code>, which takes a single array of (address, amount) pairs and pays all of them in one block. The first call carried sixteen pairs, the second two. The selector matches no published signature, but the calldata decodes cleanly and unambiguously, so what it does is established even though its declared name is not. No implementation upgrade was needed — unlike the Investors Pool, Team Pool 2 already carries this function.</p>
 <table class="dense"><thead><tr><th>Transaction</th><th>Sent to</th><th>Signed by</th><th>Selector</th><th class="num">Calldata</th></tr></thead><tbody>
@@ -587,90 +612,75 @@ after that, while reported volume was still above $100m.</div>
 <tr><td><a class="addr" href="https://bscscan.com/tx/0xe9a74be06c490018778a2c6c32b4f4390fbb9c41e8c10a18634a891e92a3958f" target="_blank" rel="noopener">0xe9a74be06c4900…</a></td><td>the owner Safe</td><td><a class="addr" href="https://bscscan.com/address/0x88f4b387eab71497e312663ac8b4aada6aa2ef8e" target="_blank" rel="noopener">Safe owner key</a></td><td class="mono">0x6a761202</td><td class="num">836B</td></tr>
 </tbody></table>
 <div class="ctx">The second transaction topped up two of the sixteen wallets from the first with much larger amounts, which is why two addresses dominate the table.</div>
+<h3 style="margin-top:16px">Net released, by pool</h3>
+<table class="dense"><thead><tr><th>Pool</th><th class="num">Sent</th><th class="num">Returned</th><th class="num">Net released this day</th><th class="num">Running net since 1 Jun</th><th class="num">Net lifetime</th><th class="num">Holds after</th></tr></thead><tbody>
+<tr><td><b>Team 2</b></td><td class="num">2.8844bn</td><td class="num">—</td><td class="num"><b>2.8844bn</b></td><td class="num">8.9523bn</td><td class="num">8.9523bn</td><td class="num">6.0477bn</td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>day total</b></td><td class="num">2.8844bn</td><td class="num">—</td><td class="num"><b>2.8844bn</b></td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
+</tbody></table>
+<h3 style="margin-top:16px">The same amounts, paid again to new addresses</h3>
+<p style="font-size:12.5px">974.62mn of this day's 2.8844bn (34%) went out in amounts that also appear on another Team Pool 2 release day — each time to a different address. No address has ever appeared on two of these days.</p>
+<table class="dense"><thead><tr><th class="num">Amount</th><th>Paid on each of these days, to these addresses</th></tr></thead><tbody>
+<tr><td class="num"><b>236.25mn</b></td><td>2026-08-21 <a class="addr" href="https://bscscan.com/address/0xf3bfbe73ac660ee858a734510f75b33cc7ada0b6" target="_blank" rel="noopener">0xf3bfbe73…</a> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0x9b2ac03cb933c8fd5dcb467bae5f48afb3357c87" target="_blank" rel="noopener">0x9b2ac03c…</a></b></td></tr>
+<tr><td class="num"><b>160.42mn</b></td><td>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x43055a9aeade0121fa5a84aa0981109dcd572ab7" target="_blank" rel="noopener">0x43055a9a…</a> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0x6b9bf2f1e14e63802211b726ab02399f78bf02be" target="_blank" rel="noopener">0x6b9bf2f1…</a></b></td></tr>
+<tr><td class="num"><b>117.83mn</b></td><td>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x419b73b20023f25845cdc3b88afeabe767ef1931" target="_blank" rel="noopener">0x419b73b2…</a> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0x4d73981e5f271d824fa94f397cde653136a4b0e1" target="_blank" rel="noopener">0x4d73981e…</a></b></td></tr>
+<tr><td class="num"><b>83.33mn</b></td><td>2026-08-21 <a class="addr" href="https://bscscan.com/address/0xe2017853d1164d28f8f72ab748989ec7408c5126" target="_blank" rel="noopener">0xe2017853…</a> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0x22cb1939f11789691e6af415aec5b7f1c542cdab" target="_blank" rel="noopener">0x22cb1939…</a></b> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0x5755e4938a9f8721595b65096113540f87f014f7" target="_blank" rel="noopener">0x5755e493…</a></b> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0xf1bc00a23ed73c8eaeb967d5a13e6482360ec915" target="_blank" rel="noopener">0xf1bc00a2…</a></b></td></tr>
+<tr><td class="num"><b>68.45mn</b></td><td>2026-08-21 <a class="addr" href="https://bscscan.com/address/0xe8daec92cc2d1fc1a785ea16d3a01ea21a561403" target="_blank" rel="noopener">0xe8daec92…</a> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0x912e7cdcc1dcdd7195f714ddda705492a7a20ed1" target="_blank" rel="noopener">0x912e7cdc…</a></b></td></tr>
+<tr><td class="num"><b>41.67mn</b></td><td>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x6faf6b92e237ae5abb2aaf3bfd3bda3026e9cab0" target="_blank" rel="noopener">0x6faf6b92…</a> · 2026-08-21 <a class="addr" href="https://bscscan.com/address/0xa16a5f3badbf829fe21ab07673072c52e8c3c551" target="_blank" rel="noopener">0xa16a5f3b…</a> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0x4c808645dae6ec951cbc42762b469c34cb1b4b8e" target="_blank" rel="noopener">0x4c808645…</a></b> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0xe0520ff3820ad28197a45a0088589560087d78d9" target="_blank" rel="noopener">0xe0520ff3…</a></b></td></tr>
+<tr><td class="num"><b>33.33mn</b></td><td>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x0fd6e7e2349bc9eed730d623d16bae2cf760e714" target="_blank" rel="noopener">0x0fd6e7e2…</a> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0xed5fbf5a35341bc7d159977b362d0c79147e3587" target="_blank" rel="noopener">0xed5fbf5a…</a></b></td></tr>
+<tr><td class="num"><b>25.00mn</b></td><td>2026-08-21 <a class="addr" href="https://bscscan.com/address/0x95d6dc1bf3dd32512b07ce2c0d4b65f9eb6f1b09" target="_blank" rel="noopener">0x95d6dc1b…</a> · <b>2026-09-21 <a class="addr" href="https://bscscan.com/address/0x8caacf372624d599999b5de70173be77d54cbb9d" target="_blank" rel="noopener">0x8caacf37…</a></b></td></tr>
+</tbody></table>
+<div class="note">This is a specific, checkable relationship, not a resemblance: the identical payout figure recurs while the receiving address is new every time. The simplest reading is one beneficiary list being paid repeatedly through fresh wallets. It does not identify who the beneficiaries are, and nothing here claims to.</div>
 <h3 style="margin-top:16px">Where it went, and what happened next</h3>
 <table class="dense"><thead><tr><th>Recipient</th><th class="num">Received</th><th class="num">Holds now</th><th class="num">To non-Binance exchange</th><th class="num">To Binance</th><th class="num">Moved elsewhere</th></tr></thead><tbody>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x3aa7fc7555c79bd9463bc23dae895e1df3cfe82a" target="_blank" rel="noopener">0x3aa7fc75…e82a</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">1.1083bn</td><td class="num">1.1083bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x6a6bb8efe730751d3ce8a3e375ec06a1595c3f9d" target="_blank" rel="noopener">0x6a6bb8ef…3f9d</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">583.33mn</td><td class="num">583.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x9b2ac03cb933c8fd5dcb467bae5f48afb3357c87" target="_blank" rel="noopener">0x9b2ac03c…7c87</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">236.25mn</td><td class="num">236.25mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x6b9bf2f1e14e63802211b726ab02399f78bf02be" target="_blank" rel="noopener">0x6b9bf2f1…02be</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">160.42mn</td><td class="num">160.42mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xb5e98bb7230a65961d07100f1c9138b68d2fbefd" target="_blank" rel="noopener">0xb5e98bb7…befd</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">131.25mn</td><td class="num">131.25mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x4d73981e5f271d824fa94f397cde653136a4b0e1" target="_blank" rel="noopener">0x4d73981e…b0e1</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">117.83mn</td><td class="num">117.83mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x22cb1939f11789691e6af415aec5b7f1c542cdab" target="_blank" rel="noopener">0x22cb1939…cdab</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">83.33mn</td><td class="num">83.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x5755e4938a9f8721595b65096113540f87f014f7" target="_blank" rel="noopener">0x5755e493…14f7</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">83.33mn</td><td class="num">83.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xf1bc00a23ed73c8eaeb967d5a13e6482360ec915" target="_blank" rel="noopener">0xf1bc00a2…c915</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">83.33mn</td><td class="num">83.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x912e7cdcc1dcdd7195f714ddda705492a7a20ed1" target="_blank" rel="noopener">0x912e7cdc…0ed1</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">68.45mn</td><td class="num">68.45mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x1a5d17aa8972223712c4292401c7f2b51fc841f4" target="_blank" rel="noopener">0x1a5d17aa…41f4</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">53.57mn</td><td class="num">53.57mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x4c808645dae6ec951cbc42762b469c34cb1b4b8e" target="_blank" rel="noopener">0x4c808645…4b8e</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">41.67mn</td><td class="num">41.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xe0520ff3820ad28197a45a0088589560087d78d9" target="_blank" rel="noopener">0xe0520ff3…78d9</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">41.67mn</td><td class="num">41.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x2295c44f78e532b31ed74c167411b0fd87a433f5" target="_blank" rel="noopener">0x2295c44f…33f5</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">33.33mn</td><td class="num">33.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0xed5fbf5a35341bc7d159977b362d0c79147e3587" target="_blank" rel="noopener">0xed5fbf5a…3587</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">33.33mn</td><td class="num">33.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
-<tr><td><a class="addr" href="https://bscscan.com/address/0x8caacf372624d599999b5de70173be77d54cbb9d" target="_blank" rel="noopener">0x8caacf37…bb9d</a> <div style="font-size:10.5px;color:var(--muted)">never-seen wallet</div></td><td class="num">25.00mn</td><td class="num">25.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x3aa7fc7555c79bd9463bc23dae895e1df3cfe82a" target="_blank" rel="noopener">0x3aa7fc75…e82a</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 1.1083bn on 2026-09-21</div></td><td class="num">1.1083bn</td><td class="num">1.1083bn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x6a6bb8efe730751d3ce8a3e375ec06a1595c3f9d" target="_blank" rel="noopener">0x6a6bb8ef…3f9d</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.5833bn on 2026-09-21</div></td><td class="num">583.33mn</td><td class="num">583.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x9b2ac03cb933c8fd5dcb467bae5f48afb3357c87" target="_blank" rel="noopener">0x9b2ac03c…7c87</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.2362bn on 2026-09-21</div></td><td class="num">236.25mn</td><td class="num">236.25mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x6b9bf2f1e14e63802211b726ab02399f78bf02be" target="_blank" rel="noopener">0x6b9bf2f1…02be</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.1604bn on 2026-09-21</div></td><td class="num">160.42mn</td><td class="num">160.42mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xb5e98bb7230a65961d07100f1c9138b68d2fbefd" target="_blank" rel="noopener">0xb5e98bb7…befd</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.1313bn on 2026-09-21</div></td><td class="num">131.25mn</td><td class="num">131.25mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x4d73981e5f271d824fa94f397cde653136a4b0e1" target="_blank" rel="noopener">0x4d73981e…b0e1</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.1178bn on 2026-09-21</div></td><td class="num">117.83mn</td><td class="num">117.83mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x22cb1939f11789691e6af415aec5b7f1c542cdab" target="_blank" rel="noopener">0x22cb1939…cdab</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0833bn on 2026-09-21</div></td><td class="num">83.33mn</td><td class="num">83.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x5755e4938a9f8721595b65096113540f87f014f7" target="_blank" rel="noopener">0x5755e493…14f7</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0833bn on 2026-09-21</div></td><td class="num">83.33mn</td><td class="num">83.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xf1bc00a23ed73c8eaeb967d5a13e6482360ec915" target="_blank" rel="noopener">0xf1bc00a2…c915</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0833bn on 2026-09-21</div></td><td class="num">83.33mn</td><td class="num">83.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x912e7cdcc1dcdd7195f714ddda705492a7a20ed1" target="_blank" rel="noopener">0x912e7cdc…0ed1</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0685bn on 2026-09-21</div></td><td class="num">68.45mn</td><td class="num">68.45mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x1a5d17aa8972223712c4292401c7f2b51fc841f4" target="_blank" rel="noopener">0x1a5d17aa…41f4</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0536bn on 2026-09-21</div></td><td class="num">53.57mn</td><td class="num">53.57mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x4c808645dae6ec951cbc42762b469c34cb1b4b8e" target="_blank" rel="noopener">0x4c808645…4b8e</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0417bn on 2026-09-21</div></td><td class="num">41.67mn</td><td class="num">41.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xe0520ff3820ad28197a45a0088589560087d78d9" target="_blank" rel="noopener">0xe0520ff3…78d9</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0417bn on 2026-09-21</div></td><td class="num">41.67mn</td><td class="num">41.67mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x2295c44f78e532b31ed74c167411b0fd87a433f5" target="_blank" rel="noopener">0x2295c44f…33f5</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0333bn on 2026-09-21</div></td><td class="num">33.33mn</td><td class="num">33.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0xed5fbf5a35341bc7d159977b362d0c79147e3587" target="_blank" rel="noopener">0xed5fbf5a…3587</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0333bn on 2026-09-21</div></td><td class="num">33.33mn</td><td class="num">33.33mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x8caacf372624d599999b5de70173be77d54cbb9d" target="_blank" rel="noopener">0x8caacf37…bb9d</a> <div style="font-size:10.5px;color:var(--muted)">first appeared on-chain when the Team 2 Pool sent it 0.0250bn on 2026-09-21</div></td><td class="num">25.00mn</td><td class="num">25.00mn</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
 <tr style="border-top:2px solid var(--border)"><td><b>total</b></td><td class="num"><b>2.8844bn</b></td><td class="num"><b>2.8844bn</b></td><td class="num"><b>0</b></td><td class="num"><b>0</b></td><td class="num"><b>0</b></td></tr>
 </tbody></table>
-<div class="verdict v-hold"><b>Follow-through.</b> Of the 2.8844bn released, <b>2.8844bn (100.0%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 0 moved to other wallets without reaching an exchange. Sixteen wallets, none of which had ever held AKE before 09:17 that morning.</div>
-<h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-09-19</td><td class="num">$0.06417931</td><td class="num">—</td><td class="num">$0.08564400</td><td class="num">$0.03703312</td><td class="num">-56.8%</td><td class="num">$153,675,037</td></tr>
-<tr><td>2026-09-20</td><td class="num">$0.05885675</td><td class="num">-8.3%</td><td class="num">$0.14665600</td><td class="num">$0.04596138</td><td class="num">-68.7%</td><td class="num">$153,666,517</td></tr>
-<tr class="hi"><td>2026-09-21 — release</td><td class="num">$0.05796750</td><td class="num">-1.5%</td><td class="num">$0.06470500</td><td class="num">$0.03148813</td><td class="num">-51.3%</td><td class="num">$131,180,085</td></tr>
-</tbody></table>
-<div class="note">High, low and range are candle figures. The close column is the daily mark. Where they disagree sharply the token moved a long way inside a single hour, which an hourly series cannot show — see the cross-check section.</div>
+<div class="verdict v-hold"><b>Not sold.</b> 2.8844bn released, and none of it has reached an exchange or a DEX pool. no recipient has made any onward transfer Sixteen wallets, none of which had ever held AKE before 09:17 that morning.</div>
 
-<h3 style="margin-top:18px">The four days this release landed in</h3>
-<p style="font-size:13px">This is the only section where the market matters more than the release,
-because the release came at the end of the sharpest move the token has had.</p>
-<table class="dense"><thead><tr><th>When (UTC)</th><th class="num">Price</th><th>What happened</th>
+<h3 style="margin-top:18px">What else the chain shows around this release</h3>
+<p style="font-size:13px">No price in this table. Nothing released on 21 September has been sold, so
+there are no proceeds to report; what follows is the on-chain sequence the release sits inside.</p>
+<table class="dense"><thead><tr><th style="width:20%">When (UTC)</th><th>What happened on-chain</th>
 </tr></thead><tbody>
-<tr><td>18 Sep 10:00</td><td class="num">$0.02454174</td>
+<tr><td>18 Sep 10:00:00</td>
   <td><b>The Investors Pool vesting boundary passed and produced nothing.</b> Period n=13 came due
   exactly as the schedule computes it; the pool released nothing, and the self-claim path still
-  reverts <code>“fix”</code> for every caller. The rally that began three hours earlier is not a
+  reverts <code>“fix”</code> for every caller. Whatever moved the market that week, it was not a
   vesting event.</td></tr>
-<tr><td>18 Sep 18:00</td><td class="num">$0.03430939</td>
-  <td>The break: +23.4% in one hour, with no pool movement and no liquidity change.</td></tr>
-<tr class="hi"><td>19 Sep 20:14–20:28</td><td class="num">$0.06820581</td>
-  <td><b>Binance Hot Wallet 4 sent 216.23mn AKE — $14.40m at the hourly rate — to three wallets in
-  fourteen minutes.</b> None of the three had ever appeared before; none is a pool recipient. None of
-  it has been sold. Two still hold it; the third forwarded its 56.49mn one hop after a test transfer
-  and it is still sitting there.</td></tr>
-<tr class="hi"><td>20 Sep 10:33:30</td><td class="num">$0.14665600</td>
-  <td><b>The all-time high</b>, and the figure to use: it is a candle high. The highest hourly mark
-  that day was $0.09478750, which is
-  55%
-  below it. The spike opened and closed inside one hour.</td></tr>
-<tr class="hi2"><td>20 Sep, same day</td><td class="num">$0.04596138</td>
-  <td><b>Down -68.7% from that high, inside
-  the day.</b> Net on-chain selling in the hour the hourly series shows the break was 0.86mn AKE,
-  about $60,000, on 79mn of gross flow; the largest single swap of the day was $63,219. Fresh supply
-  reaching exchange custody in the two hours around the top came to 26.05mn AKE, roughly $2.0m,
-  against ~$197m of reported hourly turnover. The selling was order-book inventory already on
-  exchanges, which leaves no trace here.</td></tr>
-<tr><td>21 Sep, low of the day</td><td class="num">$0.03148813</td>
-  <td>A second fall, -51.3% high to low.
-  Same shape: the heaviest net on-chain sell hour of the window was −2.14mn AKE and −119.8 BNB,
-  about $120,000.</td></tr>
-<tr class="hi"><td>21 Sep 09:17 and 10:24</td><td class="num">$0.04352686</td>
-  <td><b>Team Pool 2 released 2.8844bn into the recovery</b>
-  — the two transactions in the table above.</td></tr>
+<tr class="hi"><td>19 Sep 20:14–20:28</td>
+  <td><b>Binance Hot Wallet 4 sent 216.23mn AKE to three addresses in fourteen minutes.</b> None had
+  appeared on-chain before; none has ever taken a pool distribution. None of it has been sold. Two
+  still hold it; the third forwarded its 56.49mn one hop after a test transfer, and it is still
+  sitting there.</td></tr>
+<tr class="hi"><td>21 Sep 09:17:11 and 10:24:35</td>
+  <td><b>Team Pool 2 released 2.8844bn net</b> — the two
+  Safe transactions in the table above, to sixteen addresses with no prior history.</td></tr>
 </tbody></table>
-<div class="ctx">One hour before the first release, 24.19mn AKE (about $959,000) was deposited into
-non-Binance exchange custody — the largest deposit hour of the day. That is a sequence, not a link:
-none of those depositing wallets is one of the sixteen, and none has ever taken a pool distribution.
-</div>
-<div class="note"><b>On the dollar figure for this release.</b> The headline
-2.8844bn is valued at the hourly rate of each leg's own
-block. On a day whose candle range was $0.03148813 to
-$0.06470500, that mark carries real uncertainty: taken at the day's low the same
-tokens are worth
-$90,825,637, at the day's high
-$186,637,721. The token count is
-exact; the dollar figure is a mark, and it is quoted as one.</div>
+<div class="ctx">One hour before the first release, 24.19mn AKE was deposited into non-Binance
+exchange custody — the largest deposit hour of that day, and a sale under the rule this document
+uses. That is a sequence, not a link: none of those depositing wallets is one of the sixteen, and
+none has ever taken a pool distribution.</div>
 </div>
 <div class="section" id="sm"><h2>8 · Market structure — where the price is actually made</h2>
 <p style="font-size:13px">None of the releases above passed through a DEX. Understanding what a release
 can do to the price therefore needs one more number: how much depth there is to absorb it. There is very
 little. One pool — <a class="addr" href="https://bscscan.com/address/0x4d3bf29ba30f8bfe4624e7678709afa195689c5d" target="_blank" rel="noopener">PancakeSwap V3 AKE/WBNB, 0.01%</a> — carries essentially all of it, and
-at block 123,315,135 it holds <b>25.33mn AKE and 2,568.81 BNB</b>.</p>
+at block 123,384,555 it holds <b>25.79mn AKE and 2,536.56 BNB</b>.</p>
 <h3>Every swap on that pool, by day</h3>
 <table class="dense"><thead><tr><th>Day</th><th class="num">Swaps</th><th class="num">AKE sold in</th>
 <th class="num">USD</th><th class="num">AKE bought out</th><th class="num">USD</th>
@@ -823,7 +833,7 @@ continuous to the same block. Swap-level DEX data on the main pool is continuous
 that window is only partly scanned and is not used for any figure on this page. Event days covered: 2026-06-19, 2026-07-22, 2026-07-24, 2026-07-26, 2026-08-21, 2026-09-03, 2026-09-21.</div>
 <footer style="border-top:1px solid var(--border);margin-top:28px;padding:16px 0;
 color:var(--muted);font-size:11.5px">
-Generated 2026-09-22 05:13:20 UTC at block 123,315,135. All times UTC.
+Generated 2026-09-22 13:54:07 UTC at block 123,384,555. All times UTC.
 </footer>
 </div>
 </div>

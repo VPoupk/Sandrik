@@ -1,0 +1,159 @@
+{
+ "pool": "Team 2",
+ "days": [
+  "2026-07-26",
+  "2026-08-21",
+  "2026-09-03",
+  "2026-09-21"
+ ],
+ "repeated_amounts": [
+  {
+   "amount": "236250000000000000000000000",
+   "payments": [
+    {
+     "day": "2026-08-21",
+     "address": "0xf3bfbe73ac660ee858a734510f75b33cc7ada0b6"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0x9b2ac03cb933c8fd5dcb467bae5f48afb3357c87"
+    }
+   ]
+  },
+  {
+   "amount": "160416667000000000000000000",
+   "payments": [
+    {
+     "day": "2026-08-21",
+     "address": "0x43055a9aeade0121fa5a84aa0981109dcd572ab7"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0x6b9bf2f1e14e63802211b726ab02399f78bf02be"
+    }
+   ]
+  },
+  {
+   "amount": "117833333000000000000000000",
+   "payments": [
+    {
+     "day": "2026-08-21",
+     "address": "0x419b73b20023f25845cdc3b88afeabe767ef1931"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0x4d73981e5f271d824fa94f397cde653136a4b0e1"
+    }
+   ]
+  },
+  {
+   "amount": "83333333330000000000000000",
+   "payments": [
+    {
+     "day": "2026-08-21",
+     "address": "0xe2017853d1164d28f8f72ab748989ec7408c5126"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0x22cb1939f11789691e6af415aec5b7f1c542cdab"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0x5755e4938a9f8721595b65096113540f87f014f7"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0xf1bc00a23ed73c8eaeb967d5a13e6482360ec915"
+    }
+   ]
+  },
+  {
+   "amount": "68452380950000000000000000",
+   "payments": [
+    {
+     "day": "2026-08-21",
+     "address": "0xe8daec92cc2d1fc1a785ea16d3a01ea21a561403"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0x912e7cdcc1dcdd7195f714ddda705492a7a20ed1"
+    }
+   ]
+  },
+  {
+   "amount": "41666666670000000000000000",
+   "payments": [
+    {
+     "day": "2026-08-21",
+     "address": "0x6faf6b92e237ae5abb2aaf3bfd3bda3026e9cab0"
+    },
+    {
+     "day": "2026-08-21",
+     "address": "0xa16a5f3badbf829fe21ab07673072c52e8c3c551"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0x4c808645dae6ec951cbc42762b469c34cb1b4b8e"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0xe0520ff3820ad28197a45a0088589560087d78d9"
+    }
+   ]
+  },
+  {
+   "amount": "33333333000000000000000000",
+   "payments": [
+    {
+     "day": "2026-08-21",
+     "address": "0x0fd6e7e2349bc9eed730d623d16bae2cf760e714"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0xed5fbf5a35341bc7d159977b362d0c79147e3587"
+    }
+   ]
+  },
+  {
+   "amount": "25000000000000000000000000",
+   "payments": [
+    {
+     "day": "2026-08-21",
+     "address": "0x95d6dc1bf3dd32512b07ce2c0d4b65f9eb6f1b09"
+    },
+    {
+     "day": "2026-09-21",
+     "address": "0x8caacf372624d599999b5de70173be77d54cbb9d"
+    }
+   ]
+  }
+ ],
+ "address_overlap": 0,
+ "note": "Eight distinct payout amounts recur across Team Pool 2 release days. No address ever repeats. The same schedule of beneficiary amounts is being paid to a fresh set of addresses each time, which is a specific, checkable relationship between the release days rather than a family resemblance between wallets.",
+ "per_day": {
+  "2026-07-26": {
+   "recipients": 2,
+   "net": "2000000000000000000000000000",
+   "via_repeated_amounts": "0",
+   "pct": 0.0
+  },
+  "2026-08-21": {
+   "recipients": 14,
+   "net": "2567833333000000000000000000",
+   "via_repeated_amounts": "807952380620000000000000000",
+   "pct": 31.46436220126752
+  },
+  "2026-09-03": {
+   "recipients": 3,
+   "net": "1500000000000000000000000000",
+   "via_repeated_amounts": "0",
+   "pct": 0.0
+  },
+  "2026-09-21": {
+   "recipients": 16,
+   "net": "2884440475840000000000000000",
+   "via_repeated_amounts": "974619047280000000000000000",
+   "pct": 33.78884242692419
+  }
+ }
+}

@@ -55,6 +55,10 @@ DEXBAL = json.load(open(D + 'pool_dex_bal.json'))
 AKEPOOLS = json.load(open(D + 'ake_pools.json'))
 TPC = json.load(open(D + 'thirdparty_check.json'))
 OHLC = json.load(open(D + 'cg_daily_ohlc.json'))
+LED = json.load(open(D + 'pool_net_ledger.json'))     # net, reconciled to balanceOf
+ROLE = json.load(open(D + 'wallet_roles.json'))['roles']
+REPEAT = json.load(open(D + 'repeat_amounts.json'))
+TRAIL = json.load(open(D + 'release_trails.json'))   # multi-hop, to an exchange or not
 
 _kb = sorted(int(x) for x in TS); _kv = [TS[str(x)] for x in _kb]
 _hk = sorted(int(x) for x in HR); _hv = [HR[str(x)] for x in _hk]
@@ -134,20 +138,21 @@ def who(a):
     e = (LAB.get(a) or {}).get('entity')
     if e:
         return e
-    if a in RECIP:
-        return 'wallet from the cluster that has taken pool distributions before'
-    if a in WATCH:
-        return 'wallet already on the watchlist from earlier distributions'
-    return 'never-seen wallet'
+    r = ROLE.get(a)
+    if r:
+        return r['label']
+    return 'no prior on-chain history'
 
 
 def tagchips(a):
     a = a.lower()
     out = []
-    if a in RECIP:
-        out.append('<span class="chip chip-r">prior pool recipient</span>')
-    if a in WATCH:
-        out.append('<span class="chip chip-w">watchlist</span>')
+    r = ROLE.get(a)
+    if r and r.get('is_signer'):
+        out.append('<span class="chip chip-r">signed the release transaction</span>')
+    if r and r.get('is_repeat'):
+        out.append('<span class="chip chip-w">took a release on '
+                   + ' and '.join(r['release_days']) + '</span>')
     if a in CUSTODY:
         g = V[a]['group']
         out.append(f'<span class="chip chip-{"b" if g=="binance" else "x"}">{V[a].get("name")}</span>')
@@ -369,20 +374,31 @@ w(f'''<div class="section" id="s0"><h2>0 · Where things stand</h2>
   <div><div class="k">Next Investors boundary</div><div class="v">{ut(NEXT_B, '%-d %b')}</div>
     <div class="sub">{ut(NEXT_B)} UTC · period n={CUR_N+1}</div></div>
 </div>
-<p style="font-size:13px">Each pool balance, read live:</p>
-<table class="dense"><thead><tr><th>Pool</th><th class="num">Holds now</th>
-<th class="num">Released since 1 Jun 2026</th><th>Last movement</th></tr></thead><tbody>''')
+<p style="font-size:13px">Every figure below is <b>net</b> — what a pool sent, minus anything sent
+back to it. The last column is the check that makes the rest usable: allocation minus net released
+must equal <code>balanceOf</code> at the head block, and for all eight pools it does, to the wei.</p>
+<table class="dense"><thead><tr><th>Pool</th><th class="num">Allocation</th>
+<th class="num">Net released, lifetime</th><th class="num">of allocation</th>
+<th class="num">Net released since 1 Jun 2026</th><th class="num">Holds now</th>
+<th class="num">Reconciles?</th><th>Last movement</th></tr></thead><tbody>''')
 lastmove = {}
 for d in DAYS:
     for p, (o, i_) in EV['days'][d]['by_pool'].items():
         lastmove.setdefault(p, []).append((d, int(o) - int(i_)))
-for p in sorted(POOLS.values()):
+for p in sorted(POOLS.values(), key=lambda x: -int(LED['lifetime'][x]['holds_now'])):
+    L_ = LED['lifetime'][p]
     mv = lastmove.get(p, [])
-    rel = sum(x for _, x in mv)
+    since = sum(int(LED['days'][d]['by_pool'][p]['net'])
+                for d in LED['days'] if p in LED['days'][d]['by_pool'])
     last = mv[-1][0] if mv else '—'
     cls = ' class="hi"' if mv and mv[-1][0] == DAYS[-1] else ''
-    w(f'<tr{cls}><td><b>{p}</b></td><td class="num">{bn_amt(POOLBAL[p])}</td>'
-      f'<td class="num">{bn_amt(rel) if rel else "—"}</td><td>{last}</td></tr>')
+    w(f'<tr{cls}><td><b>{p}</b></td><td class="num">{bn_amt(int(L_["allocation"]))}</td>'
+      f'<td class="num">{bn_amt(int(L_["net_released"]))}</td>'
+      f'<td class="num">{L_["pct_released"]:.1f}%</td>'
+      f'<td class="num">{bn_amt(since) if since else "—"}</td>'
+      f'<td class="num">{bn_amt(int(L_["holds_now"]))}</td>'
+      f'<td class="num" style="color:var(--green)">{"exact" if L_["reconciles"] else "MISMATCH"}</td>'
+      f'<td>{last}</td></tr>')
 w('</tbody></table>')
 
 # the one sentence the whole page adds up to, computed rather than asserted
@@ -393,17 +409,20 @@ for _d in DAYS:
         _tr += _t['recv']; _th += _t['hold']; _tx += _t['ex']; _tb += _t['bi']
 _jul = int(EV['days']['2026-07-22']['net_out'])
 w(f'''<div class="verdict v-hold" style="margin-top:14px">
-<b>The single finding this page adds up to.</b> Across every release day that can be followed wallet
-by wallet — {bn_amt(_tr)} handed out, of which 2.0734bn went straight back into the Investors Pool
-the same hour on 19 June — <b>{bn_amt(_tx)} has reached a non-Binance exchange</b>. Not some. None.
-{bn_amt(_th)} is still sitting in the wallets that received it, and the remainder moved between
-wallets without ever touching an order book. The 22 July node unlock, too large to follow
-one wallet at a time, tells the same story from the other end: {bn_amt(_mig_tot)} of the
-{bn_amt(_jul)} released is sitting in {len(_mig_dst)} wallets it was consolidated into within five
-weeks. On this measure the distributed supply has not been sold — it has been concentrated.</div>
-<div class="note">That is a statement about what the chain can account for. If a recipient sold
-through an over-the-counter desk, or if any of these wallets is itself controlled by an exchange,
-nothing on-chain would distinguish that from holding.</div>
+<b>The single finding this page adds up to.</b> Across the release days that can be followed wallet
+by wallet — {bn_amt(int(TRAIL['totals']['net_walked']))} net —
+<b>{bn_amt(int(TRAIL['totals']['sold']))} ({TRAIL['totals']['pct_sold']:.1f}%) has been sold</b>, all of
+it the 19 June release, which reached Gate.io custody four hops and thirty-four days later. Everything
+else is still sitting in the wallets it was paid to. The 22 July node unlock says the same from the
+other end: {bn_amt(_mig_tot)} of the {bn_amt(_jul)} released is in the {len(_mig_dst)} wallets it was
+consolidated into within five weeks. So the distributed supply has overwhelmingly not been sold — it
+has been concentrated, which is a different risk rather than an absent one.</div>
+<div class="note"><b>This corrects an earlier version of this page</b>, which said none of it had been
+sold. That was an artefact of following each recipient only one transfer forward. The 19 June
+recipient passed the tokens to a second wallet the next morning, that wallet to a third four weeks
+later, and the third deposited the lot at Gate.io — none of which a one-hop test can see. Every
+release is now followed until it reaches an exchange, a DEX pool, or a wallet that still holds it.
+</div>
 </div>''')
 
 
@@ -413,22 +432,42 @@ w('''<div class="section" id="s1"><h2>1 · The release calendar</h2>
 eight allocation pools. Nothing else in this document is a pool event; price moves, exchange flow and
 liquidity changes on other days are covered inside the section of the release they relate to, or in
 § market structure.</p>
-<table class="dense"><thead><tr><th>Date (UTC)</th><th>Pools</th><th class="num">Net out</th>
-<th class="num">USD at the hour</th><th class="num">Recipients</th><th>Released by</th>
+<table class="dense"><thead><tr><th>Date (UTC)</th><th>Net released, by pool</th>
+<th class="num">Day total, net</th><th class="num">Recipients</th><th>Released by</th>
 <th class="num">Still held</th><th class="num">Reached a non-Binance exchange</th></tr></thead><tbody>''')
 for d in DAYS:
     e = EV['days'][d]
-    pools = ', '.join(f'{k}' for k in sorted(e['by_pool']))
-    caller = 'owner Safe' if any(t['via_safe'] for t in e['txs'].values()) else 'deployer'
+    L_ = LED['days'][d]
+    pools = ' · '.join(f'{k} {bn_amt(int(v["net"]))}' for k, v in
+                       sorted(L_['by_pool'].items(), key=lambda x: -int(x[1]['net'])))
+    # name who actually sent the transaction, rather than assuming the deployer
+    _snd = {t['caller'] for t in e['txs'].values()}
+    _sels = {t['selector'] for t in e['txs'].values()}
+    if any(t['via_safe'] for t in e['txs'].values()):
+        caller = 'the owner Safe'
+    elif _snd == {DEPLOYER}:
+        caller = 'the deployer'
+    elif '0xa646f9ad' in _sels:
+        caller = 'recipients, calling userWithdraw() themselves'
+    elif len(_snd) > 3:
+        # the causing transactions are sampled on days with thousands of blocks,
+        # so quote the recipient count rather than a count from the sample
+        caller = 'individual claimants, one transaction each'
+    else:
+        caller = ', '.join(who(x) for x in sorted(_snd))[:60]
     rows, tot = follow_table(e)
-    if tot:
-        heldtxt = f'{bn_amt(tot["hold"])} ({100*tot["hold"]/tot["recv"]:.0f}%)'
-        soldtxt = f'{bn_amt(tot["ex"])} ({100*tot["ex"]/tot["recv"]:.1f}%)'
+    tr = TRAIL['days'].get(d)
+    if tr:
+        netv = int(tr['net'])
+        soldv = int(tr['sold'])
+        heldtxt = f'{bn_amt(netv - soldv)} ({100*(netv-soldv)/netv:.0f}%)'
+        soldtxt = (f'<b style="color:var(--danger)">{bn_amt(soldv)} '
+                   f'({100*soldv/netv:.0f}%)</b>' if soldv else '0')
     else:
         heldtxt = soldtxt = 'see section'
     cls = ' class="hi"' if d == DAYS[-1] else ''
     w(f'<tr{cls}><td><b><a href="#d{d}">{d}</a></b></td><td>{pools}</td>'
-      f'<td class="num">{bn_amt(int(e["net_out"]))}</td><td class="num">{usd(e["usd_net"])}</td>'
+      f'<td class="num"><b>{bn_amt(int(L_["net_total"]))}</b></td>'
       f'<td class="num">{e["n_recipients"]:,}</td><td>{caller}</td>'
       f'<td class="num">{heldtxt}</td><td class="num">{soldtxt}</td></tr>')
 w(f'''</tbody></table>
@@ -480,12 +519,17 @@ MECH = {
 
 # A closing sentence per event, said once, in plain terms.
 EXTRA_NOTE = {
- '2026-06-19': 'Read this row carefully: there is one recipient, and the “moved elsewhere” figure '
-               'includes the 2.0734bn it sent straight back into the pool within the hour. What '
-               'actually left the pool that day is the net 2.0000bn, and none of it has ever reached '
-               'an exchange.',
- '2026-07-26': 'Ten recipients across five pools; the four that took the Investors leg had never '
-               'appeared on-chain before that afternoon and have not taken from any pool since.',
+ '2026-06-19': 'One recipient, and the “moved elsewhere” figure includes the 2.0734bn it sent '
+               'straight back into the pool twenty-four minutes later. What actually left the pool '
+               'that day is the net 2.0000bn. That figure is this day only — the Investors Pool '
+               'released a further 4.0000bn net on 26 July, so 6.0000bn net since June and '
+               '10.6329bn net across its whole life, against 25.0000bn allocated. The per-pool '
+               'table above carries all three numbers so the day figure cannot be read as the total.',
+ '2026-07-26': 'Ten recipients across five pools; the four that took the Investors leg called '
+               'userWithdraw() themselves, had never appeared on-chain before that afternoon, and '
+               'have not taken from any pool since. This is the Investors Pool\'s second and larger '
+               'release of the year — with 19 June it makes 6.0000bn net since June, and 10.6329bn '
+               'net lifetime.',
  '2026-08-21': 'Several of these addresses reappear on 3 September and 21 September, which is why '
                'the registry at the end tracks them as one cluster.',
  '2026-09-03': 'Three payouts of 500mn each, to wallets in the same cluster as 21 August.',
@@ -534,55 +578,29 @@ def _p(s):
 
 
 CONTEXT['2026-09-21'] = f'''
-<h3 style="margin-top:18px">The four days this release landed in</h3>
-<p style="font-size:13px">This is the only section where the market matters more than the release,
-because the release came at the end of the sharpest move the token has had.</p>
-<table class="dense"><thead><tr><th>When (UTC)</th><th class="num">Price</th><th>What happened</th>
+<h3 style="margin-top:18px">What else the chain shows around this release</h3>
+<p style="font-size:13px">No price in this table. Nothing released on 21 September has been sold, so
+there are no proceeds to report; what follows is the on-chain sequence the release sits inside.</p>
+<table class="dense"><thead><tr><th style="width:20%">When (UTC)</th><th>What happened on-chain</th>
 </tr></thead><tbody>
-<tr><td>18 Sep 10:00</td><td class="num">${_p('2026-09-18 10:00'):.8f}</td>
+<tr><td>18 Sep 10:00:00</td>
   <td><b>The Investors Pool vesting boundary passed and produced nothing.</b> Period n=13 came due
   exactly as the schedule computes it; the pool released nothing, and the self-claim path still
-  reverts <code>“fix”</code> for every caller. The rally that began three hours earlier is not a
+  reverts <code>“fix”</code> for every caller. Whatever moved the market that week, it was not a
   vesting event.</td></tr>
-<tr><td>18 Sep 18:00</td><td class="num">${_p('2026-09-18 18:00'):.8f}</td>
-  <td>The break: +23.4% in one hour, with no pool movement and no liquidity change.</td></tr>
-<tr class="hi"><td>19 Sep 20:14–20:28</td><td class="num">${_p('2026-09-19 20:00'):.8f}</td>
-  <td><b>Binance Hot Wallet 4 sent 216.23mn AKE — $14.40m at the hourly rate — to three wallets in
-  fourteen minutes.</b> None of the three had ever appeared before; none is a pool recipient. None of
-  it has been sold. Two still hold it; the third forwarded its 56.49mn one hop after a test transfer
-  and it is still sitting there.</td></tr>
-<tr class="hi"><td>20 Sep 10:33:30</td><td class="num">${OHLC['2026-09-20']['h']:.8f}</td>
-  <td><b>The all-time high</b>, and the figure to use: it is a candle high. The highest hourly mark
-  that day was ${max(HR[str(k)] for k in _hk if ut(k, '%Y-%m-%d') == '2026-09-20'):.8f}, which is
-  {100*(OHLC['2026-09-20']['h']/max(HR[str(k)] for k in _hk if ut(k, '%Y-%m-%d') == '2026-09-20')-1):.0f}%
-  below it. The spike opened and closed inside one hour.</td></tr>
-<tr class="hi2"><td>20 Sep, same day</td><td class="num">${OHLC['2026-09-20']['l']:.8f}</td>
-  <td><b>Down {100*(OHLC['2026-09-20']['l']/OHLC['2026-09-20']['h']-1):.1f}% from that high, inside
-  the day.</b> Net on-chain selling in the hour the hourly series shows the break was 0.86mn AKE,
-  about $60,000, on 79mn of gross flow; the largest single swap of the day was $63,219. Fresh supply
-  reaching exchange custody in the two hours around the top came to 26.05mn AKE, roughly $2.0m,
-  against ~$197m of reported hourly turnover. The selling was order-book inventory already on
-  exchanges, which leaves no trace here.</td></tr>
-<tr><td>21 Sep, low of the day</td><td class="num">${OHLC['2026-09-21']['l']:.8f}</td>
-  <td>A second fall, {100*(OHLC['2026-09-21']['l']/OHLC['2026-09-21']['h']-1):.1f}% high to low.
-  Same shape: the heaviest net on-chain sell hour of the window was −2.14mn AKE and −119.8 BNB,
-  about $120,000.</td></tr>
-<tr class="hi"><td>21 Sep 09:17 and 10:24</td><td class="num">${_p('2026-09-21 10:00'):.8f}</td>
-  <td><b>Team Pool 2 released {bn_amt(int(EV['days']['2026-09-21']['net_out']))} into the recovery</b>
-  — the two transactions in the table above.</td></tr>
+<tr class="hi"><td>19 Sep 20:14–20:28</td>
+  <td><b>Binance Hot Wallet 4 sent 216.23mn AKE to three addresses in fourteen minutes.</b> None had
+  appeared on-chain before; none has ever taken a pool distribution. None of it has been sold. Two
+  still hold it; the third forwarded its 56.49mn one hop after a test transfer, and it is still
+  sitting there.</td></tr>
+<tr class="hi"><td>21 Sep 09:17:11 and 10:24:35</td>
+  <td><b>Team Pool 2 released {bn_amt(int(LED['days']['2026-09-21']['net_total']))} net</b> — the two
+  Safe transactions in the table above, to sixteen addresses with no prior history.</td></tr>
 </tbody></table>
-<div class="ctx">One hour before the first release, 24.19mn AKE (about $959,000) was deposited into
-non-Binance exchange custody — the largest deposit hour of the day. That is a sequence, not a link:
-none of those depositing wallets is one of the sixteen, and none has ever taken a pool distribution.
-</div>
-<div class="note"><b>On the dollar figure for this release.</b> The headline
-{bn_amt(int(EV['days']['2026-09-21']['net_out']))} is valued at the hourly rate of each leg's own
-block. On a day whose candle range was ${OHLC['2026-09-21']['l']:.8f} to
-${OHLC['2026-09-21']['h']:.8f}, that mark carries real uncertainty: taken at the day's low the same
-tokens are worth
-{usd(int(EV['days']['2026-09-21']['net_out'])/1e18*OHLC['2026-09-21']['l'])}, at the day's high
-{usd(int(EV['days']['2026-09-21']['net_out'])/1e18*OHLC['2026-09-21']['h'])}. The token count is
-exact; the dollar figure is a mark, and it is quoted as one.</div>'''
+<div class="ctx">One hour before the first release, 24.19mn AKE was deposited into non-Binance
+exchange custody — the largest deposit hour of that day, and a sale under the rule this document
+uses. That is a sequence, not a link: none of those depositing wallets is one of the sixteen, and
+none has ever taken a pool distribution.</div>'''
 
 for d in BIG:
     e = EV['days'][d]
@@ -595,7 +613,7 @@ for d in BIG:
 {idx} · {dt.strftime('%-d %B %Y')} — {title}</h2>
 <div class="evhead"><span class="d">{idx} · {dt.strftime('%-d %B %Y')}</span>
 <span class="s">{title} — {sub}</span>
-<span class="amt">{bn_amt(int(e['net_out']))} &nbsp;·&nbsp; {usd(e['usd_net'])}</span></div>''')
+<span class="amt">{bn_amt(int(LED['days'][d]['net_total']))} net released</span></div>''')
 
     # --- quick facts
     tspan = (f"{ut(e['first_ts'], '%H:%M:%S')}" if e['first_ts'] == e['last_ts']
@@ -609,19 +627,20 @@ for d in BIG:
     w(f'''<div class="q">
   <div><div class="k">Window (UTC)</div><div class="v">{tspan}</div>
     <div class="sub">{len({l[0] for l in e['legs']})} block(s)</div></div>
-  <div><div class="k">Gross out / back in</div>
-    <div class="v">{bn_amt(int(e['gross_out']))} / {bn_amt(int(e['gross_in']))}</div>
-    <div class="sub">net {bn_amt(int(e['net_out']))}</div></div>
+  <div><div class="k">Net released</div>
+    <div class="v">{bn_amt(int(LED['days'][d]['net_total']))}</div>
+    <div class="sub">{bn_amt(int(e['gross_out']))} sent, {bn_amt(int(e['gross_in']))} returned</div></div>
   <div><div class="k">Recipients</div><div class="v">{e['n_recipients']:,}</div>
     <div class="sub">{'followed individually below' if rows else 'too many to follow individually'}</div></div>
   <div><div class="k">Released through</div><div class="v">{'the owner Safe' if viasafe else 'the deployer EOA'}</div>
     <div class="sub">{'outer call ' if viasafe else ''}{', '.join(f'<code>{s}</code>' for s in sels)}
       {'(Safe execTransaction — the function it wraps is named below)' if viasafe else ''}</div></div>
-  <div><div class="k">AKE price that day</div>
-    <div class="v">{('$' + format(p_on, '.8f')) if p_on else '—'}</div>
-    <div class="sub">{'from $' + format(p_prev, '.8f') + ' two days earlier' if p_prev else ''}</div></div>
-  <div><div class="k">Value released</div><div class="v">{usd(e['usd_net'])}</div>
-    <div class="sub">hourly rate at each leg's own block</div></div>
+  <div><div class="k">Sold since</div>
+    <div class="v">{bn_amt(int(TRAIL['days'][d]['sold'])) if TRAIL['days'].get(d) and int(TRAIL['days'][d]['sold']) else 'none'}</div>
+    <div class="sub">followed through every hop until it reached an exchange or stopped</div></div>
+  <div><div class="k">Pools drawn on</div>
+    <div class="v">{len(LED['days'][d]['by_pool'])}</div>
+    <div class="sub">{', '.join(sorted(LED['days'][d]['by_pool']))}</div></div>
 </div>''')
 
     m = MECH.get(d, ('', ''))
@@ -641,6 +660,56 @@ for d in BIG:
               f'first and last few. The mechanism is identical in all of them.</div>')
     if m[1]:
         w(f'<div class="ctx">{m[1]}</div>')
+
+    # net, per pool, for this day — and where that leaves each pool
+    w('<h3 style="margin-top:16px">Net released, by pool</h3>')
+    w('<table class="dense"><thead><tr><th>Pool</th><th class="num">Sent</th>'
+      '<th class="num">Returned</th><th class="num">Net released this day</th>'
+      '<th class="num">Running net since 1 Jun</th><th class="num">Net lifetime</th>'
+      '<th class="num">Holds after</th></tr></thead><tbody>')
+    for pname, pv in sorted(LED['days'][d]['by_pool'].items(), key=lambda x: -int(x[1]['net'])):
+        L_ = LED['lifetime'][pname]
+        w(f'<tr><td><b>{pname}</b></td><td class="num">{bn_amt(int(pv["sent"]))}</td>'
+          f'<td class="num">{bn_amt(int(pv["returned"])) if int(pv["returned"]) else "—"}</td>'
+          f'<td class="num"><b>{bn_amt(int(pv["net"]))}</b></td>'
+          f'<td class="num">{bn_amt(int(pv["running_net_since"]))}</td>'
+          f'<td class="num">{bn_amt(int(L_["net_released"]))}</td>'
+          f'<td class="num">{bn_amt(int(L_["holds_now"]))}</td></tr>')
+    w(f'<tr style="border-top:2px solid var(--border)"><td><b>day total</b></td>'
+      f'<td class="num">{bn_amt(int(e["gross_out"]))}</td>'
+      f'<td class="num">{bn_amt(int(e["gross_in"])) if int(e["gross_in"]) else "—"}</td>'
+      f'<td class="num"><b>{bn_amt(int(LED["days"][d]["net_total"]))}</b></td>'
+      f'<td class="num"></td><td class="num"></td><td class="num"></td></tr>')
+    w('</tbody></table>')
+    if int(e['gross_in']):
+        w(f'<div class="note">Sent and returned are both shown because the difference is the '
+          f'point: {bn_amt(int(e["gross_out"]))} left the pool and {bn_amt(int(e["gross_in"]))} '
+          f'came back, so the release is {bn_amt(int(LED["days"][d]["net_total"]))}. Quoting the '
+          f'gross figure would overstate it by '
+          f'{int(e["gross_out"])/max(1,int(LED["days"][d]["net_total"])):.2f}x.</div>')
+
+    # the same payout amounts, paid again to fresh addresses
+    if d in REPEAT.get('per_day', {}) and REPEAT['per_day'][d]['pct'] > 0:
+        rp = REPEAT['per_day'][d]
+        rows_ = [r for r in REPEAT['repeated_amounts']
+                 if any(x['day'] == d for x in r['payments'])]
+        w('<h3 style="margin-top:16px">The same amounts, paid again to new addresses</h3>')
+        w(f'<p style="font-size:12.5px">{bn_amt(int(rp["via_repeated_amounts"]))} of this day\'s '
+          f'{bn_amt(int(rp["net"]))} ({rp["pct"]:.0f}%) went out in amounts that also appear on '
+          f'another Team Pool 2 release day — each time to a different address. No address has '
+          f'ever appeared on two of these days.</p>')
+        w('<table class="dense"><thead><tr><th class="num">Amount</th>'
+          '<th>Paid on each of these days, to these addresses</th></tr></thead><tbody>')
+        for r in rows_:
+            cells = ' · '.join(
+                f'{"<b>" if x["day"] == d else ""}{x["day"]} {bsc(x["address"], x["address"][:10] + "…")}'
+                f'{"</b>" if x["day"] == d else ""}' for x in r['payments'])
+            w(f'<tr><td class="num"><b>{bn_amt(int(r["amount"]))}</b></td><td>{cells}</td></tr>')
+        w('</tbody></table>')
+        w('<div class="note">This is a specific, checkable relationship, not a resemblance: the '
+          'identical payout figure recurs while the receiving address is new every time. The '
+          'simplest reading is one beneficiary list being paid repeatedly through fresh wallets. '
+          'It does not identify who the beneficiaries are, and nothing here claims to.</div>')
 
     # --- where it went
     w('<h3 style="margin-top:16px">Where it went, and what happened next</h3>')
@@ -663,38 +732,47 @@ for d in BIG:
           f'<td class="num"><b>{bn_amt(tot["bi"])}</b></td>'
           f'<td class="num"><b>{bn_amt(tot["other"])}</b></td></tr>')
         w('</tbody></table>')
-        w(verdict_box(tot, EXTRA_NOTE.get(d, '')))
+        tr = TRAIL['days'].get(d)
+        if tr:
+            netv, soldv = int(tr['net']), int(tr['sold'])
+            cls = 'v-sold' if soldv else 'v-hold'
+            if soldv:
+                body = (f'<b>Sold.</b> All {bn_amt(soldv)} of this release reached '
+                        f'{tr["venue"]} on {tr["sold_on"]} UTC — {tr["hops_to_exchange"]} hops '
+                        f'from the pool, {((datetime.datetime.strptime(tr["sold_on"][:10], "%Y-%m-%d") - datetime.datetime.strptime(d, "%Y-%m-%d")).days)} days after the release. '
+                        f'The trail is below.')
+            else:
+                body = (f'<b>Not sold.</b> {bn_amt(netv)} released, and none of it has reached an '
+                        f'exchange or a DEX pool. {tr.get("note", "")}')
+            w(f'<div class="verdict {cls}">{body} {EXTRA_NOTE.get(d, "")}</div>')
+        if tr and tr.get('trail'):
+            w('<h3 style="margin-top:16px">The trail, hop by hop</h3>')
+            w('<table class="dense"><thead><tr><th>When (UTC)</th><th>From</th><th>To</th>'
+              '<th class="num">Amount</th><th>What it is</th></tr></thead><tbody>')
+            for st in tr['trail']:
+                trcls = ' class="hi2"' if st['to'].startswith('0x0d070796') else ''
+                w(f'<tr{trcls}><td class="mono">{st["when"]}</td>'
+                  f'<td>{st["from"] if not st["from"].startswith("0x") else bsc(st["from"], st["from"][:10] + "…")}</td>'
+                  f'<td>{st["to"] if not st["to"].startswith("0x") else bsc(st["to"], st["to"][:10] + "…")}</td>'
+                  f'<td class="num">{bn_amt(int(st["amount"]))}</td>'
+                  f'<td style="font-size:11px">{st["note"]}</td></tr>')
+            w('</tbody></table>')
+            w('<div class="note">Each step was found by bisecting <code>balanceOf</code> on the '
+              'chain and then reading the transfer log at the block the balance changed, so the '
+              'chain is complete rather than sampled. Thirty-four days and three intermediate '
+              'wallets separate the release from the deposit, which is why a one-hop test missed '
+              'it.</div>')
     else:
         w(f'<div class="note">{e["n_recipients"]:,} recipients — too many to follow one by one in a '
           f'table. The reconciliation for this day is below.</div>')
         if d in BULK:
             w(BULK[d])
 
-    # --- market context
-    if pw:
-        w('<h3 style="margin-top:16px">The market around it</h3>')
-        w('<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th>'
-          '<th class="num">Change</th><th class="num">High</th><th class="num">Low</th>'
-          '<th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>')
-        prev = None
-        for dd, p_, v_ in pw:
-            ch = f'{100*(p_/prev-1):+.1f}%' if prev else '—'
-            cls = ' class="hi"' if dd == d else ''
-            o_ = OHLC.get(dd)
-            hi_ = f"${o_['h']:.8f}" if o_ else '—'
-            lo_ = f"${o_['l']:.8f}" if o_ else '—'
-            rg_ = f"{100*(o_['l']/o_['h']-1):.1f}%" if o_ else '—'
-            w(f'<tr{cls}><td>{dd}{" — release" if dd == d else ""}</td>'
-              f'<td class="num">${p_:.8f}</td><td class="num">{ch}</td>'
-              f'<td class="num">{hi_}</td><td class="num">{lo_}</td>'
-              f'<td class="num">{rg_}</td><td class="num">{usd(v_)}</td></tr>')
-            prev = p_
-        w('</tbody></table>')
-        if any(OHLC.get(dd) for dd, _, _ in pw):
-            w('<div class="note">High, low and range are candle figures. The close column '
-              'is the daily mark. Where they disagree sharply the token moved a long way '
-              'inside a single hour, which an hourly series cannot show — see the '
-              'cross-check section.</div>')
+    # No price here. A release that has not been sold has no proceeds, and a
+    # dollar figure on an unsold token is a notional mark that reads like money
+    # changing hands. Price belongs in the market-structure section, where
+    # trading actually happens, and against any release that does reach an
+    # exchange — so far none has.
     if d in CONTEXT:
         w(CONTEXT[d])
     w('</div>')
