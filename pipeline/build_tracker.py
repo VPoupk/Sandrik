@@ -42,9 +42,6 @@ POOLS = {'0x27333bd8c321a263b0565e69eea3b736b9d1f42c': 'Investors',
          '0x9009342f6d3b2f685fc9f5fe4dc9d3e30ed0e248': 'Team 1',
          '0xbd6ae2b2a7414934327e2a7da1a8691c792f9ad5': 'KOL',
          '0x6b394c413d60b2aadb37a907a73a6f9a91c35015': 'Community'}
-ALLOC = {'Investors': 25e27, 'Nodes 1': 0, 'Nodes 2': 0, 'Nodes 3': 0,
-         'Team 1': 0, 'Team 2': 0, 'KOL': 0, 'Community': 0}
-
 # ---------------------------------------------------------------- load
 EV = json.load(open(D + 'pool_event_days.json'))
 cg = json.load(open(D + 'cg_daily_pv.json'))
@@ -56,6 +53,8 @@ KS = {k: set(a.lower() for a in v) for k, v in json.load(open(D + 'known_sets.js
 HEAD = json.load(open(D + 'head_now.json'))
 DEXBAL = json.load(open(D + 'pool_dex_bal.json'))
 AKEPOOLS = json.load(open(D + 'ake_pools.json'))
+TPC = json.load(open(D + 'thirdparty_check.json'))
+OHLC = json.load(open(D + 'cg_daily_ohlc.json'))
 
 _kb = sorted(int(x) for x in TS); _kv = [TS[str(x)] for x in _kb]
 _hk = sorted(int(x) for x in HR); _hv = [HR[str(x)] for x in _hk]
@@ -211,6 +210,23 @@ def w(s):
 
 CSS = open(D + '../assets/base.css').read()
 EXTRA = """
+  /* layout classes this page uses that base.css does not define */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
+  .hdr { display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end;
+         border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:18px; }
+  .hdr h1 { font-size:24px; font-weight:700; color:var(--accent); line-height:1.25; margin:0; }
+  .hdr .sub { font-size:12.5px; color:var(--muted); margin-top:6px; }
+  .tz { background:rgba(59,130,246,.10); border:1px solid rgba(59,130,246,.3); border-radius:8px;
+        padding:10px 13px; font-size:12.5px; color:#93c5fd; margin-bottom:20px; }
+  .toc { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:8px; }
+  .toc a { display:block; padding:8px 11px; background:var(--card2); border:1px solid var(--border);
+           border-radius:6px; font-size:12px; }
+  .note { font-size:11.5px; color:var(--muted); margin-top:8px; line-height:1.55; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
+  .hi  { background:rgba(251,191,36,.09); }
+  .hi2 { background:rgba(239,68,68,.08); }
+  .hi3 { background:rgba(16,185,129,.07); }
+  .mono { font-family:ui-monospace,Menlo,monospace; }
   .chip { display:inline-block; font-size:10px; padding:1px 6px; border-radius:20px;
           margin-left:4px; vertical-align:middle; white-space:nowrap; }
   .chip-r { background:rgba(239,68,68,.15); color:#fca5a5; border:1px solid rgba(239,68,68,.3); }
@@ -301,7 +317,8 @@ TITLES = {
     '2026-09-21': ('Team Pool 2', 'the largest team release since July'),
 }
 
-w(f'''<title>AKE Release Tracker</title>
+w(f'''<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AKE Release Tracker</title>
 <style>{CSS}{EXTRA}</style>
 <div class="wrap">
 <header class="hdr">
@@ -315,6 +332,8 @@ w(f'''<title>AKE Release Tracker</title>
 <div class="tz">All times are <b>UTC</b>. Every USD figure is the CoinGecko hourly AKE/USD rate
 interpolated to the block's own timestamp — not a daily close. Over this window the price has moved
 more than 40% inside a single day, so a daily mark would misstate almost every number on this page.
+Highs, lows and ranges are a separate matter: those come from candles, because an hourly series cannot
+show a spike that opens and closes inside the hour — §{len(BIG)+3} sets out where that mattered.
 Token amounts are shown in bn/mn, with the exact wei behind every figure in the underlying scans.</div>
 ''')
 
@@ -327,8 +346,9 @@ for i, d in enumerate(BIG, 2):
     w(f'<a href="#d{d}">{i} · {datetime.datetime.strptime(d, "%Y-%m-%d").strftime("%-d %B %Y")} — {t}</a>')
 n = len(BIG) + 2
 w(f'<a href="#sm">{n} · Market structure — where the price is actually made</a>')
-w(f'<a href="#sr">{n+1} · Wallet and cluster registry</a>')
-w(f'<a href="#sx">{n+2} · Method, and what this does not show</a>')
+w(f'<a href="#sv">{n+1} · Cross-check against published sources</a>')
+w(f'<a href="#sr">{n+2} · Wallet and cluster registry</a>')
+w(f'<a href="#sx">{n+3} · Method, and what this does not show</a>')
 w('</div></div>')
 
 # ---------------------------------------------------------------- 0
@@ -531,17 +551,22 @@ because the release came at the end of the sharpest move the token has had.</p>
   fourteen minutes.</b> None of the three had ever appeared before; none is a pool recipient. None of
   it has been sold. Two still hold it; the third forwarded its 56.49mn one hop after a test transfer
   and it is still sitting there.</td></tr>
-<tr><td>20 Sep 10:00</td><td class="num">${_p('2026-09-20 10:00'):.8f}</td>
-  <td>The high.</td></tr>
-<tr class="hi2"><td>20 Sep 11:43</td><td class="num">${_p('2026-09-20 11:40'):.8f}</td>
-  <td><b>Down 49.6% from the high in under two hours.</b> Net on-chain selling in that hour was
-  0.86mn AKE, about $60,000, on 79mn of gross flow; the largest single swap of the day was $63,219.
-  Fresh supply reaching exchange custody in the two hours around the top came to 26.05mn AKE, roughly
-  $2.0m, against ~$197m of reported hourly turnover. The selling was order-book inventory already
-  on exchanges, which leaves no trace here.</td></tr>
-<tr><td>21 Sep 05:00</td><td class="num">${_p('2026-09-21 05:00'):.8f}</td>
-  <td>A second fall, −30.7% in an hour. Same shape: the heaviest net on-chain sell hour of the window
-  was −2.14mn AKE and −119.8 BNB, about $120,000.</td></tr>
+<tr class="hi"><td>20 Sep 10:33:30</td><td class="num">${OHLC['2026-09-20']['h']:.8f}</td>
+  <td><b>The all-time high</b>, and the figure to use: it is a candle high. The highest hourly mark
+  that day was ${max(HR[str(k)] for k in _hk if ut(k, '%Y-%m-%d') == '2026-09-20'):.8f}, which is
+  {100*(OHLC['2026-09-20']['h']/max(HR[str(k)] for k in _hk if ut(k, '%Y-%m-%d') == '2026-09-20')-1):.0f}%
+  below it. The spike opened and closed inside one hour.</td></tr>
+<tr class="hi2"><td>20 Sep, same day</td><td class="num">${OHLC['2026-09-20']['l']:.8f}</td>
+  <td><b>Down {100*(OHLC['2026-09-20']['l']/OHLC['2026-09-20']['h']-1):.1f}% from that high, inside
+  the day.</b> Net on-chain selling in the hour the hourly series shows the break was 0.86mn AKE,
+  about $60,000, on 79mn of gross flow; the largest single swap of the day was $63,219. Fresh supply
+  reaching exchange custody in the two hours around the top came to 26.05mn AKE, roughly $2.0m,
+  against ~$197m of reported hourly turnover. The selling was order-book inventory already on
+  exchanges, which leaves no trace here.</td></tr>
+<tr><td>21 Sep, low of the day</td><td class="num">${OHLC['2026-09-21']['l']:.8f}</td>
+  <td>A second fall, {100*(OHLC['2026-09-21']['l']/OHLC['2026-09-21']['h']-1):.1f}% high to low.
+  Same shape: the heaviest net on-chain sell hour of the window was −2.14mn AKE and −119.8 BNB,
+  about $120,000.</td></tr>
 <tr class="hi"><td>21 Sep 09:17 and 10:24</td><td class="num">${_p('2026-09-21 10:00'):.8f}</td>
   <td><b>Team Pool 2 released {bn_amt(int(EV['days']['2026-09-21']['net_out']))} into the recovery</b>
   — the two transactions in the table above.</td></tr>
@@ -549,7 +574,15 @@ because the release came at the end of the sharpest move the token has had.</p>
 <div class="ctx">One hour before the first release, 24.19mn AKE (about $959,000) was deposited into
 non-Binance exchange custody — the largest deposit hour of the day. That is a sequence, not a link:
 none of those depositing wallets is one of the sixteen, and none has ever taken a pool distribution.
-</div>'''
+</div>
+<div class="note"><b>On the dollar figure for this release.</b> The headline
+{bn_amt(int(EV['days']['2026-09-21']['net_out']))} is valued at the hourly rate of each leg's own
+block. On a day whose candle range was ${OHLC['2026-09-21']['l']:.8f} to
+${OHLC['2026-09-21']['h']:.8f}, that mark carries real uncertainty: taken at the day's low the same
+tokens are worth
+{usd(int(EV['days']['2026-09-21']['net_out'])/1e18*OHLC['2026-09-21']['l'])}, at the day's high
+{usd(int(EV['days']['2026-09-21']['net_out'])/1e18*OHLC['2026-09-21']['h'])}. The token count is
+exact; the dollar figure is a mark, and it is quoted as one.</div>'''
 
 for d in BIG:
     e = EV['days'][d]
@@ -641,16 +674,27 @@ for d in BIG:
     if pw:
         w('<h3 style="margin-top:16px">The market around it</h3>')
         w('<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th>'
-          '<th class="num">Change</th><th class="num">Reported volume</th></tr></thead><tbody>')
+          '<th class="num">Change</th><th class="num">High</th><th class="num">Low</th>'
+          '<th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>')
         prev = None
         for dd, p_, v_ in pw:
             ch = f'{100*(p_/prev-1):+.1f}%' if prev else '—'
             cls = ' class="hi"' if dd == d else ''
+            o_ = OHLC.get(dd)
+            hi_ = f"${o_['h']:.8f}" if o_ else '—'
+            lo_ = f"${o_['l']:.8f}" if o_ else '—'
+            rg_ = f"{100*(o_['l']/o_['h']-1):.1f}%" if o_ else '—'
             w(f'<tr{cls}><td>{dd}{" — release" if dd == d else ""}</td>'
               f'<td class="num">${p_:.8f}</td><td class="num">{ch}</td>'
-              f'<td class="num">{usd(v_)}</td></tr>')
+              f'<td class="num">{hi_}</td><td class="num">{lo_}</td>'
+              f'<td class="num">{rg_}</td><td class="num">{usd(v_)}</td></tr>')
             prev = p_
         w('</tbody></table>')
+        if any(OHLC.get(dd) for dd, _, _ in pw):
+            w('<div class="note">High, low and range are candle figures. The close column '
+              'is the daily mark. Where they disagree sharply the token moved a long way '
+              'inside a single hour, which an hourly series cannot show — see the '
+              'cross-check section.</div>')
     if d in CONTEXT:
         w(CONTEXT[d])
     w('</div>')
@@ -723,7 +767,60 @@ falls in this window.</div>
 
 
 # ---------------------------------------------------------------- registry
-w(f'''<div class="section" id="sr"><h2>{n_+1} · Wallet and cluster registry</h2>
+# ---------------------------------------------------------------- cross-check
+VER = {'match': 'v-hold', 'noted': 'v-mix', 'not comparable': 'v-mix'}
+w(f'''<div class="section" id="sv"><h2>{n_+1} · Cross-check against published sources</h2>
+<p style="font-size:13px">This project takes its facts from the chain rather than from aggregators.
+That is a sourcing rule, not a claim to be beyond checking — so here is the check. Where an
+independent source agrees, it is recorded. Where it disagrees, the disagreement is recorded too,
+including the two places it found this document wrong.</p>
+<table class="dense"><thead><tr><th style="width:22%">What</th><th>From the chain</th>
+<th>Published</th><th>Verdict</th></tr></thead><tbody>''')
+for c in TPC['checks']:
+    v = c['verdict']
+    col = ('var(--green)' if v == 'match' else
+           'var(--danger)' if v in ('MISMATCH', 'EARLIER FIGURE CORRECTED',
+                                    'HOURLY SERIES UNDERSTATES', 'COVERAGE GAP')
+           else 'var(--warn)')
+    w(f'<tr><td><b>{c["what"]}</b></td><td class="mono" style="font-size:11px">{c["chain"]}</td>'
+      f'<td class="mono" style="font-size:11px">{c["published"]}'
+      f'<div style="color:var(--muted);font-size:10px">{c["source"]}</div></td>'
+      f'<td style="color:{col};font-weight:600;font-size:11px">{c["verdict"]}</td></tr>')
+    if c['note']:
+        w(f'<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);'
+          f'padding-top:0">{c["note"]}</td></tr>')
+w('</tbody></table>')
+
+w(f'''<h3 style="margin-top:18px">What an hourly series cannot show</h3>
+<p style="font-size:12.5px">Every USD figure in this document is the hourly rate interpolated to a
+block timestamp, which is the right way to value a single transfer at a moment. It is the wrong way
+to describe a range. On the days below the token moved further inside an hour than the hourly marks
+ever recorded:</p>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Highest hourly mark</th>
+<th class="num">Candle high</th><th class="num">Understated by</th><th class="num">Candle low</th>
+<th class="num">True high-to-low</th></tr></thead><tbody>''')
+for g in TPC.get('hourly_vs_candles', []):
+    cls = ' class="hi2"' if g['high_understated_pct'] > 40 else ''
+    w(f'<tr{cls}><td>{g["day"]}</td><td class="num">${g["hourly_max"]:.8f}</td>'
+      f'<td class="num">${g["candle_high"]:.8f}</td>'
+      f'<td class="num">{g["high_understated_pct"]:.0f}%</td>'
+      f'<td class="num">${g["candle_low"]:.8f}</td>'
+      f'<td class="num">{g["true_range_pct"]:.1f}%</td></tr>')
+w(f'''</tbody></table>
+<div class="verdict v-sold"><b>Two corrections this check forced.</b> The 20 September peak was
+${OHLC['2026-09-20']['h']:.8f}, not the ${max(HR[str(k)] for k in _hk if ut(k, '%Y-%m-%d') == '2026-09-20'):.8f}
+an hourly series showed, and the fall from it was
+{100*(OHLC['2026-09-20']['l']/OHLC['2026-09-20']['h']-1):.1f}% rather than the −49.6% first reported.
+And the exchange-deposit totals throughout are a floor: {len(TPC['venue_gaps'])} venues carrying
+{usd(sum(g['volume_usd'] for g in TPC['venue_gaps']))} of daily volume have no custody address in
+this project's registry, so deposits to them are invisible here.</div>
+<div class="note">Neither correction changes a conclusion. The direction of every move, the fact that
+nothing from any release reached an exchange, and the reconciliation of the pools are unaffected —
+but the size of one price move was wrong and is fixed, and a known blind spot is now stated rather
+than left implied.</div>
+</div>''')
+
+w(f'''<div class="section" id="sr"><h2>{n_+2} · Wallet and cluster registry</h2>
 <p style="font-size:13px">Everything on this page that has a name, and why it has one. Nothing here is
 inferred from an off-chain source; each label is either an on-chain entity label or a description of
 what the wallet has actually done.</p>
@@ -767,7 +864,7 @@ controls it.</div>
 
 # ---------------------------------------------------------------- method
 covered = sorted(EV['days'])
-w(f'''<div class="section" id="sx"><h2>{n_+2} · Method, and what this does not show</h2>
+w(f'''<div class="section" id="sx"><h2>{n_+3} · Method, and what this does not show</h2>
 <div class="grid2"><div>
 <h3>How the numbers here are produced</h3>
 <ul style="font-size:12.5px;line-height:1.75;padding-left:18px">
@@ -777,8 +874,10 @@ come from CoinGecko; nothing else is taken from a third party.</li>
 <li><b>Pool flow is complete, not sampled.</b> Every AKE transfer with a pool on either side has been
 recorded from the token's deployment to block {HEAD['head']:,}, de-duplicated on (block, logIndex),
 and the segments are checked to tile the chain with no gap before anything is written.</li>
-<li><b>Hourly pricing.</b> Each transfer is valued at the CoinGecko hourly AKE/USD rate interpolated to
-its own block timestamp.</li>
+<li><b>Hourly pricing, and its limit.</b> Each transfer is valued at the CoinGecko hourly AKE/USD
+rate interpolated to its own block timestamp — the right mark for a transfer at a moment. Price
+<em>ranges</em> use OHLC candles instead, because an hourly series missed the 20 September top by
+{TPC['hourly_vs_candles'][1]['high_understated_pct']:.0f}%. Both are cross-checked in §{len(BIG)+3}.</li>
 <li><b>The sale test.</b> A transfer into any exchange except Binance counts as a sale. Anything still
 in a wallet is a hold, no matter how many wallets it is spread across. Binance flows are reported
 separately because deposits there are routinely custody and market-making moves.</li>

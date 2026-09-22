@@ -1,3 +1,4 @@
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AKE Release Tracker</title>
 <style>
   :root {
@@ -144,6 +145,23 @@
   a:hover { text-decoration: underline; }
   code { font-family: monospace; font-size: 11px; background: var(--card2); padding: 1px 5px; border-radius: 3px; color: #93c5fd; }
 
+  /* layout classes this page uses that base.css does not define */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
+  .hdr { display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end;
+         border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:18px; }
+  .hdr h1 { font-size:24px; font-weight:700; color:var(--accent); line-height:1.25; margin:0; }
+  .hdr .sub { font-size:12.5px; color:var(--muted); margin-top:6px; }
+  .tz { background:rgba(59,130,246,.10); border:1px solid rgba(59,130,246,.3); border-radius:8px;
+        padding:10px 13px; font-size:12.5px; color:#93c5fd; margin-bottom:20px; }
+  .toc { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:8px; }
+  .toc a { display:block; padding:8px 11px; background:var(--card2); border:1px solid var(--border);
+           border-radius:6px; font-size:12px; }
+  .note { font-size:11.5px; color:var(--muted); margin-top:8px; line-height:1.55; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
+  .hi  { background:rgba(251,191,36,.09); }
+  .hi2 { background:rgba(239,68,68,.08); }
+  .hi3 { background:rgba(16,185,129,.07); }
+  .mono { font-family:ui-monospace,Menlo,monospace; }
   .chip { display:inline-block; font-size:10px; padding:1px 6px; border-radius:20px;
           margin-left:4px; vertical-align:middle; white-space:nowrap; }
   .chip-r { background:rgba(239,68,68,.15); color:#fca5a5; border:1px solid rgba(239,68,68,.3); }
@@ -177,13 +195,15 @@
   <div>
     <h1>AKE — what the team-controlled pools have released, and what happened next</h1>
     <div class="sub">BNB Smart Chain · AKEDO <a class="addr" href="https://bscscan.com/address/0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db" target="_blank" rel="noopener">AKE token</a> · June 2026 onward ·
-      built at block 123,221,764, 2026-09-21 17:32:42 UTC</div>
+      built at block 123,315,135, 2026-09-22 05:13:20 UTC</div>
   </div>
 </header>
 
 <div class="tz">All times are <b>UTC</b>. Every USD figure is the CoinGecko hourly AKE/USD rate
 interpolated to the block's own timestamp — not a daily close. Over this window the price has moved
 more than 40% inside a single day, so a daily mark would misstate almost every number on this page.
+Highs, lows and ranges are a separate matter: those come from candles, because an hourly series cannot
+show a spike that opens and closes inside the hour — §9 sets out where that mattered.
 Token amounts are shown in bn/mn, with the exact wei behind every figure in the underlying scans.</div>
 
 <div class="section"><h2>Contents</h2><div class="toc">
@@ -196,17 +216,18 @@ Token amounts are shown in bn/mn, with the exact wei behind every figure in the 
 <a href="#d2026-09-03">6 · 3 September 2026 — Team Pool 2</a>
 <a href="#d2026-09-21">7 · 21 September 2026 — Team Pool 2</a>
 <a href="#sm">8 · Market structure — where the price is actually made</a>
-<a href="#sr">9 · Wallet and cluster registry</a>
-<a href="#sx">10 · Method, and what this does not show</a>
+<a href="#sv">9 · Cross-check against published sources</a>
+<a href="#sr">10 · Wallet and cluster registry</a>
+<a href="#sx">11 · Method, and what this does not show</a>
 </div></div>
 <div class="section" id="s0"><h2>0 · Where things stand</h2>
 <div class="q">
   <div><div class="k">Still inside the eight pools</div><div class="v">22.3113bn</div>
-    <div class="sub">read from chain at block 123,221,764</div></div>
+    <div class="sub">read from chain at block 123,315,135</div></div>
   <div><div class="k">Released since 1 June 2026</div><div class="v">39.3606bn</div>
     <div class="sub">net of anything sent back, across 6 days</div></div>
   <div><div class="k">Days a pool actually moved</div><div class="v">7</div>
-    <div class="sub">in 112 days elapsed</div></div>
+    <div class="sub">in 113 days elapsed</div></div>
   <div><div class="k">Price now</div><div class="v">$0.05796750</div>
     <div class="sub">CoinGecko hourly, 21 Sep 17:09 UTC</div></div>
   <div><div class="k">Investors Pool</div><div class="v">14.3671bn</div>
@@ -297,12 +318,12 @@ day has its own reconciliation in its section.</div>
 </tbody></table>
 <div class="verdict v-hold"><b>Follow-through.</b> Of the 4.0734bn released, <b>0 (0.0%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 4.0734bn moved to other wallets without reaching an exchange. Read this row carefully: there is one recipient, and the “moved elsewhere” figure includes the 2.0734bn it sent straight back into the pool within the hour. What actually left the pool that day is the net 2.0000bn, and none of it has ever reached an exchange.</div>
 <h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-06-17</td><td class="num">$0.00036832</td><td class="num">—</td><td class="num">$1,557,414</td></tr>
-<tr><td>2026-06-18</td><td class="num">$0.00033147</td><td class="num">-10.0%</td><td class="num">$1,332,350</td></tr>
-<tr class="hi"><td>2026-06-19 — release</td><td class="num">$0.00032107</td><td class="num">-3.1%</td><td class="num">$1,313,122</td></tr>
-<tr><td>2026-06-20</td><td class="num">$0.00032618</td><td class="num">+1.6%</td><td class="num">$1,206,405</td></tr>
-<tr><td>2026-06-21</td><td class="num">$0.00042849</td><td class="num">+31.4%</td><td class="num">$2,481,213</td></tr>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
+<tr><td>2026-06-17</td><td class="num">$0.00036832</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$1,557,414</td></tr>
+<tr><td>2026-06-18</td><td class="num">$0.00033147</td><td class="num">-10.0%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$1,332,350</td></tr>
+<tr class="hi"><td>2026-06-19 — release</td><td class="num">$0.00032107</td><td class="num">-3.1%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$1,313,122</td></tr>
+<tr><td>2026-06-20</td><td class="num">$0.00032618</td><td class="num">+1.6%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$1,206,405</td></tr>
+<tr><td>2026-06-21</td><td class="num">$0.00042849</td><td class="num">+31.4%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$2,481,213</td></tr>
 </tbody></table>
 </div>
 <div class="section" id="d2026-07-22">
@@ -349,7 +370,7 @@ day has its own reconciliation in its section.</div>
   <td>claimed by 5,879 wallets across the day</td></tr>
 <tr class="hi2"><td>held today by the 98 wallets it was swept into</td>
   <td class="num">20.8671bn</td>
-  <td>read from chain at block 123,221,764; the sweep itself completed by 29 August</td></tr>
+  <td>read from chain at block 123,315,135; the sweep itself completed by 29 August</td></tr>
 <tr><td>difference</td><td class="num">100</td>
   <td>what is no longer in that set — sold, spent or moved on since</td></tr>
 </tbody></table>
@@ -359,12 +380,12 @@ still sitting there. That is a consolidation, not a sale — it never reached an
 the supply is held far more tightly than the 5,879-wallet
 claimant count suggests: a decision by a handful of keys can move it.</div>
 <h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-07-20</td><td class="num">$0.00196937</td><td class="num">—</td><td class="num">$83,086,193</td></tr>
-<tr><td>2026-07-21</td><td class="num">$0.00168748</td><td class="num">-14.3%</td><td class="num">$43,629,313</td></tr>
-<tr class="hi"><td>2026-07-22 — release</td><td class="num">$0.00168297</td><td class="num">-0.3%</td><td class="num">$15,707,655</td></tr>
-<tr><td>2026-07-23</td><td class="num">$0.00170592</td><td class="num">+1.4%</td><td class="num">$37,221,388</td></tr>
-<tr><td>2026-07-24</td><td class="num">$0.00250950</td><td class="num">+47.1%</td><td class="num">$151,805,983</td></tr>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
+<tr><td>2026-07-20</td><td class="num">$0.00196937</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$83,086,193</td></tr>
+<tr><td>2026-07-21</td><td class="num">$0.00168748</td><td class="num">-14.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$43,629,313</td></tr>
+<tr class="hi"><td>2026-07-22 — release</td><td class="num">$0.00168297</td><td class="num">-0.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$15,707,655</td></tr>
+<tr><td>2026-07-23</td><td class="num">$0.00170592</td><td class="num">+1.4%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$37,221,388</td></tr>
+<tr><td>2026-07-24</td><td class="num">$0.00250950</td><td class="num">+47.1%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$151,805,983</td></tr>
 </tbody></table>
 </div>
 <div class="section" id="d2026-07-26">
@@ -418,12 +439,12 @@ claimant count suggests: a decision by a handful of keys can move it.</div>
 </tbody></table>
 <div class="verdict v-hold"><b>Follow-through.</b> Of the 9.5400bn released, <b>9.5400bn (100.0%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 0 moved to other wallets without reaching an exchange. Ten recipients across five pools; the four that took the Investors leg had never appeared on-chain before that afternoon and have not taken from any pool since.</div>
 <h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-07-24</td><td class="num">$0.00250950</td><td class="num">—</td><td class="num">$151,805,983</td></tr>
-<tr><td>2026-07-25</td><td class="num">$0.00274935</td><td class="num">+9.6%</td><td class="num">$220,999,738</td></tr>
-<tr class="hi"><td>2026-07-26 — release</td><td class="num">$0.00305960</td><td class="num">+11.3%</td><td class="num">$23,320,950</td></tr>
-<tr><td>2026-07-27</td><td class="num">$0.00313064</td><td class="num">+2.3%</td><td class="num">$10,729,002</td></tr>
-<tr><td>2026-07-28</td><td class="num">$0.00402304</td><td class="num">+28.5%</td><td class="num">$53,877,860</td></tr>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
+<tr><td>2026-07-24</td><td class="num">$0.00250950</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$151,805,983</td></tr>
+<tr><td>2026-07-25</td><td class="num">$0.00274935</td><td class="num">+9.6%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$220,999,738</td></tr>
+<tr class="hi"><td>2026-07-26 — release</td><td class="num">$0.00305960</td><td class="num">+11.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$23,320,950</td></tr>
+<tr><td>2026-07-27</td><td class="num">$0.00313064</td><td class="num">+2.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$10,729,002</td></tr>
+<tr><td>2026-07-28</td><td class="num">$0.00402304</td><td class="num">+28.5%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$53,877,860</td></tr>
 </tbody></table>
 </div>
 <div class="section" id="d2026-08-21">
@@ -473,13 +494,14 @@ claimant count suggests: a decision by a handful of keys can move it.</div>
 </tbody></table>
 <div class="verdict v-hold"><b>Follow-through.</b> Of the 2.5678bn released, <b>2.4978bn (97.3%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 138.45mn moved to other wallets without reaching an exchange. Several of these addresses reappear on 3 September and 21 September, which is why the registry at the end tracks them as one cluster.</div>
 <h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-08-19</td><td class="num">$0.00899755</td><td class="num">—</td><td class="num">$12,306,841</td></tr>
-<tr><td>2026-08-20</td><td class="num">$0.00860784</td><td class="num">-4.3%</td><td class="num">$7,386,691</td></tr>
-<tr class="hi"><td>2026-08-21 — release</td><td class="num">$0.00826949</td><td class="num">-3.9%</td><td class="num">$5,452,225</td></tr>
-<tr><td>2026-08-22</td><td class="num">$0.00878185</td><td class="num">+6.2%</td><td class="num">$7,361,383</td></tr>
-<tr><td>2026-08-23</td><td class="num">$0.00849463</td><td class="num">-3.3%</td><td class="num">$3,716,904</td></tr>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
+<tr><td>2026-08-19</td><td class="num">$0.00899755</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$12,306,841</td></tr>
+<tr><td>2026-08-20</td><td class="num">$0.00860784</td><td class="num">-4.3%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$7,386,691</td></tr>
+<tr class="hi"><td>2026-08-21 — release</td><td class="num">$0.00826949</td><td class="num">-3.9%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$5,452,225</td></tr>
+<tr><td>2026-08-22</td><td class="num">$0.00878185</td><td class="num">+6.2%</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">$7,361,383</td></tr>
+<tr><td>2026-08-23</td><td class="num">$0.00849463</td><td class="num">-3.3%</td><td class="num">$0.00879774</td><td class="num">$0.00833487</td><td class="num">-5.3%</td><td class="num">$3,716,904</td></tr>
 </tbody></table>
+<div class="note">High, low and range are candle figures. The close column is the daily mark. Where they disagree sharply the token moved a long way inside a single hour, which an hourly series cannot show — see the cross-check section.</div>
 <div class="ctx"><b>Five days later the liquidity went, and the price broke.</b>
 The market maker closed all four of its concentrated positions on 26 August, taking out 1,093.61 BNB
 and 11.58mn AKE. Only 555.74 BNB of that was realised proceeds; the rest was returned capital.
@@ -523,13 +545,14 @@ no wallet — but the second is what the first walked into.</div>
 </tbody></table>
 <div class="verdict v-hold"><b>Follow-through.</b> Of the 1.5000bn released, <b>1.5000bn (100.0%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 0 moved to other wallets without reaching an exchange. Three payouts of 500mn each, to wallets in the same cluster as 21 August.</div>
 <h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-09-01</td><td class="num">$0.00882214</td><td class="num">—</td><td class="num">$24,594,584</td></tr>
-<tr><td>2026-09-02</td><td class="num">$0.01708996</td><td class="num">+93.7%</td><td class="num">$218,613,896</td></tr>
-<tr class="hi"><td>2026-09-03 — release</td><td class="num">$0.01489814</td><td class="num">-12.8%</td><td class="num">$107,111,069</td></tr>
-<tr><td>2026-09-04</td><td class="num">$0.01296885</td><td class="num">-12.9%</td><td class="num">$30,306,871</td></tr>
-<tr><td>2026-09-05</td><td class="num">$0.01879299</td><td class="num">+44.9%</td><td class="num">$130,392,017</td></tr>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
+<tr><td>2026-09-01</td><td class="num">$0.00882214</td><td class="num">—</td><td class="num">$0.00902898</td><td class="num">$0.00761430</td><td class="num">-15.7%</td><td class="num">$24,594,584</td></tr>
+<tr><td>2026-09-02</td><td class="num">$0.01708996</td><td class="num">+93.7%</td><td class="num">$0.01921379</td><td class="num">$0.00768835</td><td class="num">-60.0%</td><td class="num">$218,613,896</td></tr>
+<tr class="hi"><td>2026-09-03 — release</td><td class="num">$0.01489814</td><td class="num">-12.8%</td><td class="num">$0.03637560</td><td class="num">$0.01259690</td><td class="num">-65.4%</td><td class="num">$107,111,069</td></tr>
+<tr><td>2026-09-04</td><td class="num">$0.01296885</td><td class="num">-12.9%</td><td class="num">$0.01664895</td><td class="num">$0.01298528</td><td class="num">-22.0%</td><td class="num">$30,306,871</td></tr>
+<tr><td>2026-09-05</td><td class="num">$0.01879299</td><td class="num">+44.9%</td><td class="num">$0.02148787</td><td class="num">$0.01278077</td><td class="num">-40.5%</td><td class="num">$130,392,017</td></tr>
 </tbody></table>
+<div class="note">High, low and range are candle figures. The close column is the daily mark. Where they disagree sharply the token moved a long way inside a single hour, which an hourly series cannot show — see the cross-check section.</div>
 <div class="ctx"><b>This paid into the strongest bid of the year to that point.</b>
 On 2 September the pool itself printed $0.04468663 at 21:30 — above CoinGecko's recorded high for the
 day — then gave back 55% in one fifteen-minute bucket. The 3 September payouts landed the morning
@@ -586,11 +609,12 @@ after that, while reported volume was still above $100m.</div>
 </tbody></table>
 <div class="verdict v-hold"><b>Follow-through.</b> Of the 2.8844bn released, <b>2.8844bn (100.0%)</b> is still sitting in the wallets that received it at block 123,218,813. <b>0 (0.0%)</b> has reached a non-Binance exchange, which is the only movement this project counts as a sale; 0 went to Binance and 0 moved to other wallets without reaching an exchange. Sixteen wallets, none of which had ever held AKE before 09:17 that morning.</div>
 <h3 style="margin-top:16px">The market around it</h3>
-<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">Reported volume</th></tr></thead><tbody>
-<tr><td>2026-09-19</td><td class="num">$0.06417931</td><td class="num">—</td><td class="num">$153,675,037</td></tr>
-<tr><td>2026-09-20</td><td class="num">$0.05885675</td><td class="num">-8.3%</td><td class="num">$153,666,517</td></tr>
-<tr class="hi"><td>2026-09-21 — release</td><td class="num">$0.05796750</td><td class="num">-1.5%</td><td class="num">$131,180,085</td></tr>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Close</th><th class="num">Change</th><th class="num">High</th><th class="num">Low</th><th class="num">Range</th><th class="num">Reported volume</th></tr></thead><tbody>
+<tr><td>2026-09-19</td><td class="num">$0.06417931</td><td class="num">—</td><td class="num">$0.08564400</td><td class="num">$0.03703312</td><td class="num">-56.8%</td><td class="num">$153,675,037</td></tr>
+<tr><td>2026-09-20</td><td class="num">$0.05885675</td><td class="num">-8.3%</td><td class="num">$0.14665600</td><td class="num">$0.04596138</td><td class="num">-68.7%</td><td class="num">$153,666,517</td></tr>
+<tr class="hi"><td>2026-09-21 — release</td><td class="num">$0.05796750</td><td class="num">-1.5%</td><td class="num">$0.06470500</td><td class="num">$0.03148813</td><td class="num">-51.3%</td><td class="num">$131,180,085</td></tr>
 </tbody></table>
+<div class="note">High, low and range are candle figures. The close column is the daily mark. Where they disagree sharply the token moved a long way inside a single hour, which an hourly series cannot show — see the cross-check section.</div>
 
 <h3 style="margin-top:18px">The four days this release landed in</h3>
 <p style="font-size:13px">This is the only section where the market matters more than the release,
@@ -609,17 +633,22 @@ because the release came at the end of the sharpest move the token has had.</p>
   fourteen minutes.</b> None of the three had ever appeared before; none is a pool recipient. None of
   it has been sold. Two still hold it; the third forwarded its 56.49mn one hop after a test transfer
   and it is still sitting there.</td></tr>
-<tr><td>20 Sep 10:00</td><td class="num">$0.09478750</td>
-  <td>The high.</td></tr>
-<tr class="hi2"><td>20 Sep 11:43</td><td class="num">$0.05073342</td>
-  <td><b>Down 49.6% from the high in under two hours.</b> Net on-chain selling in that hour was
-  0.86mn AKE, about $60,000, on 79mn of gross flow; the largest single swap of the day was $63,219.
-  Fresh supply reaching exchange custody in the two hours around the top came to 26.05mn AKE, roughly
-  $2.0m, against ~$197m of reported hourly turnover. The selling was order-book inventory already
-  on exchanges, which leaves no trace here.</td></tr>
-<tr><td>21 Sep 05:00</td><td class="num">$0.03635561</td>
-  <td>A second fall, −30.7% in an hour. Same shape: the heaviest net on-chain sell hour of the window
-  was −2.14mn AKE and −119.8 BNB, about $120,000.</td></tr>
+<tr class="hi"><td>20 Sep 10:33:30</td><td class="num">$0.14665600</td>
+  <td><b>The all-time high</b>, and the figure to use: it is a candle high. The highest hourly mark
+  that day was $0.09478750, which is
+  55%
+  below it. The spike opened and closed inside one hour.</td></tr>
+<tr class="hi2"><td>20 Sep, same day</td><td class="num">$0.04596138</td>
+  <td><b>Down -68.7% from that high, inside
+  the day.</b> Net on-chain selling in the hour the hourly series shows the break was 0.86mn AKE,
+  about $60,000, on 79mn of gross flow; the largest single swap of the day was $63,219. Fresh supply
+  reaching exchange custody in the two hours around the top came to 26.05mn AKE, roughly $2.0m,
+  against ~$197m of reported hourly turnover. The selling was order-book inventory already on
+  exchanges, which leaves no trace here.</td></tr>
+<tr><td>21 Sep, low of the day</td><td class="num">$0.03148813</td>
+  <td>A second fall, -51.3% high to low.
+  Same shape: the heaviest net on-chain sell hour of the window was −2.14mn AKE and −119.8 BNB,
+  about $120,000.</td></tr>
 <tr class="hi"><td>21 Sep 09:17 and 10:24</td><td class="num">$0.04352686</td>
   <td><b>Team Pool 2 released 2.8844bn into the recovery</b>
   — the two transactions in the table above.</td></tr>
@@ -628,12 +657,20 @@ because the release came at the end of the sharpest move the token has had.</p>
 non-Binance exchange custody — the largest deposit hour of the day. That is a sequence, not a link:
 none of those depositing wallets is one of the sixteen, and none has ever taken a pool distribution.
 </div>
+<div class="note"><b>On the dollar figure for this release.</b> The headline
+2.8844bn is valued at the hourly rate of each leg's own
+block. On a day whose candle range was $0.03148813 to
+$0.06470500, that mark carries real uncertainty: taken at the day's low the same
+tokens are worth
+$90,825,637, at the day's high
+$186,637,721. The token count is
+exact; the dollar figure is a mark, and it is quoted as one.</div>
 </div>
 <div class="section" id="sm"><h2>8 · Market structure — where the price is actually made</h2>
 <p style="font-size:13px">None of the releases above passed through a DEX. Understanding what a release
 can do to the price therefore needs one more number: how much depth there is to absorb it. There is very
 little. One pool — <a class="addr" href="https://bscscan.com/address/0x4d3bf29ba30f8bfe4624e7678709afa195689c5d" target="_blank" rel="noopener">PancakeSwap V3 AKE/WBNB, 0.01%</a> — carries essentially all of it, and
-at block 123,221,764 it holds <b>25.53mn AKE and 2,553.56 BNB</b>.</p>
+at block 123,315,135 it holds <b>25.33mn AKE and 2,568.81 BNB</b>.</p>
 <h3>Every swap on that pool, by day</h3>
 <table class="dense"><thead><tr><th>Day</th><th class="num">Swaps</th><th class="num">AKE sold in</th>
 <th class="num">USD</th><th class="num">AKE bought out</th><th class="num">USD</th>
@@ -673,7 +710,60 @@ liquidity placed by bots to capture fees on a single swap and removed immediatel
 from the position manager changed by a fraction of a percent. Nothing was pulled ahead of any of the
 falls in this window.</div>
 </div>
-<div class="section" id="sr"><h2>9 · Wallet and cluster registry</h2>
+<div class="section" id="sv"><h2>9 · Cross-check against published sources</h2>
+<p style="font-size:13px">This project takes its facts from the chain rather than from aggregators.
+That is a sourcing rule, not a claim to be beyond checking — so here is the check. Where an
+independent source agrees, it is recorded. Where it disagrees, the disagreement is recorded too,
+including the two places it found this document wrong.</p>
+<table class="dense"><thead><tr><th style="width:22%">What</th><th>From the chain</th>
+<th>Published</th><th>Verdict</th></tr></thead><tbody>
+<tr><td><b>Contract address</b></td><td class="mono" style="font-size:11px">0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db</td><td class="mono" style="font-size:11px">0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db<div style="color:var(--muted);font-size:10px">CoinGecko /coins/akedo</div></td><td style="color:var(--green);font-weight:600;font-size:11px">match</td></tr>
+<tr><td><b>Total supply</b></td><td class="mono" style="font-size:11px">100,000,000,000</td><td class="mono" style="font-size:11px">100,000,000,000<div style="color:var(--muted);font-size:10px">CoinGecko</div></td><td style="color:var(--green);font-weight:600;font-size:11px">match</td></tr>
+<tr><td><b>Decimals</b></td><td class="mono" style="font-size:11px">18</td><td class="mono" style="font-size:11px">18<div style="color:var(--muted);font-size:10px">contract / standard</div></td><td style="color:var(--green);font-weight:600;font-size:11px">match</td></tr>
+<tr><td><b>Max supply</b></td><td class="mono" style="font-size:11px">100,000,000,000</td><td class="mono" style="font-size:11px">100,000,000,000<div style="color:var(--muted);font-size:10px">CoinGecko</div></td><td style="color:var(--green);font-weight:600;font-size:11px">match</td></tr>
+<tr><td><b>Tokens held inside the eight allocation-pool contracts</b></td><td class="mono" style="font-size:11px">22.3113bn</td><td class="mono" style="font-size:11px">52.77bn reported as "locked"<div style="color:var(--muted);font-size:10px">DropsTab vesting page</div></td><td style="color:var(--warn);font-weight:600;font-size:11px">DIFFERENT THINGS</td></tr>
+<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">The published figure is schedule accounting — tokens not yet due under a published vesting plan. The chain figure is the only supply a contract can actually stop anyone moving. The gap, 30.46bn, sits in ordinary wallets that can transact at any moment.</td></tr>
+<tr><td><b>Circulating supply</b></td><td class="mono" style="font-size:11px">not a chain concept</td><td class="mono" style="font-size:11px">22,796,250,000<div style="color:var(--muted);font-size:10px">CoinGecko</div></td><td style="color:var(--warn);font-weight:600;font-size:11px">not comparable</td></tr>
+<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">For scale: exchange custody addresses in this project's registry hold far less than the published circulating figure, and 22.31bn is in the pools. Circulating is derived from the vesting plan, not measured.</td></tr>
+<tr><td><b>Market cap</b></td><td class="mono" style="font-size:11px">n/a</td><td class="mono" style="font-size:11px">$1,313,364,510<div style="color:var(--muted);font-size:10px">CoinGecko</div></td><td style="color:var(--warn);font-weight:600;font-size:11px">noted</td></tr>
+<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">FDV $5,761,318,241. The ratio between them is entirely a function of the circulating figure above.</td></tr>
+<tr><td><b>Intraday high</b></td><td class="mono" style="font-size:11px">$0.01657956 (highest hourly mark on 2026-09-03)</td><td class="mono" style="font-size:11px">$0.03637560 (candle high, same day)<div style="color:var(--muted);font-size:10px">CoinGecko OHLC</div></td><td style="color:var(--danger);font-weight:600;font-size:11px">HOURLY SERIES UNDERSTATES</td></tr>
+<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">An hourly series records a price once an hour; it cannot show a spike that begins and ends inside the hour. On 2026-09-03 it missed the top by 119%. Every peak-to-trough claim in this document is now taken from candles, not from hourly marks. Per-transfer USD is still the hourly rate, because that values a transfer at a moment rather than describing a range.</td></tr>
+<tr><td><b>The 20 September spike and fall</b></td><td class="mono" style="font-size:11px">hourly marks peak at $0.09478750</td><td class="mono" style="font-size:11px">candle high $0.14665600, candle low $0.04596138<div style="color:var(--muted);font-size:10px">CoinGecko OHLC</div></td><td style="color:var(--danger);font-weight:600;font-size:11px">EARLIER FIGURE CORRECTED</td></tr>
+<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">The real move was -68.7% peak to trough inside the day, against the −49.6% an hourly series showed. The hourly reading was not wrong about direction, it was wrong about size.</td></tr>
+<tr><td><b>Exchange coverage</b></td><td class="mono" style="font-size:11px">41 custody addresses covering 11 venues</td><td class="mono" style="font-size:11px">4 venue(s) with volume and no custody address here<div style="color:var(--muted);font-size:10px">CoinGecko ticker list</div></td><td style="color:var(--danger);font-weight:600;font-size:11px">COVERAGE GAP</td></tr>
+<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">$9,101,215 of $125,201,648 reported 24h volume (7.3%) trades on venues this project cannot see deposits to: Hibt, Toobit, XT.COM, KCEX. Exchange-deposit figures in this document are therefore a floor, not a total.</td></tr>
+<tr><td><b>Is AKE listed on Binance spot?</b></td><td class="mono" style="font-size:11px">n/a</td><td class="mono" style="font-size:11px">no — Binance does not appear in the ticker list<div style="color:var(--muted);font-size:10px">CoinGecko ticker list</div></td><td style="color:var(--warn);font-weight:600;font-size:11px">noted</td></tr>
+<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">This matters for the accounting rule used throughout: flows to Binance-labelled wallets are treated separately from sales precisely because they are not spot order-book deposits.</td></tr>
+</tbody></table>
+<h3 style="margin-top:18px">What an hourly series cannot show</h3>
+<p style="font-size:12.5px">Every USD figure in this document is the hourly rate interpolated to a
+block timestamp, which is the right way to value a single transfer at a moment. It is the wrong way
+to describe a range. On the days below the token moved further inside an hour than the hourly marks
+ever recorded:</p>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Highest hourly mark</th>
+<th class="num">Candle high</th><th class="num">Understated by</th><th class="num">Candle low</th>
+<th class="num">True high-to-low</th></tr></thead><tbody>
+<tr class="hi2"><td>2026-09-03</td><td class="num">$0.01657956</td><td class="num">$0.03637560</td><td class="num">119%</td><td class="num">$0.01259690</td><td class="num">-65.4%</td></tr>
+<tr class="hi2"><td>2026-09-20</td><td class="num">$0.09478750</td><td class="num">$0.14665600</td><td class="num">55%</td><td class="num">$0.04596138</td><td class="num">-68.7%</td></tr>
+<tr><td>2026-09-19</td><td class="num">$0.06820581</td><td class="num">$0.08564400</td><td class="num">26%</td><td class="num">$0.03703312</td><td class="num">-56.8%</td></tr>
+<tr><td>2026-09-04</td><td class="num">$0.01489903</td><td class="num">$0.01664895</td><td class="num">12%</td><td class="num">$0.01298528</td><td class="num">-22.0%</td></tr>
+<tr><td>2026-09-21</td><td class="num">$0.05910789</td><td class="num">$0.06470500</td><td class="num">9%</td><td class="num">$0.03148813</td><td class="num">-51.3%</td></tr>
+<tr><td>2026-09-08</td><td class="num">$0.01965717</td><td class="num">$0.02136256</td><td class="num">9%</td><td class="num">$0.01418025</td><td class="num">-33.6%</td></tr>
+</tbody></table>
+<div class="verdict v-sold"><b>Two corrections this check forced.</b> The 20 September peak was
+$0.14665600, not the $0.09478750
+an hourly series showed, and the fall from it was
+-68.7% rather than the −49.6% first reported.
+And the exchange-deposit totals throughout are a floor: 4 venues carrying
+$9,101,215 of daily volume have no custody address in
+this project's registry, so deposits to them are invisible here.</div>
+<div class="note">Neither correction changes a conclusion. The direction of every move, the fact that
+nothing from any release reached an exchange, and the reconciliation of the pools are unaffected —
+but the size of one price move was wrong and is fixed, and a known blind spot is now stated rather
+than left implied.</div>
+</div>
+<div class="section" id="sr"><h2>10 · Wallet and cluster registry</h2>
 <p style="font-size:13px">Everything on this page that has a name, and why it has one. Nothing here is
 inferred from an off-chain source; each label is either an on-chain entity label or a description of
 what the wallet has actually done.</p>
@@ -694,7 +784,7 @@ appears in the set of 22,077 wallets that have at some point received AKE direct
 eight allocation pools. It is a membership test against on-chain history, not a claim about who
 controls it.</div>
 </div>
-<div class="section" id="sx"><h2>10 · Method, and what this does not show</h2>
+<div class="section" id="sx"><h2>11 · Method, and what this does not show</h2>
 <div class="grid2"><div>
 <h3>How the numbers here are produced</h3>
 <ul style="font-size:12.5px;line-height:1.75;padding-left:18px">
@@ -704,8 +794,10 @@ come from CoinGecko; nothing else is taken from a third party.</li>
 <li><b>Pool flow is complete, not sampled.</b> Every AKE transfer with a pool on either side has been
 recorded from the token's deployment to block 123,218,813, de-duplicated on (block, logIndex),
 and the segments are checked to tile the chain with no gap before anything is written.</li>
-<li><b>Hourly pricing.</b> Each transfer is valued at the CoinGecko hourly AKE/USD rate interpolated to
-its own block timestamp.</li>
+<li><b>Hourly pricing, and its limit.</b> Each transfer is valued at the CoinGecko hourly AKE/USD
+rate interpolated to its own block timestamp — the right mark for a transfer at a moment. Price
+<em>ranges</em> use OHLC candles instead, because an hourly series missed the 20 September top by
+55%. Both are cross-checked in §9.</li>
 <li><b>The sale test.</b> A transfer into any exchange except Binance counts as a sale. Anything still
 in a wallet is a hold, no matter how many wallets it is spread across. Binance flows are reported
 separately because deposits there are routinely custody and market-making moves.</li>
@@ -731,7 +823,7 @@ continuous to the same block. Swap-level DEX data on the main pool is continuous
 that window is only partly scanned and is not used for any figure on this page. Event days covered: 2026-06-19, 2026-07-22, 2026-07-24, 2026-07-26, 2026-08-21, 2026-09-03, 2026-09-21.</div>
 <footer style="border-top:1px solid var(--border);margin-top:28px;padding:16px 0;
 color:var(--muted);font-size:11.5px">
-Generated 2026-09-21 17:32:42 UTC at block 123,221,764. All times UTC.
+Generated 2026-09-22 05:13:20 UTC at block 123,315,135. All times UTC.
 </footer>
 </div>
 </div>

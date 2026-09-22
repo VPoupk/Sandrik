@@ -1,0 +1,195 @@
+{
+ "generated": "2026-09-22T05:11:39.030763Z",
+ "head_block": 123314902,
+ "head_utc": "2026-09-22T05:11:35",
+ "total_supply": "100000000000000000000000000000",
+ "decimals": 18,
+ "pool_balances": {
+  "Investors": "14367143155000000000000000006",
+  "Nodes 3": "746666668959760384",
+  "Team 2": "6047726191160000000000000000",
+  "Nodes 1": "642200459000000000000000000",
+  "Nodes 2": "11000000000000000000000000",
+  "Team 1": "1141428571428571428571428573",
+  "KOL": "73900000000000000000000006",
+  "Community": "27892532365000298692639298"
+ },
+ "pools_total": "22311290909700238396223828267",
+ "cg": {
+  "price": 0.057932,
+  "market_cap": 1313364510,
+  "fdv": 5761318241,
+  "volume_24h": 75110754,
+  "circulating": 22796250000.0,
+  "total_supply": 100000000000.0,
+  "ath": 0.146656,
+  "ath_date": "2026-09-20T10:33:30.000Z",
+  "last_updated": "2026-09-22T05:04:20.000Z"
+ },
+ "venue_gaps": [
+  {
+   "venue": "Hibt",
+   "volume_usd": 4691308
+  },
+  {
+   "venue": "Toobit",
+   "volume_usd": 2912713
+  },
+  {
+   "venue": "XT.COM",
+   "volume_usd": 1116924
+  },
+  {
+   "venue": "KCEX",
+   "volume_usd": 380270
+  }
+ ],
+ "dex_volume_24h": 50548630.599999994,
+ "cex_volume_24h": 74653017.0,
+ "hourly_vs_candles": [
+  {
+   "day": "2026-09-03",
+   "hourly_max": 0.01657955764058321,
+   "hourly_min": 0.012772185762758353,
+   "candle_high": 0.0363756,
+   "candle_low": 0.0125969,
+   "high_understated_pct": 119.4003048124777,
+   "true_range_pct": -65.36991829688033
+  },
+  {
+   "day": "2026-09-20",
+   "hourly_max": 0.09478750090066293,
+   "hourly_min": 0.04777737678472008,
+   "candle_high": 0.146656,
+   "candle_low": 0.04596138,
+   "high_understated_pct": 54.72082142316965,
+   "true_range_pct": -68.66041621208815
+  },
+  {
+   "day": "2026-09-19",
+   "hourly_max": 0.06820581198674465,
+   "hourly_min": 0.04182090054265612,
+   "candle_high": 0.085644,
+   "candle_low": 0.03703312,
+   "high_understated_pct": 25.567011820993123,
+   "true_range_pct": -56.75923590677689
+  },
+  {
+   "day": "2026-09-04",
+   "hourly_max": 0.014899034827051296,
+   "hourly_min": 0.012946283999564587,
+   "candle_high": 0.01664895,
+   "candle_low": 0.01298528,
+   "high_understated_pct": 11.745157946550243,
+   "true_range_pct": -22.005411752693107
+  },
+  {
+   "day": "2026-09-21",
+   "hourly_max": 0.059107886659289524,
+   "hourly_min": 0.03635560784066533,
+   "candle_high": 0.064705,
+   "candle_low": 0.03148813,
+   "high_understated_pct": 9.469317306120972,
+   "true_range_pct": -51.33586276176493
+  },
+  {
+   "day": "2026-09-08",
+   "hourly_max": 0.019657174209549853,
+   "hourly_min": 0.015489821688430735,
+   "candle_high": 0.02136256,
+   "candle_low": 0.01418025,
+   "high_understated_pct": 8.675640619909842,
+   "true_range_pct": -33.621017331256176
+  }
+ ],
+ "checks": [
+  {
+   "what": "Contract address",
+   "chain": "0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db",
+   "published": "0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db",
+   "source": "CoinGecko /coins/akedo",
+   "verdict": "match",
+   "note": ""
+  },
+  {
+   "what": "Total supply",
+   "chain": "100,000,000,000",
+   "published": "100,000,000,000",
+   "source": "CoinGecko",
+   "verdict": "match",
+   "note": ""
+  },
+  {
+   "what": "Decimals",
+   "chain": "18",
+   "published": "18",
+   "source": "contract / standard",
+   "verdict": "match",
+   "note": ""
+  },
+  {
+   "what": "Max supply",
+   "chain": "100,000,000,000",
+   "published": "100,000,000,000",
+   "source": "CoinGecko",
+   "verdict": "match",
+   "note": ""
+  },
+  {
+   "what": "Tokens held inside the eight allocation-pool contracts",
+   "chain": "22.3113bn",
+   "published": "52.77bn reported as \"locked\"",
+   "source": "DropsTab vesting page",
+   "verdict": "DIFFERENT THINGS",
+   "note": "The published figure is schedule accounting \u2014 tokens not yet due under a published vesting plan. The chain figure is the only supply a contract can actually stop anyone moving. The gap, 30.46bn, sits in ordinary wallets that can transact at any moment."
+  },
+  {
+   "what": "Circulating supply",
+   "chain": "not a chain concept",
+   "published": "22,796,250,000",
+   "source": "CoinGecko",
+   "verdict": "not comparable",
+   "note": "For scale: exchange custody addresses in this project's registry hold far less than the published circulating figure, and 22.31bn is in the pools. Circulating is derived from the vesting plan, not measured."
+  },
+  {
+   "what": "Market cap",
+   "chain": "n/a",
+   "published": "$1,313,364,510",
+   "source": "CoinGecko",
+   "verdict": "noted",
+   "note": "FDV $5,761,318,241. The ratio between them is entirely a function of the circulating figure above."
+  },
+  {
+   "what": "Intraday high",
+   "chain": "$0.01657956 (highest hourly mark on 2026-09-03)",
+   "published": "$0.03637560 (candle high, same day)",
+   "source": "CoinGecko OHLC",
+   "verdict": "HOURLY SERIES UNDERSTATES",
+   "note": "An hourly series records a price once an hour; it cannot show a spike that begins and ends inside the hour. On 2026-09-03 it missed the top by 119%. Every peak-to-trough claim in this document is now taken from candles, not from hourly marks. Per-transfer USD is still the hourly rate, because that values a transfer at a moment rather than describing a range."
+  },
+  {
+   "what": "The 20 September spike and fall",
+   "chain": "hourly marks peak at $0.09478750",
+   "published": "candle high $0.14665600, candle low $0.04596138",
+   "source": "CoinGecko OHLC",
+   "verdict": "EARLIER FIGURE CORRECTED",
+   "note": "The real move was -68.7% peak to trough inside the day, against the \u221249.6% an hourly series showed. The hourly reading was not wrong about direction, it was wrong about size."
+  },
+  {
+   "what": "Exchange coverage",
+   "chain": "41 custody addresses covering 11 venues",
+   "published": "4 venue(s) with volume and no custody address here",
+   "source": "CoinGecko ticker list",
+   "verdict": "COVERAGE GAP",
+   "note": "$9,101,215 of $125,201,648 reported 24h volume (7.3%) trades on venues this project cannot see deposits to: Hibt, Toobit, XT.COM, KCEX. Exchange-deposit figures in this document are therefore a floor, not a total."
+  },
+  {
+   "what": "Is AKE listed on Binance spot?",
+   "chain": "n/a",
+   "published": "no \u2014 Binance does not appear in the ticker list",
+   "source": "CoinGecko ticker list",
+   "verdict": "noted",
+   "note": "This matters for the accounting rule used throughout: flows to Binance-labelled wallets are treated separately from sales precisely because they are not spot order-book deposits."
+  }
+ ]
+}
