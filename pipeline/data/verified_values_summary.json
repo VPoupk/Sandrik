@@ -1,0 +1,83 @@
+{
+ "rows": [
+  {
+   "day": "2026-06-19",
+   "net": "2000000000000000000000000000",
+   "verified_leg_by_leg": true,
+   "legs": 2,
+   "price_onchain_wavg": 0.0003260588266145218,
+   "price_cg_wavg": 0.00032358725922884126,
+   "value_onchain": 648661.5643537574,
+   "value_coingecko": 645426.2852298993,
+   "net_matches_ledger": true
+  },
+  {
+   "day": "2026-07-22",
+   "net": "20867088139000000000000000000",
+   "verified_leg_by_leg": false
+  },
+  {
+   "day": "2026-07-24",
+   "net": "1271945965833333335654400",
+   "verified_leg_by_leg": false
+  },
+  {
+   "day": "2026-07-26",
+   "net": "9540000000000000000000000000",
+   "verified_leg_by_leg": true,
+   "legs": 10,
+   "price_onchain_wavg": 0.003074784274693467,
+   "price_cg_wavg": 0.0029277120721590273,
+   "value_onchain": 29333441.980575673,
+   "value_coingecko": 27930373.168397117,
+   "net_matches_ledger": true
+  },
+  {
+   "day": "2026-08-21",
+   "net": "2567833333000000000000000000",
+   "verified_leg_by_leg": true,
+   "legs": 14,
+   "price_onchain_wavg": 0.008323034151201364,
+   "price_cg_wavg": 0.00840905912592909,
+   "value_onchain": 21372164.52515223,
+   "value_coingecko": 21593062.32272857,
+   "net_matches_ledger": true
+  },
+  {
+   "day": "2026-09-03",
+   "net": "1500000000000000000000000000",
+   "verified_leg_by_leg": true,
+   "legs": 3,
+   "price_onchain_wavg": 0.014116169444352318,
+   "price_cg_wavg": 0.013987749208980651,
+   "value_onchain": 21174254.16652848,
+   "value_coingecko": 20981623.813470982,
+   "net_matches_ledger": true
+  },
+  {
+   "day": "2026-09-21",
+   "net": "2884440475840000000000000000",
+   "verified_leg_by_leg": true,
+   "legs": 18,
+   "price_onchain_wavg": 0.04278635370869539,
+   "price_cg_wavg": 0.04290443414628199,
+   "value_onchain": 123414690.45096788,
+   "value_coingecko": 123755286.44454758,
+   "net_matches_ledger": true
+  }
+ ],
+ "sale": {
+  "block": 111711359,
+  "tx": "0x576117a8ee79e803cd514bdffb9c82c96f2ae19aa12b3298826e2e3d3e722917",
+  "ts": 1784829802,
+  "when_utc": "2026-07-23 18:03:22",
+  "wei": "2000000000000000000000000000",
+  "ake": 2000000000.0,
+  "price_onchain": 0.002522840591001659,
+  "bnb_usdt": 565.9451677419933,
+  "price_coingecko": 0.0025066307224725515,
+  "usd_onchain": 5045681.182003317,
+  "usd_coingecko": 5013261.4449451035
+ },
+ "note": "Net release values are the sum of each out-leg priced at its own block, minus each returned leg priced at its own block. Two independent prices per leg: the AKE/WBNB and WBNB/USDT V3 pools read at that block, and the CoinGecko hourly series interpolated to that block timestamp."
+}

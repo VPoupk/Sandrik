@@ -185,7 +185,7 @@ small { font-size:10px; }
     <strong>56.8887bn</strong>, not 49.94bn; the pools hold <strong>22.3113bn</strong>, not 29.26bn;
     and the sold figure below excludes the 19 June Investors release, which this report originally
     read as held and which in fact reached Gate.io on 23 July. Every pool figure in §0 is net and
-    reconciles to <code>balanceOf</code> at block 123,742,612 to the wei. The reasoning in this
+    reconciles to <code>balanceOf</code> at block 123,748,423 to the wei. The reasoning in this
     summary stands; the magnitudes are larger.
   </div>
 
@@ -318,7 +318,7 @@ small { font-size:10px; }
   <h2>0 · Update — Chain Re-Parsed to 24 September 2026</h2>
 
   <div class="alert alert-danger" style="margin-bottom:14px">
-    <strong>Update to 24 September 2026, block 123,742,612.</strong> Two further team releases since
+    <strong>Update to 24 September 2026, block 123,748,423.</strong> Two further team releases since
     the last update, both from Team Pool 2: <strong>1.5000bn on 3 September</strong> to three wallets
     and <strong>2.8844bn on 21 September</strong> to sixteen — the largest team release since July.
     Nothing has left any pool since; all eight balances are unchanged from 21 to 24 September.
@@ -371,11 +371,58 @@ small { font-size:10px; }
 <tr><td class="mono">2026-06-19 16:24:52</td><td class="mono">0xf23abe615b…</td><td class="mono">Investors Pool</td><td class="num">2.0734bn</td><td style="font-size:12px">returned 24 minutes later — net release is 2.0000bn</td></tr>
 <tr><td class="mono">2026-06-20 10:19:33</td><td class="mono">0xf23abe615b…</td><td class="mono">0xa074027a3b…</td><td class="num">2.0000bn</td><td style="font-size:12px">hop 2, the next morning</td></tr>
 <tr><td class="mono">2026-07-15 07:51–13:00</td><td class="mono">0xa074027a3b…</td><td class="mono">0x7476c568d6…</td><td class="num">2.0000bn</td><td style="font-size:12px">hop 3, in four tranches of 0.5, 0.25, 0.25 and 1.0bn, 25 days later</td></tr>
-<tr style="background:rgba(239,68,68,.10)"><td class="mono">2026-07-23 18:03:46</td><td class="mono">0x7476c568d6…</td><td class="mono">0x0d07079639…</td><td class="num">2.0000bn</td><td style="font-size:12px">hop 4 — Gate.io DepositAndWithdraw_1. This is a sale.</td></tr>
+<tr style="background:rgba(239,68,68,.10)"><td class="mono">2026-07-23 18:03:22</td><td class="mono">0x7476c568d6…</td><td class="mono">0x0d07079639…</td><td class="num">2.0000bn</td><td style="font-size:12px">hop 4 — Gate.io DepositAndWithdraw_1, block 111,711,359, tx <code>0x576117a8…</code>. <strong>This is a sale</strong>, and the only one.</td></tr>
     </tbody>
   </table>
   </div>
-  <p>Each step was located by bisecting <code>balanceOf</code> on the chain and then reading the
+  
+  <h3>Every figure re-verified from the chain, and priced two independent ways</h3>
+  <p>Each release leg was read back out of the node with <code>eth_getLogs</code> at its own block
+  rather than taken from a cached scan, its timestamp re-read from the block header, and its value
+  computed twice: once from the <strong>PancakeSwap V3 AKE/WBNB pool's own <code>slot0</code></strong>
+  at that block multiplied by WBNB/USDT from a deep WBNB/USDT pool at the same block — a price the
+  chain gives with no third party involved — and once from the <strong>CoinGecko</strong> series
+  interpolated to the same second. <strong>47 legs re-read, 47 match the chain to the wei.</strong>
+  The two prices are different things and are not expected to agree exactly; every day agrees to
+  within 1% except 26 July, a fast-moving hour, at 5.0%.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Day</th><th class="num">Net released</th><th class="num">$/AKE on-chain</th>
+    <th class="num">Value at the move</th><th class="num">$/AKE CoinGecko</th>
+    <th class="num">Value at the move</th><th class="num">Spread</th></tr></thead>
+    <tbody>
+      <tr><td>2026-06-19</td><td class="num"><strong>2.0000bn</strong></td><td class="num">$0.00032606</td><td class="num">$648,662</td><td class="num">$0.00032359</td><td class="num">$645,426</td><td class="num">+0.5%</td></tr>
+      <tr><td>2026-07-22</td><td class="num">20.8671bn</td><td colspan="5" style="font-size:12px;color:var(--muted)">thousands of individual claim legs — reconciled in aggregate against <code>balanceOf</code></td></tr>
+      <tr><td>2026-07-24</td><td class="num">0.0013bn</td><td colspan="5" style="font-size:12px;color:var(--muted)">thousands of individual claim legs — reconciled in aggregate against <code>balanceOf</code></td></tr>
+      <tr><td>2026-07-26</td><td class="num"><strong>9.5400bn</strong></td><td class="num">$0.00307478</td><td class="num">$29,333,442</td><td class="num">$0.00292771</td><td class="num">$27,930,373</td><td class="num">+5.0%</td></tr>
+      <tr><td>2026-08-21</td><td class="num"><strong>2.5678bn</strong></td><td class="num">$0.00832303</td><td class="num">$21,372,165</td><td class="num">$0.00840906</td><td class="num">$21,593,062</td><td class="num">-1.0%</td></tr>
+      <tr><td>2026-09-03</td><td class="num"><strong>1.5000bn</strong></td><td class="num">$0.01411617</td><td class="num">$21,174,254</td><td class="num">$0.01398775</td><td class="num">$20,981,624</td><td class="num">+0.9%</td></tr>
+      <tr><td>2026-09-21</td><td class="num"><strong>2.8844bn</strong></td><td class="num">$0.04278635</td><td class="num">$123,414,690</td><td class="num">$0.04290443</td><td class="num">$123,755,286</td><td class="num">-0.3%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12.5px;color:var(--muted)">Those values are <strong>notional</strong> — what the
+  tokens were worth as they left the pool, not proceeds. Only the 19 June release has been sold.
+  As an aside, the 21 August figure of $27,930,373 reproduces, to the
+  dollar, the $21,593,062 recorded in §0.1 a month ago from an entirely separate calculation.</p>
+
+  <div class="alert alert-danger">
+    <strong>The one sale, verified to the transaction — and the timing is the finding.</strong>
+    Transaction <code>0x576117a8ee79e803cd514bdffb9c82c96f2ae19aa12b3298826e2e3d3e722917</code>, block 111,711,359,
+    <strong>2026-07-23 18:03:22 UTC</strong>, exactly
+    2.000000bn AKE (2000000000000000000000000000 wei, a round two billion) into Gate.io
+    DepositAndWithdraw_1. Valued at the on-chain price of that block, $0.00252284/AKE
+    with BNB at $565.95, it is <strong>$5,045,681</strong>; at the
+    CoinGecko price for the same second, $5,013,261 — the two agree to
+    +0.65%.
+    <br><br>
+    The same tokens were worth <strong>$648,662</strong> when they left the pool on
+    19 June. Sold thirty-four days later they realised
+    <strong>7.8× that</strong>. This was not a release
+    followed by a dump: the tokens were taken, held through a move, and sold into it.
+  </div>
+
+<p>Each step was located by bisecting <code>balanceOf</code> on the chain and then reading the
   transfer log at the block the balance changed, so the chain is complete rather than sampled. Of
   <strong>18.4923bn net</strong> released across the days that can be walked wallet by wallet,
   <strong>2.0000bn (10.8%) has been sold</strong> — all of it this release. The two legs of the

@@ -195,7 +195,7 @@
   <div>
     <h1>AKE — what the team-controlled pools have released, and what happened next</h1>
     <div class="sub">BNB Smart Chain · AKEDO <a class="addr" href="https://bscscan.com/address/0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db" target="_blank" rel="noopener">AKE token</a> · June 2026 onward ·
-      built at block 123,384,555, 2026-09-22 13:54:07 UTC</div>
+      built at block 123,748,423, 2026-09-24 11:24:17 UTC</div>
   </div>
 </header>
 
@@ -216,20 +216,21 @@ Token amounts are shown in bn/mn, with the exact wei behind every figure in the 
 <a href="#d2026-09-03">6 · 3 September 2026 — Team Pool 2</a>
 <a href="#d2026-09-21">7 · 21 September 2026 — Team Pool 2</a>
 <a href="#sm">8 · Market structure — where the price is actually made</a>
-<a href="#sv">9 · Cross-check against published sources</a>
-<a href="#sr">10 · Wallet and cluster registry</a>
-<a href="#sx">11 · Method, and what this does not show</a>
+<a href="#sq">9 · Verification — every figure re-read from the chain</a>
+<a href="#sv">10 · Cross-check against published sources</a>
+<a href="#sr">11 · Wallet and cluster registry</a>
+<a href="#sx">12 · Method, and what this does not show</a>
 </div></div>
 <div class="section" id="s0"><h2>0 · Where things stand</h2>
 <div class="q">
   <div><div class="k">Still inside the eight pools</div><div class="v">22.3113bn</div>
-    <div class="sub">read from chain at block 123,384,555</div></div>
+    <div class="sub">read from chain at block 123,748,423</div></div>
   <div><div class="k">Released since 1 June 2026</div><div class="v">39.3606bn</div>
     <div class="sub">net of anything sent back, across 6 days</div></div>
   <div><div class="k">Days a pool actually moved</div><div class="v">7</div>
-    <div class="sub">in 113 days elapsed</div></div>
-  <div><div class="k">Price now</div><div class="v">$0.05796750</div>
-    <div class="sub">CoinGecko hourly, 21 Sep 17:09 UTC</div></div>
+    <div class="sub">in 115 days elapsed</div></div>
+  <div><div class="k">Price now</div><div class="v">$0.04162036</div>
+    <div class="sub">CoinGecko hourly, 24 Sep 10:40 UTC</div></div>
   <div><div class="k">Investors Pool</div><div class="v">14.3671bn</div>
     <div class="sub">of 25bn allocated · self-claim still reverts “fix”</div></div>
   <div><div class="k">Next Investors boundary</div><div class="v">18 Oct</div>
@@ -393,7 +394,7 @@ day has its own reconciliation in its section.</div>
   <td>claimed by 5,879 wallets across the day</td></tr>
 <tr class="hi2"><td>held today by the 98 wallets it was swept into</td>
   <td class="num">20.8671bn</td>
-  <td>read from chain at block 123,384,555; the sweep itself completed by 29 August</td></tr>
+  <td>read from chain at block 123,748,423; the sweep itself completed by 29 August</td></tr>
 <tr><td>difference</td><td class="num">100</td>
   <td>what is no longer in that set — sold, spent or moved on since</td></tr>
 </tbody></table>
@@ -680,7 +681,7 @@ none has ever taken a pool distribution.</div>
 <p style="font-size:13px">None of the releases above passed through a DEX. Understanding what a release
 can do to the price therefore needs one more number: how much depth there is to absorb it. There is very
 little. One pool — <a class="addr" href="https://bscscan.com/address/0x4d3bf29ba30f8bfe4624e7678709afa195689c5d" target="_blank" rel="noopener">PancakeSwap V3 AKE/WBNB, 0.01%</a> — carries essentially all of it, and
-at block 123,384,555 it holds <b>25.79mn AKE and 2,536.56 BNB</b>.</p>
+at block 123,748,423 it holds <b>27.38mn AKE and 2,444.44 BNB</b>.</p>
 <h3>Every swap on that pool, by day</h3>
 <table class="dense"><thead><tr><th>Day</th><th class="num">Swaps</th><th class="num">AKE sold in</th>
 <th class="num">USD</th><th class="num">AKE bought out</th><th class="num">USD</th>
@@ -720,7 +721,69 @@ liquidity placed by bots to capture fees on a single swap and removed immediatel
 from the position manager changed by a fraction of a percent. Nothing was pulled ahead of any of the
 falls in this window.</div>
 </div>
-<div class="section" id="sv"><h2>9 · Cross-check against published sources</h2>
+<div class="section" id="sq"><h2>9 · Verification — every figure re-read from the chain</h2>
+<p style="font-size:13px">Nothing on this page is taken on trust from a cached scan. Each release leg
+was read back out of the node with <code>eth_getLogs</code> at its own block, its timestamp re-read
+from the block header, and its value computed <b>two independent ways</b>: from the
+PancakeSwap V3 AKE/WBNB pool's own <code>slot0</code> at that block multiplied by WBNB/USDT from a deep
+WBNB/USDT pool at the same block — a price the chain gives with no third party involved — and from the
+CoinGecko series interpolated to the same second. They are different things (one venue's marginal
+price against an aggregate of all venues) and are not expected to match exactly; the check is that
+they agree closely, and they do.</p>
+<div class="q">
+  <div><div class="k">Release legs re-read</div><div class="v">47</div>
+    <div class="sub">every one matches the chain, to the wei</div></div>
+  <div><div class="k">Days reconciled leg by leg</div><div class="v">5 of 7</div>
+    <div class="sub">the two node-unlock days have 6,611 legs and are checked in aggregate</div></div>
+  <div><div class="k">Widest price disagreement</div><div class="v">5.0%</div>
+    <div class="sub">26 July, a fast hour; every other day within 1%</div></div>
+  <div><div class="k">Pool ledger</div><div class="v">closes exactly</div>
+    <div class="sub">allocation − net released = balanceOf, all eight pools</div></div>
+</div>
+<h3>Net released, and what it was worth at the moment it moved</h3>
+<p style="font-size:12.5px">These values are <b>notional</b>: what the tokens were worth as they left
+the pool, not proceeds. Only one of these releases has been sold, and that one has its own line below.
+The two price columns are the independent derivations described above.</p>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Net released</th>
+<th class="num">$/AKE on-chain</th><th class="num">Value at the move</th>
+<th class="num">$/AKE CoinGecko</th><th class="num">Value at the move</th>
+<th class="num">Spread</th></tr></thead><tbody>
+<tr><td><a href="#d2026-06-19">2026-06-19</a></td><td class="num"><b>2.0000bn</b></td><td class="num">$0.00032606</td><td class="num">$648,662</td><td class="num">$0.00032359</td><td class="num">$645,426</td><td class="num">+0.5%</td></tr>
+<tr><td>2026-07-22</td><td class="num">20.8671bn</td><td colspan="5" style="font-size:11px;color:var(--muted)">thousands of individual claim legs — reconciled in aggregate against <code>balanceOf</code> rather than priced leg by leg</td></tr>
+<tr><td>2026-07-24</td><td class="num">1.27mn</td><td colspan="5" style="font-size:11px;color:var(--muted)">thousands of individual claim legs — reconciled in aggregate against <code>balanceOf</code> rather than priced leg by leg</td></tr>
+<tr><td><a href="#d2026-07-26">2026-07-26</a></td><td class="num"><b>9.5400bn</b></td><td class="num">$0.00307478</td><td class="num">$29,333,442</td><td class="num">$0.00292771</td><td class="num">$27,930,373</td><td class="num">+5.0%</td></tr>
+<tr><td><a href="#d2026-08-21">2026-08-21</a></td><td class="num"><b>2.5678bn</b></td><td class="num">$0.00832303</td><td class="num">$21,372,165</td><td class="num">$0.00840906</td><td class="num">$21,593,062</td><td class="num">-1.0%</td></tr>
+<tr><td><a href="#d2026-09-03">2026-09-03</a></td><td class="num"><b>1.5000bn</b></td><td class="num">$0.01411617</td><td class="num">$21,174,254</td><td class="num">$0.01398775</td><td class="num">$20,981,624</td><td class="num">+0.9%</td></tr>
+<tr><td><a href="#d2026-09-21">2026-09-21</a></td><td class="num"><b>2.8844bn</b></td><td class="num">$0.04278635</td><td class="num">$123,414,690</td><td class="num">$0.04290443</td><td class="num">$123,755,286</td><td class="num">-0.3%</td></tr>
+</tbody></table>
+<h3 style="margin-top:18px">The one sale, verified to the transaction</h3>
+<table class="dense"><thead><tr><th>Field</th><th>Verified value</th></tr></thead><tbody>
+<tr><td>Transaction</td><td><a class="addr" href="https://bscscan.com/tx/0x576117a8ee79e803cd514bdffb9c82c96f2ae19aa12b3298826e2e3d3e722917" target="_blank" rel="noopener">0x576117a8ee79e803cd514bdffb9c82c96f2ae19aa12b3298826e2e3d3e722917</a></td></tr>
+<tr><td>Block / time</td><td class="mono">111,711,359 · 2026-07-23 18:03:22 UTC</td></tr>
+<tr><td>Amount</td><td class="mono">2.000000bn AKE — 2000000000000000000000000000 wei,
+  an exactly round two billion</td></tr>
+<tr><td>Destination</td><td><a class="addr" href="https://bscscan.com/address/0x0d0707963952f2fba59dd06f2b425ace40b492fe" target="_blank" rel="noopener">0x0d0707963952f2fba59dd06f2b425ace40b492fe</a> — Gate.io
+  DepositAndWithdraw_1</td></tr>
+<tr class="hi2"><td>Value, on-chain price</td>
+  <td><b>$5,045,681</b> at $0.00252284/AKE
+  (BNB $565.95)</td></tr>
+<tr class="hi2"><td>Value, CoinGecko price</td>
+  <td><b>$5,013,261</b> at $0.00250663/AKE —
+  +0.65% from the on-chain figure</td></tr>
+</tbody></table>
+<div class="verdict v-sold"><b>The timing is the finding.</b> The 19 June release was worth
+$648,662 as it left the pool. It was sold thirty-four days later for
+<b>$5,045,681</b> — <b>7.8× more</b>.
+Whoever controls that chain of wallets did not take tokens and dump them; they took them, waited out a
+move, and sold into it. That is a different behaviour from the one a release-and-sell reading would
+suggest, and it is the only realised proceeds anywhere in this document.</div>
+<div class="note">Method note on the two prices. The on-chain figure is
+<code>slot0</code> on <a class="addr" href="https://bscscan.com/address/0x4d3bf29ba30f8bfe4624e7678709afa195689c5d" target="_blank" rel="noopener">the AKE/WBNB pool</a> squared to give WBNB per AKE, multiplied by
+the inverse of <code>slot0</code> on the WBNB/USDT pool at the same block, with USDT taken as one
+dollar. It uses no API at all. The CoinGecko figure is the published AKE/USD series interpolated to
+the block's own second. Both are shown so neither has to be believed on its own.</div>
+</div>
+<div class="section" id="sv"><h2>10 · Cross-check against published sources</h2>
 <p style="font-size:13px">This project takes its facts from the chain rather than from aggregators.
 That is a sourcing rule, not a claim to be beyond checking — so here is the check. Where an
 independent source agrees, it is recorded. Where it disagrees, the disagreement is recorded too,
@@ -735,14 +798,14 @@ including the two places it found this document wrong.</p>
 <tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">The published figure is schedule accounting — tokens not yet due under a published vesting plan. The chain figure is the only supply a contract can actually stop anyone moving. The gap, 30.46bn, sits in ordinary wallets that can transact at any moment.</td></tr>
 <tr><td><b>Circulating supply</b></td><td class="mono" style="font-size:11px">not a chain concept</td><td class="mono" style="font-size:11px">22,796,250,000<div style="color:var(--muted);font-size:10px">CoinGecko</div></td><td style="color:var(--warn);font-weight:600;font-size:11px">not comparable</td></tr>
 <tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">For scale: exchange custody addresses in this project's registry hold far less than the published circulating figure, and 22.31bn is in the pools. Circulating is derived from the vesting plan, not measured.</td></tr>
-<tr><td><b>Market cap</b></td><td class="mono" style="font-size:11px">n/a</td><td class="mono" style="font-size:11px">$1,313,364,510<div style="color:var(--muted);font-size:10px">CoinGecko</div></td><td style="color:var(--warn);font-weight:600;font-size:11px">noted</td></tr>
-<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">FDV $5,761,318,241. The ratio between them is entirely a function of the circulating figure above.</td></tr>
+<tr><td><b>Market cap</b></td><td class="mono" style="font-size:11px">n/a</td><td class="mono" style="font-size:11px">$950,248,903<div style="color:var(--muted);font-size:10px">CoinGecko</div></td><td style="color:var(--warn);font-weight:600;font-size:11px">noted</td></tr>
+<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">FDV $4,168,443,947. The ratio between them is entirely a function of the circulating figure above.</td></tr>
 <tr><td><b>Intraday high</b></td><td class="mono" style="font-size:11px">$0.01657956 (highest hourly mark on 2026-09-03)</td><td class="mono" style="font-size:11px">$0.03637560 (candle high, same day)<div style="color:var(--muted);font-size:10px">CoinGecko OHLC</div></td><td style="color:var(--danger);font-weight:600;font-size:11px">HOURLY SERIES UNDERSTATES</td></tr>
 <tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">An hourly series records a price once an hour; it cannot show a spike that begins and ends inside the hour. On 2026-09-03 it missed the top by 119%. Every peak-to-trough claim in this document is now taken from candles, not from hourly marks. Per-transfer USD is still the hourly rate, because that values a transfer at a moment rather than describing a range.</td></tr>
 <tr><td><b>The 20 September spike and fall</b></td><td class="mono" style="font-size:11px">hourly marks peak at $0.09478750</td><td class="mono" style="font-size:11px">candle high $0.14665600, candle low $0.04596138<div style="color:var(--muted);font-size:10px">CoinGecko OHLC</div></td><td style="color:var(--danger);font-weight:600;font-size:11px">EARLIER FIGURE CORRECTED</td></tr>
 <tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">The real move was -68.7% peak to trough inside the day, against the −49.6% an hourly series showed. The hourly reading was not wrong about direction, it was wrong about size.</td></tr>
 <tr><td><b>Exchange coverage</b></td><td class="mono" style="font-size:11px">41 custody addresses covering 11 venues</td><td class="mono" style="font-size:11px">4 venue(s) with volume and no custody address here<div style="color:var(--muted);font-size:10px">CoinGecko ticker list</div></td><td style="color:var(--danger);font-weight:600;font-size:11px">COVERAGE GAP</td></tr>
-<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">$9,101,215 of $125,201,648 reported 24h volume (7.3%) trades on venues this project cannot see deposits to: Hibt, Toobit, XT.COM, KCEX. Exchange-deposit figures in this document are therefore a floor, not a total.</td></tr>
+<tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">$4,082,132 of $44,118,131 reported 24h volume (9.3%) trades on venues this project cannot see deposits to: Hibt, Toobit, XT.COM, KCEX. Exchange-deposit figures in this document are therefore a floor, not a total.</td></tr>
 <tr><td><b>Is AKE listed on Binance spot?</b></td><td class="mono" style="font-size:11px">n/a</td><td class="mono" style="font-size:11px">no — Binance does not appear in the ticker list<div style="color:var(--muted);font-size:10px">CoinGecko ticker list</div></td><td style="color:var(--warn);font-weight:600;font-size:11px">noted</td></tr>
 <tr><td></td><td colspan="3" style="font-size:11px;color:var(--muted);padding-top:0">This matters for the accounting rule used throughout: flows to Binance-labelled wallets are treated separately from sales precisely because they are not spot order-book deposits.</td></tr>
 </tbody></table>
@@ -766,14 +829,14 @@ $0.14665600, not the $0.09478750
 an hourly series showed, and the fall from it was
 -68.7% rather than the −49.6% first reported.
 And the exchange-deposit totals throughout are a floor: 4 venues carrying
-$9,101,215 of daily volume have no custody address in
+$4,082,132 of daily volume have no custody address in
 this project's registry, so deposits to them are invisible here.</div>
 <div class="note">Neither correction changes a conclusion. The direction of every move, the fact that
 nothing from any release reached an exchange, and the reconciliation of the pools are unaffected —
 but the size of one price move was wrong and is fixed, and a known blind spot is now stated rather
 than left implied.</div>
 </div>
-<div class="section" id="sr"><h2>10 · Wallet and cluster registry</h2>
+<div class="section" id="sr"><h2>11 · Wallet and cluster registry</h2>
 <p style="font-size:13px">Everything on this page that has a name, and why it has one. Nothing here is
 inferred from an off-chain source; each label is either an on-chain entity label or a description of
 what the wallet has actually done.</p>
@@ -794,7 +857,7 @@ appears in the set of 22,077 wallets that have at some point received AKE direct
 eight allocation pools. It is a membership test against on-chain history, not a claim about who
 controls it.</div>
 </div>
-<div class="section" id="sx"><h2>11 · Method, and what this does not show</h2>
+<div class="section" id="sx"><h2>12 · Method, and what this does not show</h2>
 <div class="grid2"><div>
 <h3>How the numbers here are produced</h3>
 <ul style="font-size:12.5px;line-height:1.75;padding-left:18px">
@@ -802,7 +865,7 @@ controls it.</div>
 <code>eth_getCode</code> and <code>eth_getTransactionByHash</code> against a BSC archive node. Prices
 come from CoinGecko; nothing else is taken from a third party.</li>
 <li><b>Pool flow is complete, not sampled.</b> Every AKE transfer with a pool on either side has been
-recorded from the token's deployment to block 123,218,813, de-duplicated on (block, logIndex),
+recorded from the token's deployment to block 123,747,689, de-duplicated on (block, logIndex),
 and the segments are checked to tile the chain with no gap before anything is written.</li>
 <li><b>Hourly pricing, and its limit.</b> Each transfer is valued at the CoinGecko hourly AKE/USD
 rate interpolated to its own block timestamp — the right mark for a transfer at a moment. Price
@@ -827,13 +890,13 @@ leaves no on-chain record at all. Where this page says a move was not on-chain d
 statement about what the chain can account for, not a claim to have seen the order book.</li>
 <li><b>Off-chain entitlement.</b> Nothing here shows what anyone was owed or agreed.</li>
 </ul></div></div>
-<div class="note">Coverage: pool flows continuous to block 123,218,813. Exchange-venue flows
+<div class="note">Coverage: pool flows continuous to block 123,747,689. Exchange-venue flows
 continuous to the same block. Swap-level DEX data on the main pool is continuous from
 4 September to head, rebuilt from the pool's own Swap events. The separate DEX-transfer segment for
 that window is only partly scanned and is not used for any figure on this page. Event days covered: 2026-06-19, 2026-07-22, 2026-07-24, 2026-07-26, 2026-08-21, 2026-09-03, 2026-09-21.</div>
 <footer style="border-top:1px solid var(--border);margin-top:28px;padding:16px 0;
 color:var(--muted);font-size:11.5px">
-Generated 2026-09-22 13:54:07 UTC at block 123,384,555. All times UTC.
+Generated 2026-09-24 11:24:17 UTC at block 123,748,423. All times UTC.
 </footer>
 </div>
 </div>

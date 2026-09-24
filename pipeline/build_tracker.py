@@ -59,6 +59,7 @@ LED = json.load(open(D + 'pool_net_ledger.json'))     # net, reconciled to balan
 ROLE = json.load(open(D + 'wallet_roles.json'))['roles']
 REPEAT = json.load(open(D + 'repeat_amounts.json'))
 TRAIL = json.load(open(D + 'release_trails.json'))   # multi-hop, to an exchange or not
+VER = json.load(open(D + 'verified_values_summary.json'))
 
 _kb = sorted(int(x) for x in TS); _kv = [TS[str(x)] for x in _kb]
 _hk = sorted(int(x) for x in HR); _hv = [HR[str(x)] for x in _hk]
@@ -351,9 +352,10 @@ for i, d in enumerate(BIG, 2):
     w(f'<a href="#d{d}">{i} · {datetime.datetime.strptime(d, "%Y-%m-%d").strftime("%-d %B %Y")} — {t}</a>')
 n = len(BIG) + 2
 w(f'<a href="#sm">{n} · Market structure — where the price is actually made</a>')
-w(f'<a href="#sv">{n+1} · Cross-check against published sources</a>')
-w(f'<a href="#sr">{n+2} · Wallet and cluster registry</a>')
-w(f'<a href="#sx">{n+3} · Method, and what this does not show</a>')
+w(f'<a href="#sq">{n+1} · Verification — every figure re-read from the chain</a>')
+w(f'<a href="#sv">{n+2} · Cross-check against published sources</a>')
+w(f'<a href="#sr">{n+3} · Wallet and cluster registry</a>')
+w(f'<a href="#sx">{n+4} · Method, and what this does not show</a>')
 w('</div></div>')
 
 # ---------------------------------------------------------------- 0
@@ -845,9 +847,83 @@ falls in this window.</div>
 
 
 # ---------------------------------------------------------------- registry
+# ---------------------------------------------------------------- verification
+_sale = VER['sale']
+_r19 = [r for r in VER['rows'] if r['day'] == '2026-06-19'][0]
+w(f'''<div class="section" id="sq"><h2>{n_+1} · Verification — every figure re-read from the chain</h2>
+<p style="font-size:13px">Nothing on this page is taken on trust from a cached scan. Each release leg
+was read back out of the node with <code>eth_getLogs</code> at its own block, its timestamp re-read
+from the block header, and its value computed <b>two independent ways</b>: from the
+PancakeSwap V3 AKE/WBNB pool's own <code>slot0</code> at that block multiplied by WBNB/USDT from a deep
+WBNB/USDT pool at the same block — a price the chain gives with no third party involved — and from the
+CoinGecko series interpolated to the same second. They are different things (one venue's marginal
+price against an aggregate of all venues) and are not expected to match exactly; the check is that
+they agree closely, and they do.</p>
+<div class="q">
+  <div><div class="k">Release legs re-read</div><div class="v">47</div>
+    <div class="sub">every one matches the chain, to the wei</div></div>
+  <div><div class="k">Days reconciled leg by leg</div><div class="v">5 of 7</div>
+    <div class="sub">the two node-unlock days have 6,611 legs and are checked in aggregate</div></div>
+  <div><div class="k">Widest price disagreement</div><div class="v">5.0%</div>
+    <div class="sub">26 July, a fast hour; every other day within 1%</div></div>
+  <div><div class="k">Pool ledger</div><div class="v">closes exactly</div>
+    <div class="sub">allocation − net released = balanceOf, all eight pools</div></div>
+</div>
+<h3>Net released, and what it was worth at the moment it moved</h3>
+<p style="font-size:12.5px">These values are <b>notional</b>: what the tokens were worth as they left
+the pool, not proceeds. Only one of these releases has been sold, and that one has its own line below.
+The two price columns are the independent derivations described above.</p>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Net released</th>
+<th class="num">$/AKE on-chain</th><th class="num">Value at the move</th>
+<th class="num">$/AKE CoinGecko</th><th class="num">Value at the move</th>
+<th class="num">Spread</th></tr></thead><tbody>''')
+for _r in VER['rows']:
+    if not _r.get('verified_leg_by_leg'):
+        w(f'<tr><td>{_r["day"]}</td><td class="num">{bn_amt(int(_r["net"]))}</td>'
+          f'<td colspan="5" style="font-size:11px;color:var(--muted)">thousands of individual claim '
+          f'legs — reconciled in aggregate against <code>balanceOf</code> rather than priced leg by '
+          f'leg</td></tr>')
+        continue
+    _sp = 100 * (_r['value_onchain'] / _r['value_coingecko'] - 1)
+    w(f'<tr><td><a href="#d{_r["day"]}">{_r["day"]}</a></td>'
+      f'<td class="num"><b>{bn_amt(int(_r["net"]))}</b></td>'
+      f'<td class="num">${_r["price_onchain_wavg"]:.8f}</td>'
+      f'<td class="num">{usd(_r["value_onchain"])}</td>'
+      f'<td class="num">${_r["price_cg_wavg"]:.8f}</td>'
+      f'<td class="num">{usd(_r["value_coingecko"])}</td>'
+      f'<td class="num">{_sp:+.1f}%</td></tr>')
+w(f'''</tbody></table>
+<h3 style="margin-top:18px">The one sale, verified to the transaction</h3>
+<table class="dense"><thead><tr><th>Field</th><th>Verified value</th></tr></thead><tbody>
+<tr><td>Transaction</td><td>{bsctx(_sale['tx'], _sale['tx'])}</td></tr>
+<tr><td>Block / time</td><td class="mono">{_sale['block']:,} · {_sale['when_utc']} UTC</td></tr>
+<tr><td>Amount</td><td class="mono">{int(_sale['wei'])/1e27:,.6f}bn AKE — {_sale['wei']} wei,
+  an exactly round two billion</td></tr>
+<tr><td>Destination</td><td>{bsc('0x0d0707963952f2fba59dd06f2b425ace40b492fe')} — Gate.io
+  DepositAndWithdraw_1</td></tr>
+<tr class="hi2"><td>Value, on-chain price</td>
+  <td><b>{usd(_sale['usd_onchain'])}</b> at ${_sale['price_onchain']:.8f}/AKE
+  (BNB ${_sale['bnb_usdt']:,.2f})</td></tr>
+<tr class="hi2"><td>Value, CoinGecko price</td>
+  <td><b>{usd(_sale['usd_coingecko'])}</b> at ${_sale['price_coingecko']:.8f}/AKE —
+  {100*(_sale['usd_onchain']/_sale['usd_coingecko']-1):+.2f}% from the on-chain figure</td></tr>
+</tbody></table>
+<div class="verdict v-sold"><b>The timing is the finding.</b> The 19 June release was worth
+{usd(_r19['value_onchain'])} as it left the pool. It was sold thirty-four days later for
+<b>{usd(_sale['usd_onchain'])}</b> — <b>{_sale['usd_onchain']/_r19['value_onchain']:.1f}× more</b>.
+Whoever controls that chain of wallets did not take tokens and dump them; they took them, waited out a
+move, and sold into it. That is a different behaviour from the one a release-and-sell reading would
+suggest, and it is the only realised proceeds anywhere in this document.</div>
+<div class="note">Method note on the two prices. The on-chain figure is
+<code>slot0</code> on {bsc(MAINPOOL, 'the AKE/WBNB pool')} squared to give WBNB per AKE, multiplied by
+the inverse of <code>slot0</code> on the WBNB/USDT pool at the same block, with USDT taken as one
+dollar. It uses no API at all. The CoinGecko figure is the published AKE/USD series interpolated to
+the block's own second. Both are shown so neither has to be believed on its own.</div>
+</div>''')
+
 # ---------------------------------------------------------------- cross-check
 VER = {'match': 'v-hold', 'noted': 'v-mix', 'not comparable': 'v-mix'}
-w(f'''<div class="section" id="sv"><h2>{n_+1} · Cross-check against published sources</h2>
+w(f'''<div class="section" id="sv"><h2>{n_+2} · Cross-check against published sources</h2>
 <p style="font-size:13px">This project takes its facts from the chain rather than from aggregators.
 That is a sourcing rule, not a claim to be beyond checking — so here is the check. Where an
 independent source agrees, it is recorded. Where it disagrees, the disagreement is recorded too,
@@ -898,7 +974,7 @@ but the size of one price move was wrong and is fixed, and a known blind spot is
 than left implied.</div>
 </div>''')
 
-w(f'''<div class="section" id="sr"><h2>{n_+2} · Wallet and cluster registry</h2>
+w(f'''<div class="section" id="sr"><h2>{n_+3} · Wallet and cluster registry</h2>
 <p style="font-size:13px">Everything on this page that has a name, and why it has one. Nothing here is
 inferred from an off-chain source; each label is either an on-chain entity label or a description of
 what the wallet has actually done.</p>
@@ -942,7 +1018,7 @@ controls it.</div>
 
 # ---------------------------------------------------------------- method
 covered = sorted(EV['days'])
-w(f'''<div class="section" id="sx"><h2>{n_+3} · Method, and what this does not show</h2>
+w(f'''<div class="section" id="sx"><h2>{n_+4} · Method, and what this does not show</h2>
 <div class="grid2"><div>
 <h3>How the numbers here are produced</h3>
 <ul style="font-size:12.5px;line-height:1.75;padding-left:18px">
