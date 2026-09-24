@@ -179,6 +179,16 @@ small { font-size:10px; }
 <div class="section">
   <h2>1 · Executive Summary</h2>
 
+  <div class="alert alert-warn" style="margin-bottom:14px">
+    <strong>Read §0 first — this summary is anchored to 8 August 2026 and three of its headline
+    figures have since moved.</strong> Net released from the eight pools is now
+    <strong>56.8887bn</strong>, not 49.94bn; the pools hold <strong>22.3113bn</strong>, not 29.26bn;
+    and the sold figure below excludes the 19 June Investors release, which this report originally
+    read as held and which in fact reached Gate.io on 23 July. Every pool figure in §0 is net and
+    reconciles to <code>balanceOf</code> at block 123,742,612 to the wei. The reasoning in this
+    summary stands; the magnitudes are larger.
+  </div>
+
   <div class="alert alert-danger" style="margin-bottom:14px">
     <strong>The single most consequential number: 49.94bn AKE — 49.94% of total supply — has left the eight allocation pools,
     against 22.38bn releasable under Akedo's own published vesting schedule. That is 27.56bn beyond entitlement, 2.23× what
@@ -303,9 +313,157 @@ small { font-size:10px; }
     </ul>
   </div>
 </div>
+<!-- ===================== UPDATE TO 24 SEP ===================== -->
+<div class="section" style="border-color:rgba(239,68,68,0.45)">
+  <h2>0 · Update — Chain Re-Parsed to 24 September 2026</h2>
+
+  <div class="alert alert-danger" style="margin-bottom:14px">
+    <strong>Update to 24 September 2026, block 123,742,612.</strong> Two further team releases since
+    the last update, both from Team Pool 2: <strong>1.5000bn on 3 September</strong> to three wallets
+    and <strong>2.8844bn on 21 September</strong> to sixteen — the largest team release since July.
+    Nothing has left any pool since; all eight balances are unchanged from 21 to 24 September.
+    <br><br>
+    <strong>And one finding in this report is corrected.</strong> The 19 June Investors Pool release
+    was previously read as held. It was not: it was <strong>sold into Gate.io on 23 July</strong>,
+    four wallets and thirty-four days downstream of the pool. The error was method, not data — the
+    follow-through stopped one transfer from the recipient. Every release is now walked until it
+    reaches an exchange, a DEX pool, or a wallet that still holds.
+  </div>
+
+  <h3>Every pool figure is now net, and the ledger closes</h3>
+  <p>Gross movement overstates releases wherever tokens came back. 19 June sent 4.0734bn and took
+  2.0734bn back within twenty-four minutes; the release was 2.0000bn, and the gross figure would have
+  more than doubled it. All pool figures below are <strong>net</strong> — sent minus returned, with
+  the launch funding transfer treated separately — and each is checked against the chain:
+  <em>allocation minus net released must equal <code>balanceOf</code> at the head block</em>. Across
+  63,782 lifetime pool-touching transfers, all eight reconcile to the wei.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Pool</th><th class="num">Allocation</th><th class="num">Net released, lifetime</th>
+    <th class="num">of allocation</th><th class="num">Net released since 1 Jun 2026</th>
+    <th class="num">Holds now</th><th class="num">Reconciles?</th></tr></thead>
+    <tbody>
+<tr><td><strong>Investors</strong></td><td class="num">25.0000bn</td><td class="num">10.6329bn</td><td class="num">42.53%</td><td class="num">6.0000bn</td><td class="num">14.3671bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr style="background:rgba(251,191,36,.09)"><td><strong>Team 2</strong></td><td class="num">15.0000bn</td><td class="num">8.9523bn</td><td class="num">59.68%</td><td class="num">8.9523bn</td><td class="num">6.0477bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr><td><strong>Team 1</strong></td><td class="num">5.0000bn</td><td class="num">3.8586bn</td><td class="num">77.17%</td><td class="num">2.0000bn</td><td class="num">1.1414bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr><td><strong>Nodes 1</strong></td><td class="num">8.0000bn</td><td class="num">7.3578bn</td><td class="num">91.97%</td><td class="num">7.0354bn</td><td class="num">0.6422bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr><td><strong>Nodes 2</strong></td><td class="num">7.5000bn</td><td class="num">7.4890bn</td><td class="num">99.85%</td><td class="num">6.6990bn</td><td class="num">0.0110bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr><td><strong>Nodes 3</strong></td><td class="num">16.0000bn</td><td class="num">16.0000bn</td><td class="num">100.00%</td><td class="num">8.6740bn</td><td class="num">0.0000bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr><td><strong>KOL</strong></td><td class="num">1.7000bn</td><td class="num">1.6261bn</td><td class="num">95.65%</td><td class="num">0.0000bn</td><td class="num">0.0739bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr><td><strong>Community</strong></td><td class="num">1.0000bn</td><td class="num">0.9721bn</td><td class="num">97.21%</td><td class="num">0.0000bn</td><td class="num">0.0279bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr style="border-top:2px solid var(--border)"><td><strong>total</strong></td><td class="num"><strong>79.2000bn</strong></td><td class="num"><strong>56.8887bn</strong></td><td class="num">—</td><td class="num">—</td><td class="num"><strong>22.3113bn</strong></td><td class="num" style="color:var(--green)">exact</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12.5px;color:var(--muted)">This settles an ambiguity worth naming. The Investors
+  Pool released <strong>2.0000bn net on 19 June</strong> — that figure is the day, not the pool. It
+  released a further <strong>4.0000bn net on 26 July</strong>, making <strong>6.0000bn since June</strong>
+  and <strong>10.6329bn across its whole life</strong> against 25.0000bn allocated, with 14.3671bn
+  still held. Reading the day figure as the total understates it by a factor of five.</p>
+
+  <h3>Correction — the 19 June release was sold</h3>
+  <p>Followed properly, every token of the 19 June net release reached exchange custody:</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>When (UTC)</th><th>From</th><th>To</th><th class="num">Amount</th><th>What it is</th></tr></thead>
+    <tbody>
+<tr><td class="mono">2026-06-19 16:00:41</td><td class="mono">Investors Pool</td><td class="mono">0xf23abe615b…</td><td class="num">4.0734bn</td><td style="font-size:12px">the release</td></tr>
+<tr><td class="mono">2026-06-19 16:24:52</td><td class="mono">0xf23abe615b…</td><td class="mono">Investors Pool</td><td class="num">2.0734bn</td><td style="font-size:12px">returned 24 minutes later — net release is 2.0000bn</td></tr>
+<tr><td class="mono">2026-06-20 10:19:33</td><td class="mono">0xf23abe615b…</td><td class="mono">0xa074027a3b…</td><td class="num">2.0000bn</td><td style="font-size:12px">hop 2, the next morning</td></tr>
+<tr><td class="mono">2026-07-15 07:51–13:00</td><td class="mono">0xa074027a3b…</td><td class="mono">0x7476c568d6…</td><td class="num">2.0000bn</td><td style="font-size:12px">hop 3, in four tranches of 0.5, 0.25, 0.25 and 1.0bn, 25 days later</td></tr>
+<tr style="background:rgba(239,68,68,.10)"><td class="mono">2026-07-23 18:03:46</td><td class="mono">0x7476c568d6…</td><td class="mono">0x0d07079639…</td><td class="num">2.0000bn</td><td style="font-size:12px">hop 4 — Gate.io DepositAndWithdraw_1. This is a sale.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Each step was located by bisecting <code>balanceOf</code> on the chain and then reading the
+  transfer log at the block the balance changed, so the chain is complete rather than sampled. Of
+  <strong>18.4923bn net</strong> released across the days that can be walked wallet by wallet,
+  <strong>2.0000bn (10.8%) has been sold</strong> — all of it this release. The two legs of the
+  21 August release that moved on 27 August end in wallets that still hold them. Nothing from
+  26 July, 3 September or 21 September has moved at all.</p>
+
+  <h3>The Investors Pool schedule, and the boundary that produced nothing</h3>
+  <p>The vesting schedule is a single timestamp in <strong>storage slot 3</strong>, with a hardcoded
+  <strong>30-day cadence</strong> and a <strong>90-day cliff</strong> — the constant 2,592,000 appears
+  exactly once in each of the pool's nine implementations and no alternative duration appears in any
+  of them. The anchor has been rewritten exactly twice, both times in 2025, and reads
+  1756029600 (24 Aug 2025 10:00 UTC) today.</p>
+  <p>The member self-claim path was <strong>gutted on 19 March 2026</strong>: the function is still in
+  the ABI and its arithmetic is intact, but an unconditional <code>revert("fix")</code> was placed in
+  front of it. It still reverts <code>"fix"</code> for every caller. So the
+  <strong>n=13 boundary on 18 September 2026 at 10:00 UTC came due exactly as the schedule computes
+  it, and released nothing</strong>. The next boundary is <strong>18 October 2026, 10:00 UTC</strong>.
+  The date is knowable; the event is not, because it now requires the owner Safe to act.</p>
+  <p>The 25 July upgrade added <code>userWithdraw()</code> (<code>0xa646f9ad</code>), absent from every
+  earlier implementation. It was used once, the next day, for exactly <strong>4.0000bn</strong> by four
+  wallets, and is now spent: it answers <code>"Already withdrawn"</code> to those four and
+  <code>"Only token address can withdraw"</code> to every other address tested, including the deployer
+  and the owner Safe. The previously unresolved selector <code>0xe0dc37a3</code> is now characterised —
+  it takes a single array of <em>(address, amount)</em> pairs and pays all of them in one block, which
+  is what both legs of the 21 September release used.</p>
+
+  <h3>The same payout amounts, paid again to new addresses</h3>
+  <p>Across the four Team Pool 2 release days, <strong>eight distinct payout amounts recur</strong> —
+  0.2362bn, 0.1604bn, 0.1178bn, 0.0833bn, 0.0685bn, 0.0417bn, 0.0333bn and 0.0250bn — and
+  <strong>no receiving address has ever appeared on two of them</strong>. 31% of the 21 August release
+  and 34% of the 21 September release went out in amounts already paid on another day. The simplest
+  reading is one beneficiary list paid repeatedly through freshly created wallets. It does not identify
+  the beneficiaries, and nothing here claims to.</p>
+
+  <h3>The 18–21 September price event had no pool involvement</h3>
+  <p>AKE went from $0.02090653 on 18 September to an all-time high of
+  <strong>$0.14665600 at 20 September 10:33:30 UTC</strong>, then fell to <strong>$0.04596138 inside
+  the same day — 68.7%</strong>, and to $0.03148813 on 21 September. No pool released anything between
+  26 July and 21 September, and the 18 September vesting boundary produced nothing, so none of this
+  was supply-driven from the allocations.</p>
+  <p>Nor was the fall driven on-chain. In the hour the price halved, net selling on the main
+  PancakeSwap pool was <strong>0.86mn AKE, about $60,000</strong>, on 79mn of gross flow; the largest
+  single swap of that entire day was <strong>$63,219</strong>; active liquidity moved 0.06%, so nothing
+  was pulled. Fresh supply reaching exchange custody in the two hours around the top came to
+  <strong>26.05mn AKE, roughly $2.0m</strong>, against about <strong>$197m of reported hourly
+  turnover</strong>. The selling was order-book inventory already sitting on exchanges, which leaves no
+  on-chain trace; the pool tracked it by arbitrage rather than setting it. Retail buying the fall
+  through the Binance Wallet router outweighed retail selling roughly twenty to one.</p>
+  <p>The largest single on-chain event of that week came from Binance, not from the team: on
+  <strong>19 September between 20:14 and 20:28 UTC, Binance Hot Wallet 4 sent 216.23mn AKE to three
+  addresses with no prior history</strong>. None is a pool recipient. None of it has been sold.</p>
+
+  <h3>Checked against published sources — including two corrections to this report's method</h3>
+  <p>The contract address, <code>totalSupply()</code> of 100,000,000,000, max supply and 18 decimals all
+  match CoinGecko exactly. Three things do not, and two of them were this report's fault:</p>
+  <ul>
+    <li><strong>Hourly price marks understate spikes.</strong> An hourly series records a price once an
+    hour and cannot see a move that opens and closes inside the hour. On 20 September it missed the top
+    by 55%, and on 3 September by 119%. Every peak-to-trough figure is now taken from OHLC candles.
+    Per-transfer USD remains the hourly rate, which is the right mark for valuing a transfer at a
+    moment rather than describing a range.</li>
+    <li><strong>Exchange-deposit totals are a floor, not a total.</strong> Four venues carrying about
+    $9.1m of daily volume — Hibt, Toobit, XT.COM and KCEX, 7.3% of reported turnover — have no custody
+    address in this project's registry, so deposits to them are invisible here.</li>
+    <li><strong>"Locked" means two different things.</strong> Vesting trackers report 52.77bn locked;
+    the eight pool contracts hold <strong>22.3113bn</strong>. The roughly 30bn difference is schedule
+    accounting — tokens not yet due under a published plan — sitting in ordinary wallets that can
+    transact at any moment. Relatedly, the trackers' 21 September unlock is 2.1078bn across four
+    categories including 1.04bn to Investors; on-chain, 2.8844bn came out of Team Pool 2 alone and the
+    Investors Pool released nothing.</li>
+  </ul>
+  <p style="font-size:12.5px;color:var(--muted)">Also recorded: <strong>AKE does not appear on Binance
+  spot</strong> in the exchange ticker list, which is the standing reason flows to Binance-labelled
+  wallets are accounted for separately from sales throughout this report.</p>
+
+  <div class="alert alert-info">
+    <strong>What this section does to §1–§14.</strong> The body of this report remains anchored to
+    block 117,948,265 (25 August 2026) and is not rewritten. Where this update conflicts with it, this
+    update governs — specifically on the net-versus-gross treatment of the 19 June release, on whether
+    that release was held or sold, and on the intraday price extremes. The per-release detail,
+    hop-by-hop trails and market structure live in the companion document
+    <em>AKE — what the team-controlled pools have released, and what happened next</em>; the vesting
+    mechanism is set out in <em>AKE Investors Pool — how the unlocks have actually worked</em>.
+  </div>
+</div>
 <!-- ===================== UPDATE TO 20 AUG ===================== -->
 <div class="section" style="border-color:rgba(239,68,68,0.45)">
-  <h2>0 · Update — Chain Re-Parsed to 25 August 2026</h2>
+  <h2>0.1 · Previous update — Chain Re-Parsed to 25 August 2026</h2>
 
   <div class="alert alert-danger" style="margin-bottom:14px">
     <strong>Update to 25 August 2026, block 117,948,265 — and the answer to §0's first question has changed.</strong>

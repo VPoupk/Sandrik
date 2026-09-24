@@ -1,7 +1,7 @@
 {
- "generated": "2026-09-22T05:11:39.030763Z",
- "head_block": 123314902,
- "head_utc": "2026-09-22T05:11:35",
+ "generated": "2026-09-24T10:42:15.524640Z",
+ "head_block": 123742812,
+ "head_utc": "2026-09-24T10:42:11",
  "total_supply": "100000000000000000000000000000",
  "decimals": 18,
  "pool_balances": {
@@ -16,36 +16,36 @@
  },
  "pools_total": "22311290909700238396223828267",
  "cg": {
-  "price": 0.057932,
-  "market_cap": 1313364510,
-  "fdv": 5761318241,
-  "volume_24h": 75110754,
+  "price": 0.04160121,
+  "market_cap": 950248903,
+  "fdv": 4168443947,
+  "volume_24h": 44074877,
   "circulating": 22796250000.0,
   "total_supply": 100000000000.0,
   "ath": 0.146656,
   "ath_date": "2026-09-20T10:33:30.000Z",
-  "last_updated": "2026-09-22T05:04:20.000Z"
+  "last_updated": "2026-09-24T10:39:30.000Z"
  },
  "venue_gaps": [
   {
    "venue": "Hibt",
-   "volume_usd": 4691308
+   "volume_usd": 1823869
   },
   {
    "venue": "Toobit",
-   "volume_usd": 2912713
+   "volume_usd": 1245123
   },
   {
    "venue": "XT.COM",
-   "volume_usd": 1116924
+   "volume_usd": 851524
   },
   {
    "venue": "KCEX",
-   "volume_usd": 380270
+   "volume_usd": 161616
   }
  ],
- "dex_volume_24h": 50548630.599999994,
- "cex_volume_24h": 74653017.0,
+ "dex_volume_24h": 14744170.780064002,
+ "cex_volume_24h": 29373960.0,
  "hourly_vs_candles": [
   {
    "day": "2026-09-03",
@@ -154,10 +154,10 @@
   {
    "what": "Market cap",
    "chain": "n/a",
-   "published": "$1,313,364,510",
+   "published": "$950,248,903",
    "source": "CoinGecko",
    "verdict": "noted",
-   "note": "FDV $5,761,318,241. The ratio between them is entirely a function of the circulating figure above."
+   "note": "FDV $4,168,443,947. The ratio between them is entirely a function of the circulating figure above."
   },
   {
    "what": "Intraday high",
@@ -181,7 +181,7 @@
    "published": "4 venue(s) with volume and no custody address here",
    "source": "CoinGecko ticker list",
    "verdict": "COVERAGE GAP",
-   "note": "$9,101,215 of $125,201,648 reported 24h volume (7.3%) trades on venues this project cannot see deposits to: Hibt, Toobit, XT.COM, KCEX. Exchange-deposit figures in this document are therefore a floor, not a total."
+   "note": "$4,082,132 of $44,118,131 reported 24h volume (9.3%) trades on venues this project cannot see deposits to: Hibt, Toobit, XT.COM, KCEX. Exchange-deposit figures in this document are therefore a floor, not a total."
   },
   {
    "what": "Is AKE listed on Binance spot?",
