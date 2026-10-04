@@ -377,11 +377,12 @@ Of the other two genesis allocations, one (<span class="addr">0x95cccfee…</spa
 <h3>10.1 The wallet <span class="addr">0x1695bf93…</span> is an arbitrage bot, not DEX routing</h3>
 <p>Earlier reports grouped this address with the DEX routers. It is an ordinary externally owned account. It received 40.4M RSC straight from the Aerodrome and Uniswap pools in 16,374 transfers,
 starting 2025-07-31, and sent everything to Coinbase (30.2M) and Exchange-scale B (10.4M). It never sold into a pool, so Request 2's pool-sale attribution is unchanged.
-It is, however, the largest buyer from the pools since September 2025. Any statement in the earlier reports about RSC bought from the pools and delivered to exchanges is an undercount by this wallet's volume.</p>
+It is, however, the largest buyer from the pools since September 2025. Request 2 §9 and the findings report §3 have been corrected to include it (4 October 2026):
+it is the largest pool buyer in both depreciation periods, and buying by exchange-bound wallets over those periods rises from 20.2M to 43.1M RSC.</p>
 <h3>10.2 Exchange-scale B is very likely a Coinbase wallet</h3>
 <p>Two independent observations. First, the cold wallet <span class="addr">0x901fc41a…</span> received 18.0M from Coinbase 35, 2.8M from Coinbase 22 and
 2.8M from Exchange-scale B, and has only ever sent to Coinbase 35. Second, 27 of Exchange-scale B's 53 depositors also deposit at Coinbase,
-and they account for 97% of everything Exchange-scale B received. This is inference, not a label. Earlier reports that list Exchange-scale B as "exchange not identified" should read it as probably Coinbase.</p>
+and they account for 97% of everything Exchange-scale B received. This is inference, not a label. The earlier reports now note it wherever Exchange-scale B appears (4 October 2026).</p>
 <h3>10.3 A Coinbase-funded hub supplies the arbitrage group, three other exchanges and Operator 2</h3>
 <p><span class="addr">0x4b5c7108…</span> has received RSC only from Coinbase (15.1M since July 2026). It sent 6.3M to the Coinbase-side arbitrage group in 676 transfers,
 3.4M to the Kraken loop wallet, 1.2M to Kraken deposit addresses, 0.4M to MEXC deposit addresses and smaller amounts to Gate.
@@ -391,7 +392,17 @@ That is consistent with a single market-making operation behind several of the "
 <p>The file maps the archive's side code 2 to "buy". Gate's own API says otherwise: for the 6,316 trades present in both the archive and the API (IDs 701,507–707,822), API "buy" is archive code 1, every time.
 A tick test agrees once the side is flipped: taker buys are on up-ticks 75.5% of the time and on down-ticks 18.1%. Any earlier use of the file's side column for the historical-dump rows (1 January – 1 June 2026) reverses
 Gate's taker flow. The CEX trade analysis used a different source and is not affected.</p>
-<h3>10.5 Open questions</h3>
+<h3>10.5 Corrections made to the earlier reports on 4 October 2026</h3>
+<ul class="ev">
+<li><strong>Historical distribution and flows.</strong> The summary cards now carry the corrected figures of §6.2: 9.66M RSC and $1,816,617 sold by ResearchHub's own wallets, 4.67M RSC and $1,849,666 bought back, net −$33,050
+(they showed $6,242,151 and +$4,339,653). §8's volume chart and table now include Base pool volume before 2026; the largest month is August 2025 at $55.1M, not $36.1M. §9 no longer counts
+market-maker wallets as ResearchHub: insider-side selling is 71.8M RSC and $14.2M, not 88.6M and $16.1M.</li>
+<li><strong>Request 1 §5.</strong> The 1,378,570 RSC withdrawn from the TWAP contract on 7 January was not "the unsold remainder": the contract kept 459,523 RSC and sold it by 29 January.</li>
+<li><strong>Request 2 §9.</strong> <span class="addr">0x1695bf93…</span> is added to the operations and buyers tables as the largest pool buyer in both periods.</li>
+<li><strong>Findings report §3.</strong> Exchange-bound pool buying includes <span class="addr">0x1695bf93…</span>, and the timing test uses tie-corrected rank correlations; the pooled figure is 0.11, not 0.38. The conclusion is unchanged.</li>
+<li><strong>All reports.</strong> Exchange-scale B is noted as very likely a Coinbase wallet wherever it appears.</li>
+</ul>
+<h3>10.6 Open questions</h3>
 <ul class="ev">
 <li>Who controls <span class="addr">0x4b5c7108…</span>, <span class="addr">0x15da7556…</span>, <span class="addr">0x9b0c45d4…</span> and <span class="addr">0x845ee646…</span>, and whether they are the same operator as Operator 2 or the new August wallets. The exchanges' records would settle it.</li>
 <li>What the September Kraken loop is for. Kraken can see which accounts the deposit address <span class="addr">0xeb9ca8fd…</span> and the withdrawals belong to.</li>

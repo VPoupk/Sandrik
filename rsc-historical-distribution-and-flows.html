@@ -118,14 +118,14 @@ li{margin:6px 0}
     <div class="note"><strong>$49,110,083</strong> at the price on each transfer date · 8,331 transfers</div>
   </div>
   <div class="card hi">
-    <div class="lab">Sold by ResearchHub wallets, all time</div>
-    <div class="val">39.4M</div>
-    <div class="note"><strong>$6,242,151</strong> · direct and through conduit wallets · the direct-only figure is $1,179,367</div>
+    <div class="lab">Sold by ResearchHub's own wallets, all time</div>
+    <div class="val">9.66M</div>
+    <div class="note"><strong>$1,816,617</strong> · direct and through conduits it controls · the direct-only figure is 7.11M RSC and $1,179,367 (§6.2)</div>
   </div>
   <div class="card">
     <div class="lab">Bought back by those same wallets</div>
-    <div class="val">5.01M</div>
-    <div class="note"><strong>$1,902,498</strong> · net position −34.4M RSC, <strong>+$4,339,653 realised</strong></div>
+    <div class="val">4.67M</div>
+    <div class="note"><strong>$1,849,666</strong> · net position −4.98M RSC, <strong>−$33,050</strong>: it spent slightly more buying than it raised selling (§6.5)</div>
   </div>
 </div>
 
@@ -334,7 +334,7 @@ timing alone, and that is the weakest of the three groupings.</p>
 <tr><td>The Base bridge (internal, not a distribution)</td><td class="num">42,990,992</td><td class="num">15,483,822</td><td class="num">42</td><td class="num">1</td></tr>
 <tr><td>One-off grantees</td><td class="num">42,454,549</td><td class="num">5,561,957</td><td class="num">2,449</td><td class="num">1,347</td></tr>
 <tr><td>Recurring compensation</td><td class="num">35,411,220</td><td class="num">2,451,949</td><td class="num">772</td><td class="num">39</td></tr>
-<tr class="hl"><td>Trading venues — sold by the complex itself</td><td class="num">23,916,405</td><td class="num">3,069,912</td><td class="num">40</td><td class="num">6</td></tr>
+<tr class="hl"><td>Trading venues — sent straight from the earlier 27-wallet complex: 7,109,368 RSC ($1,179,367) by ResearchHub's own wallets and 16,807,037 ($1,890,545) by market-maker wallets (§4a, §6.1)</td><td class="num">23,916,405</td><td class="num">3,069,912</td><td class="num">40</td><td class="num">6</td></tr>
 <tr><td>Staking relays (onward to the vault)</td><td class="num">16,094,626</td><td class="num">1,283,788</td><td class="num">24</td><td class="num">3</td></tr>
 <tr><td>Market participants</td><td class="num">11,903,153</td><td class="num">1,968,502</td><td class="num">780</td><td class="num">318</td></tr>
 <tr><td>Bounty &amp; platform rewards</td><td class="num">9,737,732</td><td class="num">3,628,977</td><td class="num">3,997</td><td class="num">651</td></tr>
@@ -386,8 +386,9 @@ column is the answer to what they did with it.</p>
 </div>
 
 <div class="callout bad">
-  <div class="h">The recipients realised four times what the company did</div>
-  <p>ResearchHub's own wallets sold 23.9M RSC for <strong>$3.07M</strong> across the token's life. The people and
+  <div class="h">The recipients realised about seven times what the company did</div>
+  <p>ResearchHub's own wallets sold 9.66M RSC for <strong>$1.82M</strong> across the token's life, counting the conduits it
+  controls (7.11M RSC and $1.18M directly; §6.2). The people and
   entities it paid sold <strong>64.7M RSC for $13.07M</strong> over the same period — and the two cohorts closest
   to the organisation, recurring compensation and one-off grantees, account for $9.17M of that on their own.</p>
   <p>Almost all of it went through pools and DEX aggregators rather than exchange deposits: <strong>62.8M of the
@@ -630,9 +631,9 @@ that was never a purchase.</p>
 <table>
 <thead><tr><th>RSC leaving a venue into…</th><th class="num">RSC</th><th class="num">USD at the time</th><th>What it is</th></tr></thead>
 <tbody>
-<tr><td><strong>ResearchHub complex</strong></td><td class="num">5,007,679</td><td class="num">$1,902,498</td><td>Genuine open-market buying — Treasury 3 and the Foundation Safe through DEX routers and pools</td></tr>
+<tr><td><strong>ResearchHub complex</strong></td><td class="num">5,007,679</td><td class="num">$1,902,498</td><td>Genuine open-market buying — Treasury 3 and the Foundation Safe through DEX routers and pools · 333,290 RSC ($52,832) of it was bought by the two reward-paying hot wallets, which the revised net below excludes</td></tr>
 <tr class="hl"><td>Market-maker infrastructure</td><td class="num">4,140,956</td><td class="num">$378,644</td><td><strong>Not a purchase.</strong> Inventory the operator withdrew from its own exchange accounts — 3,257,325 RSC of it back from MEXC into relay <span class="addr">0x620c0738…7EeB</span></td></tr>
-<tr class="hl"><td>Market-maker counterparty wallets</td><td class="num">7,119,504</td><td class="num">$2,021,349</td><td><strong>Not a purchase.</strong> An operator unwinding a position across Gate, MEXC, Coinbase and one exchange-scale wallet, immediately before returning 9,999,699 RSC to the Foundation Safe on 29 May 2026</td></tr>
+<tr class="hl"><td>Market-maker counterparty wallets</td><td class="num">7,119,504</td><td class="num">$2,021,349</td><td><strong>Not a purchase.</strong> An operator unwinding a position across Gate, MEXC, Coinbase and one exchange-scale wallet (Exchange-scale B, very likely also Coinbase), immediately before returning 9,999,699 RSC to the Foundation Safe on 29 May 2026</td></tr>
 <tr><td>Cohort recipients</td><td class="num">8,381,430</td><td class="num">$1,900,065</td><td>Allocation and compensation wallets buying on the open market, mostly through 2024–25</td></tr>
 </tbody>
 </table>
@@ -733,28 +734,29 @@ that follows.</p>
 </figure>
 
 <figure>
-<figcaption><strong>Monthly turnover by venue type.</strong> The two biggest months sit on either side of the first exchange listing: November 2024, when the on-chain pools were the whole market, and August 2025, the first full month on Coinbase.</figcaption>
-<svg viewBox="0 0 900 262" class="chart" role="img" aria-label="Monthly RSC trading volume by venue type, 2024 to 2026"><text x="62" y="14" class="axt">Monthly RSC trading volume, USD</text><line x1="62" y1="168.5" x2="880" y2="168.5" class="grid"/><text x="54" y="172.0" class="axl" text-anchor="end">$10M</text><line x1="62" y1="121.0" x2="880" y2="121.0" class="grid"/><text x="54" y="124.5" class="axl" text-anchor="end">$20M</text><line x1="62" y1="73.5" x2="880" y2="73.5" class="grid"/><text x="54" y="77.0" class="axl" text-anchor="end">$30M</text><line x1="62" y1="26.0" x2="880" y2="26.0" class="grid"/><text x="54" y="29.5" class="axl" text-anchor="end">$40M</text><line x1="62" y1="216" x2="880" y2="216" class="grid"/><rect x="66.9" y="176.2" width="15.8" height="39.8" rx="3" fill="var(--s3)"/><rect x="92.4" y="170.1" width="15.8" height="45.9" rx="3" fill="var(--s3)"/><rect x="118.0" y="158.9" width="15.8" height="57.1" rx="3" fill="var(--s3)"/><rect x="143.5" y="163.1" width="15.8" height="52.9" rx="3" fill="var(--s3)"/><rect x="169.1" y="201.2" width="15.8" height="14.8" rx="3" fill="var(--s3)"/><rect x="194.7" y="204.1" width="15.8" height="11.9" rx="3" fill="var(--s3)"/><rect x="220.2" y="206.9" width="15.8" height="9.1" rx="3" fill="var(--s3)"/><rect x="245.8" y="202.6" width="15.8" height="13.4" rx="3" fill="var(--s3)"/><rect x="271.4" y="206.9" width="15.8" height="9.1" rx="3" fill="var(--s3)"/><rect x="296.9" y="210.7" width="15.8" height="5.3" rx="3" fill="var(--s3)"/><rect x="322.5" y="99.4" width="15.8" height="116.6" rx="3" fill="var(--s3)"/><rect x="322.5" y="86.8" width="15.8" height="11.1" rx="3" fill="var(--s2)"/><text x="330.4" y="80.3" class="axv" text-anchor="middle">$27M</text><rect x="348.0" y="119.4" width="15.8" height="96.6" rx="3" fill="var(--s3)"/><rect x="348.0" y="94.6" width="15.8" height="23.3" rx="3" fill="var(--s2)"/><text x="356.0" y="88.1" class="axv" text-anchor="middle">$25M</text><rect x="373.6" y="148.0" width="15.8" height="68.0" rx="3" fill="var(--s3)"/><rect x="373.6" y="121.5" width="15.8" height="25.1" rx="3" fill="var(--s2)"/><rect x="399.2" y="200.1" width="15.8" height="15.9" rx="3" fill="var(--s3)"/><rect x="399.2" y="191.3" width="15.8" height="7.4" rx="3" fill="var(--s2)"/><rect x="424.7" y="208.3" width="15.8" height="7.7" rx="3" fill="var(--s3)"/><rect x="424.7" y="204.1" width="15.8" height="2.7" rx="3" fill="var(--s2)"/><rect x="450.3" y="210.8" width="15.8" height="5.2" rx="3" fill="var(--s3)"/><rect x="450.3" y="205.4" width="15.8" height="3.8" rx="3" fill="var(--s2)"/><rect x="475.9" y="202.0" width="15.8" height="14.0" rx="3" fill="var(--s3)"/><rect x="475.9" y="194.0" width="15.8" height="6.6" rx="3" fill="var(--s2)"/><rect x="501.4" y="209.5" width="15.8" height="6.5" rx="3" fill="var(--s3)"/><rect x="501.4" y="200.2" width="15.8" height="7.8" rx="3" fill="var(--s2)"/><rect x="527.0" y="193.6" width="15.8" height="22.4" rx="3" fill="var(--s3)"/><rect x="527.0" y="167.2" width="15.8" height="24.8" rx="3" fill="var(--s2)"/><rect x="527.0" y="160.8" width="15.8" height="5.0" rx="3" fill="var(--s1)"/><rect x="552.5" y="192.9" width="15.8" height="23.1" rx="3" fill="var(--s3)"/><rect x="552.5" y="165.1" width="15.8" height="26.3" rx="3" fill="var(--s2)"/><rect x="552.5" y="41.3" width="15.8" height="122.3" rx="3" fill="var(--s1)"/><text x="560.5" y="34.8" class="axv" text-anchor="middle">$36M</text><rect x="578.1" y="186.2" width="15.8" height="29.8" rx="3" fill="var(--s3)"/><rect x="578.1" y="174.0" width="15.8" height="10.7" rx="3" fill="var(--s2)"/><rect x="578.1" y="140.0" width="15.8" height="32.5" rx="3" fill="var(--s1)"/><rect x="603.7" y="173.5" width="15.8" height="42.5" rx="3" fill="var(--s3)"/><rect x="603.7" y="150.8" width="15.8" height="21.3" rx="3" fill="var(--s2)"/><rect x="603.7" y="126.1" width="15.8" height="23.2" rx="3" fill="var(--s1)"/><rect x="629.2" y="208.4" width="15.8" height="7.6" rx="3" fill="var(--s3)"/><rect x="629.2" y="186.0" width="15.8" height="20.9" rx="3" fill="var(--s2)"/><rect x="629.2" y="174.6" width="15.8" height="10.0" rx="3" fill="var(--s1)"/><rect x="654.8" y="201.8" width="15.8" height="14.2" rx="3" fill="var(--s3)"/><rect x="654.8" y="186.6" width="15.8" height="13.7" rx="3" fill="var(--s2)"/><rect x="654.8" y="177.6" width="15.8" height="7.5" rx="3" fill="var(--s1)"/><rect x="680.4" y="203.2" width="15.8" height="12.8" rx="3" fill="var(--s3)"/><rect x="680.4" y="187.9" width="15.8" height="13.8" rx="3" fill="var(--s2)"/><rect x="680.4" y="179.3" width="15.8" height="7.1" rx="3" fill="var(--s1)"/><rect x="705.9" y="211.5" width="15.8" height="4.5" rx="3" fill="var(--s3)"/><rect x="705.9" y="198.9" width="15.8" height="11.1" rx="3" fill="var(--s2)"/><rect x="705.9" y="194.4" width="15.8" height="3.0" rx="3" fill="var(--s1)"/><rect x="731.5" y="212.5" width="15.8" height="3.5" rx="3" fill="var(--s3)"/><rect x="731.5" y="200.3" width="15.8" height="10.7" rx="3" fill="var(--s2)"/><rect x="731.5" y="196.3" width="15.8" height="2.5" rx="3" fill="var(--s1)"/><rect x="757.0" y="182.4" width="15.8" height="33.6" rx="3" fill="var(--s3)"/><rect x="757.0" y="161.6" width="15.8" height="19.3" rx="3" fill="var(--s2)"/><rect x="757.0" y="127.3" width="15.8" height="32.8" rx="3" fill="var(--s1)"/><rect x="782.6" y="183.2" width="15.8" height="32.8" rx="3" fill="var(--s3)"/><rect x="782.6" y="158.5" width="15.8" height="23.2" rx="3" fill="var(--s2)"/><rect x="782.6" y="130.6" width="15.8" height="26.4" rx="3" fill="var(--s1)"/><rect x="808.2" y="198.6" width="15.8" height="17.4" rx="3" fill="var(--s3)"/><rect x="808.2" y="165.2" width="15.8" height="31.8" rx="3" fill="var(--s2)"/><rect x="808.2" y="138.0" width="15.8" height="25.7" rx="3" fill="var(--s1)"/><rect x="833.7" y="203.2" width="15.8" height="12.8" rx="3" fill="var(--s3)"/><rect x="833.7" y="182.8" width="15.8" height="18.9" rx="3" fill="var(--s2)"/><rect x="833.7" y="172.0" width="15.8" height="9.4" rx="3" fill="var(--s1)"/><rect x="859.3" y="211.2" width="15.8" height="4.8" rx="3" fill="var(--s3)"/><rect x="859.3" y="200.2" width="15.8" height="9.5" rx="3" fill="var(--s2)"/><rect x="859.3" y="195.9" width="15.8" height="2.8" rx="3" fill="var(--s1)"/><text x="74.8" y="233.0" class="axl" text-anchor="middle">2024-01</text><text x="228.2" y="233.0" class="axl" text-anchor="middle">2024-07</text><text x="381.5" y="233.0" class="axl" text-anchor="middle">2025-01</text><text x="534.9" y="233.0" class="axl" text-anchor="middle">2025-07</text><text x="688.3" y="233.0" class="axl" text-anchor="middle">2026-01</text><text x="841.7" y="233.0" class="axl" text-anchor="middle">2026-07</text><rect x="62" y="247" width="10" height="10" rx="3" fill="var(--s1)"/><text x="78" y="256" class="axs">Coinbase</text><rect x="182" y="247" width="10" height="10" rx="3" fill="var(--s2)"/><text x="198" y="256" class="axs">Gate · MEXC · Kraken</text><rect x="382" y="247" width="10" height="10" rx="3" fill="var(--s3)"/><text x="398" y="256" class="axs">on-chain pools</text></svg>
+<figcaption><strong>Monthly turnover by venue type.</strong> The biggest month is August 2025, the first full month on Coinbase, when the Base pools traded $18.9M alongside it. The next is November 2024, when the on-chain pools were the whole market. Base pool volume is included from April 2024 (corrected 4 October 2026; the earlier chart had it only from January 2026).</figcaption>
+<svg viewBox="0 0 900 262" class="chart" role="img" aria-label="Monthly RSC trading volume by venue type, 2024 to 2026, with Base pool volume included from April 2024"><text x="62" y="14" class="axt">Monthly RSC trading volume, USD</text><line x1="62" y1="184.3" x2="880" y2="184.3" class="grid"/><text x="54" y="187.8" class="axl" text-anchor="end">$10M</text><line x1="62" y1="152.7" x2="880" y2="152.7" class="grid"/><text x="54" y="156.2" class="axl" text-anchor="end">$20M</text><line x1="62" y1="121.0" x2="880" y2="121.0" class="grid"/><text x="54" y="124.5" class="axl" text-anchor="end">$30M</text><line x1="62" y1="89.3" x2="880" y2="89.3" class="grid"/><text x="54" y="92.8" class="axl" text-anchor="end">$40M</text><line x1="62" y1="57.7" x2="880" y2="57.7" class="grid"/><text x="54" y="61.2" class="axl" text-anchor="end">$50M</text><line x1="62" y1="26.0" x2="880" y2="26.0" class="grid"/><text x="54" y="29.5" class="axl" text-anchor="end">$60M</text><line x1="62" y1="216" x2="880" y2="216" class="grid"/><rect x="66.9" y="189.5" width="15.8" height="26.5" rx="3" fill="var(--s3)"/><rect x="92.4" y="185.4" width="15.8" height="30.6" rx="3" fill="var(--s3)"/><rect x="118.0" y="177.9" width="15.8" height="38.1" rx="3" fill="var(--s3)"/><rect x="143.6" y="173.8" width="15.8" height="42.2" rx="3" fill="var(--s3)"/><rect x="169.1" y="203.7" width="15.8" height="12.3" rx="3" fill="var(--s3)"/><rect x="194.7" y="205.1" width="15.8" height="10.9" rx="3" fill="var(--s3)"/><rect x="220.3" y="206.8" width="15.8" height="9.2" rx="3" fill="var(--s3)"/><rect x="245.8" y="202.9" width="15.8" height="13.1" rx="3" fill="var(--s3)"/><rect x="271.4" y="206.6" width="15.8" height="9.4" rx="3" fill="var(--s3)"/><rect x="296.9" y="210.2" width="15.8" height="5.8" rx="3" fill="var(--s3)"/><rect x="322.5" y="106.8" width="15.8" height="109.2" rx="3" fill="var(--s3)"/><rect x="322.5" y="99.4" width="15.8" height="5.9" rx="3" fill="var(--s2)"/><text x="330.4" y="92.9" class="axv" text-anchor="middle">$37M</text><rect x="348.1" y="116.7" width="15.8" height="99.3" rx="3" fill="var(--s3)"/><rect x="348.1" y="101.2" width="15.8" height="14.0" rx="3" fill="var(--s2)"/><rect x="373.6" y="138.2" width="15.8" height="77.8" rx="3" fill="var(--s3)"/><rect x="373.6" y="121.4" width="15.8" height="15.2" rx="3" fill="var(--s2)"/><rect x="399.2" y="190.5" width="15.8" height="25.5" rx="3" fill="var(--s3)"/><rect x="399.2" y="185.6" width="15.8" height="3.4" rx="3" fill="var(--s2)"/><rect x="424.8" y="205.0" width="15.8" height="11.0" rx="3" fill="var(--s3)"/><rect x="450.3" y="208.3" width="15.8" height="7.7" rx="3" fill="var(--s3)"/><rect x="450.3" y="205.7" width="15.8" height="1.1" rx="3" fill="var(--s2)"/><rect x="475.9" y="198.0" width="15.8" height="18.0" rx="3" fill="var(--s3)"/><rect x="475.9" y="193.6" width="15.8" height="2.9" rx="3" fill="var(--s2)"/><rect x="501.4" y="206.4" width="15.8" height="9.6" rx="3" fill="var(--s3)"/><rect x="501.4" y="201.2" width="15.8" height="3.7" rx="3" fill="var(--s2)"/><rect x="527.0" y="167.2" width="15.8" height="48.8" rx="3" fill="var(--s3)"/><rect x="527.0" y="150.7" width="15.8" height="15.0" rx="3" fill="var(--s2)"/><rect x="527.0" y="147.4" width="15.8" height="1.8" rx="3" fill="var(--s1)"/><rect x="552.6" y="140.6" width="15.8" height="75.4" rx="3" fill="var(--s3)"/><rect x="552.6" y="123.1" width="15.8" height="16.0" rx="3" fill="var(--s2)"/><rect x="552.6" y="41.6" width="15.8" height="80.1" rx="3" fill="var(--s1)"/><text x="560.5" y="35.1" class="axv" text-anchor="middle">$55M</text><rect x="578.1" y="174.6" width="15.8" height="41.4" rx="3" fill="var(--s3)"/><rect x="578.1" y="167.5" width="15.8" height="5.6" rx="3" fill="var(--s2)"/><rect x="578.1" y="145.8" width="15.8" height="20.2" rx="3" fill="var(--s1)"/><rect x="603.7" y="169.8" width="15.8" height="46.2" rx="3" fill="var(--s3)"/><rect x="603.7" y="155.6" width="15.8" height="12.7" rx="3" fill="var(--s2)"/><rect x="603.7" y="140.2" width="15.8" height="13.9" rx="3" fill="var(--s1)"/><rect x="629.3" y="200.8" width="15.8" height="15.2" rx="3" fill="var(--s3)"/><rect x="629.3" y="186.9" width="15.8" height="12.4" rx="3" fill="var(--s2)"/><rect x="629.3" y="180.3" width="15.8" height="5.1" rx="3" fill="var(--s1)"/><rect x="654.8" y="200.8" width="15.8" height="15.2" rx="3" fill="var(--s3)"/><rect x="654.8" y="191.6" width="15.8" height="7.7" rx="3" fill="var(--s2)"/><rect x="654.8" y="186.6" width="15.8" height="3.5" rx="3" fill="var(--s1)"/><rect x="680.4" y="207.5" width="15.8" height="8.5" rx="3" fill="var(--s3)"/><rect x="680.4" y="198.3" width="15.8" height="7.7" rx="3" fill="var(--s2)"/><rect x="680.4" y="193.6" width="15.8" height="3.2" rx="3" fill="var(--s1)"/><rect x="705.9" y="213.0" width="15.8" height="3.0" rx="3" fill="var(--s3)"/><rect x="705.9" y="205.6" width="15.8" height="5.9" rx="3" fill="var(--s2)"/><rect x="705.9" y="203.6" width="15.8" height="0.5" rx="3" fill="var(--s1)"/><rect x="731.5" y="213.7" width="15.8" height="2.3" rx="3" fill="var(--s3)"/><rect x="731.5" y="206.6" width="15.8" height="5.6" rx="3" fill="var(--s2)"/><rect x="757.1" y="193.6" width="15.8" height="22.4" rx="3" fill="var(--s3)"/><rect x="757.1" y="180.7" width="15.8" height="11.4" rx="3" fill="var(--s2)"/><rect x="757.1" y="158.9" width="15.8" height="20.4" rx="3" fill="var(--s1)"/><rect x="782.6" y="194.1" width="15.8" height="21.9" rx="3" fill="var(--s3)"/><rect x="782.6" y="178.7" width="15.8" height="14.0" rx="3" fill="var(--s2)"/><rect x="782.6" y="161.1" width="15.8" height="16.1" rx="3" fill="var(--s1)"/><rect x="808.2" y="204.4" width="15.8" height="11.6" rx="3" fill="var(--s3)"/><rect x="808.2" y="183.2" width="15.8" height="19.7" rx="3" fill="var(--s2)"/><rect x="808.2" y="166.0" width="15.8" height="15.6" rx="3" fill="var(--s1)"/><rect x="833.8" y="207.5" width="15.8" height="8.5" rx="3" fill="var(--s3)"/><rect x="833.8" y="194.9" width="15.8" height="11.1" rx="3" fill="var(--s2)"/><rect x="833.8" y="188.6" width="15.8" height="4.7" rx="3" fill="var(--s1)"/><rect x="859.3" y="212.8" width="15.8" height="3.2" rx="3" fill="var(--s3)"/><rect x="859.3" y="206.5" width="15.8" height="4.9" rx="3" fill="var(--s2)"/><text x="74.8" y="233.0" class="axl" text-anchor="middle">2024-01</text><text x="228.2" y="233.0" class="axl" text-anchor="middle">2024-07</text><text x="381.5" y="233.0" class="axl" text-anchor="middle">2025-01</text><text x="534.9" y="233.0" class="axl" text-anchor="middle">2025-07</text><text x="688.3" y="233.0" class="axl" text-anchor="middle">2026-01</text><text x="841.7" y="233.0" class="axl" text-anchor="middle">2026-07</text><rect x="62" y="247" width="10" height="10" rx="3" fill="var(--s1)"/><text x="78" y="256" class="axs">Coinbase</text><rect x="182" y="247" width="10" height="10" rx="3" fill="var(--s2)"/><text x="198" y="256" class="axs">Gate · MEXC · Kraken</text><rect x="382" y="247" width="10" height="10" rx="3" fill="var(--s3)"/><text x="398" y="256" class="axs">on-chain pools, Ethereum and Base</text></svg>
 </figure>
 
 <div class="scroll">
 <table>
 <thead><tr><th>Period</th><th class="num">Average monthly volume</th><th class="num">Peak month</th><th>Character</th></tr></thead>
 <tbody>
-<tr><td>2024 before any CEX listing (Jan–Oct)</td><td class="num">$5,459,883</td><td class="num">$12.0M (Mar 2024)</td><td>On-chain only, entirely Ethereum pools</td></tr>
-<tr><td>Gate.io era (Nov 2024 – Jul 2025)</td><td class="num">$11,004,558</td><td class="num">$26.9M (Nov 2024)</td><td>The DeSci rally; Gate is 24% of it, the pools 75%</td></tr>
-<tr><td>Post-Coinbase (Aug 2025 – Aug 2026)</td><td class="num">$12,559,477</td><td class="num">$36.1M (Aug 2025)</td><td>Four exchanges plus Base pools; Coinbase leads</td></tr>
+<tr><td>2024 before any CEX listing (Jan–Oct)</td><td class="num">$6,256,395</td><td class="num">$13.3M (Apr 2024)</td><td>On-chain only: Ethereum pools, and Base pools from April (13% of the period)</td></tr>
+<tr><td>Gate.io era (Nov 2024 – Jul 2025)</td><td class="num">$17,026,171</td><td class="num">$36.8M (Nov 2024)</td><td>The DeSci rally; Gate is 15% of it, the pools 84% (Base 35%)</td></tr>
+<tr><td>Post-Coinbase (Aug 2025 – Aug 2026)</td><td class="num">$15,359,536</td><td class="num">$55.1M (Aug 2025)</td><td>Four exchanges plus Base pools; Coinbase leads</td></tr>
 </tbody>
 </table>
 </div>
 
 <div class="callout">
   <div class="h">The listings changed the venue mix more than the total</div>
-  <p>Average monthly turnover roughly doubled from the pre-listing period to today, but the two largest months in
-  the token's history sit on either side of the first listing: <strong>$26.9M in November 2024</strong>, before any
-  exchange carried RSC, and <strong>$36.1M in August 2025</strong>, the first full month on Coinbase. The
-  November 2024 peak was driven entirely by Ethereum pool trading during the DeSci narrative; the August 2025 peak
-  was 71% Coinbase.</p>
+  <p>Average monthly turnover rose from $6.3M before any listing to $15.4M after Coinbase, but the largest
+  months are single events. The biggest in the token's history is <strong>$55.1M in August 2025</strong>, the first full month on
+  Coinbase: 47% Coinbase and 34% the Base pools, where arbitrage carried the new exchange's price on-chain.
+  Before that the peaks were <strong>$43.0M in December 2023</strong> and <strong>$36.8M in November 2024</strong>, both
+  driven by the on-chain pools: Ethereum pools in 2023, and Ethereum and Base pools during the DeSci narrative of late 2024 (Gate listed only on
+  29 November and was 6% of that month).</p>
   <p>What the listings durably changed is where trading happens. In 2024 the on-chain pools were the market. By
   mid-2026 the four exchanges carry roughly two thirds of turnover and the pools one third, and the total has
   settled at $8–18M a month against a $13M market capitalisation.</p>
@@ -772,11 +774,14 @@ that follows.</p>
   treasuries, genesis wallets,                                        │
   vesting escrows, staking vault             ┌────────────────────────┼────────────────────────┐
         │                                    ▼                        ▼                        ▼
-        │  sold 23,916,405 ($3.07M)   RECIPIENT WALLETS       SOLD BY THE COMPLEX      INTERNAL / BRIDGE
-        │  bought 8,056,625 ($2.21M)  168,159,932              23,916,405               42,990,992
-        ▼                             2,381 addresses          ($3,069,912)             (not a distribution)
-   NET −15,859,780 RSC                       │
-        −$860,522                            │  sold 64,697,757 RSC for $13,065,340
+        │  own sales 9,659,170        RECIPIENT WALLETS       STRAIGHT TO VENUES       INTERNAL / BRIDGE
+        │  ($1.82M, incl. conduits)   168,159,932             23,916,405               42,990,992
+        │  bought 4,674,389           2,381 addresses         ($3,069,912), of which   (not a distribution)
+        │  ($1.85M)                          │                7,109,368 ResearchHub,
+        ▼                                    │                16,807,037 market-maker
+   NET −4,984,781 RSC                        │                wallets (§6.1)
+        −$33,050                             │
+                                             │  sold 64,697,757 RSC for $13,065,340
                                              │  bought back 11,628,095 for $3,399,315
                                              ▼
                                    still held 18,336,441 RSC
@@ -787,11 +792,11 @@ that follows.</p>
   <p><strong>1. The float is small and the concentration is unchanged since 2020.</strong> 87.0% of RSC has never
   left ResearchHub's own wallets. The two treasuries alone hold 75.4% of the supply. Six years of distribution
   moved 23.5% of the token, and most of that has since been sold on.</p>
-  <p><strong>2. Recipients realised four times what the issuer did.</strong> $13,065,340 for the cohorts that were
-  paid, against $3,069,912 for the complex — and the two groups closest to the organisation, monthly-paid wallets
-  and one-off grantees, account for $9,168,158 of the recipient total on their own.</p>
-  <p><strong>3. Nothing on either side is large in dollar terms.</strong> The complex's entire six-year disposal
-  raised $3.07M gross, $860,522 net of its own purchases. The largest single purchase anyone has ever made is
+  <p><strong>2. Recipients realised about seven times what the issuer did.</strong> $13,065,340 for the cohorts that were
+  paid, against $1,816,617 for ResearchHub's own wallets even after following its conduits (direct only: $1,179,367). The two groups
+  closest to the organisation, monthly-paid wallets and one-off grantees, account for $9,168,158 of the recipient total on their own.</p>
+  <p><strong>3. Nothing on either side is large in dollar terms.</strong> ResearchHub's own six-year disposal
+  raised $1.82M gross, and its purchases cost $33,050 more than that. The largest single purchase anyone has ever made is
   $166,740. Against a $13M market capitalisation and $8–18M of monthly turnover, this is a small, thin market in
   which the largest holder has barely participated.</p>
 </div>
@@ -800,26 +805,29 @@ that follows.</p>
 
 <div class="scroll">
 <table>
-<thead><tr><th>Venue</th><th class="num">Received from the complex</th><th class="num">Received from recipient cohorts</th><th class="num">Combined USD at the time</th></tr></thead>
+<thead><tr><th>Venue</th><th class="num">Sent straight from the earlier 27-wallet complex</th><th class="num">Received from recipient cohorts</th><th class="num">Combined USD at the time</th></tr></thead>
 <tbody>
-<tr><td>Uniswap V3 1% (Ethereum)</td><td class="num">6,404,728</td><td class="num">—</td><td class="num">726,495</td></tr>
-<tr><td>Gate.io</td><td class="num">9,024,964</td><td class="num">—</td><td class="num">1,082,273</td></tr>
-<tr><td>MEXC</td><td class="num">5,719,278</td><td class="num">—</td><td class="num">620,546</td></tr>
-<tr><td>Coinbase</td><td class="num">2,062,795</td><td class="num">—</td><td class="num">187,726</td></tr>
-<tr><td>Base pools (Uniswap, Aerodrome)</td><td class="num">704,640</td><td class="num">—</td><td class="num">452,873</td></tr>
-<tr class="sub"><td>Complex total</td><td class="num">23,916,405</td><td class="num">—</td><td class="num">3,069,912</td></tr>
+<tr><td>Uniswap V3 1% (Ethereum) · ResearchHub's own wallets</td><td class="num">6,404,728</td><td class="num">—</td><td class="num">726,495</td></tr>
+<tr><td>Base pools (Uniswap, Aerodrome) · ResearchHub's own wallets</td><td class="num">704,640</td><td class="num">—</td><td class="num">452,873</td></tr>
+<tr class="sub"><td>ResearchHub's own wallets, direct</td><td class="num">7,109,368</td><td class="num">—</td><td class="num">1,179,367</td></tr>
+<tr><td>Gate.io · market-maker wallets (§4a)</td><td class="num">9,024,964</td><td class="num">—</td><td class="num">1,082,273</td></tr>
+<tr><td>MEXC · market-maker wallets (§4a)</td><td class="num">5,719,278</td><td class="num">—</td><td class="num">620,546</td></tr>
+<tr><td>Coinbase · market-maker wallets (§4a)</td><td class="num">2,062,795</td><td class="num">—</td><td class="num">187,726</td></tr>
+<tr class="sub"><td>Market-maker wallets, not ResearchHub</td><td class="num">16,807,037</td><td class="num">—</td><td class="num">1,890,545</td></tr>
 <tr><td>Pools and DEX routers</td><td class="num">—</td><td class="num">62,785,798</td><td class="num">—</td></tr>
 <tr><td>Centralised exchanges</td><td class="num">—</td><td class="num">1,911,959</td><td class="num">—</td></tr>
 <tr class="sub"><td>Recipient-cohort total</td><td class="num">—</td><td class="num">64,697,757</td><td class="num">13,065,340</td></tr>
-<tr class="total"><td>All insider-side selling, 2020–2026</td><td colspan="2" class="num">88,614,162</td><td class="num">16,135,252</td></tr>
+<tr class="total"><td>ResearchHub direct plus recipient cohorts, 2020–2026</td><td colspan="2" class="num">71,807,125</td><td class="num">14,244,707</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>Combining the issuer and everyone it ever paid gives <strong>88,614,162 RSC sold for $16,135,252</strong> over
-six years — 8.9% of the supply, and 37.7% of everything ever distributed. Against that, the same population bought
-back 19,684,720 RSC for $5,608,705, giving a net insider-side disposal of <strong>68,929,442 RSC and
-$10,526,547</strong>.</p>
+<p>Combining the issuer's direct sales with everyone it ever paid gives <strong>71,807,125 RSC sold for $14,244,707</strong> over
+six years — 7.2% of the supply, and 30.5% of everything ever distributed. Against that, the same population bought
+back 16,302,484 RSC for $5,248,981, giving a net disposal of <strong>55,504,641 RSC and $8,995,726</strong>. The
+16,807,037 RSC that market-maker wallets sent to Gate, MEXC and Coinbase is excluded: it is inventory placed by the
+market makers (§4a, §6.1), not a sale by ResearchHub or by anyone it paid. (Corrected 4 October 2026. The earlier
+version counted those wallets as part of the complex and gave 88,614,162 RSC and $16,135,252.)</p>
 
 <!-- ============================================ -->
 <h2>10. What this document does not establish</h2>

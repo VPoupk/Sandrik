@@ -140,7 +140,7 @@ td .addr{font-size:.95em}
 <p><strong>Liquidity was concentrated on the exchanges and thin in the on-chain pools, and that opened a wide, persistent arbitrage between them.</strong>
 The pools' average depth was 2.1M RSC-equivalent in P1 and 1.2M in P2, while exchanges held 25–30M RSC on Base. Project-origin selling
 into the pools, led by Endaoment's regular sales, was 1.9 to 2.8 times the pools' average depth in each period. Around it, over the two periods,
-wallets fed from exchanges sold 47.75M RSC into the pools and wallets that deliver to exchanges bought 20.17M RSC out of them. The measured facts support a mechanism in which regular pool sales set the price and arbitrage carries it onto the exchanges,
+wallets fed from exchanges sold 47.75M RSC into the pools and wallets that deliver to exchanges bought 43.11M RSC out of them. The measured facts support a mechanism in which regular pool sales set the price and arbitrage carries it onto the exchanges,
 however much liquidity the exchanges hold. One element is <em>not</em> established by our daily test: that arbitrageurs time their selling
 ahead of the regular sales and their buying after them (§3).</p></div>
 <div class="concl"><div class="n">Conclusion 2 <span class="tag t-ext">measured</span></div>
@@ -202,12 +202,13 @@ and 1.6 times the two-pool depth. In P2 the figures are 3,318,837 and 2,610,409,
 sales across both periods, 6.11M, are about three times the pools' September 2025 depth (Request 2 §6; §8 of this report for the method).</li>
 <li><strong>Most RSC sold into the pools came from exchanges or from earlier pool purchases.</strong> 36% of everything sold
 into the pools in P1, and 52% in P2, had been withdrawn from a centralised exchange. Most of the rest had been bought from a pool
-earlier or was routed pool to pool within one transaction (Request 2 §5). The largest sellers in both periods withdrew RSC from Coinbase and an
-unlisted exchange and sold it into the pools. The largest buyers took what they bought straight back to Gate, MEXC and Coinbase, and several of them
-are the Gate and MEXC suppliers identified in Request 1 (Request 2 §9).</li>
+earlier or was routed pool to pool within one transaction (Request 2 §5). The largest sellers in both periods withdrew RSC from Coinbase and Exchange-scale B
+(very likely also a Coinbase wallet; CEX markets report §10.2) and sold it into the pools. The largest buyers took what they bought straight back to Gate, MEXC and Coinbase,
+and several of them are the Gate and MEXC suppliers identified in Request 1 (Request 2 §9). The largest of all, <span class="mono">0x1695bf93…</span>, bought 34.3M RSC from the pools between
+September 2025 and September 2026 and delivered all of it to Coinbase (CEX markets report §5).</li>
 <li><strong>The two legs of that arbitrage move together.</strong> Across the 304 days of P1 and P2, daily selling by exchange-fed wallets and daily
-buying by exchange-bound wallets have a rank correlation of 0.61. Over those days the first group sold 47.75M RSC into the pools and
-the second bought 20.17M. Endaoment sold 4.17M.</li>
+buying by exchange-bound wallets have a rank correlation of 0.62. Over those days the first group sold 47.75M RSC into the pools and
+the second bought 43.11M. Endaoment sold 4.17M.</li>
 </ul>
 <h3>How we read it</h3>
 <p>A regular seller in a thin pool moves the pool price. An arbitrage that withdraws RSC from exchanges, sells it into the pools and returns bought
@@ -216,10 +217,12 @@ reading, depreciation tracks the ratio of regular pool sales to pool depth rathe
 greater than 1 in both periods, and highest in P2.</p>
 <div class="callout warn"><div class="h">What this does not establish</div>
 <p>We tested whether arbitrageurs sell into the pools <em>ahead of</em> Endaoment's sales and buy back <em>after</em> them. Within each period, the data
-do not show it. On the 47 days in P1 when Endaoment sold, buying by exchange-bound wallets averaged 21,668 RSC, against 20,736 on other days. In P2
-the daily rank correlation is −0.01, and selling by exchange-fed wallets is no higher on or before Endaoment days in either period. Pooled across both
-periods, a positive association appears (rank correlation 0.38), but it reflects Endaoment selling more often in P2, when all arbitrage activity was
-higher. The mechanism above is therefore supported by the structure of the flows, not by a timing link to any one seller.</p></div>
+do not show it. On the 47 days in P1 when Endaoment sold, buying by exchange-bound wallets averaged 79,365 RSC, against 83,103 on other days. In P2
+it averaged 271,875 on Endaoment's 42 sale days against 238,369 on other days, but the daily rank correlation is −0.07, so the
+difference comes from a few large days rather than a consistent pattern. Selling by exchange-fed wallets is no higher on or before Endaoment days in either period.
+Pooled across both periods the rank correlation is 0.11. The mechanism above is therefore supported by the structure of the flows, not by a timing link to any one seller.
+(Corrected 4 October 2026: the exchange-bound group now includes <span class="mono">0x1695bf93…</span>, which earlier versions treated as DEX routing, and rank correlations handle tied days;
+the earlier version gave 0.38 for the pooled figure.)</p></div>
 <h2>4. Conclusion 2 — project payments reaching the pools</h2>
 <p><span class="tag t-ext">measured</span></p>
 <figure><figcaption><strong>Project-origin sales are large against the pools' depth, and peak in May 2026.</strong> Panel A: the RSC-equivalent depth of the three

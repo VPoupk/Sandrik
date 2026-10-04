@@ -172,7 +172,7 @@ The Ethereum side is then traced back the same way. All but 3 of the 4,302 Base 
 </div>
 <div class="callout warn"><div class="h">Three additions, stated so they can be challenged</div>
 <p><strong>1. Other exchanges and swap venues break a chain the same way List 3 does.</strong> That covers DEX pools, routers and
-aggregators on both chains; the two unlisted exchange wallets the main document already treats as exchanges; and
+aggregators on both chains; the two unlisted exchange wallets the main document already treats as exchanges (Exchange-scale B and the cold wallet 0x901fc41a, both very likely Coinbase wallets, as the CEX markets report §10.2 later found); and
 <span class="mono">0x0ba37f89</span>, identified here as Kraken's Base hot wallet. "Kraken 245" (List 3) has
 transacted with exactly one address, this one, 24 times in a weekly rhythm. All 98 addresses that ever deposited to it
 are sweep addresses that send to nothing else, the same signature as Gate (471 of 472) and MEXC (307 of 307). No other
@@ -246,7 +246,7 @@ text gives the total.</p>
 <h3>Allocation 0x79aa5bc6 → Ethereum → bridge → 0x5c01a4e3 → Gate</h3>
 <p>Genesis 70M paid 0x79aa5bc6 2,000,000 RSC on the evening of 1 January 2026. Within four hours it had moved to a holder wallet
 and from there into a TWAP selling contract, <span class="mono">0xd53e3192</span>. That contract sold roughly 1,000 RSC every 50 minutes into Ethereum
-DEX pools; 0xd08d95d3 was its only depositor. Late on 7 January the unsold 1,378,570 RSC was withdrawn back to the same holder wallet. Within the hour 378,570 of it was
+DEX pools; 0xd08d95d3 was its only depositor. Late on 7 January, after 161,907 RSC had been sold, 1,378,570 RSC was withdrawn back to the same holder wallet; the contract kept the remaining 459,523 RSC and went on selling it into Ethereum pools until 29 January (621,430 RSC sold in all). Within the hour of the withdrawal 378,570 of it was
 bridged to Base, after a 100 RSC test crossing; it passed through two wallets to 0x5c01a4e3 and was on Gate at 04:54 UTC on 8 January. From the genesis wallet
 to the exchange took seven days, and the deposit falls inside P1. The remaining 1,000,000 RSC left 0x7391375e on Ethereum on
 30 June 2026 and is outside this request.</p>
@@ -301,7 +301,7 @@ relays and distributor held inventory for weeks or months before releasing it in
 <p>For each remaining supplier, what its deposits were made of, by origin, using the same proportional trace. Together they deposited
 59,686,330 RSC. 51% of it was bought on DEXs, 28% came out of Gate, 6% out of MEXC,
 12% out of the other List 3 exchanges (mostly Coinbase), and 2%
-out of unlisted exchange wallets. Many are plainly arbitrage or rebalancing accounts: they withdraw from one venue or buy on a
+out of unlisted exchange wallets (very likely Coinbase). Many are plainly arbitrage or rebalancing accounts: they withdraw from one venue or buy on a
 DEX, and deposit at another. Three have a time-ordered path of ≥1,000 RSC transfers from List 4, but the paths run through
 large mixed wallets and carry effectively nothing (at most 4 RSC). "Round trip via Ethereum" is RSC that was bridged to Base from
 Ethereum after first coming out of the L1 bridge, i.e. RSC that had earlier been withdrawn from Base; the Base → Ethereum leg is not
