@@ -1,0 +1,626 @@
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AKE — flows and price, Jun–Nov 2026</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --card2: #1a2235;
+    --border: #1e2d45;
+    --accent: #3b82f6;
+    --accent2: #8b5cf6;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --green: #10b981;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --highlight: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, sans-serif; font-size: 14px; line-height: 1.6; }
+
+  /* Layout */
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+
+  /* Header */
+  header { border-bottom: 1px solid var(--border); padding: 20px 0 16px; margin-bottom: 28px; }
+  header h1 { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -0.3px; }
+  header .subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  header .meta { display: flex; gap: 20px; margin-top: 12px; flex-wrap: wrap; }
+  header .meta-item { font-size: 12px; color: var(--muted); }
+  header .meta-item span { color: var(--text); font-weight: 600; }
+
+  /* Section headers */
+  h2 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  h2::before { content: ""; width: 3px; height: 18px; background: var(--accent); border-radius: 2px; flex-shrink: 0; }
+  h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+  .section { margin-bottom: 28px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+  .section > h2:first-child { margin-top: 0; }
+  /* nested cards inside a section panel: drop the heavy chrome so panels don't double-box */
+  .section .card { background: var(--card2); border-color: var(--border); }
+
+  /* Grid layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .card-value { font-size: 24px; font-weight: 700; color: var(--text); }
+  .card-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th { background: var(--card2); color: var(--muted); font-weight: 600; text-align: left; padding: 9px 12px; white-space: nowrap; border-bottom: 1px solid var(--border); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(59,130,246,0.04); }
+  tr:last-child td { border-bottom: none; }
+
+  /* Badges & tags */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .badge-blue { background: rgba(59,130,246,0.15); color: #93c5fd; }
+  .badge-purple { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+  .badge-green { background: rgba(16,185,129,0.12); color: #6ee7b7; }
+  .badge-yellow { background: rgba(245,158,11,0.15); color: #fcd34d; }
+  .badge-red { background: rgba(239,68,68,0.15); color: #fca5a5; }
+  .badge-gray { background: rgba(100,116,139,0.15); color: #94a3b8; }
+  .badge-orange { background: rgba(249,115,22,0.15); color: #fdba74; }
+
+  /* Bubble map */
+  .bubble-container { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .bubble-grid { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; justify-content: center; padding: 10px 0; }
+  .bubble { border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: default; position: relative; transition: transform 0.2s; flex-shrink: 0; }
+  .bubble:hover { transform: scale(1.05); z-index: 10; }
+  .bubble-label { text-align: center; font-size: 10px; font-weight: 700; color: white; line-height: 1.2; padding: 2px; }
+  .bubble-pct { font-size: 9px; color: rgba(255,255,255,0.7); }
+  .bubble-tip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #1e293b; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; white-space: nowrap; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 100; }
+  .bubble:hover .bubble-tip { opacity: 1; }
+
+  /* Flow/connection indicator */
+  .flow-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .flow-row:last-child { border-bottom: none; }
+  .flow-from { color: var(--accent); font-family: monospace; font-size: 11px; }
+  .flow-arrow { color: var(--green); font-size: 14px; }
+  .flow-to { color: var(--highlight); font-family: monospace; font-size: 11px; }
+  .flow-amount { margin-left: auto; font-weight: 600; color: var(--text); font-size: 12px; white-space: nowrap; }
+
+  /* Wallet detail cards */
+  .wallet-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .wallet-header { background: var(--card2); padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
+  .wallet-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .wallet-body { padding: 14px 16px; }
+  .wallet-addr { font-family: monospace; font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .wallet-stat { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .wallet-stat:last-child { border-bottom: none; }
+  .wallet-stat-label { color: var(--muted); font-size: 12px; }
+  .wallet-stat-value { font-weight: 600; font-size: 12px; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; padding: 0 0 16px 14px; }
+  .timeline-dot { position: absolute; left: -17px; top: 4px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid; }
+  .timeline-date { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .timeline-text { font-size: 12.5px; color: var(--text); }
+  .timeline-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* Progress bar */
+  .progress-bar { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; }
+
+  /* Alert box */
+  .alert { border-radius: 8px; padding: 12px 14px; font-size: 12.5px; line-height: 1.5; margin-bottom: 16px; }
+  .alert-warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); color: var(--warn); }
+  .alert-danger { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); color: var(--danger); }
+  .alert-info { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25); color: var(--accent); }
+  .alert-green { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); color: var(--green); }
+  .alert strong { font-weight: 700; }
+
+  /* Mono addr */
+  .addr { font-family: monospace; font-size: 11px; color: var(--muted); }
+  .addr-full { font-family: monospace; font-size: 11px; color: #60a5fa; word-break: break-all; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Red flag indicator */
+  .flag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--danger); font-weight: 600; }
+  .flag::before { content: "⚠"; }
+
+  /* Tokenomics bar chart */
+  .tok-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .tok-name { width: 200px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+  .tok-bar-wrap { flex: 1; }
+  .tok-pct { width: 50px; text-align: right; font-size: 12px; font-weight: 600; color: var(--text); flex-shrink: 0; }
+  .tok-remaining { width: 90px; text-align: right; font-size: 11px; color: var(--muted); flex-shrink: 0; }
+
+  /* Summary stat row */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .stat-box-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .stat-box-value { font-size: 20px; font-weight: 700; color: var(--text); }
+  .stat-box-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: monospace; font-size: 11px; background: var(--card2); padding: 1px 5px; border-radius: 3px; color: #93c5fd; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 26px 20px 60px; }
+  .hdr { display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end;
+         border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:18px; }
+  .hdr h1 { font-size:25px; font-weight:700; color:var(--accent); line-height:1.25; margin:0; }
+  .hdr .sub { font-size:12.5px; color:var(--muted); margin-top:6px; }
+  .tz { background:rgba(59,130,246,.10); border:1px solid rgba(59,130,246,.3); border-radius:8px;
+        padding:10px 13px; font-size:12.5px; color:#93c5fd; margin-bottom:20px; }
+  .toc { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:8px; }
+  .toc a { display:block; padding:8px 11px; background:var(--card2); border:1px solid var(--border);
+           border-radius:6px; font-size:12px; }
+  .note { font-size:11.5px; color:var(--muted); margin-top:8px; line-height:1.55; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:14px; }
+  .hi  { background:rgba(251,191,36,.09); }
+  .hi2 { background:rgba(239,68,68,.08); }
+  .hi3 { background:rgba(16,185,129,.07); }
+  .mono { font-family:ui-monospace,Menlo,monospace; }
+  .addr { font-family:ui-monospace,Menlo,monospace; font-size:11px; }
+  table.dense { font-size:11.5px; }
+  table.dense td, table.dense th { padding:5px 7px; }
+  .q { display:grid; grid-template-columns:repeat(auto-fit,minmax(185px,1fr)); gap:10px;
+       margin:12px 0 16px; }
+  .q > div { background:var(--card2); border:1px solid var(--border); border-radius:8px;
+             padding:10px 12px; }
+  .q .k { font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+  .q .v { font-size:17px; font-weight:600; margin-top:3px; }
+  .q .sub { font-size:11px; color:var(--muted); margin-top:2px; }
+  .ev { border-radius:8px; padding:11px 13px; font-size:12.5px; margin:12px 0; }
+  .ev-fact { background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.28); }
+  .ev-corr { background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.28); }
+  .ev-inf  { background:rgba(139,92,246,.08); border:1px solid rgba(139,92,246,.28); }
+  .ev-neg  { background:rgba(239,68,68,.08); border:1px solid rgba(239,68,68,.28); }
+  .ev b.lbl { display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.07em;
+              margin-bottom:5px; }
+  .ev-fact b.lbl { color:var(--green); }
+  .ev-corr b.lbl { color:var(--warn); }
+  .ev-inf  b.lbl { color:#a78bfa; }
+  .ev-neg  b.lbl { color:var(--danger); }
+  .spark { display:block; width:100%; height:auto; margin:10px 0 4px; }
+</style>
+<div class="wrap">
+<header class="hdr">
+  <div>
+    <h1>AKE — every on-chain flow, and what the price did</h1>
+    <div class="sub">AKEDO <a class="addr" href="https://bscscan.com/address/0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db" target="_blank" rel="noopener">0x2c3a8ee94ddd97244a93bc48298f97d2c412f7db</a> on BNB Smart Chain · 1 June 2026 to
+      12 November 2026 ·
+      built at block 133,134,583, 2026-11-12 09:16:33 UTC</div>
+  </div>
+</header>
+
+<div class="tz">All times <b>UTC</b>. Token amounts in bn/mn; the exact wei sits behind every figure in
+the scans. Pool figures are <b>net</b> — what a pool sent minus anything sent back — and reconcile to
+<code>balanceOf</code> at the head block to the wei. Dollar figures appear only where dollars actually
+changed hands, or once, clearly labelled, as the notional value of a move. Evidence is colour-coded
+throughout: <span style="color:var(--green)">green is what the chain shows</span>,
+<span style="color:var(--warn)">amber is correlation only</span>,
+<span style="color:#a78bfa">purple is inference, with what would disprove it</span>.</div>
+
+<div class="section"><h2>Contents</h2><div class="toc">
+<a href="#s0">0 · The arc, in one screen</a>
+<a href="#s1">1 · Month by month</a>
+<a href="#s2">2 · The complete release ledger</a>
+<a href="#s3">3 · The payout roster — one list, three pools, always new wallets</a>
+<a href="#s4">4 · What happened to every token released</a>
+<a href="#s5">5 · The only sale</a>
+<a href="#s6">6 · The collapse — what actually sold</a>
+<a href="#s7">7 · Exchange flows, June to November</a>
+<a href="#s8">8 · The DEX pool, week by week</a>
+<a href="#s9">9 · Team-adjacent wallets — established, correlated, inferred</a>
+<a href="#s10">10 · Method, and what this does not show</a>
+</div></div>
+<div class="section" id="s0"><h2>0 · The arc, in one screen</h2>
+<div class="q">
+  <div><div class="k">1 June 2026</div><div class="v">$0.00032565</div>
+    <div class="sub">where this window starts</div></div>
+  <div><div class="k">All-time high</div><div class="v">$0.146656</div>
+    <div class="sub">2026-09-20, 10:33:30 UTC</div></div>
+  <div><div class="k">Now</div><div class="v">$0.00246592</div>
+    <div class="sub">-98.3% from the high, +657.2% from 1 June</div></div>
+  <div><div class="k">Released from the pools</div><div class="v">40.6608bn</div>
+    <div class="sub">net, across 8 days</div></div>
+  <div><div class="k">Of that, ever sold</div><div class="v" style="color:var(--green)">2.0000bn</div>
+    <div class="sub">4.9% — one release, in July</div></div>
+  <div><div class="k">Still inside the pools</div><div class="v">21.0111bn</div>
+    <div class="sub">read live at block 133,134,583</div></div>
+</div>
+<svg class="spark" viewBox="0 0 1180 230" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><line x1="54" y1="148.9" x2="1160" y2="148.9" stroke="#1e2d45" stroke-width="1"/><text x="4" y="151.9" fill="#64748b" font-size="10">$0.001</text><line x1="54" y1="80.7" x2="1160" y2="80.7" stroke="#1e2d45" stroke-width="1"/><text x="4" y="83.7" fill="#64748b" font-size="10">$0.01</text><polyline points="54.0,180.6 60.7,183.4 67.5,183.1 74.2,186.6 81.0,187.4 87.7,188.2 94.5,184.3 101.2,185.4 108.0,188.7 114.7,188.1 121.4,187.7 128.2,187.9 134.9,187.9 141.7,185.6 148.4,183.9 155.2,178.7 161.9,181.6 168.6,182.8 175.4,182.1 182.1,174.5 188.9,174.9 195.6,178.9 202.4,180.6 209.1,178.2 215.9,177.9 222.6,178.9 229.3,180.7 236.1,177.6 242.8,178.5 249.6,177.7 256.3,176.4 263.1,176.0 269.8,173.4 276.5,184.0 283.3,184.6 290.0,183.9 296.8,197.1 303.5,197.1 310.3,197.8 317.0,197.6 323.8,196.0 330.5,197.6 337.2,198.4 344.0,198.2 350.7,161.3 357.5,150.0 364.2,138.2 371.0,129.5 377.7,129.7 384.5,133.0 391.2,133.1 397.9,133.8 404.7,121.5 411.4,119.4 418.2,114.7 424.9,115.6 431.7,105.6 438.4,106.7 445.1,109.3 451.9,105.1 458.6,105.0 465.4,96.7 472.1,102.4 478.9,104.3 485.6,105.7 492.4,107.4 499.1,106.7 505.8,107.7 512.6,108.4 519.3,106.2 526.1,107.9 532.8,105.7 539.6,107.5 546.3,94.0 553.0,78.8 559.8,79.4 566.5,81.3 573.3,84.4 580.0,83.7 586.8,84.7 593.5,85.1 600.3,86.3 607.0,84.5 613.7,85.5 620.5,85.2 627.2,84.9 634.0,87.5 640.7,92.8 647.5,78.6 654.2,86.1 661.0,88.0 667.7,88.4 674.4,84.4 681.2,64.8 687.9,68.8 694.7,72.9 701.4,62.0 708.2,70.4 714.9,65.2 721.6,66.6 728.4,67.7 735.1,68.1 741.9,70.6 748.6,66.2 755.4,69.1 762.1,67.0 768.9,51.8 775.6,61.6 782.3,58.3 789.1,35.8 795.8,25.6 802.6,28.1 809.3,29.9 816.1,32.1 822.8,36.7 829.5,43.0 836.3,45.5 843.0,45.4 849.8,47.3 856.5,46.9 863.3,47.8 870.0,46.7 876.8,47.3 883.5,46.0 890.2,43.8 897.0,44.9 903.7,47.3 910.5,48.6 917.2,50.9 924.0,51.6 930.7,50.4 937.5,51.1 944.2,52.9 950.9,55.0 957.7,53.2 964.4,51.6 971.2,45.5 977.9,48.2 984.7,49.0 991.4,49.6 998.1,48.4 1004.9,47.1 1011.6,52.9 1018.4,46.9 1025.1,40.1 1031.9,47.2 1038.6,47.1 1045.4,47.8 1052.1,56.6 1058.8,55.6 1065.6,59.7 1072.3,69.9 1079.1,76.7 1085.8,83.6 1092.6,98.1 1099.3,108.4 1106.0,121.5 1112.8,125.1 1119.5,110.2 1126.3,99.0 1133.0,100.0 1139.8,101.7 1146.5,117.8 1153.3,122.4 1160.0,122.1" fill="none" stroke="#3b82f6" stroke-width="1.6"/><line x1="175.4" y1="200.0" x2="175.4" y2="186.0" stroke="#f59e0b" stroke-width="2.4" opacity="0.85"/><title>2026-06-19 — 2.0000bn released</title><line x1="397.9" y1="200.0" x2="397.9" y2="173.0" stroke="#f59e0b" stroke-width="2.4" opacity="0.85"/><title>2026-07-22 — 20.8671bn released</title><line x1="411.4" y1="200.0" x2="411.4" y2="192.7" stroke="#f59e0b" stroke-width="2.4" opacity="0.85"/><title>2026-07-24 — 1.27mn released</title><line x1="424.9" y1="200.0" x2="424.9" y2="178.9" stroke="#f59e0b" stroke-width="2.4" opacity="0.85"/><title>2026-07-26 — 9.5400bn released</title><line x1="600.3" y1="200.0" x2="600.3" y2="185.2" stroke="#f59e0b" stroke-width="2.4" opacity="0.85"/><title>2026-08-21 — 2.5678bn released</title><line x1="687.9" y1="200.0" x2="687.9" y2="186.9" stroke="#f59e0b" stroke-width="2.4" opacity="0.85"/><title>2026-09-03 — 1.5000bn released</title><line x1="809.3" y1="200.0" x2="809.3" y2="184.8" stroke="#f59e0b" stroke-width="2.4" opacity="0.85"/><title>2026-09-21 — 2.8844bn released</title><line x1="1025.1" y1="200.0" x2="1025.1" y2="187.3" stroke="#f59e0b" stroke-width="2.4" opacity="0.85"/><title>2026-10-23 — 1.3002bn released</title><text x="54.0" y="224" fill="#64748b" font-size="10" text-anchor="middle">Jun</text><text x="256.3" y="224" fill="#64748b" font-size="10" text-anchor="middle">Jul</text><text x="465.4" y="224" fill="#64748b" font-size="10" text-anchor="middle">Aug</text><text x="674.4" y="224" fill="#64748b" font-size="10" text-anchor="middle">Sep</text><text x="876.8" y="224" fill="#64748b" font-size="10" text-anchor="middle">Oct</text><text x="1085.8" y="224" fill="#64748b" font-size="10" text-anchor="middle">Nov</text></svg>
+<div class="note">Log scale. Amber bars mark the days a team-controlled pool released tokens, scaled by
+size — the tallest is 22 July at 20.8671bn.</div>
+
+<div class="ev ev-fact"><b class="lbl">What the chain shows</b>A token that rose roughly 449-fold in under four months and then gave
+back 98.3% of it. Through the entire round trip, <b>40.6608bn of team-controlled
+supply was released and 2.0000bn of it was sold</b> — one release, in July, before the rise had even
+finished. Every other recipient still holds every token, including through the collapse.</div>
+<div class="ev ev-neg"><b class="lbl">A negative result, and it matters</b>The thing this page looked hardest for and did not find: <b>team-pool supply hitting the
+market during the fall.</b> Between 21 September and 12 November the eight pools released
+1.3002bn in total, on one day, and not a single token from
+that release — or from any release since June — has reached an exchange. The 98 wallets holding the
+22 July node unlock have not moved either. Whatever drove a 98% fall, it was not these wallets
+selling.</div>
+</div>
+<div class="section" id="s1"><h2>1 · Month by month</h2>
+<p style="font-size:13px">One row per month: what the price did, what the pools released, and which
+way supply moved across exchange custody. Deposits to a non-Binance exchange are counted as sales;
+Binance is kept separate because AKE is not listed on Binance spot, so flows to Binance-labelled
+wallets are custody and market-making rather than disposals.</p>
+<table class="dense"><thead><tr><th>Month</th><th class="num">Open</th><th class="num">High</th>
+<th class="num">Low</th><th class="num">Close</th><th class="num">H/L</th>
+<th>Pool releases (net)</th><th class="num">Sold → CEX</th><th class="num">Withdrawn</th>
+<th class="num">Net CEX</th><th class="num">Reported volume</th></tr></thead><tbody>
+<tr><td><b>2026-06</b></td><td class="num">$0.00032565</td><td class="num">$0.00043325</td><td class="num">$0.00024615</td><td class="num">$0.00037861</td><td class="num">1.8×</td><td style="font-size:11px">19 Investors 2.0000bn</td><td class="num">1.4830bn</td><td class="num">2.6018bn</td><td class="num"><b>-1.1188bn</b></td><td class="num">$32,981,357</td></tr>
+<tr><td><b>2026-07</b></td><td class="num">$0.00038116</td><td class="num">$0.00488714</td><td class="num">$0.00017827</td><td class="num">$0.00439311</td><td class="num">27.4×</td><td style="font-size:11px">22 Nodes 1 · Nodes 2 · Nodes 3 20.8671bn<br>24 Nodes 3 1.27mn<br>26 Investors · Nodes 1 · Nodes 2 · Team 1 · Team 2 9.5400bn</td><td class="num">25.9986bn</td><td class="num">33.7128bn</td><td class="num"><b>-7.7141bn</b></td><td class="num">$1,112,593,685</td></tr>
+<tr><td><b>2026-08</b></td><td class="num">$0.00436319</td><td class="num">$0.01250199</td><td class="num">$0.00382018</td><td class="num">$0.00770936</td><td class="num">3.3×</td><td style="font-size:11px">21 Team 2 2.5678bn</td><td class="num">2.2997bn</td><td class="num">3.2912bn</td><td class="num"><b>-991.50mn</b></td><td class="num">$609,552,750</td></tr>
+<tr><td><b>2026-09</b></td><td class="num">$0.00805760</td><td class="num">$0.09478750</td><td class="num">$0.00805760</td><td class="num">$0.03144162</td><td class="num">11.8×</td><td style="font-size:11px">03 Team 2 1.5000bn<br>21 Team 2 2.8844bn</td><td class="num">1.7170bn</td><td class="num">2.6409bn</td><td class="num"><b>-923.90mn</b></td><td class="num">$1,740,352,821</td></tr>
+<tr class="hi2"><td><b>2026-10</b></td><td class="num">$0.03161073</td><td class="num">$0.03999380</td><td class="num">$0.00985895</td><td class="num">$0.01141742</td><td class="num">4.1×</td><td style="font-size:11px">23 Investors · Team 1 1.3002bn</td><td class="num">496.17mn</td><td class="num">376.03mn</td><td class="num"><b>120.15mn</b></td><td class="num">$457,256,665</td></tr>
+<tr class="hi2"><td><b>2026-11</b></td><td class="num">$0.01141742</td><td class="num">$0.01152452</td><td class="num">$0.00191014</td><td class="num">$0.00246722</td><td class="num">6.0×</td><td style="font-size:11px">—</td><td class="num">4.2392bn</td><td class="num">2.1411bn</td><td class="num"><b>2.0980bn</b></td><td class="num">$599,558,389</td></tr>
+</tbody></table>
+<div class="ev ev-fact"><b class="lbl">What the chain shows</b>The sign flips in October. From June to September, every single month saw <b>more AKE
+withdrawn from non-Binance exchanges than deposited</b> — supply was leaving the order books even as
+the price rose twenty-fold. October is the first net-deposit month (120.15mn), and
+November, in twelve days, is <b>2.0980bn net onto exchanges</b> — more deposited than
+in September and October combined. That is the supply that broke the price, and the timing matches the
+fall rather than preceding it.</div>
+</div>
+<div class="section" id="s2"><h2>2 · The complete release ledger</h2>
+<p style="font-size:13px">Every day since 1 June 2026 on which AKE left one of the eight
+team-controlled pools. Net throughout, and checked: allocation minus net released must equal
+<code>balanceOf</code> at the head block.</p>
+<table class="dense"><thead><tr><th>Pool</th><th class="num">Allocation</th>
+<th class="num">Net released, lifetime</th><th class="num">of allocation</th>
+<th class="num">Net released in this window</th><th class="num">Holds now</th>
+<th class="num">Reconciles?</th></tr></thead><tbody>
+<tr class="hi"><td><b>Investors</b></td><td class="num">25.0000bn</td><td class="num">11.6266bn</td><td class="num">46.5%</td><td class="num">6.9938bn</td><td class="num">13.3734bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr class="hi"><td><b>Team 2</b></td><td class="num">15.0000bn</td><td class="num">8.9523bn</td><td class="num">59.7%</td><td class="num">8.9523bn</td><td class="num">6.0477bn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr class="hi"><td><b>Team 1</b></td><td class="num">5.0000bn</td><td class="num">4.1650bn</td><td class="num">83.3%</td><td class="num">2.3064bn</td><td class="num">835.02mn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr class="hi"><td><b>Nodes 1</b></td><td class="num">8.0000bn</td><td class="num">7.3578bn</td><td class="num">92.0%</td><td class="num">7.0354bn</td><td class="num">642.20mn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr class="hi"><td><b>Nodes 2</b></td><td class="num">7.5000bn</td><td class="num">7.4890bn</td><td class="num">99.9%</td><td class="num">6.6990bn</td><td class="num">11.00mn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr class="hi"><td><b>Nodes 3</b></td><td class="num">16.0000bn</td><td class="num">16.0000bn</td><td class="num">100.0%</td><td class="num">8.6740bn</td><td class="num">1</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr><td><b>KOL</b></td><td class="num">1.7000bn</td><td class="num">1.6261bn</td><td class="num">95.7%</td><td class="num">—</td><td class="num">73.90mn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr><td><b>Community</b></td><td class="num">1.0000bn</td><td class="num">972.11mn</td><td class="num">97.2%</td><td class="num">—</td><td class="num">27.89mn</td><td class="num" style="color:var(--green)">exact</td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>total</b></td><td class="num"><b>79.2000bn</b></td><td class="num"><b>58.1889bn</b></td><td class="num">73.5%</td><td class="num"><b>40.6608bn</b></td><td class="num"><b>21.0111bn</b></td><td class="num" style="color:var(--green)">exact</td></tr>
+</tbody></table>
+<h3 style="margin-top:18px">Day by day</h3>
+<table class="dense"><thead><tr><th>Date</th><th>Pools, net</th><th class="num">Day total</th>
+<th class="num">Recipients</th><th>Released by</th><th class="num">Price that day</th>
+<th class="num">7d before</th><th class="num">7d after</th><th class="num">30d after</th>
+</tr></thead><tbody>
+<tr><td><b>2026-06-19</b></td><td style="font-size:11px">Investors 2.0000bn</td><td class="num"><b>2.0000bn</b></td><td class="num">1</td><td style="font-size:11px">deployer EOA</td><td class="num">$0.00032564</td><td class="num">+21%</td><td class="num">+11%</td><td class="num">+486%</td></tr>
+<tr><td><b>2026-07-22</b></td><td style="font-size:11px">Nodes 3 8.6727bn · Nodes 1 6.5312bn · Nodes 2 5.6632bn</td><td class="num"><b>20.8671bn</b></td><td class="num">5,879</td><td style="font-size:11px">individual node claimants</td><td class="num">$0.00166591</td><td class="num">+153%</td><td class="num">+129%</td><td class="num">+396%</td></tr>
+<tr><td><b>2026-07-24</b></td><td style="font-size:11px">Nodes 3 1.27mn</td><td class="num"><b>1.27mn</b></td><td class="num">346</td><td style="font-size:11px">individual node claimants</td><td class="num">$0.00270773</td><td class="num">+89%</td><td class="num">+62%</td><td class="num">+214%</td></tr>
+<tr><td><b>2026-07-26</b></td><td style="font-size:11px">Investors 4.0000bn · Team 2 2.0000bn · Team 1 2.0000bn · Nodes 2 1.0358bn · Nodes 1 504.25mn</td><td class="num"><b>9.5400bn</b></td><td class="num">10</td><td style="font-size:11px">recipients, calling userWithdraw() themselves</td><td class="num">$0.00307799</td><td class="num">+61%</td><td class="num">+56%</td><td class="num">+182%</td></tr>
+<tr><td><b>2026-08-21</b></td><td style="font-size:11px">Team 2 2.5678bn</td><td class="num"><b>2.5678bn</b></td><td class="num">14</td><td style="font-size:11px">the owner Safe</td><td class="num">$0.00826949</td><td class="num">-22%</td><td class="num">+30%</td><td class="num">+612%</td></tr>
+<tr><td><b>2026-09-03</b></td><td style="font-size:11px">Team 2 1.5000bn</td><td class="num"><b>1.5000bn</b></td><td class="num">3</td><td style="font-size:11px">the owner Safe</td><td class="num">$0.01489814</td><td class="num">+125%</td><td class="num">+3%</td><td class="num">+133%</td></tr>
+<tr><td><b>2026-09-21</b></td><td style="font-size:11px">Team 2 2.8844bn</td><td class="num"><b>2.8844bn</b></td><td class="num">16</td><td style="font-size:11px">the owner Safe</td><td class="num">$0.05541688</td><td class="num">+249%</td><td class="num">-44%</td><td class="num">-54%</td></tr>
+<tr class="hi"><td><b>2026-10-23</b></td><td style="font-size:11px">Investors 993.78mn · Team 1 306.40mn</td><td class="num"><b>1.3002bn</b></td><td class="num">18</td><td style="font-size:11px">the owner Safe</td><td class="num">$0.03930946</td><td class="num">+32%</td><td class="num">-63%</td><td class="num">—</td></tr>
+</tbody></table>
+<div class="ev ev-corr"><b class="lbl">Correlation only</b>Seven of the eight releases landed after a week in which the price had <b>risen</b>, several
+of them sharply — +153% into 22 July, +125% into 3 September, +249% into 21 September. The two most
+recent, 21 September and 23 October, are also the only two followed by a heavy fall. That is a
+pattern in eight observations. It is not, on its own, evidence of timing: a token that rose twenty-fold
+over the window had far more up-weeks than down-weeks, so "a release followed a good week" is close to
+what chance would produce. §9 says what it would take to decide.</div>
+</div>
+<div class="section" id="s3"><h2>3 · The payout roster — one list, three pools, always new
+wallets</h2>
+<p style="font-size:13px">This is the strongest structural finding in the window, and it is
+arithmetic rather than interpretation. Across the eleven release events small enough to examine
+address by address, <b>8 distinct payout amounts recur on more than one day</b> — and
+<b>no address has ever appeared twice</b>. Not once, in 11 events.</p>
+<table class="dense"><thead><tr><th class="num">Amount</th>
+<th>Paid on each of these days, from this pool, to this address</th></tr></thead><tbody>
+<tr class="hi"><td class="num"><b>236.25mn</b></td><td><span class="mono">2026-08-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xf3bfbe73ac660ee858a734510f75b33cc7ada0b6" target="_blank" rel="noopener">0xf3bfbe73ac…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x9b2ac03cb933c8fd5dcb467bae5f48afb3357c87" target="_blank" rel="noopener">0x9b2ac03cb9…</a><br><span class="mono">2026-10-23</span> &nbsp;<b>Investors</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x5d9903956791e0f7a6d9c4fd9762efd43f59b1c5" target="_blank" rel="noopener">0x5d99039567…</a></td></tr>
+<tr class="hi"><td class="num"><b>160.42mn</b></td><td><span class="mono">2026-08-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x43055a9aeade0121fa5a84aa0981109dcd572ab7" target="_blank" rel="noopener">0x43055a9aea…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x6b9bf2f1e14e63802211b726ab02399f78bf02be" target="_blank" rel="noopener">0x6b9bf2f1e1…</a><br><span class="mono">2026-10-23</span> &nbsp;<b>Investors</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xd0603b5e24852e7071b60652800c85fde2369d6c" target="_blank" rel="noopener">0xd0603b5e24…</a></td></tr>
+<tr class="hi"><td class="num"><b>117.83mn</b></td><td><span class="mono">2026-08-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x419b73b20023f25845cdc3b88afeabe767ef1931" target="_blank" rel="noopener">0x419b73b200…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x4d73981e5f271d824fa94f397cde653136a4b0e1" target="_blank" rel="noopener">0x4d73981e5f…</a><br><span class="mono">2026-10-23</span> &nbsp;<b>Team 1</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xcb4875d8b975a98d0394c66aaff2a7ed9a7e48ac" target="_blank" rel="noopener">0xcb4875d8b9…</a></td></tr>
+<tr class="hi"><td class="num"><b>83.33mn</b></td><td><span class="mono">2026-08-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xe2017853d1164d28f8f72ab748989ec7408c5126" target="_blank" rel="noopener">0xe2017853d1…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x22cb1939f11789691e6af415aec5b7f1c542cdab" target="_blank" rel="noopener">0x22cb1939f1…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x5755e4938a9f8721595b65096113540f87f014f7" target="_blank" rel="noopener">0x5755e4938a…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xf1bc00a23ed73c8eaeb967d5a13e6482360ec915" target="_blank" rel="noopener">0xf1bc00a23e…</a><br><span class="mono">2026-10-23</span> &nbsp;<b>Investors</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xad55e8374d140a9cd71725fb57151154ce36280c" target="_blank" rel="noopener">0xad55e8374d…</a><br><span class="mono">2026-10-23</span> &nbsp;<b>Investors</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xd43a22f399f35b5983911932d36e835e3391fb46" target="_blank" rel="noopener">0xd43a22f399…</a></td></tr>
+<tr><td class="num"><b>68.45mn</b></td><td><span class="mono">2026-08-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xe8daec92cc2d1fc1a785ea16d3a01ea21a561403" target="_blank" rel="noopener">0xe8daec92cc…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x912e7cdcc1dcdd7195f714ddda705492a7a20ed1" target="_blank" rel="noopener">0x912e7cdcc1…</a></td></tr>
+<tr><td class="num"><b>41.67mn</b></td><td><span class="mono">2026-08-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x6faf6b92e237ae5abb2aaf3bfd3bda3026e9cab0" target="_blank" rel="noopener">0x6faf6b92e2…</a><br><span class="mono">2026-08-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xa16a5f3badbf829fe21ab07673072c52e8c3c551" target="_blank" rel="noopener">0xa16a5f3bad…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x4c808645dae6ec951cbc42762b469c34cb1b4b8e" target="_blank" rel="noopener">0x4c808645da…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xe0520ff3820ad28197a45a0088589560087d78d9" target="_blank" rel="noopener">0xe0520ff382…</a></td></tr>
+<tr class="hi"><td class="num"><b>33.33mn</b></td><td><span class="mono">2026-08-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x0fd6e7e2349bc9eed730d623d16bae2cf760e714" target="_blank" rel="noopener">0x0fd6e7e234…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xed5fbf5a35341bc7d159977b362d0c79147e3587" target="_blank" rel="noopener">0xed5fbf5a35…</a><br><span class="mono">2026-10-23</span> &nbsp;<b>Investors</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x9d6dc6a5a9fbeed93b43649521c36dc707188acf" target="_blank" rel="noopener">0x9d6dc6a5a9…</a><br><span class="mono">2026-10-23</span> &nbsp;<b>Investors</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0xf6ea8da9812f4f465b455b41da74932245261435" target="_blank" rel="noopener">0xf6ea8da981…</a></td></tr>
+<tr><td class="num"><b>25.00mn</b></td><td><span class="mono">2026-08-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x95d6dc1bf3dd32512b07ce2c0d4b65f9eb6f1b09" target="_blank" rel="noopener">0x95d6dc1bf3…</a><br><span class="mono">2026-09-21</span> &nbsp;<b>Team 2</b> &nbsp;→&nbsp; <a class="addr" href="https://bscscan.com/address/0x8caacf372624d599999b5de70173be77d54cbb9d" target="_blank" rel="noopener">0x8caacf3726…</a></td></tr>
+</tbody></table>
+<div class="note">Rows highlighted amber are amounts paid from <b>more than one pool</b>.
+2.5304bn has moved through recurring amounts in total.</div>
+<div class="ev ev-fact"><b class="lbl">What the chain shows</b>The same figures recur across <b>Team Pool 2, the Investors Pool and Team Pool 1</b> —
+0.2362bn on 21 Aug (Team 2), 21 Sep (Team 2) and 23 Oct (Investors); 0.1604bn on the same three days;
+0.1178bn on 21 Aug and 21 Sep from Team 2 and then 23 Oct from Team 1. Three separately allocated
+pools, three different months, the same payout figures, and a brand-new receiving address every single
+time. Address reuse across all 11 events: <b>0</b>.</div>
+<div class="ev ev-inf"><b class="lbl">Inference · confidence medium-high</b>A single beneficiary roster is being serviced from whichever pool has tokens available, with
+a fresh wallet generated for each payment. The amounts are the entitlements; the addresses are
+disposable. That would explain why identical figures cross pool boundaries, why no address ever
+repeats, and why the recipients behave identically afterwards — they hold, uniformly, without
+exception.<div style="margin-top:7px;font-size:11.5px;color:var(--muted)"><b>What would disprove it:</b> a plausible innocent mechanism that produces identical payout figures across three
+separately allocated pools while never reusing an address — for instance a published vesting table
+with those exact tranche sizes, which no Akedo document this project has seen contains. Equally,
+finding that any two of these addresses have different, unrelated funding sources and independent
+activity would weaken it.</div></div>
+<div class="ev ev-corr"><b class="lbl">Correlation only</b>The 23 October pair is the tightest instance: Investors Pool at 08:37:38 and Team Pool 1 at
+08:38:30 — <b>52 seconds apart</b>, eighteen fresh wallets between them, from two pools that have no
+on-chain relationship other than a common owner.</div>
+</div>
+<div class="section" id="s4"><h2>4 · What happened to every token released</h2>
+<p style="font-size:13px">Each release followed forward to an exchange, a DEX pool, or a wallet that
+still holds it. Balances read at the head block; the 22 and 24 July node unlocks have too many
+claimants to walk individually and are reconciled through the consolidation set instead.</p>
+<table class="dense"><thead><tr><th>Release</th><th class="num">Net released</th>
+<th class="num">Still held</th><th class="num">Sold</th><th>Where it is</th></tr></thead><tbody>
+<tr class="hi2"><td><b>2026-06-19</b></td><td class="num">2.0000bn</td><td class="num">0</td><td class="num"><b style="color:var(--danger)">2.0000bn</b></td><td style="font-size:11px">Gate.io custody, 23 July — four hops and 34 days downstream</td></tr>
+<tr><td><b>2026-07-22</b></td><td class="num">20.8671bn</td><td class="num">—</td><td class="num"><span style="color:var(--green)">0</span></td><td style="font-size:11px">swept into 98 wallets with no prior history by 29 August; all still there</td></tr>
+<tr><td><b>2026-07-24</b></td><td class="num">1.27mn</td><td class="num">—</td><td class="num"><span style="color:var(--green)">0</span></td><td style="font-size:11px">the tail of the same node unlock</td></tr>
+<tr><td><b>2026-07-26</b></td><td class="num">9.5400bn</td><td class="num">9.5400bn</td><td class="num"><span style="color:var(--green)">0</span></td><td style="font-size:11px">ten wallets, untouched since the afternoon they received it</td></tr>
+<tr><td><b>2026-08-21</b></td><td class="num">2.5678bn</td><td class="num">2.5678bn</td><td class="num"><span style="color:var(--green)">0</span></td><td style="font-size:11px">fourteen wallets; 138.45mn moved on 27 August to two further wallets, which also still hold it</td></tr>
+<tr><td><b>2026-09-03</b></td><td class="num">1.5000bn</td><td class="num">1.5000bn</td><td class="num"><span style="color:var(--green)">0</span></td><td style="font-size:11px">three wallets, untouched</td></tr>
+<tr><td><b>2026-09-21</b></td><td class="num">2.8844bn</td><td class="num">2.8844bn</td><td class="num"><span style="color:var(--green)">0</span></td><td style="font-size:11px">sixteen wallets, untouched</td></tr>
+<tr><td><b>2026-10-23</b></td><td class="num">1.3002bn</td><td class="num">1.3002bn</td><td class="num"><span style="color:var(--green)">0</span></td><td style="font-size:11px">eighteen wallets, untouched</td></tr>
+<tr style="border-top:2px solid var(--border)"><td><b>total</b></td><td class="num"><b>40.6608bn</b></td><td class="num">—</td><td class="num"><b>2.0000bn</b> (4.9%)</td><td style="font-size:11px">one sale, in July</td></tr>
+</tbody></table>
+<div class="ev ev-fact"><b class="lbl">What the chain shows</b>Of 40.6608bn released, <b>2.0000bn has reached an exchange</b> —
+4.9%. The 22 July node unlock, which is the bulk of the rest, was consolidated
+from 5,879 claimant wallets into 98 wallets with no prior history within five weeks and has
+sat there ever since, through both the rise and the fall.</div>
+<div class="ev ev-inf"><b class="lbl">Inference · confidence medium</b>The consolidation is the part worth worrying about, not the selling. A distribution that
+reads as 5,879 independent holders is, five weeks later, under the control of however many keys
+operate 98 wallets. Nothing about that is illegal or even unusual — node sale participants selling to
+a buyer would look the same — but it means the supply overhang is concentrated and can move on one
+decision, which a holder-count figure would hide.<div style="margin-top:7px;font-size:11.5px;color:var(--muted)"><b>What would disprove it:</b> evidence that the 98 wallets are independently controlled — different funding sources,
+different gas payers, divergent behaviour. So far they behave identically, which is what one operator
+looks like, but identical inactivity is weak evidence.</div></div>
+</div>
+<div class="section" id="s5"><h2>5 · The only sale</h2>
+<p style="font-size:13px">One release out of eight has ever reached an exchange. It is worth setting
+out in full, because the shape of it — and the timing — says more than the fact of it.</p>
+<table class="dense"><thead><tr><th>When (UTC)</th><th>From</th><th>To</th><th class="num">Amount</th>
+<th>What it is</th></tr></thead><tbody>
+<tr><td class="mono">2026-06-19 16:00:41</td><td>Investors Pool</td>
+  <td><a class="addr" href="https://bscscan.com/address/0xf23abe615b96badcf5e46d390d0697d433986aa4" target="_blank" rel="noopener">0xf23abe61…</a></td>
+  <td class="num">4.0734bn</td><td style="font-size:11px">the release</td></tr>
+<tr><td class="mono">2026-06-19 16:24:55</td>
+  <td><a class="addr" href="https://bscscan.com/address/0xf23abe615b96badcf5e46d390d0697d433986aa4" target="_blank" rel="noopener">0xf23abe61…</a></td>
+  <td>Investors Pool</td><td class="num">2.0734bn</td>
+  <td style="font-size:11px">returned 24 minutes later — the net release is 2.0000bn</td></tr>
+<tr><td class="mono">2026-06-20 10:19:33</td>
+  <td><a class="addr" href="https://bscscan.com/address/0xf23abe615b96badcf5e46d390d0697d433986aa4" target="_blank" rel="noopener">0xf23abe61…</a></td>
+  <td><a class="addr" href="https://bscscan.com/address/0xa074027a3bb55b6f01989e20202f532894d7d97c" target="_blank" rel="noopener">0xa074027a…</a></td>
+  <td class="num">1.999999bn</td><td style="font-size:11px">hop 2, next morning</td></tr>
+<tr><td class="mono">2026-07-15 07:51–13:00</td>
+  <td><a class="addr" href="https://bscscan.com/address/0xa074027a3bb55b6f01989e20202f532894d7d97c" target="_blank" rel="noopener">0xa074027a…</a></td>
+  <td><a class="addr" href="https://bscscan.com/address/0x7476c568d6fc88a7ad6944a6f9fb1b5d725a58e1" target="_blank" rel="noopener">0x7476c568…</a></td>
+  <td class="num">1.999998bn</td>
+  <td style="font-size:11px">hop 3, in four tranches of 0.5, 0.25, 0.25 and 1.0bn</td></tr>
+<tr class="hi2"><td class="mono">2026-07-23 18:03:22</td>
+  <td><a class="addr" href="https://bscscan.com/address/0x7476c568d6fc88a7ad6944a6f9fb1b5d725a58e1" target="_blank" rel="noopener">0x7476c568…</a></td>
+  <td><a class="addr" href="https://bscscan.com/address/0x0d0707963952f2fba59dd06f2b425ace40b492fe" target="_blank" rel="noopener">Gate.io DepositAndWithdraw_1</a></td>
+  <td class="num">2.0000bn</td>
+  <td style="font-size:11px">block 111,711,359, tx <a class="addr" href="https://bscscan.com/tx/0x576117a8ee79e803cd514bdffb9c82c96f2ae19aa12b3298826e2e3d3e722917" target="_blank" rel="noopener">0x576117a8…</a> —
+      <b>the sale</b></td></tr>
+</tbody></table>
+<div class="q">
+  <div><div class="k">Worth when released</div><div class="v">$648,662</div>
+    <div class="sub">19 June, at the on-chain price of that block</div></div>
+  <div><div class="k">Realised when sold</div><div class="v">$5,045,681</div>
+    <div class="sub">23 July · $0.00252284/AKE, BNB $565.95</div></div>
+  <div><div class="k">Cross-check, CoinGecko</div><div class="v">$5,013,261</div>
+    <div class="sub">+0.6% from the on-chain figure</div></div>
+  <div><div class="k">Gain by waiting</div><div class="v">7.8×</div>
+    <div class="sub">34 days between release and sale</div></div>
+</div>
+<div class="ev ev-fact"><b class="lbl">What the chain shows</b>Exactly 2,000,000,000.000000 AKE — a round two billion to the wei — into Gate.io custody.
+The amount was released on 19 June, moved through two intermediate wallets, and sold 34 days later
+into a price that had risen roughly eightfold in the meantime. Both price derivations, one taken
+purely from pool state on-chain and one from CoinGecko, agree to within 0.65%.</div>
+<div class="ev ev-inf"><b class="lbl">Inference · confidence medium</b>Whoever controls that chain of wallets was not liquidating an allocation; they were
+positioning. Tokens taken at the bottom of the window and sold near a local peak, through three hops
+and a month of patience, is trading behaviour rather than treasury behaviour.<div style="margin-top:7px;font-size:11.5px;color:var(--muted)"><b>What would disprove it:</b> a benign explanation for the hop chain — an OTC settlement, a custodial transfer, an
+exchange onboarding flow. The round two-billion figure and the four-tranche split are consistent with
+a negotiated sale as much as with evasion, and nothing here distinguishes the two.</div></div>
+</div>
+<div class="section" id="s6"><h2>6 · The collapse — what actually sold</h2>
+<p style="font-size:13px">From 0.03033537 on 26 October to
+$0.00246592 now. The pools released nothing in that stretch after 23 October, and no release recipient
+sold anything at all. So the supply came from the broad holder base, and it shows up in two places:
+the main DEX pool's inventory, and exchange deposits.</p>
+<div class="q">
+  <div><div class="k">AKE pushed into the main pool</div>
+    <div class="v" style="color:var(--danger)">+185.85mn</div>
+    <div class="sub">26 October → now</div></div>
+  <div><div class="k">BNB taken out of it</div>
+    <div class="v" style="color:var(--danger)">-2,085 BNB</div>
+    <div class="sub">≈ $1,403,274 of realised proceeds</div></div>
+  <div><div class="k">BNB left in the pool</div><div class="v">291</div>
+    <div class="sub">≈ $196,056 — the on-chain bid, in full</div></div>
+  <div><div class="k">Deposited to exchanges in November</div>
+    <div class="v">4.2392bn</div>
+    <div class="sub">in twelve days</div></div>
+</div>
+<div class="ev ev-fact"><b class="lbl">What the chain shows</b>Between 26 October and now the main PancakeSwap pool absorbed <b>185.85mn of AKE</b>
+and gave up <b>2,085 BNB</b>, roughly $1,403,274. That is the
+entire realised proceeds of the on-chain side of a 98% fall. What is left behind the bid is
+291 BNB — about $196,056. The on-chain market for a
+token that was worth two billion dollars seven weeks ago is now a few hundred thousand dollars
+deep.</div>
+<div class="ev ev-fact"><b class="lbl">What the chain shows</b>None of the largest net depositors to exchange custody over October and November is a pool
+recipient or a member of the 98-wallet consolidation set. They are Gate.io and MEXC user wallets and
+unlabelled addresses — the ordinary holder base. The one familiar name is the programmatic drip-seller
+that has been feeding uniform tranches into Binance Hot Wallet 4 since the summer, and it is still
+running at the same clip.</div>
+<div class="ev ev-neg"><b class="lbl">A negative result, and it matters</b>A fall this size with no team-pool selling in it is the kind of result that invites a
+second look, so: the test is not "did a pool release during the fall" — one did, on 23 October — but
+"did any released token reach a venue where it could be sold". The answer across every release since
+June, re-checked at the head block, is no, with the single July exception. If team-controlled supply
+was sold into this collapse, it was not sold through any wallet these releases created.</div>
+</div>
+<div class="section" id="s7"><h2>7 · Exchange flows, June to November</h2>
+<p style="font-size:13px">Every AKE transfer touching a custody address in the venue registry, by
+day, with Binance Wallet routers excluded (those are DEX routing, not deposits) and
+exchange-to-exchange custody moves excluded (those are internal, not trading).</p>
+<table class="dense"><thead><tr><th>Week beginning</th><th class="num">Sold → non-Binance CEX</th>
+<th class="num">Withdrawn from them</th><th class="num">Net</th><th class="num">→ Binance</th>
+<th class="num">Binance →</th><th class="num">Price at week end</th></tr></thead><tbody>
+<tr><td class="mono">2026-06-01</td><td class="num">104.91mn</td><td class="num">256.07mn</td><td class="num"><b>-151.16mn</b></td><td class="num">178.63mn</td><td class="num">51.34mn</td><td class="num">$0.00030236</td></tr>
+<tr><td class="mono">2026-06-08</td><td class="num">256.93mn</td><td class="num">333.08mn</td><td class="num"><b>-76.16mn</b></td><td class="num">126.79mn</td><td class="num">63.05mn</td><td class="num">$0.00028936</td></tr>
+<tr class="hi3"><td class="mono">2026-06-15</td><td class="num">794.35mn</td><td class="num">1.2736bn</td><td class="num"><b>-479.26mn</b></td><td class="num">232.34mn</td><td class="num">131.33mn</td><td class="num">$0.00041516</td></tr>
+<tr class="hi3"><td class="mono">2026-06-22</td><td class="num">284.66mn</td><td class="num">647.84mn</td><td class="num"><b>-363.18mn</b></td><td class="num">569.01mn</td><td class="num">607.01mn</td><td class="num">$0.00037905</td></tr>
+<tr class="hi2"><td class="mono">2026-06-29</td><td class="num">1.1248bn</td><td class="num">492.80mn</td><td class="num"><b>632.02mn</b></td><td class="num">3.9813bn</td><td class="num">1.3179bn</td><td class="num">$0.00029953</td></tr>
+<tr><td class="mono">2026-07-06</td><td class="num">1.5098bn</td><td class="num">1.5869bn</td><td class="num"><b>-77.15mn</b></td><td class="num">4.2444bn</td><td class="num">1.9335bn</td><td class="num">$0.00019304</td></tr>
+<tr class="hi2"><td class="mono">2026-07-13</td><td class="num">12.6973bn</td><td class="num">8.7755bn</td><td class="num"><b>3.9218bn</b></td><td class="num">1.4360bn</td><td class="num">9.8718bn</td><td class="num">$0.00190959</td></tr>
+<tr class="hi3"><td class="mono">2026-07-20</td><td class="num">9.8143bn</td><td class="num">22.3303bn</td><td class="num"><b>-12.5160bn</b></td><td class="num">10.5974bn</td><td class="num">17.9955bn</td><td class="num">$0.00307799</td></tr>
+<tr class="hi2"><td class="mono">2026-07-27</td><td class="num">1.4567bn</td><td class="num">1.0236bn</td><td class="num"><b>433.11mn</b></td><td class="num">245.91mn</td><td class="num">3.4711bn</td><td class="num">$0.00479795</td></tr>
+<tr><td class="mono">2026-08-03</td><td class="num">399.38mn</td><td class="num">518.76mn</td><td class="num"><b>-119.38mn</b></td><td class="num">28.12mn</td><td class="num">80.78mn</td><td class="num">$0.00421945</td></tr>
+<tr class="hi3"><td class="mono">2026-08-10</td><td class="num">870.12mn</td><td class="num">1.8320bn</td><td class="num"><b>-961.90mn</b></td><td class="num">648.31mn</td><td class="num">2.5050bn</td><td class="num">$0.00977507</td></tr>
+<tr><td class="mono">2026-08-17</td><td class="num">205.11mn</td><td class="num">215.37mn</td><td class="num"><b>-10.26mn</b></td><td class="num">8.57mn</td><td class="num">27.77mn</td><td class="num">$0.00849463</td></tr>
+<tr><td class="mono">2026-08-24</td><td class="num">244.98mn</td><td class="num">308.83mn</td><td class="num"><b>-63.85mn</b></td><td class="num">110.37mn</td><td class="num">76.82mn</td><td class="num">$0.00779267</td></tr>
+<tr class="hi3"><td class="mono">2026-08-31</td><td class="num">845.15mn</td><td class="num">1.6865bn</td><td class="num"><b>-841.34mn</b></td><td class="num">494.72mn</td><td class="num">1.1457bn</td><td class="num">$0.01414324</td></tr>
+<tr><td class="mono">2026-09-07</td><td class="num">278.65mn</td><td class="num">256.79mn</td><td class="num"><b>21.86mn</b></td><td class="num">90.60mn</td><td class="num">83.64mn</td><td class="num">$0.01479180</td></tr>
+<tr class="hi3"><td class="mono">2026-09-14</td><td class="num">306.49mn</td><td class="num">507.05mn</td><td class="num"><b>-200.56mn</b></td><td class="num">123.77mn</td><td class="num">258.30mn</td><td class="num">$0.05885675</td></tr>
+<tr><td class="mono">2026-09-21</td><td class="num">289.67mn</td><td class="num">190.53mn</td><td class="num"><b>99.14mn</b></td><td class="num">31.26mn</td><td class="num">88.98mn</td><td class="num">$0.03083462</td></tr>
+<tr><td class="mono">2026-09-28</td><td class="num">33.66mn</td><td class="num">25.77mn</td><td class="num"><b>7.89mn</b></td><td class="num">5.65mn</td><td class="num">11.03mn</td><td class="num">$0.03341559</td></tr>
+<tr><td class="mono">2026-10-05</td><td class="num">13.82mn</td><td class="num">30.09mn</td><td class="num"><b>-16.27mn</b></td><td class="num">9.81mn</td><td class="num">6.02mn</td><td class="num">$0.02549890</td></tr>
+<tr><td class="mono">2026-10-12</td><td class="num">57.01mn</td><td class="num">25.55mn</td><td class="num"><b>31.46mn</b></td><td class="num">16.13mn</td><td class="num">38.07mn</td><td class="num">$0.02855515</td></tr>
+<tr><td class="mono">2026-10-19</td><td class="num">97.98mn</td><td class="num">63.20mn</td><td class="num"><b>34.79mn</b></td><td class="num">15.85mn</td><td class="num">22.66mn</td><td class="num">$0.03100900</td></tr>
+<tr><td class="mono">2026-10-26</td><td class="num">368.33mn</td><td class="num">328.50mn</td><td class="num"><b>39.84mn</b></td><td class="num">6.92mn</td><td class="num">61.78mn</td><td class="num">$0.00905544</td></tr>
+<tr class="hi2"><td class="mono">2026-11-02</td><td class="num">2.3739bn</td><td class="num">1.4599bn</td><td class="num"><b>914.04mn</b></td><td class="num">196.16mn</td><td class="num">0</td><td class="num">$0.00521432</td></tr>
+<tr class="hi2"><td class="mono">2026-11-09</td><td class="num">1.8057bn</td><td class="num">595.25mn</td><td class="num"><b>1.2104bn</b></td><td class="num">101.84mn</td><td class="num">1.6177bn</td><td class="num">$0.00246722</td></tr>
+</tbody></table>
+<div class="note">Green rows are weeks when supply left exchanges on net; red rows are weeks it arrived. The red rows cluster at the end.</div>
+</div>
+<div class="section" id="s8"><h2>8 · The DEX pool, week by week</h2>
+<p style="font-size:13px">The PancakeSwap V3 AKE/WBNB 0.01% pool carries essentially all on-chain
+liquidity. Its inventory is the clearest single record of the whole window: the price it quotes is
+derived here from its own <code>slot0</code>, with no price API involved.</p>
+<table class="dense"><thead><tr><th>Date</th><th class="num">Block</th><th class="num">AKE held</th>
+<th class="num">BNB held</th><th class="num">Pool price</th><th class="num">BNB/USD</th>
+<th class="num">Pool value</th></tr></thead><tbody>
+<tr><td class="mono">2026-06-01</td><td class="num">101,590,100</td><td class="num">1,161.44mn</td><td class="num">612</td><td class="num">$0.00032676</td><td class="num">$710</td><td class="num">$814,240</td></tr>
+<tr><td class="mono">2026-06-08</td><td class="num">102,931,836</td><td class="num">1,155.44mn</td><td class="num">615</td><td class="num">$0.00029960</td><td class="num">$604</td><td class="num">$717,818</td></tr>
+<tr><td class="mono">2026-06-15</td><td class="num">104,274,549</td><td class="num">1,158.25mn</td><td class="num">614</td><td class="num">$0.00029557</td><td class="num">$617</td><td class="num">$720,773</td></tr>
+<tr><td class="mono">2026-06-22</td><td class="num">105,617,724</td><td class="num">1,130.30mn</td><td class="num">630</td><td class="num">$0.00040883</td><td class="num">$584</td><td class="num">$830,348</td></tr>
+<tr><td class="mono">2026-06-29</td><td class="num">106,961,317</td><td class="num">1,132.03mn</td><td class="num">629</td><td class="num">$0.00037689</td><td class="num">$551</td><td class="num">$773,529</td></tr>
+<tr><td class="mono">2026-07-06</td><td class="num">108,304,636</td><td class="num">1,154.22mn</td><td class="num">617</td><td class="num">$0.00029965</td><td class="num">$589</td><td class="num">$709,235</td></tr>
+<tr><td class="mono">2026-07-13</td><td class="num">109,647,788</td><td class="num">1,191.53mn</td><td class="num">602</td><td class="num">$0.00019278</td><td class="num">$574</td><td class="num">$575,172</td></tr>
+<tr><td class="mono">2026-07-20</td><td class="num">110,991,380</td><td class="num">240.78mn</td><td class="num">1,086</td><td class="num">$0.00198251</td><td class="num">$571</td><td class="num">$1,097,293</td></tr>
+<tr><td class="mono">2026-07-27</td><td class="num">112,334,533</td><td class="num">67.26mn</td><td class="num">1,320</td><td class="num">$0.00313211</td><td class="num">$575</td><td class="num">$969,779</td></tr>
+<tr><td class="mono">2026-08-03</td><td class="num">113,677,907</td><td class="num">58.71mn</td><td class="num">1,382</td><td class="num">$0.00479535</td><td class="num">$588</td><td class="num">$1,094,477</td></tr>
+<tr><td class="mono">2026-08-10</td><td class="num">115,021,056</td><td class="num">62.28mn</td><td class="num">1,357</td><td class="num">$0.00415303</td><td class="num">$602</td><td class="num">$1,075,528</td></tr>
+<tr><td class="mono">2026-08-17</td><td class="num">116,364,606</td><td class="num">47.56mn</td><td class="num">1,520</td><td class="num">$0.00979220</td><td class="num">$603</td><td class="num">$1,382,202</td></tr>
+<tr><td class="mono">2026-08-24</td><td class="num">117,708,212</td><td class="num">52.11mn</td><td class="num">1,458</td><td class="num">$0.00847857</td><td class="num">$702</td><td class="num">$1,465,380</td></tr>
+<tr class="hi2"><td class="mono">2026-08-31</td><td class="num">119,051,698</td><td class="num">98.98mn</td><td class="num">1,112</td><td class="num">$0.00794270</td><td class="num">$685</td><td class="num">$1,547,897</td></tr>
+<tr><td class="mono">2026-09-07</td><td class="num">120,394,671</td><td class="num">49.94mn</td><td class="num">1,854</td><td class="num">$0.01396109</td><td class="num">$753</td><td class="num">$2,093,295</td></tr>
+<tr><td class="mono">2026-09-14</td><td class="num">121,737,997</td><td class="num">38.69mn</td><td class="num">2,089</td><td class="num">$0.01508644</td><td class="num">$717</td><td class="num">$2,080,837</td></tr>
+<tr><td class="mono">2026-09-21</td><td class="num">123,081,455</td><td class="num">25.02mn</td><td class="num">2,587</td><td class="num">$0.05916399</td><td class="num">$772</td><td class="num">$3,478,571</td></tr>
+<tr><td class="mono">2026-09-28</td><td class="num">124,425,013</td><td class="num">29.44mn</td><td class="num">2,352</td><td class="num">$0.03105915</td><td class="num">$779</td><td class="num">$2,746,370</td></tr>
+<tr><td class="mono">2026-10-05</td><td class="num">125,768,502</td><td class="num">29.01mn</td><td class="num">2,371</td><td class="num">$0.03366227</td><td class="num">$795</td><td class="num">$2,862,672</td></tr>
+<tr><td class="mono">2026-10-12</td><td class="num">127,111,629</td><td class="num">30.67mn</td><td class="num">2,309</td><td class="num">$0.02597008</td><td class="num">$754</td><td class="num">$2,538,514</td></tr>
+<tr><td class="mono">2026-10-19</td><td class="num">128,454,492</td><td class="num">29.00mn</td><td class="num">2,376</td><td class="num">$0.03082544</td><td class="num">$723</td><td class="num">$2,612,489</td></tr>
+<tr><td class="mono">2026-10-26</td><td class="num">129,797,837</td><td class="num">29.15mn</td><td class="num">2,376</td><td class="num">$0.03119325</td><td class="num">$739</td><td class="num">$2,664,540</td></tr>
+<tr class="hi2"><td class="mono">2026-11-02</td><td class="num">131,141,195</td><td class="num">93.92mn</td><td class="num">1,238</td><td class="num">$0.00875661</td><td class="num">$713</td><td class="num">$1,704,816</td></tr>
+<tr class="hi2"><td class="mono">2026-11-09</td><td class="num">132,484,800</td><td class="num">158.12mn</td><td class="num">647</td><td class="num">$0.00521462</td><td class="num">$685</td><td class="num">$1,267,704</td></tr>
+<tr><td class="mono">2026-11-12</td><td class="num">133,132,375</td><td class="num">215.00mn</td><td class="num">291</td><td class="num">$0.00292021</td><td class="num">$673</td><td class="num">$823,901</td></tr>
+</tbody></table>
+<div class="ev ev-fact"><b class="lbl">What the chain shows</b>Two restructurings stand out. On 20 July the pool went from 1,191mn AKE and 602 BNB to
+241mn AKE and 1,086 BNB in a week — the AKE side was pulled and the quoted price jumped roughly
+tenfold, which is where the July run begins. From 2 November the move runs the other way: AKE piles in
+and BNB drains out, week after week, until the pool holds 215mn AKE against 291 BNB. The first was
+liquidity management. The second is what a one-way market looks like from the inside.</div>
+</div>
+<div class="section" id="s9"><h2>9 · Team-adjacent wallets — established, correlated,
+inferred</h2>
+<p style="font-size:13px">The question this section exists to answer is which wallets are plausibly
+connected to the team, and on what basis. It is kept in three tiers deliberately, because the three
+are not the same kind of claim and conflating them is how on-chain analysis goes wrong.</p>
+<h3>Tier 1 — established on-chain, not inferred</h3>
+<table class="dense"><thead><tr><th>Address</th><th>Role</th><th>How it is known</th>
+</tr></thead><tbody>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x551a841742733bef96646b44e3475ce6a01da5eb" target="_blank" rel="noopener">0x551a841742733bef96646b44e3475ce6a01da5eb</a></td><td><b>Owner Safe, 3-of-4</b></td><td style="font-size:11px">Holds ownership of the pools and is the <code>to</code> of the transaction behind every release from 26 July onward, including both legs of 23 October.</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x88f4b387eab71497e312663ac8b4aada6aa2ef8e" target="_blank" rel="noopener">0x88f4b387eab71497e312663ac8b4aada6aa2ef8e</a></td><td><b>The key that submits</b></td><td style="font-size:11px">The <code>from</code> address on every one of those <code>execTransaction</code> calls.</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x6468cce97a300ff9d02d4cad0d3e097cace2eac2" target="_blank" rel="noopener">0x6468cce97a300ff9d02d4cad0d3e097cace2eac2</a></td><td><b>Deployer EOA</b></td><td style="font-size:11px">Deployed the pools and ran every release up to 19 June 2026. Has not moved AKE since.</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x808e6d72d37619d7ecb3fc6efc8f13bd37c46755" target="_blank" rel="noopener">0x808e6d72d37619d7ecb3fc6efc8f13bd37c46755</a></td><td><b>A second Safe</b></td><td style="font-size:11px">Holds a large balance and has been untouched through the entire window. Its owner keys are not identified.</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x4d3bf29ba30f8bfe4624e7678709afa195689c5d" target="_blank" rel="noopener">0x4d3bf29ba30f8bfe4624e7678709afa195689c5d</a></td><td><b>The on-chain market</b></td><td style="font-size:11px">PancakeSwap V3 AKE/WBNB 0.01%; carries effectively all DEX liquidity.</td></tr>
+<tr><td><a class="addr" href="https://bscscan.com/address/0x0d0707963952f2fba59dd06f2b425ace40b492fe" target="_blank" rel="noopener">0x0d0707963952f2fba59dd06f2b425ace40b492fe</a></td><td><b>Gate.io deposit custody</b></td><td style="font-size:11px">On-chain exchange label; the destination of the only sale.</td></tr>
+</tbody></table>
+<h3 style="margin-top:16px">Tier 2 — correlated, with the correlation stated exactly</h3>
+<div class="ev ev-corr"><b class="lbl">Correlation only</b><b>The recurring payout amounts.</b> 8 amounts recur across Team Pool 2, the
+Investors Pool and Team Pool 1, over four release days, to 27
+distinct addresses, with zero reuse. This is a numeric coincidence of a kind that does not happen by
+chance at this precision — but it links the <em>payments</em>, not the <em>people</em>. It does not
+tell us who the beneficiaries are.</div>
+<div class="ev ev-corr"><b class="lbl">Correlation only</b><b>The 23 October timing.</b> The Investors Pool's computed vesting boundary fell on
+18 October 2026 at 10:00 UTC. The release came five days later, from the Investors Pool and Team
+Pool 1 together. A release near a boundary is what a schedule would produce; a release five days late,
+from two pools at once, 52 seconds apart, and paid to fresh wallets, is what an administrative push
+would produce. Both readings fit.</div>
+<div class="ev ev-corr"><b class="lbl">Correlation only</b><b>Releases follow strength.</b> Seven of eight releases came after a positive seven-day
+run. Over a window in which the token rose twentyfold, that is close to what chance produces, and
+eight observations cannot separate the two. It is recorded because it is true, not because it is
+evidence.</div>
+<h3 style="margin-top:16px">Tier 3 — inference, each with what would disprove it</h3>
+<div class="ev ev-inf"><b class="lbl">Inference · confidence medium-high</b><b>One beneficiary roster, serviced from whichever pool has tokens.</b> The recurring
+amounts crossing three separately allocated pools, combined with total absence of address reuse and
+uniform post-receipt behaviour, is most simply explained by a single list of entitlements paid through
+disposable wallets.<div style="margin-top:7px;font-size:11.5px;color:var(--muted)"><b>What would disprove it:</b> an Akedo document setting out tranche sizes that match these figures, which would make the
+repetition a published schedule rather than a private roster; or two of these addresses showing
+genuinely independent funding and activity.</div></div>
+<div class="ev ev-inf"><b class="lbl">Inference · confidence medium</b><b>The 22 July node unlock is concentrated, not distributed.</b> 5,879 claimant wallets
+became 98 holding wallets within five weeks, and those 98 have not moved a token through a 98% round
+trip in the price.<div style="margin-top:7px;font-size:11.5px;color:var(--muted)"><b>What would disprove it:</b> evidence that the 98 are separately controlled. Identical inactivity is consistent with one
+operator and also with 98 people who simply have not sold, and nothing here separates them.</div></div>
+<div class="ev ev-inf"><b class="lbl">Inference · confidence medium</b><b>The one sale was positioning, not treasury liquidation.</b> Tokens released in June,
+moved twice, and sold 34 days later into an eightfold move, for a round two billion.<div style="margin-top:7px;font-size:11.5px;color:var(--muted)"><b>What would disprove it:</b> a routine explanation for the hop chain — OTC settlement, custodial migration, exchange
+onboarding — any of which would produce the same trace.</div></div>
+<div class="ev ev-neg"><b class="lbl">A negative result, and it matters</b><b>What is not established, and should not be asserted.</b> That any release recipient
+is the team. That the 98 consolidation wallets are team-controlled. That any release was timed to the
+price. That the collapse involved team selling. Each of those has been looked for in this data and
+none of them is supported by it. The honest summary is narrower and more interesting: a single payout
+roster is being paid across three pools through disposable wallets, and the people receiving it have
+sold almost nothing.</div>
+</div>
+<div class="section" id="s10"><h2>10 · Method, and what this does not show</h2>
+<div class="grid2"><div>
+<h3>How these numbers are made</h3>
+<ul style="font-size:12.5px;line-height:1.75;padding-left:18px">
+<li><b>Chain first.</b> <code>eth_getLogs</code>, <code>eth_call</code>,
+<code>eth_getStorageAt</code> and <code>eth_getCode</code> against a BSC archive node. Prices come
+from CoinGecko and, independently, from pool <code>slot0</code> state.</li>
+<li><b>Pool flow is complete.</b> Every AKE transfer with a pool on either side, from the token's
+deployment to block 133,134,583, de-duplicated on (block, logIndex). The segments are checked to tile the
+chain with no gap before anything is written.</li>
+<li><b>Net, and reconciled.</b> Allocation minus net released must equal <code>balanceOf</code> at the
+head block. All eight pools do, to the wei, across 8 release days and
+63,800 lifetime pool-touching transfers.</li>
+<li><b>Two prices.</b> Where a dollar figure matters it is derived twice — from the AKE/WBNB and
+WBNB/USDT pools' own <code>slot0</code> at that block, and from the CoinGecko hourly series
+interpolated to the same second. Both are shown.</li>
+<li><b>Following forward.</b> "Still held" is <code>balanceOf</code> at the head block.
+"Sold" means the tokens reached a labelled non-Binance exchange custody address, through as many hops
+as it took — a lesson from an earlier version of this work, which stopped at one hop and missed the
+July sale entirely.</li>
+</ul></div><div>
+<h3>What it does not show</h3>
+<ul style="font-size:12.5px;line-height:1.75;padding-left:18px">
+<li><b>Who anyone is.</b> Fresh addresses receiving a scheduled payment from a team-controlled pool is
+what the chain shows. Whether they are employees, investors, market makers or the team is not
+on-chain.</li>
+<li><b>Order books.</b> The great majority of volume happens on exchanges and leaves no on-chain
+record. Where this page says a move was not on-chain driven, that is a statement about what the chain
+can account for.</li>
+<li><b>Exchanges this registry does not cover.</b> Several venues carrying real volume have no custody
+address here, so deposit totals are a floor, not a total.</li>
+<li><b>Intraday extremes before October.</b> Daily highs and lows for most of this window are derived
+from an hourly series, which cannot see a spike that opens and closes inside the hour; the last month
+uses true candles. Where a figure matters, the finer source is used.</li>
+<li><b>Intent.</b> Sequences are reported as sequences.</li>
+</ul></div></div>
+<div class="note">Coverage: pool flows and exchange-venue flows continuous to block 133,134,583.
+Release days covered: 2026-06-19, 2026-07-22, 2026-07-24, 2026-07-26, 2026-08-21, 2026-09-03, 2026-09-21, 2026-10-23. Companion documents: the consolidated forensic
+report <em>ake-analysis.html</em>, the release tracker <em>ake-tracker-june2026.html</em>, and the
+vesting mechanism in <em>ake-investors-vesting.html</em>.</div>
+<footer style="border-top:1px solid var(--border);margin-top:28px;padding:16px 0;
+color:var(--muted);font-size:11.5px">Generated 2026-11-12 09:16:33 UTC at block 133,134,583. All times UTC.
+</footer>
+</div>
+</div>
