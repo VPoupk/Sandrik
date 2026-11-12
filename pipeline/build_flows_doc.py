@@ -69,6 +69,7 @@ try:
 except Exception:
     EXTRA = {}
 GAS = json.load(open(D + 'recipient_gas_funders.json'))
+COL = json.load(open(D + 'collapse_analysis.json'))
 
 _hk = sorted(int(x) for x in HR); _hv = [HR[str(x)] for x in _hk]
 _kb = sorted(int(x) for x in TSJ); _kv = [TSJ[str(x)] for x in _kb]
@@ -642,6 +643,70 @@ entire realised proceeds of the on-chain side of a 98% fall. What is left behind
 {int(_w1['wbnb'])/1e18:,.0f} BNB — about {usd(int(_w1['wbnb'])/1e18*bnb_px)}. The on-chain market for a
 token that was worth two billion dollars seven weeks ago is now a few hundred thousand dollars
 deep.'''))
+_ct = COL['totals']; _cs = COL['sellers']
+w(f'''<h3>Every swap on the main pool, 21 September to 6 November</h3>
+<p style="font-size:13px">{_ct['swaps']:,} swaps in forty-seven days, {usd(_ct['gross_usd'])} of gross
+turnover. The directional content of all of it is {abs(_ct['net_ake'])/1e6:,.2f}mn AKE —
+<b>{100*abs(_ct['net_ake'])/(_ct['sold_in']+_ct['bought_out']):.3f}% of the flow</b>.</p>
+<table class="dense"><thead><tr><th>Day</th><th class="num">Swaps</th><th class="num">AKE sold in</th>
+<th class="num">AKE bought out</th><th class="num">Net AKE</th><th class="num">Net BNB</th>
+<th class="num">Gross turnover</th></tr></thead><tbody>''')
+for _d in COL['swap_days']:
+    if _d['day'] < '2026-10-20':
+        continue
+    _cls = ' class="hi2"' if _d['sold_in'] > 1e9 else ''
+    w(f'<tr{_cls}><td class="mono">{_d["day"]}</td><td class="num">{_d["swaps"]:,}</td>'
+      f'<td class="num">{_d["sold_in"]/1e6:,.2f}mn</td>'
+      f'<td class="num">{_d["bought_out"]/1e6:,.2f}mn</td>'
+      f'<td class="num">{_d["net_ake"]/1e6:+,.2f}mn</td>'
+      f'<td class="num">{_d["net_bnb"]:+,.1f}</td>'
+      f'<td class="num">{usd(_d["gross_usd"])}</td></tr>')
+w(f'<tr style="border-top:2px solid var(--border)"><td><b>all 47 days</b></td>'
+  f'<td class="num"><b>{_ct["swaps"]:,}</b></td>'
+  f'<td class="num"><b>{_ct["sold_in"]/1e6:,.2f}mn</b></td>'
+  f'<td class="num"><b>{_ct["bought_out"]/1e6:,.2f}mn</b></td>'
+  f'<td class="num"><b>{_ct["net_ake"]/1e6:+,.2f}mn</b></td>'
+  f'<td class="num"><b>{_ct["net_bnb"]:+,.1f}</b></td>'
+  f'<td class="num"><b>{usd(_ct["gross_usd"])}</b></td></tr>')
+w('</tbody></table>')
+w(fact(f'''The capitulation is visible to the day. Through most of October the pool turned over
+20–80mn AKE daily. On 30 October that jumps to 521mn, on 31 October to <b>1,932mn</b>, and on
+2 November to <b>2,444mn</b> — twenty to thirty times the earlier rate, at a fifth of the price.
+And it is still almost perfectly two-sided: across the whole window
+{_ct['sold_in']/1e6:,.0f}mn was sold in and {_ct['bought_out']/1e6:,.0f}mn bought out, a net of
+{abs(_ct['net_ake'])/1e6:,.0f}mn, or {100*abs(_ct['net_ake'])/(_ct['sold_in']+_ct['bought_out']):.3f}%
+of the flow. On 5 and 6 November the net turns positive — the pool was being bought, not sold, as the
+price made its lows.'''))
+
+w('<h3 style="margin-top:18px">Who was selling</h3>')
+w(f'''<p style="font-size:13px">{_cs['parties']:,} distinct addresses sold into the pool over the
+window, {int(_cs['net_selling_ake'])/1e24:,.2f}mn net between them. These are the largest:</p>
+<table class="dense"><thead><tr><th>Address</th><th class="num">Sold in</th>
+<th class="num">Bought back</th><th class="num">Net sold</th><th>What it is</th>
+</tr></thead><tbody>''')
+for _t in _cs['top'][:14]:
+    _tg = ', '.join(_t['tags']) if _t['tags'] else '<span style="color:var(--muted)">unlabelled</span>'
+    w(f'<tr><td>{bsc(_t["address"], _t["address"][:16] + "…")}</td>'
+      f'<td class="num">{int(_t["sold_in"])/1e24:,.2f}mn</td>'
+      f'<td class="num">{int(_t["bought_back"])/1e24:,.2f}mn</td>'
+      f'<td class="num"><b>{int(_t["net"])/1e24:,.2f}mn</b></td>'
+      f'<td style="font-size:11px">{_tg}</td></tr>')
+w('</tbody></table>')
+w(fact(f'''Of {int(_cs['net_selling_ake'])/1e24:,.2f}mn of net selling into the pool,
+<b>{int(_cs['from_pool_cohorts_ake'])/1e24:,.2f}mn — {_cs['pct_from_pool_cohorts']:.2f}% — came from a
+release recipient or a consolidation-set wallet</b>. Not a rounding error: exactly none. The names at
+the top of the list are aggregators and routers — OKX Labs, the Binance Wallet router, PancakeSwap
+itself, 1inch-pattern addresses — and one bot, {bsc('0x5e2dc2eeab4f1ab9ea12abcf1321d2a8b34f584a','0x5e2dc2ee…')},
+which has been running the same strategy since September.'''))
+w(infer('''The on-chain market did not break the price; it followed it. Two million swaps that net out
+to four hundredths of a percent of their own flow, with the largest participants being aggregators
+intermediating between venues, is the signature of arbitrage keeping a thin pool in line with a
+centralised price that was falling somewhere else.''', 'high',
+        '''a large directional seller hidden inside aggregator flow — the aggregator addresses net out
+the trades of many users, so a single determined seller routing through 1inch or OKX would appear here
+as intermediary volume. Attributing that would need the aggregators\' own routing data, which is not
+on-chain.'''))
+
 w(fact('''None of the largest net depositors to exchange custody over October and November is a pool
 recipient or a member of the 98-wallet consolidation set. They are Gate.io and MEXC user wallets and
 unlabelled addresses — the ordinary holder base. The one familiar name is the programmatic drip-seller
