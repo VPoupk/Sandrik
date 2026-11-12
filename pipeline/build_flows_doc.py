@@ -68,6 +68,7 @@ try:
     EXTRA = json.load(open(D + 'flows_doc_findings.json'))
 except Exception:
     EXTRA = {}
+GAS = json.load(open(D + 'recipient_gas_funders.json'))
 
 _hk = sorted(int(x) for x in HR); _hv = [HR[str(x)] for x in _hk]
 _kb = sorted(int(x) for x in TSJ); _kv = [TSJ[str(x)] for x in _kb]
@@ -721,6 +722,47 @@ inferred</h2>
 <p style="font-size:13px">The question this section exists to answer is which wallets are plausibly
 connected to the team, and on what basis. It is kept in three tiers deliberately, because the three
 are not the same kind of claim and conflating them is how on-chain analysis goes wrong.</p>''')
+
+_kucoin = '0x635308e731a878741bfec299e67f5fd28c7553d9'
+_gas = sorted(GAS[_kucoin], key=lambda x: x[2])
+_window = [x for x in _gas if x[2] >= 112253110]
+w(f'''<h3>The gas trail — ten wallets, one funder, twenty-six seconds</h3>
+<p style="font-size:13px">Release recipients are almost all receive-only: they hold no BNB and have
+never sent a transaction, so there is normally nothing to follow. The 26 July cohort is the exception,
+because those ten wallets had to call <code>userWithdraw()</code> themselves, which meant someone had
+to give them gas first. Bisecting <code>eth_getBalance</code> finds the exact block each was funded,
+and the result is not ambiguous.</p>
+<table class="dense"><thead><tr><th class="num">Block</th><th>Wallet funded</th>
+<th class="num">Amount</th><th>Funded from</th></tr></thead><tbody>''')
+for _w, _v, _b in _gas:
+    _cls = ' class="hi"' if _b >= 112253110 else ''
+    w(f'<tr{_cls}><td class="num mono">{_b:,}</td><td>{bsc(_w, _w[:16] + "…")}</td>'
+      f'<td class="num">{int(_v)/1e18:.6f} BNB</td>'
+      f'<td>{bsc(_kucoin, "KuCoin DepositAndWithdraw_5")}</td></tr>')
+w('</tbody></table>')
+w(fact(f'''All ten wallets that took the 26 July release — {bn_amt(int(LED["days"]["2026-07-26"]["net_total"]))}
+across five pools — were funded with <b>exactly 0.002000 BNB each, from the same KuCoin withdrawal
+address</b>. Eight of the ten landed inside a <b>34-block window</b>, about twenty-six seconds, at
+13:48 UTC. The other two came in a single block that morning. Each wallet then called
+<code>userWithdraw()</code> once, spent that gas, and has never transacted again.'''))
+w(infer('''This is one operator. Exchange withdrawal addresses serve many customers, so sharing one is
+not by itself a link — but ten customers do not withdraw an identical 0.002000 BNB from the same
+exchange within twenty-six seconds and then each claim from the same set of vesting contracts within
+the hour. The simplest reading is a single party, operating one KuCoin account, batch-funding ten
+wallets it controlled in order to execute a release that required per-wallet transactions.''',
+        'high',
+        '''evidence of ten distinct KuCoin accounts behind those withdrawals, which is not visible
+on-chain and would have to come from the exchange. That is the one thing that would overturn it, and
+it is exactly the thing this method cannot see.'''))
+w(fact('''The pattern repeats in miniature on 27 August. The only two wallets from the 21 August
+cohort that ever moved anything were funded that afternoon — 0.000490 BNB each, from
+<b>Binance Withdraw_59</b> and <b>Binance Withdraw_75</b> — at 17:28:22 and 17:58:38, thirty and three
+minutes before they each sent their tokens on. Again: funded immediately before acting, by an exchange
+withdrawal, in an amount sized to the gas required and nothing more.'''))
+w(corr('''Every other cohort — 3 September, 21 September, 23 October, and twelve of the fourteen from
+21 August — holds <b>no BNB at all</b> and has never sent a transaction. They cannot move their tokens
+without being funded first, which means the moment any of them is funded is an advance signal that
+something is about to happen with that balance.'''))
 
 w('<h3>Tier 1 — established on-chain, not inferred</h3>')
 w('''<table class="dense"><thead><tr><th>Address</th><th>Role</th><th>How it is known</th>
