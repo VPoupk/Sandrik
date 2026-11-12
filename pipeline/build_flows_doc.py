@@ -669,14 +669,22 @@ w(f'<tr style="border-top:2px solid var(--border)"><td><b>all 47 days</b></td>'
   f'<td class="num"><b>{_ct["net_bnb"]:+,.1f}</b></td>'
   f'<td class="num"><b>{usd(_ct["gross_usd"])}</b></td></tr>')
 w('</tbody></table>')
+_lw = COL['late_window']; _pk = COL['peak_day']
 w(fact(f'''The capitulation is visible to the day. Through most of October the pool turned over
-20–80mn AKE daily. On 30 October that jumps to 521mn, on 31 October to <b>1,932mn</b>, and on
-2 November to <b>2,444mn</b> — twenty to thirty times the earlier rate, at a fifth of the price.
-And it is still almost perfectly two-sided: across the whole window
-{_ct['sold_in']/1e6:,.0f}mn was sold in and {_ct['bought_out']/1e6:,.0f}mn bought out, a net of
-{abs(_ct['net_ake'])/1e6:,.0f}mn, or {100*abs(_ct['net_ake'])/(_ct['sold_in']+_ct['bought_out']):.3f}%
-of the flow. On 5 and 6 November the net turns positive — the pool was being bought, not sold, as the
-price made its lows.'''))
+20–80mn AKE daily. On 30 October that jumps to 521mn, on 31 October to 1,932mn, on 2 November to
+2,444mn, and on <b>7 November to {_pk['sold_in']/1e6:,.0f}mn across {_pk['swaps']:,} swaps</b> —
+{usd(_pk['gross_usd'])} of turnover in a single day, the heaviest in the token's history, at a
+twentieth of the September price. Across all {len(COL['swap_days'])} days
+{_ct['sold_in']/1e6:,.0f}mn was sold in and {_ct['bought_out']/1e6:,.0f}mn bought out: a net of
+{abs(_ct['net_ake'])/1e6:,.0f}mn, or
+{100*abs(_ct['net_ake'])/(_ct['sold_in']+_ct['bought_out']):.3f}% of the flow.'''))
+w(fact(f'''<b>The bottom was bought, not merely abandoned.</b> From 5 November the pool turns net
+buyer: {_lw['days_net_bought']} of the last {_lw['days']} days are net bought, and the period as a
+whole takes in {abs(_lw['net_ake'])/1e6:,.2f}mn AKE and
+{'gains' if _lw['net_bnb']>0 else 'loses'} {abs(_lw['net_bnb']):,.1f} BNB. 7 November is the clearest
+instance: {_pk['sold_in']/1e6:,.0f}mn sold into the pool and {_pk['bought_out']/1e6:,.0f}mn taken out
+of it, <b>net +{_pk['net_ake']/1e6:,.2f}mn bought</b> with {_pk['net_bnb']:+,.0f} BNB paid in. Someone
+was absorbing the capitulation at the lows rather than joining it.'''))
 
 w('<h3 style="margin-top:18px">Who was selling</h3>')
 w(f'''<p style="font-size:13px">{_cs['parties']:,} distinct addresses sold into the pool over the
@@ -692,12 +700,16 @@ for _t in _cs['top'][:14]:
       f'<td class="num"><b>{int(_t["net"])/1e24:,.2f}mn</b></td>'
       f'<td style="font-size:11px">{_tg}</td></tr>')
 w('</tbody></table>')
+_cpc = COL['window'].get('cp_complete')
 w(fact(f'''Of {int(_cs['net_selling_ake'])/1e24:,.2f}mn of net selling into the pool,
 <b>{int(_cs['from_pool_cohorts_ake'])/1e24:,.2f}mn — {_cs['pct_from_pool_cohorts']:.2f}% — came from a
 release recipient or a consolidation-set wallet</b>. Not a rounding error: exactly none. The names at
 the top of the list are aggregators and routers — OKX Labs, the Binance Wallet router, PancakeSwap
 itself, 1inch-pattern addresses — and one bot, {bsc('0x5e2dc2eeab4f1ab9ea12abcf1321d2a8b34f584a','0x5e2dc2ee…')},
-which has been running the same strategy since September.'''))
+which has been running the same strategy since September.{'' if _cpc else
+  " The counterparty split covers the window up to block " + f"{COL['window']['cp_to']:,}" +
+  "; the last few days are still being scanned and are not in this table, though the swap series "
+  "above is complete to head."}'''))
 w(infer('''The on-chain market did not break the price; it followed it. Two million swaps that net out
 to four hundredths of a percent of their own flow, with the largest participants being aggregators
 intermediating between venues, is the signature of arbitrage keeping a thin pool in line with a
