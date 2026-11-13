@@ -707,9 +707,10 @@ release recipient or a consolidation-set wallet</b>. Not a rounding error: exact
 the top of the list are aggregators and routers — OKX Labs, the Binance Wallet router, PancakeSwap
 itself, 1inch-pattern addresses — and one bot, {bsc('0x5e2dc2eeab4f1ab9ea12abcf1321d2a8b34f584a','0x5e2dc2ee…')},
 which has been running the same strategy since September.{'' if _cpc else
-  " The counterparty split covers the window up to block " + f"{COL['window']['cp_to']:,}" +
-  "; the last few days are still being scanned and are not in this table, though the swap series "
-  "above is complete to head."}'''))
+  " The counterparty split has a gap at blocks " +
+  ', '.join(f"{a:,}-{b:,}" for a, b in COL['window'].get('cp_holes', [])) +
+  " — still being scanned — so those blocks are not in this table, though the swap series above is "
+  "complete to head."}'''))
 w(infer('''The on-chain market did not break the price; it followed it. Two million swaps that net out
 to four hundredths of a percent of their own flow, with the largest participants being aggregators
 intermediating between venues, is the signature of arbitrage keeping a thin pool in line with a
